@@ -95,6 +95,15 @@
     }
     #nav.scrolled { background: rgba(255,255,255,.98); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); box-shadow: 0 4px 24px rgba(0,0,0,.08); border-bottom: 1px solid rgba(0,0,0,0.04); }
     #nav.menu-open-nav { background: #000; box-shadow: none; border-bottom: none; }
+
+    body.legal-page-view #nav { background: rgba(255,255,255,.98); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); box-shadow: 0 4px 24px rgba(0,0,0,.08); border-bottom: 1px solid rgba(0,0,0,0.04); }
+    body.legal-page-view .n-logo img { filter: none; }
+    body.legal-page-view .n-links a { color: #333; }
+    body.legal-page-view .n-links a:hover { color: var(--dark); }
+    body.legal-page-view .n-links a::after { background: var(--accent); }
+    body.legal-page-view .n-links a.active { color: var(--accent); }
+    body.legal-page-view .n-burger span { background: var(--dark); }
+
     .n-logo { cursor: pointer; display: flex; align-items: center; }
     .n-logo img { height: 48px; width: auto; filter: invert(1) brightness(2); transition: filter .3s; }
     #nav.scrolled .n-logo img { filter: none; }
@@ -119,8 +128,8 @@
     .n-burger span { display: block; width: 24px; height: 1.5px; background: #fff; transition: transform .3s, width .3s, background .3s; margin: 0 auto; }
     .n-burger span:last-child { width: 14px; align-self: flex-end; margin-right: 4px; }
     #nav.scrolled .n-burger span { background: var(--dark); }
-    #nav.menu-open-nav .n-burger span:first-child { transform: translateY(4.25px) rotate(45deg); width: 24px; margin-right: 0; }
-    #nav.menu-open-nav .n-burger span:last-child { transform: translateY(-4.25px) rotate(-45deg); width: 24px; align-self: center; margin-right: 0; }
+    #nav.menu-open-nav .n-burger span:first-child { transform: translateY(4.25px) rotate(45deg); width: 24px; margin-right: 0; background: #fff; }
+    #nav.menu-open-nav .n-burger span:last-child { transform: translateY(-4.25px) rotate(-45deg); width: 24px; align-self: center; margin-right: 0; background: #fff; }
 
     /* ── PAGE SYSTEM ── */
     .page { display: none; }
@@ -476,9 +485,6 @@
     }
     @media (max-width: 620px) {
       .logo-row { gap: 28px 16px; padding: 0 8px; }
-      .f-brand { display: flex; align-items: center; gap: 28px; align-self: start; min-height: 40px; margin-right: auto; }
-      .f-logo img { height: 46px; width: auto; background: transparent; padding: 0; border-radius: 0; opacity: 1; transition: opacity .2s; filter: none; }
-      .f-tagline { font-family: var(--fd); font-size: clamp(17px, 1.55vw, 22px); color: #fff; line-height: 1.08; font-weight: 400; letter-spacing: .03em; max-width: 320px; margin: 0; text-align: left; }
       .logo-row img { height: 44px; max-width: 28%; object-fit: contain; }
       .cal-body { padding: 48px 24px 40px; }
       .cal-body-embed { padding: 0; }
@@ -489,7 +495,12 @@
       .tcard-body { grid-template-columns: 1fr; }
       .tcard-person { flex-direction: column; align-items: flex-start; gap: 0; }
       .tcard-photo-ring { margin-bottom: 16px; }
-      .f-top { max-width: calc(var(--mw) + var(--px) * 2); margin: 0 auto; padding: clamp(56px,7vw,96px) var(--px) clamp(40px,5vw,64px); display: flex; align-items: flex-start; gap: 64px; }
+      .f-top { max-width: calc(var(--mw) + var(--px) * 2); margin: 0 auto; padding: clamp(56px,7vw,96px) var(--px) clamp(40px,5vw,64px); display: grid; grid-template-columns: 1fr; gap: 28px; }
+      .f-brand { display: flex; flex-direction: row; align-items: center; justify-content: flex-start; gap: 14px; width: 100%; align-self: start; min-height: 40px; margin-right: 0; }
+      .f-logo { flex: 0 0 auto; }
+      .f-logo img { height: 40px; width: auto; background: transparent; padding: 0; border-radius: 0; opacity: 1; transition: opacity .2s; filter: none; }
+      .f-tagline { flex: 1 1 auto; max-width: 220px; margin: 0; text-align: left; font-size: clamp(15px, 4vw, 18px); line-height: 1.02; }
+      .f-top > div:nth-child(2), .f-top > div:nth-child(3) { justify-self: start; text-align: left; min-width: 0; }
       .f-bottom-inner { flex-direction: column; align-items: flex-start; gap: 10px; }
     }
 
@@ -502,7 +513,7 @@
   </style>
 <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
 </head>
-<body>
+<body class="legal-page-view">
 
 <nav id="nav">
   <a class="n-logo" href="index.html"><img src="images/logo nav bar.png" alt="Ignis Leadership"></a>
