@@ -48,6 +48,8 @@ body.legal-page-view #nav.menu-open-nav .n-burger span { background: #fff !impor
 }
 .f-brand {
   display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: nowrap !important;
   align-items: center !important;
   gap: 18px !important;
   min-width: 0;
@@ -78,7 +80,7 @@ body.legal-page-view #nav.menu-open-nav .n-burger span { background: #fff !impor
     inset: 0;
     min-height: 100vh;
     background: #000 !important;
-    padding: calc(var(--nav-h) + 28px) 28px max(28px, env(safe-area-inset-bottom));
+    padding: calc(var(--nav-h) + 28px) 28px max(44px, calc(env(safe-area-inset-bottom) + 16px));
     gap: 22px;
     z-index: 240;
     align-items: flex-start;
@@ -99,6 +101,7 @@ body.legal-page-view #nav.menu-open-nav .n-burger span { background: #fff !impor
   .n-links.mobile-open .n-cta,
   .n-links.mobile-open a.n-cta {
     margin-top: auto;
+    margin-bottom: 8px;
     width: 100%;
     min-height: 52px;
     padding: 0 18px !important;
@@ -107,6 +110,9 @@ body.legal-page-view #nav.menu-open-nav .n-burger span { background: #fff !impor
     font-size: .9rem !important;
     color: #fff !important;
     letter-spacing: .08em;
+    display: inline-flex !important;
+    align-self: stretch !important;
+    max-width: 100% !important;
     flex-shrink: 0;
   }
 
@@ -139,6 +145,8 @@ body.legal-page-view #nav.menu-open-nav .n-burger span { background: #fff !impor
     gap: 28px !important;
   }
   .f-brand {
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
     align-items: center !important;
     justify-content: flex-start !important;
     gap: 14px !important;
