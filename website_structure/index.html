@@ -84,7 +84,7 @@
     }
 
     html { scroll-behavior: smooth; }
-    body { font-family: var(--fb); background: var(--white); color: var(--dark); font-size: 16px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+    body { font-family: var(--fb); background: var(--white); color: var(--dark); font-size: 16px; line-height: 1.6; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
     img { display: block; max-width: 100%; }
     button { font-family: var(--fb); }
 
@@ -448,10 +448,12 @@
       .hero-inner { padding-top: calc(var(--nav-h) + 40px); }
       .hero-mobile-img { display: block; }
       .n-links { display: none; }
-      .n-links.mobile-open { display: flex; flex-direction: column; position: fixed; top: 0; left: 0; right: 0; bottom: 0; min-height: 100vh; background: #000; padding: calc(var(--nav-h) + 28px) 28px 28px; gap: 28px; z-index: 99; align-items: flex-start; justify-content: space-between; border-top: none; overflow-y: auto; text-align: left; }
-      .n-links.mobile-open a { color: #fff; font-size: 1.2rem; font-weight: 400; padding: 0; border: none; letter-spacing: 0.08em; width: 100%; text-align: left; }
+      .n-links.mobile-open { display: flex; flex-direction: column; position: fixed; inset: 0; min-height: 100dvh; width: 100vw; background: rgba(16,18,27,0.98); backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px); padding: calc(var(--nav-h) + 32px) 28px max(28px, env(safe-area-inset-bottom)); gap: 22px; z-index: 99; align-items: flex-start; justify-content: flex-start; overflow-y: auto; text-align: left; }
+      .n-links.mobile-open li { width: 100%; list-style: none; }
+      .n-links.mobile-open a { color: #fff; font-size: clamp(1.1rem, 4.8vw, 1.5rem); font-weight: 400; padding: 0; border: none; letter-spacing: 0.08em; width: 100%; text-align: left; display: block; }
       .n-links.mobile-open a::after { display: none; }
-      .n-links.mobile-open a.n-cta { width: 100%; font-size: .95rem; height: 52px; max-width: none; letter-spacing: 0.08em; color: #fff; justify-content: center; margin-top: auto; }
+      .n-links.mobile-open li:last-child { margin-top: auto; padding-top: 24px; }
+      .n-links.mobile-open a.n-cta { width: 100%; font-size: .95rem; height: 54px; max-width: none; letter-spacing: 0.08em; color: #fff; justify-content: center; margin-top: 0; border-radius: 8px; }
       .n-burger { display: flex; }
       .hero-cards { grid-template-columns: 1fr; }
       .hcard { border-right: none; border-bottom: 1px solid rgba(255,255,255,.09); }
@@ -466,9 +468,9 @@
       .tcard-person { padding: clamp(32px,4vw,48px); flex-direction: row; align-items: center; gap: 16px; flex-wrap: wrap; justify-content: flex-start; }
       .tcard-photo-ring { margin-bottom: 0; width: 72px; height: 72px; }
       .tcard-quote-side { padding: clamp(32px,4vw,48px); }
-      .f-top { max-width: calc(var(--mw) + var(--px) * 2); margin: 0 auto; padding: clamp(56px,7vw,96px) var(--px) clamp(40px,5vw,64px); display: grid; grid-template-columns: repeat(3, 1fr); gap: 64px; align-items: start; }
+      .f-top { grid-template-columns: 1.1fr 1fr 1fr; gap: 40px; }
       .f-brand { display: flex; flex-direction: column; align-items: flex-start; gap: 16px; align-self: start; }
-      .f-tagline { font-family: var(--fd); font-size: clamp(17px, 1.55vw, 22px); color: #fff; line-height: 1.08; font-weight: 400; letter-spacing: .03em; max-width: 320px; margin: 0; text-align: left; }
+      .f-tagline { max-width: 280px; }
       .f-col-label { font-size: 18px; }
     }
     @media (max-width: 960px) {
@@ -487,9 +489,13 @@
       .tw-card-new { padding: 36px 28px; }
       .photo-strip { min-height: 300px; padding: 56px var(--px); }
       .tcard-body { grid-template-columns: 1fr; }
-      .tcard-person { flex-direction: column; align-items: flex-start; gap: 0; }
+      .tcard-person { flex-direction: column; align-items: center; gap: 0; text-align: center; }
+      .tcard-name, .tcard-role { text-align: center; justify-content: center; }
       .tcard-photo-ring { margin-bottom: 16px; }
-      .f-top { max-width: calc(var(--mw) + var(--px) * 2); margin: 0 auto; padding: clamp(56px,7vw,96px) var(--px) clamp(40px,5vw,64px); display: grid; grid-template-columns: repeat(3, 1fr); gap: 64px; align-items: start; }
+      .tsl-av { min-width: 54px; }
+      .f-top { grid-template-columns: 1fr; gap: 28px; }
+      .f-brand { align-items: flex-start; }
+      .f-tagline { max-width: none; }
       .f-bottom-inner { flex-direction: column; align-items: flex-start; gap: 10px; }
     }
 
@@ -498,6 +504,13 @@
       .cal-body { padding: 12px 12px 12px !important; }
       .cal-placeholder { padding: 18px 12px; }
       .cal-placeholder iframe, .cal-body iframe, .calendly-inline-widget { min-width: 100% !important; width: 100% !important; height: 76vh !important; }
+      .legal-page { padding-left: 20px; padding-right: 20px; }
+    }
+    @media (max-width: 620px) {
+      .f-top > div:nth-child(2), .f-top > div:nth-child(3) { min-width: 0; }
+      .f-col-links a, .f-copy { word-break: break-word; }
+      .f-legal-links { gap: 12px; }
+      .hero-h1 { word-break: normal; }
     }
   </style>
 <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
@@ -520,7 +533,7 @@
 <!-- HERO -->
 <div class="hero">
 <div class="hero-inner">
-<p class="eyebrow">SLEEP &nbsp;&nbsp;| &nbsp;&nbsp;ANXIETY &nbsp;&nbsp;| &nbsp;&nbsp;CONFIDENCE FOR HIGH PERFORMERS</p>
+<p class="eyebrow">SLEEP &nbsp;&nbsp;| &nbsp;&nbsp;ANXIETY &nbsp;&nbsp;| &nbsp;&nbsp;CONFIDENCE FOR HIGH PERFORMER</p>
 <h1 class="hero-h1" style="font-size: clamp(38px, 6.5vw, 90px);">Sleep deeply.<br/>Lead fiercely.<br/>Perform without the noise.</h1>
 <img alt="Yorik Tisseau" class="hero-mobile-img" src="images/_DSC1754.jpg"/>
 <p class="hero-sub" style="font-size: clamp(16px, 1.6vw, 20px); max-width:540px;">Coaching and hypnotherapy for high-performing professionals who want calm, confidence, and control back.</p>
@@ -676,7 +689,7 @@
 <div style="padding: clamp(80px, 15vw, 160px) var(--px); text-align: center;">
 <div class="wrap">
 <div style="font-family:var(--fd); font-size:clamp(28px, 4.5vw, 56px); font-style:italic; line-height:1.25; max-width:900px; margin:0 auto; color:var(--dark);">
-        "The work isn't about becoming someone different. <span style="color:var(--accent);">It's about removing what's in the way.</span>"
+        "The work is't about becoming someone different. <span style="color:var(--accent);">It's about removing what's in the way.</span>"
       </div>
 </div>
 </div>
@@ -841,7 +854,7 @@
   <div class="cal-inner">
     <button class="cal-close" onclick="closeCal()">&#x2715;</button>
     <div class="cal-body cal-body-embed">
-      <div class="calendly-inline-widget" data-url="https://calendly.com/yorik-tisseau-tmff/30min" style="min-width:320px;height:700px;"></div>
+      <div class="calendly-inline-widget" data-url="https://calendly.com/yorik-tisseau-tmff/30min" style="min-width:100%;height:min(78vh,820px);"></div>
     </div>
   </div>
 </div>
@@ -857,17 +870,35 @@
     if (fabEl) fabEl.classList.toggle('vis', y > 350);
   }, { passive: true });
 
+  function closeBurger() {
+    const links = document.getElementById('n-links');
+    const navBar = document.getElementById('nav');
+    if (!links) return;
+    links.classList.remove('mobile-open');
+    if (navBar) navBar.classList.remove('menu-open-nav');
+    const modalOpen = document.getElementById('cal-modal')?.classList.contains('open');
+    document.body.style.overflow = modalOpen ? 'hidden' : '';
+  }
+
   function toggleBurger() {
     const links = document.getElementById('n-links');
     const navBar = document.getElementById('nav');
     if (!links) return;
-    links.classList.toggle('mobile-open');
-    if (navBar) navBar.classList.toggle('menu-open-nav');
-    document.body.style.overflow = links.classList.contains('mobile-open') ? 'hidden' : '';
+    const willOpen = !links.classList.contains('mobile-open');
+    links.classList.toggle('mobile-open', willOpen);
+    if (navBar) navBar.classList.toggle('menu-open-nav', willOpen);
+    document.body.style.overflow = willOpen ? 'hidden' : '';
   }
 
+  document.querySelectorAll('#n-links a').forEach(link => {
+    link.addEventListener('click', () => {
+      if (window.innerWidth <= 960) closeBurger();
+    });
+  });
+
   function openCal() {
-    if (window.Calendly && Calendly.initPopupWidget) {
+    const isMobile = window.innerWidth <= 960;
+    if (!isMobile && window.Calendly && Calendly.initPopupWidget) {
       Calendly.initPopupWidget({ url: 'https://calendly.com/yorik-tisseau-tmff/30min' });
       return false;
     }
@@ -884,7 +915,8 @@
     const modal = document.getElementById('cal-modal');
     if (modal && e.target === modal) closeCal();
   });
-  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeCal(); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeCal(); closeBurger(); } });
+  window.addEventListener('resize', () => { if (window.innerWidth > 960) closeBurger(); });
 
   const iamBtns  = document.querySelectorAll('#iam-menu .iam-btn');
   const iamBioEl = document.getElementById('iam-bio-text');
@@ -937,8 +969,8 @@
 
   const testimonials = [
     {name:'James Heath', role:'Deal Development, Commercial Structuring Low Carbon Energy at bp (UK)', quote:'Yorik has had a real impact on how I tackle complex challenges and how I show up under pressure. He helped me identify unhelpful patterns and replace them with clearer, more intentional behaviours. I communicate with more confidence and perform far better in high-stakes conversations, with greater clarity and calm.', photo:'images/testimonials/james.jpg', initials:'JH'},
-    {name:'Nadia Aljibouri', role:'Senior Project Manager Transformation at bp (UK)', quote:'Working with Yorik helped me become more intentional in how I communicate and influence. I gained greater awareness of the patterns that were limiting my impact and replaced them with clearer, more deliberate ways of leading. As a result, I am more effective in building trust, alignment, and influence in complex stakeholder environments.', photo:'images/testimonials/nadia.jpg', initials:'NA'},
     {name:'Michaela Valovicova', role:'Head of Marketing & Communications Equans Data Centre at Equans (UK)', quote:'Yorik supported me as I set up and led a new international team across three countries. This was a critical, high-pressure phase of the business that demanded rapid adaptation. I learned to lead with confidence, build stronger stakeholder relationships, and grow into a far more influential leader during a period where clarity and presence were non-negotiable.', photo:'images/testimonials/michaela.jpg', initials:'MV'},
+    {name:'Nadia Aljibouri', role:'Senior Project Manager Transformation at bp (UK)', quote:'Working with Yorik helped me become more intentional in how I communicate and influence. I gained greater awareness of the patterns that were limiting my impact and replaced them with clearer, more deliberate ways of leading. As a result, I am more effective in building trust, alignment, and influence in complex stakeholder environments.', photo:'images/testimonials/nadia.jpg', initials:'NA'},
     {name:'Raj Srivastava', role:'Senior Economist O&G at Spirit Energy (UK)', quote:'During a period marked by setbacks and uncertainty, the work I did with Yorik helped me regain clarity and strategic control. I stopped operating reactively and started making decisions with greater conviction. As a result, my influence increased and I was able to steer the direction of the business with confidence.', photo:'images/testimonials/raj.jpg', initials:'RS'},
     {name:'Chloe MacLennan', role:'Reservoir Engineer at bp (UK)', quote:'Yorik helped me shift my mindset and lead with clarity during a pivotal moment in my career. I gained the confidence to take ownership of my next step and built a clear, values-led strategy to engage my employer with purpose and conviction.', photo:'images/testimonials/chloe.jpg', initials:'CM'}
   ];
@@ -948,18 +980,40 @@
   const qPhoto = document.getElementById('tcard-photo');
   const qInitials = document.getElementById('tcard-initials');
   const qAvatars = document.querySelectorAll('.tsl-av');
+  const tcard = document.querySelector('.tcard');
+  let testimonialIndex = 0;
+  let testimonialTimer;
   function setTestimonial(i){
-    const t = testimonials[i] || testimonials[0];
+    testimonialIndex = (i + testimonials.length) % testimonials.length;
+    const t = testimonials[testimonialIndex] || testimonials[0];
     if (qName) qName.textContent = t.name;
     if (qRole) qRole.textContent = t.role;
     if (qText) qText.textContent = '“' + t.quote + '”';
     if (qInitials) qInitials.textContent = t.initials || '';
     if (qPhoto) { qPhoto.src = t.photo; qPhoto.style.opacity = '1'; }
-    qAvatars.forEach((av, idx) => av.classList.toggle('active', idx === i));
+    qAvatars.forEach((av, idx) => av.classList.toggle('active', idx === testimonialIndex));
+  }
+  function startTestimonials(){
+    clearInterval(testimonialTimer);
+    testimonialTimer = setInterval(() => setTestimonial(testimonialIndex + 1), 5000);
+  }
+  function setTs(i){
+    setTestimonial(i);
+    startTestimonials();
   }
   if (qAvatars.length) {
-    qAvatars.forEach((av, idx) => { av.style.cursor = 'pointer'; av.addEventListener('click', () => setTestimonial(idx)); });
+    qAvatars.forEach((av, idx) => {
+      av.style.cursor = 'pointer';
+      av.addEventListener('click', () => { setTestimonial(idx); startTestimonials(); });
+    });
+    if (tcard) {
+      tcard.addEventListener('mouseenter', () => clearInterval(testimonialTimer));
+      tcard.addEventListener('mouseleave', startTestimonials);
+      tcard.addEventListener('touchstart', () => clearInterval(testimonialTimer), { passive: true });
+      tcard.addEventListener('touchend', startTestimonials, { passive: true });
+    }
     setTestimonial(0);
+    startTestimonials();
   }
 </script>
 
@@ -982,6 +1036,9 @@ function initIgnisCalendlyBadge(){
   }
 }
 window.addEventListener('load', initIgnisCalendlyBadge);
+window.addEventListener('resize', () => {
+  if (window.innerWidth > 960) initIgnisCalendlyBadge();
+});
 </script>
 
 </body></html>
