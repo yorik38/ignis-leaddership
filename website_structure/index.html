@@ -129,7 +129,7 @@
     /* ── HERO ── */
     .hero {
       min-height: 100vh;
-      background: linear-gradient(to bottom, rgba(20,18,30,.2) 0%, rgba(20,18,30,.6) 55%, rgba(20,18,30,.92) 100%), url('../images/_DSC1754.jpg') center 30% / cover no-repeat;
+      background: linear-gradient(to bottom, rgba(20,18,30,.2) 0%, rgba(20,18,30,.6) 55%, rgba(20,18,30,.92) 100%), url('images/_DSC1754.jpg') center 30% / cover no-repeat;
       background-color: var(--dark);
       display: flex; flex-direction: column; justify-content: flex-end;
       position: relative; overflow: hidden;
@@ -205,7 +205,7 @@
     /* ── PHOTO STRIP ── */
     .photo-strip {
       min-height: 52vh;
-      background: linear-gradient(to right, rgba(20,18,30,.88) 0%, rgba(20,18,30,.65) 50%, rgba(20,18,30,.35) 100%), url('../images/hero header.jpg') center 40% / cover no-repeat;
+      background: linear-gradient(to right, rgba(20,18,30,.88) 0%, rgba(20,18,30,.65) 50%, rgba(20,18,30,.35) 100%), url('images/hero header.jpg') center 40% / cover no-repeat;
       background-color: var(--dark);
       display: flex; align-items: center;
       padding: 80px var(--px);
@@ -245,9 +245,9 @@
 
     /* ── TESTIMONIAL CARD ── */
     .tcard-wrap { padding: clamp(32px,4vw,56px) clamp(16px,3vw,56px) clamp(28px,4vw,44px); }
-    .tcard { background: var(--plum); border-radius: 22px; overflow: hidden; box-shadow: 0 18px 42px -12px rgba(0,0,0,0.18), 0 8px 18px -8px rgba(0,0,0,0.12); width: 100%; max-width: 1220px; margin: 0 auto; transition: transform 0.35s ease, box-shadow 0.35s ease; border: 1px solid rgba(255,255,255,0.05); }
+    .tcard { background: var(--plum); border-radius: 22px; overflow: hidden; box-shadow: 0 18px 42px -12px rgba(0,0,0,0.18), 0 8px 18px -8px rgba(0,0,0,0.12); width: 100%; max-width: 1080px; margin: 0 auto; transition: transform 0.35s ease, box-shadow 0.35s ease; border: 1px solid rgba(255,255,255,0.05); }
     .tcard:hover { transform: translateY(-4px); box-shadow: 0 26px 54px -14px rgba(0,0,0,0.22), 0 12px 24px -10px rgba(0,0,0,0.14); }
-    .tcard-body { display: grid; grid-template-columns: minmax(250px, 0.78fr) 1px minmax(0, 1.42fr); align-items: stretch; min-height: 520px; }
+    .tcard-body { display: grid; grid-template-columns: minmax(250px, 0.78fr) 1px minmax(0, 1.42fr); align-items: stretch; min-height: 500px; }
     .tcard-person { padding: clamp(40px,4vw,54px) clamp(28px,3vw,40px); display: flex; flex-direction: column; align-items: center; justify-content: center; background: transparent; text-align: center; min-height: auto; }
     .tcard-divider { width: 1px; align-self: stretch; background: linear-gradient(to bottom, rgba(255,255,255,0) 0%, rgba(255,255,255,0.18) 18%, rgba(247,247,247,0.85) 50%, rgba(255,255,255,0.18) 82%, rgba(255,255,255,0) 100%); box-shadow: 0 0 16px rgba(255,255,255,0.14); }
     .tcard-photo-ring { width: 84px; height: 84px; border-radius: 50%; overflow: hidden; border: 3px solid var(--accent-light); margin-bottom: 24px; position: relative; flex-shrink: 0; }
@@ -338,7 +338,7 @@
     /* ── INNER PAGE HERO ── */
     .pg-hero {
       min-height: 100vh;
-      background: linear-gradient(to bottom, rgba(20,18,30,.18) 0%, rgba(20,18,30,.55) 45%, rgba(20,18,30,.92) 80%, rgba(20,18,30,1) 100%), url('../images/hero header.jpg') center 30% / cover no-repeat;
+      background: linear-gradient(to bottom, rgba(20,18,30,.18) 0%, rgba(20,18,30,.55) 45%, rgba(20,18,30,.92) 80%, rgba(20,18,30,1) 100%), url('images/hero header.jpg') center 30% / cover no-repeat;
       background-color: var(--dark);
       display: flex; align-items: flex-end;
       padding: calc(var(--nav-h) + 60px) var(--px) clamp(56px,7vw,96px);
@@ -448,10 +448,10 @@
       .hero-inner { padding-top: calc(var(--nav-h) + 40px); }
       .hero-mobile-img { display: block; }
       .n-links { display: none; }
-      .n-links.mobile-open { display: flex; flex-direction: column; position: fixed; top: var(--nav-h); left: 0; right: 0; height: calc(100vh - var(--nav-h)); background: #000; padding: 60px var(--px) 120px; gap: 40px; z-index: 99; align-items: center; border-top: none; overflow-y: auto; }
-      .n-links.mobile-open a { color: #fff; font-size: 1.35rem; font-weight: 400; padding: 0; border: none; letter-spacing: 0.1em; }
+      .n-links.mobile-open { display: flex; flex-direction: column; position: fixed; top: 0; left: 0; right: 0; bottom: 0; min-height: 100vh; background: #000; padding: calc(var(--nav-h) + 28px) 28px 96px; gap: 28px; z-index: 99; align-items: flex-start; justify-content: flex-start; border-top: none; overflow-y: auto; text-align: left; }
+      .n-links.mobile-open a { color: #fff; font-size: 1.2rem; font-weight: 400; padding: 0; border: none; letter-spacing: 0.08em; width: 100%; text-align: left; }
       .n-links.mobile-open a::after { display: none; }
-      .n-links.mobile-open a.n-cta { width: 100%; margin-top: auto; font-size: .95rem; height: 56px; max-width: 320px; letter-spacing: 0.1em; color: #fff; }
+      .n-links.mobile-open a.n-cta { width: 100%; margin-top: auto; font-size: .95rem; height: 52px; max-width: none; letter-spacing: 0.08em; color: #fff; justify-content: center; }
       .n-burger { display: flex; }
       .hero-cards { grid-template-columns: 1fr; }
       .hcard { border-right: none; border-bottom: 1px solid rgba(255,255,255,.09); }
@@ -492,13 +492,20 @@
       .f-top { max-width: calc(var(--mw) + var(--px) * 2); margin: 0 auto; padding: clamp(56px,7vw,96px) var(--px) clamp(40px,5vw,64px); display: flex; align-items: flex-start; gap: 64px; }
       .f-bottom-inner { flex-direction: column; align-items: flex-start; gap: 10px; }
     }
+
+    @media (max-width: 760px) {
+      .cal-inner { width: 96vw !important; max-width: 96vw !important; max-height: 88vh !important; border-radius: 12px; }
+      .cal-body { padding: 12px 12px 12px !important; }
+      .cal-placeholder { padding: 18px 12px; }
+      .cal-placeholder iframe, .cal-body iframe, .calendly-inline-widget { min-width: 100% !important; width: 100% !important; height: 76vh !important; }
+    }
   </style>
 <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
 </head>
 <body>
 
 <nav id="nav">
-  <a class="n-logo" href="index.html"><img src="../images/logo nav bar.png" alt="Ignis Leadership"></a>
+  <a class="n-logo" href="index.html"><img src="images/logo nav bar.png" alt="Ignis Leadership"></a>
   <ul class="n-links" id="n-links">
     <li><a href="index.html" data-page="home">Home</a></li>
     <li><a href="about.html" data-page="about">About</a></li>
@@ -513,9 +520,9 @@
 <!-- HERO -->
 <div class="hero">
 <div class="hero-inner">
-<p class="eyebrow">For High-Performers  ·  Sleep  ·  Anxiety  ·  Confidence</p>
+<p class="eyebrow">SLEEP | ANXIETY | CONFIDENCE FOR HIGH PERFORMERS</p>
 <h1 class="hero-h1" style="font-size: clamp(38px, 6.5vw, 90px);">Sleep deeply.<br/>Lead fiercely.<br/>Perform without the noise.</h1>
-<img alt="Yorik Tisseau" class="hero-mobile-img" src="../images/_DSC1754.jpg"/>
+<img alt="Yorik Tisseau" class="hero-mobile-img" src="images/_DSC1754.jpg"/>
 <p class="hero-sub" style="font-size: clamp(16px, 1.6vw, 20px); max-width:540px;">Coaching and hypnotherapy for high-performing professionals who want calm, confidence, and control back.</p>
 <div style="display:flex; gap:16px; margin-bottom: 56px; flex-wrap: wrap;">
 <button class="btn" onclick="openCal()">Let’s talk</button>
@@ -527,11 +534,11 @@
 <div class="logo-wall">
 <p class="logo-wall-label" style="margin-bottom:40px;">Trusted by 50+ leaders from</p>
 <div class="logo-row">
-<img alt="BP" src="../images/website ticker/1.png"/>
-<img alt="RWE" src="../images/website ticker/2.png"/>
-<img alt="Energy Institute" src="../images/website ticker/3.png"/>
-<img alt="Bouygues" src="../images/website ticker/4.png"/>
-<img alt="Manchester Business School" src="../images/website ticker/5.png"/>
+<img alt="BP" src="images/website ticker/1.png"/>
+<img alt="RWE" src="images/website ticker/2.png"/>
+<img alt="Energy Institute" src="images/website ticker/3.png"/>
+<img alt="Bouygues" src="images/website ticker/4.png"/>
+<img alt="Manchester Business School" src="images/website ticker/5.png"/>
 </div>
 <p class="trust-outcomes">Deep sleep  ·  Anxiety-free leadership  ·  Unshakable confidence</p>
 </div>
@@ -568,7 +575,7 @@
 <p class="who-note fu">Ignis works with performance-related anxiety, sleep disruption, and confidence. It isn't the right fit for addiction recovery, clinical pain, or diagnosed psychiatric conditions. I'll point you to the right specialist if that's what you need.</p>
 </div>
 <div class="who-photo fu">
-<img alt="Yorik Tisseau — Executive Coach" onerror="this.style.display='none'" src="../images/about me executive coach.jpg"/>
+<img alt="Yorik Tisseau — Executive Coach" onerror="this.style.display='none'" src="images/about me executive coach.jpg"/>
 </div>
 </div>
 </div>
@@ -669,7 +676,7 @@
 <div style="padding: clamp(80px, 15vw, 160px) var(--px); text-align: center;">
 <div class="wrap">
 <div style="font-family:var(--fd); font-size:clamp(28px, 4.5vw, 56px); font-style:italic; line-height:1.25; max-width:900px; margin:0 auto; color:var(--dark);">
-        "The work isn't about becoming someone different.<br/><span style="color:var(--accent);">It's about removing what's in the way.</span>"
+        "The work isn't about becoming someone different. <span style="color:var(--accent);">It's about removing what's in the way.</span>"
       </div>
 </div>
 </div>
@@ -678,27 +685,27 @@
 <div class="about-iam-header fu">
 <div><span class="iam-prefix">I am a...</span></div>
 <div class="iam-menu" id="iam-menu">
-<button class="iam-btn on" data-bio="I led large teams inside FTSE100 companies for over a decade. Director level. Board visibility. Real pressure. And a voice that questioned whether I truly belonged there." data-img="../images/about me senior leader FTSE100.jpg">
+<button class="iam-btn on" data-bio="I led large teams inside FTSE100 companies for over a decade. Director level. Board visibility. Real pressure. And a voice that questioned whether I truly belonged there." data-img="images/about me senior leader FTSE100.jpg">
           Senior Leader FTSE100
         </button>
-<button class="iam-btn" data-bio="I work 1:1 with executives and high-performers to dissolve the self-doubt that holds them back from the leadership they're capable of." data-img="../images/about me executive coach.jpg">
+<button class="iam-btn" data-bio="I work 1:1 with executives and high-performers to dissolve the self-doubt that holds them back from the leadership they're capable of." data-img="images/about me executive coach.jpg">
           Executive Coach
         </button>
-<button class="iam-btn" data-bio="Certified hypnotherapist specialising in performance psychology, working at the subconscious level where lasting change actually happens." data-img="../images/about me senior leader FTSE100.jpg">
+<button class="iam-btn" data-bio="Certified hypnotherapist specialising in performance psychology, working at the subconscious level where lasting change actually happens." data-img="images/about me senior leader FTSE100.jpg">
           Hypnotherapist
         </button>
-<button class="iam-btn" data-bio="Father of two. They remind me daily what real confidence looks like: unconditioned, fearless, and completely present." data-img="../images/about me executive coach.jpg">
+<button class="iam-btn" data-bio="Father of two. They remind me daily what real confidence looks like: unconditioned, fearless, and completely present." data-img="images/about me executive coach.jpg">
           Dad
         </button>
-<button class="iam-btn" data-bio="I run to think. Early mornings, long distances. The discipline of movement taught me more about mental resilience than any boardroom." data-img="../images/about me senior leader FTSE100.jpg">
+<button class="iam-btn" data-bio="I run to think. Early mornings, long distances. The discipline of movement taught me more about mental resilience than any boardroom." data-img="images/about me senior leader FTSE100.jpg">
           Runner
         </button>
 </div>
 </div>
 <div class="about-photo-wrap fu">
 <div class="about-photo-stack">
-<img alt="Yorik — Senior Leader" class="visible" id="about-img-1" src="../images/about me senior leader FTSE100.jpg"/>
-<img alt="Yorik — Executive Coach" class="hidden" id="about-img-2" src="../images/about me executive coach.jpg"/>
+<img alt="Yorik — Senior Leader" class="visible" id="about-img-1" src="images/about me senior leader FTSE100.jpg"/>
+<img alt="Yorik — Executive Coach" class="hidden" id="about-img-2" src="images/about me executive coach.jpg"/>
 </div>
 </div>
 <div class="about-bio-center fu">
@@ -711,16 +718,16 @@
 <p class="section-eyebrow fu">What I offer</p>
 <h2 class="section-title fu">Choose your path.</h2>
 <div class="svc-grid fu">
-<div class="svc-card" href="coaching.html">
+<div class="svc-card" onclick="window.location.href='coaching.html'">
 <p class="svc-num">Perform. Lead. Decide.</p>
 <h3 class="svc-title">Executive Coaching</h3>
-<p class="svc-desc">12-week intensive. Structured, strategic, and deeply personal. For senior leaders who are done performing confidence they don't feel, and ready for the real thing.</p>
+<p class="svc-desc">Minimum 3-month engagement. Built for technical experts and leaders who want to strengthen both the harder technical edge and the softer leadership skills needed to operate with clarity, influence, and presence under pressure. We can also work at the unconscious level where it helps the transformation hold.</p>
 <button class="arrow-link">Explore →</button>
 </div>
-<div class="svc-card" href="hypnotherapy.html">
+<div class="svc-card" onclick="window.location.href='hypnotherapy.html'">
 <p class="svc-num">Sleep. Calm. Fast.</p>
 <h3 class="svc-title">Hypnotherapy</h3>
-<p class="svc-desc">4-session intensive. Targeting the subconscious root of anxiety, sleepless nights, and self-doubt. Evidence-based, precise, and built for high-performing minds.</p>
+<p class="svc-desc">Solution-focused, minimum block of 4 sessions. Designed to shift unhelpful unconscious beliefs, fears, and patterns quickly, while giving us the time to make sure the work lands and lasts.</p>
 <button class="arrow-link">Explore →</button>
 </div>
 </div>
@@ -733,7 +740,7 @@
 <div class="tcard-person">
 <div class="tcard-photo-ring">
 <span class="tcard-photo-ph" id="tcard-initials">JH</span>
-<img alt="" id="tcard-photo" onerror="this.style.opacity=0" src="../images/testimonials/james.jpg"/>
+<img alt="" id="tcard-photo" onerror="this.style.opacity=0" src="images/testimonials/james.jpg"/>
 </div>
 <p class="tcard-name" id="tcard-name">James Heath</p>
 <p class="tcard-role" id="tcard-role">Deal Development, Low Carbon Energy  ·  bp (UK)</p>
@@ -750,35 +757,35 @@
 <div class="tsl-av active" onclick="setTs(0)">
 <div class="tsl-av-ring">
 <span class="tsl-av-ph">JH</span>
-<img alt="" onerror="this.style.opacity=0" src="../images/testimonials/james.jpg"/>
+<img alt="" onerror="this.style.opacity=0" src="images/testimonials/james.jpg"/>
 </div>
 <span class="tsl-av-name">James</span>
 </div>
 <div class="tsl-av" onclick="setTs(1)">
 <div class="tsl-av-ring">
 <span class="tsl-av-ph">MV</span>
-<img alt="" onerror="this.style.opacity=0" src="../images/testimonials/michaela.jpg"/>
+<img alt="" onerror="this.style.opacity=0" src="images/testimonials/michaela.jpg"/>
 </div>
 <span class="tsl-av-name">Michaela</span>
 </div>
 <div class="tsl-av" onclick="setTs(2)">
 <div class="tsl-av-ring">
 <span class="tsl-av-ph">NA</span>
-<img alt="" onerror="this.style.opacity=0" src="../images/testimonials/nadia.jpg"/>
+<img alt="" onerror="this.style.opacity=0" src="images/testimonials/nadia.jpg"/>
 </div>
 <span class="tsl-av-name">Nadia</span>
 </div>
 <div class="tsl-av" onclick="setTs(3)">
 <div class="tsl-av-ring">
 <span class="tsl-av-ph">RS</span>
-<img alt="" onerror="this.style.opacity=0" src="../images/testimonials/raj.jpg"/>
+<img alt="" onerror="this.style.opacity=0" src="images/testimonials/raj.jpg"/>
 </div>
 <span class="tsl-av-name">Raj</span>
 </div>
 <div class="tsl-av" onclick="setTs(4)">
 <div class="tsl-av-ring">
 <span class="tsl-av-ph">CM</span>
-<img alt="" onerror="this.style.opacity=0" src="../images/testimonials/chloe.jpg"/>
+<img alt="" onerror="this.style.opacity=0" src="images/testimonials/chloe.jpg"/>
 </div>
 <span class="tsl-av-name">Chloe</span>
 </div>
@@ -797,7 +804,7 @@
 <footer>
   <div class="f-top">
     <div class="f-brand">
-      <a class="f-logo" href="index.html"><img src="../images/logo nav bar.png" alt="Ignis Leadership"></a>
+      <a class="f-logo" href="index.html"><img src="images/logo nav bar.png" alt="Ignis Leadership"></a>
       <p class="f-tagline">Where high performance<br>meets inner clarity.</p>
     </div>
     <div>
@@ -929,9 +936,11 @@
   initFU();
 
   const testimonials = [
-    {name:'James Heath', role:'Deal Development, Low Carbon Energy · bp (UK)', quote:'Yorik has had a real impact on how I tackle complex challenges and how I show up under pressure. He helped me identify unhelpful patterns and replace them with clearer, more intentional behaviours. I communicate with more confidence and perform far better in high-stakes conversations, with greater clarity and calm.', photo:'../images/testimonials/james.jpg', initials:'JH'},
-    {name:'Michaela Valovicova', role:'Head of Marketing & Communications · Equans (UK)', quote:'Yorik supported me as I set up and led a new international team across three countries. I learned to lead with confidence, build stronger stakeholder relationships, and grow into a far more influential leader during a period where clarity and presence were non-negotiable.', photo:'../images/testimonials/michaela.jpg', initials:'MV'},
-    {name:'Client', role:'Senior leader', quote:'Working with Yorik helped me quiet the noise, improve my sleep, and lead with far more confidence under pressure.', photo:'', initials:'CL'}
+    {name:'James Heath', role:'Deal Development, Commercial Structuring Low Carbon Energy at bp (UK)', quote:'Yorik has had a real impact on how I tackle complex challenges and how I show up under pressure. He helped me identify unhelpful patterns and replace them with clearer, more intentional behaviours. I communicate with more confidence and perform far better in high-stakes conversations, with greater clarity and calm.', photo:'images/testimonials/james.jpg', initials:'JH'},
+    {name:'Nadia Aljibouri', role:'Senior Project Manager Transformation at bp (UK)', quote:'Working with Yorik helped me become more intentional in how I communicate and influence. I gained greater awareness of the patterns that were limiting my impact and replaced them with clearer, more deliberate ways of leading. As a result, I am more effective in building trust, alignment, and influence in complex stakeholder environments.', photo:'images/testimonials/nadia.jpg', initials:'NA'},
+    {name:'Michaela Valovicova', role:'Head of Marketing & Communications Equans Data Centre at Equans (UK)', quote:'Yorik supported me as I set up and led a new international team across three countries. This was a critical, high-pressure phase of the business that demanded rapid adaptation. I learned to lead with confidence, build stronger stakeholder relationships, and grow into a far more influential leader during a period where clarity and presence were non-negotiable.', photo:'images/testimonials/michaela.jpg', initials:'MV'},
+    {name:'Raj Srivastava', role:'Senior Economist O&G at Spirit Energy (UK)', quote:'During a period marked by setbacks and uncertainty, the work I did with Yorik helped me regain clarity and strategic control. I stopped operating reactively and started making decisions with greater conviction. As a result, my influence increased and I was able to steer the direction of the business with confidence.', photo:'images/testimonials/raj.jpg', initials:'RS'},
+    {name:'Chloe MacLennan', role:'Reservoir Engineer at bp (UK)', quote:'Yorik helped me shift my mindset and lead with clarity during a pivotal moment in my career. I gained the confidence to take ownership of my next step and built a clear, values-led strategy to engage my employer with purpose and conviction.', photo:'images/testimonials/chloe.jpg', initials:'CM'}
   ];
   const qName = document.getElementById('tcard-name');
   const qRole = document.getElementById('tcard-role');
@@ -945,22 +954,11 @@
     if (qRole) qRole.textContent = t.role;
     if (qText) qText.textContent = '“' + t.quote + '”';
     if (qInitials) qInitials.textContent = t.initials || '';
-    if (qPhoto) {
-      if (t.photo) {
-        qPhoto.src = t.photo;
-        qPhoto.style.opacity = '1';
-      } else {
-        qPhoto.removeAttribute('src');
-        qPhoto.style.opacity = '0';
-      }
-    }
+    if (qPhoto) { qPhoto.src = t.photo; qPhoto.style.opacity = '1'; }
     qAvatars.forEach((av, idx) => av.classList.toggle('active', idx === i));
   }
   if (qAvatars.length) {
-    qAvatars.forEach((av, idx) => {
-      av.style.cursor = 'pointer';
-      av.addEventListener('click', () => setTestimonial(idx));
-    });
+    qAvatars.forEach((av, idx) => { av.style.cursor = 'pointer'; av.addEventListener('click', () => setTestimonial(idx)); });
     setTestimonial(0);
   }
 </script>

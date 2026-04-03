@@ -129,7 +129,7 @@
     /* ── HERO ── */
     .hero {
       min-height: 100vh;
-      background: linear-gradient(to bottom, rgba(20,18,30,.2) 0%, rgba(20,18,30,.6) 55%, rgba(20,18,30,.92) 100%), url('../images/_DSC1754.jpg') center 30% / cover no-repeat;
+      background: linear-gradient(to bottom, rgba(20,18,30,.2) 0%, rgba(20,18,30,.6) 55%, rgba(20,18,30,.92) 100%), url('images/_DSC1754.jpg') center 30% / cover no-repeat;
       background-color: var(--dark);
       display: flex; flex-direction: column; justify-content: flex-end;
       position: relative; overflow: hidden;
@@ -205,7 +205,7 @@
     /* ── PHOTO STRIP ── */
     .photo-strip {
       min-height: 52vh;
-      background: linear-gradient(to right, rgba(20,18,30,.88) 0%, rgba(20,18,30,.65) 50%, rgba(20,18,30,.35) 100%), url('../images/hero header.jpg') center 40% / cover no-repeat;
+      background: linear-gradient(to right, rgba(20,18,30,.88) 0%, rgba(20,18,30,.65) 50%, rgba(20,18,30,.35) 100%), url('images/hero header.jpg') center 40% / cover no-repeat;
       background-color: var(--dark);
       display: flex; align-items: center;
       padding: 80px var(--px);
@@ -338,7 +338,7 @@
     /* ── INNER PAGE HERO ── */
     .pg-hero {
       min-height: 100vh;
-      background: linear-gradient(to bottom, rgba(20,18,30,.18) 0%, rgba(20,18,30,.55) 45%, rgba(20,18,30,.92) 80%, rgba(20,18,30,1) 100%), url('../images/hero header.jpg') center 30% / cover no-repeat;
+      background: linear-gradient(to bottom, rgba(20,18,30,.18) 0%, rgba(20,18,30,.55) 45%, rgba(20,18,30,.92) 80%, rgba(20,18,30,1) 100%), url('images/hero header.jpg') center 30% / cover no-repeat;
       background-color: var(--dark);
       display: flex; align-items: flex-end;
       padding: calc(var(--nav-h) + 60px) var(--px) clamp(56px,7vw,96px);
@@ -448,10 +448,10 @@
       .hero-inner { padding-top: calc(var(--nav-h) + 40px); }
       .hero-mobile-img { display: block; }
       .n-links { display: none; }
-      .n-links.mobile-open { display: flex; flex-direction: column; position: fixed; top: var(--nav-h); left: 0; right: 0; height: calc(100vh - var(--nav-h)); background: #000; padding: 60px var(--px) 120px; gap: 40px; z-index: 99; align-items: center; border-top: none; overflow-y: auto; }
-      .n-links.mobile-open a { color: #fff; font-size: 1.35rem; font-weight: 400; padding: 0; border: none; letter-spacing: 0.1em; }
+      .n-links.mobile-open { display: flex; flex-direction: column; position: fixed; top: 0; left: 0; right: 0; bottom: 0; min-height: 100vh; background: #000; padding: calc(var(--nav-h) + 28px) 28px 96px; gap: 28px; z-index: 99; align-items: flex-start; justify-content: flex-start; border-top: none; overflow-y: auto; text-align: left; }
+      .n-links.mobile-open a { color: #fff; font-size: 1.2rem; font-weight: 400; padding: 0; border: none; letter-spacing: 0.08em; width: 100%; text-align: left; }
       .n-links.mobile-open a::after { display: none; }
-      .n-links.mobile-open a.n-cta { width: 100%; margin-top: auto; font-size: .95rem; height: 56px; max-width: 320px; letter-spacing: 0.1em; color: #fff; }
+      .n-links.mobile-open a.n-cta { width: 100%; margin-top: auto; font-size: .95rem; height: 52px; max-width: none; letter-spacing: 0.08em; color: #fff; justify-content: center; }
       .n-burger { display: flex; }
       .hero-cards { grid-template-columns: 1fr; }
       .hcard { border-right: none; border-bottom: 1px solid rgba(255,255,255,.09); }
@@ -492,13 +492,20 @@
       .f-top { max-width: calc(var(--mw) + var(--px) * 2); margin: 0 auto; padding: clamp(56px,7vw,96px) var(--px) clamp(40px,5vw,64px); display: flex; align-items: flex-start; gap: 64px; }
       .f-bottom-inner { flex-direction: column; align-items: flex-start; gap: 10px; }
     }
+
+    @media (max-width: 760px) {
+      .cal-inner { width: 96vw !important; max-width: 96vw !important; max-height: 88vh !important; border-radius: 12px; }
+      .cal-body { padding: 12px 12px 12px !important; }
+      .cal-placeholder { padding: 18px 12px; }
+      .cal-placeholder iframe, .cal-body iframe, .calendly-inline-widget { min-width: 100% !important; width: 100% !important; height: 76vh !important; }
+    }
   </style>
 <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
 </head>
 <body>
 
 <nav id="nav">
-  <a class="n-logo" href="index.html"><img src="../images/logo nav bar.png" alt="Ignis Leadership"></a>
+  <a class="n-logo" href="index.html"><img src="images/logo nav bar.png" alt="Ignis Leadership"></a>
   <ul class="n-links" id="n-links">
     <li><a href="index.html" data-page="home">Home</a></li>
     <li><a href="about.html" data-page="about">About</a></li>
@@ -571,7 +578,7 @@
 <footer>
   <div class="f-top">
     <div class="f-brand">
-      <a class="f-logo" href="index.html"><img src="../images/logo nav bar.png" alt="Ignis Leadership"></a>
+      <a class="f-logo" href="index.html"><img src="images/logo nav bar.png" alt="Ignis Leadership"></a>
       <p class="f-tagline">Where high performance<br>meets inner clarity.</p>
     </div>
     <div>
@@ -703,8 +710,8 @@
   initFU();
 
   const testimonials = [
-    {name:'James Heath', role:'Deal Development, Low Carbon Energy · bp (UK)', quote:'Yorik has had a real impact on how I tackle complex challenges and how I show up under pressure. He helped me identify unhelpful patterns and replace them with clearer, more intentional behaviours. I communicate with more confidence and perform far better in high-stakes conversations, with greater clarity and calm.', photo:'../images/testimonials/james.jpg'},
-    {name:'Michaela Valovicova', role:'Head of Marketing & Communications · Equans (UK)', quote:'Yorik supported me as I set up and led a new international team across three countries. I learned to lead with confidence, build stronger stakeholder relationships, and grow into a far more influential leader during a period where clarity and presence were non-negotiable.', photo:'../images/testimonials/michaela.jpg'},
+    {name:'James Heath', role:'Deal Development, Low Carbon Energy · bp (UK)', quote:'Yorik has had a real impact on how I tackle complex challenges and how I show up under pressure. He helped me identify unhelpful patterns and replace them with clearer, more intentional behaviours. I communicate with more confidence and perform far better in high-stakes conversations, with greater clarity and calm.', photo:'images/testimonials/james.jpg'},
+    {name:'Michaela Valovicova', role:'Head of Marketing & Communications · Equans (UK)', quote:'Yorik supported me as I set up and led a new international team across three countries. I learned to lead with confidence, build stronger stakeholder relationships, and grow into a far more influential leader during a period where clarity and presence were non-negotiable.', photo:'images/testimonials/michaela.jpg'},
     {name:'Client', role:'Senior leader', quote:'Working with Yorik helped me quiet the noise, improve my sleep, and lead with far more confidence under pressure.', photo:''}
   ];
   let tIndex = 0;
