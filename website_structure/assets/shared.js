@@ -2,10 +2,7 @@
 (function () {
   function getNav() { return document.getElementById('nav'); }
   function getBurger() { return document.getElementById('burger'); }
-  function getMenu() {
-    return document.getElementById('navLinks') || document.querySelector('.n-links');
-  }
-
+  function getMenu() { return document.getElementById('n-links') || document.getElementById('navLinks') || document.querySelector('.n-links'); }
   function isMobile() { return window.innerWidth <= 960; }
 
   function openBurger() {
@@ -28,14 +25,23 @@
     nav.classList.remove('menu-open-nav');
     burger.setAttribute('aria-expanded', 'false');
     document.body.classList.remove('menu-open');
+    if (!document.getElementById('cal-modal')?.classList.contains('open')) {
+      document.body.style.overflow = '';
+    }
   }
 
-  window.toggleBurger = function () {
+  function toggleBurger() {
     const menu = getMenu();
     if (!menu) return;
-    if (menu.classList.contains('mobile-open')) closeBurger();
-    else openBurger();
-  };
+    if (menu.classList.contains('mobile-open')) {
+      closeBurger();
+    } else {
+      openBurger();
+      document.body.style.overflow = 'hidden';
+    }
+  }
+
+  window.toggleBurger = toggleBurger;
   window.closeBurger = closeBurger;
 
   function legalMode() {
@@ -68,12 +74,23 @@
     });
   }
 
+  function bindBurger() {
+    const burger = getBurger();
+    if (!burger || burger.dataset.sharedBound === '1') return;
+    burger.dataset.sharedBound = '1';
+    burger.addEventListener('click', function (e) {
+      e.preventDefault();
+      e.stopPropagation();
+      toggleBurger();
+    });
+  }
+
   function extractBgUrl(blockName) {
     const styleTag = document.querySelector('style');
     if (!styleTag) return '';
     const css = styleTag.textContent || '';
-    const safe = blockName.replace('.', '\\.');
-    const re = new RegExp(safe + "\\s*\\{[\\s\\S]*?url\\((['\"]?)(.*?)\\1\\)", 'i');
+    const safe = blockName.replace('.', '\.')
+    const re = new RegExp(safe + "\s*\{[\s\S]*?url\((['"]?)(.*?)\1\)", 'i');
     const match = css.match(re);
     return match ? match[2] : '';
   }
@@ -83,50 +100,49 @@
     if (!hero) return;
     const inner = hero.querySelector(innerSelector) || hero;
     if (!inner) return;
+    if (inner.querySelector('.hero-mobile-img')) return;
+
+    const pathname = (location.pathname || '').toLowerCase();
+    if (pathname.endsWith('/about.html') || pathname === '/about.html' || pathname.endsWith('about.html')) {
+      return;
+    }
 
     const bgUrl = extractBgUrl(blockName);
     if (!bgUrl) return;
 
-    let img = inner.querySelector('.hero-mobile-img');
-    if (!img) {
-      img = document.createElement('img');
-      img.className = 'hero-mobile-img';
-      img.alt = 'Ignis Leadership';
-      const anchor = inner.querySelector('.hero-sub, .pg-title, .pg-eyebrow, .eyebrow, .hero-h1');
-      if (anchor && anchor.parentNode) {
-        if (anchor.classList.contains('hero-sub') || anchor.classList.contains('pg-title')) {
-          anchor.insertAdjacentElement('afterend', img);
-        } else {
-          inner.appendChild(img);
-        }
-      } else {
-        inner.appendChild(img);
-      }
-    }
+    const img = document.createElement('img');
+    img.className = 'hero-mobile-img';
+    img.alt = 'Ignis Leadership';
+    const anchor = inner.querySelector('.hero-sub, .pg-title, .pg-eyebrow, .eyebrow, .hero-h1');
+    if (anchor) anchor.insertAdjacentElement('afterend', img);
+    else inner.appendChild(img);
     img.src = bgUrl;
   }
 
-  function initCalendlyButtons() {
-    if (window.__sharedCalendlyBound) return;
-    window.__sharedCalendlyBound = true;
-    document.querySelectorAll('[onclick*="openCalendly"], .n-cta, .btn').forEach(function(btn){
-      // leave existing handlers in place
-    });
+  function fixAboutHero() {
+    const pathname = (location.pathname || '').toLowerCase();
+    if (!(pathname.endsWith('/about.html') || pathname === '/about.html' || pathname.endsWith('about.html'))) return;
+    const inner = document.querySelector('.pg-hero-inner');
+    const photo = document.querySelector('.ab-photo');
+    if (!inner || !photo || inner.querySelector('.hero-mobile-img')) return;
+    const clone = photo.cloneNode(true);
+    clone.className = 'hero-mobile-img';
+    clone.removeAttribute('style');
+    clone.onerror = null;
+    inner.appendChild(clone);
   }
 
   function init() {
     legalMode();
+    bindBurger();
     bindMenuLinks();
     closeOnScroll();
     closeOnResize();
     ensureHeroImage('.hero', '.hero-inner', '.hero');
     ensureHeroImage('.pg-hero', '.pg-hero-inner', '.pg-hero');
-    initCalendlyButtons();
+    fixAboutHero();
   }
 
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', init);
-  } else {
-    init();
-  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+  else init();
 })();
