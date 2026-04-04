@@ -3,16 +3,16 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Hypnotherapy for Sleep | Ignis Leadership</title>
-<meta name="description" content="Hypnotherapy for sleep for high-performing professionals who cannot switch off, overthink at night, or wake with pressure already running.">
+<title>Hypnotherapy for Sleep for High-Performing Professionals | Ignis Leadership</title>
+<meta name="description" content="Hypnotherapy for sleep for high-performing professionals who cannot switch off, overthink at night, or wake with pressure already running. Manchester-based, online across the UK.">
 <link rel="canonical" href="https://ignisleadership.com/hypnotherapy-sleep">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://ignisleadership.com/hypnotherapy-sleep">
-<meta property="og:title" content="Hypnotherapy for Sleep | Ignis Leadership">
+<meta property="og:title" content="Hypnotherapy for Sleep for High-Performing Professionals | Ignis Leadership">
 <meta property="og:description" content="Sleep deeply. Switch off at night. Wake with more calm, more clarity, and less internal pressure.">
 <meta property="og:image" content="https://ignisleadership.com/images/_DSC1754.jpg">
 <meta property="twitter:card" content="summary_large_image">
-<meta property="twitter:title" content="Hypnotherapy for Sleep | Ignis Leadership">
+<meta property="twitter:title" content="Hypnotherapy for Sleep for High-Performing Professionals | Ignis Leadership">
 <meta property="twitter:description" content="Sleep deeply. Switch off at night. Wake with more calm, more clarity, and less internal pressure.">
 <meta property="twitter:image" content="https://ignisleadership.com/images/_DSC1754.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -209,6 +209,57 @@ ul{margin:0;padding:0;list-style:none}
   padding:92px var(--px);
   background:#fff;
 }
+
+.social-proof-strip{
+  display:grid;grid-template-columns:repeat(2,1fr);gap:24px;margin-top:34px
+}
+.quote-card{
+  background:rgba(255,255,255,.04);
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:16px;
+  padding:28px;
+}
+.quote-card p{
+  color:#fff;
+  font-size:1.02rem;
+  margin:0 0 10px;
+}
+.quote-card span{
+  display:block;
+  color:rgba(255,255,255,.58);
+  font-size:.78rem;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+}
+.mid-cta{
+  padding:52px 0 0;
+}
+.mid-cta .panel{
+  background:rgba(255,255,255,.04);
+  border:1px solid rgba(255,255,255,.08);
+}
+.mid-cta .panel h3,
+.mid-cta .panel p{color:#fff}
+.link-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:28px
+}
+.link-card{
+  border:1px solid rgba(0,0,0,.08);
+  border-radius:14px;
+  padding:24px;
+  background:#fff;
+}
+.link-card h3{font-size:24px;line-height:1.02;margin-bottom:10px;color:var(--dark)}
+.link-card p{margin:0 0 14px;font-size:.98rem}
+.link-card a{color:var(--accent);font-weight:600;letter-spacing:.04em;text-transform:uppercase;font-size:.76rem}
+.faq-grid{display:grid;gap:18px;margin-top:26px}
+.faq-item{
+  border:1px solid rgba(0,0,0,.08);
+  border-radius:14px;
+  padding:24px 24px 18px;
+  background:#fff;
+}
+.faq-item h3{font-size:26px;line-height:1.02;margin-bottom:12px;color:var(--dark)}
 .cta-inner{max-width:820px;margin:0 auto;text-align:center}
 .accent-divider-short{width:56px;height:2px;background:linear-gradient(90deg, transparent 0%, var(--accent) 22%, var(--accent) 78%, transparent 100%);margin:0 auto 28px}
 .cta-title{font-size:clamp(42px,6vw,74px);line-height:.95;margin-bottom:16px;color:var(--dark)}
@@ -358,10 +409,17 @@ footer{
     padding-top:calc(var(--nav-h) + 40px);
   }
   .hero::before{display:none}
-  .hero-mobile-img{display:block}
-  .hero-actions{flex-direction:column;align-items:stretch}
+  .hero-inner{display:flex;flex-direction:column}
+  .hero-mobile-img{display:block;order:2}
+  .hero-actions{
+    order:3;
+    flex-direction:column;
+    align-items:stretch;
+    margin-top:18px;
+    padding:8px 6px 6px;
+  }
   .hero-actions .btn,.hero-actions .btn-ghost-light{width:100%;justify-content:center}
-  .tips-grid{grid-template-columns:1fr}
+  .tips-grid,.social-proof-strip,.link-grid{grid-template-columns:1fr}
   .two-col{grid-template-columns:1fr;gap:26px}
   .f-top{flex-direction:column;gap:28px}
   .f-brand{margin-right:0}
@@ -387,14 +445,14 @@ footer{
 <main>
   <section class="hero">
     <div class="hero-inner">
-      <p class="eyebrow">Sleep</p>
+      <p class="eyebrow">Sleep for high-performing professionals</p>
       <h1 class="hero-title">Hypnotherapy for Sleep</h1>
       <p class="hero-sub">
-        Sleep deeply. Switch off at night. Wake with more calm, more clarity, and less internal pressure.
+        Hypnotherapy for high-performing professionals who look calm on the outside but cannot fully switch off at night.
       </p>
       <div class="hero-actions">
         <button class="btn" type="button" onclick="openCal()">Book a conversation</button>
-        <a class="btn-ghost-light" href="#talk">How it works</a>
+        <a class="btn-ghost-light" href="hypnotherapy.html">My Services</a>
       </div>
       <img class="hero-mobile-img" src="images/_DSC1754.jpg" alt="Calm, soft visual for sleep support">
     </div>
@@ -464,6 +522,30 @@ footer{
       <p>
         In that sense, the goal is not to force sleep. It is to change the internal conditions that make sleep difficult. When the body begins to experience less internal urgency, less anticipation, and less pressure to stay on guard, sleep can become less effortful and more natural again.
       </p>
+
+      <div class="social-proof-strip">
+        <div class="quote-card">
+          <p>Many high-performing professionals describe some version of the same thing: “I am exhausted, but my mind keeps going.”</p>
+          <span>Common pattern in this audience</span>
+        </div>
+        <div class="quote-card">
+          <p>This work is designed for people who do not need more discipline. They need help teaching the system that it is safe to stand down.</p>
+          <span>How I frame the problem</span>
+        </div>
+      </div>
+
+      <div class="mid-cta">
+        <div class="panel">
+          <h3>You do not need another sleep hack</h3>
+          <p>
+            If the deeper pattern is still running, surface-level sleep advice will only take you so far. This work looks at the pressure underneath the symptom.
+          </p>
+          <div class="hero-actions" style="margin-top:22px">
+            <button class="btn" type="button" onclick="openCal()">Book a conversation</button>
+            <a class="btn-ghost-light" href="hypnotherapy.html">My Services</a>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -543,7 +625,69 @@ footer{
     </div>
   </section>
 
-  <section id="talk" class="cta-band">
+  
+  <section class="section white">
+    <div class="inner text-wide">
+      <p class="kicker">Manchester and online support</p>
+      <h2 class="section-title">Manchester-based, with online sessions across the UK</h2>
+      <p>
+        I am based in Greater Manchester and work with clients locally and online. If you are looking for hypnotherapy in Manchester for sleep, this gives you the option of working with someone nearby without needing to travel into London or search nationally for a generic provider.
+      </p>
+      <p>
+        Many clients prefer online sessions because the work fits more easily around demanding schedules. Others value knowing their practitioner is local, understands the pace and pressure of professional life here, and can offer a more personal point of connection.
+      </p>
+
+      <div class="faq-grid">
+        <div class="faq-item">
+          <h3>Do you work only in Manchester?</h3>
+          <p>
+            No. I work with clients in Manchester and across the UK online. This page is written for broad UK search intent, while also making it clear that I am Manchester-based.
+          </p>
+        </div>
+        <div class="faq-item">
+          <h3>Is this sleep support or therapy?</h3>
+          <p>
+            It is hypnotherapy focused on the underlying pressure, activation, and learned patterns that interfere with sleep. It is not generic sleep coaching or a one-size-fits-all relaxation recording.
+          </p>
+        </div>
+        <div class="faq-item">
+          <h3>What if I am successful at work but still struggle at night?</h3>
+          <p>
+            That is exactly the profile this page is written for. High performers often function well in public while privately carrying too much tension, anticipation, or mental load into the night.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section problem">
+    <div class="inner text-wide">
+      <p class="kicker">Related pages</p>
+      <h2 class="section-title">Continue exploring</h2>
+      <p>
+        This page targets broad sleep-related intent. Over time, it can support more specific pages for anxiety, confidence, Manchester search, and high-intent audience pages such as engineers, consultants, and knowledge workers.
+      </p>
+      <div class="link-grid">
+        <div class="link-card">
+          <h3>Hypnotherapy for Anxiety</h3>
+          <p>For professionals whose mind moves from pressure into worry, anticipation, or overthinking.</p>
+          <a href="hypnotherapy-anxiety.html">View page</a>
+        </div>
+        <div class="link-card">
+          <h3>Hypnotherapy in Manchester for Sleep</h3>
+          <p>A future local page for people specifically searching for support in Manchester.</p>
+          <a href="hypnotherapy-manchester-sleep.html">View page</a>
+        </div>
+        <div class="link-card">
+          <h3>Why High Performers Cannot Switch Off</h3>
+          <p>An authority article explaining the nervous system, pressure, and recovery in more depth.</p>
+          <a href="why-high-performers-struggle-sleep.html">View page</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+<section id="talk" class="cta-band">
     <div class="cta-inner">
       <div class="accent-divider-short"></div>
       <h2 class="cta-title">Let’s Talk</h2>
