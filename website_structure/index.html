@@ -301,13 +301,13 @@
     @media (max-width: 620px) {
       .tcard { border-radius: 18px; }
       .tcard-body { grid-template-columns: 1fr; min-height: auto; }
-      .tcard-person { padding: 32px 24px 28px; align-items: center; text-align: center; justify-content: center; min-height: auto; }
+      .tcard-person { padding: 32px 24px 28px; align-items: center; text-align: center; justify-content: flex-start; min-height: 280px; }
       .tcard-divider { width: auto; height: 1px; margin: 0 24px; background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.18) 18%, rgba(247,247,247,0.85) 50%, rgba(255,255,255,0.18) 82%, rgba(255,255,255,0) 100%); }
       .tcard-photo-ring { margin-bottom: 18px; }
-      .tcard-name { font-size: 22px; margin-bottom: 10px; }
-      .tcard-role { font-size: 16px; max-width: 230px; text-align: center; min-height: 0; }
-      .tcard-quote-side { padding: 28px 24px 34px; min-height: auto; }
-      .tcard-quote-text { font-size: 17px; line-height: 1.65; min-height: 0; }
+      .tcard-name { font-size: 22px; margin-bottom: 10px; min-height: 32px; }
+      .tcard-role { font-size: 16px; max-width: 230px; text-align: center; min-height: 84px; }
+      .tcard-quote-side { padding: 28px 24px 34px; min-height: 250px; align-items: flex-start; }
+      .tcard-quote-text { font-size: 17px; line-height: 1.65; min-height: 240px; }
     }
     .tcard-eyebrow { display: none; }
     .tcard-avatars { display: flex; align-items: flex-end; justify-content: center; gap: 18px; padding: 22px 0 0; flex-wrap: wrap; }
@@ -322,7 +322,7 @@
     .tsl-av.active .tsl-av-ph { opacity: 1; background: rgba(255,255,255,.15); }
     .tsl-av.active .tsl-av-name { opacity: 1; color: var(--accent-light); }
     @media (max-width: 620px) {
-      .tcard-avatars { gap: 14px; padding-top: 18px; }
+      .tcard-avatars { gap: 14px; padding-top: 18px; min-height: 74px; align-items: flex-start; }
     }
     /* ── TESTIMONIAL INDICATORS ── */
     .tcard-indicators { display: flex; gap: 8px; justify-content: center; margin-top: 24px; }
@@ -555,7 +555,17 @@
       .f-bottom-inner { flex-direction: column; align-items: flex-start; }
       .eyebrow { gap: 10px; }
     }
-  </style>
+  
+    @media (max-width: 620px) {
+      .tcard-person { justify-content: flex-start !important; min-height: 280px !important; }
+      .tcard-name { min-height: 32px !important; }
+      .tcard-role { min-height: 84px !important; }
+      .tcard-quote-side { min-height: 250px !important; align-items: flex-start !important; }
+      .tcard-quote-text { min-height: 240px !important; }
+      .tcard-avatars { min-height: 74px !important; align-items: flex-start !important; }
+    }
+
+</style>
 <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
 
 <link rel="stylesheet" href="assets/shared.css?v=20260404-menu">
