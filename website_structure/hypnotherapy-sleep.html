@@ -116,6 +116,10 @@ ul{margin:0;padding:0;list-style:none}
   color:rgba(255,255,255,.72);
   margin-top:18px
 }
+.hero-actions{display:flex;gap:16px;flex-wrap:wrap;margin-top:32px;}
+.hero-actions .btn{animation:none;box-shadow:none;}
+.hero-actions .btn-ghost-light{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:0 24px;border-radius:8px;border:1px solid rgba(255,255,255,.18);color:rgba(255,255,255,.82);font-size:.8rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;background:rgba(255,255,255,.04);transition:background .2s,border-color .2s,color .2s,transform .2s;}
+.hero-actions .btn-ghost-light:hover{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.28);color:#fff;transform:translateY(-2px);}
 .hero-mobile-img{
   display:none;width:100%;border-radius:18px;margin:26px 0 0;
   object-fit:cover;aspect-ratio:4/3;
@@ -203,7 +207,7 @@ ul{margin:0;padding:0;list-style:none}
 
 .cta-band{
   padding:92px var(--px);
-  background:#fff;border-top:1px solid rgba(0,0,0,.05)
+  background:#fff;
 }
 .cta-inner{max-width:820px;margin:0 auto;text-align:center}
 .accent-divider-short{width:56px;height:2px;background:linear-gradient(90deg, transparent 0%, var(--accent) 22%, var(--accent) 78%, transparent 100%);margin:0 auto 28px}
@@ -211,10 +215,14 @@ ul{margin:0;padding:0;list-style:none}
 .cta-inner p{font-size:1.08rem;max-width:720px;margin:0 auto 28px}
 .btn{
   display:inline-flex;align-items:center;justify-content:center;
-  min-height:50px;padding:0 34px;border-radius:8px;
+  min-height:48px;padding:17px 40px;border-radius:8px;border:none;
   background:var(--accent);color:#fff;
-  text-transform:uppercase;letter-spacing:.1em;font-size:.8rem;font-weight:600
+  text-transform:uppercase;letter-spacing:.1em;font-size:.8rem;font-weight:500;
+  cursor:pointer;text-decoration:none;transition:background .2s, transform .2s, box-shadow .2s;
+  box-shadow:0 0 0 0 rgba(196,71,108,0.4);animation:pulse-slow 3s infinite;
 }
+.btn:hover{background:var(--accent-h);transform:translateY(-2px);box-shadow:0 12px 24px rgba(196,71,108,0.35);animation:none;}
+@keyframes pulse-slow{0%{box-shadow:0 0 0 0 rgba(196,71,108,0.6);}70%{box-shadow:0 0 0 12px rgba(196,71,108,0);}100%{box-shadow:0 0 0 0 rgba(196,71,108,0);}}
 
 
 /* ── CALENDLY MODAL ── */
@@ -351,6 +359,8 @@ footer{
   }
   .hero::before{display:none}
   .hero-mobile-img{display:block}
+  .hero-actions{flex-direction:column;align-items:stretch}
+  .hero-actions .btn,.hero-actions .btn-ghost-light{width:100%;justify-content:center}
   .tips-grid{grid-template-columns:1fr}
   .two-col{grid-template-columns:1fr;gap:26px}
   .f-top{flex-direction:column;gap:28px}
@@ -382,13 +392,17 @@ footer{
       <p class="hero-sub">
         Sleep deeply. Switch off at night. Wake with more calm, more clarity, and less internal pressure.
       </p>
+      <div class="hero-actions">
+        <button class="btn" type="button" onclick="openCal()">Book a conversation</button>
+        <a class="btn-ghost-light" href="#talk">How it works</a>
+      </div>
       <img class="hero-mobile-img" src="images/_DSC1754.jpg" alt="Calm, soft visual for sleep support">
     </div>
   </section>
 
   <section class="section problem">
     <div class="problem-center">
-      <div class="statement">You perform.<br>You deliver.<br><em>The doubt doesn’t care.</em></div>
+      <div class="statement">You are tired.<br>Your mind is not.<br><em>The system stays on.</em></div>
       <div class="mini-divider"></div>
       <div class="body">
         <p>
