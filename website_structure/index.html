@@ -1013,12 +1013,12 @@
   const qAvatars = document.querySelectorAll('.tsl-av');
   const tcard = document.querySelector('.tcard');
   let testimonialIndex = 0;
-  let testimonialTimer;
-  let testimonialResumeTimer;
+  let testimonialTimer = null;
+  let testimonialResumeTimer = null;
   let touchStartX = 0;
   let touchDeltaX = 0;
   let justHandledTouch = false;
-  const TESTIMONIAL_AUTOPLAY_MS = 7000;
+  const TESTIMONIAL_AUTOPLAY_MS = 8000;
   const TESTIMONIAL_PAUSE_MS = 20000;
 
   testimonials.forEach((t) => {
@@ -1050,30 +1050,43 @@
     }
     qAvatars.forEach((av, idx) => av.classList.toggle('active', idx === testimonialIndex));
   }
+
   function stopTestimonials(){
-    clearInterval(testimonialTimer);
-    clearTimeout(testimonialResumeTimer);
+    if (testimonialTimer) {
+      clearInterval(testimonialTimer);
+      testimonialTimer = null;
+    }
+    if (testimonialResumeTimer) {
+      clearTimeout(testimonialResumeTimer);
+      testimonialResumeTimer = null;
+    }
   }
-  function startTestimonials(delay = TESTIMONIAL_AUTOPLAY_MS){
+
+  function startTestimonials(){
     stopTestimonials();
-    testimonialTimer = setInterval(() => setTestimonial(testimonialIndex + 1), delay);
+    testimonialTimer = setInterval(() => {
+      setTestimonial(testimonialIndex + 1);
+    }, TESTIMONIAL_AUTOPLAY_MS);
   }
+
   function pauseTestimonialsFor(ms = TESTIMONIAL_PAUSE_MS){
-    clearInterval(testimonialTimer);
-    clearTimeout(testimonialResumeTimer);
-    testimonialResumeTimer = setTimeout(() => startTestimonials(TESTIMONIAL_AUTOPLAY_MS), ms);
+    if (testimonialTimer) {
+      clearInterval(testimonialTimer);
+      testimonialTimer = null;
+    }
+    if (testimonialResumeTimer) clearTimeout(testimonialResumeTimer);
+    testimonialResumeTimer = setTimeout(() => {
+      startTestimonials();
+    }, ms);
   }
-  function setTs(i){
-    setTestimonial(i);
-    pauseTestimonialsFor(TESTIMONIAL_PAUSE_MS);
-  }
+
   if (qAvatars.length) {
     qAvatars.forEach((av, idx) => {
       av.style.cursor = 'pointer';
       const selectAvatar = () => {
         setTestimonial(idx);
-        pauseTestimonialsFor(TESTIMONIAL_PAUSE_MS);
-        av.blur && av.blur();
+        pauseTestimonialsFor();
+        if (av.blur) av.blur();
       };
       av.addEventListener('click', (e) => {
         if (justHandledTouch) {
@@ -1089,11 +1102,16 @@
         setTimeout(() => { justHandledTouch = false; }, 350);
       }, { passive: true });
     });
+
     if (tcard) {
-      tcard.addEventListener('mouseenter', () => clearInterval(testimonialTimer));
-      tcard.addEventListener('mouseleave', () => startTestimonials(TESTIMONIAL_AUTOPLAY_MS));
+      tcard.addEventListener('mouseenter', () => {
+        if (testimonialTimer) clearInterval(testimonialTimer);
+      });
+      tcard.addEventListener('mouseleave', () => {
+        startTestimonials();
+      });
       tcard.addEventListener('touchstart', (e) => {
-        clearInterval(testimonialTimer);
+        if (testimonialTimer) clearInterval(testimonialTimer);
         touchStartX = e.changedTouches?.[0]?.clientX || 0;
         touchDeltaX = 0;
       }, { passive: true });
@@ -1103,7 +1121,7 @@
       }, { passive: true });
       tcard.addEventListener('click', () => {
         if (justHandledTouch) return;
-        pauseTestimonialsFor(TESTIMONIAL_PAUSE_MS);
+        pauseTestimonialsFor();
       });
       tcard.addEventListener('touchend', () => {
         justHandledTouch = true;
@@ -1113,24 +1131,11 @@
         } else if (touchDeltaX >= threshold) {
           setTestimonial(testimonialIndex - 1);
         }
-        pauseTestimonialsFor(TESTIMONIAL_PAUSE_MS);
+        pauseTestimonialsFor();
         setTimeout(() => { justHandledTouch = false; }, 350);
       }, { passive: true });
     }
-    setTestimonial(0);
-    startTestimonials(TESTIMONIAL_AUTOPLAY_MS);
-  }
-  if (qAvatars.length) {
-    qAvatars.forEach((av, idx) => {
-      av.style.cursor = 'pointer';
-      av.addEventListener('click', () => { setTestimonial(idx); startTestimonials(); });
-    });
-    if (tcard) {
-      tcard.addEventListener('mouseenter', () => clearInterval(testimonialTimer));
-      tcard.addEventListener('mouseleave', startTestimonials);
-      tcard.addEventListener('touchstart', () => clearInterval(testimonialTimer), { passive: true });
-      tcard.addEventListener('touchend', startTestimonials, { passive: true });
-    }
+
     setTestimonial(0);
     startTestimonials();
   }
