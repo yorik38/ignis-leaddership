@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hypnotherapy for Sleep | Ignis Leadership</title>
+<meta name="description" content="Hypnotherapy for sleep for high-performing professionals who cannot switch off, overthink at night, or wake with pressure already running.">
+<link rel="canonical" href="https://ignisleadership.com/hypnotherapy-sleep">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://ignisleadership.com/hypnotherapy-sleep">
+<meta property="og:title" content="Hypnotherapy for Sleep | Ignis Leadership">
+<meta property="og:description" content="Sleep deeply. Switch off at night. Wake with calm, clarity, and less internal pressure.">
+<meta property="og:image" content="https://ignisleadership.com/images/_DSC1754.jpg">
+<meta property="twitter:card" content="summary_large_image">
+<meta property="twitter:title" content="Hypnotherapy for Sleep | Ignis Leadership">
+<meta property="twitter:description" content="Sleep deeply. Switch off at night. Wake with calm, clarity, and less internal pressure.">
+<meta property="twitter:image" content="https://ignisleadership.com/images/_DSC1754.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --accent:#C4476C;
+  --accent-h:#A8325A;
+  --accent-light:#E0789A;
+  --dark:#1F2330;
+  --dark-2:#262D3C;
+  --cream:#F6F2EC;
+  --white:#FFFFFF;
+  --gray:#6C6C78;
+  --muted:#8F96A3;
+  --fd:'Bebas Neue',sans-serif;
+  --fb:'Inter',-apple-system,sans-serif;
+  --mw:1160px;
+  --narrow:760px;
+  --px:clamp(24px,5vw,80px);
+  --nav-h:76px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:var(--fb);color:var(--dark);background:#fff;line-height:1.7;-webkit-font-smoothing:antialiased}
+img{display:block;max-width:100%}
+a{text-decoration:none}
+button{font-family:var(--fb)}
+h1,h2,h3{margin:0;font-family:var(--fd);letter-spacing:.04em;font-weight:400}
+p{margin:0 0 18px;color:var(--gray);font-weight:300}
+ul{margin:0;padding:0;list-style:none}
+
+#nav{
+  position:fixed;top:0;left:0;right:0;z-index:1000;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:14px var(--px);min-height:var(--nav-h);
+  transition:background .35s ease, box-shadow .35s ease, backdrop-filter .35s ease;
+}
+#nav.scrolled{
+  background:rgba(255,255,255,.98);
+  backdrop-filter:blur(16px);
+  box-shadow:0 4px 24px rgba(0,0,0,.08);
+}
+#nav.menu-open-nav{background:#000;box-shadow:none}
+.n-logo img{
+  height:48px;width:auto;
+  filter:invert(1) brightness(2);
+  transition:filter .3s ease;
+}
+#nav.scrolled .n-logo img{filter:none}
+.n-links{display:flex;align-items:center;gap:28px}
+.n-links a{
+  font-size:.75rem;letter-spacing:.08em;text-transform:uppercase;
+  color:rgba(255,255,255,.88);
+}
+#nav.scrolled .n-links a{color:#333}
+.n-cta{
+  display:inline-flex;align-items:center;justify-content:center;
+  min-height:44px;padding:0 28px;border-radius:6px;
+  background:var(--accent);color:#fff !important;
+  font-size:.75rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;
+}
+.n-burger{
+  display:none;width:28px;height:22px;position:relative;
+  background:none;border:none;cursor:pointer;z-index:1001;
+}
+.n-burger span{
+  position:absolute;left:0;width:100%;height:2px;background:#fff;transition:.3s ease;
+}
+.n-burger span:nth-child(1){top:0}
+.n-burger span:nth-child(2){top:10px}
+.n-burger span:nth-child(3){bottom:0}
+#nav.scrolled .n-burger span{background:var(--dark)}
+#nav.menu-open-nav .n-burger span:nth-child(1){transform:rotate(45deg);top:10px;background:#fff}
+#nav.menu-open-nav .n-burger span:nth-child(2){opacity:0}
+#nav.menu-open-nav .n-burger span:nth-child(3){transform:rotate(-45deg);bottom:10px;background:#fff}
+
+.hero{
+  min-height:100vh;
+  background:
+    linear-gradient(to bottom, rgba(20,18,30,.18) 0%, rgba(20,18,30,.55) 45%, rgba(20,18,30,.92) 80%, rgba(20,18,30,1) 100%),
+    url("images/_DSC1754.jpg") center 30% / cover no-repeat;
+  background-color:var(--dark);
+  display:flex;align-items:flex-end;
+  padding:calc(var(--nav-h) + 60px) var(--px) clamp(56px,7vw,96px);
+  position:relative;overflow:hidden;
+}
+.hero::before{
+  content:"";position:absolute;inset:0;
+  background:radial-gradient(ellipse at 15% 65%, rgba(196,71,108,.15) 0%, transparent 50%);
+  pointer-events:none;
+}
+.hero-inner{position:relative;z-index:1;max-width:var(--mw);margin:0 auto;width:100%}
+.eyebrow{
+  font-size:.68rem;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--accent-light);margin-bottom:12px;font-weight:500
+}
+.hero-title{font-size:clamp(48px,7vw,92px);line-height:.94;color:#fff;max-width:860px}
+.hero-sub{
+  max-width:700px;
+  font-size:clamp(16px,1.5vw,20px);
+  color:rgba(255,255,255,.70);
+  margin-top:18px
+}
+.hero-mobile-img{
+  display:none;width:100%;border-radius:18px;margin:26px 0 0;
+  object-fit:cover;aspect-ratio:4/3;
+  box-shadow:0 10px 30px rgba(0,0,0,.35);
+  border:1px solid rgba(255,255,255,.08);
+}
+
+.section{padding:88px var(--px)}
+.cream{background:var(--cream)}
+.dark{background:var(--dark)}
+.white{background:var(--white)}
+.inner{max-width:var(--narrow);margin:0 auto}
+.section-title{font-size:clamp(34px,5vw,56px);line-height:1.02;margin-bottom:18px;color:var(--dark)}
+.dark .section-title{color:#fff}
+.kicker{
+  font-size:.68rem;letter-spacing:.20em;text-transform:uppercase;
+  color:var(--accent);margin-bottom:14px;font-weight:500
+}
+.dark p{color:#cfd3dc}
+
+.tips-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:2px;background:#eadfd8;margin-top:38px;border-radius:8px;overflow:hidden
+}
+.tip-card{background:#fff;padding:34px 30px}
+.tip-num{font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);margin-bottom:10px;font-weight:600}
+.tip-card h3{font-size:28px;line-height:1.02;margin-bottom:12px;color:var(--dark)}
+.tip-card p{font-size:.95rem;margin:0;color:var(--gray)}
+
+.bullets{display:grid;gap:14px;margin-top:18px}
+.bullets li{
+  position:relative;padding-left:24px;color:inherit;font-weight:300
+}
+.bullets li::before{
+  content:"›";position:absolute;left:0;top:0;color:var(--accent);font-size:1.1rem;line-height:1.4
+}
+.dark .bullets li{color:#cfd3dc}
+
+.split-callout{
+  max-width:var(--mw);margin:0 auto;
+  display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start
+}
+.callout-box{
+  background:rgba(255,255,255,.06);
+  border:1px solid rgba(255,255,255,.10);
+  padding:34px;border-radius:14px
+}
+.callout-box h3{font-size:30px;line-height:1.02;color:#fff;margin-bottom:12px}
+.callout-box p{color:#d9dce5;margin:0}
+.callout-list .section-title{margin-bottom:14px}
+
+.cta-band{
+  padding:92px var(--px);
+  background:#fff;border-top:1px solid rgba(0,0,0,.05)
+}
+.cta-inner{max-width:760px;margin:0 auto;text-align:center}
+.cta-title{font-size:clamp(42px,6vw,74px);line-height:.95;margin-bottom:16px;color:var(--dark)}
+.cta-inner p{font-size:1.06rem;max-width:680px;margin:0 auto 28px}
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;
+  min-height:50px;padding:0 34px;border-radius:8px;
+  background:var(--accent);color:#fff;
+  text-transform:uppercase;letter-spacing:.1em;font-size:.8rem;font-weight:600
+}
+
+footer{background:#1F2330;color:#fff}
+.f-top{
+  max-width:calc(var(--mw) + var(--px) * 2);
+  margin:0 auto;padding:64px var(--px);
+  display:flex;gap:64px;align-items:flex-start
+}
+.f-brand{display:flex;align-items:center;gap:22px;margin-right:auto}
+.f-logo img{height:46px;width:auto}
+.f-tagline{font-family:var(--fd);font-size:24px;line-height:1.02;letter-spacing:.03em;max-width:320px}
+.f-col-label{font-family:var(--fd);font-size:22px;letter-spacing:.08em;text-transform:uppercase;margin-bottom:18px}
+.f-col-links{display:flex;flex-direction:column;gap:12px}
+.f-col-links a{color:var(--muted);font-weight:300}
+.f-bottom{background:rgba(255,255,255,.02)}
+.f-bottom-inner{
+  max-width:calc(var(--mw) + var(--px) * 2);
+  margin:0 auto;padding:18px var(--px);
+  display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap
+}
+.f-legal-links{display:flex;gap:16px;flex-wrap:wrap}
+.f-legal-links a{font-size:.66rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.f-copy{font-size:.66rem;letter-spacing:.06em}
+
+@media (max-width:960px){
+  .n-links{display:none}
+  .n-burger{display:block}
+  .n-links.mobile-open{
+    display:flex;flex-direction:column;position:fixed;inset:0;
+    background:#000;padding:104px 28px 96px;gap:28px;z-index:999;
+    align-items:flex-start;justify-content:flex-start;overflow-y:auto
+  }
+  .n-links.mobile-open a{
+    width:100%;text-align:left;font-size:1.2rem;color:rgba(255,255,255,.78)
+  }
+  .n-links.mobile-open .n-cta{
+    width:100%;max-width:320px;margin:0 auto;margin-top:auto;justify-content:center
+  }
+  .hero{
+    min-height:auto;
+    background:#000 !important;
+    padding-top:calc(var(--nav-h) + 40px);
+  }
+  .hero::before{display:none}
+  .hero-mobile-img{display:block}
+  .tips-grid{grid-template-columns:1fr}
+  .split-callout{grid-template-columns:1fr;gap:24px}
+  .f-top{flex-direction:column;gap:28px}
+  .f-brand{margin-right:0}
+}
+</style>
+</head>
+<body>
+<nav id="nav">
+  <a class="n-logo" href="index.html" aria-label="Ignis Leadership home">
+    <img src="images/logo nav bar.png" alt="Ignis Leadership logo">
+  </a>
+
+  <button class="n-burger" type="button" aria-label="Open menu">
+    <span></span><span></span><span></span>
+  </button>
+
+  <div class="n-links">
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="coaching.html">Coaching</a>
+    <a href="hypnotherapy.html">Hypnosis</a>
+    <a class="n-cta" href="#talk">Let’s Talk</a>
+  </div>
+</nav>
+
+<main>
+  <section class="hero">
+    <div class="hero-inner">
+      <p class="eyebrow">Sleep</p>
+      <h1 class="hero-title">Hypnotherapy for Sleep</h1>
+      <p class="hero-sub">
+        Sleep deeply. Switch off at night. Wake with more calm, more clarity, and less internal pressure.
+      </p>
+      <img class="hero-mobile-img" src="images/_DSC1754.jpg" alt="Calm, soft visual for sleep support">
+    </div>
+  </section>
+
+  <section class="section cream">
+    <div class="inner">
+      <p class="kicker">Deep sleep. Calm mind. Full recovery.</p>
+      <h2 class="section-title">Why your mind does not switch off at night</h2>
+      <p>
+        Many high-performing professionals do not struggle with sleep because they lack discipline. They struggle because their system has become highly adapted to pressure. The working day ends, but the mind keeps scanning, replaying, reviewing, anticipating, and preparing.
+      </p>
+      <p>
+        You may look calm on the outside and still feel internally activated. You may be physically tired, yet mentally alert. Or you may fall asleep and wake a few hours later with your thoughts already moving, as if the day has started before you have fully rested.
+      </p>
+      <p>
+        This is often the hidden cost of sustained performance. When your identity is built around responsibility, output, reliability, and momentum, switching off can begin to feel unnatural. Your body is in bed, but your attention is still at work.
+      </p>
+      <p>
+        Over time, this can affect more than sleep. It can reduce patience, blunt creativity, increase emotional reactivity, and make even simple decisions feel heavier than they should. You can still function. You can still deliver. But you are no longer recovering properly.
+      </p>
+      <p>
+        That is why this is not just a “sleep issue”. It is a pattern in the system. And when the system changes, sleep often improves as a natural consequence rather than through more effort.
+      </p>
+
+      <div class="tips-grid">
+        <div class="tip-card">
+          <div class="tip-num">01</div>
+          <h3>Switching off is learned</h3>
+          <p>
+            Your nervous system can learn how to move from pressure into recovery. Difficulty switching off does not mean you are broken. It means your system has been trained to stay on.
+          </p>
+        </div>
+        <div class="tip-card">
+          <div class="tip-num">02</div>
+          <h3>Performance has a cost</h3>
+          <p>
+            If you are always carrying responsibility, urgency, and mental load, it will show up somewhere. For many high performers, it shows up at night.
+          </p>
+        </div>
+        <div class="tip-card">
+          <div class="tip-num">03</div>
+          <h3>The work changes everything</h3>
+          <p>
+            Better sleep is not only the goal. It is often the signal that your system is functioning differently, with more safety, more ease, and less pressure.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section dark">
+    <div class="inner">
+      <p class="kicker">What is happening in your system</p>
+      <h2 class="section-title">Why trying harder usually does not work</h2>
+      <p>
+        Sleep problems in high performers are rarely just about sleep. They are often about activation. When the nervous system has been conditioned to stay alert, solve problems, anticipate outcomes, and monitor risk, it does not always transition easily from performance mode into recovery mode.
+      </p>
+      <p>
+        That is why many well-meaning sleep strategies feel frustrating. You try to relax. You try to reduce screen time. You try breathing, stretching, supplements, routines, and sleep hygiene rules. Some may help a little. But when the deeper pattern remains active, the mind still finds a way to stay switched on.
+      </p>
+      <p>
+        For some people, the pattern looks like racing thoughts at bedtime. For others, it shows up as early waking, light sleep, or a sense of being “half asleep and half at work”. For many, the common denominator is that the body never fully feels like it has permission to let go.
+      </p>
+      <p>
+        Hypnotherapy works at a different level. Rather than arguing with the conscious mind, it helps you work with the automatic processes underneath it. That can allow the nervous system to reduce anticipation, lower internal noise, and recognise that it is safe to release effort.
+      </p>
+      <p>
+        In other words, the aim is not to force sleep. It is to change the conditions that make sleep difficult.
+      </p>
+    </div>
+  </section>
+
+  <section class="section white">
+    <div class="inner">
+      <p class="kicker">This may feel familiar</p>
+      <h2 class="section-title">Signs that your system is still “on” at night</h2>
+      <ul class="bullets">
+        <li>You feel physically tired but mentally alert when you get into bed.</li>
+        <li>You replay conversations, mistakes, decisions, or unfinished tasks from the day.</li>
+        <li>You start thinking about tomorrow before today has properly ended.</li>
+        <li>You wake around 3 or 4am with thoughts already moving.</li>
+        <li>You sleep, but the sleep does not feel deep or restorative.</li>
+        <li>You carry a low-level sense of urgency even when nothing needs to happen right now.</li>
+        <li>You are functioning well enough on the outside, but it costs you more than it should.</li>
+      </ul>
+      <p style="margin-top:22px">
+        If that sounds familiar, the issue is not weakness and it is not a lack of willpower. It is often a highly intelligent system that has become over-trained in activation and under-practised in recovery.
+      </p>
+      <p>
+        That is also why this work can be especially relevant for people who are outwardly capable. You do not need help “performing more”. You need help allowing the system to down-regulate when performance is no longer needed.
+      </p>
+    </div>
+  </section>
+
+  <section class="section dark">
+    <div class="split-callout">
+      <div class="callout-list">
+        <p class="kicker">How hypnotherapy can help</p>
+        <h2 class="section-title">What actually changes</h2>
+        <p>
+          The goal is not to make you passive. It is to help your system stop treating rest like another task to complete. Through guided hypnotic work, many clients begin to experience less internal commentary, less anticipation, and a smoother transition into sleep.
+        </p>
+        <p>
+          Over time, that can lead to sleep feeling less effortful. You stop trying to make sleep happen and start creating the internal conditions in which it can happen more naturally.
+        </p>
+        <ul class="bullets">
+          <li>Falling asleep with less mental noise</li>
+          <li>Waking less frequently during the night</li>
+          <li>Feeling calmer before bed</li>
+          <li>Starting the day with less tension already present</li>
+          <li>More recovery, not just more hours in bed</li>
+        </ul>
+      </div>
+      <div class="callout-box">
+        <h3>This is not another sleep hack</h3>
+        <p>
+          If you already know what you “should” do, but still find yourself switched on at night, more advice is probably not what you need. This work is about helping the part of you that stays alert learn a different response.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section cream">
+    <div class="inner">
+      <p class="kicker">Who this is for</p>
+      <h2 class="section-title">A strong fit if you are high-performing, thoughtful, and carrying too much into the night</h2>
+      <p>
+        This page is for professionals who are doing well on paper yet know their system is paying a price. It is for people who carry responsibility seriously, think deeply, and find it difficult to fully step out of problem-solving mode.
+      </p>
+      <p>
+        It can be a particularly strong fit if you work in high-pressure environments, hold a lot of mental responsibility, or tend to be the person others rely on. It can also be relevant if you are emotionally resilient in public, but privately find that your mind never quite stops.
+      </p>
+      <p>
+        It may be less suitable if you are mainly looking for quick sleep tips, generic routines, or a one-size-fits-all script. The value here is in helping your system change the pattern beneath the symptom.
+      </p>
+      <p>
+        The work is also not about becoming someone different. It is about removing what is in the way of recovery, so you can feel more like yourself again: clearer, steadier, and more able to let the day end when it has ended.
+      </p>
+    </div>
+  </section>
+
+  <section id="talk" class="cta-band">
+    <div class="cta-inner">
+      <h2 class="cta-title">Let’s Talk</h2>
+      <p>
+        A focused conversation to understand what is keeping your system active, what better sleep would change for you, and whether this work is the right fit.
+      </p>
+      <a class="btn" href="https://calendly.com/">Book a conversation</a>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="f-top">
+    <div class="f-brand">
+      <a class="f-logo" href="index.html" aria-label="Ignis Leadership home">
+        <img src="images/logo nav bar.png" alt="Ignis Leadership logo">
+      </a>
+      <p class="f-tagline">Where high performance meets inner clarity.</p>
+    </div>
+
+    <div>
+      <div class="f-col-label">Navigate</div>
+      <div class="f-col-links">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="coaching.html">Coaching</a>
+        <a href="hypnotherapy.html">Hypnosis</a>
+      </div>
+    </div>
+
+    <div>
+      <div class="f-col-label">Connect</div>
+      <div class="f-col-links">
+        <a href="tel:+447305642808">+44 730 564 2808</a>
+        <a href="mailto:yorik@ignisleadership.com">yorik@ignisleadership.com</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="f-bottom">
+    <div class="f-bottom-inner">
+      <div class="f-legal-links">
+        <a href="terms-and-conditions.html">Terms &amp; Conditions</a>
+        <a href="privacy-policy.html">Privacy Policy</a>
+        <a href="cookie-policy.html">Cookie Policy</a>
+      </div>
+      <div class="f-copy">© 2026 Ignis Leadership Ltd. All rights reserved.</div>
+    </div>
+  </div>
+</footer>
+
+<script>
+const nav = document.getElementById('nav');
+const burger = document.querySelector('.n-burger');
+const links = document.querySelector('.n-links');
+
+function closeMenu() {
+  if (links.classList.contains('mobile-open')) {
+    links.classList.remove('mobile-open');
+    nav.classList.remove('menu-open-nav');
+  }
+}
+burger?.addEventListener('click', () => {
+  links.classList.toggle('mobile-open');
+  nav.classList.toggle('menu-open-nav');
+});
+window.addEventListener('scroll', () => {
+  if (window.scrollY > 10) nav.classList.add('scrolled');
+  else nav.classList.remove('scrolled');
+  closeMenu();
+});
+document.querySelectorAll('.n-links a').forEach(a => {
+  a.addEventListener('click', closeMenu);
+});
+</script>
+</body>
+</html>
