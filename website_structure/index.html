@@ -285,8 +285,64 @@
       .tcard-quote-text { min-height: 190px; }
     }
     @media (max-width: 620px) {
-      .tcard-person, .tcard-quote-side { min-height: auto; }
-      .tcard-role, .tcard-quote-text { min-height: 0; }
+      .tcard {
+        background: var(--plum) !important;
+        border-radius: 18px;
+        min-height: 0 !important;
+      }
+      .tcard-body {
+        grid-template-columns: 1fr;
+        min-height: 0 !important;
+      }
+      .tcard-person {
+        padding: 28px 24px 18px !important;
+        align-items: center;
+        text-align: center;
+        justify-content: flex-start !important;
+        min-height: 0 !important;
+      }
+      .tcard-photo-ring {
+        width: 72px !important;
+        height: 72px !important;
+        flex: 0 0 72px !important;
+        margin-bottom: 16px !important;
+      }
+      .tcard-name {
+        font-size: 22px;
+        margin-bottom: 8px;
+        min-height: 30px !important;
+      }
+      .tcard-role {
+        font-size: 16px;
+        max-width: 230px;
+        text-align: center;
+        min-height: 72px !important;
+      }
+      .tcard-divider {
+        width: auto;
+        height: 1px;
+        margin: 0 24px !important;
+      }
+      .tcard-quote-side {
+        padding: 20px 24px 24px !important;
+        min-height: 0 !important;
+        align-items: flex-start !important;
+      }
+      .tcard-quote-text {
+        font-size: 17px;
+        line-height: 1.65;
+        min-height: 230px !important;
+      }
+      .tcard-avatars {
+        gap: 14px;
+        padding-top: 14px !important;
+        min-height: 64px !important;
+        align-items: flex-start !important;
+      }
+      .tcard-indicators {
+        margin-top: 18px;
+        min-height: 16px !important;
+      }
     }
 
     @media (max-width: 960px) {
