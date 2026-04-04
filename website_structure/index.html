@@ -244,13 +244,6 @@
     .about-bio-center p { font-size: 1.0625rem; color: rgba(255,255,255,.55); font-weight: 300; line-height: 1.85; transition: opacity .3s; }
     .about-bio-center .bio-cta { margin-top: 24px; }
 
-@media (hover: none){
-  .iam-btn:hover{ color: rgba(255,255,255,.5) !important; }
-  .iam-btn.on:hover{ color: var(--accent-light) !important; }
-  .tsl-av:hover .tsl-av-name{ opacity: inherit; }
-}
-
-
     /* ── SERVICES ── */
     .svc-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2px; background: var(--gray-light); margin-top: 52px; }
     .svc-card { background: var(--white); padding: 48px 44px; cursor: pointer; transition: background .25s, transform .3s, box-shadow .3s; position: relative; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.03); }
@@ -547,82 +540,6 @@
 <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
 
 <link rel="stylesheet" href="assets/shared.css?v=20260404-menu">
-
-<style id="ignis-fixes-20260404">
-  /* 2026-04-04 mobile fixes */
-  .iam-btn {
-    -webkit-tap-highlight-color: transparent;
-    touch-action: manipulation;
-  }
-  .iam-btn:focus,
-  .iam-btn:active {
-    outline: none;
-    color: rgba(255,255,255,.5);
-  }
-  .iam-btn.on,
-  .iam-btn.on:focus,
-  .iam-btn.on:active {
-    color: var(--accent-light);
-  }
-
-  #cal-modal {
-    z-index: 10000 !important;
-    padding: 16px;
-  }
-  #cal-modal.open {
-    overflow-y: auto;
-    -webkit-overflow-scrolling: touch;
-  }
-  .cal-inner {
-    width: min(96vw, 1180px) !important;
-    max-width: 1180px !important;
-    max-height: min(92dvh, 92vh) !important;
-    overflow: hidden !important;
-    display: flex;
-    flex-direction: column;
-  }
-  .cal-body-embed {
-    flex: 1 1 auto;
-    min-height: 0;
-  }
-  .cal-body-embed .calendly-inline-widget {
-    width: 100% !important;
-    min-width: 100% !important;
-    height: min(78dvh, 820px) !important;
-    min-height: 640px;
-  }
-
-  @media (max-width: 760px) {
-    #cal-modal {
-      align-items: flex-start !important;
-      padding: 12px !important;
-    }
-    .cal-inner {
-      width: 100% !important;
-      max-width: 100% !important;
-      height: calc(100dvh - 24px) !important;
-      max-height: calc(100dvh - 24px) !important;
-      border-radius: 16px !important;
-    }
-    .cal-close {
-      top: 12px !important;
-      right: 14px !important;
-      font-size: 1.15rem !important;
-    }
-    .cal-body {
-      padding: 0 !important;
-    }
-    .cal-body-embed {
-      padding: 44px 0 0 !important;
-      height: 100% !important;
-    }
-    .cal-body-embed .calendly-inline-widget {
-      height: calc(100dvh - 84px) !important;
-      min-height: calc(100dvh - 84px) !important;
-    }
-  }
-</style>
-
 </head>
 <body>
 
@@ -1053,18 +970,7 @@
     iamIdx = i;
   }
   if (iamBtns.length) {
-    iamBtns.forEach((btn, i) => {
-      const handleIamSelect = () => {
-        clearInterval(iamTimer);
-        iamBtns.forEach(b => b.blur());
-        setIam(i);
-        btn.blur();
-        if (document.activeElement && document.activeElement.blur) document.activeElement.blur();
-        startIam();
-      };
-      btn.addEventListener('click', handleIamSelect);
-      btn.addEventListener('touchend', () => { setTimeout(() => btn.blur(), 0); }, { passive: true });
-    });
+    iamBtns.forEach((btn, i) => btn.addEventListener('click', () => { clearInterval(iamTimer); setIam(i); startIam(); }));
     function startIam() { clearInterval(iamTimer); iamTimer = setInterval(() => setIam((iamIdx + 1) % iamBtns.length), 3200); }
     startIam();
   }
@@ -1108,6 +1014,20 @@
   const tcard = document.querySelector('.tcard');
   let testimonialIndex = 0;
   let testimonialTimer;
+  let testimonialResumeTimer;
+  let touchStartX = 0;
+  let touchDeltaX = 0;
+  let justHandledTouch = false;
+  const TESTIMONIAL_AUTOPLAY_MS = 7000;
+  const TESTIMONIAL_PAUSE_MS = 20000;
+
+  testimonials.forEach((t) => {
+    if (t.photo) {
+      const img = new Image();
+      img.src = t.photo;
+    }
+  });
+
   function setTestimonial(i){
     testimonialIndex = (i + testimonials.length) % testimonials.length;
     const t = testimonials[testimonialIndex] || testimonials[0];
@@ -1115,40 +1035,63 @@
     if (qRole) qRole.textContent = t.role;
     if (qText) qText.textContent = '“' + t.quote + '”';
     if (qInitials) qInitials.textContent = t.initials || '';
-    if (qPhoto) { qPhoto.src = t.photo; qPhoto.style.opacity = '1'; }
+    if (qPhoto && t.photo) {
+      if (!qPhoto.dataset.currentSrc) qPhoto.dataset.currentSrc = qPhoto.getAttribute('src') || '';
+      if (qPhoto.dataset.currentSrc !== t.photo) {
+        qPhoto.style.opacity = '0';
+        window.setTimeout(() => {
+          qPhoto.src = t.photo;
+          qPhoto.dataset.currentSrc = t.photo;
+          qPhoto.style.opacity = '1';
+        }, 140);
+      } else {
+        qPhoto.style.opacity = '1';
+      }
+    }
     qAvatars.forEach((av, idx) => av.classList.toggle('active', idx === testimonialIndex));
   }
-  let testimonialResumeTimer;
-  function startTestimonials(delay = 3000){
+  function stopTestimonials(){
     clearInterval(testimonialTimer);
     clearTimeout(testimonialResumeTimer);
+  }
+  function startTestimonials(delay = TESTIMONIAL_AUTOPLAY_MS){
+    stopTestimonials();
     testimonialTimer = setInterval(() => setTestimonial(testimonialIndex + 1), delay);
   }
-  function pauseTestimonialsFor(ms = 20000){
+  function pauseTestimonialsFor(ms = TESTIMONIAL_PAUSE_MS){
     clearInterval(testimonialTimer);
     clearTimeout(testimonialResumeTimer);
-    testimonialResumeTimer = setTimeout(() => startTestimonials(3000), ms);
+    testimonialResumeTimer = setTimeout(() => startTestimonials(TESTIMONIAL_AUTOPLAY_MS), ms);
   }
   function setTs(i){
     setTestimonial(i);
-    pauseTestimonialsFor(20000);
+    pauseTestimonialsFor(TESTIMONIAL_PAUSE_MS);
   }
   if (qAvatars.length) {
     qAvatars.forEach((av, idx) => {
       av.style.cursor = 'pointer';
       const selectAvatar = () => {
         setTestimonial(idx);
-        pauseTestimonialsFor(20000);
+        pauseTestimonialsFor(TESTIMONIAL_PAUSE_MS);
         av.blur && av.blur();
       };
-      av.addEventListener('click', selectAvatar);
-      av.addEventListener('touchend', () => { selectAvatar(); }, { passive: true });
+      av.addEventListener('click', (e) => {
+        if (justHandledTouch) {
+          e.preventDefault();
+          justHandledTouch = false;
+          return;
+        }
+        selectAvatar();
+      });
+      av.addEventListener('touchend', () => {
+        justHandledTouch = true;
+        selectAvatar();
+        setTimeout(() => { justHandledTouch = false; }, 350);
+      }, { passive: true });
     });
     if (tcard) {
-      let touchStartX = 0;
-      let touchDeltaX = 0;
       tcard.addEventListener('mouseenter', () => clearInterval(testimonialTimer));
-      tcard.addEventListener('mouseleave', () => startTestimonials(3000));
+      tcard.addEventListener('mouseleave', () => startTestimonials(TESTIMONIAL_AUTOPLAY_MS));
       tcard.addEventListener('touchstart', (e) => {
         clearInterval(testimonialTimer);
         touchStartX = e.changedTouches?.[0]?.clientX || 0;
@@ -1158,16 +1101,35 @@
         const currentX = e.changedTouches?.[0]?.clientX || 0;
         touchDeltaX = currentX - touchStartX;
       }, { passive: true });
-      tcard.addEventListener('click', () => pauseTestimonialsFor(20000));
+      tcard.addEventListener('click', () => {
+        if (justHandledTouch) return;
+        pauseTestimonialsFor(TESTIMONIAL_PAUSE_MS);
+      });
       tcard.addEventListener('touchend', () => {
+        justHandledTouch = true;
         const threshold = 40;
         if (touchDeltaX <= -threshold) {
           setTestimonial(testimonialIndex + 1);
         } else if (touchDeltaX >= threshold) {
           setTestimonial(testimonialIndex - 1);
         }
-        pauseTestimonialsFor(20000);
+        pauseTestimonialsFor(TESTIMONIAL_PAUSE_MS);
+        setTimeout(() => { justHandledTouch = false; }, 350);
       }, { passive: true });
+    }
+    setTestimonial(0);
+    startTestimonials(TESTIMONIAL_AUTOPLAY_MS);
+  }
+  if (qAvatars.length) {
+    qAvatars.forEach((av, idx) => {
+      av.style.cursor = 'pointer';
+      av.addEventListener('click', () => { setTestimonial(idx); startTestimonials(); });
+    });
+    if (tcard) {
+      tcard.addEventListener('mouseenter', () => clearInterval(testimonialTimer));
+      tcard.addEventListener('mouseleave', startTestimonials);
+      tcard.addEventListener('touchstart', () => clearInterval(testimonialTimer), { passive: true });
+      tcard.addEventListener('touchend', startTestimonials, { passive: true });
     }
     setTestimonial(0);
     startTestimonials();
@@ -1200,64 +1162,4 @@ window.addEventListener('resize', () => {
 
 
 <script src="assets/shared.js?v=20260404-menu"></script>
-
-<script id="ignis-calendly-fixes-20260404">
-(function(){
-  const CAL_URL = 'https://calendly.com/yorik-tisseau-tmff/30min';
-  function sizeCalendlyWidget(){
-    const modal = document.getElementById('cal-modal');
-    if(!modal || !modal.classList.contains('open')) return;
-    const widget = modal.querySelector('.calendly-inline-widget');
-    if(!widget) return;
-    if (window.innerWidth <= 760) {
-      const mobileHeight = Math.max(window.innerHeight - 84, 520);
-      widget.style.height = mobileHeight + 'px';
-      widget.style.minHeight = mobileHeight + 'px';
-    } else {
-      const desktopHeight = Math.max(Math.min(window.innerHeight * 0.78, 820), 640);
-      widget.style.height = desktopHeight + 'px';
-      widget.style.minHeight = desktopHeight + 'px';
-    }
-    if (window.Calendly && window.Calendly.initInlineWidget && !widget.dataset.initialized) {
-      widget.innerHTML = '';
-      window.Calendly.initInlineWidget({
-        url: widget.dataset.url || CAL_URL,
-        parentElement: widget
-      });
-      widget.dataset.initialized = 'true';
-    }
-    setTimeout(function(){ window.dispatchEvent(new Event('resize')); }, 60);
-  }
-
-  window.openCal = function(){
-    const isMobile = window.innerWidth <= 960;
-    if (!isMobile && window.Calendly && window.Calendly.initPopupWidget) {
-      window.Calendly.initPopupWidget({ url: CAL_URL });
-      return false;
-    }
-    const modal = document.getElementById('cal-modal');
-    if (!modal) return false;
-    modal.classList.add('open');
-    document.body.style.overflow = 'hidden';
-    requestAnimationFrame(sizeCalendlyWidget);
-    return false;
-  };
-
-  const oldCloseCal = window.closeCal;
-  window.closeCal = function(){
-    if (typeof oldCloseCal === 'function') {
-      oldCloseCal();
-    } else {
-      const modal = document.getElementById('cal-modal');
-      if (modal) modal.classList.remove('open');
-      document.body.style.overflow = '';
-    }
-  };
-
-  window.addEventListener('resize', function(){
-    if (document.getElementById('cal-modal')?.classList.contains('open')) sizeCalendlyWidget();
-  });
-})();
-</script>
-
 </body></html>
