@@ -26,7 +26,7 @@
     <li><a href="hypnotherapy.html" class="${active('hypnosis')}">Hypnosis</a></li>
     <li><a class="n-cta" href="#" onclick="openCal(); return false;">Let’s talk</a></li>
   </ul>
-  <button class="n-burger" id="burger" type="button" aria-label="Toggle menu" onclick="toggleBurger()"><span></span><span></span><span></span></button>
+  <button class="n-burger" id="burger" type="button" aria-label="Toggle menu" aria-expanded="false" onclick="toggleBurger()"><span></span><span></span><span></span></button>
 </nav>`;
   }
 
@@ -105,23 +105,51 @@
     document.body.style.overflow = locked ? 'hidden' : '';
   }
 
+  let menuCloseTimer = null;
+
   function setMenu(open){
     const {links, navBar} = getEls();
+    const burger = document.getElementById('burger');
     if(!links) return;
-    links.classList.toggle('mobile-open', open);
-    if(navBar) navBar.classList.toggle('menu-open-nav', open);
+    if (menuCloseTimer) {
+      clearTimeout(menuCloseTimer);
+      menuCloseTimer = null;
+    }
+
+    if(open){
+      links.classList.remove('mobile-closing');
+      links.classList.add('mobile-open');
+      if(navBar) navBar.classList.add('menu-open-nav');
+      if (burger) burger.setAttribute('aria-expanded', 'true');
+      requestAnimationFrame(function(){
+        links.classList.add('is-visible');
+      });
+      syncBodyLock();
+      return;
+    }
+
+    links.classList.remove('is-visible');
+    links.classList.remove('mobile-open');
+    links.classList.add('mobile-closing');
+    if(navBar) navBar.classList.remove('menu-open-nav');
+    if (burger) burger.setAttribute('aria-expanded', 'false');
     syncBodyLock();
+    menuCloseTimer = setTimeout(function(){
+      links.classList.remove('mobile-closing');
+      syncBodyLock();
+    }, 320);
   }
 
   window.closeBurger = function(){
     const {links} = getEls();
-    if(links && links.classList.contains('mobile-open')) setMenu(false);
+    if(links && (links.classList.contains('mobile-open') || links.classList.contains('mobile-closing'))) setMenu(false);
   };
 
   window.toggleBurger = function(){
     const {links} = getEls();
     if(!links) return;
-    setMenu(!links.classList.contains('mobile-open'));
+    const isOpen = links.classList.contains('mobile-open') || links.classList.contains('mobile-closing');
+    setMenu(!isOpen);
   };
 
   window.openCal = function(){
