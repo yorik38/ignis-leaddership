@@ -240,8 +240,8 @@
     .about-photo-stack img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 20%; transition: opacity .6s ease; }
     .about-photo-stack img.hidden { opacity: 0; }
     .about-photo-stack img.visible { opacity: 1; }
-    .about-bio-center { text-align: center; max-width: 680px; margin: 0 auto; padding: 32px var(--px) var(--sp); }
-    .about-bio-center p { font-size: 1.0625rem; color: rgba(255,255,255,.55); font-weight: 300; line-height: 1.85; transition: opacity .3s; }
+    .about-bio-center { text-align: center; max-width: 680px; margin: 0 auto; padding: 32px var(--px) var(--sp); min-height: 260px; display: flex; flex-direction: column; justify-content: flex-start; }
+    .about-bio-center p { font-size: 1.0625rem; color: rgba(255,255,255,.55); font-weight: 300; line-height: 1.85; transition: opacity .3s; min-height: 170px; }
     .about-bio-center .bio-cta { margin-top: 24px; }
 
     /* ── SERVICES ── */
@@ -276,6 +276,10 @@
     .tcard-quote-side { min-height: 500px; }
     .tcard-quote-text { min-height: 220px; }
     @media (max-width: 960px) {
+
+      .about-bio-center { min-height: 0; }
+      .about-bio-center p { min-height: 0; }
+
       .tcard-person { min-height: 440px; }
       .tcard-quote-side { min-height: 440px; }
       .tcard-quote-text { min-height: 190px; }
@@ -986,7 +990,7 @@
   }
   if (iamBtns.length) {
     iamBtns.forEach((btn, i) => btn.addEventListener('click', () => { clearInterval(iamTimer); setIam(i); startIam(); }));
-    function startIam() { clearInterval(iamTimer); iamTimer = setInterval(() => setIam((iamIdx + 1) % iamBtns.length), 3200); }
+    function startIam() { clearInterval(iamTimer); iamTimer = setInterval(() => setIam((iamIdx + 1) % iamBtns.length), 5000); }
     startIam();
   }
 

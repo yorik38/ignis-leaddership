@@ -1,127 +1,84 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Hypnotherapy in Manchester | Calm Under Pressure | Ignis Leadership</title>
-<meta name="description" content="Hypnotherapy in Manchester for high-performing professionals. Resolve anxiety, sleep issues, and pressure—without traveling to London.">
-<link rel="canonical" href="https://ignisleadership.com/hypnotherapy-manchester">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-<style>
-:root{
-  --accent:#C4476C;
-  --accent-h:#A8325A;
-  --dark:#1F2330;
-  --cream:#F6F2EC;
-  --white:#FFFFFF;
-  --gray:#6C6C78;
-  --fd:'Bebas Neue',sans-serif;
-  --fb:'Inter',-apple-system,sans-serif;
-  --mw:1160px;
-  --px:clamp(24px,5vw,80px);
-}
-*{box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{margin:0;font-family:var(--fb);color:var(--dark);background:#fff;line-height:1.72;-webkit-font-smoothing:antialiased}
-img{display:block;max-width:100%}
-.container{max-width:var(--mw);margin:0 auto;padding:0 var(--px)}
-.hero{background:linear-gradient(135deg,var(--dark) 0%,#262D3C 100%);color:#fff;padding:clamp(80px,10vw,140px) var(--px);min-height:60vh;display:flex;align-items:center}
-.hero-content{max-width:800px}
-.hero h1{font-family:var(--fd);font-size:clamp(42px,6vw,72px);line-height:1.1;margin-bottom:24px}
-.hero p{font-size:1.375rem;line-height:1.6;margin-bottom:32px;color:rgba(255,255,255,.8);font-weight:300}
-.section{padding:clamp(60px,8vw,100px) var(--px)}
-.section h2{font-family:var(--fd);font-size:clamp(32px,4vw,48px);margin-bottom:32px}
-.section h3{font-family:var(--fd);font-size:clamp(22px,2.5vw,32px);margin:48px 0 20px}
-.body-text{font-size:1.125rem;line-height:1.8;color:var(--gray);margin-bottom:24px}
-.dark{background:var(--dark);color:#fff}
-.dark p{color:#d2d7e1;font-size:1.125rem;line-height:1.8}
-.accent{color:var(--accent)}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hypnotherapy in Manchester | Calm Under Pressure | Ignis Leadership</title>
+  <meta name="description" content="Hypnotherapy in Manchester for high-performing professionals. Anxiety, sleep, and pressure relief—locally and online.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    :root { --accent: #C4476C; --accent-h: #A8325A; --dark: #1F2330; --dark-2: #262D3C; --off-white: #F6F2EC; --gray-text: #6C6C78; --gray-light: #E0DFE8; --fd: 'Bebas Neue', sans-serif; --fb: 'Inter', -apple-system, sans-serif; --mw: 1160px; --px: clamp(24px, 5vw, 80px); }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--fb); background: #fff; color: var(--dark); font-size: 16px; line-height: 1.6; }
+    .container { max-width: var(--mw); margin: 0 auto; padding: 0 var(--px); }
+    .hero { background: linear-gradient(135deg, var(--dark) 0%, var(--dark-2) 100%); color: #fff; padding: clamp(80px, 10vw, 140px) var(--px); }
+    .hero h1 { font-family: var(--fd); font-size: clamp(42px, 6vw, 72px); font-weight: 400; line-height: 1.1; margin-bottom: 24px; }
+    .hero-subtitle { font-size: 1.375rem; color: rgba(255,255,255,.8); margin-bottom: 32px; font-weight: 300; }
+    .cta-primary { display: inline-block; background: var(--accent); color: #fff; padding: 16px 40px; border-radius: 8px; text-decoration: none; font-weight: 500; letter-spacing: .08em; text-transform: uppercase; font-size: .8rem; }
+    .cta-primary:hover { background: var(--accent-h); transform: translateY(-2px); }
+    .content-block { padding: clamp(60px, 8vw, 100px) var(--px); }
+    .content-block h2 { font-family: var(--fd); font-size: clamp(32px, 4vw, 48px); margin-bottom: 32px; }
+    .content-block h3 { font-family: var(--fd); font-size: clamp(22px, 2.5vw, 32px); margin-top: 48px; margin-bottom: 20px; }
+    .body-text { font-size: 1.125rem; line-height: 1.8; color: var(--gray-text); margin-bottom: 24px; }
+    .problem-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; margin: 48px 0; }
+    .problem-card { background: var(--off-white); padding: 32px; border-radius: 12px; border-left: 4px solid var(--accent); }
+    .problem-card h4 { font-family: var(--fd); font-size: 1.375rem; margin-bottom: 12px; }
+    .problem-card p { font-size: .95rem; color: var(--gray-text); }
+    .solution-item { margin: 48px 0; padding: 32px 0; border-bottom: 1px solid var(--gray-light); }
+    .solution-item h4 { font-family: var(--fd); font-size: 1.375rem; margin-bottom: 16px; }
+    .faq-item { margin: 32px 0; padding: 24px; background: var(--gray-light); border-radius: 8px; }
+    .faq-q { font-weight: 600; font-size: 1.125rem; cursor: pointer; }
+    .faq-a { margin-top: 16px; display: none; font-size: 1rem; color: var(--gray-text); }
+    .faq-item.open .faq-a { display: block; }
+    .benefits { list-style: none; margin: 32px 0; }
+    .benefits li { padding: 16px 0 16px 40px; position: relative; font-size: 1.125rem; }
+    .benefits li:before { content: "✓"; position: absolute; left: 0; color: var(--accent); font-weight: bold; }
+  </style>
 </head>
 <body>
-
 <div class="hero">
-  <div class="hero-content">
+  <div class="container">
     <h1>Hypnotherapy in Manchester</h1>
-    <p>Anxiety that won't quiet. Sleep that doesn't come. Pressure that won't release. Professional hypnotherapy for Manchester's high-performers—available locally and online across the UK.</p>
+    <p class="hero-subtitle">Anxiety that won't quiet. Sleep that doesn't come. Pressure that won't release. Professional hypnotherapy for Manchester's high-performers.</p>
+    <a href="#booking" class="cta-primary">Book Your Free Consultation</a>
   </div>
 </div>
-
-<div class="section container">
-  <h2>Hypnotherapy for Manchester High-Performers</h2>
-  <p class="body-text">
-    Manchester has a high concentration of ambitious, successful professionals. Finance, tech, engineering, consulting—the city attracts people with high standards and competitive drive. The advantage is obvious: you surround yourself with excellence. The disadvantage is less discussed: everyone around you is struggling with the same pressures, but nobody's talking about it.
-  </p>
-  <p class="body-text">
-    You come to Manchester to build something. To compete. To excel. But high performance comes at a cost, and for many Manchester professionals, that cost shows up as anxiety, sleep disruption, or an inability to switch off. The nervous system patterns you've built to succeed are now working against your wellbeing.
-  </p>
-
-  <h3>Why Manchester Professionals Choose Hypnotherapy</h3>
-  <p class="body-text">
-    Manchester professionals are pragmatic. You don't want therapy that requires endless talking about your past. You don't want frameworks and worksheets. You want results. Hypnotherapy is results-oriented and efficient—typically requiring 8-12 sessions before significant change emerges. For busy professionals, that's attractive.
-  </p>
-  <p class="body-text">
-    More importantly, hypnotherapy works differently than talk-based approaches. It accesses the part of your nervous system that controls your automatic responses. Instead of analyzing the pattern, hypnotherapy changes it at the source. Your nervous system learns a different way of responding. The change becomes automatic.
-  </p>
-
-  <h3>The Common Issues Manchester Hypnotherapy Addresses</h3>
-  <p class="body-text">
-    <strong>Sleep disruption from pressure</strong> – You lie awake replaying work conversations, planning tomorrow, or running scenarios. Your mind won't quiet. Sleep becomes effortful instead of natural.
-  </p>
-  <p class="body-text">
-    <strong>Persistent anxiety</strong> – A background anxiety that never fully resolves. You're competent, yet you're constantly braced for what could go wrong.
-  </p>
-  <p class="body-text">
-    <strong>Decision paralysis</strong> – You see every angle. Every potential consequence. Making decisions with incomplete information feels irresponsible, so you delay or over-analyze.
-  </p>
-  <p class="body-text">
-    <strong>Pressure accumulation</strong> – The pressure from work doesn't switch off at home. You're always mentally at the office. Recovery feels impossible.
-  </p>
-  <p class="body-text">
-    <strong>Difficulty with visibility</strong> – Performance anxiety in presentations or high-stakes conversations. Your knowledge disappears when you need it most.
-  </p>
-
-  <h3>Local Manchester vs. Online: You Choose</h3>
-  <p class="body-text">
-    Hypnotherapy sessions can be done locally in Manchester or online via secure video call. Many clients prefer online—it eliminates travel time and you can do the session from wherever you're comfortable. What matters is the quality of the work, not the physical location.
-  </p>
-  <p class="body-text">
-    The nervous system responds the same way whether you're in an office or on a video call. The trance state—the receptive state where hypnotherapy does its work—happens just as naturally online. You choose whatever works best for your schedule.
-  </p>
-
-  <h3>What to Expect from Hypnotherapy Sessions</h3>
-  <p class="body-text">
-    <strong>Session 1:</strong> We discuss what's happening and build a picture of your specific patterns. No judgment. No pathologizing. Just understanding how your nervous system is currently operating.
-  </p>
-  <p class="body-text">
-    <strong>Sessions 2-5:</strong> The work deepens. You'll go into guided trance states where your nervous system becomes more receptive. Suggestions and imagery help your system learn new responses to the situations that currently trigger stress.
-  </p>
-  <p class="body-text">
-    <strong>Sessions 6-8:</strong> You'll notice changes. Sleep improves. Anxiety becomes less constant. Situations that normally triggered stress feel more manageable. Your baseline shifts.
-  </p>
-  <p class="body-text">
-    <strong>Sessions 9-12:</strong> The new patterns solidify. The change becomes your baseline. You've essentially rewired your nervous system's response to pressure.
-  </p>
-
-  <h3>Why This Matters for Your Career</h3>
-  <p class="body-text">
-    Better sleep means better decision-making. A calmer nervous system means you can think strategically instead of reactively. Less anxiety means you can take on bigger challenges without it derailing you. Recovery means you have the capacity to perform at the level your ambition demands—sustainably.
-  </p>
-  <p class="body-text">
-    This isn't about lowering your standards or becoming less ambitious. It's about removing the interference so your natural capabilities can show up fully. High performance is sustainable when your nervous system isn't constantly braced for threat.
-  </p>
-
-</div>
-
-<div class="dark">
-  <div class="section container">
-    <h2 style="color:#fff;margin-bottom:32px">Ready to Work with a Manchester Hypnotherapist?</h2>
-    <p>Book a free consultation to discuss what's happening in your nervous system and whether hypnotherapy is the right fit.</p>
-    <button style="background:var(--accent);color:#fff;padding:16px 40px;border:none;border-radius:8px;cursor:pointer;font-size:.8rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;margin-top:16px">Schedule a Call</button>
+<div class="content-block">
+  <div class="container">
+    <h2>Hypnotherapy for Manchester High-Performers</h2>
+    <p class="body-text">Manchester attracts ambitious professionals. Finance, tech, engineering, consulting—all centered here. The advantage is obvious: you surround yourself with excellence. The disadvantage is less discussed: everyone is struggling with the same pressures, but nobody's talking about it.</p>
+    <p class="body-text">High performance comes at a cost. For many Manchester professionals, that cost shows up as anxiety, sleep disruption, or an inability to switch off.</p>
+    <div class="problem-cards">
+      <div class="problem-card"><h4>Sleep Disruption</h4><p>You lie awake replaying conversations or planning tomorrow. Your mind won't quiet.</p></div>
+      <div class="problem-card"><h4>Persistent Anxiety</h4><p>A background anxiety that never fully resolves. You're competent, yet constantly braced.</p></div>
+      <div class="problem-card"><h4>Decision Paralysis</h4><p>You see every angle. Making decisions with incomplete information feels irresponsible.</p></div>
+      <div class="problem-card"><h4>Pressure Accumulation</h4><p>Pressure from work doesn't switch off at home. Recovery feels impossible.</p></div>
+    </div>
+    <h3>Why Manchester Professionals Choose Hypnotherapy</h3>
+    <p class="body-text">Manchester professionals are pragmatic. You don't want therapy that requires endless talking. You want results. Hypnotherapy is results-oriented and efficient—typically requiring 8-12 sessions before significant change emerges.</p>
+    <h3>Local Manchester or Online</h3>
+    <p class="body-text">Sessions can be done locally in Manchester or online via secure video. Many clients prefer online—it eliminates travel time. What matters is the quality of the work, not the physical location.</p>
+    <div class="solution-item"><h4>1. Understand Your Pattern</h4><p>We discuss your specific nervous system response and what's keeping it activated.</p></div>
+    <div class="solution-item"><h4>2. Access the Nervous System</h4><p>Hypnotherapy reaches the level where automatic patterns live—below conscious awareness.</p></div>
+    <div class="solution-item"><h4>3. Install New Responses</h4><p>Your nervous system learns to downshift when the work is done. Sleep becomes natural.</p></div>
+    <h2>Frequently Asked Questions</h2>
+    <div class="faq-item"><div class="faq-q">Is hypnotherapy safe?</div><div class="faq-a">Yes. Hypnotherapy is recognized by major health organizations as safe and effective for sleep, anxiety, and stress.</div></div>
+    <div class="faq-item"><div class="faq-q">Will I be under someone's control?</div><div class="faq-a">No. You're aware throughout. You can hear, think, and stop anytime. Most describe it as deeply relaxed but conscious.</div></div>
+    <div class="faq-item"><div class="faq-q">How many sessions do I need?</div><div class="faq-a">Most see improvement within 4-6 sessions. Some need 8-10 depending on the pattern's depth.</div></div>
+    <h3>Ready to Work with a Manchester Hypnotherapist?</h3>
+    <p class="body-text">Free consultation to discuss what's happening in your nervous system and whether hypnotherapy is the right fit.</p>
   </div>
 </div>
-
+<div style="background: var(--dark); color: #fff; padding: clamp(60px, 8vw, 100px) var(--px); text-align: center;">
+  <div class="container">
+    <h2 style="color: #fff; margin-bottom: 32px;">Reclaim Your Sleep and Calm</h2>
+    <p style="color: rgba(255,255,255,.8); max-width: 600px; margin: 0 auto 32px; font-size: 1.125rem;">Free consultation. Let's discuss what's possible for you.</p>
+    <a href="#booking" class="cta-primary">Book Your Free Consultation</a>
+  </div>
+</div>
+<script>document.querySelectorAll('.faq-q').forEach(q => q.addEventListener('click', function() { this.closest('.faq-item').classList.toggle('open'); }));</script>
 </body>
 </html>
