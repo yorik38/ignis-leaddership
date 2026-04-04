@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hypnotherapy in Manchester | Anxiety, Sleep & Pressure Relief | Ignis Leadership</title>
+<meta name="description" content="Hypnotherapy in Manchester for high-performing professionals. Clinical hypnotherapy for anxiety, sleep issues, and nervous system pressure. Local therapy or online.">
+<link rel="canonical" href="https://ignisleadership.com/hypnotherapy-manchester">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://ignisleadership.com/hypnotherapy-manchester">
+<meta property="og:title" content="Hypnotherapy in Manchester | Anxiety, Sleep & Pressure Relief">
+<meta property="og:description" content="Clinical hypnotherapy in Manchester for high-performing professionals managing anxiety, sleep, and pressure.">
+<meta property="og:image" content="https://ignisleadership.com/images/_DSC1754.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --accent:#C4476C;
+  --accent-h:#A8325A;
+  --accent-light:#E0789A;
+  --dark:#1F2330;
+  --cream:#F6F2EC;
+  --white:#FFFFFF;
+  --gray:#6C6C78;
+  --muted:#8F96A3;
+  --fd:'Bebas Neue',sans-serif;
+  --fb:'Inter',-apple-system,sans-serif;
+  --mw:1160px;
+  --px:clamp(24px,5vw,80px);
+  --nav-h:76px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:var(--fb);color:var(--dark);background:#fff;line-height:1.72;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img{display:block;max-width:100%}
+a{text-decoration:none;color:var(--accent)}
+a:hover{text-decoration:underline}
+button{font-family:var(--fb)}
+h1,h2,h3,h4{margin:0;font-family:var(--fd);letter-spacing:.04em;font-weight:400}
+p{margin:0 0 18px;color:var(--gray);font-weight:300;font-size:1.04rem}
+ul{margin:0;padding:0;list-style:none}
+
+#nav{
+  position:fixed;top:0;left:0;right:0;z-index:1000;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:14px var(--px);min-height:var(--nav-h);
+  transition:background .35s ease, box-shadow .35s ease, backdrop-filter .35s ease;
+}
+#nav.scrolled{
+  background:rgba(255,255,255,.98);
+  backdrop-filter:blur(16px);
+  box-shadow:0 4px 24px rgba(0,0,0,.08);
+}
+#nav.menu-open-nav{background:#000;box-shadow:none}
+.n-logo img{
+  height:48px;width:auto;
+  filter:invert(1) brightness(2);
+  transition:filter .3s ease;
+}
+#nav.scrolled .n-logo img{filter:none}
+.n-links{display:flex;align-items:center;gap:28px}
+.n-links a{
+  font-size:.75rem;letter-spacing:.08em;text-transform:uppercase;
+  color:rgba(255,255,255,.88);
+}
+#nav.scrolled .n-links a{color:#333}
+.n-cta{
+  display:inline-flex;align-items:center;justify-content:center;
+  min-height:44px;padding:0 28px;border-radius:6px;
+  background:var(--accent);color:#fff !important;
+  font-size:.75rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;
+}
+.n-burger{
+  display:none;width:28px;height:22px;position:relative;
+  background:none;border:none;cursor:pointer;z-index:1001;
+}
+.n-burger span{
+  position:absolute;left:0;width:100%;height:2px;background:#fff;transition:.3s ease;
+}
+.n-burger span:nth-child(1){top:0}
+.n-burger span:nth-child(2){top:10px}
+.n-burger span:nth-child(3){bottom:0}
+#nav.scrolled .n-burger span{background:var(--dark)}
+#nav.menu-open-nav .n-burger span:nth-child(1){transform:rotate(45deg);top:10px;background:#fff}
+#nav.menu-open-nav .n-burger span:nth-child(2){opacity:0}
+#nav.menu-open-nav .n-burger span:nth-child(3){transform:rotate(-45deg);bottom:10px;background:#fff}
+
+.hero{
+  min-height:100vh;
+  background:
+    linear-gradient(to bottom, rgba(20,18,30,.18) 0%, rgba(20,18,30,.55) 45%, rgba(20,18,30,.92) 80%, rgba(20,18,30,1) 100%),
+    url("images/_DSC1754.jpg") center 30% / cover no-repeat;
+  background-color:var(--dark);
+  display:flex;align-items:flex-end;
+  padding:calc(var(--nav-h) + 60px) var(--px) clamp(56px,7vw,96px);
+  position:relative;overflow:hidden;
+}
+.hero::before{
+  content:"";position:absolute;inset:0;
+  background:radial-gradient(ellipse at 15% 65%, rgba(196,71,108,.15) 0%, transparent 50%);
+  pointer-events:none;
+}
+.hero-inner{position:relative;z-index:1;max-width:var(--mw);margin:0 auto;width:100%}
+.eyebrow{
+  font-size:.68rem;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--accent-light);margin-bottom:12px;font-weight:500
+}
+.hero-title{font-size:clamp(54px,8vw,108px);line-height:.92;color:#fff;max-width:860px}
+.hero-sub{
+  max-width:760px;
+  font-size:clamp(18px,1.7vw,22px);
+  color:rgba(255,255,255,.72);
+  margin-top:18px
+}
+.hero-actions{display:flex;gap:16px;flex-wrap:wrap;margin-top:32px;}
+.hero-actions .btn{animation:none;box-shadow:none;}
+.hero-mobile-img{
+  display:none;width:100%;border-radius:18px;margin:26px 0 0;
+  object-fit:cover;aspect-ratio:4/3;
+  box-shadow:0 10px 30px rgba(0,0,0,.35);
+  border:1px solid rgba(255,255,255,.08);
+}
+
+.section{padding:96px var(--px)}
+.problem{background:var(--cream)}
+.dark{background:var(--dark)}
+.white{background:var(--white)}
+.inner{max-width:var(--mw);margin:0 auto}
+.text-wide{max-width:960px}
+.section-title{font-size:clamp(38px,5vw,62px);line-height:1.02;margin-bottom:18px;color:var(--dark)}
+.dark .section-title{color:#fff}
+.kicker{
+  font-size:.68rem;letter-spacing:.20em;text-transform:uppercase;
+  color:var(--accent);margin-bottom:14px;font-weight:500
+}
+.dark p{color:#d2d7e1}
+
+.btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-height:48px;
+  padding:0 32px;
+  border-radius:8px;
+  background:var(--accent);
+  color:#fff;
+  font-size:.8rem;
+  font-weight:600;
+  letter-spacing:.1em;
+  text-transform:uppercase;
+  border:none;
+  cursor:pointer;
+  transition:background .2s, transform .2s;
+}
+.btn:hover{
+  background:var(--accent-h);
+  transform:translateY(-2px);
+}
+
+.cards{
+  display:grid;
+  grid-template-columns:repeat(auto-fit, minmax(320px, 1fr));
+  gap:24px;
+  margin:48px 0;
+}
+.card{
+  background:var(--white);
+  border:1px solid #E0DFE8;
+  border-radius:12px;
+  padding:32px;
+  transition:box-shadow .3s, transform .3s;
+}
+.card:hover{
+  box-shadow:0 12px 36px rgba(0,0,0,.08);
+  transform:translateY(-4px);
+}
+.card h3{font-size:1.375rem;margin-bottom:14px;color:var(--dark)}
+.card p{font-size:.95rem;line-height:1.7}
+
+.benefits-list{
+  list-style:none;
+  margin:32px 0;
+}
+.benefits-list li{
+  padding:16px 0 16px 40px;
+  position:relative;
+  font-size:1.04rem;
+  color:var(--gray);
+}
+.benefits-list li:before{
+  content:"✓";
+  position:absolute;
+  left:0;
+  color:var(--accent);
+  font-weight:bold;
+  font-size:1.2rem;
+}
+
+.faq-container{
+  max-width:860px;
+  margin:48px 0;
+}
+.faq-item{
+  border-bottom:1px solid #E0DFE8;
+  padding:24px 0;
+  cursor:pointer;
+}
+.faq-item:last-child{border-bottom:none}
+.faq-question{
+  font-size:1.1rem;
+  font-weight:600;
+  color:var(--dark);
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+.faq-toggle{
+  font-size:1.4rem;
+  color:var(--accent);
+  transition:transform .3s ease;
+}
+.faq-item.open .faq-toggle{
+  transform:rotate(180deg);
+}
+.faq-answer{
+  display:none;
+  margin-top:16px;
+  color:var(--gray);
+  font-size:1rem;
+  line-height:1.8;
+}
+.faq-item.open .faq-answer{
+  display:block;
+}
+
+footer{
+  background:var(--dark);
+  color:#fff;
+  padding:64px var(--px) 40px;
+  font-size:.9rem;
+}
+footer .inner{
+  display:grid;
+  grid-template-columns:repeat(auto-fit, minmax(240px, 1fr));
+  gap:40px;
+  max-width:var(--mw);
+  margin:0 auto;
+}
+footer h4{color:#fff;margin-bottom:16px}
+footer a{color:var(--muted);transition:color .2s}
+footer a:hover{color:#fff}
+footer .bottom{
+  grid-column:1/-1;
+  border-top:1px solid rgba(255,255,255,.1);
+  padding-top:32px;
+  margin-top:32px;
+  text-align:center;
+  color:var(--muted);
+}
+
+@media (max-width:960px){
+  .n-links{display:none}
+  .n-burger{display:block}
+  .n-links.mobile-open{
+    display:flex;
+    flex-direction:column;
+    position:fixed;
+    inset:0;
+    min-height:100vh;
+    background:#000;
+    padding:104px 28px 96px;
+    gap:28px;
+    z-index:999;
+    align-items:flex-start;
+    justify-content:flex-start;
+    overflow-y:auto;
+  }
+  .n-links.mobile-open a{
+    width:100%;
+    text-align:left;
+    font-size:1.2rem;
+    color:rgba(255,255,255,.78)
+  }
+  .n-links.mobile-open .n-cta{
+    width:100%;
+    max-width:320px;
+    margin:0 auto;
+    margin-top:auto;
+    justify-content:center
+  }
+  .hero{
+    min-height:auto;
+    background:#000 !important;
+    padding-top:calc(var(--nav-h) + 40px);
+    display:flex;
+    flex-direction:column;
+    align-items:stretch;
+  }
+  .hero::before{display:none}
+  .hero-inner{display:flex;flex-direction:column;align-items:stretch}
+  .hero-mobile-img{
+    display:block;
+    order:1;
+    margin-bottom:32px;
+  }
+  .hero-actions{
+    order:2;
+    flex-direction:column;
+    align-items:stretch;
+    margin-top:0;
+  }
+  .hero-actions .btn{
+    width:100%;
+    justify-content:center;
+  }
+  .section{padding:80px var(--px)}
+  .cards{
+    grid-template-columns:1fr;
+  }
+}
+</style>
+
+<link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
+</head>
+<body data-page="hypnosis">
+<nav id="nav">
+  <a class="n-logo" href="index.html"><img src="images/logo nav bar.png" alt="Ignis Leadership"></a>
+  <ul class="n-links" id="n-links">
+    <li><a href="index.html" data-page="home">Home</a></li>
+    <li><a href="about.html" data-page="about">About</a></li>
+    <li><a href="coaching.html" data-page="coaching">Coaching</a></li>
+    <li><a href="hypnotherapy.html" data-page="hypnosis">Hypnosis</a></li>
+    <li><a class="n-cta" href="#" onclick="openCal(); return false;">Let's talk</a></li>
+  </ul>
+  <div class="n-burger" id="burger" onclick="toggleBurger()"><span></span><span></span><span></span></div>
+</nav>
+
+<main>
+  <section class="hero">
+    <div class="hero-inner">
+      <p class="eyebrow">Hypnotherapy in Manchester</p>
+      <h1 class="hero-title">Calm Clarity Under Pressure</h1>
+      <p class="hero-sub">
+        Clinical hypnotherapy in Manchester for high-performing professionals. Reduce anxiety, improve sleep, and release nervous system pressure—locally or online.
+      </p>
+      <div class="hero-actions">
+        <button class="btn" type="button" onclick="openCal()">Book a conversation</button>
+      </div>
+      <img class="hero-mobile-img" src="images/_DSC1754.jpg" alt="Calm, soft visual for hypnotherapy and anxiety relief">
+    </div>
+  </section>
+
+  <section class="section problem">
+    <div class="inner text-wide">
+      <p class="kicker">The Challenge</p>
+      <h2 class="section-title">Pressure Runs Deep</h2>
+      <p>You're high-performing. You deliver. You solve problems. But your nervous system has adapted to pressure so completely that it's difficult to switch off. Your mind keeps working when your body needs rest. You anticipate problems. You replay conversations. You feel alert even when you should feel calm.</p>
+      <p>Anxiety doesn't always look like panic. It can look like perfectionism, over-preparation, difficulty sleeping, or a constant low-level alertness. For professionals like you, the performance systems that helped you succeed have become patterns that make it hard to find rest.</p>
+    </div>
+  </section>
+
+  <section class="section white">
+    <div class="inner">
+      <p class="kicker">How Hypnotherapy Works</p>
+      <h2 class="section-title">Recalibrate Your System</h2>
+      <p class="text-wide" style="margin-bottom: 32px;">Hypnotherapy isn't about putting you into some dreamlike state where you lose control. It's about accessing the part of your mind that runs your automatic patterns—and gently updating those patterns so your nervous system can recognize when it's safe to be calm.</p>
+
+      <div class="cards">
+        <div class="card">
+          <h3>Nervous System Awareness</h3>
+          <p>We identify the specific patterns keeping you in a state of activation—even when there's no actual threat. This awareness is the first step toward change.</p>
+        </div>
+        <div class="card">
+          <h3>Targeted Hypnotic Work</h3>
+          <p>In a focused, relaxed state, we access your unconscious mind and introduce new patterns that align with calm, safety, and rest. This works with your brain's natural learning mechanisms.</p>
+        </div>
+        <div class="card">
+          <h3>Integration & Practice</h3>
+          <p>You learn tools to reinforce these new patterns in daily life. Most clients notice shifts within 2-4 sessions as their system begins to recognize and respond to safety.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section dark">
+    <div class="inner text-wide">
+      <p class="kicker">What You'll Experience</p>
+      <h2 class="section-title">The Path to Calm</h2>
+      <ul class="benefits-list">
+        <li>Easier transition into sleep and deeper, more restorative rest</li>
+        <li>Reduced anxiety and a genuine sense of safety in your own body</li>
+        <li>Mental clarity without the constant background hum of worry</li>
+        <li>The ability to switch off work mode and actually rest</li>
+        <li>Improved focus and better decision-making from a calm baseline</li>
+        <li>Freedom from the patterns that no amount of willpower alone could shift</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="section white">
+    <div class="inner">
+      <p class="kicker">Questions Answered</p>
+      <h2 class="section-title">Common Concerns</h2>
+
+      <div class="faq-container">
+        <div class="faq-item">
+          <div class="faq-question" onclick="this.parentElement.classList.toggle('open')">
+            <span>Is hypnotherapy legitimate?</span>
+            <span class="faq-toggle">↓</span>
+          </div>
+          <div class="faq-answer">
+            <p>Yes. Hypnotherapy is increasingly supported by neuroscience research. It works with your brain's natural ability to learn and update patterns. Many high-performing professionals use hypnotherapy because it's evidence-based and produces measurable results.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question" onclick="this.parentElement.classList.toggle('open')">
+            <span>Will I lose control or reveal secrets?</span>
+            <span class="faq-toggle">↓</span>
+          </div>
+          <div class="faq-answer">
+            <p>No. You remain in full control throughout. Hypnotherapy isn't a truth serum. You're aware of everything that happens. You can't be made to do anything against your values or will. Think of it as a deeply focused conversation where you're more open to suggestion.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question" onclick="this.parentElement.classList.toggle('open')">
+            <span>How many sessions do I need?</span>
+            <span class="faq-toggle">↓</span>
+          </div>
+          <div class="faq-answer">
+            <p>This varies. Some clients experience significant shifts in 3-5 sessions. Others prefer ongoing support. We assess your specific patterns during our initial conversation and create a plan that fits your needs and timeline.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question" onclick="this.parentElement.classList.toggle('open')">
+            <span>Can I do sessions online?</span>
+            <span class="faq-toggle">↓</span>
+          </div>
+          <div class="faq-answer">
+            <p>Yes. Online hypnotherapy is just as effective as in-person sessions. We use secure, professional video platforms. Many clients prefer the comfort and convenience of working from home or office.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question" onclick="this.parentElement.classList.toggle('open')">
+            <span>What if I've tried therapy before without results?</span>
+            <span class="faq-toggle">↓</span>
+          </div>
+          <div class="faq-answer">
+            <p>Hypnotherapy works differently than traditional talk therapy. It accesses the part of your mind that runs automatic patterns—the part that conscious willpower alone can't reach. Many high-performers find success with hypnotherapy after other approaches haven't moved the needle.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section problem">
+    <div class="inner text-wide">
+      <p class="kicker">Ready to Begin</p>
+      <h2 class="section-title">A Free Conversation First</h2>
+      <p>Every journey starts with understanding. Book a free 15-minute conversation. We'll talk about what's been happening, what you've already tried, and whether hypnotherapy is the right fit for you. No pressure. No sales pitch. Just clarity.</p>
+      <button class="btn" onclick="openCal()" style="margin-top: 28px;">Schedule Your Free Call</button>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="inner">
+    <div>
+      <h4>Ignis Leadership</h4>
+      <p>Clinical hypnotherapy and executive coaching for high-performing professionals.</p>
+    </div>
+    <div>
+      <h4>Services</h4>
+      <ul style="gap: 12px; display: flex; flex-direction: column;">
+        <li><a href="hypnotherapy-manchester.html">Hypnotherapy</a></li>
+        <li><a href="coaching.html">Executive Coaching</a></li>
+        <li><a href="about.html">About Us</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Contact</h4>
+      <p>Email: <a href="mailto:hello@ignisleadership.com">hello@ignisleadership.com</a></p>
+      <p>Based in Manchester | Serving globally online</p>
+    </div>
+  </div>
+  <div class="bottom">
+    <p>&copy; 2024 Ignis Leadership. All rights reserved.</p>
+  </div>
+</footer>
+
+<script>
+  function toggleBurger() {
+    const links = document.getElementById('n-links');
+    const nav = document.getElementById('nav');
+    if (!links) return;
+    const isOpen = links.classList.contains('mobile-open');
+    links.classList.toggle('mobile-open', !isOpen);
+    nav.classList.toggle('menu-open-nav', !isOpen);
+    document.body.style.overflow = !isOpen ? 'hidden' : '';
+  }
+
+  const navBar = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    const isScrolled = window.scrollY > 55;
+    navBar.classList.toggle('scrolled', isScrolled);
+  }, { passive: true });
+
+  window.openCal = function() {
+    // This would integrate with Calendly
+    // For now, placeholder
+    alert('Calendar widget would open here - connect to Calendly');
+  };
+
+  // Close mobile menu when link clicked
+  document.querySelectorAll('.n-links a').forEach(link => {
+    link.addEventListener('click', () => {
+      if (document.getElementById('n-links').classList.contains('mobile-open')) {
+        toggleBurger();
+      }
+    });
+  });
+</script>
+
+</body>
+</html>
