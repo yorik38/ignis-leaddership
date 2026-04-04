@@ -74,10 +74,46 @@
   <div class="cal-inner">
     <button class="cal-close" type="button" onclick="closeCal()">&#x2715;</button>
     <div class="cal-body cal-body-embed">
-      <div class="calendly-inline-widget" data-url="https://calendly.com/yorik-tisseau-tmff/30min" style="min-width:100%;height:min(78vh,820px);"></div>
+      <div id="calendly-mobile-inline" class="calendly-inline-widget" data-url="https://calendly.com/yorik-tisseau-tmff/30min" style="min-width:100%;height:min(78vh,820px);"></div>
     </div>
   </div>
 </div>`;
+  }
+
+  function ensureCalendlyScript(callback){
+    if (window.Calendly) {
+      if (typeof callback === 'function') callback();
+      return;
+    }
+    let script = document.querySelector('script[data-ignis-calendly="true"]');
+    if (!script) {
+      script = document.createElement('script');
+      script.src = 'https://assets.calendly.com/assets/external/widget.js';
+      script.async = true;
+      script.dataset.ignisCalendly = 'true';
+      document.body.appendChild(script);
+    }
+    if (typeof callback === 'function') {
+      script.addEventListener('load', function onLoad(){
+        script.removeEventListener('load', onLoad);
+        callback();
+      });
+    }
+  }
+
+  function initMobileCalendlyEmbed(){
+    const host = document.getElementById('calendly-mobile-inline');
+    if (!host || host.dataset.ignisLoaded === 'true') return;
+    ensureCalendlyScript(function(){
+      if (!window.Calendly || !Calendly.initInlineWidget) return;
+      host.innerHTML = '';
+      Calendly.initInlineWidget({
+        url: 'https://calendly.com/yorik-tisseau-tmff/30min',
+        parentElement: host,
+        resize: true
+      });
+      host.dataset.ignisLoaded = 'true';
+    });
   }
 
   function renderShell(){
@@ -161,6 +197,7 @@
     }
     if (modal) {
       modal.classList.add('open');
+      if (isMobile) initMobileCalendlyEmbed();
       syncBodyLock();
     }
     return false;
@@ -216,7 +253,8 @@
   function initCalendlyBadge(){
     if (window.innerWidth <= 960) return;
     if (document.querySelector('.calendly-badge-widget')) return;
-    if (window.Calendly && Calendly.initBadgeWidget) {
+    ensureCalendlyScript(function(){
+      if (!window.Calendly || !Calendly.initBadgeWidget) return;
       Calendly.initBadgeWidget({
         url: 'https://calendly.com/yorik-tisseau-tmff/30min',
         text: 'Let’s talk',
@@ -224,9 +262,8 @@
         textColor: '#ffffff',
         branding: false
       });
-    } else {
-      setTimeout(initCalendlyBadge, 150);
-    }
+    });
+    return;
   }
 
   document.addEventListener('DOMContentLoaded', function(){

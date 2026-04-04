@@ -328,3 +328,53 @@ body.menu-locked{overflow:hidden!important}
     max-width:var(--mw)!important;
   }
 }
+
+
+/* Mobile Calendly modal reliability */
+#cal-modal .cal-inner{
+  width:min(960px, calc(100vw - 32px))!important;
+}
+#calendly-mobile-inline{
+  width:100%!important;
+  min-width:100%!important;
+  min-height:min(78vh, 820px)!important;
+}
+#calendly-mobile-inline iframe{
+  width:100%!important;
+  min-width:100%!important;
+}
+@media (max-width: 960px){
+  #cal-modal{
+    align-items:flex-start!important;
+    padding:16px!important;
+  }
+  #cal-modal .cal-inner{
+    width:100%!important;
+    max-width:none!important;
+    margin-top:max(8px, env(safe-area-inset-top))!important;
+  }
+  #cal-modal .cal-body,
+  #cal-modal .cal-body-embed{
+    min-height:78vh!important;
+  }
+  #calendly-mobile-inline,
+  #calendly-mobile-inline > div,
+  #calendly-mobile-inline iframe{
+    min-height:78vh!important;
+    height:78vh!important;
+  }
+}
+
+/* About page hero matches other inner pages */
+@media (min-width: 961px){
+  #page-about .pg-hero{
+    min-height:100vh!important;
+    align-items:center!important;
+    padding:calc(var(--nav-h) + 36px) var(--px) clamp(56px,7vw,96px)!important;
+    background-position:center 18%!important;
+    background-size:cover!important;
+  }
+  #page-about .pg-title{
+    max-width:12ch!important;
+  }
+}
