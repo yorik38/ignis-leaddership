@@ -270,6 +270,21 @@
     .tcard-role { font-size: 17px; letter-spacing: .08em; color: var(--accent-light); line-height: 1.65; display: flex; align-items: center; justify-content: center; transition: opacity .25s; font-weight: 300; width: 100%; max-width: 300px; margin: 0 auto; }
     .tcard-quote-side { padding: clamp(44px,5vw,64px) clamp(34px,4vw,56px); display: flex; align-items: center; background: transparent; min-height: auto; }
     .tcard-quote-text { font-family: var(--fb); font-size: clamp(20px, 2vw, 22px); font-style: italic; font-weight: 300; color: #fff; line-height: 1.8; transition: opacity .25s ease; max-width: 760px; }
+
+    .tcard-person { min-height: 500px; }
+    .tcard-role { min-height: 56px; }
+    .tcard-quote-side { min-height: 500px; }
+    .tcard-quote-text { min-height: 220px; }
+    @media (max-width: 960px) {
+      .tcard-person { min-height: 440px; }
+      .tcard-quote-side { min-height: 440px; }
+      .tcard-quote-text { min-height: 190px; }
+    }
+    @media (max-width: 620px) {
+      .tcard-person, .tcard-quote-side { min-height: auto; }
+      .tcard-role, .tcard-quote-text { min-height: 0; }
+    }
+
     @media (max-width: 960px) {
       .tcard { max-width: 100%; }
       .tcard-body { grid-template-columns: minmax(210px, 0.72fr) 1px minmax(0, 1.28fr); min-height: 440px; }
@@ -1013,8 +1028,8 @@
   const qAvatars = document.querySelectorAll('.tsl-av');
   const tcard = document.querySelector('.tcard');
   let testimonialIndex = 0;
-  let testimonialTimer = null;
-  let testimonialResumeTimer = null;
+  let testimonialTimer;
+  let testimonialResumeTimer;
   let touchStartX = 0;
   let touchDeltaX = 0;
   let justHandledTouch = false;
@@ -1039,54 +1054,46 @@
       if (!qPhoto.dataset.currentSrc) qPhoto.dataset.currentSrc = qPhoto.getAttribute('src') || '';
       if (qPhoto.dataset.currentSrc !== t.photo) {
         qPhoto.style.opacity = '0';
-        window.setTimeout(() => {
-          qPhoto.src = t.photo;
-          qPhoto.dataset.currentSrc = t.photo;
-          qPhoto.style.opacity = '1';
-        }, 140);
+        const nextSrc = t.photo;
+        const img = new Image();
+        img.onload = () => {
+          window.setTimeout(() => {
+            qPhoto.src = nextSrc;
+            qPhoto.dataset.currentSrc = nextSrc;
+            qPhoto.style.opacity = '1';
+          }, 140);
+        };
+        img.src = nextSrc;
       } else {
         qPhoto.style.opacity = '1';
       }
     }
     qAvatars.forEach((av, idx) => av.classList.toggle('active', idx === testimonialIndex));
   }
-
   function stopTestimonials(){
-    if (testimonialTimer) {
-      clearInterval(testimonialTimer);
-      testimonialTimer = null;
-    }
-    if (testimonialResumeTimer) {
-      clearTimeout(testimonialResumeTimer);
-      testimonialResumeTimer = null;
-    }
+    clearInterval(testimonialTimer);
+    clearTimeout(testimonialResumeTimer);
   }
-
-  function startTestimonials(){
+  function startTestimonials(delay = TESTIMONIAL_AUTOPLAY_MS){
     stopTestimonials();
-    testimonialTimer = setInterval(() => {
-      setTestimonial(testimonialIndex + 1);
-    }, TESTIMONIAL_AUTOPLAY_MS);
+    testimonialTimer = setInterval(() => setTestimonial(testimonialIndex + 1), delay);
   }
-
   function pauseTestimonialsFor(ms = TESTIMONIAL_PAUSE_MS){
-    if (testimonialTimer) {
-      clearInterval(testimonialTimer);
-      testimonialTimer = null;
-    }
-    if (testimonialResumeTimer) clearTimeout(testimonialResumeTimer);
-    testimonialResumeTimer = setTimeout(() => {
-      startTestimonials();
-    }, ms);
+    clearInterval(testimonialTimer);
+    clearTimeout(testimonialResumeTimer);
+    testimonialResumeTimer = setTimeout(() => startTestimonials(TESTIMONIAL_AUTOPLAY_MS), ms);
   }
-
+  function setTs(i){
+    setTestimonial(i);
+    pauseTestimonialsFor(TESTIMONIAL_PAUSE_MS);
+  }
   if (qAvatars.length) {
     qAvatars.forEach((av, idx) => {
       av.style.cursor = 'pointer';
       const selectAvatar = () => {
         setTestimonial(idx);
-        pauseTestimonialsFor();
-        if (av.blur) av.blur();
+        pauseTestimonialsFor(TESTIMONIAL_PAUSE_MS);
+        av.blur && av.blur();
       };
       av.addEventListener('click', (e) => {
         if (justHandledTouch) {
@@ -1102,16 +1109,11 @@
         setTimeout(() => { justHandledTouch = false; }, 350);
       }, { passive: true });
     });
-
     if (tcard) {
-      tcard.addEventListener('mouseenter', () => {
-        if (testimonialTimer) clearInterval(testimonialTimer);
-      });
-      tcard.addEventListener('mouseleave', () => {
-        startTestimonials();
-      });
+      tcard.addEventListener('mouseenter', () => clearInterval(testimonialTimer));
+      tcard.addEventListener('mouseleave', () => startTestimonials(TESTIMONIAL_AUTOPLAY_MS));
       tcard.addEventListener('touchstart', (e) => {
-        if (testimonialTimer) clearInterval(testimonialTimer);
+        clearInterval(testimonialTimer);
         touchStartX = e.changedTouches?.[0]?.clientX || 0;
         touchDeltaX = 0;
       }, { passive: true });
@@ -1121,7 +1123,7 @@
       }, { passive: true });
       tcard.addEventListener('click', () => {
         if (justHandledTouch) return;
-        pauseTestimonialsFor();
+        pauseTestimonialsFor(TESTIMONIAL_PAUSE_MS);
       });
       tcard.addEventListener('touchend', () => {
         justHandledTouch = true;
@@ -1131,13 +1133,12 @@
         } else if (touchDeltaX >= threshold) {
           setTestimonial(testimonialIndex - 1);
         }
-        pauseTestimonialsFor();
+        pauseTestimonialsFor(TESTIMONIAL_PAUSE_MS);
         setTimeout(() => { justHandledTouch = false; }, 350);
       }, { passive: true });
     }
-
     setTestimonial(0);
-    startTestimonials();
+    startTestimonials(TESTIMONIAL_AUTOPLAY_MS);
   }
 </script>
 
