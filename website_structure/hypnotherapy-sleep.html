@@ -344,25 +344,12 @@ footer{
   .section{padding:80px var(--px)}
 }
 </style>
+
+<link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
+<link rel="stylesheet" href="assets/shared.css?v=20260404-shell">
 </head>
-<body>
-<nav id="nav">
-  <a class="n-logo" href="index.html" aria-label="Ignis Leadership home">
-    <img src="images/logo nav bar.png" alt="Ignis Leadership logo">
-  </a>
-
-  <button class="n-burger" type="button" aria-label="Open menu">
-    <span></span><span></span><span></span>
-  </button>
-
-  <div class="n-links">
-    <a href="index.html">Home</a>
-    <a href="about.html">About</a>
-    <a href="coaching.html">Coaching</a>
-    <a href="hypnotherapy.html">Hypnosis</a>
-    <a class="n-cta" href="#talk">Let’s Talk</a>
-  </div>
-</nav>
+<body data-page="hypnosis">
+<div id="site-header"></div>
 
 <main>
   <section class="hero">
@@ -530,45 +517,7 @@ footer{
   </section>
 </main>
 
-<footer>
-  <div class="f-top">
-    <div class="f-brand">
-      <a class="f-logo" href="index.html" aria-label="Ignis Leadership home">
-        <img src="images/logo nav bar.png" alt="Ignis Leadership logo">
-      </a>
-      <p class="f-tagline">Where high performance meets inner clarity.</p>
-    </div>
-
-    <div>
-      <div class="f-col-label">Navigate</div>
-      <div class="f-col-links">
-        <a href="index.html">Home</a>
-        <a href="about.html">About</a>
-        <a href="coaching.html">Coaching</a>
-        <a href="hypnotherapy.html">Hypnosis</a>
-      </div>
-    </div>
-
-    <div>
-      <div class="f-col-label">Connect</div>
-      <div class="f-col-links">
-        <a href="tel:+447305642808">+44 730 564 2808</a>
-        <a href="mailto:yorik@ignisleadership.com">yorik@ignisleadership.com</a>
-      </div>
-    </div>
-  </div>
-
-  <div class="f-bottom">
-    <div class="f-bottom-inner">
-      <div class="f-legal-links">
-        <a href="terms-and-conditions.html">Terms &amp; Conditions</a>
-        <a href="privacy-policy.html">Privacy Policy</a>
-        <a href="cookie-policy.html">Cookie Policy</a>
-      </div>
-      <div class="f-copy">© 2026 Ignis Leadership Ltd. All rights reserved.</div>
-    </div>
-  </div>
-</footer>
+<div id="site-footer"></div>
 
 <script>
 const nav = document.getElementById('nav');
@@ -594,5 +543,8 @@ document.querySelectorAll('.n-links a').forEach(a => {
   a.addEventListener('click', closeMenu);
 });
 </script>
+
+<script src="https://assets.calendly.com/assets/external/widget.js" async></script>
+<script src="assets/shared.js?v=20260404-shell"></script>
 </body>
 </html>
