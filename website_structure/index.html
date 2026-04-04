@@ -244,6 +244,13 @@
     .about-bio-center p { font-size: 1.0625rem; color: rgba(255,255,255,.55); font-weight: 300; line-height: 1.85; transition: opacity .3s; }
     .about-bio-center .bio-cta { margin-top: 24px; }
 
+@media (hover: none){
+  .iam-btn:hover{ color: rgba(255,255,255,.5) !important; }
+  .iam-btn.on:hover{ color: var(--accent-light) !important; }
+  .tsl-av:hover .tsl-av-name{ opacity: inherit; }
+}
+
+
     /* ── SERVICES ── */
     .svc-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2px; background: var(--gray-light); margin-top: 52px; }
     .svc-card { background: var(--white); padding: 48px 44px; cursor: pointer; transition: background .25s, transform .3s, box-shadow .3s; position: relative; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.03); }
@@ -1046,7 +1053,18 @@
     iamIdx = i;
   }
   if (iamBtns.length) {
-    iamBtns.forEach((btn, i) => btn.addEventListener('click', () => { clearInterval(iamTimer); setIam(i); btn.blur(); if (document.activeElement && document.activeElement.blur) document.activeElement.blur(); startIam(); }));
+    iamBtns.forEach((btn, i) => {
+      const handleIamSelect = () => {
+        clearInterval(iamTimer);
+        iamBtns.forEach(b => b.blur());
+        setIam(i);
+        btn.blur();
+        if (document.activeElement && document.activeElement.blur) document.activeElement.blur();
+        startIam();
+      };
+      btn.addEventListener('click', handleIamSelect);
+      btn.addEventListener('touchend', () => { setTimeout(() => btn.blur(), 0); }, { passive: true });
+    });
     function startIam() { clearInterval(iamTimer); iamTimer = setInterval(() => setIam((iamIdx + 1) % iamBtns.length), 3200); }
     startIam();
   }
@@ -1118,14 +1136,38 @@
   if (qAvatars.length) {
     qAvatars.forEach((av, idx) => {
       av.style.cursor = 'pointer';
-      av.addEventListener('click', () => { setTestimonial(idx); pauseTestimonialsFor(20000); });
+      const selectAvatar = () => {
+        setTestimonial(idx);
+        pauseTestimonialsFor(20000);
+        av.blur && av.blur();
+      };
+      av.addEventListener('click', selectAvatar);
+      av.addEventListener('touchend', () => { selectAvatar(); }, { passive: true });
     });
     if (tcard) {
+      let touchStartX = 0;
+      let touchDeltaX = 0;
       tcard.addEventListener('mouseenter', () => clearInterval(testimonialTimer));
       tcard.addEventListener('mouseleave', () => startTestimonials(3000));
-      tcard.addEventListener('touchstart', () => clearInterval(testimonialTimer), { passive: true });
+      tcard.addEventListener('touchstart', (e) => {
+        clearInterval(testimonialTimer);
+        touchStartX = e.changedTouches?.[0]?.clientX || 0;
+        touchDeltaX = 0;
+      }, { passive: true });
+      tcard.addEventListener('touchmove', (e) => {
+        const currentX = e.changedTouches?.[0]?.clientX || 0;
+        touchDeltaX = currentX - touchStartX;
+      }, { passive: true });
       tcard.addEventListener('click', () => pauseTestimonialsFor(20000));
-      tcard.addEventListener('touchend', () => pauseTestimonialsFor(20000), { passive: true });
+      tcard.addEventListener('touchend', () => {
+        const threshold = 40;
+        if (touchDeltaX <= -threshold) {
+          setTestimonial(testimonialIndex + 1);
+        } else if (touchDeltaX >= threshold) {
+          setTestimonial(testimonialIndex - 1);
+        }
+        pauseTestimonialsFor(20000);
+      }, { passive: true });
     }
     setTestimonial(0);
     startTestimonials();
