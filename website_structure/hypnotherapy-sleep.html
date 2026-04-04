@@ -206,6 +206,7 @@ ul{margin:0;padding:0;list-style:none}
   background:#fff;border-top:1px solid rgba(0,0,0,.05)
 }
 .cta-inner{max-width:820px;margin:0 auto;text-align:center}
+.accent-divider-short{width:56px;height:2px;background:linear-gradient(90deg, transparent 0%, var(--accent) 22%, var(--accent) 78%, transparent 100%);margin:0 auto 28px}
 .cta-title{font-size:clamp(42px,6vw,74px);line-height:.95;margin-bottom:16px;color:var(--dark)}
 .cta-inner p{font-size:1.08rem;max-width:720px;margin:0 auto 28px}
 .btn{
@@ -508,43 +509,18 @@ footer{
 
   <section id="talk" class="cta-band">
     <div class="cta-inner">
+      <div class="accent-divider-short"></div>
       <h2 class="cta-title">Let’s Talk</h2>
       <p>
         A focused conversation to understand what is keeping your system active, what better sleep would change for you, and whether this work is the right fit.
       </p>
-      <a class="btn" href="https://calendly.com/">Book a conversation</a>
+      <button class="btn" type="button" onclick="openCal()">Book a conversation</button>
     </div>
   </section>
 </main>
 
 <div id="site-footer"></div>
 
-<script>
-const nav = document.getElementById('nav');
-const burger = document.querySelector('.n-burger');
-const links = document.querySelector('.n-links');
-
-function closeMenu() {
-  if (links.classList.contains('mobile-open')) {
-    links.classList.remove('mobile-open');
-    nav.classList.remove('menu-open-nav');
-  }
-}
-burger?.addEventListener('click', () => {
-  links.classList.toggle('mobile-open');
-  nav.classList.toggle('menu-open-nav');
-});
-window.addEventListener('scroll', () => {
-  if (window.scrollY > 10) nav.classList.add('scrolled');
-  else nav.classList.remove('scrolled');
-  closeMenu();
-});
-document.querySelectorAll('.n-links a').forEach(a => {
-  a.addEventListener('click', closeMenu);
-});
-</script>
-
-<script src="https://assets.calendly.com/assets/external/widget.js" async></script>
 <script src="assets/shared.js?v=20260404-shell"></script>
 </body>
 </html>

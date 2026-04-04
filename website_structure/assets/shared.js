@@ -191,13 +191,20 @@
   window.openCal = function(){
     const modal = document.getElementById('cal-modal');
     const isMobile = window.innerWidth <= 960;
-    if (!isMobile && window.Calendly && Calendly.initPopupWidget) {
-      Calendly.initPopupWidget({ url: 'https://calendly.com/yorik-tisseau-tmff/30min' });
+    if (!isMobile) {
+      ensureCalendlyScript(function(){
+        if (window.Calendly && Calendly.initPopupWidget) {
+          Calendly.initPopupWidget({ url: 'https://calendly.com/yorik-tisseau-tmff/30min' });
+        } else if (modal) {
+          modal.classList.add('open');
+          syncBodyLock();
+        }
+      });
       return false;
     }
     if (modal) {
       modal.classList.add('open');
-      if (isMobile) initMobileCalendlyEmbed();
+      initMobileCalendlyEmbed();
       syncBodyLock();
     }
     return false;
@@ -210,6 +217,7 @@
   };
 
   function initSharedInteractions(){
+    ensureCalendlyScript();
     const {navBar} = getEls();
     const fabEl = document.getElementById('mobile-fab');
     const legal = isLegalPage();

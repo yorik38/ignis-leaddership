@@ -200,6 +200,9 @@ body.legal-page-view .n-burger span{background:#000!important}
 }
 
 
+
+.accent-divider-short{width:56px;height:2px;background:linear-gradient(90deg, transparent 0%, var(--accent, #C4476C) 22%, var(--accent, #C4476C) 78%, transparent 100%);margin:0 auto 28px;}
+
 /* ===== Shared site components ===== */
 .site-shell{min-height:100%}
 .site-shell body{overflow-x:hidden}
@@ -377,4 +380,22 @@ body.menu-locked{overflow:hidden!important}
   #page-about .pg-title{
     max-width:12ch!important;
   }
+}
+
+
+/* Calendly should always sit above footer and page sections */
+#cal-modal{z-index:99999!important;position:fixed!important;inset:0!important}
+#cal-modal .cal-inner{position:relative!important;z-index:100000!important}
+.calendly-overlay,.calendly-popup,.calendly-popup-content,.calendly-spinner,.calendly-badge-widget{z-index:100001!important}
+
+/* About hero should match other inner pages */
+@media (min-width: 961px){
+  #page-about .pg-hero{
+    min-height:100vh!important;
+    align-items:flex-end!important;
+    padding:calc(var(--nav-h) + 60px) var(--px) clamp(56px,7vw,96px)!important;
+    background-position:center 30%!important;
+    background-size:cover!important;
+  }
+  #page-about .pg-title{max-width:none!important}
 }
