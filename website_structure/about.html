@@ -351,11 +351,29 @@
 
     /* ── ABOUT PAGE ── */
     .ab-grid { display: grid; grid-template-columns: 1fr 1.5fr; gap: 72px; align-items: start; }
+    .about-single-column { grid-template-columns: 1fr; max-width: 980px; }
+    .about-single-column > div:first-child:empty { display:none; }
     .ab-photo { width: 100%; aspect-ratio: 4/5; max-height: 680px; object-fit: cover; object-position: top center; }
     .ab-photo-ph { width: 100%; aspect-ratio: 4/5; max-height: 680px; background: var(--off-white); display: flex; align-items: center; justify-content: center; color: var(--gray-text); font-size: .8rem; }
     .cred-tags { display: flex; flex-wrap: wrap; gap: 8px; margin: 24px 0 32px; }
     .cred-tag { font-size: .68rem; letter-spacing: .1em; text-transform: uppercase; color: var(--gray-text); padding: 6px 14px; border: 1px solid var(--gray-light); border-radius: 100px; }
     .cred-tag.on { color: var(--accent); border-color: var(--accent); }
+
+    .accent-divider-short.about-divider { margin: 0 0 18px; }
+    .cred-heading {
+      font-family: var(--fd);
+      font-size: clamp(24px, 2.4vw, 32px);
+      font-weight: 400;
+      letter-spacing: .04em;
+      color: var(--dark);
+      margin: 0 0 18px;
+    }
+    @media (max-width: 960px) {
+      .philosophy-third-card {
+        padding: 44px 36px !important;
+      }
+    }
+
 
     /* ── PROCESS STEPS ── */
     .steps { margin-top: 52px; }
@@ -602,11 +620,8 @@
 </div>
 </div>
 <div class="wrap">
-<div class="ab-grid">
-<div>
-<img alt="Yorik Tisseau" class="ab-photo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" src="images/about me senior leader FTSE100.jpg"/>
-<div class="ab-photo-ph" style="display:none;">Photo here</div>
-</div>
+<div class="ab-grid about-single-column">
+
 <div>
 <p class="section-eyebrow">I am a</p>
 <div class="cred-tags">
@@ -623,7 +638,11 @@
 <p class="body-p">That voice didn't go away when I got promoted. It didn't quiet when projects succeeded. If anything, the stakes rising made it louder. I was performing confidence I didn't feel: exhausted, wired at 3am, and unable to switch off.</p>
 <p class="body-p">The work I now do with clients is the work I had to do on myself. Executive coaching opened the conscious layer. Hypnotherapy did what coaching alone couldn't. It went deeper, faster, and changed the story I was telling myself at the root.</p>
 <p class="body-p">I built Ignis to give high-performers access to both. Because you deserve to lead from the real version of yourself.</p>
-<div class="cred-tags" style="margin-top:32px;">
+<div style="margin-top:40px;">
+<div class="accent-divider-short about-divider"></div>
+<p class="cred-heading">Credentials</p>
+</div>
+<div class="cred-tags" style="margin-top:0;">
 <span class="cred-tag on">ICF Certified Coach</span>
 <span class="cred-tag on">Certified Hypnotherapist</span>
 <span class="cred-tag on">NLP Practitioner</span>
@@ -648,7 +667,7 @@
 <p class="tx-text">When you perform confidence you don't feel, it costs energy, sleep, authenticity, and joy. The goal isn't to appear more confident. It's to actually be it.</p>
 </div>
 </div>
-<div class="fu" style="background:var(--white);padding:52px 48px;margin-top:2px;">
+<div class="tx-card fu philosophy-third-card" style="margin-top:2px;">
 <p class="tx-label">03</p>
 <h3 class="tx-title">The work is worth it.</h3>
 <p class="tx-text" style="max-width:600px;">Leaders who do this inner work don't just perform better. They sleep better, lead with more presence, and inspire people in ways no technical skill ever could.</p>
