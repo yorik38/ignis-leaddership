@@ -346,6 +346,18 @@
     }
     .pg-hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 15% 65%, rgba(196,71,108,.15) 0%, transparent 50%); pointer-events: none; }
     .pg-hero-inner { position: relative; z-index: 1; max-width: var(--mw); margin: 0 auto; width: 100%; }
+
+    .pg-hero-mobile-img {
+      display: none;
+      width: 100%;
+      border-radius: 12px;
+      margin: 24px 0 32px;
+      object-fit: cover;
+      object-position: center 28%;
+      aspect-ratio: 4/3;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+      border: 1px solid rgba(255,255,255,0.05);
+    }
     .pg-eyebrow { font-size: .65rem; letter-spacing: .22em; text-transform: uppercase; color: var(--accent-light); margin-bottom: 12px; }
     .pg-title { font-family: var(--fd); font-size: clamp(44px, 7vw, 88px); font-weight: 400; color: #fff; line-height: .95; letter-spacing: .04em; }
 
@@ -517,7 +529,20 @@
       .cal-placeholder { padding: 18px 12px; }
       .cal-placeholder iframe, .cal-body iframe, .calendly-inline-widget { min-width: 100% !important; width: 100% !important; height: 76vh !important; }
     }
-  </style>
+  
+    @media (max-width: 620px) {
+      .pg-hero {
+        background: #000 !important;
+        min-height: auto;
+        align-items: flex-end;
+        padding-top: calc(var(--nav-h) + 56px);
+      }
+      .pg-hero::before { display: none; }
+      .pg-hero .pg-title, .pg-hero .pg-eyebrow { max-width: 100%; }
+      .pg-hero-mobile-img { display: block; }
+    }
+
+</style>
 <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
   <link rel="stylesheet" href="assets/shared.css">
 
