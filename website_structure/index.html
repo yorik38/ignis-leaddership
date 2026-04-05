@@ -601,26 +601,55 @@
 }
 
 
-/* ── FINAL TESTIMONIAL STABILITY OVERRIDE ── */
-.tcard-body { min-height: 500px !important; }
-.tcard-person { justify-content: flex-start !important; min-height: 500px !important; }
-.tcard-quote-side { align-items: flex-start !important; min-height: 500px !important; }
-.tcard-name { min-height: 40px !important; }
-.tcard-role { min-height: 92px !important; align-items: flex-start !important; }
-.tcard-quote-text { min-height: 250px !important; }
-.tcard-avatars { min-height: 72px !important; }
+/* ── FINAL TESTIMONIAL LAYOUT NORMALISATION ── */
+.tcard {
+  background: var(--plum) !important;
+}
+.tcard-body {
+  min-height: 520px !important;
+}
+.tcard-person {
+  justify-content: flex-start !important;
+  min-height: 520px !important;
+}
+.tcard-quote-side {
+  align-items: flex-start !important;
+  min-height: 520px !important;
+}
+.tcard-name {
+  min-height: 42px !important;
+}
+.tcard-role {
+  min-height: 96px !important;
+  align-items: flex-start !important;
+}
+.tcard-quote-text {
+  min-height: 270px !important;
+}
+.tcard-avatars {
+  min-height: 68px !important;
+}
 
 @media (max-width: 960px) {
-  .tcard-body { min-height: 460px !important; }
-  .tcard-person { min-height: 460px !important; }
-  .tcard-quote-side { min-height: 460px !important; }
-  .tcard-role { min-height: 84px !important; }
-  .tcard-quote-text { min-height: 220px !important; }
+  .tcard-body {
+    min-height: 470px !important;
+  }
+  .tcard-person {
+    min-height: 470px !important;
+  }
+  .tcard-quote-side {
+    min-height: 470px !important;
+  }
+  .tcard-role {
+    min-height: 88px !important;
+  }
+  .tcard-quote-text {
+    min-height: 240px !important;
+  }
 }
 
 @media (max-width: 620px) {
   .tcard {
-    background: var(--plum) !important;
     border-radius: 18px !important;
     padding-bottom: 20px !important;
   }
@@ -630,8 +659,7 @@
   }
   .tcard-person {
     padding: 32px 24px 18px !important;
-    justify-content: flex-start !important;
-    min-height: 230px !important;
+    min-height: 0 !important;
   }
   .tcard-photo-ring {
     width: 72px !important;
@@ -640,8 +668,8 @@
   }
   .tcard-name {
     font-size: 22px !important;
-    min-height: 32px !important;
     margin-bottom: 8px !important;
+    min-height: 32px !important;
   }
   .tcard-role {
     font-size: 16px !important;
@@ -657,7 +685,6 @@
   .tcard-quote-side {
     padding: 20px 24px 20px !important;
     min-height: 0 !important;
-    align-items: flex-start !important;
   }
   .tcard-quote-text {
     font-size: 17px !important;
@@ -674,12 +701,6 @@
     margin-top: 18px !important;
     min-height: 16px !important;
   }
-}
-
-
-@media (max-width: 620px) {
-  .about-bio-center { min-height: 0 !important; }
-  .about-bio-center p { min-height: 190px !important; }
 }
 
 </style>
@@ -1151,6 +1172,7 @@
     {name:'Raj Srivastava', role:'Senior Economist O&G at Spirit Energy (UK)', quote:'During a period marked by setbacks and uncertainty, the work I did with Yorik helped me regain clarity and strategic control. I stopped operating reactively and started making decisions with greater conviction. As a result, my influence increased and I was able to steer the direction of the business with confidence.', photo:'images/testimonials/raj.jpg', initials:'RS'},
     {name:'Chloe MacLennan', role:'Reservoir Engineer at bp (UK)', quote:'Yorik helped me shift my mindset and lead with clarity during a pivotal moment in my career. I gained the confidence to take ownership of my next step and built a clear, values-led strategy to engage my employer with purpose and conviction.', photo:'images/testimonials/chloe.jpg', initials:'CM'}
   ];
+
   const qName = document.getElementById('tcard-name');
   const qRole = document.getElementById('tcard-role');
   const qText = document.getElementById('ts-quote');
@@ -1160,11 +1182,13 @@
   const tcard = document.querySelector('.tcard');
 
   let testimonialIndex = 0;
-  let testimonialTimer = null;
-  let testimonialResumeTimer = null;
+  let autoplayHandle = null;
+  let resumeHandle = null;
+  let imageSwapToken = 0;
   let touchStartX = 0;
   let touchDeltaX = 0;
-  let isTouchInteraction = false;
+  let touchMoved = false;
+  let lastTouchAt = 0;
 
   const TESTIMONIAL_AUTOPLAY_MS = 7000;
   const TESTIMONIAL_PAUSE_MS = 20000;
@@ -1177,137 +1201,144 @@
     }
   });
 
-  function setTestimonial(i){
+  function clearAutoplay() {
+    if (autoplayHandle) {
+      clearTimeout(autoplayHandle);
+      autoplayHandle = null;
+    }
+  }
+
+  function clearResume() {
+    if (resumeHandle) {
+      clearTimeout(resumeHandle);
+      resumeHandle = null;
+    }
+  }
+
+  function scheduleNext(delay = TESTIMONIAL_AUTOPLAY_MS) {
+    clearAutoplay();
+    autoplayHandle = setTimeout(() => {
+      setTestimonial(testimonialIndex + 1);
+      scheduleNext(TESTIMONIAL_AUTOPLAY_MS);
+    }, delay);
+  }
+
+  function pauseTestimonialsFor(ms = TESTIMONIAL_PAUSE_MS) {
+    clearAutoplay();
+    clearResume();
+    resumeHandle = setTimeout(() => {
+      scheduleNext(TESTIMONIAL_AUTOPLAY_MS);
+    }, ms);
+  }
+
+  function setPhoto(src) {
+    if (!qPhoto || !src) return;
+    const currentSrc = qPhoto.dataset.currentSrc || qPhoto.getAttribute('src') || '';
+    if (currentSrc === src) {
+      qPhoto.style.opacity = '1';
+      return;
+    }
+    const token = ++imageSwapToken;
+    qPhoto.style.opacity = '0';
+    const preload = new Image();
+    preload.onload = () => {
+      if (token !== imageSwapToken) return;
+      qPhoto.src = src;
+      qPhoto.dataset.currentSrc = src;
+      requestAnimationFrame(() => { qPhoto.style.opacity = '1'; });
+    };
+    preload.onerror = () => {
+      if (token !== imageSwapToken) return;
+      qPhoto.src = src;
+      qPhoto.dataset.currentSrc = src;
+      qPhoto.style.opacity = '1';
+    };
+    preload.src = src;
+  }
+
+  function setTestimonial(i) {
     testimonialIndex = (i + testimonials.length) % testimonials.length;
     const t = testimonials[testimonialIndex];
-
+    if (!t) return;
     if (qName) qName.textContent = t.name;
     if (qRole) qRole.textContent = t.role;
     if (qText) qText.textContent = '“' + t.quote + '”';
     if (qInitials) qInitials.textContent = t.initials || '';
-
-    if (qPhoto && t.photo) {
-      const currentSrc = qPhoto.dataset.currentSrc || qPhoto.getAttribute('src') || '';
-      if (currentSrc !== t.photo) {
-        qPhoto.style.opacity = '0';
-        const preload = new Image();
-        preload.onload = () => {
-          window.setTimeout(() => {
-            qPhoto.src = t.photo;
-            qPhoto.dataset.currentSrc = t.photo;
-            qPhoto.style.opacity = '1';
-          }, 140);
-        };
-        preload.src = t.photo;
-      } else {
-        qPhoto.style.opacity = '1';
-      }
-    }
-
+    setPhoto(t.photo);
     qAvatars.forEach((av, idx) => av.classList.toggle('active', idx === testimonialIndex));
   }
 
-  function stopTestimonials(){
-    if (testimonialTimer) {
-      clearInterval(testimonialTimer);
-      testimonialTimer = null;
-    }
-    if (testimonialResumeTimer) {
-      clearTimeout(testimonialResumeTimer);
-      testimonialResumeTimer = null;
-    }
-  }
-
-  function startTestimonials(){
-    stopTestimonials();
-    testimonialTimer = setInterval(() => {
-      setTestimonial(testimonialIndex + 1);
-    }, TESTIMONIAL_AUTOPLAY_MS);
-  }
-
-  function pauseTestimonialsFor(ms = TESTIMONIAL_PAUSE_MS){
-    if (testimonialTimer) {
-      clearInterval(testimonialTimer);
-      testimonialTimer = null;
-    }
-    if (testimonialResumeTimer) {
-      clearTimeout(testimonialResumeTimer);
-    }
-    testimonialResumeTimer = setTimeout(() => {
-      startTestimonials();
-    }, ms);
+  function handleManualSelect(index) {
+    setTestimonial(index);
+    pauseTestimonialsFor(TESTIMONIAL_PAUSE_MS);
   }
 
   if (qAvatars.length) {
     qAvatars.forEach((av, idx) => {
       av.style.cursor = 'pointer';
-
       av.addEventListener('click', (e) => {
-        if (isTouchInteraction) {
+        if (Date.now() - lastTouchAt < 500) {
           e.preventDefault();
           return;
         }
-        setTestimonial(idx);
-        pauseTestimonialsFor();
+        handleManualSelect(idx);
         if (av.blur) av.blur();
       });
-
       av.addEventListener('touchstart', () => {
-        isTouchInteraction = true;
+        lastTouchAt = Date.now();
       }, { passive: true });
-
       av.addEventListener('touchend', () => {
-        setTestimonial(idx);
-        pauseTestimonialsFor();
-        window.setTimeout(() => { isTouchInteraction = false; }, 300);
+        handleManualSelect(idx);
+        if (av.blur) av.blur();
       }, { passive: true });
     });
 
     if (tcard) {
       tcard.addEventListener('mouseenter', () => {
-        if (testimonialTimer) {
-          clearInterval(testimonialTimer);
-          testimonialTimer = null;
-        }
+        clearAutoplay();
       });
-
       tcard.addEventListener('mouseleave', () => {
-        startTestimonials();
+        clearResume();
+        scheduleNext(TESTIMONIAL_AUTOPLAY_MS);
       });
-
       tcard.addEventListener('click', () => {
-        if (isTouchInteraction) return;
-        pauseTestimonialsFor();
+        if (Date.now() - lastTouchAt < 500) return;
+        pauseTestimonialsFor(TESTIMONIAL_PAUSE_MS);
       });
-
       tcard.addEventListener('touchstart', (e) => {
-        isTouchInteraction = true;
-        if (testimonialTimer) {
-          clearInterval(testimonialTimer);
-          testimonialTimer = null;
-        }
+        lastTouchAt = Date.now();
+        clearAutoplay();
         touchStartX = e.changedTouches?.[0]?.clientX || 0;
         touchDeltaX = 0;
+        touchMoved = false;
       }, { passive: true });
-
       tcard.addEventListener('touchmove', (e) => {
         const currentX = e.changedTouches?.[0]?.clientX || 0;
         touchDeltaX = currentX - touchStartX;
+        touchMoved = true;
       }, { passive: true });
-
       tcard.addEventListener('touchend', () => {
-        if (touchDeltaX <= -SWIPE_THRESHOLD) {
+        if (touchMoved && touchDeltaX <= -SWIPE_THRESHOLD) {
           setTestimonial(testimonialIndex + 1);
-        } else if (touchDeltaX >= SWIPE_THRESHOLD) {
+        } else if (touchMoved && touchDeltaX >= SWIPE_THRESHOLD) {
           setTestimonial(testimonialIndex - 1);
         }
-        pauseTestimonialsFor();
-        window.setTimeout(() => { isTouchInteraction = false; }, 300);
+        pauseTestimonialsFor(TESTIMONIAL_PAUSE_MS);
       }, { passive: true });
     }
 
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) {
+        clearAutoplay();
+        clearResume();
+      } else {
+        clearResume();
+        scheduleNext(TESTIMONIAL_AUTOPLAY_MS);
+      }
+    });
+
     setTestimonial(0);
-    startTestimonials();
+    scheduleNext(TESTIMONIAL_AUTOPLAY_MS);
   }
 </script>
 
