@@ -521,87 +521,11 @@
   </style>
 <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
   <link rel="stylesheet" href="assets/shared.css">
-
-<style id="ignis-fixes-20260404">
-  /* 2026-04-04 mobile fixes */
-  .iam-btn {
-    -webkit-tap-highlight-color: transparent;
-    touch-action: manipulation;
-  }
-  .iam-btn:focus,
-  .iam-btn:active {
-    outline: none;
-    color: rgba(255,255,255,.5);
-  }
-  .iam-btn.on,
-  .iam-btn.on:focus,
-  .iam-btn.on:active {
-    color: var(--accent-light);
-  }
-
-  #cal-modal {
-    z-index: 10000 !important;
-    padding: 16px;
-  }
-  #cal-modal.open {
-    overflow-y: auto;
-    -webkit-overflow-scrolling: touch;
-  }
-  .cal-inner {
-    width: min(96vw, 1180px) !important;
-    max-width: 1180px !important;
-    max-height: min(92dvh, 92vh) !important;
-    overflow: hidden !important;
-    display: flex;
-    flex-direction: column;
-  }
-  .cal-body-embed {
-    flex: 1 1 auto;
-    min-height: 0;
-  }
-  .cal-body-embed .calendly-inline-widget {
-    width: 100% !important;
-    min-width: 100% !important;
-    height: min(78dvh, 820px) !important;
-    min-height: 640px;
-  }
-
-  @media (max-width: 760px) {
-    #cal-modal {
-      align-items: flex-start !important;
-      padding: 12px !important;
-    }
-    .cal-inner {
-      width: 100% !important;
-      max-width: 100% !important;
-      height: calc(100dvh - 24px) !important;
-      max-height: calc(100dvh - 24px) !important;
-      border-radius: 16px !important;
-    }
-    .cal-close {
-      top: 12px !important;
-      right: 14px !important;
-      font-size: 1.15rem !important;
-    }
-    .cal-body {
-      padding: 0 !important;
-    }
-    .cal-body-embed {
-      padding: 44px 0 0 !important;
-      height: 100% !important;
-    }
-    .cal-body-embed .calendly-inline-widget {
-      height: calc(100dvh - 84px) !important;
-      min-height: calc(100dvh - 84px) !important;
-    }
-  }
-</style>
-
 </head>
 <body>
 
 <nav id="nav">
-  <a class="n-logo" href="index.html"><img src="hypnotherapy hero header.png" alt="Ignis Leadership"></a>
+  <a class="n-logo" href="index.html"><img src="images/logo nav bar.png" alt="Ignis Leadership"></a>
   <ul class="n-links" id="n-links">
     <li><a href="index.html" data-page="home">Home</a></li>
     <li><a href="about.html" data-page="about">About</a></li>
@@ -763,7 +687,7 @@
     iamIdx = i;
   }
   if (iamBtns.length) {
-    iamBtns.forEach((btn, i) => btn.addEventListener('click', () => { clearInterval(iamTimer); setIam(i); btn.blur(); if (document.activeElement && document.activeElement.blur) document.activeElement.blur(); startIam(); }));
+    iamBtns.forEach((btn, i) => btn.addEventListener('click', () => { clearInterval(iamTimer); setIam(i); startIam(); }));
     function startIam() { clearInterval(iamTimer); iamTimer = setInterval(() => setIam((iamIdx + 1) % iamBtns.length), 3200); }
     startIam();
   }
@@ -840,64 +764,4 @@ window.addEventListener('load', initIgnisCalendlyBadge);
 </script>
 
 <script src="assets/shared.js"></script>
-
-<script id="ignis-calendly-fixes-20260404">
-(function(){
-  const CAL_URL = 'https://calendly.com/yorik-tisseau-tmff/30min';
-  function sizeCalendlyWidget(){
-    const modal = document.getElementById('cal-modal');
-    if(!modal || !modal.classList.contains('open')) return;
-    const widget = modal.querySelector('.calendly-inline-widget');
-    if(!widget) return;
-    if (window.innerWidth <= 760) {
-      const mobileHeight = Math.max(window.innerHeight - 84, 520);
-      widget.style.height = mobileHeight + 'px';
-      widget.style.minHeight = mobileHeight + 'px';
-    } else {
-      const desktopHeight = Math.max(Math.min(window.innerHeight * 0.78, 820), 640);
-      widget.style.height = desktopHeight + 'px';
-      widget.style.minHeight = desktopHeight + 'px';
-    }
-    if (window.Calendly && window.Calendly.initInlineWidget && !widget.dataset.initialized) {
-      widget.innerHTML = '';
-      window.Calendly.initInlineWidget({
-        url: widget.dataset.url || CAL_URL,
-        parentElement: widget
-      });
-      widget.dataset.initialized = 'true';
-    }
-    setTimeout(function(){ window.dispatchEvent(new Event('resize')); }, 60);
-  }
-
-  window.openCal = function(){
-    const isMobile = window.innerWidth <= 960;
-    if (!isMobile && window.Calendly && window.Calendly.initPopupWidget) {
-      window.Calendly.initPopupWidget({ url: CAL_URL });
-      return false;
-    }
-    const modal = document.getElementById('cal-modal');
-    if (!modal) return false;
-    modal.classList.add('open');
-    document.body.style.overflow = 'hidden';
-    requestAnimationFrame(sizeCalendlyWidget);
-    return false;
-  };
-
-  const oldCloseCal = window.closeCal;
-  window.closeCal = function(){
-    if (typeof oldCloseCal === 'function') {
-      oldCloseCal();
-    } else {
-      const modal = document.getElementById('cal-modal');
-      if (modal) modal.classList.remove('open');
-      document.body.style.overflow = '';
-    }
-  };
-
-  window.addEventListener('resize', function(){
-    if (document.getElementById('cal-modal')?.classList.contains('open')) sizeCalendlyWidget();
-  });
-})();
-</script>
-
 </body></html>
