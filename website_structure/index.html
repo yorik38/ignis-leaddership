@@ -136,7 +136,9 @@
     .n-cta:hover { background: var(--accent-h) !important; }
     .n-burger { display: none; flex-direction: column; justify-content: center; gap: 7px; cursor: pointer; padding: 4px; width: 32px; height: 32px; }
     .n-burger span { display: block; width: 24px; height: 1.5px; background: #fff; transition: transform .3s, width .3s, background .3s; margin: 0 auto; }
-    .n-burger span:last-child { width: 14px; align-self: flex-end; margin-right: 4px; }
+    .n-burger span:nth-child(1) { width: 24px; }
+    .n-burger span:nth-child(2) { width: 18px; align-self: flex-start; }
+    .n-burger span:nth-child(3) { width: 12px; align-self: flex-end; }
     #nav.scrolled .n-burger span { background: var(--dark); }
     #nav.menu-open-nav .n-burger span:first-child { transform: translateY(4.25px) rotate(45deg); width: 24px; margin-right: 0; background: #fff; }
     #nav.menu-open-nav .n-burger span:last-child { transform: translateY(-4.25px) rotate(-45deg); width: 24px; align-self: center; margin-right: 0; background: #fff; }
