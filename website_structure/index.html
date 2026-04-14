@@ -902,16 +902,16 @@
 <button class="iam-btn on" data-bio="I led market entry strategies, commercial development of billion pound energy infrastructure projects, and international teams across FTSE100 companies. Over a decade of director-level responsibility, strategic negotiation, and exposure to complex, high-stakes environments." data-img="images/about me senior leader FTSE100.jpeg?v=3">
           Ex-Leader FTSE100
         </button>
-<button class="iam-btn" data-bio="Certified Executive Coach (ICF). I've coached 50+ leaders across 300+ hours over the past three years, including internal coaching at BP. I work to dissolve the self-doubt that holds high-performers back from stepping into their full leadership potential." data-img="images/about me executive coach.jpg?v=3">
+<button class="iam-btn" data-bio="Certified Executive Coach (ICF). I've coached 50+ leaders across 300+ hours over the past three years, including internal coaching at BP. I work to dissolve the self-doubt that holds high-performers back from stepping into their full leadership potential." data-img="images/executive coaching.jpg">
           Executive Coach
         </button>
-<button class="iam-btn" data-bio="Certified hypnotherapist specialising in performance psychology. I bypass the conscious mind to help you overcome limiting beliefs and negative patterns—often ingrained for decades. Sometimes awareness isn't enough. You need to be the agent of change at the subconscious level." data-img="images/about me executive coach.jpg">
+<button class="iam-btn" data-bio="Certified hypnotherapist specialising in performance psychology. I bypass the conscious mind to help you overcome limiting beliefs and negative patterns often ingrained for decades. Sometimes awareness isn't enough. You need to be the agent of change at the subconscious level." data-img="images/about me executive coach.jpg">
           Hypnotherapist
         </button>
-<button class="iam-btn" data-bio="French expat, 18 years in the UK. Married to a Slovakian woman, raising two kids trilingually. Family dinners can be beautifully chaotic—a constant lesson in patience, adaptability, and presence." data-img="images/about me executive coach.jpg">
+<button class="iam-btn" data-bio="French expat, 18 years in the UK. Married to a Slovakian woman, raising two kids trilingually. Family dinners can be beautifully chaotic, a constant lesson in patience, adaptability, and presence." data-img="images/about me executive coach.jpg">
           Dad
         </button>
-<button class="iam-btn" data-bio="Running gives me space to clear my head and move. Twenty years solid. Built up to 100km ultrarunning, but now it's more of a lifestyle—a practice in staying present and building resilience." data-img="images/yorik running.png">
+<button class="iam-btn" data-bio="Running gives me space to clear my head and move. Twenty years solid. Built up to 100km ultrarunning, but now it's more of a lifestyle, a practice in staying present and building resilience." data-img="images/yorik running.png">
           Runner
         </button>
 </div>
@@ -1002,6 +1002,27 @@
 <img alt="" onerror="this.style.opacity=0" src="images/testimonials/chloe.jpg"/>
 </div>
 <span class="tsl-av-name">Chloe</span>
+</div>
+<div class="tsl-av" onclick="setTs(5)">
+<div class="tsl-av-ring">
+<span class="tsl-av-ph">FG</span>
+<img alt="" onerror="this.style.opacity=0" src="images/testimonials/Filipe.jpeg?v=1"/>
+</div>
+<span class="tsl-av-name">Filipe</span>
+</div>
+<div class="tsl-av" onclick="setTs(6)">
+<div class="tsl-av-ring">
+<span class="tsl-av-ph">BS</span>
+<img alt="" onerror="this.style.opacity=0" src="images/testimonials/Barnabas.jpeg?v=1"/>
+</div>
+<span class="tsl-av-name">Barnabas</span>
+</div>
+<div class="tsl-av" onclick="setTs(7)">
+<div class="tsl-av-ring">
+<span class="tsl-av-ph">ST</span>
+<img alt="" onerror="this.style.opacity=0" src="images/testimonials/Shovana.jpeg?v=1"/>
+</div>
+<span class="tsl-av-name">Shovana</span>
 </div>
 </div>
 </div><!-- /tcard-wrap -->
@@ -1146,7 +1167,7 @@
   }
   if (iamBtns.length) {
     iamBtns.forEach((btn, i) => btn.addEventListener('click', () => { clearInterval(iamTimer); setIam(i); startIam(); }));
-    function startIam() { clearInterval(iamTimer); iamTimer = setInterval(() => setIam((iamIdx + 1) % iamBtns.length), 3200); }
+    function startIam() { clearInterval(iamTimer); iamTimer = setInterval(() => setIam((iamIdx + 1) % iamBtns.length), 6200); }
     startIam();
   }
 
@@ -1179,7 +1200,10 @@
     {name:'Michaela Valovicova', role:'Head of Marketing & Communications Equans Data Centre at Equans (UK)', quote:'Yorik supported me as I set up and led a new international team across three countries. This was a critical, high-pressure phase of the business that demanded rapid adaptation. I learned to lead with confidence, build stronger stakeholder relationships, and grow into a far more influential leader during a period where clarity and presence were non-negotiable.', photo:'images/testimonials/michaela.jpg?v=2', initials:'MV'},
     {name:'Nadia Aljibouri', role:'Senior Project Manager Transformation at bp (UK)', quote:'Working with Yorik helped me become more intentional in how I communicate and influence. I gained greater awareness of the patterns that were limiting my impact and replaced them with clearer, more deliberate ways of leading. As a result, I am more effective in building trust, alignment, and influence in complex stakeholder environments.', photo:'images/testimonials/nadia.jpg', initials:'NA'},
     {name:'Raj Srivastava', role:'Senior Economist O&G at Spirit Energy (UK)', quote:'During a period marked by setbacks and uncertainty, the work I did with Yorik helped me regain clarity and strategic control. I stopped operating reactively and started making decisions with greater conviction. As a result, my influence increased and I was able to steer the direction of the business with confidence.', photo:'images/testimonials/raj.jpg', initials:'RS'},
-    {name:'Chloe MacLennan', role:'Reservoir Engineer at bp (UK)', quote:'Yorik helped me shift my mindset and lead with clarity during a pivotal moment in my career. I gained the confidence to take ownership of my next step and built a clear, values-led strategy to engage my employer with purpose and conviction.', photo:'images/testimonials/chloe.jpg', initials:'CM'}
+    {name:'Chloe MacLennan', role:'Reservoir Engineer at bp (UK)', quote:'Yorik helped me shift my mindset and lead with clarity during a pivotal moment in my career. I gained the confidence to take ownership of my next step and built a clear, values-led strategy to engage my employer with purpose and conviction.', photo:'images/testimonials/chloe.jpg', initials:'CM'},
+    {name:'Filipe Gongalves', role:'Sourcing Lead at bp (Hungary)', quote:'Your coaching helped me adapt to leading a team in a new country with more confidence. By becoming aware of limiting patterns and deliberately shifting my attitude, I was able to grow as a leader. Over nine months, your guidance challenged me to embrace change, let go of unhelpful habits, and step up with clarity. It was not just about leadership skills, but about self-mastery and building trust in myself and with others.', photo:'images/testimonials/Filipe.jpeg?v=1', initials:'FG'},
+    {name:'Barnabas Stolpe', role:'Recruiting Manager Europe at bp (Hungary)', quote:'When I stepped into a bigger team, I was battling imposter syndrome, feeling overwhelmed because I was younger and never than many of my reports. The work we did with Yorik helped me shift my limiting beliefs and regain control, allowing me to lead with unshakeable confidence. This fostered stronger team relationships, resulting in a measurable improvement in overall performance.', photo:'images/testimonials/Barnabas.jpeg?v=1', initials:'BS'},
+    {name:'Shovana Talukdar', role:'Senior Consultant Renewables at BVG Associates (UK)', quote:'I met Yorik during a significant transition in my career, at a time when direction and clarity mattered most. Through our work, I was able to challenge limiting beliefs, make braver decisions, and step forward with a clearer sense of who I needed to be in the next phase of my leadership.', photo:'images/testimonials/Shovana.jpeg?v=1', initials:'ST'}
   ];
 
   const qName = document.getElementById('tcard-name');
