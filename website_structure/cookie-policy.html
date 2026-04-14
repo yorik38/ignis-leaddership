@@ -57,6 +57,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/shared.css">
   <style>
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -465,12 +466,7 @@
       .hero-inner { padding-top: calc(var(--nav-h) + 40px); }
       .hero-mobile-img { display: block; }
       .n-links { display: none; }
-      .n-links.mobile-open { display: flex; flex-direction: column; position: fixed; inset: 0; min-height: 100dvh; width: 100vw; background: #000; padding: calc(var(--nav-h) + 32px) 28px max(28px, env(safe-area-inset-bottom)); gap: 22px; z-index: 99; align-items: flex-start; justify-content: flex-start; overflow-y: auto; text-align: left; opacity: 0; transform: translateY(14px); animation: mobileMenuIn .28s ease forwards; }
-      .n-links.mobile-open a { color: #fff; font-size: 1.2rem; font-weight: 400; padding: 0; border: none; letter-spacing: 0.08em; width: 100%; text-align: left; }
-      .n-links.mobile-open a::after { display: none; }
-      .n-links.mobile-open a.n-cta { width: 100%; margin-top: auto; font-size: .95rem; height: 54px; max-width: 420px; letter-spacing: 0.08em; color: #fff; justify-content: center; border-radius: 10px; display: flex; align-items: center; margin-left: auto; margin-right: auto; }
       .n-burger { display: flex; }
-      @keyframes mobileMenuIn { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
       .hero-cards { grid-template-columns: 1fr; }
       .hcard { border-right: none; border-bottom: 1px solid rgba(255,255,255,.09); }
       .tx-grid, .svc-grid, .ab-grid, .dk-grid, .why-grid { grid-template-columns: 1fr; }
@@ -627,24 +623,6 @@
     if (fabEl) fabEl.classList.toggle('vis', y > 350);
   }, { passive: true });
 
-  function toggleBurger() {
-    const links = document.getElementById('n-links');
-    const navBar = document.getElementById('nav');
-    if (!links) return;
-    links.classList.toggle('mobile-open');
-    if (navBar) navBar.classList.toggle('menu-open-nav');
-    document.body.style.overflow = links.classList.contains('mobile-open') ? 'hidden' : '';
-  }
-
-  document.addEventListener('click', e => {
-    const link = e.target.closest('#n-links a');
-    const links = document.getElementById('n-links');
-    const navBar = document.getElementById('nav');
-    if (!link || !links || !links.classList.contains('mobile-open')) return;
-    links.classList.remove('mobile-open');
-    if (navBar) navBar.classList.remove('menu-open-nav');
-    document.body.style.overflow = '';
-  });
 
   function openCal() {
     if (window.Calendly && Calendly.initPopupWidget) {
@@ -762,5 +740,5 @@ function initIgnisCalendlyBadge(){
 }
 window.addEventListener('load', initIgnisCalendlyBadge);
 </script>
-
+<script src="assets/shared.js"></script>
 </body></html>
