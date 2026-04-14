@@ -276,7 +276,7 @@
     .tcard-photo-ph { position: absolute; inset: 0; display: none; align-items: center; justify-content: center; font-size: .8rem; font-weight: 600; color: rgba(255,255,255,.6); background: rgba(255,255,255,.12); z-index: 1; }
     .tcard-name { font-family: var(--fd); font-size: 30px; font-weight: 400; color: #fff; display: flex; align-items: center; justify-content: center; letter-spacing: .04em; transition: opacity .25s; width: 100%; margin-bottom: 12px; }
     .tcard-role { font-size: 17px; letter-spacing: .08em; color: var(--accent-light); line-height: 1.65; display: flex; align-items: center; justify-content: center; transition: opacity .25s; font-weight: 300; width: 100%; max-width: 300px; margin: 0 auto; }
-    .tcard-quote-side { padding: clamp(44px,5vw,64px) clamp(34px,4vw,56px); display: flex; align-items: center; background: transparent; min-height: auto; }
+    .tcard-quote-side { padding: clamp(44px,5vw,64px) clamp(34px,4vw,56px); display: flex; align-items: center; background: transparent; min-height: 380px; }
     .tcard-quote-text { font-family: var(--fb); font-size: clamp(20px, 2vw, 22px); font-style: italic; font-weight: 300; color: #fff; line-height: 1.8; transition: opacity .25s ease; max-width: 760px; }
     @media (max-width: 960px) {
       .tcard { max-width: 100%; }
@@ -284,7 +284,7 @@
       .tcard-person { padding: 34px 24px; }
       .tcard-name { font-size: 24px; margin-bottom: 10px; }
       .tcard-role { font-size: 15px; max-width: 240px; }
-      .tcard-quote-side { padding: 38px 30px; }
+      .tcard-quote-side { padding: 38px 30px; min-height: 340px; }
       .tcard-quote-text { font-size: 18px; line-height: 1.7; }
     }
     @media (max-width: 620px) {
@@ -295,7 +295,7 @@
       .tcard-photo-ring { margin-bottom: 18px; }
       .tcard-name { font-size: 22px; margin-bottom: 10px; }
       .tcard-role { font-size: 16px; max-width: 230px; text-align: center; }
-      .tcard-quote-side { padding: 28px 24px 34px; }
+      .tcard-quote-side { padding: 28px 24px 34px; min-height: 290px; }
       .tcard-quote-text { font-size: 17px; line-height: 1.65; }
     }
     .tcard-eyebrow { display: none; }
