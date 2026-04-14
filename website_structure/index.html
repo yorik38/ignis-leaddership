@@ -295,7 +295,7 @@
       .tcard-photo-ring { margin-bottom: 18px; }
       .tcard-name { font-size: 22px; margin-bottom: 10px; }
       .tcard-role { font-size: 16px; max-width: 230px; text-align: center; }
-      .tcard-quote-side { padding: 28px 24px 34px; min-height: 290px; }
+      .tcard-quote-side { padding: 28px 24px 34px; min-height: 340px; }
       .tcard-quote-text { font-size: 17px; line-height: 1.65; }
     }
     .tcard-eyebrow { display: none; }
@@ -307,7 +307,7 @@
     .tsl-av-name { font-size: .58rem; letter-spacing: .1em; text-transform: uppercase; color: rgba(255,255,255,.22); opacity: 0; transition: opacity .3s; white-space: nowrap; }
     .tsl-av.active { transform: translateY(-5px); }
     .tsl-av.active .tsl-av-ring { border-color: var(--accent-light); transform: scale(1.2); box-shadow: 0 0 0 3px var(--accent-bg); }
-    .tsl-av.active .tsl-av-ring img { opacity: 1; filter: none; }
+    .tsl-av.active .tsl-av-ring img { opacity: 1 !important; filter: none; }
     .tsl-av.active .tsl-av-ph { opacity: 1; background: rgba(255,255,255,.15); }
     .tsl-av.active .tsl-av-name { opacity: 1; color: var(--accent-light); }
     @media (max-width: 620px) {
@@ -490,7 +490,7 @@
       .tcard-body { grid-template-columns: 1fr; min-height: auto; }
       .tcard-person { padding: clamp(32px,4vw,48px); flex-direction: row; align-items: center; gap: 16px; flex-wrap: wrap; justify-content: flex-start; }
       .tcard-photo-ring { margin-bottom: 0; width: 72px; height: 72px; }
-      .tcard-quote-side { padding: clamp(32px,4vw,48px); }
+      .tcard-quote-side { padding: clamp(32px,4vw,48px); min-height: 340px; }
       .f-top { grid-template-columns: minmax(220px, 1.2fr) auto auto; gap: 28px; }
       .f-brand { display: flex; flex-direction: column; align-items: flex-start; gap: 16px; align-self: start; }
       .f-tagline { max-width: 280px; }
@@ -902,10 +902,10 @@
 <button class="iam-btn on" data-bio="I led large teams inside FTSE100 companies for over a decade. Director level. Board visibility. Real pressure. And a voice that questioned whether I truly belonged there." data-img="images/about me senior leader FTSE100.jpg">
           Senior Leader FTSE100
         </button>
-<button class="iam-btn" data-bio="I work 1:1 with executives and high-performers to dissolve the self-doubt that holds them back from the leadership they're capable of." data-img="images/about me executive coach.jpg">
+<button class="iam-btn" data-bio="I work 1:1 with executives and high-performers to dissolve the self-doubt that holds them back from the leadership they're capable of." data-img="images/about me senior leader FTSE100.jpg">
           Executive Coach
         </button>
-<button class="iam-btn" data-bio="Certified hypnotherapist specialising in performance psychology, working at the subconscious level where lasting change actually happens." data-img="images/about me senior leader FTSE100.jpg">
+<button class="iam-btn" data-bio="Certified hypnotherapist specialising in performance psychology, working at the subconscious level where lasting change actually happens." data-img="images/about me executive coach.jpg">
           Hypnotherapist
         </button>
 <button class="iam-btn" data-bio="Father of two. They remind me daily what real confidence looks like: unconditioned, fearless, and completely present." data-img="images/about me executive coach.jpg">
@@ -978,7 +978,7 @@
 <div class="tsl-av" onclick="setTs(1)">
 <div class="tsl-av-ring">
 <span class="tsl-av-ph">MV</span>
-<img alt="" onerror="this.style.opacity=0" src="images/testimonials/michaela.jpg"/>
+<img alt="" onerror="this.style.opacity=0" src="images/testimonials/michaela.jpg?v=2"/>
 </div>
 <span class="tsl-av-name">Michaela</span>
 </div>
@@ -1176,7 +1176,7 @@
   
   const testimonials = [
     {name:'James Heath', role:'Deal Development, Commercial Structuring Low Carbon Energy at bp (UK)', quote:'Yorik has had a real impact on how I tackle complex challenges and how I show up under pressure. He helped me identify unhelpful patterns and replace them with clearer, more intentional behaviours. I communicate with more confidence and perform far better in high-stakes conversations, with greater clarity and calm.', photo:'images/testimonials/james.jpg', initials:'JH'},
-    {name:'Michaela Valovicova', role:'Head of Marketing & Communications Equans Data Centre at Equans (UK)', quote:'Yorik supported me as I set up and led a new international team across three countries. This was a critical, high-pressure phase of the business that demanded rapid adaptation. I learned to lead with confidence, build stronger stakeholder relationships, and grow into a far more influential leader during a period where clarity and presence were non-negotiable.', photo:'images/testimonials/michaela.jpg', initials:'MV'},
+    {name:'Michaela Valovicova', role:'Head of Marketing & Communications Equans Data Centre at Equans (UK)', quote:'Yorik supported me as I set up and led a new international team across three countries. This was a critical, high-pressure phase of the business that demanded rapid adaptation. I learned to lead with confidence, build stronger stakeholder relationships, and grow into a far more influential leader during a period where clarity and presence were non-negotiable.', photo:'images/testimonials/michaela.jpg?v=2', initials:'MV'},
     {name:'Nadia Aljibouri', role:'Senior Project Manager Transformation at bp (UK)', quote:'Working with Yorik helped me become more intentional in how I communicate and influence. I gained greater awareness of the patterns that were limiting my impact and replaced them with clearer, more deliberate ways of leading. As a result, I am more effective in building trust, alignment, and influence in complex stakeholder environments.', photo:'images/testimonials/nadia.jpg', initials:'NA'},
     {name:'Raj Srivastava', role:'Senior Economist O&G at Spirit Energy (UK)', quote:'During a period marked by setbacks and uncertainty, the work I did with Yorik helped me regain clarity and strategic control. I stopped operating reactively and started making decisions with greater conviction. As a result, my influence increased and I was able to steer the direction of the business with confidence.', photo:'images/testimonials/raj.jpg', initials:'RS'},
     {name:'Chloe MacLennan', role:'Reservoir Engineer at bp (UK)', quote:'Yorik helped me shift my mindset and lead with clarity during a pivotal moment in my career. I gained the confidence to take ownership of my next step and built a clear, values-led strategy to engage my employer with purpose and conviction.', photo:'images/testimonials/chloe.jpg', initials:'CM'}
@@ -1273,9 +1273,14 @@
     const t = testimonials[testimonialIndex];
     if (!t) return;
 
-    // Update avatars immediately
+    // Update avatars immediately; reset any stale inline opacity on the newly active one
     qAvatars.forEach((av, idx) => {
-      av.classList.toggle('active', idx === testimonialIndex);
+      const isActive = idx === testimonialIndex;
+      av.classList.toggle('active', isActive);
+      if (isActive) {
+        const ringImg = av.querySelector('.tsl-av-ring img');
+        if (ringImg) ringImg.style.removeProperty('opacity');
+      }
     });
 
     // Fade out text, then swap content while invisible, then fade back in
