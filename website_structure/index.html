@@ -1273,15 +1273,24 @@
     const t = testimonials[testimonialIndex];
     if (!t) return;
 
-    if (qName) qName.textContent = t.name;
-    if (qRole) qRole.textContent = t.role;
-    if (qText) qText.textContent = '“' + t.quote + '”';
-    if (qInitials) qInitials.textContent = t.initials || '';
-    setPhoto(t.photo);
-
+    // Update avatars immediately
     qAvatars.forEach((av, idx) => {
       av.classList.toggle('active', idx === testimonialIndex);
     });
+
+    // Fade out text, then swap content while invisible, then fade back in
+    if (qName) qName.style.opacity = '0';
+    if (qRole) qRole.style.opacity = '0';
+    if (qText) qText.style.opacity = '0';
+    if (qInitials) qInitials.style.opacity = '0';
+
+    setTimeout(() => {
+      if (qName) { qName.textContent = t.name; qName.style.opacity = '1'; }
+      if (qRole) { qRole.textContent = t.role; qRole.style.opacity = '1'; }
+      if (qText) { qText.textContent = '\u201c' + t.quote + '\u201d'; qText.style.opacity = '1'; }
+      if (qInitials) { qInitials.textContent = t.initials || ''; qInitials.style.opacity = '1'; }
+      setPhoto(t.photo);
+    }, 250);
   }
 
   function selectTestimonial(i) {

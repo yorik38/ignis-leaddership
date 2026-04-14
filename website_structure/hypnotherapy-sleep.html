@@ -379,16 +379,6 @@ footer{
 @media (max-width:960px){
   .n-links{display:none}
   .n-burger{display:flex}
-  .n-links.mobile-open {
-    display: flex; flex-direction: column; position: fixed;
-    top: 0; left: 0; right: 0; bottom: 0; min-height: 100vh;
-    background: #000; padding: calc(var(--nav-h) + 28px) 28px 96px;
-    gap: 28px; z-index: 99; align-items: flex-start;
-    justify-content: flex-start; overflow-y: auto;
-  }
-  .n-links.mobile-open a { color: #fff; font-size: 1.2rem; font-weight: 400; padding: 0; border: none; letter-spacing: 0.08em; width: 100%; text-align: left; }
-  .n-links.mobile-open a::after { display: none; }
-  .n-links.mobile-open a.n-cta { width: 100%; margin-top: auto; font-size: .95rem; height: 52px; max-width: none; letter-spacing: 0.08em; color: #fff; justify-content: center; }
   .hero{
     min-height:auto;
     background:#000 !important;
@@ -413,6 +403,7 @@ footer{
 }
 </style>
 
+<link rel="stylesheet" href="assets/shared.css">
 <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
 </head>
 <body data-page="hypnosis">
