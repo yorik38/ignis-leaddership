@@ -142,77 +142,7 @@
     #nav.menu-open-nav .n-burger span:first-child { transform: translateY(4.25px) rotate(45deg); width: 24px; margin-right: 0; background: #fff; }
     #nav.menu-open-nav .n-burger span:last-child { transform: translateY(-4.25px) rotate(-45deg); width: 24px; align-self: center; margin-right: 0; background: #fff; }
 
-    /* ── OUTCOMES DROPDOWN ── */
-    .nav-outcomes-dropdown { position: relative; }
-    .nav-outcomes-dropdown > a {
-      position: relative;
-      padding-right: 16px !important;
-    }
-    .nav-outcomes-dropdown > a::before {
-      content: '▼';
-      position: absolute;
-      right: 0;
-      top: 0;
-      bottom: 0;
-      display: flex;
-      align-items: center;
-      font-size: 0.5rem;
-      transition: transform .2s;
-    }
-    .nav-outcomes-dropdown > a::after {
-      display: none !important;
-    }
-    .nav-outcomes-dropdown:hover > a::after {
-      transform: translateY(2px);
-    }
-    .nav-dropdown-menu {
-      position: absolute;
-      top: 100%;
-      left: 0;
-      background: #000;
-      border-radius: 8px;
-      min-width: 220px;
-      box-shadow: 0 12px 32px rgba(0,0,0,0.24);
-      opacity: 0;
-      visibility: hidden;
-      transform: translateY(-8px);
-      transition: all .2s ease;
-      margin-top: 12px;
-      z-index: 200;
-      padding: 12px 0;
-    }
-    .nav-outcomes-dropdown:hover .nav-dropdown-menu {
-      opacity: 1;
-      visibility: visible;
-      transform: translateY(0);
-    }
-    .nav-dropdown-menu a {
-      display: block;
-      padding: 10px 20px;
-      font-size: .7rem;
-      letter-spacing: .08em;
-      text-transform: uppercase;
-      color: #fff;
-      text-decoration: none;
-      transition: all .2s;
-      border-left: 2px solid transparent;
-    }
-    .nav-dropdown-menu a:hover {
-      color: #fff;
-      background: rgba(255,255,255,.05);
-      border-left-color: var(--accent-light);
-    }
-    #nav.scrolled .nav-dropdown-menu {
-      background: rgba(0,0,0,0.95);
-    }
-    #nav.scrolled .nav-dropdown-menu a {
-      color: rgba(51,51,51,.75);
-    }
-    #nav.scrolled .nav-dropdown-menu a:hover {
-      color: var(--dark);
-      background: rgba(0,0,0,.05);
-      border-left-color: var(--accent);
-    }
+    /* Dropdown styles now in shared.css */
 
     /* ── PAGE SYSTEM ── */
     .page { display: none; }
@@ -252,7 +182,7 @@
     /* ── SHARED LAYOUT ── */
     .wrap { max-width: calc(var(--mw) + var(--px) * 2); margin: 0 auto; padding: var(--sp) var(--px); }
     .wrap-tight { max-width: calc(760px + var(--px) * 2); margin: 0 auto; padding: var(--sp) var(--px); }
-    .bg-off   { background: var(--off-white); }
+    .bg-off   { background: var(--white); }
     .bg-dark  { background: var(--dark); }
     .bg-dark2 { background: var(--dark-2); }
     .section-eyebrow { font-size: .7rem; letter-spacing: .22em; text-transform: uppercase; font-weight: 500; color: var(--accent); margin-bottom: 16px; }
@@ -853,7 +783,7 @@
 <img alt="Bouygues" src="images/website ticker/4.png"/>
 <img alt="Manchester Business School" src="images/website ticker/5.png"/>
 </div>
-<p class="trust-outcomes">Deep sleep  ·  Anxiety-free leadership  ·  Unshakable confidence</p>
+<p class="trust-outcomes">Clear identity · Authentic leadership · Calm confidence</p>
 </div>
 <!-- PROBLEM -->
 <div class="bg-off">
@@ -1255,7 +1185,11 @@
   }
 
   document.querySelectorAll('#n-links a').forEach(link => {
-    link.addEventListener('click', () => {
+    link.addEventListener('click', (e) => {
+      // Don't close menu when clicking Outcomes dropdown toggle
+      const parentLi = link.closest('li');
+      if (parentLi && parentLi.classList.contains('nav-outcomes-dropdown')) return;
+      // Close menu on other links
       if (window.innerWidth <= 960) closeBurger();
     });
   });
