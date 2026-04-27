@@ -18,16 +18,30 @@ html, body {
 .nav-outcomes-dropdown > a::before {
   display: none !important;
 }
+.nav-outcomes-dropdown > a {
+  position: relative !important;
+}
 .nav-outcomes-dropdown > a::after {
   content: '▼' !important;
   position: relative !important;
   display: inline-block !important;
-  font-size: 0.7rem !important;
-  transition: transform .2s !important;
-  margin-left: 8px !important;
+  font-size: 0.85rem !important;
+  transition: transform .3s ease !important;
+  margin-left: 10px !important;
   vertical-align: middle !important;
   top: 0px !important;
   color: inherit !important;
+}
+.nav-outcomes-dropdown > a {
+  position: relative !important;
+}
+.nav-outcomes-dropdown > a::before {
+  content: none !important;
+  display: none !important;
+}
+.nav-outcomes-dropdown:hover > a::after,
+.nav-outcomes-dropdown:has(.nav-dropdown-menu.mobile-open) > a::after {
+  transform: rotate(180deg) !important;
 }
 .nav-dropdown-menu {
   position: absolute !important;
@@ -171,7 +185,8 @@ body.legal-page-view .n-burger span{background:#000!important}
   .n-burger{display:flex!important;z-index:160!important;position:relative}
   .nav-dropdown-menu{position:static!important;background:transparent!important;opacity:0!important;visibility:hidden!important;max-height:0!important;overflow:hidden!important;margin:0!important;padding:0!important;transition:all .3s ease!important;border-radius:0!important;box-shadow:none!important;z-index:auto!important}
   .nav-dropdown-menu.mobile-open{opacity:1!important;visibility:visible!important;max-height:500px!important;padding:6px 0 6px 28px!important}
-  .nav-dropdown-menu.mobile-open a{padding:3px 0!important;font-size:0.6rem!important;color:rgba(255,255,255,.8)!important;border-left:none!important;letter-spacing:.02em!important}
+  .nav-dropdown-menu.mobile-open a{padding:3px 0!important;font-size:0.55rem!important;color:rgba(255,255,255,.8)!important;border-left:none!important;letter-spacing:.02em!important}
+  .nav-outcomes-dropdown > a::after{font-size:0.7rem!important;margin-left:8px!important}
   .n-links.mobile-open,
   .n-links.mobile-closing{
     display:flex!important;
