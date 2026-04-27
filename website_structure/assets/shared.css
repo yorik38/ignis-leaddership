@@ -9,8 +9,7 @@ html, body {
 /* ── NAVBAR OUTCOMES DROPDOWN ── */
 .nav-outcomes-dropdown {
   position: relative !important;
-  display: inline-flex !important;
-  align-items: center !important;
+  display: inline-block !important;
 }
 
 .nav-outcomes-dropdown > a {
@@ -40,16 +39,14 @@ html, body {
   transition: transform 0.3s ease !important;
 }
 
-/* Arrow rotation on hover (desktop) */
-@media (min-width: 961px) {
-  .nav-outcomes-dropdown:hover > a .arrow {
-    transform: rotate(180deg) !important;
-  }
+/* Arrow rotation on hover (desktop) - default state */
+.nav-outcomes-dropdown:hover > a .arrow {
+  transform: rotate(180deg) !important;
+}
 
-  .nav-outcomes-dropdown:hover .nav-dropdown-menu {
-    max-height: 500px !important;
-    margin-top: 8px !important;
-  }
+.nav-outcomes-dropdown:hover .nav-dropdown-menu {
+  max-height: 500px !important;
+  margin-top: 8px !important;
 }
 
 /* Arrow rotation on open (mobile/class-based) */
@@ -57,9 +54,11 @@ html, body {
   transform: rotate(180deg) !important;
 }
 
-/* Dropdown menu - static position, slides via max-height */
+/* Dropdown menu - positioned below the link */
 .nav-dropdown-menu {
-  position: static !important;
+  position: absolute !important;
+  top: 100% !important;
+  left: 0 !important;
   display: block !important;
   max-height: 0 !important;
   overflow: hidden !important;
@@ -67,6 +66,8 @@ html, body {
   padding: 0 !important;
   transition: max-height 0.3s ease !important;
   background: transparent !important;
+  white-space: normal !important;
+  width: auto !important;
 }
 
 /* Open state via class */
@@ -188,14 +189,52 @@ body.legal-page-view .n-burger span{background:#000!important}
   .n-links{display:none}
   .n-burger{display:flex!important;z-index:160!important;position:relative}
 
-  /* Mobile nav outcomes dropdown - always visible with arrow */
+  /* Mobile nav outcomes dropdown - ensure arrow stays beside text */
+  .nav-outcomes-dropdown {
+    display: block !important;
+  }
+
+  .nav-outcomes-dropdown > a {
+    display: inline-flex !important;
+  }
+
   .nav-outcomes-dropdown > a .arrow {
     display: inline-block !important;
   }
 
-  .nav-dropdown-menu{position:static!important;background:transparent!important;max-height:0!important;overflow:hidden!important;margin:0!important;padding:0!important;transition:max-height .3s ease!important;border-radius:0!important;box-shadow:none!important;z-index:auto!important}
-  .nav-dropdown-menu.mobile-open{max-height:500px!important;padding:6px 0 6px 28px!important;opacity:1!important;visibility:visible!important}
-  .nav-dropdown-menu.mobile-open a{padding:3px 0!important;font-size:0.4rem!important;color:rgba(255,255,255,.8)!important;border-left:none!important;letter-spacing:.02em!important}
+  /* Dropdown menu - positioned below on mobile too */
+  .nav-dropdown-menu{
+    position:absolute!important;
+    top:100%!important;
+    left:0!important;
+    display:block!important;
+    background:transparent!important;
+    max-height:0!important;
+    overflow:hidden!important;
+    margin:0!important;
+    padding:0!important;
+    transition:max-height .3s ease!important;
+    border-radius:0!important;
+    box-shadow:none!important;
+    z-index:auto!important;
+    width:100%!important;
+  }
+
+  .nav-dropdown-menu.mobile-open{
+    max-height:500px!important;
+    padding:6px 0 6px 28px!important;
+    opacity:1!important;
+    visibility:visible!important;
+  }
+
+  .nav-dropdown-menu.mobile-open a{
+    padding:3px 0!important;
+    font-size:0.25rem!important;
+    color:rgba(255,255,255,.8)!important;
+    border-left:none!important;
+    letter-spacing:.02em!important;
+    display:block!important;
+  }
 
   /* Mobile menu states */
   .n-links.mobile-open,
