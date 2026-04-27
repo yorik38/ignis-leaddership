@@ -16,7 +16,9 @@ html, body {
   gap: 6px !important;
 }
 .nav-outcomes-dropdown > a::before {
+  content: '' !important;
   display: none !important;
+  background: none !important;
 }
 .nav-outcomes-dropdown > a {
   position: relative !important;
@@ -36,6 +38,7 @@ html, body {
 .nav-outcomes-dropdown:hover > a::after {
   transform: rotate(180deg) !important;
   top: 2px !important;
+  display: block !important;
 }
 .nav-outcomes-dropdown:has(.nav-dropdown-menu.mobile-open) > a::after {
   transform: rotate(180deg) !important;
