@@ -60,14 +60,15 @@
   border-left-color: var(--accent-light) !important;
 }
 #nav.scrolled .nav-dropdown-menu {
-  background: rgba(0,0,0,0.95) !important;
+  background: rgba(255,255,255,0.98) !important;
+  box-shadow: 0 4px 24px rgba(0,0,0,.08) !important;
 }
 #nav.scrolled .nav-dropdown-menu a {
-  color: rgba(51,51,51,.75) !important;
+  color: var(--gray-text) !important;
 }
 #nav.scrolled .nav-dropdown-menu a:hover {
   color: var(--dark) !important;
-  background: rgba(0,0,0,.05) !important;
+  background: rgba(0,0,0,.04) !important;
   border-left-color: var(--accent) !important;
 }
 
@@ -136,7 +137,6 @@ body.legal-page-view .n-burger span{background:#000!important}
     transform:translateY(14px)!important;
     transition:opacity .28s ease, transform .32s ease!important;
     will-change:opacity, transform;
-    scrollbar-gutter:stable!important;
   }
   .n-links.mobile-open.is-visible{
     opacity:1!important;
@@ -474,4 +474,43 @@ body.menu-locked{overflow:hidden!important}
     background-size:cover!important;
   }
   #page-about .pg-title{max-width:none!important}
+}
+
+/* --- Styles from outcomes pages --- */
+.prob-cards { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; margin-top: 44px; }
+.prob-card { padding: 32px; background: var(--white); border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,.06); transition: transform .3s, box-shadow .3s; border-left: 3px solid var(--accent); }
+.prob-card:hover { transform: translateY(-4px); box-shadow: 0 12px 28px rgba(0,0,0,.1); }
+.prob-title { font-family: var(--fd); font-size: 1.1rem; font-weight: 400; color: var(--dark); margin-bottom: 10px; letter-spacing: .03em; }
+.prob-text { font-size: .95rem; color: var(--gray-text); line-height: 1.6; }
+
+.outcomes-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; margin-top: 40px; }
+.outcome-box { text-align: center; }
+.outcome-icon { font-size: 2.2rem; margin-bottom: 14px; }
+.outcome-title { font-family: var(--fd); font-size: 1.1rem; font-weight: 400; color: #fff; margin-bottom: 8px; letter-spacing: .03em; }
+.outcome-desc { font-size: .9rem; color: rgba(255,255,255,.65); line-height: 1.6; }
+
+.pricing-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; margin-top: 48px; }
+.pricing-box { background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.08); padding: 36px 28px; border-radius: 8px; text-align: center; }
+.pricing-label { font-size: .75rem; letter-spacing: .2em; text-transform: uppercase; color: var(--accent-light); margin-bottom: 12px; }
+.pricing-amount { font-family: var(--fd); font-size: 2.2rem; color: var(--accent-light); margin: 12px 0; }
+.pricing-details { font-size: .9rem; color: rgba(255,255,255,.6); line-height: 1.6; }
+
+.related-section { border-top: 1px solid var(--gray-light); padding-top: var(--sp); margin-top: var(--sp); }
+.related-label { font-size: .7rem; letter-spacing: .22em; text-transform: uppercase; color: var(--accent); margin-bottom: 20px; }
+.related-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 12px; }
+.related-link { display: flex; align-items: center; justify-content: center; padding: 12px 16px; background: var(--accent-bg); border-radius: 6px; font-size: .85rem; color: var(--dark); text-decoration: none; text-align: center; transition: all .2s; }
+.related-link:hover { background: var(--accent); color: #fff; }
+
+.outcome-hero { min-height: 100vh; background: linear-gradient(to bottom, rgba(20,18,30,.3) 0%, rgba(20,18,30,.7) 100%), url('../images/outcomes hero header.png') center/cover no-repeat; background-color: var(--dark); display: flex; align-items: center; justify-content: center; padding: var(--nav-h) var(--px) var(--sp); text-align: center; position: relative; }
+/* Note: Original was .hero but we should rename to avoid conflict with homepage hero */
+
+@media (max-width: 768px) {
+  .prob-cards { grid-template-columns: 1fr; }
+  .outcomes-grid { grid-template-columns: repeat(2, 1fr); }
+  .pricing-grid { grid-template-columns: 1fr; }
+  .related-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 520px) {
+  .outcomes-grid { grid-template-columns: 1fr; }
+  .related-grid { grid-template-columns: 1fr; }
 }
