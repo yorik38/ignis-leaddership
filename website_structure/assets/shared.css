@@ -249,8 +249,12 @@ body.legal-page-view .n-burger span{background:#000!important}
     transform:translateY(0);
     opacity:1;
   }
-  .n-links.mobile-open a:not(.nav-outcomes-dropdown > a)::after,
-  .n-links.mobile-closing a:not(.nav-outcomes-dropdown > a)::after{display:none!important}
+  .n-links.mobile-open a::after,
+  .n-links.mobile-closing a::after{display:none!important}
+
+  /* Show outcomes arrow on mobile */
+  .n-links.mobile-open .nav-outcomes-dropdown > a::after,
+  .n-links.mobile-closing .nav-outcomes-dropdown > a::after{display:inline-block!important}
   .n-links.mobile-open li:last-child,
   .n-links.mobile-closing li:last-child{
     margin-top:auto!important;
