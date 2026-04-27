@@ -5,18 +5,18 @@
 .nav-outcomes-dropdown { position: relative !important; }
 .nav-outcomes-dropdown > a {
   position: relative !important;
-  padding-right: 16px !important;
+  padding-right: 12px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 6px !important;
 }
 .nav-outcomes-dropdown > a::before {
   content: '▼' !important;
-  position: absolute !important;
-  right: 0 !important;
-  top: 0 !important;
-  bottom: 0 !important;
-  display: flex !important;
-  align-items: center !important;
-  font-size: 0.5rem !important;
+  position: relative !important;
+  display: inline-block !important;
+  font-size: 0.45rem !important;
   transition: transform .2s !important;
+  margin-left: 4px !important;
 }
 .nav-outcomes-dropdown > a::after {
   display: none !important;
@@ -39,6 +39,11 @@
   padding: 12px 0 !important;
 }
 .nav-outcomes-dropdown:hover .nav-dropdown-menu {
+  opacity: 1 !important;
+  visibility: visible !important;
+  transform: translateY(0) !important;
+}
+.nav-dropdown-menu.mobile-open {
   opacity: 1 !important;
   visibility: visible !important;
   transform: translateY(0) !important;
@@ -71,6 +76,29 @@
   border-left-color: var(--accent) !important;
 }
 
+/* Nav scroll styling - text color change */
+#nav.scrolled .n-links a {
+  color: #333 !important;
+}
+#nav.scrolled .n-links a:hover {
+  color: var(--dark) !important;
+}
+#nav.scrolled .n-links a::after {
+  background: var(--accent) !important;
+}
+#nav.scrolled .n-links a.active {
+  color: var(--accent) !important;
+}
+#nav.menu-open-nav .n-links a {
+  color: rgba(255,255,255,.88) !important;
+}
+#nav.menu-open-nav .n-links a:hover {
+  color: #fff !important;
+}
+#nav.menu-open-nav .n-links a::after {
+  background: var(--accent-light) !important;
+}
+
 /* Clean premium burger */
 .n-burger{
   position:relative;
@@ -83,6 +111,18 @@
   appearance:none!important;
   border-radius:0!important;
   padding:0!important;
+  display:none!important;
+  flex-direction:column!important;
+  justify-content:center!important;
+  gap:7px!important;
+  cursor:pointer!important;
+  width:32px!important;
+  height:32px!important;
+}
+@media (max-width: 960px) {
+  .n-burger {
+    display: flex !important;
+  }
 }
 .n-burger:focus,
 .n-burger:focus-visible,

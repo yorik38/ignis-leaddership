@@ -227,7 +227,19 @@
     }
 
     document.querySelectorAll('#n-links a').forEach(function(link){
-      link.addEventListener('click', function(){
+      link.addEventListener('click', function(e){
+        // Handle Outcomes dropdown on mobile
+        if(window.innerWidth <= 960) {
+          const outcomesLink = document.querySelector('.nav-outcomes-dropdown > a');
+          if(this === outcomesLink && e.target === outcomesLink) {
+            e.preventDefault();
+            const dropdown = document.querySelector('.nav-dropdown-menu');
+            if(dropdown) {
+              dropdown.classList.toggle('mobile-open');
+            }
+            return;
+          }
+        }
         if(window.innerWidth <= 960) window.closeBurger();
       });
     });
