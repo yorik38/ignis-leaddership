@@ -182,7 +182,7 @@
     /* ── SHARED LAYOUT ── */
     .wrap { max-width: calc(var(--mw) + var(--px) * 2); margin: 0 auto; padding: var(--sp) var(--px); }
     .wrap-tight { max-width: calc(760px + var(--px) * 2); margin: 0 auto; padding: var(--sp) var(--px); }
-    .bg-off   { background: var(--off-white); }
+    .bg-off   { background: var(--white); }
     .bg-dark  { background: var(--dark); }
     .bg-dark2 { background: var(--dark-2); }
     .section-eyebrow { font-size: .7rem; letter-spacing: .22em; text-transform: uppercase; font-weight: 500; color: var(--accent); margin-bottom: 16px; }
@@ -213,7 +213,7 @@
     .who-photo img { width: 100%; aspect-ratio: 3/4; object-fit: cover; object-position: top; }
 
     /* ── TRANSFORM GRID ── */
-    .tx-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; background: var(--gray-light); margin-top: 52px; }
+    .tx-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 2px; background: var(--gray-light); margin-top: 52px; }
     .tx-card { background: var(--white); padding: 52px 48px; }
     .tx-label { font-size: .65rem; letter-spacing: .2em; text-transform: uppercase; color: var(--accent); margin-bottom: 14px; }
     .tx-title { font-family: var(--fd); font-size: clamp(22px, 2.4vw, 32px); font-weight: 400; letter-spacing: .03em; margin-bottom: 14px; }
@@ -783,7 +783,7 @@
 <img alt="Bouygues" src="images/website ticker/4.png"/>
 <img alt="Manchester Business School" src="images/website ticker/5.png"/>
 </div>
-<p class="trust-outcomes">Deep sleep  ·  Anxiety-free leadership  ·  Unshakable confidence</p>
+<p class="trust-outcomes">Clear identity · Authentic leadership · Calm confidence</p>
 </div>
 <!-- PROBLEM -->
 <div class="bg-off">
@@ -1185,7 +1185,11 @@
   }
 
   document.querySelectorAll('#n-links a').forEach(link => {
-    link.addEventListener('click', () => {
+    link.addEventListener('click', (e) => {
+      // Don't close menu when clicking Outcomes dropdown toggle
+      const parentLi = link.closest('li');
+      if (parentLi && parentLi.classList.contains('nav-outcomes-dropdown')) return;
+      // Close menu on other links
       if (window.innerWidth <= 960) closeBurger();
     });
   });

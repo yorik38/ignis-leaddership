@@ -402,6 +402,8 @@
 
   document.querySelectorAll('#n-links a').forEach(link => {
     link.addEventListener('click', function() {
+      const parentLi = link.closest('li');
+      if (parentLi && parentLi.classList.contains('nav-outcomes-dropdown')) return;
       document.getElementById('n-links').classList.remove('mobile-open');
     });
   });
