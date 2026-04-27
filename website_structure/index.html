@@ -734,7 +734,7 @@
 </style>
 <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
 
-<link rel="stylesheet" href="assets/shared.css?v=20260427-toggle">
+<link rel="stylesheet" href="assets/shared.css?v=20260427-fixed">
 </head>
 <body>
 
@@ -744,14 +744,14 @@
     <li><a href="index.html" data-page="home">Home</a></li>
     <li><a href="about.html" data-page="about">About</a></li>
     <li class="nav-outcomes-dropdown">
-      <a href="#" data-page="outcomes" onclick="toggleOutcomesDropdown(event)">Outcomes</a>
+      <a href="#" data-page="outcomes">Outcomes</a>
       <div class="nav-dropdown-menu">
-        <a href="outcomes/perfectionism.html">Perfectionism</a>
-        <a href="outcomes/burnout.html">Burnout</a>
-        <a href="outcomes/decision-making.html">Decision-Making Clarity</a>
-        <a href="outcomes/self-sabotage.html">Self-Sabotage</a>
-        <a href="outcomes/overthinking.html">Overthinking & Quiet Mind</a>
-        <a href="outcomes/performance-confidence.html">Performance Confidence</a>
+        <a href="outcomes/high-stakes-anxiety.html">High-Stakes Anxiety</a>
+        <a href="outcomes/executive-burnout.html">Executive Burnout</a>
+        <a href="outcomes/imposter-syndrome.html">Imposter Syndrome</a>
+        <a href="outcomes/decision-paralysis.html">Decision Paralysis</a>
+        <a href="outcomes/perfectionism-procrastination.html">Perfectionism & Procrastination</a>
+        <a href="outcomes/performance-blocks.html">Performance Blocks</a>
       </div>
     </li>
     <li><a class="n-cta" href="#" onclick="openCal(); return false;">Let’s talk</a></li>
@@ -1103,12 +1103,12 @@
         <li class="f-outcomes-dropdown">
           <a href="#" onclick="toggleFooterOutcomesDropdown(event)">Outcomes</a>
           <ul class="f-outcomes-submenu">
-            <li><a href="outcomes/perfectionism.html">Perfectionism</a></li>
-            <li><a href="outcomes/burnout.html">Burnout</a></li>
-            <li><a href="outcomes/decision-making.html">Decision-Making Clarity</a></li>
-            <li><a href="outcomes/self-sabotage.html">Self-Sabotage</a></li>
-            <li><a href="outcomes/overthinking.html">Overthinking & Quiet Mind</a></li>
-            <li><a href="outcomes/performance-confidence.html">Performance Confidence</a></li>
+            <li><a href="outcomes/high-stakes-anxiety.html">High-Stakes Anxiety</a></li>
+            <li><a href="outcomes/executive-burnout.html">Executive Burnout</a></li>
+            <li><a href="outcomes/imposter-syndrome.html">Imposter Syndrome</a></li>
+            <li><a href="outcomes/decision-paralysis.html">Decision Paralysis</a></li>
+            <li><a href="outcomes/perfectionism-procrastination.html">Perfectionism & Procrastination</a></li>
+            <li><a href="outcomes/performance-blocks.html">Performance Blocks</a></li>
           </ul>
         </li>
       </ul>
@@ -1191,14 +1191,6 @@
     links.classList.toggle('mobile-open', willOpen);
     if (navBar) navBar.classList.toggle('menu-open-nav', willOpen);
     document.body.style.overflow = willOpen ? 'hidden' : '';
-  }
-
-  function toggleOutcomesDropdown(e) {
-    e.preventDefault();
-    const outcomesLi = document.querySelector('.nav-outcomes-dropdown');
-    if (outcomesLi) {
-      outcomesLi.classList.toggle('open');
-    }
   }
 
   function toggleFooterOutcomesDropdown(e) {
