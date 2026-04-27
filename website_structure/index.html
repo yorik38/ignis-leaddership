@@ -6,36 +6,75 @@
   <title>Ignis Leadership — The Clear Identity Method</title>
   <link rel="stylesheet" href="assets/shared.css">
 </head>
-<body>
+<body class="site-shell">
 
-<header id="site-header"></header>
+  <header id="site-header"></header>
 
-<main id="page-home">
-  <section class="hero">
-    <div class="hero-inner">
-      <p class="eyebrow">CLARITY • IDENTITY • CONFIDENCE</p>
-      <h1>Know who you are.<br>Lead as yourself.<br>Everything else settles.</h1>
-      <p class="hero-sub">Coaching and hypnotherapy for high-performing professionals.</p>
-      <button class="btn" onclick="openCal()">Let’s talk</button>
-    </div>
-  </section>
-
-  <section class="bg-off wrap" style="text-align:center; padding: 100px 20px;">
-    <div class="pull-quote fu">
-      You know what to do.<br>You question who you are.
-    </div>
-    <p class="body-p" style="max-width:700px; margin: 40px auto;">The credentials are real. The certainty isn't.</p>
-  </section>
-
-  <section class="about-section">
+  <main id="page-home">
+    <section class="hero">
+      <div class="hero-inner">
+        <p class="eyebrow">CLARITY • IDENTITY • CONFIDENCE</p>
+        <h1 class="hero-h1">Know who you are.<br>Lead as yourself.<br>Everything else settles.</h1>
+        <img alt="Yorik Tisseau" class="hero-mobile-img" src="images/hero header homepage.jpg"/>
+        <p class="hero-sub">Coaching and hypnotherapy for high-performing professionals who want calm, confidence, and control back.</p>
+        <div class="hero-btns">
+          <button class="btn" onclick="openCal()">Let’s talk</button>
+          <button class="btn secondary" onclick="document.getElementById('method').scrollIntoView({behavior: 'smooth'})">How it works</button>
+        </div>
+      </div>
     </section>
 
-  <section class="tcard-wrap">
+    <section class="bg-off">
+      <div class="wrap" style="text-align:center; padding: 80px 20px;">
+        <div class="pull-quote fu">
+          You know what to do.<br>You question who you are.<br>
+          <span style="color:var(--accent); font-style:italic;">Everything else gets quiet when you know who you are.</span>
+        </div>
+        <p class="body-p" style="max-width:680px; margin: 40px auto 0;">The credentials are real. The certainty isn't.</p>
+      </div>
     </section>
-</main>
 
-<footer id="site-footer"></footer>
+    <section class="about-section">
+      <div class="about-iam-header fu">
+        <span class="iam-prefix">I am a...</span>
+        <div class="iam-menu" id="iam-menu">
+          <button class="iam-btn on" data-bio="I led market entry strategies for FTSE100 companies.">Ex-Leader FTSE100</button>
+          <button class="iam-btn" data-bio="Certified Executive Coach (ICF) with 300+ hours coached.">Executive Coach</button>
+          <button class="iam-btn" data-bio="Certified hypnotherapist specializing in performance psychology.">Hypnotherapist</button>
+        </div>
+      </div>
+      <div class="about-bio-center fu">
+        <p id="iam-bio-text">I led market entry strategies, commercial development of billion pound energy infrastructure projects, and international teams across FTSE100 companies.</p>
+      </div>
+    </section>
 
-<script src="assets/shared.js"></script>
+    <section class="tcard-wrap">
+      <div class="tcard fu">
+        <div class="tcard-body">
+          <p class="tcard-quote-text">"Yorik has had a real impact on how I tackle complex challenges and how I show up under pressure."</p>
+          <p class="tcard-name">James Heath</p>
+          <p class="tcard-role">bp (UK)</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer id="site-footer"></footer>
+
+  <script src="assets/shared.js"></script>
+  
+  <script>
+    // Inline script for the 'I am a...' section functionality
+    const iamBtns = document.querySelectorAll('.iam-btn');
+    const iamBioEl = document.getElementById('iam-bio-text');
+    
+    iamBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        iamBtns.forEach(b => b.classList.remove('on'));
+        btn.classList.add('on');
+        iamBioEl.textContent = btn.dataset.bio;
+      });
+    });
+  </script>
 </body>
 </html>
