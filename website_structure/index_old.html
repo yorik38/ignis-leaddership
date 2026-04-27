@@ -744,7 +744,7 @@
     <li><a href="index.html" data-page="home">Home</a></li>
     <li><a href="about.html" data-page="about">About</a></li>
     <li class="nav-outcomes-dropdown">
-      <a href="#" data-page="outcomes" onclick="toggleNavOutcomesDropdown(event)">Outcomes<span class="arrow"></span></a>
+      <a href="#" data-page="outcomes">Outcomes</a>
       <div class="nav-dropdown-menu">
         <a href="outcomes/high-stakes-anxiety.html">High-Stakes Anxiety</a>
         <a href="outcomes/executive-burnout.html">Executive Burnout</a>
@@ -1101,7 +1101,7 @@
         <li><a href="index.html">Home</a></li>
         <li><a href="about.html">About</a></li>
         <li class="f-outcomes-dropdown">
-          <a href="#" onclick="toggleFooterOutcomesDropdown(event)">Outcomes<span class="arrow"></span></a>
+          <a href="#" onclick="toggleFooterOutcomesDropdown(event)">Outcomes</a>
           <ul class="f-outcomes-submenu">
             <li><a href="outcomes/high-stakes-anxiety.html">High-Stakes Anxiety</a></li>
             <li><a href="outcomes/executive-burnout.html">Executive Burnout</a></li>
@@ -1193,14 +1193,6 @@
     document.body.style.overflow = willOpen ? 'hidden' : '';
   }
 
-  function toggleNavOutcomesDropdown(e) {
-    e.preventDefault();
-    const navOutcomesLi = document.querySelector('.nav-outcomes-dropdown');
-    if (navOutcomesLi) {
-      navOutcomesLi.classList.toggle('is-open');
-    }
-  }
-
   function toggleFooterOutcomesDropdown(e) {
     e.preventDefault();
     const footerOutcomesLi = document.querySelector('.f-outcomes-dropdown');
@@ -1211,15 +1203,9 @@
 
   document.querySelectorAll('#n-links a').forEach(link => {
     link.addEventListener('click', (e) => {
-      // Don't close menu when clicking Outcomes dropdown toggle or its items
+      // Don't close menu when clicking Outcomes dropdown toggle
       const parentLi = link.closest('li');
-      if (parentLi && parentLi.classList.contains('nav-outcomes-dropdown')) {
-        // Allow closing menu when clicking outcome category links, but not the toggle
-        if (!link.hasAttribute('onclick') && link.classList.length === 0) {
-          if (window.innerWidth <= 960) closeBurger();
-        }
-        return;
-      }
+      if (parentLi && parentLi.classList.contains('nav-outcomes-dropdown')) return;
       // Close menu on other links
       if (window.innerWidth <= 960) closeBurger();
     });
