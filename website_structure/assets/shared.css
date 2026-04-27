@@ -1,4 +1,9 @@
 /* ===== Common mobile menu / footer / hero overrides ===== */
+html, body {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+}
 #nav{z-index:150!important}
 
 /* ── SHARED OUTCOMES DROPDOWN ── */
@@ -11,15 +16,17 @@
   gap: 6px !important;
 }
 .nav-outcomes-dropdown > a::before {
+  display: none !important;
+}
+.nav-outcomes-dropdown > a::after {
   content: '▼' !important;
   position: relative !important;
   display: inline-block !important;
-  font-size: 0.45rem !important;
+  font-size: 0.55rem !important;
   transition: transform .2s !important;
-  margin-left: 4px !important;
-}
-.nav-outcomes-dropdown > a::after {
-  display: none !important;
+  margin-left: 6px !important;
+  vertical-align: middle !important;
+  top: -1px !important;
 }
 .nav-dropdown-menu {
   position: absolute !important;
@@ -51,13 +58,16 @@
 .nav-dropdown-menu a {
   display: block !important;
   padding: 10px 20px !important;
-  font-size: .7rem !important;
-  letter-spacing: .08em !important;
-  text-transform: uppercase !important;
+  font-size: .65rem !important;
+  letter-spacing: .05em !important;
+  text-transform: lowercase !important;
   color: #fff !important;
   text-decoration: none !important;
   transition: all .2s !important;
   border-left: 2px solid transparent !important;
+}
+.nav-dropdown-menu a::first-letter {
+  text-transform: uppercase !important;
 }
 .nav-dropdown-menu a:hover {
   color: #fff !important;
@@ -74,6 +84,11 @@
   color: var(--dark) !important;
   background: rgba(0,0,0,.05) !important;
   border-left-color: var(--accent) !important;
+}
+#nav.scrolled .nav-outcomes-dropdown:hover .nav-dropdown-menu {
+  opacity: 1 !important;
+  visibility: visible !important;
+  transform: translateY(0) !important;
 }
 
 /* Nav scroll styling - text color change */
@@ -122,6 +137,8 @@
 @media (max-width: 960px) {
   .n-burger {
     display: flex !important;
+    visibility: visible !important;
+    opacity: 1 !important;
   }
 }
 .n-burger:focus,
