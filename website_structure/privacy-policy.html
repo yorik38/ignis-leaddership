@@ -140,6 +140,67 @@
     #nav.menu-open-nav .n-burger span:first-child { transform: translateY(7.5px) rotate(45deg); background: #fff; }
     #nav.menu-open-nav .n-burger span:last-child { transform: translateY(-7.5px) rotate(-45deg); background: #fff; }
 
+    /* ── OUTCOMES DROPDOWN ── */
+    .nav-outcomes-dropdown { position: relative; }
+    .nav-outcomes-dropdown > a::after {
+      content: '▼';
+      display: inline-block;
+      margin-left: 6px;
+      font-size: 0.6rem;
+      transition: transform .2s;
+    }
+    .nav-outcomes-dropdown:hover > a::after {
+      transform: translateY(2px);
+    }
+    .nav-dropdown-menu {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      background: #000;
+      border-radius: 8px;
+      min-width: 220px;
+      box-shadow: 0 12px 32px rgba(0,0,0,0.24);
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(-8px);
+      transition: all .2s ease;
+      margin-top: 12px;
+      z-index: 200;
+      padding: 12px 0;
+    }
+    .nav-outcomes-dropdown:hover .nav-dropdown-menu {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+    .nav-dropdown-menu a {
+      display: block;
+      padding: 10px 20px;
+      font-size: .7rem;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,.75);
+      text-decoration: none;
+      transition: all .2s;
+      border-left: 2px solid transparent;
+    }
+    .nav-dropdown-menu a:hover {
+      color: #fff;
+      background: rgba(255,255,255,.05);
+      border-left-color: var(--accent-light);
+    }
+    #nav.scrolled .nav-dropdown-menu {
+      background: rgba(0,0,0,0.95);
+    }
+    #nav.scrolled .nav-dropdown-menu a {
+      color: rgba(51,51,51,.75);
+    }
+    #nav.scrolled .nav-dropdown-menu a:hover {
+      color: var(--dark);
+      background: rgba(0,0,0,.05);
+      border-left-color: var(--accent);
+    }
+
     /* ── PAGE SYSTEM ── */
     .page { display: none; }
     .page.active { display: block; }
@@ -524,12 +585,21 @@
   <a class="n-logo" href="index.html"><img src="images/logo nav bar.png" alt="Ignis Leadership"></a>
   <ul class="n-links" id="n-links">
     <li><a href="index.html" data-page="home">Home</a></li>
+    <li class="nav-outcomes-dropdown">
+      <a href="#" data-page="outcomes">Outcomes</a>
+      <div class="nav-dropdown-menu">
+        <a href="outcomes/perfectionism.html">Perfectionism</a>
+        <a href="outcomes/burnout.html">Burnout</a>
+        <a href="outcomes/decision-making.html">Decision-Making Clarity</a>
+        <a href="outcomes/self-sabotage.html">Self-Sabotage</a>
+        <a href="outcomes/overthinking.html">Overthinking & Quiet Mind</a>
+        <a href="outcomes/performance-confidence.html">Performance Confidence</a>
+      </div>
+    </li>
     <li><a href="about.html" data-page="about">About</a></li>
-    <li><a href="coaching.html" data-page="coaching">Coaching</a></li>
-    <li><a href="hypnotherapy.html" data-page="hypnosis">Hypnosis</a></li>
     <li><a class="n-cta" href="#" onclick="openCal(); return false;">Let’s talk</a></li>
   </ul>
-  <button class="n-burger" id="burger" type="button" aria-label="Toggle menu" aria-expanded="false" onclick="toggleBurger()"><span></span><span></span><span></span></button>
+  <div class="n-burger" id="burger" onclick="toggleBurger()"><span></span><span></span><span></span></div>
 </nav>
 
 <div id="page-privacy">

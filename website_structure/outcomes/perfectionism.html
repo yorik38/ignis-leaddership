@@ -1,0 +1,538 @@
+<!-- OUTCOME PAGE: PERFECTIONISM -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Perfectionism — Ignis Leadership</title>
+  <meta name="description" content="Break free from perfectionism. Achieve high performance without self-criticism. Learn to separate your worth from your output.">
+  <link rel="canonical" href="https://ignisleadership.com/outcomes/perfectionism.html">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    /* ── COPIED FROM index.html ── */
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --accent:       #C4476C;
+      --accent-h:     #A8325A;
+      --accent-light: #E0789A;
+      --dark:         #1F2330;
+      --dark-2:       #262D3C;
+      --plum:         #1E1232;
+      --white:        #FFFFFF;
+      --off-white:    #F6F2EC;
+      --gray-text:    #6C6C78;
+      --gray-light:   #E0DFE8;
+      --border:       rgba(0,0,0,0.07);
+      --accent-bg:    rgba(196,71,108,0.08);
+      --gray-50:      #F9F8FB;
+      --gray-100:     #F0EDF5;
+      --gray-300:     #D4CFE0;
+      --gap-xs:       8px;
+      --gap-sm:       12px;
+      --gap-md:       16px;
+      --gap-lg:       24px;
+      --shadow-sm:    0 2px 8px rgba(0,0,0,.08);
+      --shadow-md:    0 4px 16px rgba(0,0,0,.12);
+      --fd:           'Bebas Neue', sans-serif;
+      --fb:           'Inter', -apple-system, sans-serif;
+      --ft-muted:     #8F96A3;
+      --nav-h:        76px;
+      --sp:           clamp(80px, 10vw, 140px);
+      --mw:           1160px;
+      --px:           clamp(24px, 5vw, 80px);
+    }
+
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--fb); background: var(--white); color: var(--dark); font-size: 16px; line-height: 1.6; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+    img { display: block; max-width: 100%; }
+    button { font-family: var(--fb); }
+
+    /* ── NAV ── */
+    #nav { position: fixed; top: 0; left: 0; right: 0; min-height: var(--nav-h); display: flex; align-items: center; justify-content: space-between; padding: 14px var(--px); z-index: 100; transition: background .4s ease, box-shadow .4s ease; }
+    #nav.scrolled { background: rgba(255,255,255,.98); box-shadow: 0 4px 24px rgba(0,0,0,.08); border-bottom: 1px solid rgba(0,0,0,0.04); }
+    .n-logo { cursor: pointer; display: flex; align-items: center; }
+    .n-logo img { height: 48px; width: auto; filter: invert(1) brightness(2); transition: filter .3s; }
+    #nav.scrolled .n-logo img { filter: none; }
+
+    .n-links { display: flex; align-items: center; gap: 28px; list-style: none; }
+    .n-links > li { position: relative; }
+    .n-links a { font-size: .75rem; letter-spacing: .08em; text-transform: uppercase; color: rgba(255,255,255,.85); text-decoration: none; transition: color .2s; cursor: pointer; position: relative; padding-bottom: 2px; }
+    .n-links a::after { content: ''; position: absolute; bottom: -2px; left: 0; right: 100%; height: 1px; background: var(--accent-light); transition: right .25s ease; }
+    .n-links a:hover { color: #fff; }
+    .n-links a:hover::after, .n-links a.active::after { right: 0; }
+    .n-links a.active { color: var(--accent-light); }
+    #nav.scrolled .n-links a { color: #333; }
+    #nav.scrolled .n-links a:hover { color: var(--dark); }
+    #nav.scrolled .n-links a::after { background: var(--accent); }
+    #nav.scrolled .n-links a.active { color: var(--accent); }
+
+    /* ── OUTCOMES DROPDOWN ── */
+    .nav-outcomes-dropdown { position: relative; }
+    .nav-outcomes-dropdown > a::after { content: '▼'; display: inline-block; margin-left: 6px; font-size: 0.6rem; transition: transform .2s; }
+    .nav-outcomes-dropdown:hover > a::after { transform: translateY(2px); }
+    .nav-dropdown-menu {
+      position: absolute; top: 100%; left: 0; background: #000; border-radius: 8px; min-width: 220px;
+      box-shadow: 0 12px 32px rgba(0,0,0,0.24); opacity: 0; visibility: hidden; transform: translateY(-8px);
+      transition: all .2s ease; margin-top: 12px; z-index: 200; padding: 12px 0;
+    }
+    .nav-outcomes-dropdown:hover .nav-dropdown-menu {
+      opacity: 1; visibility: visible; transform: translateY(0);
+    }
+    .nav-dropdown-menu a {
+      display: block; padding: 10px 20px; font-size: .7rem; letter-spacing: .08em; text-transform: uppercase;
+      color: rgba(255,255,255,.75); text-decoration: none; transition: all .2s; border-left: 2px solid transparent;
+    }
+    .nav-dropdown-menu a:hover {
+      color: #fff; background: rgba(255,255,255,.05); border-left-color: var(--accent-light);
+    }
+    #nav.scrolled .nav-dropdown-menu { background: rgba(0,0,0,0.95); }
+    #nav.scrolled .nav-dropdown-menu a { color: rgba(51,51,51,.75); }
+    #nav.scrolled .nav-dropdown-menu a:hover { color: var(--dark); background: rgba(0,0,0,.05); border-left-color: var(--accent); }
+
+    .n-cta { background: var(--accent) !important; color: #fff !important; height: 44px; padding: 0 28px; border-radius: 4px; font-size: .75rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; transition: background .2s !important; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; white-space: nowrap; box-sizing: border-box; border: none; }
+    .n-cta::after { display: none !important; }
+    .n-cta:hover { background: var(--accent-h) !important; }
+
+    .n-burger { display: none; flex-direction: column; justify-content: center; gap: 7px; cursor: pointer; padding: 4px; width: 32px; height: 32px; }
+    .n-burger span { display: block; width: 24px; height: 1.5px; background: #fff; transition: transform .3s, width .3s, background .3s; margin: 0 auto; }
+    #nav.scrolled .n-burger span { background: var(--dark); }
+
+    @media (max-width: 960px) {
+      .n-links { display: none; }
+      .n-burger { display: flex; }
+    }
+
+    /* ── OUTCOME PAGE HERO ── */
+    .outcome-hero {
+      min-height: 60vh;
+      background: linear-gradient(135deg, var(--dark) 0%, var(--dark-2) 100%);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      padding: calc(var(--nav-h) + 60px) var(--px) 60px;
+      position: relative;
+      overflow: hidden;
+    }
+    .outcome-hero::before {
+      content: '';
+      position: absolute;
+      top: 0; right: 0; bottom: 0; left: 50%;
+      background: radial-gradient(circle at 80% 50%, rgba(196,71,108,0.1) 0%, transparent 60%);
+      pointer-events: none;
+    }
+    .outcome-hero-inner {
+      max-width: var(--mw);
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+      width: 100%;
+    }
+    .outcome-hero h1 {
+      font-family: var(--fd);
+      font-size: clamp(32px, 4.5vw, 56px);
+      line-height: 1.15;
+      margin-bottom: 20px;
+      letter-spacing: 0.02em;
+    }
+    .outcome-hero p {
+      font-size: clamp(16px, 1.3vw, 18px);
+      color: rgba(255,255,255,0.75);
+      max-width: 600px;
+      margin-bottom: 32px;
+      line-height: 1.7;
+    }
+
+    /* ── BUTTONS ── */
+    .btn {
+      background: var(--accent);
+      color: #fff;
+      padding: 14px 32px;
+      border-radius: 6px;
+      font-size: .85rem;
+      font-weight: 600;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      border: none;
+      cursor: pointer;
+      transition: all .2s;
+      text-decoration: none;
+      display: inline-block;
+    }
+    .btn:hover { background: var(--accent-h); transform: translateY(-2px); }
+
+    /* ── CONTENT ── */
+    .wrap {
+      max-width: var(--mw);
+      margin: 0 auto;
+      padding: 0 var(--px);
+    }
+    .section { padding: var(--sp) var(--px); }
+    .bg-off { background: var(--gray-50); }
+    .bg-dark { background: var(--dark); }
+
+    .section-eyebrow { font-family: var(--fd); font-size: 0.85rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent); margin-bottom: 16px; }
+    .section-title { font-family: var(--fd); font-size: clamp(28px, 4vw, 48px); line-height: 1.15; margin-bottom: 40px; letter-spacing: 0.02em; }
+
+    /* ── PROBLEM GRID ── */
+    .problem-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 20px;
+      margin-bottom: 48px;
+    }
+    .problem-item {
+      background: var(--accent-bg);
+      border: 1px solid rgba(196,71,108,0.2);
+      padding: 24px;
+      border-radius: 12px;
+      text-align: left;
+    }
+    .problem-item p { color: var(--dark); font-size: 1rem; line-height: 1.6; }
+
+    /* ── TESTIMONIAL ── */
+    .outcome-testimonial {
+      background: var(--gray-50);
+      border-left: 4px solid var(--accent);
+      padding: 40px;
+      border-radius: 8px;
+      margin: 60px 0;
+    }
+    .testimonial-text { font-size: 1.1rem; font-style: italic; line-height: 1.8; color: var(--dark); margin-bottom: 20px; }
+    .testimonial-author { font-weight: 600; color: var(--accent); font-size: 0.95rem; }
+    .testimonial-role { font-size: 0.85rem; color: var(--gray-text); margin-top: 4px; }
+
+    /* ── OUTCOMES LIST ── */
+    .outcomes-list {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 40px;
+      margin: 60px 0;
+    }
+    .outcomes-list li {
+      display: flex;
+      gap: 16px;
+      margin-bottom: 24px;
+      align-items: flex-start;
+    }
+    .outcomes-list li:last-child { margin-bottom: 0; }
+    .outcomes-list svg { width: 24px; height: 24px; fill: var(--accent); flex-shrink: 0; margin-top: 2px; }
+    .outcomes-list li span { font-size: 1.05rem; line-height: 1.6; color: var(--dark); }
+
+    /* ── PRICING ── */
+    .pricing-section {
+      background: var(--accent-bg);
+      padding: 60px var(--px);
+      text-align: center;
+      border-radius: 12px;
+      margin: 60px 0;
+    }
+    .pricing-heading { font-family: var(--fd); font-size: clamp(24px, 3vw, 36px); margin-bottom: 16px; color: var(--dark); }
+    .pricing-text {
+      font-size: 1.05rem;
+      color: var(--gray-text);
+      max-width: 500px;
+      margin: 0 auto 28px;
+      line-height: 1.7;
+    }
+
+    /* ── RELATED ── */
+    .related-outcomes {
+      margin-top: 80px;
+      padding-top: 60px;
+      border-top: 1px solid var(--border);
+    }
+    .related-outcomes h3 { font-family: var(--fd); font-size: 1.2rem; margin-bottom: 32px; color: var(--dark); }
+    .related-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 20px;
+    }
+    .related-link {
+      padding: 24px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      text-decoration: none;
+      color: var(--accent);
+      font-weight: 600;
+      transition: all .2s;
+      text-align: center;
+    }
+    .related-link:hover { background: var(--accent-bg); border-color: var(--accent); transform: translateY(-2px); }
+
+    /* ── FOOTER ── */
+    footer { background: var(--dark); border-top: 1px solid rgba(255,255,255,.06); color: #fff; padding: 60px var(--px) 40px; }
+    .f-top {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 40px;
+      max-width: var(--mw);
+      margin: 0 auto 40px;
+      padding-bottom: 40px;
+      border-bottom: 1px solid rgba(255,255,255,.06);
+    }
+    .f-brand { grid-column: span 1; }
+    .f-logo img { height: 40px; margin-bottom: 16px; }
+    .f-tagline { font-size: 0.9rem; color: rgba(255,255,255,.7); line-height: 1.6; }
+    .f-col-label { font-family: var(--fd); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 16px; color: var(--accent-light); }
+    .f-col-links { list-style: none; }
+    .f-col-links li { margin-bottom: 10px; }
+    .f-col-links a { color: rgba(255,255,255,.7); text-decoration: none; font-size: 0.9rem; transition: color .2s; }
+    .f-col-links a:hover { color: #fff; }
+    .f-bottom {
+      max-width: var(--mw);
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.85rem;
+      color: rgba(255,255,255,.5);
+    }
+    .f-legal-links { list-style: none; display: flex; gap: 24px; }
+    .f-legal-links a { color: rgba(255,255,255,.7); text-decoration: none; transition: color .2s; }
+    .f-legal-links a:hover { color: #fff; }
+
+    /* ── MODAL ── */
+    #cal-modal { position: fixed; inset: 0; background: rgba(10,10,20,.6); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); z-index: 200; display: flex; align-items: center; justify-content: center; opacity: 0; pointer-events: none; transition: opacity 0.4s ease; }
+    #cal-modal.open { opacity: 1; pointer-events: auto; }
+    .cal-inner { background: #fff; width: min(96vw, 1180px); max-width: 1180px; max-height: 92vh; border-radius: 8px; overflow-y: auto; position: relative; transform: scale(0.95) translateY(15px); transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.1) 0.05s; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25); }
+    #cal-modal.open .cal-inner { transform: scale(1) translateY(0); }
+    .cal-close { position: absolute; top: 16px; right: 18px; background: none; border: none; font-size: 1.3rem; cursor: pointer; color: #777; z-index: 10; transition: transform 0.2s, color 0.2s; }
+    .cal-close:hover { transform: scale(1.1); color: var(--accent); }
+    .cal-body { padding: 24px 24px 24px; text-align: left; }
+    .cal-body-embed { padding: 8px; }
+    .cal-body-embed .calendly-inline-widget { min-width: 100%; }
+    .cal-contact-options {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-top: 24px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+    }
+    .contact-option { padding: 16px; background: var(--accent-bg); border-radius: 8px; text-align: center; }
+
+    @media (max-width: 768px) {
+      .outcome-hero { padding: calc(var(--nav-h) + 40px) var(--px) 40px; }
+      .f-top { grid-template-columns: 1fr; gap: 32px; }
+      .f-bottom { flex-direction: column; gap: 20px; text-align: center; }
+      .f-legal-links { flex-direction: column; gap: 16px; }
+      .cal-contact-options { grid-template-columns: 1fr; }
+      .related-grid { grid-template-columns: 1fr; }
+      .problem-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/shared.css?v=20260404-menu">
+</head>
+<body>
+
+<nav id="nav">
+  <a class="n-logo" href="../index.html"><img src="../images/logo nav bar.png" alt="Ignis Leadership"></a>
+  <ul class="n-links">
+    <li><a href="../index.html">Home</a></li>
+    <li class="nav-outcomes-dropdown">
+      <a href="#">Outcomes</a>
+      <div class="nav-dropdown-menu">
+        <a href="perfectionism.html">Perfectionism</a>
+        <a href="burnout.html">Burnout</a>
+        <a href="decision-making.html">Decision-Making Clarity</a>
+        <a href="self-sabotage.html">Self-Sabotage</a>
+        <a href="overthinking.html">Overthinking & Quiet Mind</a>
+        <a href="performance-confidence.html">Performance Confidence</a>
+      </div>
+    </li>
+    <li><a href="../about.html">About</a></li>
+    <li><a class="n-cta" href="#" onclick="openCal(); return false;">Let's Talk</a></li>
+  </ul>
+  <div class="n-burger" id="burger" onclick="toggleBurger()"><span></span><span></span><span></span></div>
+</nav>
+
+<div class="outcome-hero">
+  <div class="outcome-hero-inner">
+    <h1>Perfectionism That Once Drove You Is Now Holding You Back</h1>
+    <p>The Clear Identity Method helps high-performing leaders finally separate their worth from their output—so you can achieve without the constant self-criticism.</p>
+    <button class="btn" onclick="openCal()">Let's Talk</button>
+  </div>
+</div>
+
+<div class="section">
+  <div class="wrap">
+    <p class="section-eyebrow">Do you relate to this?</p>
+    <div class="problem-grid">
+      <div class="problem-item"><p>Rewriting emails 10 times before sending them</p></div>
+      <div class="problem-item"><p>Your worth fluctuates with project outcomes</p></div>
+      <div class="problem-item"><p>Unable to celebrate wins—immediately thinking about what's next</p></div>
+      <div class="problem-item"><p>Saying yes to everything, then burning out</p></div>
+    </div>
+  </div>
+</div>
+
+<div class="section bg-off">
+  <div class="wrap">
+    <h2 class="section-title">The Hidden Cost of Staying This Way</h2>
+    <p style="font-size: 1.05rem; color: var(--gray-text); max-width: 700px; line-height: 1.8;">Perfectionism kept you rising. But now it's the ceiling. You're exhausted from the internal editing, the constant second-guessing, the inability to finish anything without it feeling like failure. And your team feels the pressure too—impossible standards cascade downward. The real cost isn't what you achieve, it's what you're missing: genuine satisfaction, sustainable pace, and the space to be human.</p>
+  </div>
+</div>
+
+<div class="section">
+  <div class="wrap">
+    <h2 class="section-title">What Becomes Possible</h2>
+    <div class="outcomes-list">
+      <ul style="list-style: none;">
+        <li><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"></path></svg><span>Celebrate wins without doubting them</span></li>
+        <li><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"></path></svg><span>Feel worth independent of outcomes</span></li>
+        <li><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"></path></svg><span>Rest without guilt</span></li>
+        <li><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"></path></svg><span>Delegate effectively</span></li>
+        <li><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"></path></svg><span>Lead teams without burning out</span></li>
+        <li><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"></path></svg><span>Achieve without self-criticism</span></li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div class="section bg-off">
+  <div class="wrap">
+    <div class="outcome-testimonial">
+      <p class="testimonial-text">"I used to measure myself by every small mistake. Now I understand my worth isn't on trial. I still achieve at high level, but the internal cost is gone."</p>
+      <div class="testimonial-author">Sarah M.</div>
+      <div class="testimonial-role">Director, Financial Services</div>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="wrap">
+    <div class="pricing-section">
+      <h3 class="pricing-heading">Ready to Shift This?</h3>
+      <p class="pricing-text">Investment starts from £897, tailored to your specific situation and goals. During a short consultation, we'll identify exactly where perfectionism is holding you back and design a path forward that fits your life and budget.</p>
+      <button class="btn" onclick="openCal()">Let's Talk</button>
+      <p style="margin-top: 20px; font-size: 0.9rem; color: var(--gray-text);">No pressure. No upsell. Just clarity.</p>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="wrap">
+    <div class="related-outcomes">
+      <h3>Related Transformations You Might Explore</h3>
+      <div class="related-grid">
+        <a href="burnout.html" class="related-link">Burnout</a>
+        <a href="overthinking.html" class="related-link">Overthinking & Quiet Mind</a>
+        <a href="self-sabotage.html" class="related-link">Self-Sabotage</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="f-top">
+    <div class="f-brand">
+      <a class="f-logo" href="../index.html"><img src="../images/logo nav bar.png" alt="Ignis Leadership"></a>
+      <p class="f-tagline">Where high performance<br>meets inner clarity.</p>
+    </div>
+    <div>
+      <p class="f-col-label">Navigate</p>
+      <ul class="f-col-links">
+        <li><a href="../index.html">Home</a></li>
+        <li><a href="../about.html">About</a></li>
+        <li><a href="perfectionism.html">Outcomes</a></li>
+      </ul>
+    </div>
+    <div>
+      <p class="f-col-label">Connect</p>
+      <ul class="f-col-links">
+        <li><a href="tel:+447305642808">+44 730 564 2808</a></li>
+        <li><a href="mailto:yorik@ignisleadership.com">yorik@ignisleadership.com</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="f-bottom">
+    <ul class="f-legal-links">
+      <li><a href="../terms-and-conditions.html">Terms & Conditions</a></li>
+      <li><a href="../privacy-policy.html">Privacy Policy</a></li>
+      <li><a href="../cookie-policy.html">Cookie Policy</a></li>
+    </ul>
+    <span>&copy; 2026 ignis leadership ltd. All rights reserved.</span>
+  </div>
+</footer>
+
+<div id="cal-modal">
+  <div class="cal-inner">
+    <button class="cal-close" onclick="closeCal()">✕</button>
+    <div class="cal-body cal-body-embed">
+      <h2 style="margin: 0 0 16px 0; font-family: var(--fd); font-size: 1.6rem; color: var(--dark);">Let's Talk</h2>
+      <p style="color: var(--gray-text); margin-bottom: 20px; font-size: 0.95rem;">Book a time that works for you, or reach out directly:</p>
+      <div class="calendly-inline-widget" data-url="https://calendly.com/yorik-tisseau-tmff/30min" style="min-width:100%;height:min(60vh,700px);"></div>
+      <div class="cal-contact-options">
+        <div class="contact-option">
+          <p style="font-weight: 600; margin: 0 0 8px 0; color: var(--dark);">Call</p>
+          <a href="tel:+447305642808" style="color: var(--accent); font-weight: 600; font-size: 0.95rem; text-decoration: none;">+44 730 564 2808</a>
+          <p style="font-size: 0.8rem; color: var(--gray-text); margin-top: 4px;">Direct line, UK hours</p>
+        </div>
+        <div class="contact-option">
+          <p style="font-weight: 600; margin: 0 0 8px 0; color: var(--dark);">Text</p>
+          <a href="sms:+447305642808" style="color: var(--accent); font-weight: 600; font-size: 0.95rem; text-decoration: none;">Message via SMS</a>
+          <p style="font-size: 0.8rem; color: var(--gray-text); margin-top: 4px;">Quick check-in</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://assets.calendly.com/assets/external/widget.js" async></script>
+<script>
+  const navEl = document.getElementById('nav');
+  const burgerEl = document.getElementById('burger');
+  const linksEl = document.querySelector('.n-links');
+  const modalEl = document.getElementById('cal-modal');
+
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 50) {
+      navEl.classList.add('scrolled');
+    } else {
+      navEl.classList.remove('scrolled');
+    }
+  });
+
+  function toggleBurger() {
+    linksEl.classList.toggle('mobile-open');
+    burgerEl.classList.toggle('active');
+  }
+
+  document.querySelectorAll('.n-links a').forEach(link => {
+    link.addEventListener('click', () => {
+      linksEl.classList.remove('mobile-open');
+      burgerEl.classList.remove('active');
+    });
+  });
+
+  function openCal() {
+    modalEl.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeCal() {
+    modalEl.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  modalEl.addEventListener('click', (e) => {
+    if (e.target === modalEl) {
+      closeCal();
+    }
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      closeCal();
+    }
+  });
+</script>
+
+</body>
+</html>
