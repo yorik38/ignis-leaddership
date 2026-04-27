@@ -734,7 +734,7 @@
 </style>
 <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
 
-<link rel="stylesheet" href="assets/shared.css?v=20260427-footer-nav">
+<link rel="stylesheet" href="assets/shared.css?v=20260427-toggle">
 </head>
 <body>
 
@@ -744,7 +744,7 @@
     <li><a href="index.html" data-page="home">Home</a></li>
     <li><a href="about.html" data-page="about">About</a></li>
     <li class="nav-outcomes-dropdown">
-      <a href="#" data-page="outcomes">Outcomes</a>
+      <a href="#" data-page="outcomes" onclick="toggleOutcomesDropdown(event)">Outcomes</a>
       <div class="nav-dropdown-menu">
         <a href="outcomes/perfectionism.html">Perfectionism</a>
         <a href="outcomes/burnout.html">Burnout</a>
@@ -1101,7 +1101,7 @@
         <li><a href="index.html">Home</a></li>
         <li><a href="about.html">About</a></li>
         <li class="f-outcomes-dropdown">
-          <a href="#" onclick="return false;">Outcomes▼</a>
+          <a href="#" onclick="toggleFooterOutcomesDropdown(event)">Outcomes</a>
           <ul class="f-outcomes-submenu">
             <li><a href="outcomes/perfectionism.html">Perfectionism</a></li>
             <li><a href="outcomes/burnout.html">Burnout</a></li>
@@ -1191,6 +1191,22 @@
     links.classList.toggle('mobile-open', willOpen);
     if (navBar) navBar.classList.toggle('menu-open-nav', willOpen);
     document.body.style.overflow = willOpen ? 'hidden' : '';
+  }
+
+  function toggleOutcomesDropdown(e) {
+    e.preventDefault();
+    const outcomesLi = document.querySelector('.nav-outcomes-dropdown');
+    if (outcomesLi) {
+      outcomesLi.classList.toggle('open');
+    }
+  }
+
+  function toggleFooterOutcomesDropdown(e) {
+    e.preventDefault();
+    const footerOutcomesLi = document.querySelector('.f-outcomes-dropdown');
+    if (footerOutcomesLi) {
+      footerOutcomesLi.classList.toggle('open');
+    }
   }
 
   document.querySelectorAll('#n-links a').forEach(link => {
