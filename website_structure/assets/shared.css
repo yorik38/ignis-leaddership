@@ -21,6 +21,7 @@ html, body {
   cursor: pointer !important;
   padding: 0 !important;
   border: none !important;
+  white-space: nowrap !important;
 }
 
 /* Hide the underline that would appear from parent nav */
@@ -248,8 +249,8 @@ body.legal-page-view .n-burger span{background:#000!important}
     transform:translateY(0);
     opacity:1;
   }
-  .n-links.mobile-open a::after,
-  .n-links.mobile-closing a::after{display:none!important}
+  .n-links.mobile-open a:not(.nav-outcomes-dropdown > a)::after,
+  .n-links.mobile-closing a:not(.nav-outcomes-dropdown > a)::after{display:none!important}
   .n-links.mobile-open li:last-child,
   .n-links.mobile-closing li:last-child{
     margin-top:auto!important;
