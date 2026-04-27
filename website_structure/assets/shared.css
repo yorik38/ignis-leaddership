@@ -221,6 +221,12 @@ body.legal-page-view .n-burger span{background:#000!important}
     width:100%!important;
   }
 
+  /* Mobile dropdown open state with indent */
+  .nav-outcomes-dropdown.is-open .nav-dropdown-menu {
+    padding: 16px 0 16px 28px !important;
+    margin-top: 16px !important;
+  }
+
   .nav-dropdown-menu.mobile-open{
     max-height:500px!important;
     padding:12px 0 12px 28px!important;
