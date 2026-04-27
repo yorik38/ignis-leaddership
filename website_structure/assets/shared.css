@@ -65,9 +65,10 @@ html, body {
   margin: 0 !important;
   padding: 0 !important;
   transition: max-height 0.3s ease, background 0.3s ease !important;
-  background: #2a2a2a !important;
+  background: #0f0f0f !important;
   white-space: normal !important;
   width: auto !important;
+  min-width: 280px !important;
 }
 
 /* Open state via class */
