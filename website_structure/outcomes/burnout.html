@@ -54,7 +54,8 @@
 
     /* ── OUTCOMES DROPDOWN ── */
     .nav-outcomes-dropdown { position: relative; }
-    .nav-outcomes-dropdown > a::after { content: '▼'; display: inline-block; margin-left: 6px; font-size: 0.6rem; transition: transform .2s; }
+    .nav-outcomes-dropdown > a { display: inline-flex; align-items: center; }
+    .nav-outcomes-dropdown > a::after { content: '▼'; display: inline-block; margin-left: 8px; font-size: 0.5rem; transition: transform .2s; }
     .nav-outcomes-dropdown:hover > a::after { transform: translateY(2px); }
     .nav-dropdown-menu { position: absolute; top: 100%; left: 0; background: #000; border-radius: 8px; min-width: 220px; box-shadow: 0 12px 32px rgba(0,0,0,0.24); opacity: 0; visibility: hidden; transform: translateY(-8px); transition: all .2s ease; margin-top: 12px; z-index: 200; padding: 12px 0; }
     .nav-outcomes-dropdown:hover .nav-dropdown-menu { opacity: 1; visibility: visible; transform: translateY(0); }
@@ -65,23 +66,10 @@
     #nav.scrolled .nav-dropdown-menu a:hover { color: var(--dark); background: rgba(0,0,0,.05); border-left-color: var(--accent); }
 
     /* ── HAMBURGER MENU ── */
-    .n-burger { display: none !important; flex-direction: column; justify-content: center; gap: 7px; cursor: pointer; padding: 4px; width: 32px; height: 32px; z-index: 150; }
+    .n-burger { display: none; flex-direction: column; justify-content: center; gap: 7px; cursor: pointer; padding: 4px; width: 32px; height: 32px; }
     .n-burger span { display: block; width: 24px; height: 1.5px; background: #fff; transition: transform .3s, width .3s, background .3s; margin: 0 auto; }
     .n-burger span:last-child { width: 14px; align-self: flex-end; margin-right: 4px; }
     #nav.scrolled .n-burger span { background: var(--dark); }
-
-    /* ── MOBILE NAV ── */
-    @media (max-width: 768px) {
-      .n-links { display: none !important; }
-      .n-links.mobile-open { display: flex !important; flex-direction: column; position: fixed; inset: 0; min-height: 100dvh; width: 100vw; background: #000 !important; backdrop-filter: none !important; padding: calc(var(--nav-h) + 32px) 28px 28px; gap: 22px; z-index: 140; align-items: flex-start; justify-content: flex-start; overflow-y: auto; text-align: left; }
-      .n-links.mobile-open li { width: 100%; list-style: none; }
-      .n-links.mobile-open a { color: rgba(255,255,255,.88); font-size: 1.1rem; font-weight: 400; padding: 0; border: none; letter-spacing: 0.08em; width: 100%; text-align: left; display: block; }
-      .n-links.mobile-open a::after { display: none !important; }
-      .n-links.mobile-open a.n-cta { width: 100%; font-size: .95rem; height: 54px; max-width: none; letter-spacing: 0.08em; color: #fff !important; margin-top: 0; border-radius: 10px; display: flex !important; }
-      .n-burger { display: flex !important; z-index: 160; position: relative; }
-      .nav-dropdown-menu { display: none !important; }
-      .nav-outcomes-dropdown.mobile-open .nav-dropdown-menu { display: flex !important; flex-direction: column; position: static; opacity: 1; visibility: visible; transform: none; background: rgba(255,255,255,.08); border-radius: 0; box-shadow: none; margin-top: 12px; padding: 12px 0 12px 20px; min-width: auto; }
-    }
 
     /* ── HERO ── */
     .hero { min-height: 100vh; background: linear-gradient(to bottom, rgba(20,18,30,.3) 0%, rgba(20,18,30,.7) 100%), url('../images/outcomes hero header.png') center/cover no-repeat; background-color: var(--dark); display: flex; align-items: center; justify-content: center; padding: var(--nav-h) var(--px) var(--sp); text-align: center; position: relative; }
@@ -157,8 +145,17 @@
     .cal-close { position: absolute; top: 16px; right: 16px; width: 32px; height: 32px; background: none; border: none; font-size: 24px; cursor: pointer; color: var(--gray-text); z-index: 10; }
     .cal-body { padding: 40px; }
 
-    /* ── RESPONSIVE ── */
-    @media (max-width: 768px) {
+    /* ── MOBILE NAV ── */
+    @media (max-width: 960px) {
+      .n-links { display: none; }
+      .n-links.mobile-open { display: flex; flex-direction: column; position: fixed; inset: 0; min-height: 100dvh; width: 100vw; background: #000; padding: calc(var(--nav-h) + 32px) 28px 28px; gap: 22px; z-index: 140; align-items: flex-start; justify-content: flex-start; overflow-y: auto; }
+      .n-links.mobile-open li { width: 100%; list-style: none; }
+      .n-links.mobile-open a { color: rgba(255,255,255,.88); font-size: 1.1rem; font-weight: 400; padding: 0; border: none; letter-spacing: 0.08em; width: 100%; text-align: left; display: block; }
+      .n-links.mobile-open a::after { display: none; }
+      .n-links.mobile-open a.n-cta { width: 100%; font-size: .95rem; height: 54px; max-width: none; letter-spacing: 0.08em; color: #fff !important; margin-top: 0; border-radius: 10px; display: flex !important; }
+      .n-burger { display: flex; z-index: 160; position: relative; }
+      .nav-dropdown-menu { display: none; }
+      .nav-outcomes-dropdown.mobile-open .nav-dropdown-menu { display: flex !important; flex-direction: column; position: static; opacity: 1; visibility: visible; transform: none; background: rgba(255,255,255,.08); border-radius: 0; box-shadow: none; margin-top: 12px; padding: 12px 0 12px 20px; min-width: auto; }
       .prob-cards { grid-template-columns: 1fr; }
       .outcomes-grid { grid-template-columns: repeat(2, 1fr); }
       .pricing-grid { grid-template-columns: 1fr; }
@@ -227,14 +224,13 @@
       <h3 class="prob-title">Your Confidence Is Shattered</h3>
       <p class="prob-text">You doubt your abilities. Tasks that once felt easy now feel insurmountable. Imposter syndrome intensifies.</p>
     </div>
-
   </div>
 </div>
 
 <div class="wrap bg-dark">
   <div style="text-align: center; margin-bottom: 44px;">
     <p class="section-eyebrow" style="color: var(--accent-light);">What Becomes Possible</p>
-    <h2 class="section-title" style="color: #fff;">When Perfectionism Releases</h2>
+    <h2 class="section-title" style="color: #fff;">When Burnout Releases</h2>
   </div>
   <div class="outcomes-grid">
     <div class="outcome-box">
@@ -267,7 +263,6 @@
       <h3 class="outcome-title">Life Feels Worth Living</h3>
       <p class="outcome-desc">Joy, curiosity, and spontaneity return to your everyday.</p>
     </div>
-
   </div>
 
   <div class="tcard">
@@ -289,16 +284,16 @@
     </div>
     <div>
       <div style="margin-bottom: 28px;">
-        <h3 style="font-family: var(--fd); font-size: 1.2rem; color: var(--accent); margin-bottom: 10px; letter-spacing: .03em;">Understand the Root</h3>
-        <p style="color: var(--gray-text); font-size: .95rem; line-height: 1.7;">We explore where your perfectionism came from—family patterns, early experiences, beliefs about worth. Understanding the source is the first step to releasing it.</p>
+        <h3 style="font-family: var(--fd); font-size: 1.2rem; color: var(--accent); margin-bottom: 10px; letter-spacing: .03em;">Understand the Depletion</h3>
+        <p style="color: var(--gray-text); font-size: .95rem; line-height: 1.7;">We explore what's driving your exhaustion—overwork, misalignment with values, lack of boundaries, or deeper beliefs about your worth. Understanding the source is step one.</p>
       </div>
       <div style="margin-bottom: 28px;">
-        <h3 style="font-family: var(--fd); font-size: 1.2rem; color: var(--accent); margin-bottom: 10px; letter-spacing: .03em;">Shift Your Thinking</h3>
-        <p style="color: var(--gray-text); font-size: .95rem; line-height: 1.7;">Through coaching and hypnotherapy, we help your mind shift from "it must be perfect" to "it must be excellent and sustainable."</p>
+        <h3 style="font-family: var(--fd); font-size: 1.2rem; color: var(--accent); margin-bottom: 10px; letter-spacing: .03em;">Restore Your Energy</h3>
+        <p style="color: var(--gray-text); font-size: .95rem; line-height: 1.7;">Through coaching and targeted hypnotherapy, we help your mind and body shift from exhaustion mode to restoration. You rebuild your capacity from the inside out.</p>
       </div>
-      <div>
-        <h3 style="font-family: var(--fd); font-size: 1.2rem; color: var(--accent); margin-bottom: 10px; letter-spacing: .03em;">Build Real Confidence</h3>
-        <p style="color: var(--gray-text); font-size: .95rem; line-height: 1.7;">As perfectionism releases, genuine confidence emerges. You deliver excellent results without the weight.</p>
+      <div style="margin-bottom: 28px;">
+        <h3 style="font-family: var(--fd); font-size: 1.2rem; color: var(--accent); margin-bottom: 10px; letter-spacing: .03em;">Build Sustainable High Performance</h3>
+        <p style="color: var(--gray-text); font-size: .95rem; line-height: 1.7;">You return to excellence—but with boundaries, purpose alignment, and the energy to sustain it long-term.</p>
       </div>
     </div>
   </div>
@@ -391,19 +386,18 @@
     <div class="cal-body">
       <h2 style="margin: 0 0 16px 0; font-family: var(--fd); font-size: 1.6rem; color: var(--dark);">Let's Talk</h2>
       <p style="color: var(--gray-text); margin-bottom: 20px; font-size: 0.95rem;">Book a time that works for you, or reach out directly:</p>
-      <div class="calendly-inline-widget" data-url="https://calendly.com/yorik-tisseau-tmff/30min" style="min-width:100%;height:min(60vh,700px);"></div>
+      <div class="calendly-inline-widget" data-url="https://calendly.com/yorik-tisseau-tmff/30min" style="min-width:100%;height:min(60vh,700px);"></ div>
     </div>
   </div>
 </div>
 
-<script src="https://assets.calendly.com/assets/external/widget.js"></script>
+<script src="https://assets.calendly.com/assets/external/widget.js"><\/script>
 <script>
   function openCal() { document.getElementById('cal-modal').classList.add('open'); }
   function closeCal() { document.getElementById('cal-modal').classList.remove('open'); }
 
   function toggleBurger() {
     const links = document.getElementById('n-links');
-    const nav = document.getElementById('nav');
     links.classList.toggle('mobile-open');
   }
 
@@ -416,16 +410,14 @@
     }
   });
 
-  // Close menu when clicking links
   document.querySelectorAll('#n-links a').forEach(link => {
     link.addEventListener('click', function() {
       document.getElementById('n-links').classList.remove('mobile-open');
     });
   });
 
-  // Handle outcomes dropdown on mobile
   document.querySelector('.nav-outcomes-dropdown').addEventListener('click', function(e) {
-    if (window.innerWidth <= 768) {
+    if (window.innerWidth <= 960) {
       e.preventDefault();
       this.classList.toggle('mobile-open');
     }
