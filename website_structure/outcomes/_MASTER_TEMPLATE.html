@@ -88,7 +88,8 @@ Copy this and replace:
 
     /* ── OUTCOMES DROPDOWN ── */
     .nav-outcomes-dropdown { position: relative; }
-    .nav-outcomes-dropdown > a::after { content: '▼'; display: inline-block; margin-left: 6px; font-size: 0.6rem; transition: transform .2s; }
+    .nav-outcomes-dropdown > a { display: inline-flex; align-items: center; gap: 8px; }
+    .nav-outcomes-dropdown > a::after { content: '▼'; display: inline; font-size: 0.5rem; transition: transform .2s; flex-shrink: 0; }
     .nav-outcomes-dropdown:hover > a::after { transform: translateY(2px); }
     .nav-dropdown-menu {
       position: absolute; top: 100%; left: 0; background: #000; border-radius: 8px; min-width: 220px;

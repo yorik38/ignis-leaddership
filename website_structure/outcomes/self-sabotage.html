@@ -148,7 +148,7 @@
     /* ── MOBILE NAV ── */
     @media (max-width: 960px) {
       .n-links { display: none; }
-      .n-links.mobile-open { display: flex; flex-direction: column; position: fixed; inset: 0; min-height: 100dvh; width: 100vw; background: #000; padding: calc(var(--nav-h) + 32px) 28px 28px; gap: 22px; z-index: 140; align-items: flex-start; justify-content: flex-start; overflow-y: auto; }
+      .n-links.mobile-open { display: flex; flex-direction: column; position: fixed; inset: 0; min-height: 100dvh; width: 100%; overflow-x: hidden; background: #000; padding: calc(var(--nav-h) + 32px) 28px 28px; gap: 22px; z-index: 140; align-items: flex-start; justify-content: flex-start; overflow-y: auto; }
       .n-links.mobile-open li { width: 100%; list-style: none; }
       .n-links.mobile-open a { color: rgba(255,255,255,.88); font-size: 1.1rem; font-weight: 400; padding: 0; border: none; letter-spacing: 0.08em; width: 100%; text-align: left; display: block; }
       .n-links.mobile-open a::after { display: none; }
@@ -417,11 +417,25 @@
     });
   });
 
-  document.querySelector('.nav-outcomes-dropdown').addEventListener('click', function(e) {
-    if (window.innerWidth <= 960) {
-      e.preventDefault();
-      this.classList.toggle('mobile-open');
-    }
+  // Handle outcomes dropdown on mobile
+  const outcomesLink = document.querySelector('.nav-outcomes-dropdown > a');
+  if (outcomesLink) {
+    outcomesLink.addEventListener('click', function(e) {
+      if (window.innerWidth <= 960) {
+        e.preventDefault();
+        document.querySelector('.nav-outcomes-dropdown').classList.toggle('mobile-open');
+      }
+    });
+  }
+  
+  // Close dropdown when clicking other nav links
+  document.querySelectorAll('#n-links > li:not(.nav-outcomes-dropdown) > a').forEach(link => {
+    link.addEventListener('click', function() {
+      const dropdown = document.querySelector('.nav-outcomes-dropdown');
+      if (dropdown) {
+        dropdown.classList.remove('mobile-open');
+      }
+    });
   });
 </script>
 
