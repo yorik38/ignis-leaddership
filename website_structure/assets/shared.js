@@ -5,6 +5,7 @@
 
 (function() {
     // --- 1. COMPONENT LOADER ---
+    // Uses absolute paths to ensure components load on root and sub-pages (like /outcomes/)
     async function loadComponent(id, path) {
         const el = document.getElementById(id);
         if (!el) return;
@@ -25,10 +26,10 @@
         const burger = document.getElementById('burger');
         const nLinks = document.getElementById('n-links');
         const outcomesDropdown = document.querySelector('.nav-outcomes-dropdown');
-        const outcomesTrigger = outcomesDropdown?.querySelector('a');
+        const outcomesTrigger = outcomesDropdown?.querySelector('.dropdown-trigger');
         const dropdownMenu = document.querySelector('.nav-dropdown-menu');
 
-        // Toggle mobile menu
+        // Toggle mobile menu (Burger)
         if (burger && nLinks) {
             burger.onclick = () => {
                 const isOpen = nLinks.classList.toggle('mobile-open');
@@ -37,7 +38,7 @@
             };
         }
 
-        // Handle Outcomes Dropdown (Mobile Click)
+        // Handle Outcomes Dropdown (Mobile Click/Toggle)
         if (outcomesTrigger) {
             outcomesTrigger.onclick = (e) => {
                 if (window.innerWidth <= 960) {
@@ -48,11 +49,11 @@
             };
         }
 
-        // Scroll Behavior
+        // Scroll Behavior: Background toggle and auto-close dropdown
         window.addEventListener('scroll', () => {
             const y = window.scrollY;
             
-            // Navbar background toggle
+            // Navbar background transition
             const isLegal = document.body.classList.contains('legal-page-view');
             if (nav && !isLegal) {
                 nav.classList.toggle('scrolled', y > 55);
@@ -67,23 +68,9 @@
     }
 
     // --- 3. TESTIMONIAL SLIDER LOGIC ---
-    // (Preserving your existing testimonial data and functions)
     const testimonials = [
-        {name:'James Heath', role:'Deal Development at bp', quote:'Yorik has had a real impact...', photo:'images/testimonials/james.jpg', initials:'JH'},
-        {name:'Michaela Valovicova', role:'Head of Marketing at Equans', quote:'Yorik supported me as I set up...', photo:'images/testimonials/michaela.jpg?v=2', initials:'MV'},
-        {name:'Nadia Aljibouri', role:'Senior Project Manager at bp', quote:'Working with Yorik helped me...', photo:'images/testimonials/nadia.jpg', initials:'NA'},
-        {name:'Raj Srivastava', role:'Senior Economist at Spirit Energy', quote:'During a period marked by setbacks...', photo:'images/testimonials/raj.jpg', initials:'RS'},
-        {name:'Chloe MacLennan', role:'Reservoir Engineer at bp', quote:'Yorik helped me shift my mindset...', photo:'images/testimonials/chloe.jpg', initials:'CM'},
-        {name:'Filipe Gongalves', role:'Sourcing Lead at bp', quote:'Your coaching helped me adapt...', photo:'images/testimonials/Filipe.jpeg?v=1', initials:'FG'},
-        {name:'Barnabas Stolpe', role:'Recruiting Manager at bp', quote:'The work we did helped me shift...', photo:'images/testimonials/Barnabas.jpeg?v=1', initials:'BS'},
-        {name:'Shovana Talukdar', role:'Senior Consultant at BVG Associates', quote:'I met Yorik during a significant transition...', photo:'images/testimonials/Shovana.jpeg?v=1', initials:'ST'}
-    ];
-
-    let testimonialIndex = 0;
-    
-    window.setTs = function(i) {
-        testimonialIndex = i;
-        const t = testimonials[i];
-        const qName = document.getElementById('tcard-name');
-        const qRole = document.getElementById('tcard-role');
-        const qText = document.
+        {name:'James Heath', role:'Deal Development at bp', quote:'Yorik has had a real impact...', photo:'/images/testimonials/james.jpg', initials:'JH'},
+        {name:'Michaela Valovicova', role:'Head of Marketing at Equans', quote:'Yorik supported me as I set up...', photo:'/images/testimonials/michaela.jpg?v=2', initials:'MV'},
+        {name:'Nadia Aljibouri', role:'Senior Project Manager at bp', quote:'Working with Yorik helped me...', photo:'/images/testimonials/nadia.jpg', initials:'NA'},
+        {name:'Raj Srivastava', role:'Senior Economist at Spirit Energy', quote:'During a period marked by setbacks...', photo:'/images/testimonials/raj.jpg', initials:'RS'},
+        {name:'Chloe MacLennan', role:'Reservoir Engineer at bp', quote:'Yorik helped me

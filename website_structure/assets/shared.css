@@ -1,103 +1,72 @@
-/* --- COMPONENT LAYOUT --- */
-#site-header { width: 100%; }
-#site-footer { width: 100%; }
-
-/* --- NAVIGATION & DROPDOWN --- */
-.nav-outcomes-dropdown {
-    position: relative;
+/* --- GLOBAL VARIABLES & THEME --- */
+:root {
+  --accent: #D15172;       /* Branding Pink */
+  --accent-light: #E08FA3;
+  --dark: #1F2330;         /* Branding Dark Blue/Black */
+  --bg-off: #F9F9FB;
+  --text: #333;
+  --fi: 'Inter', sans-serif;
+  --fb: 'Bebas Neue', sans-serif;
 }
 
-/* The Arrow */
-.nav-outcomes-dropdown > a::after {
-    content: '▼';
-    font-size: 0.65rem;
-    margin-left: 8px;
-    display: inline-block;
-    transition: transform 0.3s ease;
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: var(--fi);
+  color: var(--text);
+  line-height: 1.6;
+  background-color: #fff;
+  overflow-x: hidden;
 }
 
-/* Desktop Hover: Show Menu & Flip Arrow */
-@media (min-width: 961px) {
-    .nav-outcomes-dropdown:hover .nav-dropdown-menu {
-        display: block;
-        opacity: 1;
-        transform: translateY(0);
-    }
-    .nav-outcomes-dropdown:hover > a::after {
-        transform: rotate(180deg);
-    }
-    
-    .nav-dropdown-menu {
-        position: absolute;
-        top: 100%;
-        left: 0;
-        background: #1F2330;
-        min-width: 240px;
-        padding: 15px 0;
-        border-radius: 8px;
-        display: none;
-        box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-    }
-    .nav-dropdown-menu a {
-        padding: 10px 20px !important;
-        font-size: 0.85rem !important;
-        text-transform: none !important;
-        display: block;
-        color: rgba(255,255,255,0.7) !important;
-    }
-    .nav-dropdown-menu a:hover {
-        background: rgba(255,255,255,0.05);
-        color: #fff !important;
-    }
+/* --- LAYOUT COMPONENTS --- */
+#site-header { width: 100%; position: relative; z-index: 1000; }
+#site-footer { width: 100%; background: var(--dark); color: #fff; padding: 60px 5% 20px; }
+
+/* --- HERO & BACKGROUNDS --- */
+.hero {
+  background-color: var(--dark);
+  color: #fff;
+  min-height: 85vh;
+  display: flex;
+  align-items: center;
+  padding: 120px 5% 60px;
 }
 
-/* Mobile: Click Toggle */
-@media (max-width: 960px) {
-    .nav-dropdown-menu {
-        display: none;
-        padding-left: 20px;
-        margin-top: 10px;
-    }
-    .nav-dropdown-menu.mobile-open {
-        display: block;
-    }
-    .nav-outcomes-dropdown > a.is-active::after {
-        transform: rotate(180deg);
-    }
+.bg-dark { background-color: var(--dark); color: #fff; padding: 100px 5%; }
+.bg-off { background-color: var(--bg-off); padding: 100px 5%; }
+
+.btn {
+  background: var(--accent);
+  color: #fff;
+  padding: 16px 32px;
+  border-radius: 8px;
+  border: none;
+  font-family: var(--fb);
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: transform 0.2s, background 0.3s;
+}
+.btn:hover { transform: scale(1.03); background: #b84361; }
+
+/* --- NAVIGATION LOGIC --- */
+#nav {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 30px 5%;
+  transition: all 0.3s ease;
 }
 
-/* --- LEGAL PAGE VARIANT --- */
-body.legal-page-view #nav {
-    background: #FFFFFF !important;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-}
-body.legal-page-view .n-links a {
-    color: #1F2330 !important;
-}
-body.legal-page-view .n-logo img {
-    filter: none !important;
-}
-body.legal-page-view .n-burger span {
-    background: #1F2330 !important;
+#nav.scrolled {
+  background: rgba(31, 35, 48, 0.95);
+  backdrop-filter: blur(10px);
+  padding: 15px 5%;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
 }
 
-/* --- MODAL FIXES --- */
-#cal-modal {
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.8);
-    z-index: 9999;
-    display: none;
-    align-items: center;
-    justify-content: center;
-}
-#cal-modal.open {
-    display: flex;
-}
-.cal-inner {
-    background: white;
-    padding: 20px;
-    border-radius: 12px;
-    width: 90%;
-    max-width: 1000px;
-}
+.
