@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Perfectionism — Ignis Leadership</title>
+  <title>Find Decision-Making Clarity — Ignis Leadership</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -45,12 +45,10 @@
     .n-links a::after { content: ''; position: absolute; bottom: -2px; left: 0; right: 100%; height: 1px; background: var(--accent-light); transition: right .25s ease; }
     .n-links a:hover { color: #fff; }
     .n-links a:hover::after, .n-links a.active::after { right: 0; }
-    .n-links a.active { color: var(--accent-light); }
     #nav.scrolled .n-links a { color: #333; }
     #nav.scrolled .n-links a:hover { color: var(--dark); }
     #nav.scrolled .n-links a::after { background: var(--accent); }
-    #nav.scrolled .n-links a.active { color: var(--accent); }
-    .n-cta { background: var(--accent) !important; color: #fff !important; height: 44px; padding: 0 28px; border-radius: 4px; font-size: .75rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; transition: background .2s !important; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; white-space: nowrap; box-sizing: border-box; }
+    .n-cta { background: var(--accent) !important; color: #fff !important; height: 44px; padding: 0 28px; border-radius: 4px; font-size: .75rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; transition: background .2s !important; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; white-space: nowrap; box-sizing: border-box; border: none; }
     .n-cta::after { display: none !important; }
     .n-cta:hover { background: var(--accent-h) !important; }
 
@@ -67,31 +65,29 @@
     #nav.scrolled .nav-dropdown-menu a:hover { color: var(--dark); background: rgba(0,0,0,.05); border-left-color: var(--accent); }
 
     /* ── HAMBURGER MENU ── */
-    .n-burger { display: none; flex-direction: column; justify-content: center; gap: 7px; cursor: pointer; padding: 4px; width: 32px; height: 32px; }
+    .n-burger { display: none !important; flex-direction: column; justify-content: center; gap: 7px; cursor: pointer; padding: 4px; width: 32px; height: 32px; z-index: 150; }
     .n-burger span { display: block; width: 24px; height: 1.5px; background: #fff; transition: transform .3s, width .3s, background .3s; margin: 0 auto; }
     .n-burger span:last-child { width: 14px; align-self: flex-end; margin-right: 4px; }
     #nav.scrolled .n-burger span { background: var(--dark); }
 
     /* ── MOBILE NAV ── */
-    @media (max-width: 960px) {
-      .n-links { display: none; }
-      .n-links.mobile-open { display: flex; flex-direction: column; position: fixed; inset: 0; min-height: 100dvh; width: 100vw; background: #000 !important; backdrop-filter: none !important; -webkit-backdrop-filter: none !important; padding: calc(var(--nav-h) + 32px) 28px max(28px, env(safe-area-inset-bottom)); gap: 22px; z-index: 140; align-items: flex-start; justify-content: flex-start; overflow-y: auto; text-align: left; opacity: 1; }
-      .n-links.mobile-open li { width: 100%; list-style: none; position: relative; }
-      .n-links.mobile-open a { color: rgba(255,255,255,.88); font-size: clamp(1.1rem, 4.8vw, 1.5rem); font-weight: 400; padding: 0; border: none; letter-spacing: 0.08em; width: 100%; text-align: left; display: block; }
-      .n-links.mobile-open a::after { display: none; }
-      .n-links.mobile-open li:last-child { margin-top: auto; padding-top: 24px; }
-      .n-links.mobile-open a.n-cta { width: 100%; font-size: .95rem; height: 54px; max-width: none; letter-spacing: 0.08em; color: #fff !important; justify-content: center; margin-top: 0; border-radius: 10px; display: flex !important; align-items: center; text-align: center; padding: 0 20px; background: var(--accent) !important; }
-      .n-burger { display: flex; z-index: 160; position: relative; }
-      .nav-dropdown-menu { display: none; }
-      .nav-outcomes-dropdown.mobile-open .nav-dropdown-menu { position: static; opacity: 1; visibility: visible; transform: none; background: rgba(255,255,255,.08); border-radius: 0; box-shadow: none; margin-top: 12px; padding: 12px 0 12px 20px; min-width: auto; }
-      .nav-outcomes-dropdown.mobile-open .nav-dropdown-menu a { font-size: 1rem; color: rgba(255,255,255,.65); padding: 8px 0; }
+    @media (max-width: 768px) {
+      .n-links { display: none !important; }
+      .n-links.mobile-open { display: flex !important; flex-direction: column; position: fixed; inset: 0; min-height: 100dvh; width: 100vw; background: #000 !important; backdrop-filter: none !important; padding: calc(var(--nav-h) + 32px) 28px 28px; gap: 22px; z-index: 140; align-items: flex-start; justify-content: flex-start; overflow-y: auto; text-align: left; }
+      .n-links.mobile-open li { width: 100%; list-style: none; }
+      .n-links.mobile-open a { color: rgba(255,255,255,.88); font-size: 1.1rem; font-weight: 400; padding: 0; border: none; letter-spacing: 0.08em; width: 100%; text-align: left; display: block; }
+      .n-links.mobile-open a::after { display: none !important; }
+      .n-links.mobile-open a.n-cta { width: 100%; font-size: .95rem; height: 54px; max-width: none; letter-spacing: 0.08em; color: #fff !important; margin-top: 0; border-radius: 10px; display: flex !important; }
+      .n-burger { display: flex !important; z-index: 160; position: relative; }
+      .nav-dropdown-menu { display: none !important; }
+      .nav-outcomes-dropdown.mobile-open .nav-dropdown-menu { display: flex !important; flex-direction: column; position: static; opacity: 1; visibility: visible; transform: none; background: rgba(255,255,255,.08); border-radius: 0; box-shadow: none; margin-top: 12px; padding: 12px 0 12px 20px; min-width: auto; }
     }
 
     /* ── HERO ── */
-    .hero { min-height: 70vh; background: linear-gradient(to bottom, rgba(20,18,30,.4) 0%, rgba(20,18,30,.75) 100%), linear-gradient(135deg, var(--dark) 0%, var(--dark-2) 100%); display: flex; align-items: center; justify-content: center; padding: var(--nav-h) var(--px) var(--sp); text-align: center; }
-    .hero-content { max-width: 860px; margin: 0 auto; }
-    .hero-eyebrow { font-size: .7rem; letter-spacing: .22em; text-transform: uppercase; font-weight: 500; color: var(--accent-light); margin-bottom: 20px; }
-    .hero-title { font-family: var(--fd); font-size: clamp(42px, 6vw, 80px); font-weight: 400; line-height: 1.05; letter-spacing: .04em; color: #fff; margin-bottom: 20px; }
+    .hero { min-height: 100vh; background: linear-gradient(to bottom, rgba(20,18,30,.3) 0%, rgba(20,18,30,.7) 100%), url('../images/outcomes hero header.png') center/cover no-repeat; background-color: var(--dark); display: flex; align-items: center; justify-content: center; padding: var(--nav-h) var(--px) var(--sp); text-align: center; position: relative; }
+    .hero-inner { max-width: 860px; margin: 0 auto; position: relative; z-index: 2; }
+    .eyebrow { font-size: .7rem; letter-spacing: .22em; text-transform: uppercase; font-weight: 500; color: var(--accent-light); margin-bottom: 18px; }
+    .hero-h1 { font-family: var(--fd); font-size: clamp(42px, 8vw, 90px); font-weight: 400; line-height: 1.05; letter-spacing: .04em; color: #fff; margin-bottom: 20px; }
     .hero-sub { font-size: clamp(16px, 1.2vw, 18px); color: rgba(255,255,255,.65); font-weight: 300; letter-spacing: .02em; max-width: 720px; margin: 0 auto; }
 
     /* ── SECTIONS ── */
@@ -102,42 +98,45 @@
     .section-title { font-family: var(--fd); font-size: clamp(36px, 5vw, 62px); font-weight: 400; line-height: 1.05; letter-spacing: .04em; margin-bottom: 28px; }
     .body-p { font-size: 1rem; color: var(--gray-text); font-weight: 300; line-height: 1.8; margin-bottom: 16px; }
 
-    /* ── PROBLEM GRID ── */
-    .problem-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 24px; margin-top: 44px; }
-    .problem-card { background: var(--white); padding: 36px 28px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,.06); transition: transform .3s, box-shadow .3s; border-left: 3px solid var(--accent); }
-    .problem-card:hover { transform: translateY(-4px); box-shadow: 0 12px 28px rgba(0,0,0,.1); }
-    .problem-card-title { font-family: var(--fd); font-size: 1.1rem; font-weight: 400; color: var(--dark); margin-bottom: 10px; letter-spacing: .03em; }
-    .problem-card-text { font-size: .95rem; color: var(--gray-text); line-height: 1.6; }
+    /* ── PROBLEM CARDS ── */
+    .prob-cards { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; margin-top: 44px; }
+    .prob-card { padding: 32px; background: var(--white); border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,.06); transition: transform .3s, box-shadow .3s; border-left: 3px solid var(--accent); }
+    .prob-card:hover { transform: translateY(-4px); box-shadow: 0 12px 28px rgba(0,0,0,.1); }
+    .prob-title { font-family: var(--fd); font-size: 1.1rem; font-weight: 400; color: var(--dark); margin-bottom: 10px; letter-spacing: .03em; }
+    .prob-text { font-size: .95rem; color: var(--gray-text); line-height: 1.6; }
 
-    /* ── OUTCOMES LIST ── */
-    .outcomes-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 28px; margin-top: 40px; }
-    .outcome-item { text-align: center; }
-    .outcome-icon { font-size: 2.4rem; margin-bottom: 14px; }
-    .outcome-title { font-family: var(--fd); font-size: 1.15rem; font-weight: 400; color: var(--dark); margin-bottom: 8px; letter-spacing: .03em; }
-    .outcome-desc { font-size: .9rem; color: var(--gray-text); line-height: 1.6; }
+    /* ── OUTCOMES GRID ── */
+    .outcomes-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; margin-top: 40px; }
+    .outcome-box { text-align: center; }
+    .outcome-icon { font-size: 2.2rem; margin-bottom: 14px; }
+    .outcome-title { font-family: var(--fd); font-size: 1.1rem; font-weight: 400; color: #fff; margin-bottom: 8px; letter-spacing: .03em; }
+    .outcome-desc { font-size: .9rem; color: rgba(255,255,255,.65); line-height: 1.6; }
+
+    /* ── PHOTO PLACEHOLDERS ── */
+    .photo-placeholder { width: 100%; aspect-ratio: 4/3; background: linear-gradient(135deg, #f0f0f0 0%, #e0e0e0 100%); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: #999; font-size: 14px; margin-bottom: 24px; }
 
     /* ── TESTIMONIAL ── */
-    .testimonial-wrap { background: var(--plum); border-radius: 12px; padding: clamp(40px, 6vw, 60px) clamp(32px, 5vw, 48px); margin-top: var(--sp); text-align: center; max-width: 820px; margin-left: auto; margin-right: auto; }
-    .testimonial-text { font-size: clamp(18px, 1.8vw, 22px); font-style: italic; color: #fff; line-height: 1.7; margin-bottom: 20px; }
-    .testimonial-author { font-size: .95rem; color: var(--accent-light); font-weight: 500; letter-spacing: .08em; text-transform: uppercase; }
+    .tcard { background: var(--plum); border-radius: 12px; padding: clamp(40px, 6vw, 60px) clamp(32px, 5vw, 48px); text-align: center; max-width: 820px; margin: var(--sp) auto 0; }
+    .tcard-quote { font-size: clamp(18px, 1.8vw, 22px); font-style: italic; color: #fff; line-height: 1.7; margin-bottom: 20px; }
+    .tcard-author { font-size: .95rem; color: var(--accent-light); font-weight: 500; letter-spacing: .08em; text-transform: uppercase; }
 
     /* ── PRICING ── */
-    .pricing-wrap { background: var(--off-white); border-radius: 8px; padding: 40px; text-align: center; margin-top: var(--sp); }
-    .pricing-label { font-size: .75rem; letter-spacing: .2em; text-transform: uppercase; color: var(--accent); margin-bottom: 12px; }
-    .pricing-text { font-size: 1.05rem; color: var(--gray-text); font-weight: 300; }
-    .pricing-highlight { font-family: var(--fd); font-size: 2rem; color: var(--dark); margin-top: 8px; }
+    .pricing-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; margin-top: 48px; }
+    .pricing-box { background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.08); padding: 36px 28px; border-radius: 8px; text-align: center; }
+    .pricing-label { font-size: .75rem; letter-spacing: .2em; text-transform: uppercase; color: var(--accent-light); margin-bottom: 12px; }
+    .pricing-amount { font-family: var(--fd); font-size: 2.2rem; color: var(--accent-light); margin: 12px 0; }
+    .pricing-details { font-size: .9rem; color: rgba(255,255,255,.6); line-height: 1.6; }
 
     /* ── RELATED OUTCOMES ── */
-    .related-wrap { border-top: 1px solid var(--gray-light); padding-top: var(--sp); margin-top: var(--sp); }
+    .related-section { border-top: 1px solid var(--gray-light); padding-top: var(--sp); margin-top: var(--sp); }
     .related-label { font-size: .7rem; letter-spacing: .22em; text-transform: uppercase; color: var(--accent); margin-bottom: 20px; }
-    .related-links { display: flex; flex-wrap: wrap; gap: 12px; }
-    .related-link { display: inline-block; padding: 10px 18px; background: var(--accent-bg); border-radius: 4px; font-size: .85rem; color: var(--dark); text-decoration: none; transition: all .2s; }
+    .related-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 12px; }
+    .related-link { display: flex; align-items: center; justify-content: center; padding: 12px 16px; background: var(--accent-bg); border-radius: 6px; font-size: .85rem; color: var(--dark); text-decoration: none; text-align: center; transition: all .2s; }
     .related-link:hover { background: var(--accent); color: #fff; }
 
     /* ── FOOTER ── */
     footer { background: var(--dark); color: rgba(255,255,255,.6); padding: 60px var(--px) 28px; }
-    .f-top { max-width: calc(var(--mw) + var(--px) * 2); margin: 0 auto var(--sp); display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 48px; }
-    .f-brand { text-align: left; }
+    .f-top { max-width: calc(var(--mw) + var(--px) * 2); margin: 0 auto var(--sp); display: grid; grid-template-columns: repeat(4, 1fr); gap: 48px; }
     .f-logo { display: flex; align-items: center; margin-bottom: 16px; text-decoration: none; }
     .f-logo img { height: 40px; width: auto; }
     .f-tagline { font-size: .9rem; color: rgba(255,255,255,.5); line-height: 1.6; }
@@ -158,15 +157,20 @@
     .cal-close { position: absolute; top: 16px; right: 16px; width: 32px; height: 32px; background: none; border: none; font-size: 24px; cursor: pointer; color: var(--gray-text); z-index: 10; }
     .cal-body { padding: 40px; }
 
+    /* ── RESPONSIVE ── */
     @media (max-width: 768px) {
-      .problem-grid { grid-template-columns: 1fr; }
-      .outcomes-list { grid-template-columns: repeat(2, 1fr); }
+      .prob-cards { grid-template-columns: 1fr; }
+      .outcomes-grid { grid-template-columns: repeat(2, 1fr); }
+      .pricing-grid { grid-template-columns: 1fr; }
+      .related-grid { grid-template-columns: repeat(2, 1fr); }
+      .f-top { grid-template-columns: repeat(2, 1fr); gap: 28px; }
       .f-bottom { flex-direction: column; align-items: flex-start; }
       .f-legal-links { flex-direction: column; gap: 12px; }
     }
     @media (max-width: 520px) {
-      .hero-title { font-size: clamp(32px, 5vw, 48px); }
-      .outcomes-list { grid-template-columns: 1fr; }
+      .hero-h1 { font-size: clamp(32px, 5vw, 48px); }
+      .outcomes-grid { grid-template-columns: 1fr; }
+      .related-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -194,195 +198,156 @@
 </nav>
 
 <div class="hero">
-  <div class="hero-content">
-    <p class="hero-eyebrow">Outcomes</p>
-    <h1 class="hero-title">Gain Decision-Making Clarity</h1>
-    <p class="hero-sub">Stop second-guessing yourself and lead with conviction in your leadership.</p>
+  <div class="hero-inner">
+    <p class="eyebrow">OUTCOMES</p>
+    <h1 class="hero-h1">Find Decision-Making Clarity</h1>
+    <p class="hero-sub">Move beyond analysis paralysis and make confident decisions that align with your values and vision.</p>
   </div>
 </div>
 
-<div class="wrap bg-off" style="background: var(--off-white);">
+<div class="wrap bg-off">
   <div style="text-align: center; margin-bottom: 44px;">
     <p class="section-eyebrow">The Challenge</p>
-    <h2 class="section-title">What Unclear Decision-Making Costs</h2>
+    <h2 class="section-title">What Indecision Costs You</h2>
   </div>
-  <div class="problem-grid">
-    <div class="problem-card">
-      <h3 class="problem-card-title">Analysis Paralysis</h3>
-      <p class="problem-card-text">You have all the information but still can't decide.. The goalposts keep moving.</p>
+  <div class="prob-cards">
+    <div class="prob-card">
+      <h3 class="prob-title">You're Stuck in Analysis Paralysis</h3>
+      <p class="prob-text">You gather endless data but can never feel certain. The stakes feel impossibly high.</p>
     </div>
-    <div class="problem-card">
-      <h3 class="problem-card-title">Doubt Creeps In</h3>
-      <p class="problem-card-text">Every choice feels risky. You question decisions after you've made them.. You're burning energy on diminishing returns.</p>
+    <div class="prob-card">
+      <h3 class="prob-title">Others Expect Your Leadership</h3>
+      <p class="prob-text">Your team waits for direction. Delays cascade into missed opportunities and frustrated colleagues.</p>
     </div>
-    <div class="problem-card">
-      <h3 class="problem-card-title">Team Loses Confidence</h3>
-      <p class="problem-card-text">Your uncertainty ripples through the team.. You hear "this could improve" as "you're not good enough."</p>
+    <div class="prob-card">
+      <h3 class="prob-title">You Second-Guess Yourself Constantly</h3>
+      <p class="prob-text">Once you decide, doubt creeps back in. You wonder if you chose wrong.</p>
     </div>
-    <div class="problem-card">
-      <h3 class="problem-card-title">Decisions Get Delayed</h3>
-      <p class="problem-card-text">Major decisions get postponed because you're not sure.. You hesitate to take bigger roles or share your thinking openly.</p>
+    <div class="prob-card">
+      <h3 class="prob-title">Time Slips Away</h3>
+      <p class="prob-text">Months pass with big decisions unmade. You miss windows of opportunity.</p>
     </div>
+
   </div>
 </div>
 
-<div class="wrap bg-dark" style="background: var(--dark);">
+<div class="wrap bg-dark">
   <div style="text-align: center; margin-bottom: 44px;">
     <p class="section-eyebrow" style="color: var(--accent-light);">What Becomes Possible</p>
-    <h2 class="section-title" style="color: #fff;">When Clarity Emerges</h2>
+    <h2 class="section-title" style="color: #fff;">When Perfectionism Releases</h2>
   </div>
-  <div class="outcomes-list">
-    <div class="outcome-item">
+  <div class="outcomes-grid">
+    <div class="outcome-box">
       <div class="outcome-icon">✓</div>
-      <h3 class="outcome-title" style="color: #fff;">Ease in Decision-Making</h3>
-      <p class="outcome-desc" style="color: rgba(255,255,255,.6);">Make decisions confidently without needing to analyse every angle. Trust your judgment.</p>
+      <h3 class="outcome-title">Clear Decision Framework</h3>
+      <p class="outcome-desc">You have a repeatable process for making decisions confidently.</p>
     </div>
-    <div class="outcome-item">
+    <div class="outcome-box">
       <div class="outcome-icon">✓</div>
-      <h3 class="outcome-title" style="color: #fff;">Sustainable Performance</h3>
-      <p class="outcome-desc" style="color: rgba(255,255,255,.6);">Deliver excellent work without the exhaustion. Performance becomes effortless.</p>
+      <h3 class="outcome-title">Trust Your Judgment</h3>
+      <p class="outcome-desc">You make decisions quickly and stand by them without constant doubt.</p>
     </div>
-    <div class="outcome-item">
+    <div class="outcome-box">
       <div class="outcome-icon">✓</div>
-      <h3 class="outcome-title" style="color: #fff;">Greater Visibility</h3>
-      <p class="outcome-desc" style="color: rgba(255,255,255,.6);">Step into bigger opportunities without the fear that you'll be "found out".</p>
+      <h3 class="outcome-title">Team Confidence Returns</h3>
+      <p class="outcome-desc">Your team sees clear direction and follows with energy.</p>
     </div>
-    <div class="outcome-item">
+    <div class="outcome-box">
       <div class="outcome-icon">✓</div>
-      <h3 class="outcome-title" style="color: #fff;">Freedom to Grow</h3>
-      <p class="outcome-desc" style="color: rgba(255,255,255,.6);">Take risks, try new approaches, and learn from mistakes without shame.</p>
+      <h3 class="outcome-title">Momentum Builds</h3>
+      <p class="outcome-desc">Decisions made, progress follows. You move forward decisively.</p>
     </div>
-    <div class="outcome-item">
+    <div class="outcome-box">
       <div class="outcome-icon">✓</div>
-      <h3 class="outcome-title" style="color: #fff;">Real Confidence</h3>
-      <p class="outcome-desc" style="color: rgba(255,255,255,.6);">Confidence based on who you are, not what you achieve. It stays with you.</p>
+      <h3 class="outcome-title">Values Alignment</h3>
+      <p class="outcome-desc">Your decisions reflect what matters most to you, not fear.</p>
     </div>
-    <div class="outcome-item">
+    <div class="outcome-box">
       <div class="outcome-icon">✓</div>
-      <h3 class="outcome-title" style="color: #fff;">Presence with Others</h3>
-      <p class="outcome-desc" style="color: rgba(255,255,255,.6);">Listen and connect instead of managing how you're perceived.</p>
+      <h3 class="outcome-title">Peace After Deciding</h3>
+      <p class="outcome-desc">Once decided, you release the need to second-guess yourself.</p>
     </div>
+
+  </div>
+
+  <div class="tcard">
+    <p class="tcard-quote">"I spent months going in circles on a major career decision. Through coaching, I found my clarity and moved forward with confidence. The relief was immediate."</p>
+    <p class="tcard-author">Emma T. — Director, Edinburgh</p>
   </div>
 </div>
 
 <div class="wrap">
-  <div class="testimonial-wrap">
-    <p class="testimonial-text">"The shift from doubt to conviction has changed how I lead. I make better decisions, I'm more present, and I've stepped into bigger opportunities. The work with Yorik was about understanding what was driving the perfectionism—not just managing it."</p>
-    <p class="testimonial-author">Michael T. — Operations Director, Manchester</p>
-  </div>
-</div>
-
-<div class="wrap">
-  <div style="max-width: 880px; margin: 0 auto; text-align: center;">
+  <div style="text-align: center; margin-bottom: 44px;">
     <p class="section-eyebrow">How It Works</p>
     <h2 class="section-title">The Approach</h2>
-    <p class="body-p" style="margin-bottom: 40px; font-size: 1.05rem;">Perfectionism isn't something to manage—it's something to understand. Through a blend of executive coaching and targeted hypnotherapy, we uncover what's beneath the need for flawlessness and help you build genuine confidence in your leadership.</p>
   </div>
-
-  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 32px; margin-top: 48px;">
-    <div style="text-align: center;">
-      <div style="width: 80px; height: 80px; margin: 0 auto 20px; background: linear-gradient(135deg, var(--accent) 0%, var(--accent-light) 100%); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 2rem;">🔍</div>
-      <h3 style="font-family: var(--fd); font-size: 1.2rem; color: var(--dark); margin-bottom: 12px; letter-spacing: .03em;">Understand the Root</h3>
-      <p style="color: var(--gray-text); font-size: .95rem; line-height: 1.6;">We explore where your perfectionism came from—family patterns, early experiences, beliefs about worth. Understanding the source is the first step to releasing it.</p>
+  <p style="text-align: center; color: var(--gray-text); font-size: 1.05rem; margin-bottom: 48px; max-width: 720px; margin-left: auto; margin-right: auto;">Analysis paralysis isn't about having more information—it's about trusting yourself. Through executive coaching and decision-focused work, we help you cut through complexity and decide with clarity.</p>
+  
+  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start; margin-top: 48px;">
+    <div>
+      <div class="photo-placeholder">Photo Placeholder (1)</div>
     </div>
-    <div style="text-align: center;">
-      <div style="width: 80px; height: 80px; margin: 0 auto 20px; background: linear-gradient(135deg, var(--accent) 0%, var(--accent-light) 100%); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 2rem;">💭</div>
-      <h3 style="font-family: var(--fd); font-size: 1.2rem; color: var(--dark); margin-bottom: 12px; letter-spacing: .03em;">Shift Your Thinking</h3>
-      <p style="color: var(--gray-text); font-size: .95rem; line-height: 1.6;">Through coaching conversations and hypnotherapy, we help your mind shift from "it must be perfect" to "it must be excellent and sustainable."</p>
-    </div>
-    <div style="text-align: center;">
-      <div style="width: 80px; height: 80px; margin: 0 auto 20px; background: linear-gradient(135deg, var(--accent) 0%, var(--accent-light) 100%); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 2rem;">✓</div>
-      <h3 style="font-family: var(--fd); font-size: 1.2rem; color: var(--dark); margin-bottom: 12px; letter-spacing: .03em;">Build Real Confidence</h3>
-      <p style="color: var(--gray-text); font-size: .95rem; line-height: 1.6;">As perfectionism releases, genuine confidence emerges. You deliver excellent results without the weight, and you trust yourself in high-stakes moments.</p>
-    </div>
-  </div>
-</div>
-
-<div class="wrap bg-off" style="background: var(--off-white);">
-  <div style="max-width: 880px; margin: 0 auto; text-align: center; margin-bottom: 48px;">
-    <p class="section-eyebrow">What to Expect</p>
-    <h2 class="section-title">The Journey</h2>
-  </div>
-
-  <div style="max-width: 1000px; margin: 0 auto;">
-    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start;">
-      <div>
-        <img src="../images/outcomes hero header.png" alt="The transformation journey" style="width: 100%; border-radius: 12px; margin-bottom: 24px; object-fit: cover;">
+    <div>
+      <div style="margin-bottom: 28px;">
+        <h3 style="font-family: var(--fd); font-size: 1.2rem; color: var(--accent); margin-bottom: 10px; letter-spacing: .03em;">Understand the Root</h3>
+        <p style="color: var(--gray-text); font-size: .95rem; line-height: 1.7;">We explore where your perfectionism came from—family patterns, early experiences, beliefs about worth. Understanding the source is the first step to releasing it.</p>
+      </div>
+      <div style="margin-bottom: 28px;">
+        <h3 style="font-family: var(--fd); font-size: 1.2rem; color: var(--accent); margin-bottom: 10px; letter-spacing: .03em;">Shift Your Thinking</h3>
+        <p style="color: var(--gray-text); font-size: .95rem; line-height: 1.7;">Through coaching and hypnotherapy, we help your mind shift from "it must be perfect" to "it must be excellent and sustainable."</p>
       </div>
       <div>
-        <div style="margin-bottom: 32px;">
-          <h3 style="font-family: var(--fd); font-size: 1.3rem; color: var(--accent); margin-bottom: 8px; letter-spacing: .03em;">Month 1: Foundation</h3>
-          <p style="color: var(--gray-text); font-size: .95rem; line-height: 1.7;">We start with understanding—your story, what perfectionism is costing you, and your vision for what's possible. Initial coaching sessions and the first hypnotherapy sessions begin rewiring how your mind works.</p>
-        </div>
-        <div style="margin-bottom: 32px;">
-          <h3 style="font-family: var(--fd); font-size: 1.3rem; color: var(--accent); margin-bottom: 8px; letter-spacing: .03em;">Month 2-3: Shift</h3>
-          <p style="color: var(--gray-text); font-size: .95rem; line-height: 1.7;">You'll notice changes in how you think and feel. Decisions come easier. You catch yourself being perfectionist—and stop. Coaching deepens the awareness; hypnotherapy embeds the new patterns.</p>
-        </div>
-        <div>
-          <h3 style="font-family: var(--fd); font-size: 1.3rem; color: var(--accent); margin-bottom: 8px; letter-spacing: .03em;">Month 4-6: Integration</h3>
-          <p style="color: var(--gray-text); font-size: .95rem; line-height: 1.7;">The new way of leading becomes natural. You're visible, confident, delivering excellent work without the exhaustion. Coaching supports you in maintaining and building on the shift.</p>
-        </div>
+        <h3 style="font-family: var(--fd); font-size: 1.2rem; color: var(--accent); margin-bottom: 10px; letter-spacing: .03em;">Build Real Confidence</h3>
+        <p style="color: var(--gray-text); font-size: .95rem; line-height: 1.7;">As perfectionism releases, genuine confidence emerges. You deliver excellent results without the weight.</p>
       </div>
     </div>
   </div>
 </div>
 
-<div class="wrap bg-dark" style="background: var(--dark);">
-  <div style="max-width: 880px; margin: 0 auto; text-align: center; margin-bottom: 48px;">
+<div class="wrap bg-dark">
+  <div style="text-align: center; margin-bottom: 44px;">
     <p class="section-eyebrow" style="color: var(--accent-light);">Investment</p>
     <h2 class="section-title" style="color: #fff;">What's Included</h2>
+    <p style="color: rgba(255,255,255,.65); font-size: 1rem; max-width: 680px; margin: 20px auto 0;">Monthly coaching sessions, decision-focused work, and between-session support to help you move from analysis paralysis to confident, decisive action.</p>
   </div>
 
-  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 32px; margin-bottom: 48px;">
-    <div style="background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.08); padding: 28px; border-radius: 8px;">
-      <h3 style="font-family: var(--fd); font-size: 1.15rem; color: #fff; margin-bottom: 16px; letter-spacing: .03em;">Monthly Coaching Sessions</h3>
-      <p style="color: rgba(255,255,255,.6); font-size: .95rem; line-height: 1.7;">3-4 sessions per month, 60 minutes each. Tailored coaching around your specific challenges and wins.</p>
+  <div class="pricing-grid">
+    <div class="pricing-box">
+      <p class="pricing-label">Starter</p>
+      <p class="pricing-amount">£2,497</p>
+      <p class="pricing-details">3 months<br>3-4 coaching sessions<br>2 hypnotherapy sessions</p>
     </div>
-    <div style="background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.08); padding: 28px; border-radius: 8px;">
-      <h3 style="font-family: var(--fd); font-size: 1.15rem; color: #fff; margin-bottom: 16px; letter-spacing: .03em;">Hypnotherapy Sessions</h3>
-      <p style="color: rgba(255,255,255,.6); font-size: .95rem; line-height: 1.7;">2 sessions per month, 90 minutes each. Targeted sessions to rewire patterns and build new neural pathways.</p>
+    <div class="pricing-box">
+      <p class="pricing-label">Standard</p>
+      <p class="pricing-amount">£3,197</p>
+      <p class="pricing-details">4 months<br>3-4 coaching sessions<br>2 hypnotherapy sessions</p>
     </div>
-    <div style="background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.08); padding: 28px; border-radius: 8px;">
-      <h3 style="font-family: var(--fd); font-size: 1.15rem; color: #fff; margin-bottom: 16px; letter-spacing: .03em;">Between-Session Support</h3>
-      <p style="color: rgba(255,255,255,.6); font-size: .95rem; line-height: 1.7;">Email access for quick questions and support. Hypnotherapy recordings to reinforce changes between sessions.</p>
+    <div class="pricing-box">
+      <p class="pricing-label">Complete</p>
+      <p class="pricing-amount">£4,497</p>
+      <p class="pricing-details">6 months<br>3-4 coaching sessions<br>2 hypnotherapy sessions</p>
     </div>
   </div>
-
-  <div class="pricing-wrap" style="background: var(--plum); border: 1px solid rgba(255,255,255,.1); text-align: left;">
-    <p class="pricing-label" style="color: var(--accent-light); text-align: center;">3-6 Month Packages</p>
-    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 24px; margin-top: 24px;">
-      <div style="text-align: center;">
-        <p style="color: rgba(255,255,255,.6); font-size: .95rem; margin-bottom: 8px;">Starter (3 months)</p>
-        <p class="pricing-highlight" style="color: var(--accent-light); font-size: 1.8rem; margin: 0;">£2,497</p>
-      </div>
-      <div style="text-align: center;">
-        <p style="color: rgba(255,255,255,.6); font-size: .95rem; margin-bottom: 8px;">Standard (4 months)</p>
-        <p class="pricing-highlight" style="color: var(--accent-light); font-size: 1.8rem; margin: 0;">£3,197</p>
-      </div>
-      <div style="text-align: center;">
-        <p style="color: rgba(255,255,255,.6); font-size: .95rem; margin-bottom: 8px;">Complete (6 months)</p>
-        <p class="pricing-highlight" style="color: var(--accent-light); font-size: 1.8rem; margin: 0;">£4,497</p>
-      </div>
-    </div>
-    <p style="color: rgba(255,255,255,.5); font-size: .9rem; margin-top: 20px; text-align: center;">Payment plans available. First consultation is complimentary.</p>
-  </div>
+  <p style="text-align: center; color: rgba(255,255,255,.5); font-size: .9rem; margin-top: 28px;">Payment plans available. First consultation is complimentary.</p>
 </div>
 
-<div class="wrap bg-off" style="background: var(--off-white);">
-  <div class="related-wrap">
+<div class="wrap bg-off">
+  <div class="related-section">
     <p class="related-label">Explore Related Outcomes</p>
-    <div class="related-links">
-      <a href="burnout.html" class="related-link">Burnout Recovery</a>
-      <a href="decision-making.html" class="related-link">Decision-Making Clarity</a>
-      <a href="overthinking.html" class="related-link">Overthinking & Quiet Mind</a>
-      <a href="performance-confidence.html" class="related-link">Performance Confidence</a>
+    <div class="related-grid">
+      <a href="perfectionism.html" class="related-link">Perfectionism</a>
+      <a href="burnout.html" class="related-link">Burnout</a>
+      <a href="decision-making.html" class="related-link" style="opacity: 0.5;">← You are here</a>
+      <a href="self-sabotage.html" class="related-link">Self-Sabotage</a>
+      <a href="overthinking.html" class="related-link">Overthinking</a>
+      <a href="performance-confidence.html" class="related-link">Performance</a>
     </div>
   </div>
 </div>
 
 <footer>
   <div class="f-top">
-    <div class="f-brand">
+    <div>
       <a class="f-logo" href="../index.html"><img src="../images/logo nav bar.png" alt="Ignis Leadership"></a>
       <p class="f-tagline">Where high performance<br>meets inner clarity.</p>
     </div>
@@ -436,6 +401,12 @@
   function openCal() { document.getElementById('cal-modal').classList.add('open'); }
   function closeCal() { document.getElementById('cal-modal').classList.remove('open'); }
 
+  function toggleBurger() {
+    const links = document.getElementById('n-links');
+    const nav = document.getElementById('nav');
+    links.classList.toggle('mobile-open');
+  }
+
   window.addEventListener('scroll', function() {
     const nav = document.getElementById('nav');
     if (window.scrollY > 50) {
@@ -445,35 +416,19 @@
     }
   });
 
-  function toggleBurger() {
-    const links = document.getElementById('n-links');
-    const burger = document.getElementById('burger');
-    const nav = document.getElementById('nav');
-    links.classList.toggle('mobile-open');
-    nav.classList.toggle('menu-open-nav');
-
-    // Handle dropdown in mobile menu
-    const outcomes = links.querySelector('.nav-outcomes-dropdown');
-    if (outcomes) {
-      outcomes.addEventListener('click', function(e) {
-        if (window.innerWidth <= 960) {
-          e.preventDefault();
-          this.classList.toggle('mobile-open');
-        }
-      });
-    }
-  }
-
-  // Close mobile menu when clicking on a link
-  document.querySelectorAll('#n-links a:not(.nav-outcomes-dropdown > a)').forEach(link => {
+  // Close menu when clicking links
+  document.querySelectorAll('#n-links a').forEach(link => {
     link.addEventListener('click', function() {
-      const links = document.getElementById('n-links');
-      const nav = document.getElementById('nav');
-      if (links.classList.contains('mobile-open')) {
-        links.classList.remove('mobile-open');
-        nav.classList.remove('menu-open-nav');
-      }
+      document.getElementById('n-links').classList.remove('mobile-open');
     });
+  });
+
+  // Handle outcomes dropdown on mobile
+  document.querySelector('.nav-outcomes-dropdown').addEventListener('click', function(e) {
+    if (window.innerWidth <= 768) {
+      e.preventDefault();
+      this.classList.toggle('mobile-open');
+    }
   });
 </script>
 
