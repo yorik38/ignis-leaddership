@@ -146,15 +146,17 @@
     .nav-outcomes-dropdown { position: relative; }
     .nav-outcomes-dropdown > a {
       position: relative;
-      padding-right: 12px !important;
+      padding-right: 16px !important;
     }
     .nav-outcomes-dropdown > a::before {
       content: '▼';
       position: absolute;
       right: 0;
-      top: 2px;
-      transform: none;
-      font-size: 0.6rem;
+      top: 0;
+      bottom: 0;
+      display: flex;
+      align-items: center;
+      font-size: 0.5rem;
       transition: transform .2s;
     }
     .nav-outcomes-dropdown > a::after {
@@ -190,7 +192,7 @@
       font-size: .7rem;
       letter-spacing: .08em;
       text-transform: uppercase;
-      color: rgba(255,255,255,.75);
+      color: #fff;
       text-decoration: none;
       transition: all .2s;
       border-left: 2px solid transparent;
