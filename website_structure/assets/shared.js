@@ -169,6 +169,11 @@
     links.classList.add('mobile-closing');
     if(navBar) navBar.classList.remove('menu-open-nav');
     if (burger) burger.setAttribute('aria-expanded', 'false');
+    
+    document.querySelectorAll('.nav-outcomes-dropdown, .f-outcomes-dropdown').forEach(d => {
+      d.classList.remove('is-open', 'open');
+    });
+
     syncBodyLock();
     menuCloseTimer = setTimeout(function(){
       links.classList.remove('mobile-closing');

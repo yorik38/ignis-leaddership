@@ -1181,6 +1181,12 @@
     if (!links) return;
     links.classList.remove('mobile-open');
     if (navBar) navBar.classList.remove('menu-open-nav');
+    
+    const navOutcomesLi = document.querySelector('.nav-outcomes-dropdown');
+    if (navOutcomesLi) {
+      navOutcomesLi.classList.remove('is-open');
+    }
+
     const modalOpen = document.getElementById('cal-modal')?.classList.contains('open');
     document.body.style.overflow = modalOpen ? 'hidden' : '';
   }
@@ -1192,6 +1198,14 @@
     const willOpen = !links.classList.contains('mobile-open');
     links.classList.toggle('mobile-open', willOpen);
     if (navBar) navBar.classList.toggle('menu-open-nav', willOpen);
+
+    if (!willOpen) {
+      const navOutcomesLi = document.querySelector('.nav-outcomes-dropdown');
+      if (navOutcomesLi) {
+        navOutcomesLi.classList.remove('is-open');
+      }
+    }
+
     document.body.style.overflow = willOpen ? 'hidden' : '';
   }
 
