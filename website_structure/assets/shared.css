@@ -212,27 +212,28 @@ body.legal-page-view .n-burger span{background:#000!important}
 
   /* Dropdown menu - positioned below on mobile too */
   .nav-dropdown-menu{
-    position:absolute!important;
-    top:100%!important;
-    left:0!important;
-    display:block!important;
-    background:transparent!important;
-    max-height:0!important;
-    overflow:hidden!important;
-    margin:0!important;
-    padding:0!important;
-    transition:max-height .3s ease!important;
-    border-radius:0!important;
-    box-shadow:none!important;
-    z-index:auto!important;
-    width:100%!important;
+    position: relative !important;
+    top: auto !important;
+    left: auto !important;
+    display: block !important;
+    background: transparent !important;
+    max-height: 0 !important;
+    overflow: hidden !important;
+    margin: 0 !important;
+    padding: 0 0 0 28px !important;
+    transition: max-height 0.4s ease, padding 0.4s ease, margin 0.4s ease !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    z-index: auto !important;
+    width: 100% !important;
   }
 
   /* Mobile dropdown open state with indent */
   .nav-outcomes-dropdown.is-open .nav-dropdown-menu {
-    padding: 16px 0 20px 28px !important;
-    margin-top: 16px !important;
     max-height: 500px !important;
+    margin-top: 16px !important;
+    padding-top: 8px !important;
+    padding-bottom: 8px !important;
   }
 
   .nav-dropdown-menu.mobile-open{
