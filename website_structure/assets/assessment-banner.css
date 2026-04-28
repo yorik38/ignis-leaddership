@@ -64,6 +64,11 @@
   transform: translateY(0);
 }
 
+.mobile-chevron::after {
+  content: " →";
+  display: none;
+}
+
 /* Responsive adjustments */
 @media (max-width: 768px) {
   .assessment-banner {
@@ -82,6 +87,15 @@
   .assessment-banner__button {
     padding: 5px 14px;
     font-size: 12px;
+  }
+}
+
+@media (max-width: 620px) {
+  .assessment-banner__button {
+    display: none;
+  }
+  .mobile-chevron::after {
+    display: inline;
   }
 }
 
