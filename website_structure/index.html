@@ -93,7 +93,7 @@
     }
 
     html { scroll-behavior: smooth; }
-    body { font-family: var(--fb); background: var(--white); color: var(--dark); font-size: 16px; line-height: 1.6; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+    body { font-family: var(--fb); background: var(--white); color: var(--dark); font-size: 16px; line-height: 1.6; -webkit-font-smoothing: antialiased; overflow-x: clip; }
     img { display: block; max-width: 100%; }
     button { font-family: var(--fb); }
 
@@ -121,7 +121,7 @@
     #nav.scrolled .n-logo img { filter: none; }
     .n-links { display: flex; align-items: center; gap: 28px; list-style: none; }
     .n-links a {
-      font-size: .75rem; letter-spacing: .08em; text-transform: uppercase;
+      font-size: .85rem; letter-spacing: .08em; text-transform: uppercase;
       color: rgba(255,255,255,.85); text-decoration: none;
       transition: color .2s; cursor: pointer; position: relative; padding-bottom: 2px;
     }
@@ -133,7 +133,7 @@
     #nav.scrolled .n-links a:hover, #nav.menu-open-nav .n-links a:hover { color: var(--dark); }
     #nav.scrolled .n-links a::after, #nav.menu-open-nav .n-links a::after { background: var(--accent); }
     #nav.scrolled .n-links a.active, #nav.menu-open-nav .n-links a.active { color: var(--accent); }
-    .n-cta { background: var(--accent) !important; color: #fff !important; height: 44px; padding: 0 28px; border-radius: 4px; font-size: .75rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; transition: background .2s !important; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; white-space: nowrap; box-sizing: border-box; }
+    .n-cta { background: var(--accent) !important; color: #fff !important; height: 44px; padding: 0 28px; border-radius: 4px; font-size: .85rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; transition: background .2s !important; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; white-space: nowrap; box-sizing: border-box; }
     .n-cta::after { display: none !important; }
     .n-cta:hover { background: var(--accent-h) !important; }
     .n-burger { display: none; flex-direction: column; justify-content: center; gap: 7px; cursor: pointer; padding: 4px; width: 32px; height: 32px; }
@@ -757,6 +757,7 @@
   <ul class="n-links" id="n-links">
     <li><a href="index.html" data-page="home">Home</a></li>
     <li><a href="about.html" data-page="about">About</a></li>
+    <li><a href="#assessment" data-page="breakthrough">Your Breakthrough</a></li>
     <li class="nav-outcomes-dropdown">
       <a href="#" data-page="outcomes" onclick="toggleNavOutcomesDropdown(event)">Outcomes<span class="arrow"></span></a>
       <div class="nav-dropdown-menu">
