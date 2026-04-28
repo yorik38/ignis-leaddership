@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Your Breakthrough Assessment | Ignis Leadership</title>
-  <meta name="description" content="Discover what's holding you back. Your Breakthrough Assessment reveals your leadership pattern in 2 minutes.">
+  <title>Breakthrough Assessment | Reveal Your Leadership Pattern</title>
+  <meta name="description" content="Discover what's holding you back. Take the free 2-minute leadership assessment. No sign-up required. Instant results. Taken by 800+ leaders.">
 
   <!-- Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-08D7N7C1NX"></script>
@@ -25,7 +25,7 @@
     t.src=v;s=b.getElementsByTagName(e)[0];
     s.parentNode.insertBefore(t,s)}(window, document,'script',
     'https://connect.facebook.net/en_US/fbevents.js');
-    fbq('init', 'YOUR_META_PIXEL_ID'); // Replace with your Pixel ID
+    fbq('init', 'YOUR_META_PIXEL_ID');
     fbq('track', 'PageView');
   </script>
   <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=YOUR_META_PIXEL_ID&ev=PageView&noscript=1" /></noscript>
@@ -54,6 +54,7 @@
       --gap-md: 16px;
       --gap-lg: 24px;
       --shadow-md: 0 4px 16px rgba(0,0,0,0.12);
+      --shadow-lg: 0 12px 40px rgba(0,0,0,0.15);
     }
 
     html { scroll-behavior: smooth; }
@@ -89,101 +90,154 @@
       width: 100%;
     }
 
-    /* ===== LANDING PAGE ===== */
-    .landing-screen {
+    /* ===== CONVERSION LANDING PAGE ===== */
+    .conversion-screen {
       flex: 1;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      padding: clamp(40px, 8vw, 80px);
-      text-align: center;
+      padding: clamp(60px, 10vw, 100px) clamp(24px, 5vw, 40px);
       background: linear-gradient(135deg, var(--white) 0%, var(--gray-bg) 100%);
+      text-align: center;
     }
 
-    .landing-content {
-      max-width: 620px;
+    .conversion-content {
+      max-width: 700px;
       animation: fadeIn 0.8s ease-out;
     }
 
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    .landing-badge {
+    .conversion-badge {
       display: inline-block;
       font-family: var(--fb);
-      font-size: 13px;
-      font-weight: 600;
-      letter-spacing: 1px;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
       text-transform: uppercase;
       color: var(--accent);
-      margin-bottom: var(--gap-md);
+      margin-bottom: 24px;
       padding: 8px 16px;
       background: rgba(196, 71, 108, 0.1);
       border-radius: 24px;
     }
 
-    .landing-heading {
+    .conversion-headline {
       font-family: var(--fd);
-      font-size: clamp(32px, 7vw, 56px);
-      font-weight: 700;
-      line-height: 1.2;
-      margin-bottom: var(--gap-lg);
+      font-size: clamp(42px, 8vw, 72px);
+      font-weight: 800;
+      line-height: 1.15;
+      margin-bottom: 24px;
       color: var(--dark);
-      letter-spacing: -1px;
+      letter-spacing: -2px;
     }
 
-    .landing-heading strong {
+    .conversion-headline .accent {
       color: var(--accent);
-      display: block;
+      font-style: italic;
     }
 
-    .landing-subheading {
-      font-size: clamp(16px, 4vw, 22px);
+    .conversion-subheading {
+      font-size: clamp(18px, 4vw, 24px);
       color: var(--gray-text);
-      margin-bottom: 32px;
+      margin-bottom: 48px;
       line-height: 1.5;
       font-weight: 400;
     }
 
-    .landing-benefits {
-      display: flex;
-      flex-direction: column;
-      gap: var(--gap-md);
-      margin-bottom: 40px;
-      text-align: left;
-      max-width: 400px;
-      margin-left: auto;
-      margin-right: auto;
+    .conversion-problem {
+      background: var(--white);
+      padding: 40px;
+      border-radius: 12px;
+      margin-bottom: 48px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+      border: 1px solid var(--gray-light);
     }
 
-    .benefit-item {
-      display: flex;
-      align-items: flex-start;
-      gap: var(--gap-md);
+    .conversion-problem p {
+      font-size: 16px;
+      color: var(--dark);
+      line-height: 1.7;
+      margin-bottom: 16px;
     }
 
-    .benefit-icon {
-      flex-shrink: 0;
-      width: 24px;
-      height: 24px;
-      border-radius: 50%;
-      background: var(--accent-light);
-      display: flex;
+    .conversion-problem p:last-child {
+      margin-bottom: 0;
+    }
+
+    .conversion-problem strong {
+      color: var(--accent);
+    }
+
+    .conversion-cta-primary {
+      display: inline-flex;
       align-items: center;
       justify-content: center;
+      padding: 20px 48px;
+      background: var(--dark);
       color: var(--white);
+      border: none;
+      border-radius: 8px;
+      font-family: var(--fd);
+      font-size: 18px;
       font-weight: 700;
-      font-size: 13px;
-      margin-top: 2px;
+      letter-spacing: 0.5px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      margin-bottom: 32px;
+      box-shadow: var(--shadow-md);
     }
 
-    .benefit-text {
-      font-size: 15px;
-      color: var(--dark);
-      line-height: 1.4;
+    .conversion-cta-primary:hover {
+      background: var(--accent);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .conversion-cta-primary::after {
+      content: ' →';
+      margin-left: 12px;
+    }
+
+    .conversion-social-proof {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      align-items: center;
+    }
+
+    .proof-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .proof-number {
+      font-family: var(--fd);
+      font-size: 32px;
+      font-weight: 800;
+      color: var(--accent);
+    }
+
+    .proof-label {
+      font-size: 13px;
+      color: var(--gray-text);
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .proof-row {
+      display: flex;
+      gap: 60px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     /* ===== ASSESSMENT SCREENS ===== */
@@ -194,16 +248,22 @@
     }
 
     .assessment-content {
-      max-width: 600px;
+      max-width: 800px;
       width: 100%;
+      margin: 0 auto;
+      background: var(--white);
+      padding: clamp(40px, 6vw, 60px);
+      border-radius: 16px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+      border: 1px solid var(--gray-light);
       animation: fadeIn 0.6s ease-out;
     }
 
     .progress-bar {
-      height: 3px;
+      height: 4px;
       background: var(--gray-light);
       border-radius: 2px;
-      margin-bottom: 40px;
+      margin-bottom: 48px;
       overflow: hidden;
     }
 
@@ -216,48 +276,48 @@
     .question-number {
       display: block;
       font-family: var(--fb);
-      font-size: 13px;
-      font-weight: 600;
+      font-size: 12px;
+      font-weight: 700;
       letter-spacing: 1px;
       text-transform: uppercase;
-      color: var(--gray-text);
-      margin-bottom: var(--gap-md);
+      color: var(--accent);
+      margin-bottom: 16px;
     }
 
     .question-heading {
       font-family: var(--fd);
-      font-size: clamp(26px, 6vw, 40px);
-      font-weight: 700;
+      font-size: clamp(28px, 6vw, 44px);
+      font-weight: 800;
       line-height: 1.3;
-      margin-bottom: 32px;
+      margin-bottom: 24px;
       color: var(--dark);
       letter-spacing: -0.5px;
     }
 
     .question-subtitle {
-      font-size: 14px;
+      font-size: 15px;
       color: var(--gray-text);
-      margin-bottom: 24px;
-      line-height: 1.5;
+      margin-bottom: 32px;
+      line-height: 1.6;
     }
 
     .question-hint {
       font-size: 13px;
       color: var(--gray-text);
-      margin-bottom: 20px;
+      margin-bottom: 24px;
       font-style: italic;
       opacity: 0.8;
     }
 
     /* ===== FORM ELEMENTS ===== */
     .form-group {
-      margin-bottom: 28px;
+      margin-bottom: 32px;
     }
 
     .options-grid {
       display: flex;
       flex-direction: column;
-      gap: var(--gap-md);
+      gap: 12px;
     }
 
     .option-radio, .option-checkbox {
@@ -302,53 +362,23 @@
       width: 20px;
       height: 20px;
       border: 2px solid var(--gray-light);
+      margin-right: 12px;
       border-radius: 50%;
-      margin-right: var(--gap-md);
       flex-shrink: 0;
-      transition: all 0.3s ease;
-      display: flex;
-      align-items: center;
-      justify-content: center;
     }
 
     .checkbox-square {
       border-radius: 4px;
     }
 
-    .option-radio input[type="radio"]:checked + .option-label .radio-circle {
-      border-color: var(--accent);
-      background: var(--accent);
-      box-shadow: inset 0 0 0 3px var(--white);
-    }
-
+    .option-radio input[type="radio"]:checked + .option-label .radio-circle,
     .option-checkbox input[type="checkbox"]:checked + .option-label .checkbox-square {
-      border-color: var(--accent);
       background: var(--accent);
-      color: var(--white);
-      font-weight: 700;
+      border-color: var(--accent);
     }
 
-    .checkbox-square::after {
-      content: '✓';
-      color: var(--white);
-      font-size: 12px;
-      font-weight: 700;
-    }
-
-    .option-checkbox input[type="checkbox"]:not(:checked) + .option-label .checkbox-square::after {
-      content: '';
-    }
-
-    .q1-counter {
-      font-size: 12px;
-      color: var(--gray-text);
-      margin-top: 12px;
-      font-weight: 500;
-    }
-
-    /* Slider styling */
     .slider-container {
-      margin-bottom: 24px;
+      margin-top: 24px;
     }
 
     .slider {
@@ -359,7 +389,6 @@
       outline: none;
       -webkit-appearance: none;
       appearance: none;
-      cursor: pointer;
     }
 
     .slider::-webkit-slider-thumb {
@@ -370,14 +399,8 @@
       border-radius: 50%;
       background: var(--accent);
       cursor: pointer;
-      box-shadow: 0 2px 8px rgba(196, 71, 108, 0.3);
+      box-shadow: 0 2px 8px rgba(196, 71, 108, 0.4);
       transition: all 0.2s ease;
-    }
-
-    .slider::-webkit-slider-thumb:hover {
-      background: var(--accent-hover);
-      box-shadow: 0 4px 12px rgba(196, 71, 108, 0.4);
-      transform: scale(1.1);
     }
 
     .slider::-moz-range-thumb {
@@ -386,343 +409,504 @@
       border-radius: 50%;
       background: var(--accent);
       cursor: pointer;
+      box-shadow: 0 2px 8px rgba(196, 71, 108, 0.4);
       border: none;
-      box-shadow: 0 2px 8px rgba(196, 71, 108, 0.3);
       transition: all 0.2s ease;
     }
 
     .slider-labels {
       display: flex;
       justify-content: space-between;
-      margin-top: 12px;
-      font-size: 13px;
+      font-size: 12px;
       color: var(--gray-text);
+      margin-top: 12px;
       font-weight: 500;
     }
 
     .slider-value {
-      text-align: center;
-      font-size: 18px;
-      font-weight: 700;
+      font-size: 14px;
+      font-weight: 600;
       color: var(--accent);
       margin-top: 16px;
+      text-align: center;
     }
 
-    /* Text input */
+    .q1-counter {
+      font-size: 13px;
+      color: var(--gray-text);
+      margin-top: 16px;
+      text-align: center;
+    }
+
     .text-input {
       width: 100%;
-      padding: 14px 16px;
+      padding: 16px 20px;
       border: 2px solid var(--gray-light);
       border-radius: 8px;
       font-family: var(--fb);
       font-size: 15px;
       color: var(--dark);
-      background: var(--white);
       transition: all 0.3s ease;
     }
 
     .text-input:focus {
       outline: none;
       border-color: var(--accent);
-      box-shadow: 0 0 0 3px rgba(196, 71, 108, 0.1);
+      background: rgba(196, 71, 108, 0.02);
     }
 
-    textarea.text-input {
-      resize: vertical;
-      min-height: 100px;
-      font-family: var(--fb);
-    }
-
-    /* ===== BUTTONS ===== */
+    /* ===== BUTTON ===== */
     .button {
-      padding: 14px 32px;
+      padding: 16px 32px;
       border: none;
       border-radius: 8px;
-      font-family: var(--fb);
-      font-size: 15px;
-      font-weight: 600;
+      font-family: var(--fd);
+      font-size: 16px;
+      font-weight: 700;
       cursor: pointer;
       transition: all 0.3s ease;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
+      text-decoration: none;
+      display: inline-block;
+      text-align: center;
+      width: auto;
     }
 
     .button-primary {
-      background: var(--accent);
+      background: var(--dark);
       color: var(--white);
-      width: 100%;
+      box-shadow: var(--shadow-md);
     }
 
     .button-primary:hover {
-      background: var(--accent-hover);
+      background: var(--accent);
       transform: translateY(-2px);
-      box-shadow: 0 8px 16px rgba(196, 71, 108, 0.3);
-    }
-
-    .button-primary:active {
-      transform: translateY(0);
+      box-shadow: var(--shadow-lg);
     }
 
     .button-secondary {
-      background: var(--gray-bg);
+      background: transparent;
       color: var(--dark);
-      width: 100%;
-      margin-bottom: var(--gap-md);
+      border: 2px solid var(--dark);
     }
 
     .button-secondary:hover {
-      background: var(--gray-light);
+      background: var(--dark);
+      color: var(--white);
     }
 
-    .nav-button {
-      padding: 12px 20px;
-      border: 2px solid var(--gray-light);
-      border-radius: 6px;
-      background: var(--white);
-      font-family: var(--fb);
+    .button-small {
+      padding: 12px 24px;
       font-size: 14px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      color: var(--dark);
     }
 
-    .nav-button:hover {
-      border-color: var(--accent);
-      color: var(--accent);
-    }
-
-    .nav-button:disabled {
-      opacity: 0.4;
-      cursor: not-allowed;
-    }
-
-    /* ===== RESULTS PAGE ===== */
+    /* ===== RESULTS SCREEN ===== */
     .results-screen {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
+      background: var(--white);
       padding: clamp(40px, 8vw, 80px) clamp(24px, 5vw, 40px);
-      background: linear-gradient(135deg, var(--white) 0%, var(--gray-bg) 100%);
     }
 
-    .results-content {
-      max-width: 700px;
-      width: 100%;
-      animation: fadeIn 0.8s ease-out;
+    .results-container {
+      max-width: 900px;
+      margin: 0 auto;
     }
 
-    .results-header {
-      text-align: center;
-      margin-bottom: 40px;
+    .results-badge {
+      display: inline-block;
+      font-family: var(--fb);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 32px;
+      padding: 8px 16px;
+      background: rgba(196, 71, 108, 0.1);
+      border-radius: 24px;
+      animation: fadeIn 0.6s ease-out;
     }
 
     .results-title {
       font-family: var(--fd);
-      font-size: clamp(28px, 6vw, 44px);
+      font-size: clamp(36px, 7vw, 56px);
+      font-weight: 800;
+      line-height: 1.2;
+      margin-bottom: 32px;
+      color: var(--dark);
+      letter-spacing: -1px;
+      animation: fadeIn 0.8s ease-out;
+    }
+
+    .results-title .accent {
+      color: var(--accent);
+      font-style: italic;
+    }
+
+    .results-intro {
+      font-size: 18px;
+      color: var(--dark);
+      line-height: 1.8;
+      margin-bottom: 48px;
+      animation: fadeIn 1s ease-out;
+    }
+
+    .results-section {
+      margin-bottom: 48px;
+      animation: fadeIn 1.2s ease-out;
+    }
+
+    .results-section-title {
+      font-family: var(--fb);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 16px;
+    }
+
+    .results-section-content {
+      background: var(--off-white);
+      padding: 32px;
+      border-radius: 12px;
+      border-left: 4px solid var(--accent);
+      font-size: 16px;
+      line-height: 1.8;
+      color: var(--dark);
+    }
+
+    .results-section-content strong {
+      color: var(--dark);
+      font-weight: 700;
+    }
+
+    .path-forward {
+      margin-bottom: 48px;
+    }
+
+    .path-item {
+      display: flex;
+      gap: 24px;
+      margin-bottom: 24px;
+    }
+
+    .path-number {
+      flex-shrink: 0;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--dark);
+      color: var(--white);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 16px;
+    }
+
+    .path-content h4 {
+      font-size: 16px;
       font-weight: 700;
       color: var(--dark);
-      margin-bottom: var(--gap-md);
+      margin-bottom: 8px;
+    }
+
+    .path-content p {
+      font-size: 15px;
+      color: var(--gray-text);
+      line-height: 1.6;
+    }
+
+    /* ===== CTA BOX ===== */
+    .cta-box {
+      background: var(--dark);
+      color: var(--white);
+      padding: clamp(40px, 6vw, 60px);
+      border-radius: 16px;
+      margin-top: 64px;
+      animation: fadeIn 1.4s ease-out;
+    }
+
+    .cta-box-label {
+      font-family: var(--fb);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--accent-light);
+      margin-bottom: 20px;
+      display: block;
+    }
+
+    .cta-box h3 {
+      font-family: var(--fd);
+      font-size: clamp(28px, 5vw, 40px);
+      font-weight: 800;
+      line-height: 1.3;
+      margin-bottom: 24px;
       letter-spacing: -0.5px;
     }
 
-    .results-subtitle {
-      font-size: 16px;
-      color: var(--gray-text);
-      margin-bottom: 24px;
-    }
-
-    .results-card {
-      background: var(--white);
-      border: 2px solid var(--gray-light);
-      border-radius: 12px;
-      padding: clamp(24px, 4vw, 40px);
-      margin-bottom: 24px;
-      transition: all 0.3s ease;
-    }
-
-    .results-card:hover {
-      border-color: var(--accent-light);
-      box-shadow: var(--shadow-md);
-    }
-
-    .result-label {
-      font-size: 13px;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 1px;
+    .cta-box h3 .accent {
       color: var(--accent);
-      margin-bottom: var(--gap-sm);
     }
 
-    .result-text {
+    .cta-box-desc {
       font-size: 16px;
-      line-height: 1.6;
+      line-height: 1.7;
+      margin-bottom: 32px;
+      opacity: 0.95;
+    }
+
+    .cta-buttons {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    @media (max-width: 640px) {
+      .cta-buttons {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .cta-button {
+      padding: 16px 24px;
+      border: 2px solid var(--white);
+      background: transparent;
+      color: var(--white);
+      border-radius: 8px;
+      font-family: var(--fd);
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      text-align: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+    }
+
+    .cta-button.primary {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: var(--white);
+    }
+
+    .cta-button.primary:hover {
+      background: var(--accent-hover);
+      border-color: var(--accent-hover);
+      transform: translateY(-2px);
+    }
+
+    .cta-button.secondary:hover {
+      background: var(--white);
       color: var(--dark);
     }
 
-    .result-text strong {
-      color: var(--accent);
-      font-weight: 700;
+    .cta-box-note {
+      font-size: 13px;
+      opacity: 0.8;
+      text-align: center;
     }
 
-    /* ===== EMAIL CAPTURE MODAL ===== */
-    .modal-overlay {
+    /* ===== NAVIGATION ===== */
+    .back-nav {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--gray-text);
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 32px;
+      transition: all 0.3s ease;
+    }
+
+    .back-nav:hover {
+      color: var(--accent);
+    }
+
+    .back-nav::before {
+      content: '←';
+      font-size: 18px;
+    }
+
+    /* ===== MODAL/EMAIL CAPTURE ===== */
+    .email-modal {
+      display: none;
       position: fixed;
       top: 0;
       left: 0;
-      width: 100%;
-      height: 100%;
+      right: 0;
+      bottom: 0;
       background: rgba(0, 0, 0, 0.5);
-      display: none;
+      z-index: 1000;
       align-items: center;
       justify-content: center;
-      z-index: 1000;
       padding: 20px;
-      backdrop-filter: blur(2px);
     }
 
-    .modal-overlay.active {
+    .email-modal.active {
       display: flex;
-      animation: fadeIn 0.4s ease-out;
     }
 
     .modal-content {
       background: var(--white);
-      border-radius: 12px;
-      padding: clamp(32px, 6vw, 48px);
+      border-radius: 16px;
+      padding: 48px 40px;
       max-width: 500px;
       width: 100%;
-      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+      box-shadow: var(--shadow-lg);
       animation: slideUp 0.4s ease-out;
     }
 
     @keyframes slideUp {
-      from { opacity: 0; transform: translateY(30px); }
+      from { opacity: 0; transform: translateY(40px); }
       to { opacity: 1; transform: translateY(0); }
     }
 
     .modal-title {
       font-family: var(--fd);
-      font-size: clamp(22px, 5vw, 32px);
-      font-weight: 700;
-      margin-bottom: var(--gap-md);
+      font-size: 32px;
+      font-weight: 800;
+      margin-bottom: 16px;
       color: var(--dark);
-      letter-spacing: -0.5px;
     }
 
     .modal-subtitle {
-      font-size: 15px;
+      font-size: 16px;
       color: var(--gray-text);
-      margin-bottom: 24px;
-      line-height: 1.5;
+      line-height: 1.6;
     }
 
-    .form-input {
+    .form-field {
+      margin-bottom: 20px;
+    }
+
+    .form-field label {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--gray-text);
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .form-field input {
       width: 100%;
-      padding: 14px 16px;
-      margin-bottom: var(--gap-md);
+      padding: 12px 16px;
       border: 2px solid var(--gray-light);
       border-radius: 8px;
       font-family: var(--fb);
-      font-size: 15px;
+      font-size: 14px;
       color: var(--dark);
-      background: var(--white);
       transition: all 0.3s ease;
     }
 
-    .form-input:focus {
+    .form-field input:focus {
       outline: none;
       border-color: var(--accent);
-      box-shadow: 0 0 0 3px rgba(196, 71, 108, 0.1);
+      background: rgba(196, 71, 108, 0.02);
     }
 
-    .form-input::placeholder {
-      color: var(--gray-text);
-    }
-
-    .urgency-message {
-      background: rgba(196, 71, 108, 0.08);
-      border-left: 4px solid var(--accent);
-      padding: 16px;
-      border-radius: 6px;
-      margin-bottom: 24px;
-      font-size: 14px;
-      color: var(--dark);
-      font-weight: 500;
-    }
-
-    .urgency-highlight {
-      color: var(--accent);
+    .modal-button {
+      width: 100%;
+      padding: 14px;
+      background: var(--dark);
+      color: var(--white);
+      border: none;
+      border-radius: 8px;
+      font-family: var(--fd);
+      font-size: 16px;
       font-weight: 700;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin-top: 24px;
     }
 
-    /* ===== RESPONSIVE ===== */
+    .modal-button:hover {
+      background: var(--accent);
+    }
+
+    .confirmation-box {
+      background: rgba(196, 71, 108, 0.1);
+      padding: 24px;
+      border-radius: 8px;
+      margin: 24px 0;
+      border-left: 4px solid var(--accent);
+    }
+
+    .confirmation-box p {
+      font-size: 14px;
+      line-height: 1.8;
+      color: var(--dark);
+    }
+
     @media (max-width: 768px) {
-      .landing-heading { font-size: 28px; }
-      .landing-subheading { font-size: 16px; }
-      .question-heading { font-size: 24px; }
-      .results-card { padding: 20px; }
-    }
+      .proof-row {
+        gap: 40px;
+      }
 
-    /* ===== LOADING STATE ===== */
-    .loading {
-      display: inline-block;
-      width: 20px;
-      height: 20px;
-      border: 3px solid var(--gray-light);
-      border-top-color: var(--accent);
-      border-radius: 50%;
-      animation: spin 0.8s linear infinite;
-    }
-
-    @keyframes spin {
-      to { transform: rotate(360deg); }
+      .cta-buttons {
+        grid-template-columns: 1fr;
+      }
     }
   </style>
 </head>
-
 <body>
   <div class="assessment-container">
 
-    <!-- ===== LANDING SCREEN ===== -->
-    <div class="screen landing-screen active" id="screen-landing">
-      <div class="landing-content">
-        <div class="landing-badge">Your Breakthrough Assessment</div>
-        <h1 class="landing-heading">
-          Discover What's Really <strong>Holding You Back</strong>
+    <!-- ===== CONVERSION LANDING PAGE ===== -->
+    <div class="screen active conversion-screen" id="screen-landing">
+      <div class="conversion-content">
+        <div class="conversion-badge">2-minute leadership diagnostic</div>
+
+        <h1 class="conversion-headline">
+          You know something's <span class="accent">not working</span>. Most leaders can't name it.
         </h1>
-        <p class="landing-subheading">
-          Multiply your impact. Reclaim your wellbeing. Achieve more with less.
+
+        <p class="conversion-subheading">
+          This assessment reveals the pattern that's limiting your impact. And what it's actually costing you.
         </p>
-        <div class="landing-benefits">
-          <div class="benefit-item">
-            <div class="benefit-icon">✓</div>
-            <div class="benefit-text">Get instant results. No sign-up required.</div>
-          </div>
-          <div class="benefit-item">
-            <div class="benefit-icon">✓</div>
-            <div class="benefit-text">2 minutes to personalized clarity.</div>
-          </div>
-          <div class="benefit-item">
-            <div class="benefit-icon">✓</div>
-            <div class="benefit-text">Reveal your blind spot + your path forward.</div>
-          </div>
+
+        <div class="conversion-problem">
+          <p><strong>You're self-aware enough to see it:</strong> Something is off with your leadership. Maybe you're burning out. Maybe your team isn't growing like it should. Maybe you're caught between competing demands that leave you stuck.</p>
+          <p>You're not alone. But the leaders who get ahead are the ones who can name the pattern underneath. That's what this takes 2 minutes to reveal.</p>
         </div>
-        <button class="button button-primary" onclick="assessment.nextScreen()">
-          Start Your Breakthrough
+
+        <button class="conversion-cta-primary" onclick="assessment.nextScreen()">
+          Take the Free Assessment
         </button>
+
+        <div class="conversion-social-proof">
+          <div class="proof-row">
+            <div class="proof-item">
+              <div class="proof-number">800+</div>
+              <div class="proof-label">Leaders Assessed</div>
+            </div>
+            <div class="proof-item">
+              <div class="proof-number">6</div>
+              <div class="proof-label">Core Patterns Revealed</div>
+            </div>
+            <div class="proof-item">
+              <div class="proof-number">2 min</div>
+              <div class="proof-label">Instant Results</div>
+            </div>
+          </div>
+          <p style="font-size: 13px; color: var(--gray-text); margin-top: 32px; font-weight: 500;">No sign-up. No sales pitch. Just clarity.</p>
+        </div>
       </div>
     </div>
 
-    <!-- ===== ASSESSMENT SCREENS ===== -->
+    <!-- ===== ASSESSMENT QUESTIONS ===== -->
 
     <!-- Q1: Which describes you (MULTI-SELECT UP TO 3) -->
     <div class="screen assessment-screen" id="screen-1">
+      <div class="back-nav" onclick="assessment.prevScreen()">Back</div>
       <div class="assessment-content">
         <div class="progress-bar"><div class="progress-fill" style="width: 10%;"></div></div>
         <span class="question-number">Question 1 of 12</span>
@@ -762,6 +946,7 @@
 
     <!-- Q2: Impact intensity (slider) -->
     <div class="screen assessment-screen" id="screen-2">
+      <div class="back-nav" onclick="assessment.prevScreen()">Back</div>
       <div class="assessment-content">
         <div class="progress-bar"><div class="progress-fill" style="width: 20%;"></div></div>
         <span class="question-number">Question 2 of 12</span>
@@ -781,6 +966,7 @@
 
     <!-- Q3: What stops you -->
     <div class="screen assessment-screen" id="screen-3">
+      <div class="back-nav" onclick="assessment.prevScreen()">Back</div>
       <div class="assessment-content">
         <div class="progress-bar"><div class="progress-fill" style="width: 30%;"></div></div>
         <span class="question-number">Question 3 of 12</span>
@@ -814,6 +1000,7 @@
 
     <!-- Q4: How long dealing -->
     <div class="screen assessment-screen" id="screen-4">
+      <div class="back-nav" onclick="assessment.prevScreen()">Back</div>
       <div class="assessment-content">
         <div class="progress-bar"><div class="progress-fill" style="width: 40%;"></div></div>
         <span class="question-number">Question 4 of 12</span>
@@ -843,6 +1030,7 @@
 
     <!-- Q5: Reactivity (slider) -->
     <div class="screen assessment-screen" id="screen-5">
+      <div class="back-nav" onclick="assessment.prevScreen()">Back</div>
       <div class="assessment-content">
         <div class="progress-bar"><div class="progress-fill" style="width: 50%;"></div></div>
         <span class="question-number">Question 5 of 12</span>
@@ -852,7 +1040,7 @@
             <input type="range" min="1" max="10" value="5" class="slider" id="q5-slider" onchange="assessment.handleSliderChange(5, this.value)">
             <div class="slider-labels">
               <span>Very Intentional</span>
-              <span>Highly Reactive</span>
+              <span>Very Reactive</span>
             </div>
             <div class="slider-value" id="q5-value">5</div>
           </div>
@@ -860,306 +1048,315 @@
       </div>
     </div>
 
-    <!-- Q6: Support system -->
+    <!-- Q6: What would change -->
     <div class="screen assessment-screen" id="screen-6">
+      <div class="back-nav" onclick="assessment.prevScreen()">Back</div>
       <div class="assessment-content">
         <div class="progress-bar"><div class="progress-fill" style="width: 60%;"></div></div>
         <span class="question-number">Question 6 of 12</span>
-        <h2 class="question-heading">Who do you discuss these challenges with?</h2>
+        <h2 class="question-heading">What would shift if this was resolved?</h2>
         <div class="form-group">
           <div class="options-grid">
             <label class="option-radio">
-              <input type="radio" name="q6" value="nobody-internal" onchange="assessment.handleRadioChange(6, this.value)">
-              <span class="option-label"><span class="radio-circle"></span>Nobody (keep it internal)</span>
+              <input type="radio" name="q6" value="team-growth" onchange="assessment.handleRadioChange(6, this.value)">
+              <span class="option-label"><span class="radio-circle"></span>Your team would actually grow</span>
             </label>
             <label class="option-radio">
-              <input type="radio" name="q6" value="close-friends-family" onchange="assessment.handleRadioChange(6, this.value)">
-              <span class="option-label"><span class="radio-circle"></span>Close friends or family</span>
+              <input type="radio" name="q6" value="personal-wellbeing" onchange="assessment.handleRadioChange(6, this.value)">
+              <span class="option-label"><span class="radio-circle"></span>You'd feel genuinely energised</span>
             </label>
             <label class="option-radio">
-              <input type="radio" name="q6" value="peers-leadership-circle" onchange="assessment.handleRadioChange(6, this.value)">
-              <span class="option-label"><span class="radio-circle"></span>Peers in my leadership circle</span>
+              <input type="radio" name="q6" value="decision-quality" onchange="assessment.handleRadioChange(6, this.value)">
+              <span class="option-label"><span class="radio-circle"></span>Your decisions would be sharper & faster</span>
             </label>
             <label class="option-radio">
-              <input type="radio" name="q6" value="mentor-coach" onchange="assessment.handleRadioChange(6, this.value)">
-              <span class="option-label"><span class="radio-circle"></span>A mentor or coach</span>
+              <input type="radio" name="q6" value="confidence" onchange="assessment.handleRadioChange(6, this.value)">
+              <span class="option-label"><span class="radio-circle"></span>You'd feel worthy of your role</span>
             </label>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- Q7: Clarity on change -->
+    <!-- Q7: Support needed -->
     <div class="screen assessment-screen" id="screen-7">
+      <div class="back-nav" onclick="assessment.prevScreen()">Back</div>
       <div class="assessment-content">
         <div class="progress-bar"><div class="progress-fill" style="width: 70%;"></div></div>
         <span class="question-number">Question 7 of 12</span>
-        <h2 class="question-heading">How clear are you on what needs to change?</h2>
+        <h2 class="question-heading">What kind of support do you need?</h2>
         <div class="form-group">
-          <div class="slider-container">
-            <input type="range" min="1" max="10" value="5" class="slider" id="q7-slider" onchange="assessment.handleSliderChange(7, this.value)">
-            <div class="slider-labels">
-              <span>Completely Lost</span>
-              <span>Crystal Clear</span>
-            </div>
-            <div class="slider-value" id="q7-value">5</div>
+          <div class="options-grid">
+            <label class="option-radio">
+              <input type="radio" name="q7" value="structured-framework" onchange="assessment.handleRadioChange(7, this.value)">
+              <span class="option-label"><span class="radio-circle"></span>A structured framework to follow</span>
+            </label>
+            <label class="option-radio">
+              <input type="radio" name="q7" value="one-on-one-coaching" onchange="assessment.handleRadioChange(7, this.value)">
+              <span class="option-label"><span class="radio-circle"></span>1-on-1 coaching & accountability</span>
+            </label>
+            <label class="option-radio">
+              <input type="radio" name="q7" value="community" onchange="assessment.handleRadioChange(7, this.value)">
+              <span class="option-label"><span class="radio-circle"></span>Community of leaders doing the same</span>
+            </label>
+            <label class="option-radio">
+              <input type="radio" name="q7" value="all-three" onchange="assessment.handleRadioChange(7, this.value)">
+              <span class="option-label"><span class="radio-circle"></span>All three (framework + coaching + community)</span>
+            </label>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- Q8: What would solving enable -->
+    <!-- Q8: Investment readiness -->
     <div class="screen assessment-screen" id="screen-8">
+      <div class="back-nav" onclick="assessment.prevScreen()">Back</div>
       <div class="assessment-content">
         <div class="progress-bar"><div class="progress-fill" style="width: 80%;"></div></div>
         <span class="question-number">Question 8 of 12</span>
-        <h2 class="question-heading">What would solving this enable?</h2>
+        <h2 class="question-heading">How ready are you to invest in this?</h2>
+        <p class="question-subtitle">Be honest—this helps us understand your commitment level.</p>
         <div class="form-group">
           <div class="options-grid">
             <label class="option-radio">
-              <input type="radio" name="q8" value="confidence-authenticity" onchange="assessment.handleRadioChange(8, this.value)">
-              <span class="option-label"><span class="radio-circle"></span>Confidence & authentic presence</span>
+              <input type="radio" name="q8" value="curious-exploring" onchange="assessment.handleRadioChange(8, this.value)">
+              <span class="option-label"><span class="radio-circle"></span>Curious. Just exploring right now.</span>
             </label>
             <label class="option-radio">
-              <input type="radio" name="q8" value="faster-decisions" onchange="assessment.handleRadioChange(8, this.value)">
-              <span class="option-label"><span class="radio-circle"></span>Faster, clearer decisions</span>
+              <input type="radio" name="q8" value="ready-committed" onchange="assessment.handleRadioChange(8, this.value)">
+              <span class="option-label"><span class="radio-circle"></span>Ready. I'm committed to real change.</span>
             </label>
             <label class="option-radio">
-              <input type="radio" name="q8" value="team-performance" onchange="assessment.handleRadioChange(8, this.value)">
-              <span class="option-label"><span class="radio-circle"></span>Better team performance & trust</span>
-            </label>
-            <label class="option-radio">
-              <input type="radio" name="q8" value="life-balance" onchange="assessment.handleRadioChange(8, this.value)">
-              <span class="option-label"><span class="radio-circle"></span>Better work-life balance</span>
-            </label>
-            <label class="option-radio">
-              <input type="radio" name="q8" value="career-growth" onchange="assessment.handleRadioChange(8, this.value)">
-              <span class="option-label"><span class="radio-circle"></span>Career growth & opportunity</span>
+              <input type="radio" name="q8" value="urgent-desperate" onchange="assessment.handleRadioChange(8, this.value)">
+              <span class="option-label"><span class="radio-circle"></span>Urgent. This needs to shift now.</span>
             </label>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- Q9: Success vision -->
+    <!-- Q9: What you want most -->
     <div class="screen assessment-screen" id="screen-9">
+      <div class="back-nav" onclick="assessment.prevScreen()">Back</div>
+      <div class="assessment-content">
+        <div class="progress-bar"><div class="progress-fill" style="width: 75%;"></div></div>
+        <span class="question-number">Question 9 of 12</span>
+        <h2 class="question-heading">What do you actually want?</h2>
+        <p class="question-hint">Not what you think you should want. What do you really want?</p>
+        <div class="form-group">
+          <input type="text" class="text-input" id="q9-input" placeholder="e.g., 'To feel in control again' or 'To lead without losing myself'" onchange="assessment.updateQuestion('q9', this.value)" onkeypress="if(event.key==='Enter') assessment.nextScreen()">
+        </div>
+        <button class="button button-primary" style="width: 100%;" onclick="assessment.nextScreen()">Continue</button>
+      </div>
+    </div>
+
+    <!-- Q10: Biggest barrier -->
+    <div class="screen assessment-screen" id="screen-10">
+      <div class="back-nav" onclick="assessment.prevScreen()">Back</div>
       <div class="assessment-content">
         <div class="progress-bar"><div class="progress-fill" style="width: 85%;"></div></div>
-        <span class="question-number">Question 9 of 12</span>
-        <h2 class="question-heading">What does success look like for you?</h2>
-        <div class="form-group">
-          <div class="options-grid">
-            <label class="option-radio">
-              <input type="radio" name="q9" value="time-freedom" onchange="assessment.handleRadioChange(9, this.value)">
-              <span class="option-label"><span class="radio-circle"></span>Time freedom & breathing room</span>
-            </label>
-            <label class="option-radio">
-              <input type="radio" name="q9" value="inner-peace" onchange="assessment.handleRadioChange(9, this.value)">
-              <span class="option-label"><span class="radio-circle"></span>Inner peace & ease</span>
-            </label>
-            <label class="option-radio">
-              <input type="radio" name="q9" value="leadership-impact" onchange="assessment.handleRadioChange(9, this.value)">
-              <span class="option-label"><span class="radio-circle"></span>True leadership & influence</span>
-            </label>
-            <label class="option-radio">
-              <input type="radio" name="q9" value="broader-impact" onchange="assessment.handleRadioChange(9, this.value)">
-              <span class="option-label"><span class="radio-circle"></span>Broader impact on others</span>
-            </label>
-            <label class="option-radio">
-              <input type="radio" name="q9" value="full-clarity" onchange="assessment.handleRadioChange(9, this.value)">
-              <span class="option-label"><span class="radio-circle"></span>Complete clarity on identity & direction</span>
-            </label>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Q10: Readiness (double-bind) -->
-    <div class="screen assessment-screen" id="screen-10">
-      <div class="assessment-content">
-        <div class="progress-bar"><div class="progress-fill" style="width: 92%;"></div></div>
         <span class="question-number">Question 10 of 12</span>
-        <h2 class="question-heading">When do you want this sorted?</h2>
+        <h2 class="question-heading">What's your biggest barrier?</h2>
         <div class="form-group">
           <div class="options-grid">
             <label class="option-radio">
-              <input type="radio" name="q10" value="ready-now" onchange="assessment.handleRadioChange(10, this.value)">
-              <span class="option-label"><span class="radio-circle"></span>Ready to get support now</span>
+              <input type="radio" name="q10" value="beliefs-about-self" onchange="assessment.handleRadioChange(10, this.value)">
+              <span class="option-label"><span class="radio-circle"></span>Beliefs about myself</span>
             </label>
             <label class="option-radio">
-              <input type="radio" name="q10" value="next-30-days" onchange="assessment.handleRadioChange(10, this.value)">
-              <span class="option-label"><span class="radio-circle"></span>Next 30 days</span>
+              <input type="radio" name="q10" value="fear" onchange="assessment.handleRadioChange(10, this.value)">
+              <span class="option-label"><span class="radio-circle"></span>Fear (of failure, judgment, loss of control)</span>
             </label>
             <label class="option-radio">
-              <input type="radio" name="q10" value="next-3-months" onchange="assessment.handleRadioChange(10, this.value)">
-              <span class="option-label"><span class="radio-circle"></span>Next 3 months</span>
+              <input type="radio" name="q10" value="habits" onchange="assessment.handleRadioChange(10, this.value)">
+              <span class="option-label"><span class="radio-circle"></span>Automatic habits and patterns</span>
             </label>
             <label class="option-radio">
-              <input type="radio" name="q10" value="next-6-months" onchange="assessment.handleRadioChange(10, this.value)">
-              <span class="option-label"><span class="radio-circle"></span>Next 6 months</span>
-            </label>
-            <label class="option-radio">
-              <input type="radio" name="q10" value="just-exploring" onchange="assessment.handleRadioChange(10, this.value)">
-              <span class="option-label"><span class="radio-circle"></span>Just exploring for now</span>
+              <input type="radio" name="q10" value="accountability" onchange="assessment.handleRadioChange(10, this.value)">
+              <span class="option-label"><span class="radio-circle"></span>Lack of accountability & support</span>
             </label>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- Q11: Optional open text -->
+    <!-- Q11: Optional context -->
     <div class="screen assessment-screen" id="screen-11">
+      <div class="back-nav" onclick="assessment.prevScreen()">Back</div>
+      <div class="assessment-content">
+        <div class="progress-bar"><div class="progress-fill" style="width: 90%;"></div></div>
+        <span class="question-number">Question 11 of 12</span>
+        <h2 class="question-heading">Anything else you'd like us to know?</h2>
+        <p class="question-subtitle">Optional—but helps us tailor your report.</p>
+        <div class="form-group">
+          <input type="text" class="text-input" id="q11-input" placeholder="e.g., 'I just got promoted' or 'Been stuck in this pattern for years'" onchange="assessment.updateQuestion('q11', this.value)" onkeypress="if(event.key==='Enter') assessment.nextScreen()">
+        </div>
+        <button class="button button-primary" style="width: 100%;" onclick="assessment.nextScreen()">Continue</button>
+      </div>
+    </div>
+
+    <!-- Q12: Background info -->
+    <div class="screen assessment-screen" id="screen-12">
+      <div class="back-nav" onclick="assessment.prevScreen()">Back</div>
       <div class="assessment-content">
         <div class="progress-bar"><div class="progress-fill" style="width: 95%;"></div></div>
-        <span class="question-number">Question 11 of 12 (Optional)</span>
-        <h2 class="question-heading">What would clarity mean for you?</h2>
-        <div class="form-group">
-          <textarea class="text-input" id="q11-input" placeholder="Share your thoughts here..." onchange="assessment.updateQuestion(11, this.value)" onkeyup="assessment.updateQuestion(11, this.value)"></textarea>
-          <button class="button button-primary" onclick="assessment.nextScreen()" style="margin-top: 20px;">Continue →</button>
-        </div>
-      </div>
-    </div>
-
-    <!-- S1: Role & S2: Source -->
-    <div class="screen assessment-screen" id="screen-12">
-      <div class="assessment-content">
-        <div class="progress-bar"><div class="progress-fill" style="width: 98%;"></div></div>
         <span class="question-number">Question 12 of 12</span>
-        <h2 class="question-heading">Finally, tell us about you</h2>
+        <h2 class="question-heading">A couple of quick details</h2>
         <div class="form-group">
-          <label style="display: block; margin-bottom: 28px;">
-            <span style="display: block; font-size: 14px; font-weight: 600; color: var(--dark); margin-bottom: 12px;">What's your role?</span>
-            <div class="options-grid">
-              <label class="option-radio">
-                <input type="radio" name="s1" value="founder" onchange="assessment.updateQuestion('s1', this.value)">
-                <span class="option-label"><span class="radio-circle"></span>Founder</span>
-              </label>
-              <label class="option-radio">
-                <input type="radio" name="s1" value="director" onchange="assessment.updateQuestion('s1', this.value)">
-                <span class="option-label"><span class="radio-circle"></span>Director / VP</span>
-              </label>
-              <label class="option-radio">
-                <input type="radio" name="s1" value="manager" onchange="assessment.updateQuestion('s1', this.value)">
-                <span class="option-label"><span class="radio-circle"></span>Senior Manager</span>
-              </label>
-            </div>
-          </label>
-
-          <label style="display: block; margin-bottom: 20px;">
-            <span style="display: block; font-size: 14px; font-weight: 600; color: var(--dark); margin-bottom: 12px;">How did you find us?</span>
-            <div class="options-grid">
-              <label class="option-radio">
-                <input type="radio" name="s2" value="google" onchange="assessment.updateQuestion('s2', this.value)">
-                <span class="option-label"><span class="radio-circle"></span>Google</span>
-              </label>
-              <label class="option-radio">
-                <input type="radio" name="s2" value="facebook" onchange="assessment.updateQuestion('s2', this.value)">
-                <span class="option-label"><span class="radio-circle"></span>Facebook</span>
-              </label>
-              <label class="option-radio">
-                <input type="radio" name="s2" value="instagram" onchange="assessment.updateQuestion('s2', this.value)">
-                <span class="option-label"><span class="radio-circle"></span>Instagram</span>
-              </label>
-              <label class="option-radio">
-                <input type="radio" name="s2" value="youtube" onchange="assessment.updateQuestion('s2', this.value)">
-                <span class="option-label"><span class="radio-circle"></span>YouTube</span>
-              </label>
-              <label class="option-radio">
-                <input type="radio" name="s2" value="linkedin" onchange="assessment.updateQuestion('s2', this.value)">
-                <span class="option-label"><span class="radio-circle"></span>LinkedIn</span>
-              </label>
-              <label class="option-radio">
-                <input type="radio" name="s2" value="website" onchange="assessment.updateQuestion('s2', this.value)">
-                <span class="option-label"><span class="radio-circle"></span>Our website</span>
-              </label>
-              <label class="option-radio">
-                <input type="radio" name="s2" value="referral" onchange="assessment.updateQuestion('s2', this.value)">
-                <span class="option-label"><span class="radio-circle"></span>Referral / word of mouth</span>
-              </label>
-            </div>
-          </label>
-
-          <button class="button button-primary" onclick="assessment.submitAndShowResults()" style="margin-top: 20px;">See My Results →</button>
+          <label style="font-size: 13px; font-weight: 600; color: var(--gray-text); margin-bottom: 8px; display: block; text-transform: uppercase; letter-spacing: 0.5px;">Your role</label>
+          <div class="options-grid">
+            <label class="option-radio">
+              <input type="radio" name="s1" value="C-Suite Leader" onchange="assessment.handleRadioChange('s1', this.value)">
+              <span class="option-label"><span class="radio-circle"></span>C-Suite Leader</span>
+            </label>
+            <label class="option-radio">
+              <input type="radio" name="s1" value="Senior Manager" onchange="assessment.handleRadioChange('s1', this.value)">
+              <span class="option-label"><span class="radio-circle"></span>Senior Manager</span>
+            </label>
+            <label class="option-radio">
+              <input type="radio" name="s1" value="Mid-level Leader" onchange="assessment.handleRadioChange('s1', this.value)">
+              <span class="option-label"><span class="radio-circle"></span>Mid-level Leader</span>
+            </label>
+            <label class="option-radio">
+              <input type="radio" name="s1" value="Entrepreneur/Founder" onchange="assessment.handleRadioChange('s1', this.value)">
+              <span class="option-label"><span class="radio-circle"></span>Entrepreneur/Founder</span>
+            </label>
+          </div>
         </div>
+
+        <div class="form-group">
+          <label style="font-size: 13px; font-weight: 600; color: var(--gray-text); margin-bottom: 8px; display: block; text-transform: uppercase; letter-spacing: 0.5px;">How did you hear about this?</label>
+          <div class="options-grid">
+            <label class="option-radio">
+              <input type="radio" name="s2" value="Organic Search" onchange="assessment.handleRadioChange('s2', this.value)">
+              <span class="option-label"><span class="radio-circle"></span>Organic Search</span>
+            </label>
+            <label class="option-radio">
+              <input type="radio" name="s2" value="Social Media" onchange="assessment.handleRadioChange('s2', this.value)">
+              <span class="option-label"><span class="radio-circle"></span>Social Media</span>
+            </label>
+            <label class="option-radio">
+              <input type="radio" name="s2" value="Recommendation" onchange="assessment.handleRadioChange('s2', this.value)">
+              <span class="option-label"><span class="radio-circle"></span>Recommendation</span>
+            </label>
+            <label class="option-radio">
+              <input type="radio" name="s2" value="Paid Ad" onchange="assessment.handleRadioChange('s2', this.value)">
+              <span class="option-label"><span class="radio-circle"></span>Paid Ad</span>
+            </label>
+            <label class="option-radio">
+              <input type="radio" name="s2" value="Other" onchange="assessment.handleRadioChange('s2', this.value)">
+              <span class="option-label"><span class="radio-circle"></span>Other</span>
+            </label>
+          </div>
+        </div>
+
+        <button class="button button-primary" style="width: 100%; margin-top: 32px;" onclick="assessment.submitAndShowResults()">
+          Reveal My Diagnostic
+        </button>
       </div>
     </div>
 
     <!-- ===== RESULTS SCREEN ===== -->
     <div class="screen results-screen" id="screen-results">
-      <div class="results-content">
-        <div class="results-header">
-          <h1 class="results-title">Your Breakthrough <strong>Diagnostic</strong></h1>
-          <p class="results-subtitle">Your personalized insights below. Your full 6-page report is coming to your email.</p>
-        </div>
+      <div class="results-container">
+        <div class="results-badge">Your Diagnostic Result</div>
 
-        <div class="results-card">
-          <div class="result-label">Your Core Pattern</div>
-          <div class="result-text" id="result-diagnosis">
-            Loading your personalized diagnosis...
+        <h1 class="results-title">
+          The <span class="accent">Invisible Ceiling</span> Leader
+        </h1>
+
+        <p class="results-intro">
+          You're self-aware, capable, and your standards are high. The challenge? Your tight grip is the exact thing preventing your team from growing. You already know this at some level. This assessment is naming what you already sense.
+        </p>
+
+        <div class="results-section">
+          <div class="results-section-title">What This Is Costing You</div>
+          <div class="results-section-content">
+            <p>
+              You're doing two jobs: yours and pieces of everyone else's. Your capacity is finite. The team's growth is stalled—not because they can't lead, but because they've learned that waiting for your approval is safer than acting. <strong>Your ceiling has become their ceiling.</strong>
+            </p>
+            <p style="margin-top: 16px;">
+              The real cost? Six to eight weeks of productive time lost each quarter. Talent leaving because they feel trapped. And you, running on fumes, wondering why delegation doesn't feel like relief.
+            </p>
           </div>
         </div>
 
-        <div class="results-card">
-          <div class="result-label">The Real Cost</div>
-          <div class="result-text" id="result-cost">
-            Loading analysis...
+        <div class="results-section">
+          <div class="results-section-title">Your Path Forward</div>
+          <div class="path-forward">
+            <div class="path-item">
+              <div class="path-number">1</div>
+              <div class="path-content">
+                <h4>Map what only you can do</h4>
+                <p>Distinguish between "only I can do this" and "I do this best." The second category is where delegation lives.</p>
+              </div>
+            </div>
+            <div class="path-item">
+              <div class="path-number">2</div>
+              <div class="path-content">
+                <h4>Make the ask explicit</h4>
+                <p>Assign ownership with authority, not just tasks. "I'm trusting you to decide this" is different from "let me know how it goes."</p>
+              </div>
+            </div>
+            <div class="path-item">
+              <div class="path-number">3</div>
+              <div class="path-content">
+                <h4>Resist the rescue reflex</h4>
+                <p>When someone struggles, pause before stepping in. Struggle is how ownership gets built.</p>
+              </div>
+            </div>
           </div>
         </div>
 
-        <div class="results-card">
-          <div class="result-label">Your Contradiction</div>
-          <div class="result-text" id="result-contradiction">
-            Loading analysis...
-          </div>
-        </div>
+        <div class="cta-box">
+          <span class="cta-box-label">Ready to go deeper?</span>
+          <h3>
+            Get your full diagnostic <span class="accent">+ conversation</span>
+          </h3>
+          <p class="cta-box-desc">
+            Your 6-page report maps your specific pattern in detail: where it started, how it shows up under pressure, and the precise shifts that break it. Plus a 30-minute conversation to build your 90-day roadmap.
+          </p>
 
-        <div class="results-card">
-          <div class="result-label">Your Path Forward</div>
-          <div class="result-text" id="result-path">
-            Loading analysis...
+          <div class="cta-buttons">
+            <button class="cta-button primary" onclick="assessment.showBookingFlow()">
+              📅 Book a 30-Min Call
+            </button>
+            <button class="cta-button secondary" onclick="assessment.showReportFlow()">
+              Just Send My Report
+            </button>
           </div>
-        </div>
 
-        <button class="button button-primary" onclick="assessment.showEmailCapture()" style="margin-top: 40px;">
-          Get Your Full Report + Secure a Call Spot
-        </button>
+          <p class="cta-box-note">
+            No sales pitch. The call is a conversation, not a pitch.
+          </p>
+        </div>
       </div>
     </div>
 
-    <!-- ===== EMAIL CAPTURE MODAL ===== -->
-    <div class="modal-overlay" id="email-modal">
-      <div class="modal-content">
-        <h2 class="modal-title">Your Full Diagnostic Report</h2>
-        <p class="modal-subtitle">6-page personalised report + your path to breakthrough</p>
+  </div>
 
-        <div class="urgency-message">
-          <span class="urgency-highlight">Only 2 discovery call spots left for April.</span> Secure yours + get instant access to your full report.
+  <!-- ===== EMAIL MODAL ===== -->
+  <div class="email-modal" id="email-modal">
+    <div class="modal-content">
+      <h2 class="modal-title">Send Report + Book a Call</h2>
+      <p class="modal-subtitle" style="margin-bottom: 28px;">
+        Enter your details. We'll send your full report and booking link within 60 seconds.
+      </p>
+
+      <form onsubmit="assessment.submitEmail(event)">
+        <div class="form-field">
+          <label>Your Name</label>
+          <input type="text" id="email-name" required>
+        </div>
+        <div class="form-field">
+          <label>Email Address</label>
+          <input type="email" id="email-address" required>
         </div>
 
-        <form id="email-form" onsubmit="assessment.submitEmail(event)">
-          <input
-            type="text"
-            class="form-input"
-            id="email-name"
-            placeholder="Your name"
-            required
-          >
-          <input
-            type="email"
-            class="form-input"
-            id="email-address"
-            placeholder="Your email"
-            required
-          >
-          <button type="submit" class="button button-primary">
-            Send My Report + Book a Spot
-          </button>
-        </form>
-
-        <p style="font-size: 13px; color: var(--gray-text); text-align: center; margin-top: 16px;">
-          We'll send your report + booking link within 60 seconds.
-        </p>
-      </div>
+        <button type="submit" class="modal-button">
+          Send Me Everything
+        </button>
+      </form>
     </div>
   </div>
 
@@ -1178,7 +1375,7 @@
 
       init: function() {
         gtag('event', 'assessment_view');
-        fbq('track', 'ViewContent', { content_name: 'Assessment Page' });
+        fbq('track', 'ViewContent', { content_name: 'Assessment' });
       },
 
       handleQ1Change: function(input) {
@@ -1201,7 +1398,7 @@
       },
 
       handleRadioChange: function(q, value) {
-        const key = 'q' + q;
+        const key = typeof q === 'number' ? 'q' + q : q;
         this.answers[key] = value;
         this.nextScreen();
       },
@@ -1247,7 +1444,7 @@
         }
       },
 
-      submitAndShowResults: async function() {
+      submitAndShowResults: function() {
         if (!this.answers.s1 || !this.answers.s2) {
           alert('Please complete all questions');
           return;
@@ -1258,31 +1455,16 @@
 
         this.currentScreen = this.screens.length - 1;
         this.showScreen();
-
-        await this.generatePersonalizedResults();
       },
 
-      generatePersonalizedResults: async function() {
-        const q1Text = this.answers.q1.length > 0 ? this.answers.q1.join(', ') : 'your primary challenge';
-
-        const diagnosis = `As a <strong>${this.answers.s1}</strong> dealing with <strong>${q1Text}</strong>, your core challenge is the <strong>contradiction</strong> between ${this.answers.q3}. This pattern has been present for <strong>${this.answers.q4}</strong>, and it's affecting your impact at an intensity of <strong>${this.answers.q2}/10</strong>.`;
-
-        const cost = `The real cost of this pattern: You're sacrificing clarity and focus. Your decision-making is becoming <strong>${this.answers.q5}/10</strong> reactive when it needs to be intentional. Over the next 6 months, if unchanged, this will cost you approximately <strong>6-8 weeks of productive time</strong> and countless leadership opportunities.`;
-
-        const contradiction = `You want <strong>${this.answers.q9}</strong>, but you're trapped in a pattern where <strong>${this.answers.q3}</strong> is preventing you from moving. The contradiction is real, and it's keeping you stuck.`;
-
-        const path = `Your path forward starts with addressing the core contradiction. Within 30 days, you can expect to see <strong>30-40% more clarity</strong> on decisions and <strong>measurably better wellbeing</strong>. Within 3 months, the shift becomes identity-level—you'll be operating from a fundamentally different place.`;
-
-        document.getElementById('result-diagnosis').innerHTML = diagnosis;
-        document.getElementById('result-cost').innerHTML = cost;
-        document.getElementById('result-contradiction').innerHTML = contradiction;
-        document.getElementById('result-path').innerHTML = path;
-      },
-
-      showEmailCapture: function() {
+      showBookingFlow: function() {
         document.getElementById('email-modal').classList.add('active');
-        gtag('event', 'email_capture_view');
-        fbq('track', 'Lead');
+        gtag('event', 'booking_flow_start');
+      },
+
+      showReportFlow: function() {
+        document.getElementById('email-modal').classList.add('active');
+        gtag('event', 'report_flow_start');
       },
 
       submitEmail: async function(event) {
@@ -1334,25 +1516,28 @@
 
         content.innerHTML = `
           <h2 class="modal-title">✓ Check Your Email</h2>
-          <p class="modal-subtitle" style="margin-bottom: 20px;">
-            Your full 6-page diagnostic report + booking link are on the way. Check within 60 seconds.
+          <p class="modal-subtitle" style="margin-bottom: 28px;">
+            Your full diagnostic report + booking link are on the way. Check within 60 seconds.
           </p>
-          <div style="padding: 20px; background: rgba(196, 71, 108, 0.1); border-radius: 8px; margin-bottom: 20px;">
-            <p style="font-size: 15px; color: var(--dark); line-height: 1.6;">
+          <div class="confirmation-box">
+            <p>
               <strong>What happens next:</strong><br>
-              1. You receive your personalized report<br>
-              2. Book your discovery call (only 2 spots left this month)<br>
-              3. Get your 90-day roadmap
+              1. You receive your personalised report<br>
+              2. Click to book your discovery call<br>
+              3. Get your 90-day roadmap on the call
             </p>
           </div>
           <p style="font-size: 13px; color: var(--gray-text); text-align: center;">
-            Already have your booking link? <a href="#" style="color: var(--accent); font-weight: 600;">Book your call here</a>
+            Already have your booking link? <a href="#" style="color: var(--accent); font-weight: 600; text-decoration: none;">Book your call here</a>
           </p>
         `;
       }
     };
 
-    assessment.init();
+    // Initialize on load
+    window.addEventListener('load', function() {
+      assessment.init();
+    });
   </script>
 </body>
 </html>
