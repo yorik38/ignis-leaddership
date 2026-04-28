@@ -98,12 +98,11 @@
     button { font-family: var(--fb); }
 
     #nav {
-      position: sticky; top: 0; left: 0; right: 0; min-height: var(--nav-h);
-      margin-bottom: calc(-1 * var(--nav-h));
+      position: absolute; left: 0; right: 0; min-height: var(--nav-h);
       display: flex; align-items: center; justify-content: space-between;
       padding: 14px var(--px); z-index: 100; transition: background .4s ease, box-shadow .4s ease, backdrop-filter .4s ease;
     }
-    #nav.scrolled { background: rgba(255,255,255,.98); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); box-shadow: 0 4px 24px rgba(0,0,0,.08); border-bottom: 1px solid rgba(0,0,0,0.04); }
+    #nav.scrolled { position: fixed; top: 0; background: rgba(255,255,255,.98); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); box-shadow: 0 4px 24px rgba(0,0,0,.08); border-bottom: 1px solid rgba(0,0,0,0.04); }
     #nav.menu-open-nav { background: #000 !important; box-shadow: none; border-bottom: none; }
     #nav.menu-open-nav .n-logo img { filter: invert(1) brightness(2); }
     #nav.menu-open-nav .n-burger { position: relative; z-index: 160; }
