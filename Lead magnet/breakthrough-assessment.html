@@ -40,8 +40,16 @@
 
     img { display: block; max-width: 100%; height: auto; }
     .assessment-container { min-height: 100vh; display: flex; flex-direction: column; }
-    .screen { display: none; }
-    .screen.active { display: flex; }
+    .screen {
+      display: none !important;
+      position: relative;
+      width: 100%;
+    }
+    .screen.active {
+      display: flex !important;
+      position: relative;
+      width: 100%;
+    }
 
     /* Landing */
     .landing-screen {
@@ -659,7 +667,6 @@
 
     .confirmation-secondary { font-size: 13px; color: var(--gray-text); margin-top: 24px; }
 
-    .hidden { display: none !important; }
 
     @media (max-width: 768px) {
       .nav-buttons { flex-direction: column; }
@@ -1101,7 +1108,7 @@
     </div>
 
     <!-- RESULTS -->
-    <div class="screen results-screen hidden" id="screen-results">
+    <div class="screen results-screen" id="screen-results">
       <div class="results-content">
         <div class="results-header">
           <div class="result-badge">✓ Your Diagnostic Result</div>
@@ -1304,13 +1311,11 @@
           const el = document.getElementById(screenId);
           if (el) {
             el.classList.remove('active');
-            el.classList.add('hidden');
           }
         });
         const currentScreenEl = document.getElementById(this.screens[this.currentScreen]);
         if (currentScreenEl) {
           currentScreenEl.classList.add('active');
-          currentScreenEl.classList.remove('hidden');
           window.scrollTo(0, 0);
         }
       },
