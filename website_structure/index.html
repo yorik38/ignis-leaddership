@@ -98,7 +98,8 @@
     button { font-family: var(--fb); }
 
     #nav {
-      position: fixed; top: 0; left: 0; right: 0; min-height: var(--nav-h);
+      position: sticky; top: 0; left: 0; right: 0; min-height: var(--nav-h);
+      margin-bottom: calc(-1 * var(--nav-h));
       display: flex; align-items: center; justify-content: space-between;
       padding: 14px var(--px); z-index: 100; transition: background .4s ease, box-shadow .4s ease, backdrop-filter .4s ease;
     }
@@ -743,6 +744,14 @@
 </head>
 <body>
 
+<!-- Assessment Banner -->
+<div class="assessment-banner">
+  <div class="assessment-banner__container">
+    <span class="assessment-banner__heading">TAKE THE FREE BREAKTHROUGH ASSESSMENT.</span>
+    <button class="assessment-banner__button" onclick="window.location.href='#assessment';">Start now</button>
+  </div>
+</div>
+
 <nav id="nav">
   <a class="n-logo" href="index.html"><img src="images/logo nav bar.png" alt="Ignis Leadership"></a>
   <ul class="n-links" id="n-links">
@@ -764,13 +773,7 @@
   <div class="n-burger" id="burger" onclick="toggleBurger()"><span></span><span></span><span></span></div>
 </nav>
 
-<!-- Assessment Banner -->
-<div class="assessment-banner">
-  <div class="assessment-banner__container">
-    <span class="assessment-banner__heading">TAKE THE FREE BREAKTHROUGH ASSESSMENT.</span>
-    <button class="assessment-banner__button" onclick="window.location.href='#assessment';">Start now</button>
-  </div>
-</div>
+
 
 <div  id="page-home">
 <!-- HERO -->

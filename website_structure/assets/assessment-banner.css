@@ -4,9 +4,8 @@
   padding: 14px var(--px);
   border-bottom: 1px solid rgba(255,255,255,0.1);
   box-shadow: 0 2px 8px rgba(0,0,0,0.3);
-  position: sticky;
-  top: 76px;
-  z-index: 99;
+  position: relative;
+  z-index: 101;
 }
 
 .assessment-banner__container {
@@ -27,7 +26,7 @@
   color: var(--white);
   margin: 0;
   line-height: 1.2;
-  flex: 1;
+  text-align: right;
 }
 
 .assessment-banner__subtext {
