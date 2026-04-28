@@ -1,0 +1,99 @@
+/* Assessment Banner Styles */
+.assessment-banner {
+  background: linear-gradient(135deg, #C4476C 0%, #A8325A 100%);
+  padding: 20px var(--px);
+  text-align: center;
+  border-bottom: 1px solid rgba(0,0,0,0.1);
+  box-shadow: 0 4px 12px rgba(196,71,108,0.15);
+  position: sticky;
+  top: 0;
+  z-index: 999;
+}
+
+.assessment-banner__container {
+  max-width: var(--mw);
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--gap-md);
+}
+
+.assessment-banner__heading {
+  font-family: var(--fd);
+  font-size: clamp(20px, 4vw, 32px);
+  font-weight: 400;
+  letter-spacing: 1px;
+  color: var(--white);
+  margin: 0;
+  line-height: 1.2;
+}
+
+.assessment-banner__subtext {
+  font-family: var(--fb);
+  font-size: clamp(14px, 2vw, 16px);
+  color: rgba(255,255,255,0.95);
+  margin: 0;
+  font-weight: 400;
+}
+
+.assessment-banner__button {
+  background: var(--white);
+  color: #C4476C;
+  border: none;
+  padding: 12px 32px;
+  border-radius: 4px;
+  font-family: var(--fb);
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.assessment-banner__button:hover {
+  background: var(--off-white);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.2);
+}
+
+.assessment-banner__button:active {
+  transform: translateY(0);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .assessment-banner {
+    padding: 16px var(--px);
+  }
+
+  .assessment-banner__container {
+    gap: var(--gap-sm);
+  }
+
+  .assessment-banner__heading {
+    letter-spacing: 0.5px;
+  }
+
+  .assessment-banner__button {
+    padding: 10px 24px;
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 480px) {
+  .assessment-banner {
+    padding: 12px var(--px);
+  }
+
+  .assessment-banner__container {
+    gap: 8px;
+  }
+
+  .assessment-banner__button {
+    padding: 8px 20px;
+    font-size: 12px;
+  }
+}

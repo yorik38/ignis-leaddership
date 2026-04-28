@@ -667,7 +667,7 @@ body.menu-locked{overflow:hidden!important}
 
 /* ── PROGRAMME SECTION MOBILE ── */
 @media (max-width: 620px) {
-  .wrap > div[style*="grid-template-columns: repeat(3"] {
+  .wrap div[style*="grid-template-columns: repeat(3"] {
     grid-template-columns: 1fr !important;
     margin-top: 48px !important;
   }
