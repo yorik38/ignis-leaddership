@@ -1,8 +1,7 @@
 /* Assessment Banner Styles */
 .assessment-banner {
   background: linear-gradient(135deg, #C4476C 0%, #A8325A 100%);
-  padding: 20px var(--px);
-  text-align: center;
+  padding: 12px var(--px);
   border-bottom: 1px solid rgba(0,0,0,0.1);
   box-shadow: 0 4px 12px rgba(196,71,108,0.15);
   position: sticky;
@@ -14,16 +13,17 @@
   max-width: var(--mw);
   margin: 0 auto;
   display: flex;
-  flex-direction: column;
   align-items: center;
-  gap: var(--gap-md);
+  justify-content: center;
+  gap: 16px;
+  flex-wrap: wrap;
 }
 
 .assessment-banner__heading {
-  font-family: var(--fd);
-  font-size: clamp(20px, 4vw, 32px);
-  font-weight: 400;
-  letter-spacing: 1px;
+  font-family: var(--fb);
+  font-size: clamp(13px, 1.5vw, 15px);
+  font-weight: 500;
+  letter-spacing: 0;
   color: var(--white);
   margin: 0;
   line-height: 1.2;
@@ -31,8 +31,8 @@
 
 .assessment-banner__subtext {
   font-family: var(--fb);
-  font-size: clamp(14px, 2vw, 16px);
-  color: rgba(255,255,255,0.95);
+  font-size: clamp(13px, 1.5vw, 15px);
+  color: rgba(255,255,255,0.9);
   margin: 0;
   font-weight: 400;
 }
@@ -41,16 +41,18 @@
   background: var(--white);
   color: #C4476C;
   border: none;
-  padding: 12px 32px;
+  padding: 8px 20px;
   border-radius: 4px;
   font-family: var(--fb);
-  font-size: 14px;
+  font-size: 12px;
   font-weight: 600;
   letter-spacing: 0.5px;
   cursor: pointer;
   transition: all 0.3s ease;
   text-transform: uppercase;
+  white-space: nowrap;
   box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  flex-shrink: 0;
 }
 
 .assessment-banner__button:hover {
@@ -66,34 +68,40 @@
 /* Responsive adjustments */
 @media (max-width: 768px) {
   .assessment-banner {
-    padding: 16px var(--px);
+    padding: 10px var(--px);
   }
 
   .assessment-banner__container {
-    gap: var(--gap-sm);
+    gap: 12px;
   }
 
-  .assessment-banner__heading {
-    letter-spacing: 0.5px;
+  .assessment-banner__heading,
+  .assessment-banner__subtext {
+    font-size: 13px;
   }
 
   .assessment-banner__button {
-    padding: 10px 24px;
-    font-size: 13px;
+    padding: 6px 16px;
+    font-size: 11px;
   }
 }
 
 @media (max-width: 480px) {
   .assessment-banner {
-    padding: 12px var(--px);
+    padding: 8px var(--px);
   }
 
   .assessment-banner__container {
     gap: 8px;
   }
 
-  .assessment-banner__button {
-    padding: 8px 20px;
+  .assessment-banner__heading,
+  .assessment-banner__subtext {
     font-size: 12px;
+  }
+
+  .assessment-banner__button {
+    padding: 6px 14px;
+    font-size: 10px;
   }
 }
