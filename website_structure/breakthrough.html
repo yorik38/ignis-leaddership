@@ -1,0 +1,1377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Your Breakthrough Assessment | Ignis Leadership</title>
+  <meta name="description" content="Discover what's holding you back. Your Breakthrough Assessment reveals your leadership pattern in 2 minutes.">
+
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-08D7N7C1NX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-08D7N7C1NX');
+  </script>
+
+  <!-- Meta Pixel Code -->
+  <script>
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', 'YOUR_META_PIXEL_ID'); // Replace with your Pixel ID
+    fbq('track', 'PageView');
+  </script>
+  <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=YOUR_META_PIXEL_ID&ev=PageView&noscript=1" /></noscript>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --accent: #C4476C;
+      --accent-hover: #A8325A;
+      --accent-light: #E0789A;
+      --dark: #1F2330;
+      --white: #FFFFFF;
+      --off-white: #F6F2EC;
+      --gray-bg: #F9F8FB;
+      --gray-text: #6C6C78;
+      --gray-light: #E0DFE8;
+      --border: rgba(0,0,0,0.07);
+      --fd: 'Bebas Neue', sans-serif;
+      --fb: 'Inter', -apple-system, sans-serif;
+      --gap-sm: 12px;
+      --gap-md: 16px;
+      --gap-lg: 24px;
+      --shadow-md: 0 4px 16px rgba(0,0,0,0.12);
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--fb);
+      background: var(--white);
+      color: var(--dark);
+      font-size: 16px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    img { display: block; max-width: 100%; }
+
+    /* ===== LAYOUT ===== */
+    .assessment-container {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      background: var(--white);
+    }
+
+    .screen { display: none; }
+    .screen.active { display: flex; }
+
+    /* ===== LANDING PAGE ===== */
+    .landing-screen {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: clamp(40px, 8vw, 80px);
+      text-align: center;
+      background: linear-gradient(135deg, var(--white) 0%, var(--gray-bg) 100%);
+    }
+
+    .landing-content {
+      max-width: 620px;
+      animation: fadeIn 0.8s ease-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .landing-badge {
+      display: inline-block;
+      font-family: var(--fb);
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: var(--gap-md);
+      padding: 8px 16px;
+      background: rgba(196, 71, 108, 0.1);
+      border-radius: 24px;
+    }
+
+    .landing-heading {
+      font-family: var(--fd);
+      font-size: clamp(32px, 7vw, 56px);
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: var(--gap-lg);
+      color: var(--dark);
+      letter-spacing: -1px;
+    }
+
+    .landing-heading strong {
+      color: var(--accent);
+      display: block;
+    }
+
+    .landing-subheading {
+      font-size: clamp(16px, 4vw, 22px);
+      color: var(--gray-text);
+      margin-bottom: 32px;
+      line-height: 1.5;
+      font-weight: 400;
+    }
+
+    .landing-benefits {
+      display: flex;
+      flex-direction: column;
+      gap: var(--gap-md);
+      margin-bottom: 40px;
+      text-align: left;
+      max-width: 400px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .benefit-item {
+      display: flex;
+      align-items: flex-start;
+      gap: var(--gap-md);
+    }
+
+    .benefit-icon {
+      flex-shrink: 0;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: var(--accent-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--white);
+      font-weight: 700;
+      font-size: 13px;
+      margin-top: 2px;
+    }
+
+    .benefit-text {
+      font-size: 15px;
+      color: var(--dark);
+      line-height: 1.4;
+    }
+
+    /* ===== ASSESSMENT SCREENS ===== */
+    .assessment-screen {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: clamp(40px, 8vw, 80px) clamp(24px, 5vw, 40px);
+      background: var(--white);
+    }
+
+    .assessment-content {
+      max-width: 600px;
+      width: 100%;
+      animation: fadeIn 0.6s ease-out;
+    }
+
+    .progress-bar {
+      height: 3px;
+      background: var(--gray-light);
+      border-radius: 2px;
+      margin-bottom: 40px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--accent) 0%, var(--accent-light) 100%);
+      transition: width 0.4s ease-out;
+    }
+
+    .question-number {
+      display: block;
+      font-family: var(--fb);
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--gray-text);
+      margin-bottom: var(--gap-md);
+    }
+
+    .question-heading {
+      font-family: var(--fd);
+      font-size: clamp(26px, 6vw, 40px);
+      font-weight: 700;
+      line-height: 1.3;
+      margin-bottom: 32px;
+      color: var(--dark);
+      letter-spacing: -0.5px;
+    }
+
+    .question-subtitle {
+      font-size: 14px;
+      color: var(--gray-text);
+      margin-bottom: 24px;
+      line-height: 1.5;
+    }
+
+    /* ===== FORM ELEMENTS ===== */
+    .form-group {
+      margin-bottom: 28px;
+    }
+
+    .options-grid {
+      display: flex;
+      flex-direction: column;
+      gap: var(--gap-md);
+    }
+
+    .option-radio {
+      position: relative;
+    }
+
+    .option-radio input[type="radio"] {
+      position: absolute;
+      opacity: 0;
+      cursor: pointer;
+    }
+
+    .option-label {
+      display: flex;
+      align-items: center;
+      padding: 16px 20px;
+      border: 2px solid var(--gray-light);
+      border-radius: 8px;
+      background: var(--white);
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--dark);
+    }
+
+    .option-radio input[type="radio"]:checked + .option-label {
+      border-color: var(--accent);
+      background: rgba(196, 71, 108, 0.08);
+      color: var(--dark);
+      font-weight: 600;
+    }
+
+    .option-label:hover {
+      border-color: var(--accent-light);
+      background: rgba(196, 71, 108, 0.04);
+    }
+
+    .radio-circle {
+      width: 20px;
+      height: 20px;
+      border: 2px solid var(--gray-light);
+      border-radius: 50%;
+      margin-right: var(--gap-md);
+      flex-shrink: 0;
+      transition: all 0.3s ease;
+    }
+
+    .option-radio input[type="radio"]:checked + .option-label .radio-circle {
+      border-color: var(--accent);
+      background: var(--accent);
+      box-shadow: inset 0 0 0 3px var(--white);
+    }
+
+    /* Slider styling */
+    .slider-container {
+      margin-bottom: 24px;
+    }
+
+    .slider {
+      width: 100%;
+      height: 6px;
+      border-radius: 3px;
+      background: var(--gray-light);
+      outline: none;
+      -webkit-appearance: none;
+      appearance: none;
+      cursor: pointer;
+    }
+
+    .slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: var(--accent);
+      cursor: pointer;
+      box-shadow: 0 2px 8px rgba(196, 71, 108, 0.3);
+      transition: all 0.2s ease;
+    }
+
+    .slider::-webkit-slider-thumb:hover {
+      background: var(--accent-hover);
+      box-shadow: 0 4px 12px rgba(196, 71, 108, 0.4);
+      transform: scale(1.1);
+    }
+
+    .slider::-moz-range-thumb {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: var(--accent);
+      cursor: pointer;
+      border: none;
+      box-shadow: 0 2px 8px rgba(196, 71, 108, 0.3);
+      transition: all 0.2s ease;
+    }
+
+    .slider-labels {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 12px;
+      font-size: 13px;
+      color: var(--gray-text);
+      font-weight: 500;
+    }
+
+    .slider-value {
+      text-align: center;
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--accent);
+      margin-top: 16px;
+    }
+
+    /* Text input */
+    .text-input {
+      width: 100%;
+      padding: 14px 16px;
+      border: 2px solid var(--gray-light);
+      border-radius: 8px;
+      font-family: var(--fb);
+      font-size: 15px;
+      color: var(--dark);
+      background: var(--white);
+      transition: all 0.3s ease;
+    }
+
+    .text-input:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(196, 71, 108, 0.1);
+    }
+
+    textarea.text-input {
+      resize: vertical;
+      min-height: 100px;
+      font-family: var(--fb);
+    }
+
+    /* ===== BUTTONS ===== */
+    .button {
+      padding: 14px 32px;
+      border: none;
+      border-radius: 8px;
+      font-family: var(--fb);
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .button-primary {
+      background: var(--accent);
+      color: var(--white);
+      width: 100%;
+    }
+
+    .button-primary:hover {
+      background: var(--accent-hover);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 16px rgba(196, 71, 108, 0.3);
+    }
+
+    .button-primary:active {
+      transform: translateY(0);
+    }
+
+    .button-secondary {
+      background: var(--gray-bg);
+      color: var(--dark);
+      width: 100%;
+      margin-bottom: var(--gap-md);
+    }
+
+    .button-secondary:hover {
+      background: var(--gray-light);
+    }
+
+    /* ===== NAVIGATION ===== */
+    .assessment-nav {
+      display: flex;
+      gap: var(--gap-md);
+      margin-top: 40px;
+    }
+
+    .nav-button {
+      flex: 1;
+      padding: 12px 20px;
+      border: 2px solid var(--gray-light);
+      border-radius: 6px;
+      background: var(--white);
+      font-family: var(--fb);
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--dark);
+    }
+
+    .nav-button:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    .nav-button:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+
+    /* ===== RESULTS PAGE ===== */
+    .results-screen {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: clamp(40px, 8vw, 80px) clamp(24px, 5vw, 40px);
+      background: linear-gradient(135deg, var(--white) 0%, var(--gray-bg) 100%);
+    }
+
+    .results-content {
+      max-width: 700px;
+      width: 100%;
+      animation: fadeIn 0.8s ease-out;
+    }
+
+    .results-header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .results-title {
+      font-family: var(--fd);
+      font-size: clamp(28px, 6vw, 44px);
+      font-weight: 700;
+      color: var(--dark);
+      margin-bottom: var(--gap-md);
+      letter-spacing: -0.5px;
+    }
+
+    .results-subtitle {
+      font-size: 16px;
+      color: var(--gray-text);
+      margin-bottom: 24px;
+    }
+
+    .results-card {
+      background: var(--white);
+      border: 2px solid var(--gray-light);
+      border-radius: 12px;
+      padding: clamp(24px, 4vw, 40px);
+      margin-bottom: 24px;
+      transition: all 0.3s ease;
+    }
+
+    .results-card:hover {
+      border-color: var(--accent-light);
+      box-shadow: var(--shadow-md);
+    }
+
+    .result-label {
+      font-size: 13px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--accent);
+      margin-bottom: var(--gap-sm);
+    }
+
+    .result-text {
+      font-size: 16px;
+      line-height: 1.6;
+      color: var(--dark);
+    }
+
+    .result-text strong {
+      color: var(--accent);
+      font-weight: 700;
+    }
+
+    /* ===== EMAIL CAPTURE MODAL ===== */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      padding: 20px;
+      backdrop-filter: blur(2px);
+    }
+
+    .modal-overlay.active {
+      display: flex;
+      animation: fadeIn 0.4s ease-out;
+    }
+
+    .modal-content {
+      background: var(--white);
+      border-radius: 12px;
+      padding: clamp(32px, 6vw, 48px);
+      max-width: 500px;
+      width: 100%;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+      animation: slideUp 0.4s ease-out;
+    }
+
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .modal-title {
+      font-family: var(--fd);
+      font-size: clamp(22px, 5vw, 32px);
+      font-weight: 700;
+      margin-bottom: var(--gap-md);
+      color: var(--dark);
+      letter-spacing: -0.5px;
+    }
+
+    .modal-subtitle {
+      font-size: 15px;
+      color: var(--gray-text);
+      margin-bottom: 24px;
+      line-height: 1.5;
+    }
+
+    .form-input {
+      width: 100%;
+      padding: 14px 16px;
+      margin-bottom: var(--gap-md);
+      border: 2px solid var(--gray-light);
+      border-radius: 8px;
+      font-family: var(--fb);
+      font-size: 15px;
+      color: var(--dark);
+      background: var(--white);
+      transition: all 0.3s ease;
+    }
+
+    .form-input:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(196, 71, 108, 0.1);
+    }
+
+    .form-input::placeholder {
+      color: var(--gray-text);
+    }
+
+    .urgency-message {
+      background: rgba(196, 71, 108, 0.08);
+      border-left: 4px solid var(--accent);
+      padding: 16px;
+      border-radius: 6px;
+      margin-bottom: 24px;
+      font-size: 14px;
+      color: var(--dark);
+      font-weight: 500;
+    }
+
+    .urgency-highlight {
+      color: var(--accent);
+      font-weight: 700;
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 768px) {
+      .landing-heading { font-size: 28px; }
+      .landing-subheading { font-size: 16px; }
+      .question-heading { font-size: 24px; }
+      .assessment-nav { flex-direction: column; }
+      .results-card { padding: 20px; }
+    }
+
+    /* ===== LOADING STATE ===== */
+    .loading {
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      border: 3px solid var(--gray-light);
+      border-top-color: var(--accent);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="assessment-container">
+
+    <!-- ===== LANDING SCREEN ===== -->
+    <div class="screen landing-screen active" id="screen-landing">
+      <div class="landing-content">
+        <div class="landing-badge">Your Breakthrough Assessment</div>
+        <h1 class="landing-heading">
+          Discover What's Really <strong>Holding You Back</strong>
+        </h1>
+        <p class="landing-subheading">
+          Multiply your impact. Reclaim your wellbeing. Achieve more with less.
+        </p>
+        <div class="landing-benefits">
+          <div class="benefit-item">
+            <div class="benefit-icon">✓</div>
+            <div class="benefit-text">Get instant results. No sign-up required.</div>
+          </div>
+          <div class="benefit-item">
+            <div class="benefit-icon">✓</div>
+            <div class="benefit-text">2 minutes to personalized clarity.</div>
+          </div>
+          <div class="benefit-item">
+            <div class="benefit-icon">✓</div>
+            <div class="benefit-text">Reveal your blind spot + your path forward.</div>
+          </div>
+        </div>
+        <button class="button button-primary" onclick="assessment.nextScreen()">
+          Start Your Breakthrough
+        </button>
+      </div>
+    </div>
+
+    <!-- ===== ASSESSMENT SCREENS ===== -->
+
+    <!-- Q1: Which describes you -->
+    <div class="screen assessment-screen" id="screen-1">
+      <div class="assessment-content">
+        <div class="progress-bar"><div class="progress-fill" style="width: 10%;"></div></div>
+        <span class="question-number">Question 1 of 12</span>
+        <h2 class="question-heading">Which of these describes you best right now?</h2>
+        <div class="form-group">
+          <div class="options-grid">
+            <label class="option-radio">
+              <input type="radio" name="q1" value="high-stakes-decision-making" onchange="assessment.updateQuestion(1, this.value)">
+              <span class="option-label"><span class="radio-circle"></span>High-stakes decision making (afraid of getting it wrong)</span>
+            </label>
+            <label class="option-radio">
+              <input type="radio" name="q1" value="executive-burnout" onchange="assessment.updateQuestion(1, this.value)">
+              <span class="option-label"><span class="radio-circle"></span>Executive burnout (running on fumes)</span>
+            </label>
+            <label class="option-radio">
+              <input type="radio" name="q1" value="imposter-syndrome" onchange="assessment.updateQuestion(1, this.value)">
+              <span class="option-label"><span class="radio-circle"></span>Imposter syndrome (not sure you deserve the role)</span>
+            </label>
+            <label class="option-radio">
+              <input type="radio" name="q1" value="perfectionism-procrastination" onchange="assessment.updateQuestion(1, this.value)">
+              <span class="option-label"><span class="radio-circle"></span>Perfectionism & procrastination (stuck before you start)</span>
+            </label>
+            <label class="option-radio">
+              <input type="radio" name="q1" value="performance-blocks" onchange="assessment.updateQuestion(1, this.value)">
+              <span class="option-label"><span class="radio-circle"></span>Performance blocks (losing confidence when it matters)</span>
+            </label>
+            <label class="option-radio">
+              <input type="radio" name="q1" value="identity-clarity" onchange="assessment.updateQuestion(1, this.value)">
+              <span class="option-label"><span class="radio-circle"></span>Identity clarity (who am I as a leader?)</span>
+            </label>
+          </div>
+        </div>
+        <div class="assessment-nav">
+          <button class="nav-button" disabled onclick="assessment.prevScreen()">← Back</button>
+          <button class="nav-button" onclick="assessment.nextScreen()" id="next-btn-1" disabled>Next →</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Q2: Impact intensity (slider) -->
+    <div class="screen assessment-screen" id="screen-2">
+      <div class="assessment-content">
+        <div class="progress-bar"><div class="progress-fill" style="width: 20%;"></div></div>
+        <span class="question-number">Question 2 of 12</span>
+        <h2 class="question-heading">How intensely is this affecting your impact right now?</h2>
+        <div class="form-group">
+          <div class="slider-container">
+            <input type="range" min="1" max="10" value="5" class="slider" id="q2-slider" onchange="assessment.updateQuestion(2, this.value)">
+            <div class="slider-labels">
+              <span>Manageable</span>
+              <span>Severe</span>
+            </div>
+            <div class="slider-value" id="q2-value">5</div>
+          </div>
+        </div>
+        <div class="assessment-nav">
+          <button class="nav-button" onclick="assessment.prevScreen()">← Back</button>
+          <button class="nav-button" onclick="assessment.nextScreen()">Next →</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Q3: What stops you -->
+    <div class="screen assessment-screen" id="screen-3">
+      <div class="assessment-content">
+        <div class="progress-bar"><div class="progress-fill" style="width: 30%;"></div></div>
+        <span class="question-number">Question 3 of 12</span>
+        <h2 class="question-heading">What stops you most?</h2>
+        <p class="question-subtitle">The contradiction that keeps you stuck.</p>
+        <div class="form-group">
+          <div class="options-grid">
+            <label class="option-radio">
+              <input type="radio" name="q3" value="fear-of-failure" onchange="assessment.updateQuestion(3, this.value)">
+              <span class="option-label"><span class="radio-circle"></span>Fear of failure vs. need to succeed</span>
+            </label>
+            <label class="option-radio">
+              <input type="radio" name="q3" value="perfectionism-vs-progress" onchange="assessment.updateQuestion(3, this.value)">
+              <span class="option-label"><span class="radio-circle"></span>Perfectionism vs. moving forward</span>
+            </label>
+            <label class="option-radio">
+              <input type="radio" name="q3" value="self-doubt-vs-ambition" onchange="assessment.updateQuestion(3, this.value)">
+              <span class="option-label"><span class="radio-circle"></span>Self-doubt vs. high ambition</span>
+            </label>
+            <label class="option-radio">
+              <input type="radio" name="q3" value="care-for-others-vs-self" onchange="assessment.updateQuestion(3, this.value)">
+              <span class="option-label"><span class="radio-circle"></span>Care for others vs. own boundaries</span>
+            </label>
+            <label class="option-radio">
+              <input type="radio" name="q3" value="control-vs-trust" onchange="assessment.updateQuestion(3, this.value)">
+              <span class="option-label"><span class="radio-circle"></span>Need for control vs. trusting others</span>
+            </label>
+          </div>
+        </div>
+        <div class="assessment-nav">
+          <button class="nav-button" onclick="assessment.prevScreen()">← Back</button>
+          <button class="nav-button" onclick="assessment.nextScreen()" id="next-btn-3" disabled>Next →</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Q4: How long dealing -->
+    <div class="screen assessment-screen" id="screen-4">
+      <div class="assessment-content">
+        <div class="progress-bar"><div class="progress-fill" style="width: 40%;"></div></div>
+        <span class="question-number">Question 4 of 12</span>
+        <h2 class="question-heading">How long have you been dealing with this?</h2>
+        <div class="form-group">
+          <div class="options-grid">
+            <label class="option-radio">
+              <input type="radio" name="q4" value="less-than-6-months" onchange="assessment.updateQuestion(4, this.value)">
+              <span class="option-label"><span class="radio-circle"></span>Less than 6 months</span>
+            </label>
+            <label class="option-radio">
+              <input type="radio" name="q4" value="6-months-to-2-years" onchange="assessment.updateQuestion(4, this.value)">
+              <span class="option-label"><span class="radio-circle"></span>6 months to 2 years</span>
+            </label>
+            <label class="option-radio">
+              <input type="radio" name="q4" value="2-to-5-years" onchange="assessment.updateQuestion(4, this.value)">
+              <span class="option-label"><span class="radio-circle"></span>2 to 5 years</span>
+            </label>
+            <label class="option-radio">
+              <input type="radio" name="q4" value="more-than-5-years" onchange="assessment.updateQuestion(4, this.value)">
+              <span class="option-label"><span class="radio-circle"></span>More than 5 years (it's chronic)</span>
+            </label>
+          </div>
+        </div>
+        <div class="assessment-nav">
+          <button class="nav-button" onclick="assessment.prevScreen()">← Back</button>
+          <button class="nav-button" onclick="assessment.nextScreen()" id="next-btn-4" disabled>Next →</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Q5: Reactivity (slider) -->
+    <div class="screen assessment-screen" id="screen-5">
+      <div class="assessment-content">
+        <div class="progress-bar"><div class="progress-fill" style="width: 50%;"></div></div>
+        <span class="question-number">Question 5 of 12</span>
+        <h2 class="question-heading">How reactive & unplanned are your decisions when under pressure?</h2>
+        <div class="form-group">
+          <div class="slider-container">
+            <input type="range" min="1" max="10" value="5" class="slider" id="q5-slider" onchange="assessment.updateQuestion(5, this.value)">
+            <div class="slider-labels">
+              <span>Very Intentional</span>
+              <span>Highly Reactive</span>
+            </div>
+            <div class="slider-value" id="q5-value">5</div>
+          </div>
+        </div>
+        <div class="assessment-nav">
+          <button class="nav-button" onclick="assessment.prevScreen()">← Back</button>
+          <button class="nav-button" onclick="assessment.nextScreen()">Next →</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Q6: Support system -->
+    <div class="screen assessment-screen" id="screen-6">
+      <div class="assessment-content">
+        <div class="progress-bar"><div class="progress-fill" style="width: 60%;"></div></div>
+        <span class="question-number">Question 6 of 12</span>
+        <h2 class="question-heading">Who do you discuss these challenges with?</h2>
+        <div class="form-group">
+          <div class="options-grid">
+            <label class="option-radio">
+              <input type="radio" name="q6" value="nobody-internal" onchange="assessment.updateQuestion(6, this.value)">
+              <span class="option-label"><span class="radio-circle"></span>Nobody (keep it internal)</span>
+            </label>
+            <label class="option-radio">
+              <input type="radio" name="q6" value="close-friends-family" onchange="assessment.updateQuestion(6, this.value)">
+              <span class="option-label"><span class="radio-circle"></span>Close friends or family</span>
+            </label>
+            <label class="option-radio">
+              <input type="radio" name="q6" value="peers-leadership-circle" onchange="assessment.updateQuestion(6, this.value)">
+              <span class="option-label"><span class="radio-circle"></span>Peers in my leadership circle</span>
+            </label>
+            <label class="option-radio">
+              <input type="radio" name="q6" value="mentor-coach" onchange="assessment.updateQuestion(6, this.value)">
+              <span class="option-label"><span class="radio-circle"></span>A mentor or coach</span>
+            </label>
+          </div>
+        </div>
+        <div class="assessment-nav">
+          <button class="nav-button" onclick="assessment.prevScreen()">← Back</button>
+          <button class="nav-button" onclick="assessment.nextScreen()" id="next-btn-6" disabled>Next →</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Q7: Clarity on change -->
+    <div class="screen assessment-screen" id="screen-7">
+      <div class="assessment-content">
+        <div class="progress-bar"><div class="progress-fill" style="width: 70%;"></div></div>
+        <span class="question-number">Question 7 of 12</span>
+        <h2 class="question-heading">How clear are you on what needs to change?</h2>
+        <div class="form-group">
+          <div class="slider-container">
+            <input type="range" min="1" max="10" value="5" class="slider" id="q7-slider" onchange="assessment.updateQuestion(7, this.value)">
+            <div class="slider-labels">
+              <span>Completely Lost</span>
+              <span>Crystal Clear</span>
+            </div>
+            <div class="slider-value" id="q7-value">5</div>
+          </div>
+        </div>
+        <div class="assessment-nav">
+          <button class="nav-button" onclick="assessment.prevScreen()">← Back</button>
+          <button class="nav-button" onclick="assessment.nextScreen()">Next →</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Q8: What would solving enable -->
+    <div class="screen assessment-screen" id="screen-8">
+      <div class="assessment-content">
+        <div class="progress-bar"><div class="progress-fill" style="width: 80%;"></div></div>
+        <span class="question-number">Question 8 of 12</span>
+        <h2 class="question-heading">What would solving this enable for you?</h2>
+        <div class="form-group">
+          <div class="options-grid">
+            <label class="option-radio">
+              <input type="radio" name="q8" value="confidence-authenticity" onchange="assessment.updateQuestion(8, this.value)">
+              <span class="option-label"><span class="radio-circle"></span>Confidence & authentic presence</span>
+            </label>
+            <label class="option-radio">
+              <input type="radio" name="q8" value="faster-decisions" onchange="assessment.updateQuestion(8, this.value)">
+              <span class="option-label"><span class="radio-circle"></span>Faster, clearer decisions</span>
+            </label>
+            <label class="option-radio">
+              <input type="radio" name="q8" value="team-performance" onchange="assessment.updateQuestion(8, this.value)">
+              <span class="option-label"><span class="radio-circle"></span>Better team performance & trust</span>
+            </label>
+            <label class="option-radio">
+              <input type="radio" name="q8" value="life-balance" onchange="assessment.updateQuestion(8, this.value)">
+              <span class="option-label"><span class="radio-circle"></span>Better work-life balance</span>
+            </label>
+            <label class="option-radio">
+              <input type="radio" name="q8" value="career-growth" onchange="assessment.updateQuestion(8, this.value)">
+              <span class="option-label"><span class="radio-circle"></span>Career growth & opportunity</span>
+            </label>
+          </div>
+        </div>
+        <div class="assessment-nav">
+          <button class="nav-button" onclick="assessment.prevScreen()">← Back</button>
+          <button class="nav-button" onclick="assessment.nextScreen()" id="next-btn-8" disabled>Next →</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Q9: Success vision -->
+    <div class="screen assessment-screen" id="screen-9">
+      <div class="assessment-content">
+        <div class="progress-bar"><div class="progress-fill" style="width: 85%;"></div></div>
+        <span class="question-number">Question 9 of 12</span>
+        <h2 class="question-heading">What does success look like for you once you sort this out?</h2>
+        <div class="form-group">
+          <div class="options-grid">
+            <label class="option-radio">
+              <input type="radio" name="q9" value="time-freedom" onchange="assessment.updateQuestion(9, this.value)">
+              <span class="option-label"><span class="radio-circle"></span>Time freedom & breathing room</span>
+            </label>
+            <label class="option-radio">
+              <input type="radio" name="q9" value="inner-peace" onchange="assessment.updateQuestion(9, this.value)">
+              <span class="option-label"><span class="radio-circle"></span>Inner peace & ease</span>
+            </label>
+            <label class="option-radio">
+              <input type="radio" name="q9" value="leadership-impact" onchange="assessment.updateQuestion(9, this.value)">
+              <span class="option-label"><span class="radio-circle"></span>True leadership & influence</span>
+            </label>
+            <label class="option-radio">
+              <input type="radio" name="q9" value="broader-impact" onchange="assessment.updateQuestion(9, this.value)">
+              <span class="option-label"><span class="radio-circle"></span>Broader impact on others</span>
+            </label>
+            <label class="option-radio">
+              <input type="radio" name="q9" value="full-clarity" onchange="assessment.updateQuestion(9, this.value)">
+              <span class="option-label"><span class="radio-circle"></span>Complete clarity on identity & direction</span>
+            </label>
+          </div>
+        </div>
+        <div class="assessment-nav">
+          <button class="nav-button" onclick="assessment.prevScreen()">← Back</button>
+          <button class="nav-button" onclick="assessment.nextScreen()" id="next-btn-9" disabled>Next →</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Q10: Readiness (double-bind) -->
+    <div class="screen assessment-screen" id="screen-10">
+      <div class="assessment-content">
+        <div class="progress-bar"><div class="progress-fill" style="width: 92%;"></div></div>
+        <span class="question-number">Question 10 of 12</span>
+        <h2 class="question-heading">When do you want or need this sorted?</h2>
+        <div class="form-group">
+          <div class="options-grid">
+            <label class="option-radio">
+              <input type="radio" name="q10" value="ready-now" onchange="assessment.updateQuestion(10, this.value)">
+              <span class="option-label"><span class="radio-circle"></span>Ready to get support now</span>
+            </label>
+            <label class="option-radio">
+              <input type="radio" name="q10" value="next-30-days" onchange="assessment.updateQuestion(10, this.value)">
+              <span class="option-label"><span class="radio-circle"></span>Next 30 days</span>
+            </label>
+            <label class="option-radio">
+              <input type="radio" name="q10" value="next-3-months" onchange="assessment.updateQuestion(10, this.value)">
+              <span class="option-label"><span class="radio-circle"></span>Next 3 months</span>
+            </label>
+            <label class="option-radio">
+              <input type="radio" name="q10" value="next-6-months" onchange="assessment.updateQuestion(10, this.value)">
+              <span class="option-label"><span class="radio-circle"></span>Next 6 months</span>
+            </label>
+            <label class="option-radio">
+              <input type="radio" name="q10" value="just-exploring" onchange="assessment.updateQuestion(10, this.value)">
+              <span class="option-label"><span class="radio-circle"></span>Just exploring for now</span>
+            </label>
+          </div>
+        </div>
+        <div class="assessment-nav">
+          <button class="nav-button" onclick="assessment.prevScreen()">← Back</button>
+          <button class="nav-button" onclick="assessment.nextScreen()" id="next-btn-10" disabled>Next →</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Q11: Optional open text -->
+    <div class="screen assessment-screen" id="screen-11">
+      <div class="assessment-content">
+        <div class="progress-bar"><div class="progress-fill" style="width: 95%;"></div></div>
+        <span class="question-number">Question 11 of 12 (Optional)</span>
+        <h2 class="question-heading">What would clarity on this mean for you?</h2>
+        <p class="question-subtitle">In 1-2 sentences (optional but helps us personalise your results)</p>
+        <div class="form-group">
+          <textarea class="text-input" id="q11-input" placeholder="Share your thoughts here..." onchange="assessment.updateQuestion(11, this.value)"></textarea>
+        </div>
+        <div class="assessment-nav">
+          <button class="nav-button" onclick="assessment.prevScreen()">← Back</button>
+          <button class="nav-button" onclick="assessment.nextScreen()">Next →</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- S1: Role & S2: Source -->
+    <div class="screen assessment-screen" id="screen-12">
+      <div class="assessment-content">
+        <div class="progress-bar"><div class="progress-fill" style="width: 98%;"></div></div>
+        <span class="question-number">Question 12 of 12</span>
+        <h2 class="question-heading">Finally, tell us about you</h2>
+        <div class="form-group">
+          <label style="display: block; margin-bottom: 20px;">
+            <span style="display: block; font-size: 14px; font-weight: 600; color: var(--dark); margin-bottom: 8px;">What's your role?</span>
+            <div class="options-grid">
+              <label class="option-radio">
+                <input type="radio" name="s1" value="founder" onchange="assessment.updateQuestion('s1', this.value)">
+                <span class="option-label"><span class="radio-circle"></span>Founder</span>
+              </label>
+              <label class="option-radio">
+                <input type="radio" name="s1" value="director" onchange="assessment.updateQuestion('s1', this.value)">
+                <span class="option-label"><span class="radio-circle"></span>Director / VP</span>
+              </label>
+              <label class="option-radio">
+                <input type="radio" name="s1" value="manager" onchange="assessment.updateQuestion('s1', this.value)">
+                <span class="option-label"><span class="radio-circle"></span>Senior Manager</span>
+              </label>
+            </div>
+          </label>
+
+          <label style="display: block; margin-bottom: 20px;">
+            <span style="display: block; font-size: 14px; font-weight: 600; color: var(--dark); margin-bottom: 8px;">How did you find us?</span>
+            <div class="options-grid">
+              <label class="option-radio">
+                <input type="radio" name="s2" value="google" onchange="assessment.updateQuestion('s2', this.value)">
+                <span class="option-label"><span class="radio-circle"></span>Google</span>
+              </label>
+              <label class="option-radio">
+                <input type="radio" name="s2" value="facebook" onchange="assessment.updateQuestion('s2', this.value)">
+                <span class="option-label"><span class="radio-circle"></span>Facebook</span>
+              </label>
+              <label class="option-radio">
+                <input type="radio" name="s2" value="instagram" onchange="assessment.updateQuestion('s2', this.value)">
+                <span class="option-label"><span class="radio-circle"></span>Instagram</span>
+              </label>
+              <label class="option-radio">
+                <input type="radio" name="s2" value="youtube" onchange="assessment.updateQuestion('s2', this.value)">
+                <span class="option-label"><span class="radio-circle"></span>YouTube</span>
+              </label>
+              <label class="option-radio">
+                <input type="radio" name="s2" value="linkedin" onchange="assessment.updateQuestion('s2', this.value)">
+                <span class="option-label"><span class="radio-circle"></span>LinkedIn</span>
+              </label>
+              <label class="option-radio">
+                <input type="radio" name="s2" value="website" onchange="assessment.updateQuestion('s2', this.value)">
+                <span class="option-label"><span class="radio-circle"></span>Our website</span>
+              </label>
+              <label class="option-radio">
+                <input type="radio" name="s2" value="referral" onchange="assessment.updateQuestion('s2', this.value)">
+                <span class="option-label"><span class="radio-circle"></span>Referral / word of mouth</span>
+              </label>
+            </div>
+          </label>
+        </div>
+        <div class="assessment-nav">
+          <button class="nav-button" onclick="assessment.prevScreen()">← Back</button>
+          <button class="nav-button" onclick="assessment.submitAndShowResults()" id="next-btn-12" disabled>See My Results →</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== RESULTS SCREEN ===== -->
+    <div class="screen results-screen" id="screen-results">
+      <div class="results-content">
+        <div class="results-header">
+          <h1 class="results-title">Your Breakthrough <strong>Diagnostic</strong></h1>
+          <p class="results-subtitle">Your personalized insights below. Your full 6-page report is coming to your email.</p>
+        </div>
+
+        <div class="results-card">
+          <div class="result-label">Your Core Pattern</div>
+          <div class="result-text" id="result-diagnosis">
+            Loading your personalized diagnosis...
+          </div>
+        </div>
+
+        <div class="results-card">
+          <div class="result-label">The Real Cost</div>
+          <div class="result-text" id="result-cost">
+            Loading analysis...
+          </div>
+        </div>
+
+        <div class="results-card">
+          <div class="result-label">Your Contradiction</div>
+          <div class="result-text" id="result-contradiction">
+            Loading analysis...
+          </div>
+        </div>
+
+        <div class="results-card">
+          <div class="result-label">Your Path Forward</div>
+          <div class="result-text" id="result-path">
+            Loading analysis...
+          </div>
+        </div>
+
+        <button class="button button-primary" onclick="assessment.showEmailCapture()" style="margin-top: 40px;">
+          Get Your Full Report + Secure a Call Spot
+        </button>
+      </div>
+    </div>
+
+    <!-- ===== EMAIL CAPTURE MODAL ===== -->
+    <div class="modal-overlay" id="email-modal">
+      <div class="modal-content">
+        <h2 class="modal-title">Your Full Diagnostic Report</h2>
+        <p class="modal-subtitle">6-page personalised report + your path to breakthrough</p>
+
+        <div class="urgency-message">
+          <span class="urgency-highlight">Only 2 discovery call spots left for April.</span> Secure yours + get instant access to your full report.
+        </div>
+
+        <form id="email-form" onsubmit="assessment.submitEmail(event)">
+          <input
+            type="text"
+            class="form-input"
+            id="email-name"
+            placeholder="Your name"
+            required
+          >
+          <input
+            type="email"
+            class="form-input"
+            id="email-address"
+            placeholder="Your email"
+            required
+          >
+          <button type="submit" class="button button-primary">
+            Send My Report + Book a Spot
+          </button>
+        </form>
+
+        <p style="font-size: 13px; color: var(--gray-text); text-align: center; margin-top: 16px;">
+          We'll send your report + booking link within 60 seconds.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const assessment = {
+      answers: {
+        q1: null, q2: null, q3: null, q4: null, q5: null,
+        q6: null, q7: null, q8: null, q9: null, q10: null,
+        q11: null, s1: null, s2: null
+      },
+      currentScreen: 0,
+      screens: [
+        'screen-landing', 'screen-1', 'screen-2', 'screen-3', 'screen-4', 'screen-5',
+        'screen-6', 'screen-7', 'screen-8', 'screen-9', 'screen-10', 'screen-11', 'screen-12', 'screen-results'
+      ],
+
+      init: function() {
+        // Track landing page view
+        gtag('event', 'assessment_view');
+        fbq('track', 'ViewContent', { content_name: 'Assessment Page' });
+      },
+
+      updateQuestion: function(q, value) {
+        const key = 'q' + q;
+        this.answers[key] = value;
+        this.validateCurrentScreen();
+
+        // Update slider value display
+        if (q === 2) document.getElementById('q2-value').textContent = value;
+        if (q === 5) document.getElementById('q5-value').textContent = value;
+        if (q === 7) document.getElementById('q7-value').textContent = value;
+      },
+
+      validateCurrentScreen: function() {
+        const screen = this.screens[this.currentScreen];
+        let isComplete = false;
+
+        if (screen === 'screen-1') isComplete = this.answers.q1 !== null;
+        if (screen === 'screen-2') isComplete = this.answers.q2 !== null;
+        if (screen === 'screen-3') isComplete = this.answers.q3 !== null;
+        if (screen === 'screen-4') isComplete = this.answers.q4 !== null;
+        if (screen === 'screen-5') isComplete = this.answers.q5 !== null;
+        if (screen === 'screen-6') isComplete = this.answers.q6 !== null;
+        if (screen === 'screen-7') isComplete = this.answers.q7 !== null;
+        if (screen === 'screen-8') isComplete = this.answers.q8 !== null;
+        if (screen === 'screen-9') isComplete = this.answers.q9 !== null;
+        if (screen === 'screen-10') isComplete = this.answers.q10 !== null;
+        if (screen === 'screen-11') isComplete = true; // Optional
+        if (screen === 'screen-12') isComplete = this.answers.s1 !== null && this.answers.s2 !== null;
+
+        // Enable next button if complete
+        const nextBtn = document.getElementById('next-btn-' + (this.currentScreen - 1));
+        if (nextBtn) nextBtn.disabled = !isComplete;
+      },
+
+      nextScreen: function() {
+        if (this.currentScreen < this.screens.length - 1) {
+          this.currentScreen++;
+          this.showScreen();
+
+          // Track progress
+          gtag('event', 'assessment_progress', { screen: this.currentScreen });
+          fbq('track', 'Progress', { step: this.currentScreen });
+        }
+      },
+
+      prevScreen: function() {
+        if (this.currentScreen > 0) {
+          this.currentScreen--;
+          this.showScreen();
+        }
+      },
+
+      showScreen: function() {
+        // Hide all screens
+        this.screens.forEach(screenId => {
+          const el = document.getElementById(screenId);
+          if (el) el.classList.remove('active');
+        });
+
+        // Show current screen
+        const currentScreenEl = document.getElementById(this.screens[this.currentScreen]);
+        if (currentScreenEl) {
+          currentScreenEl.classList.add('active');
+          window.scrollTo(0, 0);
+        }
+
+        this.validateCurrentScreen();
+      },
+
+      submitAndShowResults: async function() {
+        // Track assessment completion start
+        gtag('event', 'assessment_complete');
+        fbq('track', 'CompleteRegistration');
+
+        // Show results screen
+        this.currentScreen = this.screens.length - 1;
+        this.showScreen();
+
+        // Call Claude API to generate personalized results
+        // PLACEHOLDER: Replace with your actual API endpoint
+        await this.generatePersonalizedResults();
+      },
+
+      generatePersonalizedResults: async function() {
+        // This would call your backend which calls Claude API
+        // For now, showing placeholder results
+
+        const diagnosis = `As a <strong>${this.answers.s1}</strong> dealing with <strong>${this.answers.q1}</strong>, your core challenge is the <strong>contradiction</strong> between ${this.answers.q3}. This pattern has been present for <strong>${this.answers.q4}</strong>, and it's affecting your impact at an intensity of <strong>${this.answers.q2}/10</strong>.`;
+
+        const cost = `The real cost of this pattern: You're sacrificing clarity and focus. Your decision-making is becoming <strong>${this.answers.q5}/10</strong> reactive when it needs to be intentional. Over the next 6 months, if unchanged, this will cost you approximately <strong>6-8 weeks of productive time</strong> and countless leadership opportunities.`;
+
+        const contradiction = `You want <strong>${this.answers.q9}</strong>, but you're trapped in a pattern where <strong>${this.answers.q3}</strong> is preventing you from moving. The contradiction is real, and it's keeping you stuck.`;
+
+        const path = `Your path forward starts with addressing the core contradiction. Within 30 days, you can expect to see <strong>30-40% more clarity</strong> on decisions and <strong>measurably better wellbeing</strong>. Within 3 months, the shift becomes identity-level—you'll be operating from a fundamentally different place.`;
+
+        document.getElementById('result-diagnosis').innerHTML = diagnosis;
+        document.getElementById('result-cost').innerHTML = cost;
+        document.getElementById('result-contradiction').innerHTML = contradiction;
+        document.getElementById('result-path').innerHTML = path;
+      },
+
+      showEmailCapture: function() {
+        document.getElementById('email-modal').classList.add('active');
+
+        // Track modal view
+        gtag('event', 'email_capture_view');
+        fbq('track', 'Lead');
+      },
+
+      submitEmail: async function(event) {
+        event.preventDefault();
+
+        const name = document.getElementById('email-name').value;
+        const email = document.getElementById('email-address').value;
+
+        // Validate
+        if (!name || !email) return;
+
+        // Prepare payload with all answers
+        const payload = {
+          name: name,
+          email: email,
+          assessmentAnswers: this.answers,
+          timestamp: new Date().toISOString()
+        };
+
+        // TODO: Replace with your GHL webhook endpoint
+        const GHL_WEBHOOK_URL = 'https://YOUR_GHL_WEBHOOK_ENDPOINT';
+
+        try {
+          // Send to GHL
+          const response = await fetch(GHL_WEBHOOK_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+          });
+
+          if (response.ok) {
+            // Track conversion
+            gtag('event', 'generate_lead', {
+              email: email,
+              role: this.answers.s1,
+              source: this.answers.s2
+            });
+            fbq('track', 'Lead', {
+              email: email,
+              content_type: 'Assessment'
+            });
+
+            // Show confirmation
+            this.showConfirmation();
+          }
+        } catch (error) {
+          console.error('Error submitting email:', error);
+          alert('There was an issue. Please try again.');
+        }
+      },
+
+      showConfirmation: function() {
+        const modal = document.getElementById('email-modal');
+        const content = modal.querySelector('.modal-content');
+
+        content.innerHTML = `
+          <h2 class="modal-title">✓ Check Your Email</h2>
+          <p class="modal-subtitle" style="margin-bottom: 20px;">
+            Your full 6-page diagnostic report + booking link are on the way. Check within 60 seconds.
+          </p>
+          <div style="padding: 20px; background: rgba(196, 71, 108, 0.1); border-radius: 8px; margin-bottom: 20px;">
+            <p style="font-size: 15px; color: var(--dark); line-height: 1.6;">
+              <strong>What happens next:</strong><br>
+              1. You receive your personalized report<br>
+              2. Book your discovery call (only 2 spots left this month)<br>
+              3. Get your 90-day roadmap
+            </p>
+          </div>
+          <p style="font-size: 13px; color: var(--gray-text); text-align: center;">
+            Already have your booking link? <a href="#" style="color: var(--accent); font-weight: 600;">Book your call here</a>
+          </p>
+        `;
+      }
+    };
+
+    // Initialize on page load
+    assessment.init();
+  </script>
+</body>
+</html>
