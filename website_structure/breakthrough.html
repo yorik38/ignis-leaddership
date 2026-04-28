@@ -77,8 +77,17 @@
       background: var(--white);
     }
 
-    .screen { display: none; }
-    .screen.active { display: flex; }
+    .screen {
+      display: none !important;
+    }
+
+    .screen.active {
+      display: flex !important;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+    }
 
     /* ===== LANDING PAGE ===== */
     .landing-screen {
@@ -180,10 +189,6 @@
     /* ===== ASSESSMENT SCREENS ===== */
     .assessment-screen {
       flex: 1;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
       padding: clamp(40px, 8vw, 80px) clamp(24px, 5vw, 40px);
       background: var(--white);
     }
