@@ -236,6 +236,14 @@
       line-height: 1.5;
     }
 
+    .question-hint {
+      font-size: 13px;
+      color: var(--gray-text);
+      margin-bottom: 20px;
+      font-style: italic;
+      opacity: 0.8;
+    }
+
     /* ===== FORM ELEMENTS ===== */
     .form-group {
       margin-bottom: 28px;
@@ -247,11 +255,12 @@
       gap: var(--gap-md);
     }
 
-    .option-radio {
+    .option-radio, .option-checkbox {
       position: relative;
     }
 
-    .option-radio input[type="radio"] {
+    .option-radio input[type="radio"],
+    .option-checkbox input[type="checkbox"] {
       position: absolute;
       opacity: 0;
       cursor: pointer;
@@ -271,7 +280,8 @@
       color: var(--dark);
     }
 
-    .option-radio input[type="radio"]:checked + .option-label {
+    .option-radio input[type="radio"]:checked + .option-label,
+    .option-checkbox input[type="checkbox"]:checked + .option-label {
       border-color: var(--accent);
       background: rgba(196, 71, 108, 0.08);
       color: var(--dark);
@@ -283,7 +293,7 @@
       background: rgba(196, 71, 108, 0.04);
     }
 
-    .radio-circle {
+    .radio-circle, .checkbox-square {
       width: 20px;
       height: 20px;
       border: 2px solid var(--gray-light);
@@ -291,12 +301,44 @@
       margin-right: var(--gap-md);
       flex-shrink: 0;
       transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .checkbox-square {
+      border-radius: 4px;
     }
 
     .option-radio input[type="radio"]:checked + .option-label .radio-circle {
       border-color: var(--accent);
       background: var(--accent);
       box-shadow: inset 0 0 0 3px var(--white);
+    }
+
+    .option-checkbox input[type="checkbox"]:checked + .option-label .checkbox-square {
+      border-color: var(--accent);
+      background: var(--accent);
+      color: var(--white);
+      font-weight: 700;
+    }
+
+    .checkbox-square::after {
+      content: '✓';
+      color: var(--white);
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .option-checkbox input[type="checkbox"]:not(:checked) + .option-label .checkbox-square::after {
+      content: '';
+    }
+
+    .q1-counter {
+      font-size: 12px;
+      color: var(--gray-text);
+      margin-top: 12px;
+      font-weight: 500;
     }
 
     /* Slider styling */
@@ -427,15 +469,7 @@
       background: var(--gray-light);
     }
 
-    /* ===== NAVIGATION ===== */
-    .assessment-nav {
-      display: flex;
-      gap: var(--gap-md);
-      margin-top: 40px;
-    }
-
     .nav-button {
-      flex: 1;
       padding: 12px 20px;
       border: 2px solid var(--gray-light);
       border-radius: 6px;
@@ -627,7 +661,6 @@
       .landing-heading { font-size: 28px; }
       .landing-subheading { font-size: 16px; }
       .question-heading { font-size: 24px; }
-      .assessment-nav { flex-direction: column; }
       .results-card { padding: 20px; }
     }
 
@@ -683,43 +716,41 @@
 
     <!-- ===== ASSESSMENT SCREENS ===== -->
 
-    <!-- Q1: Which describes you -->
+    <!-- Q1: Which describes you (MULTI-SELECT UP TO 3) -->
     <div class="screen assessment-screen" id="screen-1">
       <div class="assessment-content">
         <div class="progress-bar"><div class="progress-fill" style="width: 10%;"></div></div>
         <span class="question-number">Question 1 of 12</span>
-        <h2 class="question-heading">Which of these describes you best right now?</h2>
+        <h2 class="question-heading">Which of these describe you?</h2>
+        <p class="question-hint">Select up to 3 that resonate most right now</p>
         <div class="form-group">
-          <div class="options-grid">
-            <label class="option-radio">
-              <input type="radio" name="q1" value="high-stakes-decision-making" onchange="assessment.updateQuestion(1, this.value)">
-              <span class="option-label"><span class="radio-circle"></span>High-stakes decision making (afraid of getting it wrong)</span>
+          <div class="options-grid" id="q1-options">
+            <label class="option-checkbox">
+              <input type="checkbox" name="q1" value="high-stakes-decision-making" onchange="assessment.handleQ1Change(this)">
+              <span class="option-label"><span class="checkbox-square"></span>High-stakes decision making (afraid of getting it wrong)</span>
             </label>
-            <label class="option-radio">
-              <input type="radio" name="q1" value="executive-burnout" onchange="assessment.updateQuestion(1, this.value)">
-              <span class="option-label"><span class="radio-circle"></span>Executive burnout (running on fumes)</span>
+            <label class="option-checkbox">
+              <input type="checkbox" name="q1" value="executive-burnout" onchange="assessment.handleQ1Change(this)">
+              <span class="option-label"><span class="checkbox-square"></span>Executive burnout (running on fumes)</span>
             </label>
-            <label class="option-radio">
-              <input type="radio" name="q1" value="imposter-syndrome" onchange="assessment.updateQuestion(1, this.value)">
-              <span class="option-label"><span class="radio-circle"></span>Imposter syndrome (not sure you deserve the role)</span>
+            <label class="option-checkbox">
+              <input type="checkbox" name="q1" value="imposter-syndrome" onchange="assessment.handleQ1Change(this)">
+              <span class="option-label"><span class="checkbox-square"></span>Imposter syndrome (not sure you deserve the role)</span>
             </label>
-            <label class="option-radio">
-              <input type="radio" name="q1" value="perfectionism-procrastination" onchange="assessment.updateQuestion(1, this.value)">
-              <span class="option-label"><span class="radio-circle"></span>Perfectionism & procrastination (stuck before you start)</span>
+            <label class="option-checkbox">
+              <input type="checkbox" name="q1" value="perfectionism-procrastination" onchange="assessment.handleQ1Change(this)">
+              <span class="option-label"><span class="checkbox-square"></span>Perfectionism & procrastination (stuck before you start)</span>
             </label>
-            <label class="option-radio">
-              <input type="radio" name="q1" value="performance-blocks" onchange="assessment.updateQuestion(1, this.value)">
-              <span class="option-label"><span class="radio-circle"></span>Performance blocks (losing confidence when it matters)</span>
+            <label class="option-checkbox">
+              <input type="checkbox" name="q1" value="performance-blocks" onchange="assessment.handleQ1Change(this)">
+              <span class="option-label"><span class="checkbox-square"></span>Performance blocks (losing confidence when it matters)</span>
             </label>
-            <label class="option-radio">
-              <input type="radio" name="q1" value="identity-clarity" onchange="assessment.updateQuestion(1, this.value)">
-              <span class="option-label"><span class="radio-circle"></span>Identity clarity (who am I as a leader?)</span>
+            <label class="option-checkbox">
+              <input type="checkbox" name="q1" value="identity-clarity" onchange="assessment.handleQ1Change(this)">
+              <span class="option-label"><span class="checkbox-square"></span>Identity clarity (who am I as a leader?)</span>
             </label>
           </div>
-        </div>
-        <div class="assessment-nav">
-          <button class="nav-button" disabled onclick="assessment.prevScreen()">← Back</button>
-          <button class="nav-button" onclick="assessment.nextScreen()" id="next-btn-1" disabled>Next →</button>
+          <div class="q1-counter" id="q1-counter">0 of 3 selected</div>
         </div>
       </div>
     </div>
@@ -729,20 +760,16 @@
       <div class="assessment-content">
         <div class="progress-bar"><div class="progress-fill" style="width: 20%;"></div></div>
         <span class="question-number">Question 2 of 12</span>
-        <h2 class="question-heading">How intensely is this affecting your impact right now?</h2>
+        <h2 class="question-heading">How intensely is this affecting your impact?</h2>
         <div class="form-group">
           <div class="slider-container">
-            <input type="range" min="1" max="10" value="5" class="slider" id="q2-slider" onchange="assessment.updateQuestion(2, this.value)">
+            <input type="range" min="1" max="10" value="5" class="slider" id="q2-slider" onchange="assessment.handleSliderChange(2, this.value)">
             <div class="slider-labels">
               <span>Manageable</span>
               <span>Severe</span>
             </div>
             <div class="slider-value" id="q2-value">5</div>
           </div>
-        </div>
-        <div class="assessment-nav">
-          <button class="nav-button" onclick="assessment.prevScreen()">← Back</button>
-          <button class="nav-button" onclick="assessment.nextScreen()">Next →</button>
         </div>
       </div>
     </div>
@@ -753,34 +780,29 @@
         <div class="progress-bar"><div class="progress-fill" style="width: 30%;"></div></div>
         <span class="question-number">Question 3 of 12</span>
         <h2 class="question-heading">What stops you most?</h2>
-        <p class="question-subtitle">The contradiction that keeps you stuck.</p>
         <div class="form-group">
           <div class="options-grid">
             <label class="option-radio">
-              <input type="radio" name="q3" value="fear-of-failure" onchange="assessment.updateQuestion(3, this.value)">
+              <input type="radio" name="q3" value="fear-of-failure" onchange="assessment.handleRadioChange(3, this.value)">
               <span class="option-label"><span class="radio-circle"></span>Fear of failure vs. need to succeed</span>
             </label>
             <label class="option-radio">
-              <input type="radio" name="q3" value="perfectionism-vs-progress" onchange="assessment.updateQuestion(3, this.value)">
+              <input type="radio" name="q3" value="perfectionism-vs-progress" onchange="assessment.handleRadioChange(3, this.value)">
               <span class="option-label"><span class="radio-circle"></span>Perfectionism vs. moving forward</span>
             </label>
             <label class="option-radio">
-              <input type="radio" name="q3" value="self-doubt-vs-ambition" onchange="assessment.updateQuestion(3, this.value)">
+              <input type="radio" name="q3" value="self-doubt-vs-ambition" onchange="assessment.handleRadioChange(3, this.value)">
               <span class="option-label"><span class="radio-circle"></span>Self-doubt vs. high ambition</span>
             </label>
             <label class="option-radio">
-              <input type="radio" name="q3" value="care-for-others-vs-self" onchange="assessment.updateQuestion(3, this.value)">
+              <input type="radio" name="q3" value="care-for-others-vs-self" onchange="assessment.handleRadioChange(3, this.value)">
               <span class="option-label"><span class="radio-circle"></span>Care for others vs. own boundaries</span>
             </label>
             <label class="option-radio">
-              <input type="radio" name="q3" value="control-vs-trust" onchange="assessment.updateQuestion(3, this.value)">
+              <input type="radio" name="q3" value="control-vs-trust" onchange="assessment.handleRadioChange(3, this.value)">
               <span class="option-label"><span class="radio-circle"></span>Need for control vs. trusting others</span>
             </label>
           </div>
-        </div>
-        <div class="assessment-nav">
-          <button class="nav-button" onclick="assessment.prevScreen()">← Back</button>
-          <button class="nav-button" onclick="assessment.nextScreen()" id="next-btn-3" disabled>Next →</button>
         </div>
       </div>
     </div>
@@ -794,26 +816,22 @@
         <div class="form-group">
           <div class="options-grid">
             <label class="option-radio">
-              <input type="radio" name="q4" value="less-than-6-months" onchange="assessment.updateQuestion(4, this.value)">
+              <input type="radio" name="q4" value="less-than-6-months" onchange="assessment.handleRadioChange(4, this.value)">
               <span class="option-label"><span class="radio-circle"></span>Less than 6 months</span>
             </label>
             <label class="option-radio">
-              <input type="radio" name="q4" value="6-months-to-2-years" onchange="assessment.updateQuestion(4, this.value)">
+              <input type="radio" name="q4" value="6-months-to-2-years" onchange="assessment.handleRadioChange(4, this.value)">
               <span class="option-label"><span class="radio-circle"></span>6 months to 2 years</span>
             </label>
             <label class="option-radio">
-              <input type="radio" name="q4" value="2-to-5-years" onchange="assessment.updateQuestion(4, this.value)">
+              <input type="radio" name="q4" value="2-to-5-years" onchange="assessment.handleRadioChange(4, this.value)">
               <span class="option-label"><span class="radio-circle"></span>2 to 5 years</span>
             </label>
             <label class="option-radio">
-              <input type="radio" name="q4" value="more-than-5-years" onchange="assessment.updateQuestion(4, this.value)">
+              <input type="radio" name="q4" value="more-than-5-years" onchange="assessment.handleRadioChange(4, this.value)">
               <span class="option-label"><span class="radio-circle"></span>More than 5 years (it's chronic)</span>
             </label>
           </div>
-        </div>
-        <div class="assessment-nav">
-          <button class="nav-button" onclick="assessment.prevScreen()">← Back</button>
-          <button class="nav-button" onclick="assessment.nextScreen()" id="next-btn-4" disabled>Next →</button>
         </div>
       </div>
     </div>
@@ -823,20 +841,16 @@
       <div class="assessment-content">
         <div class="progress-bar"><div class="progress-fill" style="width: 50%;"></div></div>
         <span class="question-number">Question 5 of 12</span>
-        <h2 class="question-heading">How reactive & unplanned are your decisions when under pressure?</h2>
+        <h2 class="question-heading">How reactive are your decisions under pressure?</h2>
         <div class="form-group">
           <div class="slider-container">
-            <input type="range" min="1" max="10" value="5" class="slider" id="q5-slider" onchange="assessment.updateQuestion(5, this.value)">
+            <input type="range" min="1" max="10" value="5" class="slider" id="q5-slider" onchange="assessment.handleSliderChange(5, this.value)">
             <div class="slider-labels">
               <span>Very Intentional</span>
               <span>Highly Reactive</span>
             </div>
             <div class="slider-value" id="q5-value">5</div>
           </div>
-        </div>
-        <div class="assessment-nav">
-          <button class="nav-button" onclick="assessment.prevScreen()">← Back</button>
-          <button class="nav-button" onclick="assessment.nextScreen()">Next →</button>
         </div>
       </div>
     </div>
@@ -850,26 +864,22 @@
         <div class="form-group">
           <div class="options-grid">
             <label class="option-radio">
-              <input type="radio" name="q6" value="nobody-internal" onchange="assessment.updateQuestion(6, this.value)">
+              <input type="radio" name="q6" value="nobody-internal" onchange="assessment.handleRadioChange(6, this.value)">
               <span class="option-label"><span class="radio-circle"></span>Nobody (keep it internal)</span>
             </label>
             <label class="option-radio">
-              <input type="radio" name="q6" value="close-friends-family" onchange="assessment.updateQuestion(6, this.value)">
+              <input type="radio" name="q6" value="close-friends-family" onchange="assessment.handleRadioChange(6, this.value)">
               <span class="option-label"><span class="radio-circle"></span>Close friends or family</span>
             </label>
             <label class="option-radio">
-              <input type="radio" name="q6" value="peers-leadership-circle" onchange="assessment.updateQuestion(6, this.value)">
+              <input type="radio" name="q6" value="peers-leadership-circle" onchange="assessment.handleRadioChange(6, this.value)">
               <span class="option-label"><span class="radio-circle"></span>Peers in my leadership circle</span>
             </label>
             <label class="option-radio">
-              <input type="radio" name="q6" value="mentor-coach" onchange="assessment.updateQuestion(6, this.value)">
+              <input type="radio" name="q6" value="mentor-coach" onchange="assessment.handleRadioChange(6, this.value)">
               <span class="option-label"><span class="radio-circle"></span>A mentor or coach</span>
             </label>
           </div>
-        </div>
-        <div class="assessment-nav">
-          <button class="nav-button" onclick="assessment.prevScreen()">← Back</button>
-          <button class="nav-button" onclick="assessment.nextScreen()" id="next-btn-6" disabled>Next →</button>
         </div>
       </div>
     </div>
@@ -882,17 +892,13 @@
         <h2 class="question-heading">How clear are you on what needs to change?</h2>
         <div class="form-group">
           <div class="slider-container">
-            <input type="range" min="1" max="10" value="5" class="slider" id="q7-slider" onchange="assessment.updateQuestion(7, this.value)">
+            <input type="range" min="1" max="10" value="5" class="slider" id="q7-slider" onchange="assessment.handleSliderChange(7, this.value)">
             <div class="slider-labels">
               <span>Completely Lost</span>
               <span>Crystal Clear</span>
             </div>
             <div class="slider-value" id="q7-value">5</div>
           </div>
-        </div>
-        <div class="assessment-nav">
-          <button class="nav-button" onclick="assessment.prevScreen()">← Back</button>
-          <button class="nav-button" onclick="assessment.nextScreen()">Next →</button>
         </div>
       </div>
     </div>
@@ -902,34 +908,30 @@
       <div class="assessment-content">
         <div class="progress-bar"><div class="progress-fill" style="width: 80%;"></div></div>
         <span class="question-number">Question 8 of 12</span>
-        <h2 class="question-heading">What would solving this enable for you?</h2>
+        <h2 class="question-heading">What would solving this enable?</h2>
         <div class="form-group">
           <div class="options-grid">
             <label class="option-radio">
-              <input type="radio" name="q8" value="confidence-authenticity" onchange="assessment.updateQuestion(8, this.value)">
+              <input type="radio" name="q8" value="confidence-authenticity" onchange="assessment.handleRadioChange(8, this.value)">
               <span class="option-label"><span class="radio-circle"></span>Confidence & authentic presence</span>
             </label>
             <label class="option-radio">
-              <input type="radio" name="q8" value="faster-decisions" onchange="assessment.updateQuestion(8, this.value)">
+              <input type="radio" name="q8" value="faster-decisions" onchange="assessment.handleRadioChange(8, this.value)">
               <span class="option-label"><span class="radio-circle"></span>Faster, clearer decisions</span>
             </label>
             <label class="option-radio">
-              <input type="radio" name="q8" value="team-performance" onchange="assessment.updateQuestion(8, this.value)">
+              <input type="radio" name="q8" value="team-performance" onchange="assessment.handleRadioChange(8, this.value)">
               <span class="option-label"><span class="radio-circle"></span>Better team performance & trust</span>
             </label>
             <label class="option-radio">
-              <input type="radio" name="q8" value="life-balance" onchange="assessment.updateQuestion(8, this.value)">
+              <input type="radio" name="q8" value="life-balance" onchange="assessment.handleRadioChange(8, this.value)">
               <span class="option-label"><span class="radio-circle"></span>Better work-life balance</span>
             </label>
             <label class="option-radio">
-              <input type="radio" name="q8" value="career-growth" onchange="assessment.updateQuestion(8, this.value)">
+              <input type="radio" name="q8" value="career-growth" onchange="assessment.handleRadioChange(8, this.value)">
               <span class="option-label"><span class="radio-circle"></span>Career growth & opportunity</span>
             </label>
           </div>
-        </div>
-        <div class="assessment-nav">
-          <button class="nav-button" onclick="assessment.prevScreen()">← Back</button>
-          <button class="nav-button" onclick="assessment.nextScreen()" id="next-btn-8" disabled>Next →</button>
         </div>
       </div>
     </div>
@@ -939,34 +941,30 @@
       <div class="assessment-content">
         <div class="progress-bar"><div class="progress-fill" style="width: 85%;"></div></div>
         <span class="question-number">Question 9 of 12</span>
-        <h2 class="question-heading">What does success look like for you once you sort this out?</h2>
+        <h2 class="question-heading">What does success look like for you?</h2>
         <div class="form-group">
           <div class="options-grid">
             <label class="option-radio">
-              <input type="radio" name="q9" value="time-freedom" onchange="assessment.updateQuestion(9, this.value)">
+              <input type="radio" name="q9" value="time-freedom" onchange="assessment.handleRadioChange(9, this.value)">
               <span class="option-label"><span class="radio-circle"></span>Time freedom & breathing room</span>
             </label>
             <label class="option-radio">
-              <input type="radio" name="q9" value="inner-peace" onchange="assessment.updateQuestion(9, this.value)">
+              <input type="radio" name="q9" value="inner-peace" onchange="assessment.handleRadioChange(9, this.value)">
               <span class="option-label"><span class="radio-circle"></span>Inner peace & ease</span>
             </label>
             <label class="option-radio">
-              <input type="radio" name="q9" value="leadership-impact" onchange="assessment.updateQuestion(9, this.value)">
+              <input type="radio" name="q9" value="leadership-impact" onchange="assessment.handleRadioChange(9, this.value)">
               <span class="option-label"><span class="radio-circle"></span>True leadership & influence</span>
             </label>
             <label class="option-radio">
-              <input type="radio" name="q9" value="broader-impact" onchange="assessment.updateQuestion(9, this.value)">
+              <input type="radio" name="q9" value="broader-impact" onchange="assessment.handleRadioChange(9, this.value)">
               <span class="option-label"><span class="radio-circle"></span>Broader impact on others</span>
             </label>
             <label class="option-radio">
-              <input type="radio" name="q9" value="full-clarity" onchange="assessment.updateQuestion(9, this.value)">
+              <input type="radio" name="q9" value="full-clarity" onchange="assessment.handleRadioChange(9, this.value)">
               <span class="option-label"><span class="radio-circle"></span>Complete clarity on identity & direction</span>
             </label>
           </div>
-        </div>
-        <div class="assessment-nav">
-          <button class="nav-button" onclick="assessment.prevScreen()">← Back</button>
-          <button class="nav-button" onclick="assessment.nextScreen()" id="next-btn-9" disabled>Next →</button>
         </div>
       </div>
     </div>
@@ -976,34 +974,30 @@
       <div class="assessment-content">
         <div class="progress-bar"><div class="progress-fill" style="width: 92%;"></div></div>
         <span class="question-number">Question 10 of 12</span>
-        <h2 class="question-heading">When do you want or need this sorted?</h2>
+        <h2 class="question-heading">When do you want this sorted?</h2>
         <div class="form-group">
           <div class="options-grid">
             <label class="option-radio">
-              <input type="radio" name="q10" value="ready-now" onchange="assessment.updateQuestion(10, this.value)">
+              <input type="radio" name="q10" value="ready-now" onchange="assessment.handleRadioChange(10, this.value)">
               <span class="option-label"><span class="radio-circle"></span>Ready to get support now</span>
             </label>
             <label class="option-radio">
-              <input type="radio" name="q10" value="next-30-days" onchange="assessment.updateQuestion(10, this.value)">
+              <input type="radio" name="q10" value="next-30-days" onchange="assessment.handleRadioChange(10, this.value)">
               <span class="option-label"><span class="radio-circle"></span>Next 30 days</span>
             </label>
             <label class="option-radio">
-              <input type="radio" name="q10" value="next-3-months" onchange="assessment.updateQuestion(10, this.value)">
+              <input type="radio" name="q10" value="next-3-months" onchange="assessment.handleRadioChange(10, this.value)">
               <span class="option-label"><span class="radio-circle"></span>Next 3 months</span>
             </label>
             <label class="option-radio">
-              <input type="radio" name="q10" value="next-6-months" onchange="assessment.updateQuestion(10, this.value)">
+              <input type="radio" name="q10" value="next-6-months" onchange="assessment.handleRadioChange(10, this.value)">
               <span class="option-label"><span class="radio-circle"></span>Next 6 months</span>
             </label>
             <label class="option-radio">
-              <input type="radio" name="q10" value="just-exploring" onchange="assessment.updateQuestion(10, this.value)">
+              <input type="radio" name="q10" value="just-exploring" onchange="assessment.handleRadioChange(10, this.value)">
               <span class="option-label"><span class="radio-circle"></span>Just exploring for now</span>
             </label>
           </div>
-        </div>
-        <div class="assessment-nav">
-          <button class="nav-button" onclick="assessment.prevScreen()">← Back</button>
-          <button class="nav-button" onclick="assessment.nextScreen()" id="next-btn-10" disabled>Next →</button>
         </div>
       </div>
     </div>
@@ -1013,14 +1007,10 @@
       <div class="assessment-content">
         <div class="progress-bar"><div class="progress-fill" style="width: 95%;"></div></div>
         <span class="question-number">Question 11 of 12 (Optional)</span>
-        <h2 class="question-heading">What would clarity on this mean for you?</h2>
-        <p class="question-subtitle">In 1-2 sentences (optional but helps us personalise your results)</p>
+        <h2 class="question-heading">What would clarity mean for you?</h2>
         <div class="form-group">
-          <textarea class="text-input" id="q11-input" placeholder="Share your thoughts here..." onchange="assessment.updateQuestion(11, this.value)"></textarea>
-        </div>
-        <div class="assessment-nav">
-          <button class="nav-button" onclick="assessment.prevScreen()">← Back</button>
-          <button class="nav-button" onclick="assessment.nextScreen()">Next →</button>
+          <textarea class="text-input" id="q11-input" placeholder="Share your thoughts here..." onchange="assessment.updateQuestion(11, this.value)" onkeyup="assessment.updateQuestion(11, this.value)"></textarea>
+          <button class="button button-primary" onclick="assessment.nextScreen()" style="margin-top: 20px;">Continue →</button>
         </div>
       </div>
     </div>
@@ -1032,8 +1022,8 @@
         <span class="question-number">Question 12 of 12</span>
         <h2 class="question-heading">Finally, tell us about you</h2>
         <div class="form-group">
-          <label style="display: block; margin-bottom: 20px;">
-            <span style="display: block; font-size: 14px; font-weight: 600; color: var(--dark); margin-bottom: 8px;">What's your role?</span>
+          <label style="display: block; margin-bottom: 28px;">
+            <span style="display: block; font-size: 14px; font-weight: 600; color: var(--dark); margin-bottom: 12px;">What's your role?</span>
             <div class="options-grid">
               <label class="option-radio">
                 <input type="radio" name="s1" value="founder" onchange="assessment.updateQuestion('s1', this.value)">
@@ -1051,7 +1041,7 @@
           </label>
 
           <label style="display: block; margin-bottom: 20px;">
-            <span style="display: block; font-size: 14px; font-weight: 600; color: var(--dark); margin-bottom: 8px;">How did you find us?</span>
+            <span style="display: block; font-size: 14px; font-weight: 600; color: var(--dark); margin-bottom: 12px;">How did you find us?</span>
             <div class="options-grid">
               <label class="option-radio">
                 <input type="radio" name="s2" value="google" onchange="assessment.updateQuestion('s2', this.value)">
@@ -1083,10 +1073,8 @@
               </label>
             </div>
           </label>
-        </div>
-        <div class="assessment-nav">
-          <button class="nav-button" onclick="assessment.prevScreen()">← Back</button>
-          <button class="nav-button" onclick="assessment.submitAndShowResults()" id="next-btn-12" disabled>See My Results →</button>
+
+          <button class="button button-primary" onclick="assessment.submitAndShowResults()" style="margin-top: 20px;">See My Results →</button>
         </div>
       </div>
     </div>
@@ -1173,7 +1161,7 @@
   <script>
     const assessment = {
       answers: {
-        q1: null, q2: null, q3: null, q4: null, q5: null,
+        q1: [], q2: null, q3: null, q4: null, q5: null,
         q6: null, q7: null, q8: null, q9: null, q10: null,
         q11: null, s1: null, s2: null
       },
@@ -1184,50 +1172,51 @@
       ],
 
       init: function() {
-        // Track landing page view
         gtag('event', 'assessment_view');
         fbq('track', 'ViewContent', { content_name: 'Assessment Page' });
       },
 
-      updateQuestion: function(q, value) {
-        const key = 'q' + q;
-        this.answers[key] = value;
-        this.validateCurrentScreen();
+      handleQ1Change: function(input) {
+        const checked = document.querySelectorAll('input[name="q1"]:checked');
 
-        // Update slider value display
-        if (q === 2) document.getElementById('q2-value').textContent = value;
-        if (q === 5) document.getElementById('q5-value').textContent = value;
-        if (q === 7) document.getElementById('q7-value').textContent = value;
+        if (checked.length > 3) {
+          input.checked = false;
+          return;
+        }
+
+        const values = Array.from(checked).map(cb => cb.value);
+        this.answers.q1 = values;
+
+        const counter = document.getElementById('q1-counter');
+        counter.textContent = `${values.length} of 3 selected`;
+
+        if (values.length > 0) {
+          this.nextScreen();
+        }
       },
 
-      validateCurrentScreen: function() {
-        const screen = this.screens[this.currentScreen];
-        let isComplete = false;
+      handleRadioChange: function(q, value) {
+        const key = 'q' + q;
+        this.answers[key] = value;
+        this.nextScreen();
+      },
 
-        if (screen === 'screen-1') isComplete = this.answers.q1 !== null;
-        if (screen === 'screen-2') isComplete = this.answers.q2 !== null;
-        if (screen === 'screen-3') isComplete = this.answers.q3 !== null;
-        if (screen === 'screen-4') isComplete = this.answers.q4 !== null;
-        if (screen === 'screen-5') isComplete = this.answers.q5 !== null;
-        if (screen === 'screen-6') isComplete = this.answers.q6 !== null;
-        if (screen === 'screen-7') isComplete = this.answers.q7 !== null;
-        if (screen === 'screen-8') isComplete = this.answers.q8 !== null;
-        if (screen === 'screen-9') isComplete = this.answers.q9 !== null;
-        if (screen === 'screen-10') isComplete = this.answers.q10 !== null;
-        if (screen === 'screen-11') isComplete = true; // Optional
-        if (screen === 'screen-12') isComplete = this.answers.s1 !== null && this.answers.s2 !== null;
+      handleSliderChange: function(q, value) {
+        const key = 'q' + q;
+        this.answers[key] = value;
+        document.getElementById(key + '-value').textContent = value;
+        this.nextScreen();
+      },
 
-        // Enable next button if complete
-        const nextBtn = document.getElementById('next-btn-' + (this.currentScreen - 1));
-        if (nextBtn) nextBtn.disabled = !isComplete;
+      updateQuestion: function(q, value) {
+        const key = typeof q === 'string' ? q : 'q' + q;
+        this.answers[key] = value;
       },
 
       nextScreen: function() {
         if (this.currentScreen < this.screens.length - 1) {
           this.currentScreen++;
           this.showScreen();
-
-          // Track progress
           gtag('event', 'assessment_progress', { screen: this.currentScreen });
           fbq('track', 'Progress', { step: this.currentScreen });
         }
@@ -1241,41 +1230,37 @@
       },
 
       showScreen: function() {
-        // Hide all screens
         this.screens.forEach(screenId => {
           const el = document.getElementById(screenId);
           if (el) el.classList.remove('active');
         });
 
-        // Show current screen
         const currentScreenEl = document.getElementById(this.screens[this.currentScreen]);
         if (currentScreenEl) {
           currentScreenEl.classList.add('active');
           window.scrollTo(0, 0);
         }
-
-        this.validateCurrentScreen();
       },
 
       submitAndShowResults: async function() {
-        // Track assessment completion start
+        if (!this.answers.s1 || !this.answers.s2) {
+          alert('Please complete all questions');
+          return;
+        }
+
         gtag('event', 'assessment_complete');
         fbq('track', 'CompleteRegistration');
 
-        // Show results screen
         this.currentScreen = this.screens.length - 1;
         this.showScreen();
 
-        // Call Claude API to generate personalized results
-        // PLACEHOLDER: Replace with your actual API endpoint
         await this.generatePersonalizedResults();
       },
 
       generatePersonalizedResults: async function() {
-        // This would call your backend which calls Claude API
-        // For now, showing placeholder results
+        const q1Text = this.answers.q1.length > 0 ? this.answers.q1.join(', ') : 'your primary challenge';
 
-        const diagnosis = `As a <strong>${this.answers.s1}</strong> dealing with <strong>${this.answers.q1}</strong>, your core challenge is the <strong>contradiction</strong> between ${this.answers.q3}. This pattern has been present for <strong>${this.answers.q4}</strong>, and it's affecting your impact at an intensity of <strong>${this.answers.q2}/10</strong>.`;
+        const diagnosis = `As a <strong>${this.answers.s1}</strong> dealing with <strong>${q1Text}</strong>, your core challenge is the <strong>contradiction</strong> between ${this.answers.q3}. This pattern has been present for <strong>${this.answers.q4}</strong>, and it's affecting your impact at an intensity of <strong>${this.answers.q2}/10</strong>.`;
 
         const cost = `The real cost of this pattern: You're sacrificing clarity and focus. Your decision-making is becoming <strong>${this.answers.q5}/10</strong> reactive when it needs to be intentional. Over the next 6 months, if unchanged, this will cost you approximately <strong>6-8 weeks of productive time</strong> and countless leadership opportunities.`;
 
@@ -1291,8 +1276,6 @@
 
       showEmailCapture: function() {
         document.getElementById('email-modal').classList.add('active');
-
-        // Track modal view
         gtag('event', 'email_capture_view');
         fbq('track', 'Lead');
       },
@@ -1303,10 +1286,8 @@
         const name = document.getElementById('email-name').value;
         const email = document.getElementById('email-address').value;
 
-        // Validate
         if (!name || !email) return;
 
-        // Prepare payload with all answers
         const payload = {
           name: name,
           email: email,
@@ -1314,11 +1295,9 @@
           timestamp: new Date().toISOString()
         };
 
-        // TODO: Replace with your GHL webhook endpoint
         const GHL_WEBHOOK_URL = 'https://YOUR_GHL_WEBHOOK_ENDPOINT';
 
         try {
-          // Send to GHL
           const response = await fetch(GHL_WEBHOOK_URL, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -1326,7 +1305,6 @@
           });
 
           if (response.ok) {
-            // Track conversion
             gtag('event', 'generate_lead', {
               email: email,
               role: this.answers.s1,
@@ -1337,7 +1315,6 @@
               content_type: 'Assessment'
             });
 
-            // Show confirmation
             this.showConfirmation();
           }
         } catch (error) {
@@ -1370,7 +1347,6 @@
       }
     };
 
-    // Initialize on page load
     assessment.init();
   </script>
 </body>
