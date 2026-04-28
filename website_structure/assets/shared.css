@@ -665,6 +665,75 @@ body.menu-locked{overflow:hidden!important}
   padding-left: 4px !important;
 }
 
+/* ── PROGRAMME SECTION MOBILE ── */
+@media (max-width: 620px) {
+  .wrap > div[style*="grid-template-columns: repeat(3"] {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* ── OUTCOMES GRID ── */
+.outcomes-grid {
+  display: grid !important;
+  grid-template-columns: repeat(3, 1fr) !important;
+  gap: 20px !important;
+  margin-top: 52px !important;
+}
+.outcome-card {
+  background: var(--white) !important;
+  padding: 40px 32px !important;
+  border-radius: 12px !important;
+  border: 1px solid var(--border) !important;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.04) !important;
+  transition: transform 0.3s ease, box-shadow 0.3s ease !important;
+}
+.outcome-card:hover {
+  transform: translateY(-4px) !important;
+  box-shadow: 0 12px 24px rgba(0,0,0,0.08) !important;
+}
+.outcome-label {
+  font-size: 0.7rem !important;
+  letter-spacing: 0.18em !important;
+  text-transform: uppercase !important;
+  color: var(--accent) !important;
+  margin-bottom: 14px !important;
+  font-weight: 600 !important;
+}
+.outcome-title {
+  font-family: var(--fd) !important;
+  font-size: 1.1rem !important;
+  font-weight: 400 !important;
+  margin-bottom: 12px !important;
+  letter-spacing: 0.02em !important;
+  color: var(--dark) !important;
+}
+.outcome-text {
+  font-size: 0.9rem !important;
+  color: var(--gray-text) !important;
+  line-height: 1.7 !important;
+  font-weight: 300 !important;
+}
+
+@media (max-width: 960px) {
+  .outcomes-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 16px !important;
+  }
+}
+
+@media (max-width: 620px) {
+  .outcomes-grid {
+    grid-template-columns: 1fr !important;
+    gap: 16px !important;
+  }
+  .outcome-card {
+    padding: 32px 24px !important;
+  }
+  .outcome-title {
+    font-size: 1rem !important;
+  }
+}
+
 /* Calendly should always sit above footer and page sections */
 #cal-modal{z-index:99999!important;position:fixed!important;inset:0!important}
 #cal-modal .cal-inner{position:relative!important;z-index:100000!important}

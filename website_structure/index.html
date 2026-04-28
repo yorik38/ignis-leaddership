@@ -304,6 +304,10 @@
     .tcard-eyebrow { display: none; }
     .tcard-avatars { display: flex; align-items: flex-end; justify-content: center; gap: 18px; padding: 22px 0 0; flex-wrap: wrap; }
     .tsl-av { display: flex; flex-direction: column; align-items: center; gap: 8px; cursor: pointer; transition: transform .3s ease; }
+    @media (max-width: 620px) {
+      .tsl-av { flex: 0 0 calc(25% - 13.5px); }
+      .tcard-avatars { gap: 12px; }
+    }
     .tsl-av-ring { width: 48px; height: 48px; border-radius: 50%; overflow: hidden; border: 2px solid transparent; transition: border-color .3s, transform .3s, box-shadow .3s; flex-shrink: 0; position: relative; }
     .tsl-av-ring img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center center; opacity: 1; transition: opacity .3s; z-index: 2; }
     .tsl-av-ph { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: .65rem; font-weight: 600; color: rgba(255,255,255,.4); background: rgba(255,255,255,.1); opacity: 0; transition: opacity .3s; z-index: 1; }
@@ -903,25 +907,40 @@
 </div>
 </div>
 </div>
-<!-- WHY IT WORKS -->
+<!-- OUTCOMES GRID -->
 <div class="wrap">
-<p class="section-eyebrow fu">Why it works</p>
-<h2 class="section-title fu">Identity determines<br/>everything else.</h2>
-<div class="why-grid fu">
-<div class="why-card">
-<p class="why-num">The root, not symptoms</p>
-<h3 class="why-title">Identity shifts confidence.</h3>
-<p class="why-text">Sleep, anxiety, and confidence aren't the problem—they're symptoms of identity confusion. When you know who you are underneath the role, your nervous system settles and these symptoms resolve naturally.</p>
+<p class="section-eyebrow fu">What you get</p>
+<h2 class="section-title fu">Clarity for your<br/>specific challenge.</h2>
+<div class="outcomes-grid fu">
+<div class="outcome-card">
+<p class="outcome-label">High-Stakes Anxiety</p>
+<h3 class="outcome-title">Calm under pressure</h3>
+<p class="outcome-text">When big moments come, you stay clear. No racing thoughts. Just you—focused and steady.</p>
 </div>
-<div class="why-card">
-<p class="why-num">Both conscious and unconscious</p>
-<h3 class="why-title">Two levels of change.</h3>
-<p class="why-text">Coaching addresses patterns you can see. Hypnosis rewires the automatic responses that run beneath awareness. Together, they install change that holds even under pressure.</p>
+<div class="outcome-card">
+<p class="outcome-label">Executive Burnout</p>
+<h3 class="outcome-title">Energy comes back</h3>
+<p class="outcome-text">Burnout happens when you're running on empty. We reset your system so you feel rested—without needing a break.</p>
 </div>
-<div class="why-card">
-<p class="why-num">Built for analytical minds</p>
-<h3 class="why-title">Neuroscience, not mysticism.</h3>
-<p class="why-text">The method is grounded in how the brain actually works—how identity is formed, how beliefs become automatic, how new neural patterns establish. All mechanisms, no magic.</p>
+<div class="outcome-card">
+<p class="outcome-label">Imposter Syndrome</p>
+<h3 class="outcome-title">You believe you belong</h3>
+<p class="outcome-text">That voice saying you're not good enough? It stops. You know your worth. No more pretending.</p>
+</div>
+<div class="outcome-card">
+<p class="outcome-label">Decision Paralysis</p>
+<h3 class="outcome-title">Decisions happen easily</h3>
+<p class="outcome-text">Stuck between choices? We clear the mental fog so you decide fast and trust the decision.</p>
+</div>
+<div class="outcome-card">
+<p class="outcome-label">Perfectionism & Procrastination</p>
+<h3 class="outcome-title">Done beats perfect</h3>
+<p class="outcome-text">You stop waiting for perfect and start moving. Work gets done. Progress happens.</p>
+</div>
+<div class="outcome-card">
+<p class="outcome-label">Performance Blocks</p>
+<h3 class="outcome-title">You perform naturally</h3>
+<p class="outcome-text">Presentations, conversations, high-stakes moments—no nerves, no blocks. You show up as yourself.</p>
 </div>
 </div>
 </div>
@@ -968,7 +987,7 @@
 </div>
 <!-- SERVICES -->
 <div class="wrap">
-<p class="section-eyebrow fu">The Programme</p>
+<p class="section-eyebrow fu">What's the programme</p>
 <h2 class="section-title fu">Three months. Total transformation.</h2>
 <div class="fu soft-shadow-hover glass" style="display:flex; flex-direction:column; gap:24px; text-align:left; background:var(--white); padding: clamp(40px, 5vw, 64px); border-radius: 16px; border: 1px solid var(--border); box-shadow: 0 10px 30px -5px rgba(0,0,0,0.06); max-width:900px; margin: 0 auto;">
 <p style="font-size:1.05rem; color:var(--dark); line-height:1.8;">One integrated programme combining coaching with advanced techniques that work at the unconscious level. You'll move through three phases and experience real transformation.</p>
@@ -984,16 +1003,6 @@
 <div style="background:var(--off-white); padding:28px; border-radius:8px; border:1px solid var(--border);">
 <p class="fu" style="font-weight:600; font-size:.8rem; text-transform:uppercase; letter-spacing:.18em; color:var(--accent); margin-bottom:12px;">Phase 3</p>
 <p class="fu" style="font-size:0.95rem; color:var(--dark); line-height:1.6;"><strong>Confidence:</strong> The natural result when identity settles.</p>
-</div>
-</div>
-<div style="display:grid; grid-template-columns:1fr 1fr; gap:24px; margin-top:24px; padding-top:24px; border-top:1px solid var(--border);">
-<div>
-<p class="fu" style="font-weight:600; font-size:.8rem; text-transform:uppercase; letter-spacing:.18em; color:var(--accent); margin-bottom:12px;">Duration & Format</p>
-<p class="fu" style="font-size:1rem; color:var(--dark); line-height:1.6;">3 months<br/>Up to 12 sessions<br/>Fully online</p>
-</div>
-<div>
-<p class="fu" style="font-weight:600; font-size:.8rem; text-transform:uppercase; letter-spacing:.18em; color:var(--accent); margin-bottom:12px;">Investment</p>
-<p class="fu" style="font-size:1rem; color:var(--dark); line-height:1.6;">£2,997<br/>or 2 × £1,750<br/>30-day guarantee</p>
 </div>
 </div>
 <button class="btn" onclick="openCal()" style="margin-top:24px; align-self:flex-start;">Book a clarity call</button>
