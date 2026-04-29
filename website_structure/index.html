@@ -161,7 +161,7 @@
     .eyebrow { font-size: .7rem; letter-spacing: .22em; text-transform: uppercase; font-weight: 500; color: var(--accent-light); margin-bottom: 18px; display:flex; flex-wrap:wrap; align-items:center; gap:12px; }
     .eyebrow-divider { display:inline-block; width:1px; height:16px; background: linear-gradient(to bottom, transparent, rgba(255,255,255,0.45) 50%, transparent); }
     .accent-divider-short { width: 56px; height: 2px; background: linear-gradient(90deg, transparent 0%, var(--accent) 22%, var(--accent) 78%, transparent 100%); margin: 28px auto 0; }
-    .hero-h1 { font-family: 'Georgia', serif; font-size: clamp(48px, 7.5vw, 110px); font-weight: 400; line-height: .95; letter-spacing: .04em; color: #fff; margin-bottom: 24px; }
+    .hero-h1 { font-family: 'Georgia', serif; font-size: clamp(38px, 6vw, 88px); font-weight: 400; line-height: .95; letter-spacing: .04em; color: #fff; margin-bottom: 24px; }
     .hero-sub { font-size: clamp(14px, 1.4vw, 17px); color: rgba(255,255,255,.58); font-weight: 300; letter-spacing: .02em; max-width: 460px; margin-bottom: 56px; }
     .hero-cards { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid rgba(255,255,255,.12); margin-top: 48px; }
     .hcard { background: rgba(255,255,255,.05); backdrop-filter: blur(32px); -webkit-backdrop-filter: blur(32px); padding: 32px 36px 36px; border-right: 1px solid rgba(255,255,255,.09); cursor: pointer; transition: background .3s, transform .3s, box-shadow .3s, border-color .3s; }
@@ -759,9 +759,13 @@
     <li class="nav-outcomes-dropdown" id="nav-work-with-me">
       <a href="#" data-page="work-with-me" onclick="toggleNavOutcomesDropdown(event)">Work with me<span class="arrow"></span></a>
       <div class="nav-dropdown-menu">
-        <a href="coaching/1-1-transformation.html" style="font-weight: 600; color: #fff; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 12px; margin-bottom: 8px;">1:1 Transformation</a>
-        <a href="courses/index.html" style="font-weight: 600; color: #fff; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 12px; margin-bottom: 8px;">Courses</a>
-        <div style="font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(255,255,255,0.5); padding: 12px 0 8px; margin-bottom: 8px; border-top: 1px solid rgba(255,255,255,0.1);">Your Challenges</div>
+        <a href="coaching/1-1-transformation.html">1:1 Transformation</a>
+        <a href="courses/index.html">Courses</a>
+      </div>
+    </li>
+    <li class="nav-outcomes-dropdown" id="nav-challenges">
+      <a href="#" data-page="challenges" onclick="toggleNavOutcomesDropdown(event)">Challenges<span class="arrow"></span></a>
+      <div class="nav-dropdown-menu">
         <a href="outcomes/high-stakes-anxiety.html">High-Stakes Anxiety</a>
         <a href="outcomes/executive-burnout.html">Executive Burnout</a>
         <a href="outcomes/imposter-syndrome.html">Imposter Syndrome</a>
@@ -771,7 +775,7 @@
       </div>
     </li>
     <li><a href="#method">Methods</a></li>
-    <li><a class="n-cta" href="#" onclick="window.location.href=’/assessment’; return false;">Free Reignite Assessment</a></li>
+    <li><a class="n-cta" href="#" onclick="openCal(); return false;">Let’s talk</a></li>
   </ul>
   <div class="n-burger" id="burger" onclick="toggleBurger()"><span></span><span></span><span></span></div>
 </nav>
@@ -787,8 +791,8 @@
 <img alt="Yorik Tisseau" class="hero-mobile-img" src="images/_DSC1754.jpg"/>
 <p class="hero-sub" style="font-size: clamp(16px, 1.6vw, 20px); max-width:540px;">For high achievers in their 40s who are still delivering, but quietly running on empty inside.</p>
 <div style="display:flex; gap:16px; margin-bottom: 56px; flex-wrap: wrap;">
-<button class="btn" onclick="openCal()">Let’s talk</button>
-<button class="btn secondary" onclick="document.getElementById('method').scrollIntoView({behavior: 'smooth'})" style="animation:none; box-shadow:none; background:rgba(255,255,255,0.05); color:#fff; border-color:rgba(255,255,255,0.3);">How it works</button>
+<button class="btn" onclick="window.location.href=’/assessment’; return false;">Free Reignite Assessment</button>
+<button class="btn secondary" onclick="document.getElementById(‘method’).scrollIntoView({behavior: ‘smooth’})" style="animation:none; box-shadow:none; background:rgba(255,255,255,0.05); color:#fff; border-color:rgba(255,255,255,0.3);">How it works</button>
 </div>
 </div>
 </div>
@@ -1213,7 +1217,7 @@
 
   function toggleNavOutcomesDropdown(e) {
     e.preventDefault();
-    const navOutcomesLi = document.querySelector('.nav-outcomes-dropdown');
+    const navOutcomesLi = e.target.closest('.nav-outcomes-dropdown');
     if (navOutcomesLi) {
       navOutcomesLi.classList.toggle('is-open');
     }
