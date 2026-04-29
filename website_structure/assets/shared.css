@@ -109,11 +109,21 @@ html, body {
 /* Scroll state styling */
 #nav.scrolled .nav-dropdown-menu {
   background: #fff !important;
-  box-shadow: none !important;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1) !important;
 }
 
 #nav.scrolled .nav-dropdown-menu a {
   color: #333 !important;
+}
+
+/* Mobile scrolled dropdown visibility fix */
+@media (max-width: 960px) {
+  #nav.scrolled .nav-dropdown-menu.mobile-open a {
+    color: #333 !important;
+  }
+  #nav.scrolled .nav-dropdown-menu.mobile-open a:hover {
+    color: var(--accent) !important;
+  }
 }
 
 #nav.scrolled .nav-dropdown-menu a:hover {
@@ -245,11 +255,11 @@ body.legal-page-view .n-burger span{background:#000!important}
   }
 
   .nav-dropdown-menu.mobile-open a{
-    padding:3px 0!important;
-    font-size:0.25rem!important;
-    color:rgba(255,255,255,.8)!important;
+    padding:8px 0!important;
+    font-size:0.8rem!important;
+    color:rgba(255,255,255,.85)!important;
     border-left:none!important;
-    letter-spacing:.02em!important;
+    letter-spacing:.05em!important;
     display:block!important;
   }
 
