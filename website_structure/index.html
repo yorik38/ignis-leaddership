@@ -87,6 +87,7 @@
       --fb: 'Inter', -apple-system, sans-serif;
       --ft-muted: #8F96A3;
       --nav-h: 76px;
+      --nav-h-mobile: 56px;
       --sp:    clamp(80px, 10vw, 140px);
       --mw:    1160px;
       --px:    clamp(24px, 5vw, 80px);
@@ -157,7 +158,7 @@
       position: relative; overflow: hidden;
     }
     .hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 20% 60%, rgba(196,71,108,.15) 0%, transparent 55%); pointer-events: none; }
-    .hero-inner { position: relative; z-index: 1; padding: 0 var(--px); max-width: calc(var(--mw) + var(--px) * 2); margin: 0 auto; width: 100%; padding-top: calc(var(--nav-h) + 100px); }
+    .hero-inner { position: relative; z-index: 1; padding: 0 var(--px); max-width: calc(var(--mw) + var(--px) * 2); margin: 0 auto; width: 100%; padding-top: calc(var(--nav-h) + 40px); }
     .eyebrow { font-size: .7rem; letter-spacing: .22em; text-transform: uppercase; font-weight: 500; color: var(--accent-light); margin-bottom: 18px; display:flex; flex-wrap:wrap; align-items:center; gap:12px; }
     .eyebrow-divider { display:inline-block; width:1px; height:16px; background: linear-gradient(to bottom, transparent, rgba(255,255,255,0.45) 50%, transparent); }
     .accent-divider-short { width: 56px; height: 2px; background: linear-gradient(90deg, transparent 0%, var(--accent) 22%, var(--accent) 78%, transparent 100%); margin: 28px auto 0; }
@@ -481,6 +482,9 @@
 
     /* ── RESPONSIVE ── */
     @media (max-width: 960px) {
+      :root { --nav-h: 56px; }
+      #nav { min-height: 56px; padding: 8px var(--px); }
+      #nav .n-logo img { height: 36px; }
       .about-photo-stack { aspect-ratio: 4/3; }
       .about-photo-stack img { object-position: center center !important; }
       .iam-btn { font-size: 0.75rem; padding: 8px 12px; }
@@ -746,7 +750,7 @@
 <!-- Assessment Banner -->
 <a href="breakthrough.html" class="assessment-banner" style="text-decoration: none; display: block; cursor: pointer;">
   <div class="assessment-banner__container">
-    <span class="assessment-banner__heading">TAKE THE FREE BREAKTHROUGH ASSESSMENT<span class="mobile-chevron"></span></span>
+    <span class="assessment-banner__heading">TAKE THE FREE REIGNITE ASSESSMENT<span class="mobile-chevron"></span></span>
     <span class="assessment-banner__button">Start now</span>
   </div>
 </a>
@@ -763,6 +767,7 @@
         <a href="courses/index.html">Courses</a>
       </div>
     </li>
+    <li><a href="#method">Methods</a></li>
     <li class="nav-outcomes-dropdown" id="nav-challenges">
       <a href="#" data-page="challenges" onclick="toggleNavOutcomesDropdown(event)">Challenges<span class="arrow"></span></a>
       <div class="nav-dropdown-menu">
@@ -774,7 +779,6 @@
         <a href="outcomes/performance-blocks.html">Performance Blocks</a>
       </div>
     </li>
-    <li><a href="#method">Methods</a></li>
     <li><a class="n-cta" href="#" onclick="openCal(); return false;">Let’s talk</a></li>
   </ul>
   <div class="n-burger" id="burger" onclick="toggleBurger()"><span></span><span></span><span></span></div>
@@ -787,12 +791,11 @@
 <div class="hero">
 <div class="hero-inner">
 <p class="eyebrow"><span>CLARITY</span><span class="eyebrow-divider" aria-hidden="true"></span><span>IDENTITY</span><span class="eyebrow-divider" aria-hidden="true"></span><span>CONFIDENCE FOR LEADERS</span></p>
-<h1 class="hero-h1">You've built a successful career.<br/>Now let's build the life.</h1>
+<h1 class="hero-h1">You've built a successful career. Now let's build the life.</h1>
 <img alt="Yorik Tisseau" class="hero-mobile-img" src="images/_DSC1754.jpg"/>
 <p class="hero-sub" style="font-size: clamp(16px, 1.6vw, 20px); max-width:540px;">For high achievers in their 40s who are still delivering, but quietly running on empty inside.</p>
 <div style="display:flex; gap:16px; margin-bottom: 56px; flex-wrap: wrap;">
 <button class="btn" onclick="window.location.href=’/assessment’; return false;">Free Reignite Assessment</button>
-<button class="btn secondary" onclick="document.getElementById(‘method’).scrollIntoView({behavior: ‘smooth’})" style="animation:none; box-shadow:none; background:rgba(255,255,255,0.05); color:#fff; border-color:rgba(255,255,255,0.3);">How it works</button>
 </div>
 </div>
 </div>
