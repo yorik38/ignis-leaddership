@@ -126,6 +126,23 @@ html, body {
   }
 }
 
+/* Ensure both dropdowns work on scroll - scrolled state should maintain dark theme */
+#nav.scrolled .nav-outcomes-dropdown:hover .nav-dropdown-menu,
+#nav.scrolled .nav-outcomes-dropdown.is-open .nav-dropdown-menu {
+  background: rgba(15, 15, 15, 0.98) !important;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.2) !important;
+}
+
+#nav.scrolled .nav-outcomes-dropdown:hover .nav-dropdown-menu a,
+#nav.scrolled .nav-outcomes-dropdown.is-open .nav-dropdown-menu a {
+  color: rgba(255,255,255,0.85) !important;
+}
+
+#nav.scrolled .nav-outcomes-dropdown:hover .nav-dropdown-menu a:hover,
+#nav.scrolled .nav-outcomes-dropdown.is-open .nav-dropdown-menu a:hover {
+  color: #fff !important;
+}
+
 #nav.scrolled .nav-dropdown-menu a:hover {
   color: var(--accent) !important;
 }
@@ -238,12 +255,19 @@ body.legal-page-view .n-burger span{background:#000!important}
     width: 100% !important;
   }
 
-  /* Mobile dropdown open state with indent */
+  /* Mobile dropdown open state with indent - works for all nav-outcomes-dropdown items */
   .nav-outcomes-dropdown.is-open .nav-dropdown-menu {
     max-height: 500px !important;
     margin-top: 16px !important;
-    padding-top: 8px !important;
-    padding-bottom: 8px !important;
+    padding: 12px 0 12px 28px !important;
+    display: block !important;
+  }
+
+  /* Ensure all dropdown menu items are visible on mobile when open */
+  .nav-outcomes-dropdown.is-open .nav-dropdown-menu a {
+    display: block !important;
+    opacity: 1 !important;
+    visibility: visible !important;
   }
 
   .nav-dropdown-menu.mobile-open{
