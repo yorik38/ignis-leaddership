@@ -75,6 +75,7 @@ html, body {
   white-space: normal !important;
   width: auto !important;
   min-width: 280px !important;
+  z-index: 1000 !important;
 }
 
 /* Open state via class */
@@ -126,21 +127,21 @@ html, body {
   }
 }
 
-/* Ensure both dropdowns work on scroll - scrolled state should maintain dark theme */
+/* Ensure both dropdowns work on scroll - match nav background */
 #nav.scrolled .nav-outcomes-dropdown:hover .nav-dropdown-menu,
 #nav.scrolled .nav-outcomes-dropdown.is-open .nav-dropdown-menu {
-  background: rgba(15, 15, 15, 0.98) !important;
-  box-shadow: 0 8px 24px rgba(0,0,0,0.2) !important;
+  background: transparent !important;
+  box-shadow: none !important;
 }
 
 #nav.scrolled .nav-outcomes-dropdown:hover .nav-dropdown-menu a,
 #nav.scrolled .nav-outcomes-dropdown.is-open .nav-dropdown-menu a {
-  color: rgba(255,255,255,0.85) !important;
+  color: #333 !important;
 }
 
 #nav.scrolled .nav-outcomes-dropdown:hover .nav-dropdown-menu a:hover,
 #nav.scrolled .nav-outcomes-dropdown.is-open .nav-dropdown-menu a:hover {
-  color: #fff !important;
+  color: var(--accent) !important;
 }
 
 #nav.scrolled .nav-dropdown-menu a:hover {
