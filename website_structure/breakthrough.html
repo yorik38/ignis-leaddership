@@ -541,40 +541,91 @@
       font-style: italic;
     }
 
-    .results-intro {
-      font-size: 18px;
-      color: var(--dark);
-      line-height: 1.8;
-      margin-bottom: 48px;
-      animation: fadeIn 1s ease-out;
-    }
-
     .results-section {
-      margin-bottom: 48px;
-      animation: fadeIn 1.2s ease-out;
+      margin-bottom: 80px;
+      animation: fadeIn 0.8s ease-out;
     }
 
-    .results-section-title {
+    .results-section-1 {
+      animation-delay: 0.2s;
+    }
+
+    .results-section-2 {
+      animation-delay: 0.4s;
+    }
+
+    .results-section-3 {
+      animation-delay: 0.6s;
+    }
+
+    .results-section-label {
       font-family: var(--fb);
       font-size: 12px;
       font-weight: 700;
-      letter-spacing: 1px;
+      letter-spacing: 1.5px;
       text-transform: uppercase;
       color: var(--accent);
       margin-bottom: 16px;
+      display: block;
     }
 
-    .results-section-content {
+    .results-section-heading {
+      font-family: var(--fd);
+      font-size: clamp(32px, 6vw, 52px);
+      font-weight: 800;
+      line-height: 1.2;
+      margin-bottom: 24px;
+      color: var(--dark);
+      letter-spacing: -1px;
+    }
+
+    .results-section-heading .accent {
+      color: var(--accent);
+      font-style: italic;
+    }
+
+    .results-section-body {
+      font-size: 18px;
+      color: var(--dark);
+      line-height: 1.8;
+      margin-bottom: 32px;
+    }
+
+    .results-section-body strong {
+      color: var(--dark);
+      font-weight: 700;
+    }
+
+    .cost-breakdown {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      margin-top: 32px;
+    }
+
+    .cost-item {
+      display: flex;
+      gap: 20px;
+      align-items: flex-start;
+      padding: 24px;
       background: var(--off-white);
-      padding: 32px;
       border-radius: 12px;
       border-left: 4px solid var(--accent);
+    }
+
+    .cost-icon {
+      font-size: 28px;
+      flex-shrink: 0;
+      margin-top: 4px;
+    }
+
+    .cost-text {
       font-size: 16px;
-      line-height: 1.8;
+      line-height: 1.7;
       color: var(--dark);
     }
 
-    .results-section-content strong {
+    .cost-text strong {
       color: var(--dark);
       font-weight: 700;
     }
@@ -1259,62 +1310,91 @@
     <!-- ===== RESULTS SCREEN ===== -->
     <div class="screen results-screen" id="screen-results">
       <div class="results-container">
-        <div class="results-badge">Your Diagnostic Result</div>
 
-        <h1 class="results-title">
-          The <span class="accent">Invisible Ceiling</span> Leader
-        </h1>
+        <!-- SECTION 1: WHERE YOU ARE (Understanding) -->
+        <div class="results-section results-section-1">
+          <div class="results-section-label">Your Diagnostic</div>
+          <h2 class="results-section-heading">
+            The <span class="accent">Invisible Ceiling</span> Leader
+          </h2>
+          <p class="results-section-body">
+            You're self-aware, capable, and your standards are high. Most people see you as someone who has it together. But here's what you already know: your tight grip is the exact thing preventing your team from growing. You didn't set out to be the bottleneck. You just wanted to get things right.
+          </p>
+        </div>
 
-        <p class="results-intro">
-          You're self-aware, capable, and your standards are high. The challenge? Your tight grip is the exact thing preventing your team from growing. You already know this at some level. This assessment is naming what you already sense.
-        </p>
-
-        <div class="results-section">
-          <div class="results-section-title">What This Is Costing You</div>
-          <div class="results-section-content">
-            <p>
-              You're doing two jobs: yours and pieces of everyone else's. Your capacity is finite. The team's growth is stalled—not because they can't lead, but because they've learned that waiting for your approval is safer than acting. <strong>Your ceiling has become their ceiling.</strong>
-            </p>
-            <p style="margin-top: 16px;">
-              The real cost? Six to eight weeks of productive time lost each quarter. Talent leaving because they feel trapped. And you, running on fumes, wondering why delegation doesn't feel like relief.
-            </p>
+        <!-- SECTION 2: THE COST (Reality check + contradiction) -->
+        <div class="results-section results-section-2">
+          <div class="results-section-label">The Real Cost</div>
+          <h2 class="results-section-heading">
+            You're doing two jobs. <span class="accent">And it's breaking the system.</span>
+          </h2>
+          <p class="results-section-body">
+            You're running your job plus pieces of everyone else's. Your team isn't growing—not because they lack capability, but because they've learned that waiting for your approval is safer than acting. The contradiction? <strong>You want them to own it. But you've made them dependent on you.</strong>
+          </p>
+          <div class="cost-breakdown">
+            <div class="cost-item">
+              <div class="cost-icon">⏱</div>
+              <div class="cost-text">
+                <strong>6–8 weeks of productive time</strong> lost each quarter to bottleneck decisions
+              </div>
+            </div>
+            <div class="cost-item">
+              <div class="cost-icon">👥</div>
+              <div class="cost-text">
+                <strong>Your best people are leaving</strong> because they feel trapped and underutilised
+              </div>
+            </div>
+            <div class="cost-item">
+              <div class="cost-icon">🔋</div>
+              <div class="cost-text">
+                <strong>You're running on fumes</strong> wondering why delegation doesn't feel like relief
+              </div>
+            </div>
           </div>
         </div>
 
-        <div class="results-section">
-          <div class="results-section-title">Your Path Forward</div>
+        <!-- SECTION 3: THE SHIFT (Path forward as choice) -->
+        <div class="results-section results-section-3">
+          <div class="results-section-label">Your Path Forward</div>
+          <h2 class="results-section-heading">
+            What changes when you <span class="accent">let go of being in control</span>
+          </h2>
+          <p class="results-section-body">
+            The shift isn't about working harder. It's about a fundamental reframing of your role.
+          </p>
           <div class="path-forward">
             <div class="path-item">
               <div class="path-number">1</div>
               <div class="path-content">
-                <h4>Map what only you can do</h4>
-                <p>Distinguish between "only I can do this" and "I do this best." The second category is where delegation lives.</p>
+                <h4>Distinguish "only I" from "I do best"</h4>
+                <p>Most leaders confuse these. The second category is where delegation lives—and where your team grows.</p>
               </div>
             </div>
             <div class="path-item">
               <div class="path-number">2</div>
               <div class="path-content">
-                <h4>Make the ask explicit</h4>
-                <p>Assign ownership with authority, not just tasks. "I'm trusting you to decide this" is different from "let me know how it goes."</p>
+                <h4>Assign ownership, not tasks</h4>
+                <p>"I'm trusting you to decide" is a completely different message than "let me know how it goes."</p>
               </div>
             </div>
             <div class="path-item">
               <div class="path-number">3</div>
               <div class="path-content">
                 <h4>Resist the rescue reflex</h4>
-                <p>When someone struggles, pause before stepping in. Struggle is how ownership gets built.</p>
+                <p>When someone struggles, pause. Struggle is how real ownership—and growth—gets built.</p>
               </div>
             </div>
           </div>
         </div>
 
+        <!-- CTA BOX -->
         <div class="cta-box">
-          <span class="cta-box-label">Ready to go deeper?</span>
+          <span class="cta-box-label">Ready to make the shift?</span>
           <h3>
-            Get your full diagnostic <span class="accent">+ conversation</span>
+            Get your full report <span class="accent">+ a conversation</span>
           </h3>
           <p class="cta-box-desc">
-            Your 6-page report maps your specific pattern in detail: where it started, how it shows up under pressure, and the precise shifts that break it. Plus a 30-minute conversation to build your 90-day roadmap.
+            Your 6-page diagnostic maps your specific pattern in detail: where it came from, how it shows up under pressure, and the exact shifts that break it. Then a 30-minute conversation to build your 90-day roadmap.
           </p>
 
           <div class="cta-buttons">
@@ -1327,9 +1407,29 @@
           </div>
 
           <p class="cta-box-note">
-            No sales pitch. The call is a conversation, not a pitch.
+            No sales pitch. It's a real conversation with someone who gets this pattern.
           </p>
         </div>
+
+        <!-- TRUST ELEMENT (below button like landing page) -->
+        <div class="results-trust" style="margin-top: 60px; padding-top: 40px; border-top: 1px solid var(--gray-light); text-align: center;">
+          <p style="font-size: 13px; color: var(--gray-text); margin-bottom: 20px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px;">Trusted by leaders like you</p>
+          <div style="display: flex; gap: 50px; justify-content: center; flex-wrap: wrap;">
+            <div style="text-align: center;">
+              <div style="font-size: 32px; font-weight: 800; color: var(--accent); margin-bottom: 4px;">50+</div>
+              <div style="font-size: 13px; color: var(--gray-text);">Leaders transformed</div>
+            </div>
+            <div style="text-align: center;">
+              <div style="font-size: 32px; font-weight: 800; color: var(--accent); margin-bottom: 4px;">91%</div>
+              <div style="font-size: 13px; color: var(--gray-text);">Said it named their issue</div>
+            </div>
+            <div style="text-align: center;">
+              <div style="font-size: 32px; font-weight: 800; color: var(--accent); margin-bottom: 4px;">30 days</div>
+              <div style="font-size: 13px; color: var(--gray-text);">To measurable clarity</div>
+            </div>
+          </div>
+        </div>
+
       </div>
     </div>
 
