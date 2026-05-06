@@ -1,0 +1,73 @@
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "ProfessionalService",
+      "@id": "https://ignisleadership.com/#organization",
+      "name": "Ignis Leadership Ltd",
+      "url": "https://ignisleadership.com",
+      "logo": "https://ignisleadership.com/images/logo%20nav%20bar.png",
+      "image": "https://ignisleadership.com/images/hero%20header.jpg",
+      "description": "The Clear Identity Method: Coaching and hypnosis for senior leaders building clarity, authentic identity, and unshakable confidence.",
+      "founder": {
+        "@type": "Person",
+        "@id": "https://ignisleadership.com/#founder",
+        "name": "Yorik Tisseau",
+        "jobTitle": "Executive Coach & Clinical Hypnotherapist",
+        "description": "Former energy leader at BP turned executive coach and hypnotherapist. Specializes in subconscious reprogramming for senior executives.",
+        "alumniOf": {
+          "@type": "Organization",
+          "name": "BP"
+        },
+        "knowsAbout": ["Executive Coaching", "Clinical Hypnotherapy", "Leadership Development", "Imposter Syndrome", "Burnout Recovery"]
+      },
+      "serviceArea": {
+        "@type": "GeoCircle",
+        "geoMidpoint": {
+          "@type": "GeoCoordinates",
+          "latitude": 53.4808,
+          "longitude": -2.2426
+        },
+        "geoRadius": "50000"
+      },
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Manchester",
+        "addressCountry": "UK"
+      },
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "Ignis Leadership Services",
+        "itemListElement": [
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "1:1 Executive Transformation",
+              "description": "Deep, bespoke intervention combining high-level executive coaching with clinical hypnotherapy for rapid subconscious reprogramming.",
+              "url": "https://ignisleadership.com/coaching/1-1-transformation.html"
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "The Executive Calm Protocol",
+              "description": "A 21-day self-guided digital program for regulating the nervous system and managing high-stakes anxiety.",
+              "url": "https://ignisleadership.com/courses/index.html"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://ignisleadership.com/#website",
+      "url": "https://ignisleadership.com",
+      "name": "Ignis Leadership",
+      "publisher": {
+        "@id": "https://ignisleadership.com/#organization"
+      }
+    }
+  ]
+}

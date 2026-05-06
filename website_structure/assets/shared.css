@@ -71,7 +71,9 @@ html, body {
   margin: 0 !important;
   padding: 0 !important;
   transition: max-height 0.3s ease, background 0.3s ease !important;
-  background: #0f0f0f !important;
+  background: rgba(20, 20, 20, 0.95) !important; /* Slightly black with transparency */
+  backdrop-filter: blur(10px) !important;
+  -webkit-backdrop-filter: blur(10px) !important;
   white-space: normal !important;
   width: auto !important;
   min-width: 280px !important;
@@ -119,19 +121,23 @@ html, body {
 
 /* Mobile scrolled dropdown visibility fix */
 @media (max-width: 960px) {
+  #nav.scrolled .nav-dropdown-menu {
+    background: transparent !important;
+    box-shadow: none !important;
+  }
   #nav.scrolled .nav-dropdown-menu.mobile-open a {
-    color: #333 !important;
+    color: rgba(255,255,255,.85) !important;
   }
   #nav.scrolled .nav-dropdown-menu.mobile-open a:hover {
-    color: var(--accent) !important;
+    color: #fff !important;
   }
 }
 
 /* Ensure both dropdowns work on scroll - match nav background */
 #nav.scrolled .nav-outcomes-dropdown:hover .nav-dropdown-menu,
 #nav.scrolled .nav-outcomes-dropdown.is-open .nav-dropdown-menu {
-  background: transparent !important;
-  box-shadow: none !important;
+  background: #fff !important;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1) !important;
 }
 
 #nav.scrolled .nav-outcomes-dropdown:hover .nav-dropdown-menu a,

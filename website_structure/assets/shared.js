@@ -235,12 +235,13 @@
       link.addEventListener('click', function(e){
         // Handle Outcomes dropdown on mobile
         if(window.innerWidth <= 960) {
-          const outcomesLink = document.querySelector('.nav-outcomes-dropdown > a');
-          if(this === outcomesLink && e.target === outcomesLink) {
+          // Check if this link is a dropdown toggle
+          if(this.parentElement && this.parentElement.classList.contains('nav-outcomes-dropdown')) {
             e.preventDefault();
-            const dropdown = document.querySelector('.nav-dropdown-menu');
-            if(dropdown) {
+            const dropdown = this.nextElementSibling;
+            if(dropdown && dropdown.classList.contains('nav-dropdown-menu')) {
               dropdown.classList.toggle('mobile-open');
+              this.parentElement.classList.toggle('is-open');
             }
             return;
           }
