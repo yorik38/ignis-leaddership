@@ -773,6 +773,7 @@
 
 
 
+
 /* ── AVATAR CAROUSEL OVERRIDE (DESKTOP & MOBILE) ── */
 .tsl-av {
   width: 72px !important;
@@ -781,19 +782,19 @@
 
 @media (max-width: 620px) {
   .tcard-avatars {
-    flex-wrap: nowrap !important;
-    overflow-x: auto !important;
-    justify-content: flex-start !important;
-    gap: 16px !important;
-    padding-bottom: 24px !important;
-    padding-right: 24px !important;
-    padding-left: 12px !important;
-    -webkit-overflow-scrolling: touch !important;
-    scrollbar-width: none !important;
-    scroll-behavior: smooth !important;
+    flex-wrap: wrap !important;
+    justify-content: center !important;
+    gap: 8px 14px !important;
+    padding-bottom: 12px !important;
+    overflow: hidden !important;
   }
-  .tcard-avatars::-webkit-scrollbar {
-    display: none !important;
+  .tsl-av {
+    width: 64px !important;
+    flex: 0 0 64px !important;
+  }
+  .tsl-av-ring {
+    width: 44px !important;
+    height: 44px !important;
   }
   .tcard-body {
     overflow: hidden !important;
@@ -1061,15 +1062,7 @@
       if (isActive) {
         const ringImg = av.querySelector('.tsl-av-ring img');
         if (ringImg) ringImg.style.removeProperty('opacity');
-        
-        // Auto-scroll the container so the active avatar is centered
-        if (window.innerWidth <= 620) {
-          const container = av.closest('.tcard-avatars');
-          if (container) {
-            const scrollPos = av.offsetLeft - container.offsetLeft - (container.clientWidth / 2) + (av.clientWidth / 2);
-            container.scrollTo({ left: scrollPos, behavior: 'smooth' });
-          }
-        }
+
       }
     });
 
@@ -1585,15 +1578,7 @@ window.addEventListener('resize', () => {
       if (isActive) {
         const ringImg = av.querySelector('.tsl-av-ring img');
         if (ringImg) ringImg.style.removeProperty('opacity');
-        
-        // Auto-scroll the container so the active avatar is centered
-        if (window.innerWidth <= 620) {
-          const container = av.closest('.tcard-avatars');
-          if (container) {
-            const scrollPos = av.offsetLeft - container.offsetLeft - (container.clientWidth / 2) + (av.clientWidth / 2);
-            container.scrollTo({ left: scrollPos, behavior: 'smooth' });
-          }
-        }
+
       }
     });
 
