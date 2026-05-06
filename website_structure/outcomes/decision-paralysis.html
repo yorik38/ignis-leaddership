@@ -1098,7 +1098,13 @@ window.addEventListener('load', initIgnisCalendlyBadge);
 window.addEventListener('resize', () => {
   if (window.innerWidth > 960) initIgnisCalendlyBadge();
 });
-</script><script src="../assets/shared.js?v=20260404-menu"></script><meta content="Ignis Leadership: Coaching and hypnotherapy for senior leaders." name="description"/></head>
+</script><script src="../assets/shared.js?v=20260404-menu"></script><meta content="Ignis Leadership: Coaching and hypnotherapy for senior leaders." name="description"/>
+<style>
+@media (max-width: 960px) {
+    .challenge-split { grid-template-columns: 1fr !important; gap: 32px !important; }
+}
+</style>
+</head>
 <body><a class="assessment-banner" href="breakthrough.html" style="text-decoration: none; display: block; cursor: pointer;">
 <div class="assessment-banner__container">
 <span class="assessment-banner__heading">TAKE THE FREE REIGNITE ASSESSMENT<span class="mobile-chevron"></span></span>
@@ -1135,13 +1141,12 @@ window.addEventListener('resize', () => {
 <div id="page-home">
 <div class="hero" style="min-height: 55vh;">
 <div class="hero-inner">
-
 <h1 class="hero-h1">Decision Paralysis</h1>
 <p class="hero-sub">When overthinking causes costly delays. Regain your decisive edge.</p>
 </div>
 </div>
 <div class="wrap" style="padding-top: 80px; padding-bottom: 80px; min-height: 40vh;">
-<div style="max-width: 880px; margin: 0 auto;">
+<div style="max-width: var(--mw); margin: 0 auto;">
 <h2 class="section-title" style="margin-bottom: 24px; color: var(--dark);">Is this you?</h2>
 <ul class="for-list" style="margin-bottom: 40px; font-size: 1.1rem;">
 <li>Are you overthinking critical choices to the point of exhaustion?</li>
