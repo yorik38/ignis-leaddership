@@ -771,6 +771,30 @@
   }
 }
 
+
+/* ── AVATAR CAROUSEL MOBILE OVERRIDE ── */
+@media (max-width: 620px) {
+  .tcard-avatars {
+    flex-wrap: nowrap !important;
+    overflow-x: auto !important;
+    justify-content: flex-start !important;
+    gap: 16px !important;
+    padding-bottom: 24px !important;
+    padding-right: 24px !important;
+    -webkit-overflow-scrolling: touch !important;
+    scrollbar-width: none !important;
+  }
+  .tcard-avatars::-webkit-scrollbar {
+    display: none !important;
+  }
+  .tsl-av {
+    flex: 0 0 auto !important;
+    min-width: 64px !important;
+  }
+  .tcard-body {
+    overflow: hidden !important;
+  }
+}
 </style><link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet"/><link href="assets/shared.css?v=20260427-mobile-restore" rel="stylesheet"/><link href="assets/assessment-banner.css" rel="stylesheet"/><script async="" src="https://assets.calendly.com/assets/external/widget.js"></script><script>
   const navEl = document.getElementById('nav');
   const fabEl = document.getElementById('mobile-fab');
