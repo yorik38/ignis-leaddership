@@ -134,24 +134,26 @@ html, body {
 }
 
 /* Ensure both dropdowns work on scroll - match nav background */
-#nav.scrolled .nav-outcomes-dropdown:hover .nav-dropdown-menu,
-#nav.scrolled .nav-outcomes-dropdown.is-open .nav-dropdown-menu {
-  background: #fff !important;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1) !important;
-}
+@media (min-width: 961px) {
+  #nav.scrolled .nav-outcomes-dropdown:hover .nav-dropdown-menu,
+  #nav.scrolled .nav-outcomes-dropdown.is-open .nav-dropdown-menu {
+    background: #fff !important;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1) !important;
+  }
 
-#nav.scrolled .nav-outcomes-dropdown:hover .nav-dropdown-menu a,
-#nav.scrolled .nav-outcomes-dropdown.is-open .nav-dropdown-menu a {
-  color: #333 !important;
-}
+  #nav.scrolled .nav-outcomes-dropdown:hover .nav-dropdown-menu a,
+  #nav.scrolled .nav-outcomes-dropdown.is-open .nav-dropdown-menu a {
+    color: #333 !important;
+  }
 
-#nav.scrolled .nav-outcomes-dropdown:hover .nav-dropdown-menu a:hover,
-#nav.scrolled .nav-outcomes-dropdown.is-open .nav-dropdown-menu a:hover {
-  color: var(--accent) !important;
-}
+  #nav.scrolled .nav-outcomes-dropdown:hover .nav-dropdown-menu a:hover,
+  #nav.scrolled .nav-outcomes-dropdown.is-open .nav-dropdown-menu a:hover {
+    color: var(--accent) !important;
+  }
 
-#nav.scrolled .nav-dropdown-menu a:hover {
-  color: var(--accent) !important;
+  #nav.scrolled .nav-dropdown-menu a:hover {
+    color: var(--accent) !important;
+  }
 }
 
 /* Nav scroll styling - text color change */
