@@ -804,7 +804,7 @@
   function openCal() {
     const isMobile = window.innerWidth <= 960;
     if (!isMobile && window.Calendly && Calendly.initPopupWidget) {
-      Calendly.initPopupWidget({ url: 'https://calendly.com/yorik-tisseau-tmff/30min' });
+      Calendly.initPopupWidget({ url: 'https://calendly.com/yorik-tisseau-tmff/discovery' });
       return false;
     }
     document.getElementById('cal-modal').classList.add('open');
@@ -1084,7 +1084,7 @@ function initIgnisCalendlyBadge(){
   if (document.querySelector('.calendly-badge-widget')) return;
   if (window.Calendly && Calendly.initBadgeWidget) {
     Calendly.initBadgeWidget({
-      url: 'https://calendly.com/yorik-tisseau-tmff/30min',
+      url: 'https://calendly.com/yorik-tisseau-tmff/discovery',
       text: 'Let’s talk',
       color: '#C4476C',
       textColor: '#ffffff',

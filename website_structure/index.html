@@ -1173,7 +1173,7 @@
 <div class="cal-body cal-body-embed">
 <h2 style="margin: 0 0 16px 0; font-family: var(--fd); font-size: 1.6rem; color: var(--dark);">Let's Talk</h2>
 <p style="color: var(--gray-text); margin-bottom: 20px; font-size: 0.95rem;">Book a time that works for you, or reach out directly:</p>
-<div class="calendly-inline-widget" data-url="https://calendly.com/yorik-tisseau-tmff/30min" style="min-width:100%;height:min(60vh,700px);"></div>
+<div class="calendly-inline-widget" data-url="https://calendly.com/yorik-tisseau-tmff/discovery" style="min-width:100%;height:min(60vh,700px);"></div>
 <div class="cal-contact-options">
 <div class="contact-option">
 <p style="font-weight: 600; margin: 0 0 8px 0; color: var(--dark);">Call</p>
@@ -1273,7 +1273,7 @@
   function openCal() {
     const isMobile = window.innerWidth <= 960;
     if (!isMobile && window.Calendly && Calendly.initPopupWidget) {
-      Calendly.initPopupWidget({ url: 'https://calendly.com/yorik-tisseau-tmff/30min' });
+      Calendly.initPopupWidget({ url: 'https://calendly.com/yorik-tisseau-tmff/discovery' });
       return false;
     }
     document.getElementById('cal-modal').classList.add('open');
@@ -1557,7 +1557,7 @@ function initIgnisCalendlyBadge(){
   if (document.querySelector('.calendly-badge-widget')) return;
   if (window.Calendly && Calendly.initBadgeWidget) {
     Calendly.initBadgeWidget({
-      url: 'https://calendly.com/yorik-tisseau-tmff/30min',
+      url: 'https://calendly.com/yorik-tisseau-tmff/discovery',
       text: 'Let’s talk',
       color: '#C4476C',
       textColor: '#ffffff',

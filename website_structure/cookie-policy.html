@@ -669,7 +669,7 @@
 <div class="cal-inner">
 <button class="cal-close" onclick="closeCal()">✕</button>
 <div class="cal-body cal-body-embed">
-<div class="calendly-inline-widget" data-url="https://calendly.com/yorik-tisseau-tmff/30min" style="min-width:320px;height:700px;"></div>
+<div class="calendly-inline-widget" data-url="https://calendly.com/yorik-tisseau-tmff/discovery" style="min-width:320px;height:700px;"></div>
 </div>
 </div>
 </div>
@@ -686,7 +686,7 @@
 
   function openCal() {
     if (window.Calendly && Calendly.initPopupWidget) {
-      Calendly.initPopupWidget({ url: 'https://calendly.com/yorik-tisseau-tmff/30min' });
+      Calendly.initPopupWidget({ url: 'https://calendly.com/yorik-tisseau-tmff/discovery' });
       return false;
     }
     document.getElementById('cal-modal').classList.add('open');
@@ -786,7 +786,7 @@ function initIgnisCalendlyBadge(){
   if (document.querySelector('.calendly-badge-widget')) return;
   if (window.Calendly && Calendly.initBadgeWidget) {
     Calendly.initBadgeWidget({
-      url: 'https://calendly.com/yorik-tisseau-tmff/30min',
+      url: 'https://calendly.com/yorik-tisseau-tmff/discovery',
       text: 'Let’s talk',
       color: '#C4476C',
       textColor: '#ffffff',
