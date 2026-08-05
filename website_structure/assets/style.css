@@ -217,8 +217,7 @@ section.tint{background:var(--tint);}
   .problem-grid{grid-template-columns:1fr;}
   .problem-cta-desktop{display:none;}
   .problem-cta-mobile{
-    display:block;margin-top:48px;padding-top:36px;
-    border-top:1px solid var(--line-soft);text-align:left;
+    display:block;margin-top:32px;text-align:left;
   }
 }
 
