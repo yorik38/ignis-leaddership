@@ -256,17 +256,19 @@ section.tint{background:var(--tint);}
 }
 
 /* solutions — comparison table */
-.compare-table{border:1px solid var(--line);background:var(--line);display:flex;flex-direction:column;gap:1px;}
-.compare-row{display:grid;grid-template-columns:1fr 1fr;background:var(--white);}
-.compare-row span{padding:16px 24px;font-size:14.5px;color:var(--steel);}
+.compare-table{border-top:1px solid var(--ink);}
+.compare-row{display:grid;grid-template-columns:1fr 1fr;padding:24px 0;}
+.compare-row:not(.compare-head):not(:last-child){border-bottom:1px solid var(--line-soft);}
+.compare-row span{padding:0 32px;font-size:15px;line-height:1.55;color:var(--steel);}
 .compare-row span:first-child{border-right:1px solid var(--line);}
-.compare-head{background:var(--ink);}
-.compare-head span{color:var(--paper);font-weight:600;font-size:12.5px;text-transform:uppercase;letter-spacing:0.06em;}
-.compare-head span:first-child{border-right:1px solid var(--line-onink);}
+.compare-head{padding:18px 0;border-bottom:1px solid var(--ink);}
+.compare-head span{color:var(--ink);font-weight:600;font-size:13px;text-transform:uppercase;letter-spacing:0.06em;}
 @media (max-width:640px){
-  .compare-row{grid-template-columns:1fr;}
-  .compare-row span:first-child{border-right:none;border-bottom:1px solid var(--line);}
-  .compare-head span:first-child{border-bottom:1px solid var(--line-onink);}
+  .compare-row{grid-template-columns:1fr;padding:0;}
+  .compare-row span{padding:14px 0;}
+  .compare-row span:first-child{border-right:none;border-bottom:1px solid var(--line-soft);}
+  .compare-head{padding:0 0 8px;}
+  .compare-head span:first-child{border-bottom:none;}
 }
 
 /* schematic / how it works */
