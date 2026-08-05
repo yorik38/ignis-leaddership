@@ -251,7 +251,7 @@ section.tint{background:var(--tint);}
 }
 .flow-loop-arrow{font-size:16px;color:var(--accent);}
 @media (max-width:820px){
-  .flow-row{grid-template-columns:1fr;}
+  .flow-row,.flow-row.flow-row-3{grid-template-columns:1fr;}
   .flow-connector{padding:10px 0;}
 }
 
@@ -264,11 +264,15 @@ section.tint{background:var(--tint);}
 .compare-head{padding:18px 0;border-bottom:1px solid var(--ink);}
 .compare-head span{color:var(--ink);font-weight:600;font-size:13px;text-transform:uppercase;letter-spacing:0.06em;}
 @media (max-width:640px){
-  .compare-row{grid-template-columns:1fr;padding:0;}
-  .compare-row span{padding:14px 0;}
-  .compare-row span:first-child{border-right:none;border-bottom:1px solid var(--line-soft);}
-  .compare-head{padding:0 0 8px;}
-  .compare-head span:first-child{border-bottom:none;}
+  .compare-table{border-top:none;}
+  .compare-row{grid-template-columns:1fr;padding:18px 0;gap:6px;border-bottom:1px solid var(--line-soft);}
+  .compare-row:not(.compare-head):last-of-type{border-bottom:none;}
+  .compare-row span{padding:0;}
+  .compare-row span:first-child{border-right:none;}
+  .compare-head{padding:0 0 14px;border-bottom:1px solid var(--ink);gap:4px;}
+  .compare-row:not(.compare-head) span:first-child{color:var(--steel-light);text-decoration:line-through;text-decoration-color:var(--line);}
+  .compare-row:not(.compare-head) span:last-child{color:var(--ink);font-weight:500;}
+  .compare-row:not(.compare-head) span:last-child::before{content:"→ ";color:var(--accent);font-weight:600;text-decoration:none;}
 }
 
 /* schematic / how it works */
