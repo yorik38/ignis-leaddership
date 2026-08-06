@@ -237,34 +237,41 @@
   <div class="wrap">
     <div class="section-label">
       <span class="eyebrow">The solution</span>
-      <h2>Your bid history, turned into a working system</h2>
-      <p class="section-sub">Not a chatbot bolted onto your process. A structured pipeline that turns everything your team already knows into context, then puts AI agents to work against it.</p>
+      <h2>A bid management plugin, built on your context</h2>
+      <p class="section-sub">One orchestration agent coordinates sub-agents and skills, reading and writing to your bid history and calling the LLM you already run. Your team stays in the loop throughout, and the system gets sharper with every bid it sees.</p>
     </div>
 
-    <div class="flow-row">
-      <div class="flow-node">
-        <span class="num">01</span>
-        <h3>Bid history &amp; templates</h3>
-        <p>Past bids, technical library, win/loss data and templates, wherever they currently live.</p>
+    <div class="sysmap">
+      <div class="sysmap-team">Bid team</div>
+      <div class="sysmap-arrow"><span class="arrow-glyph">↓</span></div>
+
+      <div class="sysmap-plugin-row">
+        <div class="sysmap-node sysmap-plugin">Bid management plugin</div>
+        <div class="sysmap-detail">
+          <span>Orchestration agent</span>
+          <span>Sub-agents</span>
+          <span>Skills</span>
+        </div>
       </div>
-      <div class="flow-connector"><span class="arrow"></span></div>
-      <div class="flow-node">
-        <span class="num">02</span>
-        <h3>Structured enterprise context</h3>
-        <p>Captured, tagged and organised so it's actually usable, the foundation everything else is built on.</p>
+
+      <div class="sysmap-split">
+        <div class="sysmap-branch">
+          <span class="sysmap-branch-label">reads / writes</span>
+          <div class="sysmap-node">Bid repo</div>
+          <p class="sysmap-leaf-detail">Bid library, live bids, past bids</p>
+        </div>
+        <div class="sysmap-branch">
+          <span class="sysmap-branch-label">calls</span>
+          <div class="sysmap-node">Your enterprise LLM</div>
+          <p class="sysmap-leaf-detail">The licence you already hold</p>
+        </div>
       </div>
-      <div class="flow-connector"><span class="arrow"></span></div>
-      <div class="flow-node">
-        <span class="num">03</span>
-        <h3>AI agents at work</h3>
-        <p>Agents draft, check compliance and align sections against that context, the way your best people would.</p>
-      </div>
-      <div class="flow-connector"><span class="arrow"></span></div>
-      <div class="flow-node">
-        <span class="num">04</span>
-        <h3>A sharper bid, every time</h3>
-        <p>Every outcome, won or lost, feeds back in, so the next bid starts stronger than the last.</p>
-      </div>
+    </div>
+
+    <div class="sysmap-notes">
+      <span>Human in the loop, always</span>
+      <span>Self-optimising with every bid</span>
+      <span>Your team stays in control</span>
     </div>
 
     <div class="section-cta">
