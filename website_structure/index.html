@@ -241,38 +241,10 @@
       <p class="section-sub">One orchestration agent coordinates sub-agents and skills, reading and writing to your bid history and calling the LLM you already run. Your team stays in the loop throughout, and the system gets sharper with every bid it sees.</p>
     </div>
 
-    <div class="sysmap">
-      <div class="sysmap-team">Bid team</div>
-      <div class="sysmap-arrow"><span class="arrow-glyph">↓</span></div>
-
-      <div class="sysmap-plugin-row">
-        <div class="sysmap-node sysmap-plugin">Bid management plugin</div>
-        <div class="sysmap-detail">
-          <span>Orchestration agent</span>
-          <span>Sub-agents</span>
-          <span>Skills</span>
-        </div>
-      </div>
-
-      <div class="sysmap-split">
-        <div class="sysmap-branch">
-          <span class="sysmap-branch-label">reads / writes</span>
-          <div class="sysmap-node">Bid repo</div>
-          <p class="sysmap-leaf-detail">Bid library, live bids, past bids</p>
-        </div>
-        <div class="sysmap-branch">
-          <span class="sysmap-branch-label">calls</span>
-          <div class="sysmap-node">Your enterprise LLM</div>
-          <p class="sysmap-leaf-detail">The licence you already hold</p>
-        </div>
-      </div>
-    </div>
-
-    <div class="sysmap-notes">
-      <span>Human in the loop, always</span>
-      <span>Self-optimising with every bid</span>
-      <span>Your team stays in control</span>
-    </div>
+    <button type="button" class="sysmap-image" id="architecture-trigger" aria-haspopup="dialog">
+      <img src="assets/img/bid-plugin-architecture.png" alt="Diagram of the Ignis Leadership bid plugin: the bid team stays in control, the bid plugin's orchestrator agent routes work to specialist sub-agents and shared skills, drawing on your enterprise context engine and your own IT and infrastructure stack, producing drafts, checks and insights for human review and approval, with every outcome feeding continuous learning back into the system.">
+      <span class="sysmap-zoom-hint">Tap to enlarge <span aria-hidden="true">⤢</span></span>
+    </button>
 
     <div class="section-cta">
       <a href="#" data-calendly-link target="_blank" rel="noopener" class="btn-secondary">Book a demo →</a>
@@ -510,6 +482,11 @@
     </div>
   </div>
 </footer>
+
+<div class="lightbox" id="architecture-lightbox" role="dialog" aria-modal="true" aria-label="Bid plugin architecture diagram, enlarged">
+  <button type="button" class="lightbox-close" id="architecture-lightbox-close" aria-label="Close">&times;</button>
+  <img src="assets/img/bid-plugin-architecture.png" alt="Diagram of the Ignis Leadership bid plugin: the bid team stays in control, the bid plugin's orchestrator agent routes work to specialist sub-agents and shared skills, drawing on your enterprise context engine and your own IT and infrastructure stack, producing drafts, checks and insights for human review and approval, with every outcome feeding continuous learning back into the system.">
+</div>
 
 <script src="assets/script.js"></script>
 </body>
