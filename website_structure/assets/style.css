@@ -305,19 +305,31 @@ section.tint{background:var(--tint);}
 .compare-row{display:grid;grid-template-columns:1fr 1fr;padding:24px 0;}
 .compare-row:not(.compare-head):not(:last-child){border-bottom:1px solid var(--line-soft);}
 .compare-row span{padding:0 32px;font-size:15px;line-height:1.55;color:var(--steel);}
-.compare-row span:first-child{border-right:1px solid var(--line);}
+.compare-old{border-right:1px solid var(--line);}
 .compare-head{padding:18px 0;border-bottom:1px solid var(--ink);}
 .compare-head span{color:var(--ink);font-weight:600;font-size:13px;text-transform:uppercase;letter-spacing:0.06em;}
+.compare-theme{display:none;}
 @media (max-width:640px){
   .compare-table{border-top:none;}
   .compare-row{grid-template-columns:1fr;padding:18px 0;gap:6px;border-bottom:1px solid var(--line-soft);}
   .compare-row:not(.compare-head):last-of-type{border-bottom:none;}
   .compare-row span{padding:0;}
-  .compare-row span:first-child{border-right:none;}
+  .compare-old{border-right:none;}
   .compare-head{padding:0 0 14px;border-bottom:1px solid var(--ink);gap:4px;}
-  .compare-row:not(.compare-head) span:first-child{color:var(--steel-light);text-decoration:line-through;text-decoration-color:var(--line);}
-  .compare-row:not(.compare-head) span:last-child{color:var(--ink);font-weight:500;}
-  .compare-row:not(.compare-head) span:last-child::before{content:"→ ";color:var(--accent);font-weight:600;text-decoration:none;}
+  .compare-theme{
+    display:block;
+    order:-1;
+    font-size:11px;
+    font-weight:700;
+    text-transform:uppercase;
+    letter-spacing:0.06em;
+    color:var(--accent);
+  }
+  .compare-row:not(.compare-head) .compare-old{color:var(--steel-light);text-decoration:line-through;text-decoration-color:var(--line);}
+  .compare-row:not(.compare-head) .compare-new{color:var(--ink);font-weight:500;}
+  .compare-row:not(.compare-head) .compare-new::before{content:"→ ";color:var(--accent);font-weight:600;text-decoration:none;}
+  .compare-head .compare-old{color:var(--steel-light);text-decoration:line-through;text-decoration-color:var(--line);}
+  .compare-head .compare-new{color:var(--ink);}
 }
 
 /* schematic / how it works */
