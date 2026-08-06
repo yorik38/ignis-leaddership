@@ -57,8 +57,7 @@
   <div class="wrap hero-grid">
     <div class="hero-text">
       <div class="hero-top">
-        <span class="hero-rule"></span>
-        <span class="eyebrow">Bid more. Win more. Systematically.</span>
+        <span class="eyebrow">Bid more. Win more. <span class="serif">Systematically.</span></span>
       </div>
       <h1>Turn your bid team into an AI-powered competitive advantage.</h1>
       <p class="lede">Complex tenders require more than faster writing.</p>
@@ -457,26 +456,6 @@
         </div>
 
         <fieldset>
-          <legend>Which sector are you in? <span class="hint">(choose one)</span></legend>
-          <div class="radio-row">
-            <label><input type="radio" name="sector" value="Energy / Infrastructure" required> Energy / Infrastructure</label>
-            <label><input type="radio" name="sector" value="Construction" required> Construction</label>
-            <label><input type="radio" name="sector" value="Industrial / Manufacturing" required> Industrial / Manufacturing</label>
-            <label><input type="radio" name="sector" value="Other" required> Other</label>
-          </div>
-        </fieldset>
-
-        <fieldset>
-          <legend>Which best describes your organisation? <span class="hint">(choose one)</span></legend>
-          <div class="radio-row">
-            <label><input type="radio" name="org_type" value="Contractor" required> Contractor</label>
-            <label><input type="radio" name="org_type" value="Developer" required> Developer</label>
-            <label><input type="radio" name="org_type" value="Consultancy" required> Consultancy</label>
-            <label><input type="radio" name="org_type" value="Other" required> Other</label>
-          </div>
-        </fieldset>
-
-        <fieldset>
           <legend>Approximate bid volume <span class="hint">(choose one)</span></legend>
           <div class="radio-row">
             <label><input type="radio" name="bid_volume" value="1 to 5 bids per year" required> 1 to 5 bids per year</label>
@@ -486,12 +465,12 @@
         </fieldset>
 
         <fieldset>
-          <legend>Typical tender value <span class="hint">(choose one)</span></legend>
-          <div class="radio-row">
-            <label><input type="radio" name="tender_value" value="Under £1m" required> Under £1m</label>
-            <label><input type="radio" name="tender_value" value="£1m to £10m" required> £1m to £10m</label>
-            <label><input type="radio" name="tender_value" value="£10m to £100m" required> £10m to £100m</label>
-            <label><input type="radio" name="tender_value" value="£100m+" required> £100m+</label>
+          <legend>Typical tender value <span class="hint">(select all that apply)</span></legend>
+          <div class="check-row">
+            <label><input type="checkbox" name="tender_value[]" value="Under £1m"> Under £1m</label>
+            <label><input type="checkbox" name="tender_value[]" value="£1m to £10m"> £1m to £10m</label>
+            <label><input type="checkbox" name="tender_value[]" value="£10m to £100m"> £10m to £100m</label>
+            <label><input type="checkbox" name="tender_value[]" value="£100m+"> £100m+</label>
           </div>
         </fieldset>
 
@@ -547,7 +526,7 @@
       </div>
 
       <div class="contact-cta" id="contact-cta">
-        <p class="contact-cta-lede">Let's build your AI-augmented bid team now.</p>
+        <p class="contact-cta-lede">Let's build your AI-augmented bid team, starting now.</p>
         <a href="#" data-calendly-link target="_blank" rel="noopener" class="btn-secondary">Book a diagnosis →</a>
       </div>
     </div>

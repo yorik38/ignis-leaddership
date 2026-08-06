@@ -150,20 +150,21 @@ function initCalendlyInlineEmbed(){
    --------------------------------------------------------------------- */
 var FORMSPREE_ENDPOINT = "https://formspree.io/f/xbgrllwj";
 
-// The "challenges" question is a checkbox group (select all that apply), so
-// a plain `required` attribute on one box would only force that one box to
-// be ticked. This keeps every box's required/validity state in sync so the
-// browser blocks submission until at least one is checked, with a clear
-// custom message, then clears the moment one is ticked.
-function initChallengesValidation(form){
-  var boxes = form.querySelectorAll('input[name="challenges[]"]');
+// "Select all that apply" checkbox groups (challenges, tender value) need
+// at least one box ticked, but a plain `required` attribute on one box
+// would only force that specific box to be ticked. This keeps every box's
+// required/validity state in sync so the browser blocks submission until
+// at least one is checked, with a clear custom message, then clears the
+// moment one is ticked.
+function initCheckboxGroupValidation(form, fieldName, message){
+  var boxes = form.querySelectorAll('input[name="' + fieldName + '"]');
   if (!boxes.length) return;
 
   function sync(){
     var anyChecked = Array.prototype.some.call(boxes, function(b){ return b.checked; });
     Array.prototype.forEach.call(boxes, function(b){
       b.required = !anyChecked;
-      b.setCustomValidity(anyChecked ? "" : "Please select at least one challenge.");
+      b.setCustomValidity(anyChecked ? "" : message);
     });
   }
 
@@ -178,7 +179,8 @@ function initForm(){
   if (!form) return;
 
   form.setAttribute("action", FORMSPREE_ENDPOINT);
-  initChallengesValidation(form);
+  initCheckboxGroupValidation(form, "challenges[]", "Please select at least one challenge.");
+  initCheckboxGroupValidation(form, "tender_value[]", "Please select at least one tender value range.");
 
   var statusEl = document.getElementById("form-status");
   var successPanel = document.getElementById("form-success");
