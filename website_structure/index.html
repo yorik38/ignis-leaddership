@@ -451,30 +451,37 @@
             <input type="text" id="f-name" name="name" required>
           </div>
           <div class="field">
-            <label for="f-company">Company</label>
-            <input type="text" id="f-company" name="company" required>
-          </div>
-        </div>
-        <div class="field-row">
-          <div class="field">
-            <label for="f-role">Role <span class="hint">(e.g. Head of Bid Management, Bid Director)</span></label>
-            <input type="text" id="f-role" name="role" placeholder="e.g. Commercial Director">
-          </div>
-          <div class="field">
             <label for="f-email">Work email</label>
             <input type="email" id="f-email" name="email" required>
           </div>
         </div>
 
         <fieldset>
-          <legend>What type of organisation are you? <span class="hint">(choose one)</span></legend>
+          <legend>Which sector are you in? <span class="hint">(choose one)</span></legend>
           <div class="radio-row">
-            <label><input type="radio" name="org_type" value="Engineering / Construction"> Engineering / Construction</label>
-            <label><input type="radio" name="org_type" value="Energy / Infrastructure"> Energy / Infrastructure</label>
-            <label><input type="radio" name="org_type" value="Industrial / Manufacturing"> Industrial / Manufacturing</label>
-            <label><input type="radio" name="org_type" value="Technology / Services"> Technology / Services</label>
-            <label><input type="radio" name="org_type" value="Public Sector Supplier"> Public Sector Supplier</label>
+            <label><input type="radio" name="sector" value="Energy / Infrastructure"> Energy / Infrastructure</label>
+            <label><input type="radio" name="sector" value="Construction"> Construction</label>
+            <label><input type="radio" name="sector" value="Industrial / Manufacturing"> Industrial / Manufacturing</label>
+            <label><input type="radio" name="sector" value="Other"> Other</label>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>Which best describes your organisation? <span class="hint">(choose one)</span></legend>
+          <div class="radio-row">
+            <label><input type="radio" name="org_type" value="Contractor"> Contractor</label>
+            <label><input type="radio" name="org_type" value="Developer"> Developer</label>
+            <label><input type="radio" name="org_type" value="Consultancy"> Consultancy</label>
             <label><input type="radio" name="org_type" value="Other"> Other</label>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>Approximate bid volume <span class="hint">(choose one)</span></legend>
+          <div class="radio-row">
+            <label><input type="radio" name="bid_volume" value="1 to 5 bids per year"> 1 to 5 bids per year</label>
+            <label><input type="radio" name="bid_volume" value="5 to 20 bids per year"> 5 to 20 bids per year</label>
+            <label><input type="radio" name="bid_volume" value="20+ bids per year"> 20+ bids per year</label>
           </div>
         </fieldset>
 
@@ -485,15 +492,6 @@
             <label><input type="radio" name="tender_value" value="£1m to £10m"> £1m to £10m</label>
             <label><input type="radio" name="tender_value" value="£10m to £100m"> £10m to £100m</label>
             <label><input type="radio" name="tender_value" value="£100m+"> £100m+</label>
-          </div>
-        </fieldset>
-
-        <fieldset>
-          <legend>Approximate bid volume <span class="hint">(choose one)</span></legend>
-          <div class="radio-row">
-            <label><input type="radio" name="bid_volume" value="1 to 5 bids per year"> 1 to 5 bids per year</label>
-            <label><input type="radio" name="bid_volume" value="5 to 20 bids per year"> 5 to 20 bids per year</label>
-            <label><input type="radio" name="bid_volume" value="20+ bids per year"> 20+ bids per year</label>
           </div>
         </fieldset>
 
@@ -549,7 +547,7 @@
       </div>
 
       <div class="contact-cta" id="contact-cta">
-        <p>Prefer to skip the form and talk to us directly?</p>
+        <p class="contact-cta-lede">Let's build your AI-augmented bid team now.</p>
         <a href="#" data-calendly-link target="_blank" rel="noopener" class="btn-secondary">Book a diagnosis →</a>
       </div>
     </div>

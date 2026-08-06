@@ -420,6 +420,7 @@ blockquote.pull{
 .contact-single{max-width:960px;margin:0 auto;}
 .contact-cta{margin-top:32px;padding-top:32px;border-top:1px solid var(--line-soft);text-align:center;}
 .contact-cta p{color:var(--steel);font-size:14.5px;margin:0 0 14px;}
+.contact-cta-lede{color:var(--ink)!important;font-size:22px!important;font-weight:600;margin:0 0 18px!important;}
 
 .qform{border:1px solid var(--line);border-radius:4px;padding:36px;background:var(--white);}
 .qform .field{margin-bottom:20px;}
