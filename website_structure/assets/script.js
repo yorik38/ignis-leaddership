@@ -128,7 +128,7 @@ function initCalendly(){
    The form still degrades gracefully: without JS it posts normally
    and Formspree redirects back with its own thank-you page.
    --------------------------------------------------------------------- */
-var FORMSPREE_ENDPOINT = "https://formspree.io/f/mdaqqlly";
+var FORMSPREE_ENDPOINT = "https://formspree.io/f/xbgrllwj";
 
 function initForm(){
   var form = document.getElementById("qualify-form");
