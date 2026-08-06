@@ -204,6 +204,8 @@ section.tint{background:var(--tint);}
 /* problem list */
 .problem-grid{display:grid;grid-template-columns:0.85fr 1.15fr;gap:64px;align-items:start;}
 .problem-copy p{color:var(--steel);font-size:17px;max-width:44ch;}
+.problem-statement{margin-top:28px;padding-left:18px;border-left:2px solid var(--accent);max-width:42ch;}
+.problem-statement p{color:var(--ink);font-size:17px;font-weight:600;line-height:1.5;max-width:none;}
 .problem-cta{margin-top:24px;}
 .problem-cta-mobile{display:none;}
 .problem-list{list-style:none;margin:0;padding:0;border-top:1px solid var(--line);}
