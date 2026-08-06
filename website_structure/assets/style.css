@@ -172,23 +172,23 @@ body.menu-open{overflow:hidden;}
 .logo-strip{display:flex;align-items:center;justify-content:center;gap:22px;flex-wrap:wrap;}
 .logo-box{
   display:flex;align-items:center;justify-content:center;
-  height:52px;padding:0 18px;
+  height:60px;padding:0 18px;
 }
-.logo-box img{height:32px;width:auto;max-width:110px;object-fit:contain;}
-.logo-box img.logo-rwe{height:46px;}
-.logo-box img.logo-buk{height:44px;}
-.logo-box img.logo-bp{height:44px;}
-.logo-box img.logo-byes{height:44px;}
+.logo-box img{height:34px;width:auto;max-width:110px;object-fit:contain;}
+.logo-box img.logo-rwe{height:50px;}
+.logo-box img.logo-buk{height:48px;}
+.logo-box img.logo-bp{height:56px;}
+.logo-box img.logo-byes{height:48px;}
 @media (max-width:640px){
   .cred-inner{gap:16px;}
   .cred-caption{border-right:none;padding-right:0;width:100%;max-width:320px;margin:0 auto;text-align:center;}
   .logo-strip{gap:8px;}
-  .logo-box{height:40px;padding:0 6px;}
-  .logo-box img{max-width:56px;}
-  .logo-box img.logo-rwe{height:32px;}
-  .logo-box img.logo-buk{height:30px;}
-  .logo-box img.logo-bp{height:30px;}
-  .logo-box img.logo-byes{height:30px;}
+  .logo-box{height:46px;padding:0 6px;}
+  .logo-box img{max-width:70px;}
+  .logo-box img.logo-rwe{height:35px;}
+  .logo-box img.logo-buk{height:33px;}
+  .logo-box img.logo-bp{height:40px;}
+  .logo-box img.logo-byes{height:33px;}
 }
 
 /* ---------- section scaffolding ---------- */
