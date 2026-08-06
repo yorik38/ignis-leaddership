@@ -124,6 +124,26 @@ function initCalendly(){
 }
 
 /* ---------------------------------------------------------------------
+   3b) CALENDLY — inline widget
+   Shown inside the qualification form's confirmation panel, so a lead
+   who has just submitted their answers can book the diagnosis call
+   immediately rather than being sent to a separate thank-you page.
+   --------------------------------------------------------------------- */
+var calendlyInlineInitialised = false;
+
+function initCalendlyInlineEmbed(){
+  var container = document.getElementById("calendly-inline-embed");
+  if (!container) return;
+  loadCalendlyAssets(function(){
+    if (calendlyInlineInitialised) return;
+    if (window.Calendly && window.Calendly.initInlineWidget) {
+      window.Calendly.initInlineWidget({ url: CALENDLY_URL, parentElement: container });
+      calendlyInlineInitialised = true;
+    }
+  });
+}
+
+/* ---------------------------------------------------------------------
    4) LEAD QUALIFICATION FORM — Formspree
    The form still degrades gracefully: without JS it posts normally
    and Formspree redirects back with its own thank-you page.
@@ -153,12 +173,13 @@ function initForm(){
     }).then(function(response){
       if (response.ok) {
         form.reset();
-        // Reveal the thank-you panel (with its own "Book a discovery call"
-        // CTA) in place of the form, rather than sending people to a
-        // separate thank-you page.
+        // Reveal the confirmation panel (with its own embedded Calendly
+        // scheduler) in place of the form, so the lead can book their
+        // diagnosis straight away rather than landing on a dead end.
         form.hidden = true;
         if (successPanel) successPanel.hidden = false;
         if (contactCta) contactCta.hidden = true;
+        initCalendlyInlineEmbed();
       } else {
         statusEl.textContent = "Something went wrong sending this. Please try again, or email us directly.";
         statusEl.className = "form-status error";

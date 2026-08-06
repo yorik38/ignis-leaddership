@@ -35,7 +35,7 @@
       <a href="#about" class="navlink">About</a>
       <div class="nav-ctas">
         <a href="#contact" class="cta-link-secondary">Diagnose your bottlenecks</a>
-        <a class="cta-link" href="#" data-calendly-link target="_blank" rel="noopener">Book a demo</a>
+        <a class="cta-link" href="#" data-calendly-link target="_blank" rel="noopener">Book a diagnosis</a>
       </div>
     </nav>
     <button class="nav-toggle" id="nav-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">
@@ -50,7 +50,7 @@
     <a href="#about" class="mobile-navlink">About</a>
     <a href="#contact" class="mobile-navlink">Diagnose your bottlenecks</a>
   </nav>
-  <a href="#" data-calendly-link target="_blank" rel="noopener" class="btn-primary mobile-menu-cta">Book a demo →</a>
+  <a href="#" data-calendly-link target="_blank" rel="noopener" class="btn-primary mobile-menu-cta">Book a diagnosis →</a>
 </div>
 
 <section class="hero">
@@ -64,7 +64,7 @@
       <p class="lede">Complex tenders require more than faster writing.</p>
       <p class="hero-sub">Ignis combines your team's expertise with AI-powered intelligence to analyse requirements, unlock knowledge, and deliver stronger bids faster.</p>
       <div class="hero-ctas">
-        <a href="#" data-calendly-link target="_blank" rel="noopener" class="btn-primary">Book a demo →</a>
+        <a href="#" data-calendly-link target="_blank" rel="noopener" class="btn-primary">Book a diagnosis →</a>
         <a href="#contact" class="btn-secondary">Diagnose your bottlenecks</a>
       </div>
     </div>
@@ -206,7 +206,7 @@
     </div>
 
     <div class="section-cta">
-      <a href="#" data-calendly-link target="_blank" rel="noopener" class="btn-secondary">Book a demo →</a>
+      <a href="#" data-calendly-link target="_blank" rel="noopener" class="btn-secondary">Book a diagnosis →</a>
     </div>
   </div>
 </section>
@@ -277,7 +277,7 @@
     </button>
 
     <div class="section-cta">
-      <a href="#" data-calendly-link target="_blank" rel="noopener" class="btn-secondary">Book a demo →</a>
+      <a href="#" data-calendly-link target="_blank" rel="noopener" class="btn-secondary">Book a diagnosis →</a>
     </div>
   </div>
 </section>
@@ -352,7 +352,7 @@
     <p class="service-note">Need experienced bid leadership without AI deployment? Fractional bid leadership support is also available.</p>
 
     <div class="section-cta">
-      <a href="#" data-calendly-link target="_blank" rel="noopener" class="btn-primary">Book a demo →</a>
+      <a href="#" data-calendly-link target="_blank" rel="noopener" class="btn-primary">Book a diagnosis →</a>
     </div>
   </div>
 </section>
@@ -406,7 +406,7 @@
     <p class="icp-lede">If proposals are a constant, and margin is thin enough that speed and win rate both matter, this is built for you.</p>
 
     <div class="section-cta">
-      <a href="#" data-calendly-link target="_blank" rel="noopener" class="btn-secondary">Book a demo →</a>
+      <a href="#" data-calendly-link target="_blank" rel="noopener" class="btn-secondary">Book a diagnosis →</a>
     </div>
   </div>
 </section>
@@ -438,23 +438,67 @@
   <div class="wrap">
     <div class="section-label">
       <span class="eyebrow">Next steps</span>
-      <h2>Is an AI-augmented bid process right for your organisation?</h2>
-      <p class="section-sub">A short set of questions on how your team bids today, so we can tell you honestly where it would help, and where it wouldn't.</p>
+      <h2>Diagnose Your Bid Bottleneck</h2>
+      <p class="section-sub">Complex bids rarely fail because teams lack expertise. They fail because knowledge, processes, and decision-making do not scale.</p>
+      <p class="section-sub">Identify where your bid process is under pressure and discover where AI-augmented workflows could create the greatest impact.</p>
     </div>
 
     <div class="contact-single">
       <form id="qualify-form" class="qform" method="POST">
-        <div class="field">
-          <label for="f-name">Full name</label>
-          <input type="text" id="f-name" name="name" required>
+        <div class="field-row">
+          <div class="field">
+            <label for="f-name">Full name</label>
+            <input type="text" id="f-name" name="name" required>
+          </div>
+          <div class="field">
+            <label for="f-company">Company</label>
+            <input type="text" id="f-company" name="company" required>
+          </div>
         </div>
-        <div class="field">
-          <label for="f-email">Work email</label>
-          <input type="email" id="f-email" name="email" required>
+        <div class="field-row">
+          <div class="field">
+            <label for="f-role">Role <span class="hint">(e.g. Head of Bid Management, Bid Director)</span></label>
+            <input type="text" id="f-role" name="role" placeholder="e.g. Commercial Director">
+          </div>
+          <div class="field">
+            <label for="f-email">Work email</label>
+            <input type="email" id="f-email" name="email" required>
+          </div>
         </div>
 
         <fieldset>
-          <legend>What challenges are you facing today? <span class="hint">(select all that apply)</span></legend>
+          <legend>What type of organisation are you? <span class="hint">(choose one)</span></legend>
+          <div class="radio-row">
+            <label><input type="radio" name="org_type" value="Engineering / Construction"> Engineering / Construction</label>
+            <label><input type="radio" name="org_type" value="Energy / Infrastructure"> Energy / Infrastructure</label>
+            <label><input type="radio" name="org_type" value="Industrial / Manufacturing"> Industrial / Manufacturing</label>
+            <label><input type="radio" name="org_type" value="Technology / Services"> Technology / Services</label>
+            <label><input type="radio" name="org_type" value="Public Sector Supplier"> Public Sector Supplier</label>
+            <label><input type="radio" name="org_type" value="Other"> Other</label>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>Typical tender value <span class="hint">(choose one)</span></legend>
+          <div class="radio-row">
+            <label><input type="radio" name="tender_value" value="Under £1m"> Under £1m</label>
+            <label><input type="radio" name="tender_value" value="£1m to £10m"> £1m to £10m</label>
+            <label><input type="radio" name="tender_value" value="£10m to £100m"> £10m to £100m</label>
+            <label><input type="radio" name="tender_value" value="£100m+"> £100m+</label>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>Approximate bid volume <span class="hint">(choose one)</span></legend>
+          <div class="radio-row">
+            <label><input type="radio" name="bid_volume" value="1 to 5 bids per year"> 1 to 5 bids per year</label>
+            <label><input type="radio" name="bid_volume" value="5 to 20 bids per year"> 5 to 20 bids per year</label>
+            <label><input type="radio" name="bid_volume" value="20+ bids per year"> 20+ bids per year</label>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>Which challenges are you facing today? <span class="hint">(select all that apply)</span></legend>
           <div class="check-row">
             <label><input type="checkbox" name="challenges[]" value="Win rates are lower than they should be"> Win rates are lower than they should be</label>
             <label><input type="checkbox" name="challenges[]" value="Not enough bids to achieve growth targets"> Not enough bids to achieve growth targets</label>
@@ -465,38 +509,48 @@
             <label><input type="checkbox" name="challenges[]" value="Technical and commercial teams lose alignment"> Technical and commercial teams lose alignment</label>
             <label><input type="checkbox" name="challenges[]" value="Senior leaders spend too much time on admin"> Senior leaders spend too much time on admin</label>
             <label><input type="checkbox" name="challenges[]" value="Previous bid knowledge is not reused"> Previous bid knowledge is not reused</label>
+            <label><input type="checkbox" name="challenges[]" value="AI tools create content but not better decisions"> AI tools create content but not better decisions</label>
           </div>
         </fieldset>
 
         <fieldset>
-          <legend>How many tenders are you running in parallel right now? <span class="hint">(choose one)</span></legend>
+          <legend>How are you currently using AI in bids? <span class="hint">(choose one)</span></legend>
           <div class="radio-row">
-            <label><input type="radio" name="tenders_in_parallel" value="Just one"> Just one</label>
-            <label><input type="radio" name="tenders_in_parallel" value="&lt;5"> &lt;5</label>
-            <label><input type="radio" name="tenders_in_parallel" value="&lt;10"> &lt;10</label>
-            <label><input type="radio" name="tenders_in_parallel" value="&gt;10"> &gt;10</label>
+            <label><input type="radio" name="ai_maturity" value="Not using AI yet"> Not using AI yet</label>
+            <label><input type="radio" name="ai_maturity" value="Exploring possibilities"> Exploring possibilities</label>
+            <label><input type="radio" name="ai_maturity" value="Using general AI tools (ChatGPT, Claude, etc.)"> Using general AI tools (ChatGPT, Claude, etc.)</label>
+            <label><input type="radio" name="ai_maturity" value="Building internal workflows"> Building internal workflows</label>
+            <label><input type="radio" name="ai_maturity" value="Already using AI-enabled bid processes"> Already using AI-enabled bid processes</label>
           </div>
         </fieldset>
 
         <div class="field">
-          <label for="f-message">What's the single biggest bottleneck for you right now? <span class="hint">(optional)</span></label>
+          <label for="f-message">What would you most like to improve? <span class="hint">(optional)</span></label>
           <textarea id="f-message" name="message"></textarea>
         </div>
 
-        <button type="submit" class="btn-primary submit">Send my answers</button>
+        <button type="submit" class="btn-primary submit">Submit &amp; Book Your Diagnosis</button>
         <p class="form-status" id="form-status"></p>
         <p class="form-note">Your answers go directly to Ignis Leadership and are never shared. See the <a href="privacy.html" class="inline-link" style="color:inherit;">Privacy Policy</a> for details.</p>
       </form>
 
       <div class="form-success" id="form-success" hidden>
-        <h3>Thanks, that's through.</h3>
-        <p>We'll come back to you within one working day. If you'd rather get started sooner:</p>
-        <a href="#" data-calendly-link target="_blank" rel="noopener" class="btn-primary">Book a demo →</a>
+        <h3>Your next step: book your Bid Bottleneck Diagnosis</h3>
+        <p>Thanks for sharing your bid challenges. The next step is a 60-minute working session where we will:</p>
+        <ul class="success-checklist">
+          <li>Review your current bid challenges</li>
+          <li>Identify where time, knowledge, or consistency is being lost</li>
+          <li>Demonstrate an AI-augmented bid workflow using a realistic tender scenario</li>
+          <li>Discuss where AI could create the greatest impact for your team</li>
+        </ul>
+        <p class="success-cta-lede">Choose a time that works for you below.</p>
+        <div id="calendly-inline-embed" class="calendly-inline-embed" aria-label="Book your Bid Bottleneck Diagnosis on Calendly"></div>
+        <p class="success-fallback">Scheduler not loading? <a href="#" data-calendly-link target="_blank" rel="noopener" class="inline-link">Book directly here →</a></p>
       </div>
 
       <div class="contact-cta" id="contact-cta">
         <p>Prefer to skip the form and talk to us directly?</p>
-        <a href="#" data-calendly-link target="_blank" rel="noopener" class="btn-secondary">Book a demo →</a>
+        <a href="#" data-calendly-link target="_blank" rel="noopener" class="btn-secondary">Book a diagnosis →</a>
       </div>
     </div>
   </div>
