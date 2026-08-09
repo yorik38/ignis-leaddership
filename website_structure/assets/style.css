@@ -415,6 +415,7 @@ blockquote.pull{
   border-left:2px solid var(--accent);padding-left:24px;
 }
 .pull-narrow{max-width:60ch;margin-top:20px;}
+.lifecycle-image + .pull-narrow{margin-top:44px;}
 .text-accent{color:var(--accent-light);font-weight:600;}
 @media (max-width:820px){.about-grid{grid-template-columns:1fr;}}
 
