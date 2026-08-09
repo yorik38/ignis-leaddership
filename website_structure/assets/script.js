@@ -262,29 +262,36 @@ function initMobileMenu(){
    that opens full-size (native resolution, pan/pinch-zoom) on tap.
    --------------------------------------------------------------------- */
 function initLightbox(){
-  var trigger = document.getElementById("architecture-trigger");
-  var lightbox = document.getElementById("architecture-lightbox");
-  var closeBtn = document.getElementById("architecture-lightbox-close");
-  if (!trigger || !lightbox || !closeBtn) return;
+  var pairs = [
+    { trigger: "architecture-trigger", lightbox: "architecture-lightbox", close: "architecture-lightbox-close" },
+    { trigger: "lifecycle-trigger", lightbox: "lifecycle-lightbox", close: "lifecycle-lightbox-close" }
+  ];
 
-  function openLightbox(){
-    lightbox.classList.add("visible");
-    document.body.classList.add("menu-open");
-    closeBtn.focus();
-  }
-  function closeLightbox(){
-    lightbox.classList.remove("visible");
-    document.body.classList.remove("menu-open");
-    trigger.focus();
-  }
+  pairs.forEach(function(ids){
+    var trigger = document.getElementById(ids.trigger);
+    var lightbox = document.getElementById(ids.lightbox);
+    var closeBtn = document.getElementById(ids.close);
+    if (!trigger || !lightbox || !closeBtn) return;
 
-  trigger.addEventListener("click", openLightbox);
-  closeBtn.addEventListener("click", closeLightbox);
-  lightbox.addEventListener("click", function(e){
-    if (e.target === lightbox) closeLightbox();
-  });
-  document.addEventListener("keydown", function(e){
-    if (e.key === "Escape" && lightbox.classList.contains("visible")) closeLightbox();
+    function openLightbox(){
+      lightbox.classList.add("visible");
+      document.body.classList.add("menu-open");
+      closeBtn.focus();
+    }
+    function closeLightbox(){
+      lightbox.classList.remove("visible");
+      document.body.classList.remove("menu-open");
+      trigger.focus();
+    }
+
+    trigger.addEventListener("click", openLightbox);
+    closeBtn.addEventListener("click", closeLightbox);
+    lightbox.addEventListener("click", function(e){
+      if (e.target === lightbox) closeLightbox();
+    });
+    document.addEventListener("keydown", function(e){
+      if (e.key === "Escape" && lightbox.classList.contains("visible")) closeLightbox();
+    });
   });
 }
 

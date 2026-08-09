@@ -288,7 +288,8 @@ section.tint{background:var(--tint);}
   .sysmap-image:hover .sysmap-zoom-hint,
   .sysmap-image:focus-visible .sysmap-zoom-hint{opacity:0.9;}
 }
-.solution-bridge{color:var(--steel);font-size:16.5px;max-width:60ch;margin:28px auto 0;text-align:center;}
+.solution-bridge{color:var(--steel);font-size:16.5px;max-width:60ch;margin:28px 0 0;text-align:left;}
+.lifecycle-image{margin-top:24px;}
 
 .lightbox{
   display:none;position:fixed;inset:0;z-index:200;
@@ -414,6 +415,7 @@ blockquote.pull{
   border-left:2px solid var(--accent);padding-left:24px;
 }
 .shift-quote{max-width:60ch;margin-top:20px;}
+.text-accent{color:var(--accent-light);font-weight:600;}
 @media (max-width:820px){.about-grid{grid-template-columns:1fr;}}
 
 /* contact / next steps */
