@@ -9,7 +9,7 @@
    GA only loads after the visitor accepts cookies (see consent logic
    below), so this stays compliant with UK/EU cookie rules by default.
    --------------------------------------------------------------------- */
-var GA4_MEASUREMENT_ID = "G-XVS1KT7XS8";
+var GA4_MEASUREMENT_ID = "G-F5LV9CKKTS";
 
 function loadGA4(){
   if (window.__ga4Loaded) return;
