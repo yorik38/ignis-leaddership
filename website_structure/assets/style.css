@@ -159,7 +159,7 @@ body.menu-open{overflow:hidden;}
 .credibility{border-top:1px solid var(--line);border-bottom:1px solid var(--line);margin-top:64px;}
 .cred-inner{
   display:flex;align-items:center;justify-content:flex-start;gap:40px;flex-wrap:wrap;
-  padding:28px 0;
+  padding-top:28px;padding-bottom:28px;
 }
 .cred-caption{
   font-size:14px;color:var(--steel-light);font-weight:500;max-width:300px;
@@ -178,7 +178,7 @@ body.menu-open{overflow:hidden;}
 .logo-box img.logo-bp{height:56px;}
 .logo-box img.logo-byes{height:48px;}
 @media (max-width:640px){
-  .cred-inner{gap:16px;}
+  .cred-inner{gap:16px;justify-content:center;}
   .cred-caption{border-right:none;padding-right:0;width:100%;max-width:320px;margin:0 auto;text-align:center;}
   .logo-strip{gap:8px;}
   .logo-box{height:46px;padding:0 6px;}
