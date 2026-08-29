@@ -179,8 +179,6 @@ function initForm(){
   if (!form) return;
 
   form.setAttribute("action", FORMSPREE_ENDPOINT);
-  initCheckboxGroupValidation(form, "challenges[]", "Please select at least one challenge.");
-  initCheckboxGroupValidation(form, "tender_value[]", "Please select at least one tender value range.");
 
   var statusEl = document.getElementById("form-status");
   var successPanel = document.getElementById("form-success");
@@ -217,7 +215,7 @@ function initForm(){
       statusEl.style.display = "block";
     }).finally(function(){
       submitBtn.disabled = false;
-      submitBtn.textContent = "Send my answers";
+      submitBtn.textContent = "Submit and choose a time";
     });
   });
 }
