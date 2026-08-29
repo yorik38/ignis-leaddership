@@ -210,6 +210,9 @@ section.tint{background:var(--tint);}
 .section-copy .pull{font-size:21px;margin:26px 0;padding:10px 0 10px 22px;}
 .section-cta-centered{text-align:center;}
 #shift .section-intro-split{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:72px;}
+@media (min-width:821px){
+  .section-intro-split .title-line{display:block;white-space:nowrap;}
+}
 @media (max-width:820px){
   .section-label-compact{max-width:64ch;}
   .section-intro-split{grid-template-columns:1fr;gap:22px;margin-bottom:40px;}
