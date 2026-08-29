@@ -182,7 +182,6 @@ function initForm(){
 
   var statusEl = document.getElementById("form-status");
   var successPanel = document.getElementById("form-success");
-  var contactCta = document.getElementById("contact-cta");
   var submitBtn = form.querySelector("button[type=submit]");
 
   form.addEventListener("submit", function(e){
@@ -202,7 +201,6 @@ function initForm(){
         // diagnosis straight away rather than landing on a dead end.
         form.hidden = true;
         if (successPanel) successPanel.hidden = false;
-        if (contactCta) contactCta.hidden = true;
         initCalendlyInlineEmbed();
       } else {
         statusEl.textContent = "Something went wrong sending this. Please try again, or email us directly.";
