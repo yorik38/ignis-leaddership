@@ -133,7 +133,7 @@ body.menu-open{overflow:hidden;}
 .hero-ctas-mobile{display:none;}
 .hero-grid{display:grid;grid-template-columns:1.15fr 0.85fr;gap:56px;align-items:center;}
 .hero-media{display:flex;align-items:center;justify-content:center;}
-.hero-media svg{width:100%;height:auto;max-width:500px;}
+.hero-media svg{width:100%;height:auto;max-width:560px;}
 @media (max-width:900px){
   .hero-grid{grid-template-columns:1fr;gap:30px;}
   .hero-media{order:2;width:100%;max-width:390px;margin:0 auto;}
