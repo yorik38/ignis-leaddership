@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bid more. Win more. | Ignis Leadership</title>
+<meta name="description" content="Practical field notes on building AI-augmented bid teams, written for bid leaders working on complex tenders.">
+<link rel="canonical" href="https://www.ignisleadership.com/newsletter">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Ignis Leadership">
+<meta property="og:title" content="Bid more. Win more. | Ignis Leadership">
+<meta property="og:description" content="Practical field notes for leaders building faster, stronger and more systematic bid teams.">
+<meta property="og:url" content="https://www.ignisleadership.com/newsletter">
+<meta property="og:image" content="https://www.ignisleadership.com/assets/img/og-social-card-v5.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Source+Serif+4:ital,wght@0,500;1,500;1,600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
+<link rel="stylesheet" href="assets/newsletter.css">
+<link rel="icon" href="/favicon.ico?v=3" sizes="any">
+</head>
+<body class="newsletter-page">
+<header class="newsletter-header">
+  <div class="wrap newsletter-nav">
+    <a href="index.html" class="brand" aria-label="Ignis Leadership home">
+      <img src="assets/img/ignis-logo-full.png" alt="Ignis Leadership" class="brand-logo">
+    </a>
+    <a href="#subscribe" class="newsletter-nav-cta">Subscribe free</a>
+  </div>
+</header>
+
+<main>
+  <section class="newsletter-hero" id="subscribe">
+    <div class="newsletter-shell">
+      <div class="newsletter-kicker">Bid more. Win more.</div>
+      <h1>Build a bid capability that gets stronger with every tender.</h1>
+      <p class="newsletter-lede">Practical field notes on AI-augmented bid management, knowledge reuse and the human decisions that win complex work.</p>
+
+      <form class="subscribe-form" id="newsletter-form" action="/api/subscribe" method="POST" novalidate>
+        <div class="subscribe-fields">
+          <label class="sr-only" for="subscriber-name">First name</label>
+          <input id="subscriber-name" name="first_name" type="text" autocomplete="given-name" placeholder="First name">
+          <label class="sr-only" for="subscriber-email">Email address</label>
+          <input id="subscriber-email" name="email" type="email" autocomplete="email" inputmode="email" placeholder="Work email" required>
+          <button type="submit">Subscribe <span aria-hidden="true">→</span></button>
+        </div>
+        <input type="hidden" name="source" id="newsletter-source" value="website">
+        <input class="honeypot" type="text" name="company_website" tabindex="-1" autocomplete="off" aria-hidden="true">
+        <p class="subscribe-promise">One useful edition at a time. No noise. Unsubscribe whenever you like.</p>
+        <p class="subscribe-status" id="newsletter-status" role="status" aria-live="polite"></p>
+      </form>
+
+      <div class="newsletter-proof" aria-label="What to expect">
+        <div><strong>For</strong><span>Bid, commercial and growth leaders</span></div>
+        <div><strong>About</strong><span>AI, workflow and winning complex tenders</span></div>
+        <div><strong>Written by</strong><span>Yorik Tisseau, Ignis Leadership</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="newsletter-latest" aria-labelledby="latest-title">
+    <div class="newsletter-shell">
+      <div class="latest-heading">
+        <div><span class="eyebrow">Latest editions</span><h2 id="latest-title">Start with the most useful ideas.</h2></div>
+        <a href="archive.html" class="archive-link">View the archive →</a>
+      </div>
+      <div class="edition-grid">
+        <article class="edition-card"><span class="edition-status">Coming soon</span><h3>Why AI pilots stall inside bid teams</h3><p>The workflow, ownership and trust gaps that tools alone cannot solve.</p></article>
+        <article class="edition-card"><span class="edition-status">Coming soon</span><h3>Stop starting every bid from scratch</h3><p>A practical model for turning past bids into reusable organisational knowledge.</p></article>
+        <article class="edition-card"><span class="edition-status">Coming soon</span><h3>The bid manager's role is changing</h3><p>What human leadership looks like when agents begin coordinating repeatable work.</p></article>
+      </div>
+    </div>
+  </section>
+
+  <section class="newsletter-author">
+    <div class="newsletter-shell author-card">
+      <img src="assets/img/headshot.jpg" alt="Yorik Tisseau" class="author-photo">
+      <div><span class="eyebrow">A note from Yorik</span><h2>I read every reply.</h2><p>If there is a bid challenge you want me to explore, or you disagree with something I have written, reply and tell me. The best editions start with a real question from the work.</p></div>
+    </div>
+  </section>
+
+  <section class="newsletter-manifesto">
+    <div class="newsletter-shell manifesto-grid">
+      <div>
+        <span class="eyebrow">What lands in your inbox</span>
+        <h2>Useful thinking for the work behind the win.</h2>
+      </div>
+      <div class="manifesto-copy">
+        <p>Most AI advice starts with the tool. This newsletter starts with the bid: the decision, bottleneck or repeated piece of work that deserves a better system.</p>
+        <ul>
+          <li>Field notes from building AI-augmented bid workflows</li>
+          <li>Clear operating models, prompts and practical examples</li>
+          <li>Lessons on adoption, governance and human judgement</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="newsletter-share" aria-labelledby="share-title">
+    <div class="newsletter-shell share-card">
+      <div>
+        <span class="eyebrow">Know someone who would value this?</span>
+        <h2 id="share-title">Share Bid more. Win more.</h2>
+      </div>
+      <div class="share-actions">
+        <button type="button" data-share="linkedin">LinkedIn</button>
+        <button type="button" data-share="email">Email</button>
+        <button type="button" data-share="copy">Copy link</button>
+      </div>
+      <p class="share-status" id="share-status" role="status" aria-live="polite"></p>
+    </div>
+  </section>
+</main>
+
+<footer class="newsletter-footer">
+  <div class="wrap footer-grid">
+    <div class="footer-brand">
+      <div class="footer-brand-row">
+        <img src="assets/img/ignis-logo-mark.png" alt="" class="footer-logo">
+        <p class="footer-tagline">Bid more. Win more. <span class="serif">Systematically.</span></p>
+      </div>
+      <p class="footer-small">© 2026 Ignis Leadership. All rights reserved.</p>
+    </div>
+    <div class="footer-links">
+      <a href="index.html">Main site</a>
+      <a href="privacy.html">Privacy Policy</a>
+      <a href="terms.html">Terms of Use</a>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/newsletter.js"></script>
+</body>
+</html>

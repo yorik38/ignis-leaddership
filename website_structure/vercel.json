@@ -1,6 +1,12 @@
 {
   "cleanUrls": true,
   "trailingSlash": false,
+  "functions": {
+    "api/subscribe.js": {
+      "memory": 128,
+      "maxDuration": 10
+    }
+  },
   "redirects": [
     {
       "source": "/index.html",
