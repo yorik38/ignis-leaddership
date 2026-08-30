@@ -80,7 +80,7 @@ function initCookieBanner(){
    in a popup overlay on the same page. The href is still set to the
    real Calendly link as a no-JS fallback.
    --------------------------------------------------------------------- */
-var CALENDLY_URL = "https://calendly.com/yorik-tisseau-tmff/demo";
+var CALENDLY_URL = "https://calendly.com/yorik-tisseau-tmff/bid-capability-diagnostic";
 var calendlyAssetsLoaded = false;
 
 function loadCalendlyAssets(callback){
