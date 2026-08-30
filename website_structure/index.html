@@ -660,6 +660,28 @@
   </div>
 </section>
 
+<section class="home-newsletter" aria-labelledby="home-newsletter-title">
+  <div class="wrap home-newsletter-grid">
+    <div class="home-newsletter-copy">
+      <span class="eyebrow">Bid more. Win more. <span class="serif">Systematically.</span></span>
+      <h2 id="home-newsletter-title">Not ready for a diagnostic? Stay close to the work.</h2>
+      <p>Practical field notes on the decisions, workflows and knowledge systems that help teams bid more and win more.</p>
+      <a href="newsletter/bids-are-lost-before-the-writing-starts.html" class="inline-link home-newsletter-latest">Read the latest edition →</a>
+    </div>
+    <form class="home-newsletter-form" id="newsletter-form" action="/api/subscribe" method="POST" novalidate>
+      <label for="home-newsletter-email">Work email</label>
+      <div class="home-newsletter-fields">
+        <input id="home-newsletter-email" name="email" type="email" autocomplete="email" inputmode="email" placeholder="Work email" required>
+        <button type="submit">Subscribe <span aria-hidden="true">→</span></button>
+      </div>
+      <input type="hidden" name="source" id="newsletter-source" value="website">
+      <input class="home-newsletter-honeypot" type="text" name="company_website" tabindex="-1" autocomplete="off" aria-hidden="true">
+      <p class="home-newsletter-promise">Practical AI use cases for how bid teams actually work.</p>
+      <p class="subscribe-status" id="newsletter-status" role="status" aria-live="polite"></p>
+    </form>
+  </div>
+</section>
+
 <div id="cookie-banner">
   <div class="cookie-inner">
     <p class="cookie-text">We use a small number of cookies to understand how this site is used. Essential cookies are always on; analytics cookies only run if you accept. See our <a href="privacy.html">Privacy Policy</a> for details.</p>
@@ -699,5 +721,6 @@
 </div>
 
 <script src="assets/script.js"></script>
+<script src="assets/newsletter.js"></script>
 </body>
 </html>

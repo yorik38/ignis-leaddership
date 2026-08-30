@@ -573,6 +573,25 @@ blockquote.pull{
 .form-note{font-size:12px;color:var(--steel-light);margin-top:16px;}
 .form-status{font-size:14px;margin-top:14px;display:none;}
 .form-status.success{color:#166534;}
+
+/* homepage newsletter */
+.home-newsletter{padding:72px 0;background:var(--tint);border-top:1px solid var(--line);}
+.home-newsletter-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:84px;align-items:center;}
+.home-newsletter-copy .eyebrow{display:block;margin-bottom:14px;}.home-newsletter-copy .eyebrow .serif{font-style:italic;letter-spacing:0;text-transform:none;}
+.home-newsletter-copy h2{font-size:clamp(30px,3.5vw,44px);line-height:1.08;letter-spacing:-.035em;max-width:18ch;margin:0 0 18px;}
+.home-newsletter-copy p{color:var(--steel);font-size:16.5px;line-height:1.6;max-width:58ch;margin:0 0 20px;}
+.home-newsletter-latest{font-weight:700;}
+.home-newsletter-form{background:var(--white);border:1px solid var(--line);padding:30px;position:relative;}
+.home-newsletter-form>label{display:block;font-size:13px;font-weight:700;margin-bottom:9px;}
+.home-newsletter-fields{display:grid;grid-template-columns:1fr auto;border:1px solid var(--ink);}
+.home-newsletter-fields input{min-width:0;border:0;padding:16px;font:inherit;background:var(--white);}
+.home-newsletter-fields button{border:0;background:var(--ink);color:var(--white);padding:16px 22px;font:600 14px/1 'Inter',sans-serif;cursor:pointer;white-space:nowrap;}
+.home-newsletter-fields button:hover{background:var(--accent);}.home-newsletter-fields button:disabled{opacity:.65;cursor:wait;}
+.home-newsletter-promise,.home-newsletter-form .subscribe-status{font-size:12.5px;color:var(--steel-light);margin:11px 0 0;}
+.home-newsletter-form .subscribe-status{min-height:18px;font-weight:600;color:var(--accent);}.home-newsletter-form .subscribe-status.error{color:#9f2d20;}
+.home-newsletter-honeypot{position:absolute!important;left:-10000px!important;width:1px!important;height:1px!important;opacity:0!important;}
+@media(max-width:820px){.home-newsletter-grid{grid-template-columns:1fr;gap:36px;}.home-newsletter-copy h2{max-width:22ch;}}
+@media(max-width:520px){.home-newsletter{padding:56px 0;}.home-newsletter-form{padding:22px;}.home-newsletter-fields{grid-template-columns:1fr;}.home-newsletter-fields input{border-bottom:1px solid var(--line);}.home-newsletter-fields button{padding:16px;}}
 .form-status.error{color:#B42318;}
 
 /* footer */
