@@ -62,10 +62,21 @@ module.exports = async function subscribe(request, response) {
   if (!apiKey) return json(response, 503, {error: "Newsletter signup is awaiting its final Kit connection."});
 
   try {
-    await kitRequest(`/forms/${formId}/subscribers`, apiKey, {email_address: email, first_name: firstName || null});
+    // Kit V4 requires the subscriber to exist before they can be added to a form.
+    // Creating without an active state preserves the form's double opt-in flow.
+    const created = await kitRequest("/subscribers", apiKey, {
+      email_address: email,
+      first_name: firstName || null
+    });
+    const subscriberId = created.subscriber?.id;
+    if (!subscriberId) throw new Error("Kit did not return a subscriber ID.");
+
+    await kitRequest(`/forms/${formId}/subscribers/${subscriberId}`, apiKey, {
+      referrer: "https://www.ignisleadership.com/newsletter"
+    });
 
     const tagIds = await resolveTagIds(apiKey, source);
-    await Promise.all(tagIds.map((tagId) => kitRequest(`/tags/${tagId}/subscribers`, apiKey, {email_address: email})));
+    await Promise.all(tagIds.map((tagId) => kitRequest(`/tags/${tagId}/subscribers/${subscriberId}`, apiKey, {})));
     return json(response, 200, {ok: true});
   } catch (error) {
     console.error("Newsletter subscription failed:", error.message);
