@@ -34,8 +34,8 @@
   <section class="newsletter-hero" id="subscribe">
     <div class="newsletter-shell">
       <div class="newsletter-kicker">Bid more. Win more.</div>
-      <h1>Build a bid capability that gets stronger with every tender.</h1>
-      <p class="newsletter-lede">Practical field notes on AI-augmented bid management, knowledge reuse and the human decisions that win complex work.</p>
+      <h1>Turn your bid process into a repeatable competitive advantage.</h1>
+      <p class="newsletter-lede">Practical field notes on the decisions, workflows and knowledge systems that help teams bid more and win more.</p>
 
       <form class="subscribe-form" id="newsletter-form" action="/api/subscribe" method="POST" novalidate>
         <div class="subscribe-fields">
@@ -47,29 +47,35 @@
         </div>
         <input type="hidden" name="source" id="newsletter-source" value="website">
         <input class="honeypot" type="text" name="company_website" tabindex="-1" autocomplete="off" aria-hidden="true">
-        <p class="subscribe-promise">One useful edition at a time. No noise. Unsubscribe whenever you like.</p>
+        <p class="subscribe-promise">Better bids. Reusable knowledge. Unsubscribe anytime.</p>
         <p class="subscribe-status" id="newsletter-status" role="status" aria-live="polite"></p>
       </form>
 
       <div class="newsletter-proof" aria-label="What to expect">
-        <div><strong>For</strong><span>Bid, commercial and growth leaders</span></div>
-        <div><strong>About</strong><span>AI, workflow and winning complex tenders</span></div>
-        <div><strong>Written by</strong><span>Yorik Tisseau, Ignis Leadership</span></div>
+        <div><strong>For</strong><span>Leaders accountable for bid performance</span></div>
+        <div><strong>Value</strong><span>Stronger decisions, reusable knowledge and more capacity</span></div>
+        <div><strong>From</strong><span>Yorik Tisseau, former Bid Director and founder of Ignis</span></div>
       </div>
     </div>
   </section>
 
   <section class="newsletter-latest" aria-labelledby="latest-title">
-    <div class="newsletter-shell">
+    <div class="newsletter-shell newsletter-editions-shell">
       <div class="latest-heading">
-        <div><span class="eyebrow">Latest editions</span><h2 id="latest-title">Start with the most useful ideas.</h2></div>
+        <div><span class="eyebrow">Latest edition</span><h2 id="latest-title">One useful idea, explored properly.</h2></div>
         <a href="archive.html" class="archive-link">View the archive →</a>
       </div>
-      <div class="edition-grid">
-        <article class="edition-card edition-card-published"><a href="newsletter/bids-are-lost-before-the-writing-starts.html" class="edition-cover-link" aria-label="Read Bids are lost before the writing starts"><img class="edition-cover" src="assets/img/newsletter-01-bids-are-lost-before-writing.png" alt="A bid team deciding strategy around an integrated energy system before drafting begins"></a><span class="edition-status">24 August 2026 · 5 min read</span><h3><a href="newsletter/bids-are-lost-before-the-writing-starts.html">Bids are lost before the writing starts</a></h3><p>Why the hardest bid decisions belong before anyone starts drafting.</p><a class="edition-read" href="newsletter/bids-are-lost-before-the-writing-starts.html">Read the edition →</a></article>
-        <article class="edition-card"><span class="edition-status">Coming soon</span><h3>Stop starting every bid from scratch</h3><p>A practical model for turning past bids into reusable organisational knowledge.</p></article>
-        <article class="edition-card"><span class="edition-status">Coming soon</span><h3>The bid manager's role is changing</h3><p>What human leadership looks like when agents begin coordinating repeatable work.</p></article>
+      <article class="latest-feature">
+        <a href="newsletter/bids-are-lost-before-the-writing-starts.html" class="latest-feature-image" aria-label="Read Bids are lost before the writing starts"><img src="assets/img/newsletter-01-bids-are-lost-before-writing.png" alt="A bid team deciding strategy around an integrated energy system before drafting begins"></a>
+        <div class="latest-feature-copy"><span class="edition-status">Issue 01 · 24 August 2026 · 5 min read</span><h3><a href="newsletter/bids-are-lost-before-the-writing-starts.html">Bids are lost before the writing starts</a></h3><p>The hardest bid decisions should happen before drafting begins. When strategy and writing collapse into one step, clarity arrives too late, senior time is lost and marks are left on the table.</p><a class="edition-read" href="newsletter/bids-are-lost-before-the-writing-starts.html">Read the edition →</a></div>
+      </article>
+
+      <div class="coming-heading"><div><span class="eyebrow">Coming up</span><h2>Next in Bid more. Win more.</h2></div><p>The next editions are already taking shape.</p></div>
+      <div class="coming-grid">
+        <article class="coming-card"><span class="edition-status">Issue 02</span><h3>Same team. More bids won.</h3><p>The constraint is rarely effort. It is how quickly a team can turn its best knowledge into decisions, evidence and a credible response.</p></article>
+        <article class="coming-card"><span class="edition-status">Issue 03</span><h3>One scoring matrix. One team wins it.</h3><p>What changes when you deliberately choose where to push and where to secure, instead of letting the deadline choose for you.</p></article>
       </div>
+      <div class="archive-prompt"><div><span class="eyebrow">Past editions</span><h2>A growing library for better bidding.</h2><p>Every published edition will stay available here, so useful ideas do not disappear after a week.</p></div><a href="archive.html" class="newsletter-nav-cta">Browse the archive →</a></div>
     </div>
   </section>
 
@@ -104,9 +110,9 @@
         <h2 id="share-title">Share Bid more. Win more.</h2>
       </div>
       <div class="share-actions">
-        <button type="button" data-share="linkedin">LinkedIn</button>
-        <button type="button" data-share="email">Email</button>
-        <button type="button" data-share="copy">Copy link</button>
+        <button type="button" data-share="linkedin" aria-label="Share on LinkedIn" title="Share on LinkedIn"><svg class="share-icon" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M20.45 20.45h-3.56v-5.57c0-1.33-.03-3.04-1.86-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.34V8.99h3.41v1.56h.05c.47-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.29zM5.33 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zm1.78 13.02H3.55V8.99h3.56v11.46z"/></svg></button>
+        <button type="button" data-share="email" aria-label="Share by email" title="Share by email"><svg class="share-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 5.5h18v13H3zM3.5 6l8.5 7 8.5-7" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <button type="button" data-share="copy" aria-label="Copy newsletter link" title="Copy link"><svg class="share-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M9.5 14.5l5-5M7.2 16.8l-1.4 1.4a3.4 3.4 0 0 1-4.8-4.8l3.4-3.4a3.4 3.4 0 0 1 4.8 0M16.8 7.2l1.4-1.4a3.4 3.4 0 0 1 4.8 4.8L19.6 14a3.4 3.4 0 0 1-4.8 0" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></button>
       </div>
       <p class="share-status" id="share-status" role="status" aria-live="polite"></p>
     </div>
