@@ -4,7 +4,7 @@
 .newsletter-nav-cta{border:1px solid var(--ink);padding:11px 18px;text-decoration:none;font-size:14px;font-weight:600;}
 .newsletter-nav-cta:hover{background:var(--ink);color:#fff;}
 .newsletter-shell{width:min(820px,calc(100% - 48px));margin:0 auto;}
-.newsletter-hero{padding:112px 0 72px;background:#fff;text-align:center;}
+.newsletter-hero{padding:88px 0 72px;background:#fff;text-align:center;}
 .newsletter-kicker{font-size:14px;font-weight:600;letter-spacing:normal;text-transform:none;color:var(--accent);margin-bottom:28px;}.newsletter-kicker span{font-family:'Source Serif 4',Georgia,serif;font-size:1.03em;font-style:italic;font-weight:500;letter-spacing:0;text-transform:none;}
 .newsletter-hero h1{font-size:clamp(34px,4.6vw,54px);line-height:1.12;letter-spacing:-.015em;margin:0 auto;max-width:20ch;text-wrap:balance;}
 .newsletter-lede{font-family:'Source Serif 4',Georgia,serif;font-size:clamp(20px,2.5vw,25px);line-height:1.48;color:var(--steel);max-width:650px;margin:30px auto 0;}
