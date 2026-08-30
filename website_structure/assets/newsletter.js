@@ -7,7 +7,7 @@
   var params = new URLSearchParams(window.location.search);
   var allowedSources = ["website", "linkedin", "email", "shared"];
   var requestedSource = (params.get("source") || params.get("utm_source") || "website").toLowerCase();
-  sourceField.value = allowedSources.indexOf(requestedSource) > -1 ? requestedSource : "website";
+  if (sourceField) sourceField.value = allowedSources.indexOf(requestedSource) > -1 ? requestedSource : "website";
 
   if (form) {
     form.addEventListener("submit", function(event){
@@ -42,8 +42,8 @@
     });
   }
 
-  var shareUrl = "https://www.ignisleadership.com/newsletter?source=shared&utm_source=reader&utm_medium=referral";
-  var shareText = "Bid more. Win more.: practical field notes on AI-augmented bid management.";
+  var shareUrl = document.body.getAttribute("data-share-url") || "https://www.ignisleadership.com/newsletter?source=shared&utm_source=reader&utm_medium=referral";
+  var shareText = document.body.getAttribute("data-share-title") || "Bid more. Win more.: practical field notes on AI-augmented bid management.";
   var shareStatus = document.getElementById("share-status");
   document.querySelectorAll("[data-share]").forEach(function(button){
     button.addEventListener("click", function(){
