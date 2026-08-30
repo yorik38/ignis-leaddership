@@ -1,15 +1,15 @@
 (function(){
   "use strict";
 
-  var form = document.getElementById("newsletter-form");
-  var status = document.getElementById("newsletter-status");
-  var sourceField = document.getElementById("newsletter-source");
   var params = new URLSearchParams(window.location.search);
   var allowedSources = ["website", "linkedin", "email", "shared"];
   var requestedSource = (params.get("source") || params.get("utm_source") || "website").toLowerCase();
-  if (sourceField) sourceField.value = allowedSources.indexOf(requestedSource) > -1 ? requestedSource : "website";
+  var resolvedSource = allowedSources.indexOf(requestedSource) > -1 ? requestedSource : "website";
 
-  if (form) {
+  document.querySelectorAll("#newsletter-form, [data-newsletter-form]").forEach(function(form){
+    var status = form.querySelector(".subscribe-status");
+    var sourceField = form.querySelector("[name=source]");
+    if (sourceField) sourceField.value = resolvedSource;
     form.addEventListener("submit", function(event){
       event.preventDefault();
       if (!form.reportValidity()) return;
@@ -30,7 +30,7 @@
         });
       }).then(function(){
         form.reset();
-        sourceField.value = allowedSources.indexOf(requestedSource) > -1 ? requestedSource : "website";
+        if (sourceField) sourceField.value = resolvedSource;
         status.textContent = "You’re nearly there. Check your inbox to confirm your subscription.";
         button.textContent = "Subscribed";
       }).catch(function(error){
@@ -40,7 +40,7 @@
         button.innerHTML = "Subscribe <span aria-hidden=\"true\">→</span>";
       });
     });
-  }
+  });
 
   var shareUrl = document.body.getAttribute("data-share-url") || "https://www.ignisleadership.com/newsletter?source=shared&utm_source=reader&utm_medium=referral";
   var shareText = document.body.getAttribute("data-share-title") || "Bid more. Win more.: practical field notes on AI-augmented bid management.";
