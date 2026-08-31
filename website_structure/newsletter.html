@@ -56,6 +56,7 @@
 
   <section class="newsletter-latest" aria-labelledby="latest-title">
     <div class="newsletter-shell newsletter-editions-shell">
+      <div class="newsletter-section-divider" aria-hidden="true"></div>
       <div class="latest-heading">
         <div><span class="eyebrow">Latest edition</span><h2 id="latest-title">One useful idea, explored properly.</h2></div>
         <a href="archive.html" class="archive-link">View the archive →</a>
@@ -71,6 +72,12 @@
           <article class="past-edition-row"><a href="newsletter/bids-are-lost-before-the-writing-starts.html" class="past-edition-image"><img src="assets/img/newsletter-01-bids-are-lost-before-writing.png" alt="A bid team deciding strategy around an integrated energy system before drafting begins"></a><div class="past-edition-copy"><span class="edition-status">Issue 01 · 24 August 2026</span><h3><a href="newsletter/bids-are-lost-before-the-writing-starts.html">Bids are lost before the writing starts</a></h3><p>Why the hardest bid decisions belong before anyone starts drafting.</p></div><a href="newsletter/bids-are-lost-before-the-writing-starts.html" class="past-edition-arrow" aria-label="Read Bids are lost before the writing starts">→</a></article>
         </div>
       </div>
+
+      <div class="author-card">
+        <img src="assets/img/headshot.jpg" alt="Yorik Tisseau" class="author-photo">
+        <div><span class="eyebrow">A note from Yorik</span><h2>I read every reply.</h2><p>If there is a bid challenge you want me to explore, or you disagree with something I have written, reply and tell me. The best editions start with a real question from the work.</p></div>
+      </div>
+
       <div class="coming-heading"><div><span class="eyebrow">Coming up</span><h2>Next in Bid more. Win more.</h2></div><p>The next editions are already taking shape.</p></div>
       <div class="coming-grid">
         <article class="coming-card"><span class="edition-status">Issue 03</span><h3>We ran out of time on the question that mattered most.</h3><p>A late sustainability question became a rushed response. The lesson: decide early where to push, where to secure and where the marks can be won.</p></article>
@@ -79,15 +86,31 @@
     </div>
   </section>
 
-  <section class="newsletter-author">
-    <div class="newsletter-shell author-card">
-      <img src="assets/img/headshot.jpg" alt="Yorik Tisseau" class="author-photo">
-      <div><span class="eyebrow">A note from Yorik</span><h2>I read every reply.</h2><p>If there is a bid challenge you want me to explore, or you disagree with something I have written, reply and tell me. The best editions start with a real question from the work.</p></div>
+  <section class="newsletter-mid-signup" aria-labelledby="future-signup-title">
+    <div class="newsletter-shell newsletter-editions-shell mid-signup-inner">
+      <div class="mid-signup-copy">
+        <span class="eyebrow">Do not miss the next edition</span>
+        <h2 id="future-signup-title">Get the ideas while they are taking shape.</h2>
+        <p>Join Bid more. Win more. for practical field notes on the decisions, workflows and knowledge systems behind stronger bids.</p>
+      </div>
+      <form class="subscribe-form" data-newsletter-form action="/api/subscribe" method="POST" novalidate>
+        <div class="subscribe-fields">
+          <label class="sr-only" for="future-subscriber-name">First name</label>
+          <input id="future-subscriber-name" name="first_name" type="text" autocomplete="given-name" placeholder="First name">
+          <label class="sr-only" for="future-subscriber-email">Email address</label>
+          <input id="future-subscriber-email" name="email" type="email" autocomplete="email" inputmode="email" placeholder="Work email" required>
+          <button type="submit">Subscribe <span aria-hidden="true">→</span></button>
+        </div>
+        <input type="hidden" name="source" value="website">
+        <input class="honeypot" type="text" name="company_website" tabindex="-1" autocomplete="off" aria-hidden="true">
+        <p class="subscribe-promise">Practical AI use cases for how bid teams actually work. Unsubscribe anytime.</p>
+        <p class="subscribe-status" role="status" aria-live="polite"></p>
+      </form>
     </div>
   </section>
 
   <section class="newsletter-manifesto">
-    <div class="newsletter-shell manifesto-grid">
+    <div class="newsletter-shell newsletter-editions-shell manifesto-grid">
       <div>
         <span class="eyebrow">What lands in your inbox</span>
         <h2>Useful thinking for the work behind the win.</h2>
