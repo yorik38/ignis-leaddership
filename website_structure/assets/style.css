@@ -897,9 +897,11 @@ section.tint{background:var(--tint);}
   }
   .use-case-grid{grid-template-columns:1fr;row-gap:28px;}
   .use-cases .map-principle{
+    max-width:none;
     margin-left:0;
     margin-right:0;
     text-align:left;
+    text-wrap:wrap;
   }
 }
 
