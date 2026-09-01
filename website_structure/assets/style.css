@@ -393,6 +393,18 @@ body.menu-open > header{z-index:102;transform:translateY(0);}
 .engagement-panel>a{grid-column:1 / -1;font-size:13px;font-weight:700;color:var(--accent);text-decoration:none;}
 
 .contact-positioning{background:var(--paper);}
+
+/* Keep the editorial homepage sections on a white canvas. */
+.positioning-home .about-positioning,.positioning-home .engagements-positioning,.positioning-home .home-newsletter{background:var(--paper);color:var(--ink);}
+.positioning-home .about-narrative h2{color:var(--ink);}
+.positioning-home .about-narrative>p{color:var(--steel);}
+.positioning-home .about-narrative .about-lead{color:var(--ink);}
+.positioning-home .about-narrative .eyebrow{color:var(--accent);}
+.positioning-home .experience-ledger{border-color:var(--line);}
+.positioning-home .experience-ledger article{border-color:var(--line);}
+.positioning-home .experience-ledger span{color:var(--accent);}
+.positioning-home .experience-ledger p{color:var(--steel);}
+.positioning-home .about-narrative blockquote{color:var(--ink);border-left-color:var(--accent);}
 .contact-positioning-grid{display:grid;grid-template-columns:minmax(260px,.64fr) minmax(0,1.36fr);gap:76px;align-items:start;}
 .contact-intro{position:sticky;top:110px;}
 .contact-intro h2{font-size:clamp(34px,4vw,48px);margin:18px 0 22px;max-width:11ch;letter-spacing:-.035em;}
