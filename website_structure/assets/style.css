@@ -571,11 +571,18 @@ section.tint{background:var(--tint);}
   }
 }
 @media (max-width:520px){
+  .method-intro h2,
+  .method-intro p{
+    max-width:30ch;
+    margin-left:auto;
+    margin-right:auto;
+    text-wrap:balance;
+  }
   .map-card{padding:24px 21px 22px;}
   .map-card-heading{margin-bottom:18px;}
   .map-card h3{font-size:18px;}
   .map-card h3.map-word{font-size:26px;}
-  .map-principle{margin-top:34px;padding:20px 0 0;font-size:15px;}
+  .map-principle{max-width:30ch;margin:34px auto 0;padding:20px 0 0;font-size:15px;text-wrap:balance;}
 }
 
 /* bid AI maturity */
