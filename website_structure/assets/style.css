@@ -265,6 +265,7 @@ body.menu-open > header{z-index:102;transform:translateY(0);}
 .route-label{font-size:11px;text-transform:uppercase;letter-spacing:.1em;font-weight:700;color:var(--accent);}.service-route-dark .route-label{color:#98C9CD;}
 .service-route h3{grid-column:2;font-size:29px;margin:36px 0 14px;max-width:18ch;}.service-route-dark h3{color:var(--paper);}
 .service-route p{grid-column:2;color:var(--steel);font-size:14.5px;max-width:49ch;margin:0 0 30px;}.service-route-dark p{color:#BEC6D0;}
+.route-highlight-dark{color:#98C9CD;font-weight:600;}
 .route-link{grid-column:2;align-self:end;font-size:13px;font-weight:700;color:var(--accent);}.service-route-dark .route-link{color:var(--paper);}
 @media (hover:hover){.service-route:hover{transform:scale(1.012);z-index:2;box-shadow:0 16px 34px rgba(20,24,31,.12);}}
 @media (prefers-reduced-motion:reduce){.service-route:hover{transform:none;}}
