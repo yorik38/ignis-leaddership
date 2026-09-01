@@ -253,7 +253,54 @@ function initMobileMenu(){
 }
 
 /* ---------------------------------------------------------------------
-   6) ARCHITECTURE DIAGRAM — tap/click to enlarge in a lightbox
+   6) SCROLL-AWARE HEADER
+   Keeps the navigation available without occupying the screen while the
+   visitor is reading. It hides on downward movement, returns immediately
+   on upward movement, and returns shortly after scrolling stops.
+   --------------------------------------------------------------------- */
+function initScrollAwareHeader(){
+  var header = document.querySelector("body > header");
+  if (!header) return;
+
+  var lastY = Math.max(0, window.scrollY);
+  var ticking = false;
+  var revealTimer;
+
+  function showHeader(){
+    header.classList.remove("header-hidden");
+  }
+
+  function updateHeader(){
+    var currentY = Math.max(0, window.scrollY);
+    var delta = currentY - lastY;
+    var menuOpen = document.body.classList.contains("menu-open");
+    var headerFocused = header.contains(document.activeElement);
+
+    if (currentY < 96 || menuOpen || headerFocused || delta < -2) {
+      showHeader();
+    } else if (delta > 2) {
+      header.classList.add("header-hidden");
+    }
+
+    lastY = currentY;
+    ticking = false;
+  }
+
+  window.addEventListener("scroll", function(){
+    window.clearTimeout(revealTimer);
+    revealTimer = window.setTimeout(showHeader, 700);
+    if (!ticking) {
+      window.requestAnimationFrame(updateHeader);
+      ticking = true;
+    }
+  }, { passive: true });
+
+  header.addEventListener("focusin", showHeader);
+  header.addEventListener("pointerenter", showHeader);
+}
+
+/* ---------------------------------------------------------------------
+   7) ARCHITECTURE DIAGRAM — tap/click to enlarge in a lightbox
    The diagram is dense, so on small screens it's shown as a thumbnail
    that opens full-size (native resolution, pan/pinch-zoom) on tap.
    --------------------------------------------------------------------- */
@@ -296,5 +343,6 @@ document.addEventListener("DOMContentLoaded", function(){
   initCalendly();
   initForm();
   initMobileMenu();
+  initScrollAwareHeader();
   initLightbox();
 });

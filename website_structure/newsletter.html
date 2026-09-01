@@ -22,13 +22,31 @@
 </head>
 <body class="newsletter-page">
 <header class="newsletter-header">
-  <div class="wrap newsletter-nav">
+  <div class="wrap nav">
     <a href="index.html" class="brand" aria-label="Ignis Leadership home">
       <img src="assets/img/ignis-logo-full.png" alt="Ignis Leadership" class="brand-logo">
     </a>
-    <a href="#subscribe" class="newsletter-nav-cta">Subscribe free</a>
+    <nav class="nav-links" aria-label="Primary navigation">
+      <a href="index.html#maturity" class="navlink">Approach</a>
+      <a href="index.html#services" class="navlink">Services</a>
+      <a href="newsletter.html" class="navlink" aria-current="page">Insights</a>
+      <a href="index.html#about" class="navlink">About</a>
+      <div class="nav-ctas"><a class="cta-link" href="index.html#contact">Book a diagnostic</a></div>
+    </nav>
+    <button class="nav-toggle" id="nav-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">
+      <span></span><span></span><span></span>
+    </button>
   </div>
 </header>
+<div class="mobile-menu" id="mobile-menu">
+  <nav class="mobile-menu-links">
+    <a href="index.html#maturity" class="mobile-navlink">Approach</a>
+    <a href="index.html#services" class="mobile-navlink">Services</a>
+    <a href="newsletter.html" class="mobile-navlink" aria-current="page">Insights</a>
+    <a href="index.html#about" class="mobile-navlink">About</a>
+  </nav>
+  <a href="index.html#contact" class="btn-primary mobile-menu-cta">Book a diagnostic →</a>
+</div>
 
 <main>
   <section class="newsletter-hero" id="subscribe">
@@ -155,6 +173,7 @@
   </div>
 </footer>
 
+<script src="assets/script.js"></script>
 <script src="assets/newsletter.js"></script>
 </body>
 </html>
