@@ -1,5 +1,5 @@
 /* ==========================================================================
-   Ignis Leadership — Design System
+   Ignis Leadership: Design System
    AI-augmented bid management consultancy site
    Style direction: restrained editorial authority (Swiss-modernist grid,
    Trust & Authority proof patterns), not tech/industrial.
@@ -230,7 +230,7 @@ section.tint{background:var(--tint);}
 @media (max-width:900px){.benefit-cards{grid-template-columns:repeat(2,1fr);}}
 @media (max-width:560px){.benefit-cards{grid-template-columns:1fr;}}
 
-/* solution — visual process flow */
+/* solution: visual process flow */
 .flow-row{display:grid;grid-template-columns:1fr 44px 1fr 44px 1fr 44px 1fr;align-items:stretch;gap:0;}
 .flow-node{border:1px solid var(--line);padding:28px 22px;background:var(--white);}
 .flow-node .num{font-family:'Source Serif 4',serif;font-style:italic;font-size:20px;color:var(--accent);display:block;margin-bottom:12px;}
@@ -264,7 +264,7 @@ section.tint{background:var(--tint);}
   .schem-connector .arrow::after,.flow-connector .arrow::after{content:"\2193";}
 }
 
-/* ICP — sector and client picture cards */
+/* ICP: sector and client picture cards */
 .pic-group-label{
   font-size:12.5px;font-weight:600;text-transform:uppercase;letter-spacing:0.07em;
   color:var(--steel-light);margin:0 0 18px;
@@ -286,7 +286,7 @@ section.tint{background:var(--tint);}
 
 .icp-lede{color:var(--steel);font-size:17px;max-width:60ch;margin:0;}
 
-/* why this works — ink band */
+/* why this works: ink band */
 .why-band{background:var(--ink);color:var(--paper);}
 .why-band .section-label .eyebrow{color:#8FB0D6;}
 .why-band .section-label h2{color:var(--paper);}

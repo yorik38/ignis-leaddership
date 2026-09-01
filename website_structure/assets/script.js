@@ -1,5 +1,5 @@
 /* ==========================================================================
-   Ignis Leadership — site scripts
+   Ignis Leadership: site scripts
    Handles: cookie consent banner, gated GA4 loading, Calendly embed,
    and the lead-qualification form submission via Formspree.
    ========================================================================== */
@@ -52,7 +52,7 @@ function initCookieBanner(){
   if (consent === "accepted") {
     loadGA4();
   } else if (consent !== "declined") {
-    // no prior choice recorded — show the banner
+    // no prior choice recorded; show the banner
     window.setTimeout(function(){ banner.classList.add("visible"); }, 400);
   }
 
@@ -75,7 +75,7 @@ function initCookieBanner(){
 }
 
 /* ---------------------------------------------------------------------
-   3) CALENDLY — popup widget
+   3) CALENDLY: popup widget
    Every "Book a discovery call" button opens the Calendly scheduler
    in a popup overlay on the same page. The href is still set to the
    real Calendly link as a no-JS fallback.
@@ -103,7 +103,7 @@ function openCalendlyPopup(){
   if (window.Calendly && window.Calendly.initPopupWidget) {
     window.Calendly.initPopupWidget({ url: CALENDLY_URL });
   } else {
-    // Widget script hasn't finished loading yet — fall back to a new tab
+    // Widget script hasn't finished loading yet; fall back to a new tab
     // rather than leaving the click with no effect.
     window.open(CALENDLY_URL, "_blank", "noopener");
   }
@@ -124,7 +124,7 @@ function initCalendly(){
 }
 
 /* ---------------------------------------------------------------------
-   3b) CALENDLY — inline widget
+   3b) CALENDLY: inline widget
    Shown inside the qualification form's confirmation panel, so a lead
    who has just submitted their answers can book the diagnosis call
    immediately rather than being sent to a separate thank-you page.
@@ -144,7 +144,7 @@ function initCalendlyInlineEmbed(){
 }
 
 /* ---------------------------------------------------------------------
-   4) LEAD QUALIFICATION FORM — Formspree
+   4) LEAD QUALIFICATION FORM: Formspree
    The form still degrades gracefully: without JS it posts normally
    and Formspree redirects back with its own thank-you page.
    --------------------------------------------------------------------- */
@@ -219,7 +219,7 @@ function initForm(){
 }
 
 /* ---------------------------------------------------------------------
-   5) MOBILE MENU — hamburger toggle + full-screen overlay
+   5) MOBILE MENU: hamburger toggle + full-screen overlay
    Only active at the mobile breakpoint (see assets/style.css); on wider
    screens the toggle is hidden and the overlay never displays.
    --------------------------------------------------------------------- */
@@ -300,7 +300,7 @@ function initScrollAwareHeader(){
 }
 
 /* ---------------------------------------------------------------------
-   7) ARCHITECTURE DIAGRAM — tap/click to enlarge in a lightbox
+   7) ARCHITECTURE DIAGRAM: tap/click to enlarge in a lightbox
    The diagram is dense, so on small screens it's shown as a thumbnail
    that opens full-size (native resolution, pan/pinch-zoom) on tap.
    --------------------------------------------------------------------- */
