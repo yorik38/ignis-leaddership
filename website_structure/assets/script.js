@@ -213,7 +213,7 @@ function initForm(){
       statusEl.style.display = "block";
     }).finally(function(){
       submitBtn.disabled = false;
-      submitBtn.textContent = "Submit and choose a time";
+      submitBtn.textContent = "Send to Yorik";
     });
   });
 }
