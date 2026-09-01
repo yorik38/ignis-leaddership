@@ -260,13 +260,15 @@ body.menu-open > header{z-index:102;transform:translateY(0);}
 .bridge-heading h2{font-size:clamp(34px,4vw,52px);max-width:16ch;letter-spacing:-.035em;}
 .bridge-heading p{font-family:'Inter',Arial,sans-serif;font-style:normal;font-size:16.5px;line-height:1.6;color:var(--steel);max-width:56ch;margin:0;padding-top:29px;}
 .service-route-grid{display:grid;grid-template-columns:1fr 1fr;border:1px solid var(--line);}
-.service-route{padding:38px;display:grid;grid-template-columns:auto 1fr;column-gap:25px;text-decoration:none;background:var(--paper);min-height:320px;border-left:1px solid var(--line);}
+.service-route{padding:38px;display:grid;grid-template-columns:auto 1fr;column-gap:25px;text-decoration:none;background:var(--paper);min-height:320px;border-left:1px solid var(--line);position:relative;transition:transform .2s ease,box-shadow .2s ease;transform-origin:center;}
 .service-route:first-child{border-left:0;}.service-route-dark{background:var(--cta);color:var(--paper);}
 .route-number{font-size:12px;font-weight:700;color:var(--steel-light);}.service-route-dark .route-number{color:#9AA9BC;}
 .route-label{font-size:11px;text-transform:uppercase;letter-spacing:.1em;font-weight:700;color:var(--accent);}.service-route-dark .route-label{color:#98C9CD;}
 .service-route h3{grid-column:2;font-size:29px;margin:36px 0 14px;max-width:18ch;}.service-route-dark h3{color:var(--paper);}
 .service-route p{grid-column:2;color:var(--steel);font-size:14.5px;max-width:49ch;margin:0 0 30px;}.service-route-dark p{color:#BEC6D0;}
 .route-link{grid-column:2;align-self:end;font-size:13px;font-weight:700;color:var(--accent);}.service-route-dark .route-link{color:var(--paper);}
+@media (hover:hover){.service-route:hover{transform:scale(1.012);z-index:2;box-shadow:0 16px 34px rgba(20,24,31,.12);}}
+@media (prefers-reduced-motion:reduce){.service-route:hover{transform:none;}}
 .bid-leadership-section{background:var(--paper);border-bottom:1px solid var(--line);scroll-margin-top:86px;}
 .bid-leadership-grid{display:grid;grid-template-columns:minmax(0,.86fr) minmax(0,1.14fr);gap:86px;align-items:start;}
 .bid-leadership-intro h2{font-size:clamp(36px,4.5vw,54px);max-width:17ch;margin:18px 0 24px;letter-spacing:-.04em;}
