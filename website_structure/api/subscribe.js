@@ -72,7 +72,7 @@ module.exports = async function subscribe(request, response) {
     if (!subscriberId) throw new Error("Kit did not return a subscriber ID.");
 
     await kitRequest(`/forms/${formId}/subscribers/${subscriberId}`, apiKey, {
-      referrer: "https://www.ignisleadership.com/newsletter"
+      referrer: "https://www.ignisleadership.com/insights"
     });
 
     const tagIds = await resolveTagIds(apiKey, source);
