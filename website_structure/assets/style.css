@@ -1165,5 +1165,5 @@ footer{border-top:1px solid var(--line);padding:48px 0 20px;}
   .footer-grid{flex-direction:column;align-items:center;text-align:center;}
   .footer-brand{max-width:none;}
   .footer-brand-row{justify-content:center;}
-  .footer-links{justify-content:center;width:100%;}
+  .footer-links{justify-content:center;width:100%;column-gap:18px;row-gap:8px;}
 }
