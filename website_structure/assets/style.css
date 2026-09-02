@@ -459,13 +459,12 @@ body.menu-open > header{z-index:102;transform:translateY(0);}
 .service-choice-grid input:checked+span{border-color:var(--accent);background:#EEF2F6;box-shadow:inset 3px 0 0 var(--accent);}
 .service-choice-grid input:focus-visible+span{outline:2px solid var(--accent);outline-offset:2px;}
 .footer-descriptor{
-  max-width:52ch;
-  margin:11px 0 0;
-  color:var(--ink);
-  font-family:'Source Serif 4',Georgia,serif;
-  font-size:11.5px;
-  font-weight:500;
-  line-height:1.18;
+  max-width:34ch;
+  margin:0;
+  color:var(--accent);
+  font-size:14px;
+  font-weight:600;
+  line-height:1.25;
 }
 
 @media(max-width:980px){
