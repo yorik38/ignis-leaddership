@@ -93,6 +93,7 @@ body > header.header-hidden{transform:translateY(-100%);}
   font-weight:500;
   line-height:1.18;
 }
+.brand-descriptor span{display:block;white-space:nowrap;}
 .nav-links{display:flex;align-items:center;gap:34px;}
 .nav-links a.navlink{
   font-size:14.5px;color:var(--steel);text-decoration:none;font-weight:500;
