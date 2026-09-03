@@ -201,11 +201,11 @@ body.menu-open > header{z-index:102;transform:translateY(0);}
 /* credibility strip */
 .credibility{border-top:1px solid var(--line);border-bottom:1px solid var(--line);margin-top:64px;}
 .cred-inner{
-  display:flex;align-items:center;justify-content:space-between;gap:32px;flex-wrap:wrap;
+  display:flex;align-items:center;justify-content:flex-start;gap:40px;flex-wrap:wrap;
   padding-top:28px;padding-bottom:28px;
 }
-.logo-strip-label{font-size:14px;font-weight:700;color:var(--ink);margin:0;text-wrap:balance;flex:0 1 auto;}
-.logo-strip{display:flex;align-items:center;justify-content:flex-end;gap:22px;flex-wrap:wrap;}
+.logo-strip-label{font-size:14px;font-weight:700;color:var(--ink);margin:0;max-width:300px;text-wrap:balance;flex:0 1 auto;}
+.logo-strip{display:flex;align-items:center;justify-content:center;gap:22px;flex-wrap:wrap;flex:1 1 auto;}
 .logo-box{
   display:flex;align-items:center;justify-content:center;
   height:60px;padding:0 18px;
