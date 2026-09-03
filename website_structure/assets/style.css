@@ -94,7 +94,7 @@ body > header.header-hidden{transform:translateY(-100%);}
   line-height:1.18;
 }
 .brand-descriptor span{display:block;white-space:nowrap;}
-.nav-links{display:flex;align-items:center;gap:34px;}
+.nav-links{display:flex;align-items:center;gap:24px;}
 .nav-links a.navlink{
   font-size:14.5px;color:var(--steel);text-decoration:none;font-weight:500;
   transition:color 0.15s ease;
@@ -1147,7 +1147,7 @@ footer{border-top:1px solid var(--line);padding:48px 0 20px;}
 .cookie-btn.decline{background:transparent;color:var(--paper);}
 .cookie-btn.decline:hover{border-color:var(--paper);}
 
-@media (max-width:960px){
+@media (max-width:1024px){
   .nav-links{display:none;}
   .nav-toggle{display:flex;}
   .brand{flex-direction:row;align-items:center;}
