@@ -266,8 +266,6 @@ body.menu-open > header{z-index:102;transform:translateY(0);}
 .bridge-heading h2{font-size:clamp(34px,4vw,52px);max-width:16ch;letter-spacing:-.035em;margin:0 auto;}
 .bridge-heading p{font-family:'Inter',Arial,sans-serif;font-style:normal;font-size:16.5px;line-height:1.6;color:var(--steel);max-width:56ch;margin:0;padding-top:29px;}
 .service-route-grid{display:grid;grid-template-columns:1fr 1fr;border:1px solid var(--line);}
-.positioning-qualifier{font-size:14.5px;color:var(--steel);opacity:.82;max-width:62ch;margin:28px auto 0;text-align:center;}
-.positioning-qualifier strong{color:var(--ink);font-weight:600;}
 .service-route{padding:38px;display:grid;grid-template-columns:auto 1fr;column-gap:25px;text-decoration:none;background:var(--paper);min-height:320px;border-left:1px solid var(--line);position:relative;transition:transform .2s ease,box-shadow .2s ease;transform-origin:center;}
 .service-route:first-child{border-left:0;}.service-route-dark{background:var(--cta);color:var(--paper);}
 .route-number{font-size:12px;font-weight:700;color:var(--steel-light);}.service-route-dark .route-number{color:#9AA9BC;}
