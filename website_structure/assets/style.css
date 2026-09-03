@@ -449,7 +449,7 @@ body.menu-open > header{z-index:102;transform:translateY(0);}
 .contact-promise span{font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:.05em;}
 .contact-promise p{color:var(--steel);}
 .qform-positioning{padding:38px;background:var(--paper);box-shadow:0 22px 55px rgba(20,24,31,.06);}
-.service-choice-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.service-choice-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;}
 .service-choice-grid label{position:relative;margin:0;cursor:pointer;}
 .service-choice-grid input{position:absolute;opacity:0;pointer-events:none;}
 .service-choice-grid label>span{display:block;border:1px solid var(--line);padding:16px;min-height:86px;transition:border-color .15s,background .15s;}
