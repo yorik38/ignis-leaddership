@@ -409,6 +409,7 @@ body.menu-open > header{z-index:102;transform:translateY(0);}
 .rec-quote cite{font-style:normal;font-size:13px;font-weight:600;color:var(--paper);}
 .rec-quote cite span{display:block;margin-top:2px;font-size:12px;font-weight:500;color:#98C9CD;}
 .about-quote{font-family:'Source Serif 4',Georgia,serif;font-size:19px;line-height:1.4;font-style:italic;margin:20px 0 0;padding:2px 0 2px 20px;border-left:1px solid #65BDC2;color:var(--paper);max-width:28ch;}
+@media(min-width:981px){.about-quote{max-width:none;font-size:17.5px;}}
 
 .engagements-positioning{background:#F2F5F7;}
 .engagements-heading{max-width:760px;margin-bottom:52px;}
@@ -1360,4 +1361,33 @@ footer{border-top:1px solid var(--line);padding:48px 0 20px;}
   .footer-descriptor{max-width:none;text-align:center;}
   .footer-links{justify-content:center;width:100%;column-gap:18px;row-gap:8px;}
   .footer-mobile-break{display:block;flex-basis:100%;height:0;}
+}
+
+/* Compact horizontal contact form */
+.contact-intro-centered{position:static;max-width:760px;margin:0 auto 46px;text-align:center;}
+.contact-intro-centered h2{max-width:18ch;margin:18px auto 20px;}
+.contact-intro-centered>p{max-width:62ch;margin:0 auto;}
+.contact-single{max-width:1180px;margin:0 auto;}
+.qform.qform-positioning.qform-horizontal{padding:36px 38px;border-radius:0;}
+.qform-columns{display:grid;grid-template-columns:minmax(0,.94fr) minmax(0,1.06fr);gap:38px;align-items:start;}
+.qform .service-choice-fieldset{margin:0;padding:0 38px 0 0;border-right:1px solid var(--line);}
+.qform-details{min-width:0;}
+.form-required-note{margin:0 0 17px;color:var(--steel-light);font-size:11.5px;text-align:right;}
+.required-mark,.form-required-note span{color:var(--accent);font-weight:600;}
+.qform-horizontal .service-choice-grid{gap:9px;}
+.qform-horizontal .service-choice-grid label>span{padding:14px 15px;}
+.qform-horizontal .field-row{gap:16px;margin-bottom:17px;}
+.qform-horizontal .field{margin-bottom:17px;}
+.qform-horizontal .field-row .field{margin-bottom:0;}
+.qform-horizontal textarea{min-height:112px;}
+
+@media(max-width:900px){
+  .contact-intro-centered{margin-bottom:36px;}
+  .qform-columns{grid-template-columns:1fr;gap:30px;}
+  .qform .service-choice-fieldset{padding:0 0 30px;border-right:0;border-bottom:1px solid var(--line);}
+}
+@media(max-width:560px){
+  .qform.qform-positioning.qform-horizontal{padding:26px 20px;}
+  .contact-intro-centered{margin-bottom:30px;}
+  .form-required-note{text-align:left;}
 }
