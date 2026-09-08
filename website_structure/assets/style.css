@@ -102,7 +102,8 @@ body > header.header-hidden{transform:translateY(-100%);}
 .nav-links a.navlink:hover{color:var(--ink);}
 .nav-links a.navlink[aria-current="page"]{color:var(--ink);}
 .nav a.cta-link{
-  font-size:14px;font-weight:600;color:var(--white);background:var(--cta);
+  display:inline-flex;align-items:center;justify-content:center;white-space:nowrap;
+  font-family:'Inter',sans-serif;font-size:14px;font-weight:700;color:var(--white);background:var(--cta);
   padding:11px 20px;text-decoration:none;border-radius:3px;
   transition:background 0.15s ease;cursor:pointer;
 }
