@@ -1,5 +1,6 @@
 .newsletter-page{--newsletter-sans:'Inter',Arial,sans-serif;--newsletter-editorial:'Source Serif 4',Georgia,serif;--newsletter-page-title:clamp(40px,5.2vw,58px);--newsletter-standfirst:clamp(19px,2.2vw,22px);font-family:var(--newsletter-sans);}.newsletter-page,.newsletter-page main{background:#fff;color:var(--ink);}
 .newsletter-header{position:sticky;top:0;background:rgba(255,255,255,.94);border-bottom:1px solid var(--line);backdrop-filter:blur(8px);}
+.newsletter-header .nav-cta-arrow{display:inline-block;margin-left:7px;font-family:Arial,sans-serif;font-size:1.08em;font-weight:700;line-height:1;transform:translateY(-.02em);}
 .newsletter-nav{height:76px;display:flex;align-items:center;justify-content:space-between;}
 .newsletter-nav-cta{border:1px solid var(--ink);padding:11px 18px;text-decoration:none;font-size:14px;font-weight:600;}
 .newsletter-nav-cta:hover{background:var(--ink);color:#fff;}
