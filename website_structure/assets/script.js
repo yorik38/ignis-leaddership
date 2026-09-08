@@ -359,6 +359,55 @@ function initAiOpportunityTimeline(){
   observer.observe(timeline);
 }
 
+function initAiCardAccordion(){
+  var cards = Array.prototype.slice.call(document.querySelectorAll(".ai-opportunity-card"));
+  if (!cards.length || !window.matchMedia) return;
+
+  var mobile = window.matchMedia("(max-width: 680px)");
+
+  function setCard(card, expanded){
+    var button = card.querySelector(".ai-card-toggle");
+    var content = card.querySelector(".ai-card-content");
+    if (!button || !content) return;
+    button.setAttribute("aria-expanded", expanded ? "true" : "false");
+    card.classList.toggle("is-collapsed", !expanded);
+    if (expanded) {
+      content.removeAttribute("aria-hidden");
+      content.removeAttribute("inert");
+    } else {
+      content.setAttribute("aria-hidden", "true");
+      content.setAttribute("inert", "");
+    }
+  }
+
+  function applyMode(){
+    cards.forEach(function(card, index){
+      var button = card.querySelector(".ai-card-toggle");
+      if (!button) return;
+      if (mobile.matches) {
+        button.removeAttribute("tabindex");
+        setCard(card, index === 0);
+      } else {
+        button.setAttribute("tabindex", "-1");
+        setCard(card, true);
+      }
+    });
+  }
+
+  cards.forEach(function(card){
+    var button = card.querySelector(".ai-card-toggle");
+    if (!button) return;
+    button.addEventListener("click", function(){
+      if (!mobile.matches || button.getAttribute("aria-expanded") === "true") return;
+      cards.forEach(function(item){ setCard(item, item === card); });
+    });
+  });
+
+  if (mobile.addEventListener) mobile.addEventListener("change", applyMode);
+  else mobile.addListener(applyMode);
+  applyMode();
+}
+
 document.addEventListener("DOMContentLoaded", function(){
   initCookieBanner();
   initCalendly();
@@ -367,4 +416,5 @@ document.addEventListener("DOMContentLoaded", function(){
   initScrollAwareHeader();
   initLightbox();
   initAiOpportunityTimeline();
+  initAiCardAccordion();
 });
