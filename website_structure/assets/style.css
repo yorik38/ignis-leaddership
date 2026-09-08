@@ -396,6 +396,9 @@ body.menu-open > header{z-index:102;transform:translateY(0);}
 .about-narrative h2{color:var(--paper);font-size:clamp(34px,4vw,50px);max-width:15ch;margin:18px 0 25px;letter-spacing:-.035em;}
 .about-narrative>p{color:#C3CBD4;font-size:15.5px;max-width:62ch;}
 .about-narrative .about-lead{font-size:15.5px;color:#C3CBD4;font-family:'Inter',Arial,sans-serif;font-weight:400;}
+.about-linkedin{display:inline-flex;align-items:center;gap:8px;margin-top:13px;color:var(--accent);font-size:13.5px;font-weight:600;text-decoration:none;}
+.about-linkedin:hover{text-decoration:underline;text-underline-offset:4px;}
+.about-linkedin svg{width:17px;height:17px;flex:0 0 auto;}
 .experience-ledger{grid-column:1 / -1;grid-row:2;display:grid;grid-template-columns:repeat(4,1fr);margin:0;border-top:1px solid var(--line-onink);border-bottom:1px solid var(--line-onink);}
 .experience-ledger article{padding:21px 22px;border-right:1px solid var(--line-onink);}
 .experience-ledger article:last-child{border-right:0;}

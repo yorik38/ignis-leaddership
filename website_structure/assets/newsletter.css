@@ -5,7 +5,7 @@
 .newsletter-nav-cta:hover{background:var(--ink);color:#fff;}
 .newsletter-shell{width:min(820px,calc(100% - 48px));margin:0 auto;}
 .newsletter-hero{padding:76px 0;background:#fff;text-align:left;}
-.newsletter-hero-shell{width:min(1120px,calc(100% - 48px));display:grid;grid-template-columns:minmax(0,1.08fr) minmax(360px,.92fr);gap:72px;align-items:center;}
+.newsletter-hero-shell{width:min(1280px,calc(100% - 48px));display:grid;grid-template-columns:minmax(0,1.25fr) minmax(420px,.75fr);gap:64px;align-items:center;}
 .newsletter-hero-copy .eyebrow{display:block;margin-bottom:18px;}
 .newsletter-kicker{font-size:14px;font-weight:600;letter-spacing:normal;text-transform:none;color:var(--accent);margin-bottom:28px;}.newsletter-kicker span{font-family:'Source Serif 4',Georgia,serif;font-size:1.03em;font-style:italic;font-weight:500;letter-spacing:0;text-transform:none;}
 .newsletter-hero h1{font-size:clamp(34px,4.6vw,54px);line-height:1.12;letter-spacing:-.015em;margin:0 auto;max-width:20ch;text-wrap:balance;}
@@ -13,7 +13,7 @@
 .newsletter-lede{font-family:'Source Serif 4',Georgia,serif;font-size:clamp(19px,2.2vw,22px);line-height:1.5;color:var(--steel);max-width:650px;margin:18px auto 0;}
 .newsletter-hero-copy h1{margin:0;max-width:13ch;}
 .newsletter-hero-copy .newsletter-subhead{max-width:32ch;margin:24px 0 0;}
-.newsletter-hero-copy .newsletter-lede{max-width:39ch;margin:16px 0 0;font-size:18px;}
+.newsletter-hero-copy .newsletter-lede{max-width:62ch;margin:16px 0 0;font-size:18px;}
 .newsletter-hero-signup{background:var(--cta);color:#fff;padding:38px;box-shadow:0 22px 48px rgba(18,33,58,.12);}
 .newsletter-signup-title{margin:0;color:#fff;font-size:19px;font-weight:600;}
 .newsletter-hero-signup .subscribe-form{max-width:none;margin:22px 0 0;}
@@ -67,15 +67,20 @@
 .author-photo{width:76px;height:76px;object-fit:cover;border-radius:50%;filter:grayscale(.1);}
 .author-card h2{font-size:25px;margin:6px 0 7px;letter-spacing:-.025em;}
 .author-card p{color:var(--steel);margin:0;max-width:58ch;}
-.newsletter-final-signup{padding:72px 0;background:var(--cta);color:#fff;}
+.author-actions{display:flex;align-items:center;gap:10px 22px;flex-wrap:wrap;margin-top:18px;}
+.author-actions a,.author-actions button{display:inline-flex;align-items:center;gap:7px;border:0;background:transparent;padding:0;color:var(--accent);font:600 13px/1.3 Inter,sans-serif;text-decoration:none;cursor:pointer;}
+.author-actions a:hover,.author-actions button:hover{text-decoration:underline;text-underline-offset:4px;}
+.author-action-icon{width:16px;height:16px;flex:0 0 auto;}
+.author-card .author-share-status{min-height:18px;margin-top:8px;color:var(--accent);font:600 12px/1.4 Inter,sans-serif;}
+.newsletter-final-signup{padding:72px 0;background:#F2F5F7;color:var(--ink);}
 .final-signup-grid{display:grid;grid-template-columns:minmax(0,.82fr) minmax(420px,1.18fr);gap:72px;align-items:center;}
-.final-signup-copy .eyebrow{color:#8FD5D8;}
-.final-signup-copy h2{color:#fff;font-size:clamp(30px,4vw,42px);line-height:1.08;letter-spacing:-.03em;margin:14px 0 16px;max-width:15ch;}
-.final-signup-copy p{font-family:'Source Serif 4',Georgia,serif;font-size:18px;line-height:1.55;color:#C3CBD4;margin:0;max-width:46ch;}
+.final-signup-copy .eyebrow{color:var(--accent);}
+.final-signup-copy h2{color:var(--ink);font-size:clamp(30px,4vw,42px);line-height:1.08;letter-spacing:-.03em;margin:14px 0 16px;max-width:15ch;}
+.final-signup-copy p{font-family:'Source Serif 4',Georgia,serif;font-size:18px;line-height:1.55;color:var(--steel);margin:0;max-width:52ch;}
 .newsletter-final-signup .subscribe-form{max-width:none;margin:0;}
-.newsletter-final-signup .subscribe-fields{border-color:rgba(255,255,255,.35);}
-.newsletter-final-signup .subscribe-fields button{background:var(--accent);}
-.newsletter-final-signup .subscribe-promise{color:#BFC9D4;}
+.newsletter-final-signup .subscribe-fields{border-color:var(--ink);}
+.newsletter-final-signup .subscribe-fields button{background:var(--cta);}
+.newsletter-final-signup .subscribe-promise{color:var(--steel-light);}
 .newsletter-mid-signup{background:#fff;}.mid-signup-inner{border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:64px 0;display:grid;grid-template-columns:.8fr 1.2fr;gap:72px;align-items:center;}.mid-signup-copy h2{font-size:clamp(30px,4vw,42px);line-height:1.08;letter-spacing:-.03em;margin:14px 0 16px;}.mid-signup-copy p{font-family:'Source Serif 4',Georgia,serif;font-size:18px;line-height:1.55;color:var(--steel);margin:0;}.mid-signup-inner .subscribe-form{margin:0;max-width:none;}
 .upcoming-signup{border:1px solid var(--line);border-top:0;padding:48px;}
 .newsletter-page .newsletter-share{padding:0;background:var(--cta);}
