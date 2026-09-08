@@ -1283,8 +1283,14 @@ footer{background:var(--cta);border-top:1px solid var(--line-onink);padding:60px
 .footer-small{font-size:12px;color:#98A5B5;margin:13px 0 0;}
 
 @media(max-width:820px){
-  .footer-grid{grid-template-columns:1fr;gap:42px;}
-  .footer-sitemap{width:100%;}
+  .footer-grid{grid-template-columns:1fr;gap:42px;text-align:center;}
+  .footer-brand{max-width:none;margin:0 auto;}
+  .footer-brand-row{justify-content:center;flex-wrap:wrap;row-gap:6px;}
+  .footer-descriptor{max-width:28ch;text-align:center;}
+  .footer-small{text-align:center;}
+  .footer-sitemap{width:100%;max-width:420px;margin:0 auto;grid-template-columns:repeat(2,minmax(0,1fr));column-gap:36px;row-gap:32px;text-align:center;}
+  .footer-group{align-items:center;}
+  .footer-group:nth-child(3){grid-column:1 / -1;}
 }
 
 /* legal pages */
@@ -1379,12 +1385,13 @@ footer{background:var(--cta);border-top:1px solid var(--line-onink);padding:60px
   .calendly-inline-embed{width:100%;min-width:0;}
 
   footer{padding:48px 0 32px;}
-  .footer-grid{grid-template-columns:1fr;align-items:start;gap:38px;text-align:left;}
-  .footer-brand{max-width:none;}
-  .footer-brand-row{justify-content:flex-start;flex-wrap:wrap;row-gap:6px;}
-  .footer-descriptor{max-width:28ch;text-align:left;}
+  .footer-grid{grid-template-columns:1fr;align-items:start;gap:38px;text-align:center;}
   .footer-sitemap{grid-template-columns:repeat(2,minmax(0,1fr));column-gap:28px;row-gap:32px;max-width:320px;margin:0 auto;text-align:center;}
-  .footer-group{align-items:center;}
+}
+
+@media(max-width:360px){
+  .footer-sitemap{grid-template-columns:1fr;max-width:240px;}
+  .footer-group:nth-child(3){grid-column:auto;}
 }
 
 /* Compact horizontal contact form */
