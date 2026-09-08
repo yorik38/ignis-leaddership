@@ -42,3 +42,14 @@ https://www.ignisleadership.com/newsletter?source=linkedin&utm_source=linkedin&u
 Included now: branded landing page, mobile layout, double opt-in through a Kit form, newsletter and source tags, LinkedIn/email/copy-link sharing, spam honeypot, privacy link and clear success/error states.
 
 Later, only if growth warrants it: issue archive on the Ignis domain, preference centre, topic tags, lead magnet and a rewarded referral programme. Kit's native SparkLoop referral rewards require Creator Pro, so they are intentionally outside this first release.
+
+## Edition display rule
+
+Whenever a new issue is published:
+
+1. Make the new issue the single featured **Latest edition** on `insights.html`.
+2. Move the previous latest issue into **Past editions** and retain no more than the three most recent past issues there.
+3. Show the three most recent published issues in total on the homepage.
+4. Keep every published issue in the full archive.
+
+For example, when Issue 04 is published, the Insights page features Issue 04 and lists Issues 03, 02 and 01 beneath it. The homepage lists Issues 04, 03 and 02.
