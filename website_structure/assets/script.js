@@ -248,12 +248,78 @@ function initMobileMenu(){
   });
 
   window.addEventListener("resize", function(){
-    if (window.innerWidth > 640) closeMenu();
+    if (window.innerWidth > 1024) closeMenu();
   });
 }
 
 /* ---------------------------------------------------------------------
-   6) SCROLL-AWARE HEADER
+   6) HOMEPAGE DECISION STORY
+   Rotates the three stages in the large workflow panel. All essential
+   meaning remains visible in the selector copy, so motion is optional.
+   --------------------------------------------------------------------- */
+function initDecisionBento(){
+  var bento = document.querySelector("[data-decision-bento]");
+  if (!bento) return;
+
+  var buttons = Array.prototype.slice.call(bento.querySelectorAll("[data-stage]"));
+  if (!buttons.length) return;
+
+  var stages = buttons.map(function(button){ return button.getAttribute("data-stage"); });
+  var systemCopy = bento.querySelector("[data-stage-system]");
+  var humanCopy = bento.querySelector("[data-stage-human]");
+  var stageLabel = bento.querySelector("[data-stage-label]");
+  var stageOutcome = bento.querySelector("[data-stage-outcome]");
+  var stageLabel = bento.querySelector("[data-stage-label]");
+  var stageOutcome = bento.querySelector("[data-stage-outcome]");
+  var activeIndex = 0;
+  var timer = null;
+  var reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  function selectStage(index){
+    activeIndex = (index + stages.length) % stages.length;
+    bento.setAttribute("data-active-stage", stages[activeIndex]);
+    buttons.forEach(function(button, buttonIndex){
+      var isActive = buttonIndex === activeIndex;
+      button.classList.toggle("active", isActive);
+      button.setAttribute("aria-pressed", isActive ? "true" : "false");
+    });
+    if (systemCopy) systemCopy.textContent = buttons[activeIndex].getAttribute("data-system") || "";
+    if (humanCopy) humanCopy.textContent = buttons[activeIndex].getAttribute("data-human") || "";
+    if (stageLabel) stageLabel.textContent = buttons[activeIndex].getAttribute("data-label") || "";
+    if (stageOutcome) stageOutcome.textContent = buttons[activeIndex].getAttribute("data-outcome") || "";
+  }
+
+  function stopRotation(){
+    if (timer) window.clearInterval(timer);
+    timer = null;
+  }
+
+  function startRotation(){
+    if (reduceMotion || timer) return;
+    timer = window.setInterval(function(){ selectStage(activeIndex + 1); }, 7200);
+  }
+
+  buttons.forEach(function(button, index){
+    button.addEventListener("click", function(){
+      stopRotation();
+      selectStage(index);
+      startRotation();
+    });
+  });
+
+  bento.addEventListener("pointerenter", stopRotation);
+  bento.addEventListener("pointerleave", startRotation);
+  bento.addEventListener("focusin", stopRotation);
+  bento.addEventListener("focusout", function(event){
+    if (!bento.contains(event.relatedTarget)) startRotation();
+  });
+
+  selectStage(0);
+  startRotation();
+}
+
+/* ---------------------------------------------------------------------
+   7) SCROLL-AWARE HEADER
    Keeps the navigation available without occupying the screen while the
    visitor is reading. It hides on downward movement, returns immediately
    on upward movement, and returns shortly after scrolling stops.
@@ -300,7 +366,7 @@ function initScrollAwareHeader(){
 }
 
 /* ---------------------------------------------------------------------
-   7) ARCHITECTURE DIAGRAM: tap/click to enlarge in a lightbox
+   8) ARCHITECTURE DIAGRAM: tap/click to enlarge in a lightbox
    The diagram is dense, so on small screens it's shown as a thumbnail
    that opens full-size (native resolution, pan/pinch-zoom) on tap.
    --------------------------------------------------------------------- */
@@ -343,6 +409,7 @@ document.addEventListener("DOMContentLoaded", function(){
   initCalendly();
   initForm();
   initMobileMenu();
+  initDecisionBento();
   initScrollAwareHeader();
   initLightbox();
 });
