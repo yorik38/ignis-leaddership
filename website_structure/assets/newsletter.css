@@ -144,3 +144,8 @@
   .issue-feature{width:calc(100% - 32px);margin:24px auto 18px;}.issue-feature img{aspect-ratio:16/9;}.archive-edition-link{grid-template-columns:104px 1fr auto;gap:16px;}.archive-edition-image{width:104px;}.archive-edition-meta{font-size:11px;gap:8px;}.archive-edition h2{font-size:19px;margin-top:7px;}.archive-edition p{display:none;}.archive-edition-arrow{font-size:22px;}.issue-shell,.issue-hero .issue-shell,.issue-body .issue-shell{width:min(100% - 32px,720px)}.issue-hero{padding:58px 0 36px;}.issue-hero h1{font-size:clamp(34px,10.5vw,42px);line-height:1.02;}.mobile-title-break{display:block;}.issue-byline{align-items:flex-start;flex-wrap:wrap;}.issue-share-wrap{width:100%;margin:10px 0 0;text-align:left;}.issue-share{justify-content:flex-start;}.issue-body p{font-size:18px;}.issue-article-content>h2{font-size:27px;margin:44px 0 18px;}.issue-pullquote{font-size:25px;margin:38px 0;padding-left:20px;}.issue-author-bio{grid-template-columns:60px 1fr;gap:18px;}.issue-author-bio img{width:60px;height:60px;}.newsletter-hero .newsletter-shell,.newsletter-editions-shell{width:100%;padding-left:32px;padding-right:32px;}
 }
 @media(max-width:520px){.newsletter-final-signup .final-signup-form{padding:22px;}.final-signup-fields input{border-bottom:1px solid var(--line);}.final-signup-fields button{padding:16px;}}
+
+/* Shared article ending: signup first, then related editions. */
+.issue-end-newsletter{background:#fff;border-top:1px solid var(--line);}
+.issue-end-newsletter .issue-continue{margin-top:64px;}
+@media(max-width:520px){.issue-end-newsletter .issue-continue{margin-top:48px;}}
