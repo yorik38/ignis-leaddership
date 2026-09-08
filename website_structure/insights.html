@@ -27,7 +27,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Source+Serif+4:ital,wght@0,500;1,500;1,600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/style.css?v=26">
-<link rel="stylesheet" href="assets/newsletter.css?v=11">
+<link rel="stylesheet" href="assets/newsletter.css?v=13">
 <link rel="icon" href="/favicon.ico?v=3" sizes="any">
 </head>
 <body class="newsletter-page" data-share-url="https://www.ignisleadership.com/insights?utm_source=reader&amp;utm_medium=referral" data-share-title="Bid More. Win More. — practical thinking for stronger bids.">
@@ -120,14 +120,12 @@
     <div class="newsletter-shell newsletter-editions-shell final-signup-grid">
       <div class="final-signup-copy">
         <span class="eyebrow">Do not miss the next edition</span>
-        <h2 id="final-signup-title">Get Bid More. Win More. in your inbox every week.</h2>
-        <p>Weekly practical thinking on the decisions, workflows and human-machine practices behind stronger bids.</p>
+        <h2 id="final-signup-title">Bid More. Win More.</h2>
+        <p>A weekly newsletter for leaders accountable for profitable growth through complex bids. Practical thinking on the decisions, workflows and human-machine practices behind stronger bids.</p>
       </div>
-      <form class="subscribe-form" data-newsletter-form action="/api/subscribe" method="POST" novalidate>
-        <div class="subscribe-fields">
-          <label class="sr-only" for="final-subscriber-name">First name</label>
-          <input id="final-subscriber-name" name="first_name" type="text" autocomplete="given-name" placeholder="First name">
-          <label class="sr-only" for="final-subscriber-email">Email address</label>
+      <form class="subscribe-form final-signup-form" data-newsletter-form action="/api/subscribe" method="POST" novalidate>
+        <label for="final-subscriber-email">Get Bid More. Win More. in your inbox every week.</label>
+        <div class="final-signup-fields">
           <input id="final-subscriber-email" name="email" type="email" autocomplete="email" inputmode="email" placeholder="Work email" required>
           <button type="submit">Subscribe <span aria-hidden="true">→</span></button>
         </div>
