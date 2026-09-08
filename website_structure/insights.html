@@ -110,47 +110,33 @@
         <div><span class="eyebrow">A note from Yorik</span><h2>I read every reply.</h2><p>If there is a bid challenge you want me to explore, or you disagree with something I have written, reply and tell me. The best editions start with a real question from the work.</p></div>
       </div>
 
-      <div class="mid-signup-inner upcoming-signup" aria-labelledby="future-signup-title">
-        <div class="mid-signup-copy">
-          <span class="eyebrow">Do not miss the next edition</span>
-          <h2 id="future-signup-title">Get the ideas while they are taking shape.</h2>
-          <p>Join Bid more. Win more. for practical field notes on the decisions, workflows and knowledge systems behind stronger bids.</p>
+    </div>
+  </section>
+
+  <section class="newsletter-final-signup" aria-labelledby="final-signup-title">
+    <div class="newsletter-shell newsletter-editions-shell final-signup-grid">
+      <div class="final-signup-copy">
+        <span class="eyebrow">Do not miss the next edition</span>
+        <h2 id="final-signup-title">Get the next idea in your inbox.</h2>
+        <p>One practical field note each week on better bid decisions, stronger workflows and human-machine practice.</p>
+      </div>
+      <form class="subscribe-form" data-newsletter-form action="/api/subscribe" method="POST" novalidate>
+        <div class="subscribe-fields">
+          <label class="sr-only" for="final-subscriber-name">First name</label>
+          <input id="final-subscriber-name" name="first_name" type="text" autocomplete="given-name" placeholder="First name">
+          <label class="sr-only" for="final-subscriber-email">Email address</label>
+          <input id="final-subscriber-email" name="email" type="email" autocomplete="email" inputmode="email" placeholder="Work email" required>
+          <button type="submit">Subscribe <span aria-hidden="true">→</span></button>
         </div>
-        <form class="subscribe-form" data-newsletter-form action="/api/subscribe" method="POST" novalidate>
-          <div class="subscribe-fields">
-            <label class="sr-only" for="future-subscriber-name">First name</label>
-            <input id="future-subscriber-name" name="first_name" type="text" autocomplete="given-name" placeholder="First name">
-            <label class="sr-only" for="future-subscriber-email">Email address</label>
-            <input id="future-subscriber-email" name="email" type="email" autocomplete="email" inputmode="email" placeholder="Work email" required>
-            <button type="submit">Subscribe <span aria-hidden="true">→</span></button>
-          </div>
-          <input type="hidden" name="source" value="website">
-          <input class="honeypot" type="text" name="company_website" tabindex="-1" autocomplete="off" aria-hidden="true">
-          <p class="subscribe-promise">Unsubscribe anytime.</p>
-          <p class="subscribe-status" role="status" aria-live="polite"></p>
-        </form>
-      </div>
+        <input type="hidden" name="source" value="website">
+        <input class="honeypot" type="text" name="company_website" tabindex="-1" autocomplete="off" aria-hidden="true">
+        <p class="subscribe-promise">Unsubscribe anytime.</p>
+        <p class="subscribe-status" role="status" aria-live="polite"></p>
+      </form>
     </div>
   </section>
 
-  <section class="newsletter-manifesto">
-    <div class="newsletter-shell newsletter-editions-shell manifesto-grid">
-      <div>
-        <span class="eyebrow">What lands in your inbox</span>
-        <h2>Useful thinking for the work behind the win.</h2>
-      </div>
-      <div class="manifesto-copy">
-        <p>I combine my experience leading complex bids with coaching and agentic AI workflows to help bid teams identify and develop valuable, practical AI use cases that fit how they actually work.</p>
-        <ul>
-          <li>Field notes from building AI-augmented bid workflows</li>
-          <li>Clear operating models, prompts and practical examples</li>
-          <li>Lessons on adoption, governance and human judgement</li>
-        </ul>
-      </div>
-    </div>
-  </section>
-
-  <section class="newsletter-share" aria-labelledby="share-title">
+  <section class="newsletter-share" aria-labelledby="share-title" hidden>
     <div class="newsletter-shell newsletter-editions-shell share-card">
       <div>
         <span class="eyebrow">Know someone who would value this?</span>
