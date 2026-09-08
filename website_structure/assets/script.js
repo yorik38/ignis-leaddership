@@ -174,6 +174,23 @@ function initCheckboxGroupValidation(form, fieldName, message){
   sync();
 }
 
+function initServiceRouteSelection(){
+  var routes = document.querySelectorAll("[data-service-interest]");
+  var choices = document.querySelectorAll('input[name="service_interest"]');
+  if (!routes.length || !choices.length) return;
+
+  Array.prototype.forEach.call(routes, function(route){
+    route.addEventListener("click", function(){
+      var requestedValue = route.getAttribute("data-service-interest");
+      Array.prototype.forEach.call(choices, function(choice){
+        if (choice.value !== requestedValue) return;
+        choice.checked = true;
+        choice.dispatchEvent(new Event("change", { bubbles: true }));
+      });
+    });
+  });
+}
+
 function initForm(){
   var form = document.getElementById("qualify-form");
   if (!form) return;
@@ -213,7 +230,7 @@ function initForm(){
       statusEl.style.display = "block";
     }).finally(function(){
       submitBtn.disabled = false;
-      submitBtn.textContent = "Send to Yorik";
+      submitBtn.textContent = "Send your enquiry →";
     });
   });
 }
@@ -412,6 +429,7 @@ document.addEventListener("DOMContentLoaded", function(){
   initCookieBanner();
   initCalendly();
   initForm();
+  initServiceRouteSelection();
   initMobileMenu();
   initScrollAwareHeader();
   initLightbox();
