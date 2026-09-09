@@ -73,7 +73,7 @@
 .author-actions a:hover{border-color:var(--accent);background:var(--tint);transform:translateY(-1px);}
 .author-actions a:focus-visible{outline:2px solid var(--accent);outline-offset:2px;}
 .author-action-icon{width:17px;height:17px;flex:0 0 auto;}
-.newsletter-final-signup{padding:72px 0;background:#F2F5F7;color:var(--ink);}
+.newsletter-final-signup{padding:72px 0;background:#EEF3F7;color:var(--ink);}
 .final-signup-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:84px;align-items:center;}
 .final-signup-copy .eyebrow{color:var(--accent);}
 .final-signup-copy .eyebrow{display:block;margin-bottom:14px;}
@@ -146,6 +146,6 @@
 @media(max-width:520px){.newsletter-final-signup .final-signup-form{padding:22px;}.final-signup-fields input{border-bottom:1px solid var(--line);}.final-signup-fields button{padding:16px;}}
 
 /* Shared article ending: signup first, then related editions. */
-.issue-end-newsletter{background:#fff;border-top:1px solid var(--line);}
+.issue-end-newsletter{background:#EEF3F7;border-top:1px solid var(--line);}
 .issue-end-newsletter .issue-continue{margin-top:64px;}
 @media(max-width:520px){.issue-end-newsletter .issue-continue{margin-top:48px;}}
