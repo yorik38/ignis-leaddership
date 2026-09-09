@@ -28,10 +28,10 @@
 .resource-page{background:#fff;}
 .resource-shell{width:min(1140px,calc(100% - 64px));margin:0 auto;}
 .resource-hero{padding:92px 0;background:#fff;}
-.resource-breadcrumb{display:flex;align-items:center;gap:8px;color:var(--steel);font-size:10.5px;font-weight:700;letter-spacing:.075em;text-transform:uppercase;}
+.resource-breadcrumb{display:flex;align-items:center;gap:8px;margin-bottom:24px;color:var(--steel);font-size:13px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;}
 .resource-breadcrumb a{color:var(--accent);text-decoration:none;}
 .resource-breadcrumb a:hover{text-decoration:underline;text-underline-offset:4px;}
-.resource-hero-grid{display:grid;grid-template-columns:minmax(0,1.12fr) minmax(360px,.88fr);gap:72px;align-items:center;margin-top:34px;}
+.resource-hero-grid{display:grid;grid-template-columns:minmax(0,1.12fr) minmax(360px,.88fr);gap:72px;align-items:center;}
 .resource-hero-copy{padding-top:0;}
 .resource-hero-copy .eyebrow{display:block;margin-bottom:24px;font-size:13px;letter-spacing:.12em;}
 .resource-hero-copy h1{max-width:15ch;margin:0;font-family:'Inter',sans-serif;font-size:clamp(42px,5vw,66px);font-weight:600;line-height:1.03;letter-spacing:-.042em;text-wrap:balance;}
@@ -66,16 +66,16 @@
 .resource-reframe span{display:block;margin-bottom:9px;color:var(--accent);font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;}
 .resource-reframe strong{font-size:21px;line-height:1.4;}
 
-.resource-how{padding:60px 0;background:var(--cta);color:#fff;}
+.resource-how{padding:60px 0;background:#fff;color:var(--ink);border-top:1px solid var(--line);border-bottom:1px solid var(--line);}
 .resource-how-grid{display:grid;grid-template-columns:minmax(220px,.72fr) minmax(0,1.28fr);gap:70px;align-items:start;}
-.resource-how h2{color:#fff;font-size:35px;line-height:1.08;margin:12px 0 14px;}
-.resource-how .eyebrow{color:#9FC4E8;}
-.resource-how p{margin:0;color:rgba(255,255,255,.74);font-size:14px;max-width:44ch;}
-.resource-state-list{display:grid;grid-template-columns:repeat(3,1fr);border:1px solid rgba(255,255,255,.22);}
-.resource-state-list div{padding:23px;border-right:1px solid rgba(255,255,255,.22);}
+.resource-how h2{color:var(--ink);font-size:35px;line-height:1.08;margin:12px 0 14px;}
+.resource-how .eyebrow{color:var(--accent);}
+.resource-how p{margin:0;color:var(--steel);font-size:14px;max-width:44ch;}
+.resource-state-list{display:grid;grid-template-columns:repeat(3,1fr);border:1px solid var(--line);}
+.resource-state-list div{padding:23px;border-right:1px solid var(--line);}
 .resource-state-list div:last-child{border-right:0;}
-.resource-state-list strong{display:block;margin-bottom:8px;color:#B9DDE0;font-size:11px;letter-spacing:.08em;text-transform:uppercase;}
-.resource-state-list span{display:block;color:rgba(255,255,255,.8);font-size:12px;line-height:1.5;}
+.resource-state-list strong{display:block;margin-bottom:8px;color:var(--accent);font-size:11px;letter-spacing:.08em;text-transform:uppercase;}
+.resource-state-list span{display:block;color:var(--steel);font-size:12px;line-height:1.5;}
 
 .diagnostic-assessment{padding:100px 0;background:#fff;}
 .diagnostic-heading{display:grid;grid-template-columns:.7fr 1.3fr;gap:70px;align-items:end;margin-bottom:46px;}
@@ -91,7 +91,7 @@
 .diagnostic-prompt{margin:25px 0 0;padding:18px 20px;background:var(--tint);border-left:2px solid var(--accent);font-size:13px;line-height:1.52;}
 .diagnostic-prompt strong{display:block;margin-bottom:5px;color:var(--accent);font-size:9.5px;letter-spacing:.09em;text-transform:uppercase;}
 
-.resource-pattern{padding:90px 0;background:var(--tint);}
+.resource-pattern{padding:90px 0;background:#fff;border-top:1px solid var(--line);border-bottom:1px solid var(--line);}
 .resource-pattern-grid{display:grid;grid-template-columns:minmax(250px,.75fr) minmax(0,1.25fr);gap:75px;align-items:start;}
 .resource-pattern h2{font-size:clamp(35px,4.2vw,49px);line-height:1.05;letter-spacing:-.04em;margin:14px 0 21px;max-width:13ch;}
 .resource-pattern-copy>p{font-family:'Source Serif 4',Georgia,serif;font-size:19px;line-height:1.65;color:var(--steel);margin:0;max-width:54ch;}
@@ -110,7 +110,7 @@
 .use-case-filter span{display:block;color:var(--accent);font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;}
 .use-case-filter p{margin:8px 0 0;color:#263140;font-size:12px;line-height:1.45;}
 
-.test-canvas{padding:96px 0;background:#F1F4F6;}
+.test-canvas{padding:96px 0;background:#fff;border-top:1px solid var(--line);}
 .test-canvas-heading{display:flex;justify-content:space-between;gap:60px;align-items:end;margin-bottom:40px;}
 .test-canvas-heading h2{font-size:clamp(36px,4.4vw,50px);line-height:1.06;letter-spacing:-.04em;margin:14px 0 0;max-width:14ch;}
 .test-canvas-heading p{max-width:48ch;margin:0;color:var(--steel);font-size:15px;}
@@ -141,7 +141,7 @@
 .whitepaper-next-card p{margin:0;color:var(--steel);font-size:12px;line-height:1.5;}
 .whitepaper-next-button{grid-column:2;display:inline-block;margin-top:5px;color:var(--accent);font-size:10px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;}
 
-.resource-conversation{padding:76px 0;background:var(--tint);border-top:1px solid var(--line);border-bottom:1px solid var(--line);}
+.resource-conversation{padding:76px 0;background:#fff;border-top:1px solid var(--line);border-bottom:1px solid var(--line);}
 .resource-conversation-grid{display:grid;grid-template-columns:1fr auto;gap:50px;align-items:center;}
 .resource-conversation h2{font-size:clamp(31px,4vw,44px);line-height:1.08;letter-spacing:-.035em;margin:12px 0 13px;max-width:18ch;}
 .resource-conversation p{margin:0;color:var(--steel);max-width:65ch;}
@@ -188,7 +188,7 @@
   .resource-intro,.diagnostic-assessment,.first-use-case,.test-canvas,.resource-download,.resource-related{padding:72px 0;}
   .resource-how{padding:54px 0;}
   .resource-state-list{grid-template-columns:1fr;}
-  .resource-state-list div{border-right:0;border-bottom:1px solid rgba(255,255,255,.22);}
+  .resource-state-list div{border-right:0;border-bottom:1px solid var(--line);}
   .resource-state-list div:last-child{border-bottom:0;}
   .diagnostic-grid,.test-canvas-grid,.resource-related-grid{grid-template-columns:1fr;}
   .use-case-filter{grid-template-columns:1fr;}

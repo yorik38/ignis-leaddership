@@ -1518,7 +1518,7 @@ footer{background:var(--cta);border-top:1px solid var(--line-onink);padding:60px
 }
 
 /* Governed framework link and diagnostic poster preview */
-.governed-resource-cta{display:flex;align-items:center;justify-content:flex-end;gap:36px;margin-top:26px;padding-top:22px;border-top:1px solid var(--line);}
+.governed-resource-cta{display:flex;align-items:center;justify-content:center;gap:36px;margin-top:26px;padding-top:22px;border-top:1px solid var(--line);}
 .governed-resource-cta p{max-width:760px;margin:0;color:var(--steel);font-size:14px;line-height:1.6;}
 .governed-resource-cta p strong{color:var(--ink);}
 .governed-resource-cta a{flex:0 0 auto;color:var(--accent);font-size:13px;font-weight:700;text-decoration:none;}
@@ -1551,7 +1551,7 @@ footer{background:var(--cta);border-top:1px solid var(--line-onink);padding:60px
 .diagnostic-mini-framework{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;}
 .diagnostic-mini-framework span{padding:10px 7px;background:rgba(255,255,255,.1);font-size:9px;line-height:1.2;text-align:center;}
 .diagnostic-mini-footer{margin-top:auto;padding-top:22px;border-top:1px solid rgba(255,255,255,.24);color:#B9DDE0;font-size:10px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;}
-@media(max-width:700px){.governed-resource-cta{align-items:flex-start;flex-direction:column;gap:14px;}}
+@media(max-width:700px){.governed-resource-cta{align-items:center;flex-direction:column;gap:14px;}}
 @media(max-width:520px){
   .diagnostic-mini-poster{min-height:450px;padding:26px;}
   .diagnostic-mini-poster h3{font-size:31px;}
