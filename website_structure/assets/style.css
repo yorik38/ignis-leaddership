@@ -1518,7 +1518,7 @@ footer{background:var(--cta);border-top:1px solid var(--line-onink);padding:60px
 }
 
 /* Governed framework link and diagnostic poster preview */
-.governed-resource-cta{display:flex;align-items:center;justify-content:space-between;gap:36px;margin-top:26px;padding-top:22px;border-top:1px solid var(--line);}
+.governed-resource-cta{display:flex;align-items:center;justify-content:flex-end;gap:36px;margin-top:26px;padding-top:22px;border-top:1px solid var(--line);}
 .governed-resource-cta p{max-width:760px;margin:0;color:var(--steel);font-size:14px;line-height:1.6;}
 .governed-resource-cta p strong{color:var(--ink);}
 .governed-resource-cta a{flex:0 0 auto;color:var(--accent);font-size:13px;font-weight:700;text-decoration:none;}
