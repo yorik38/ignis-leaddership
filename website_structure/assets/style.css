@@ -1491,3 +1491,69 @@ footer{background:var(--cta);border-top:1px solid var(--line-onink);padding:60px
   .contact-intro-centered{margin-bottom:30px;}
   .form-required-note{text-align:left;}
 }
+
+/* Homepage diagnostic resource teaser */
+.home-diagnostic-teaser{
+  padding:104px 0;
+  background:var(--tint);
+  border-top:1px solid var(--line-soft);
+  border-bottom:1px solid var(--line-soft);
+}
+.home-diagnostic-grid{
+  display:grid;
+  grid-template-columns:minmax(300px,.82fr) minmax(0,1fr);
+  gap:clamp(56px,8vw,112px);
+  align-items:center;
+}
+.home-diagnostic-visual{
+  display:block;
+  max-width:430px;
+  color:inherit;
+  text-decoration:none;
+  transition:transform .22s ease;
+}
+.home-diagnostic-visual:hover{transform:translateY(-4px);}
+.diagnostic-mini-poster{
+  min-height:520px;
+  padding:34px;
+  display:flex;
+  flex-direction:column;
+  color:var(--white);
+  background:linear-gradient(145deg,#12213A 0%,#1B3A63 68%,#17616A 100%);
+  box-shadow:0 28px 60px rgba(18,33,58,.18);
+}
+.diagnostic-mini-header{
+  display:flex;
+  justify-content:space-between;
+  gap:18px;
+  padding-bottom:18px;
+  border-bottom:1px solid rgba(255,255,255,.24);
+  font-size:10px;
+  letter-spacing:.13em;
+  text-transform:uppercase;
+}
+.diagnostic-mini-header strong{font-weight:600;color:#B9DDE0;}
+.diagnostic-mini-poster h3{max-width:11ch;margin:36px 0 16px;color:var(--white);font-size:36px;line-height:1.02;}
+.diagnostic-mini-poster>p{max-width:31ch;margin:0;color:rgba(255,255,255,.78);font-size:13px;line-height:1.55;}
+.diagnostic-mini-flow{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin:32px 0 12px;}
+.diagnostic-mini-flow span{padding:10px 7px;border:1px solid rgba(255,255,255,.28);font-size:10px;font-weight:700;letter-spacing:.08em;text-align:center;text-transform:uppercase;}
+.diagnostic-mini-framework{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;}
+.diagnostic-mini-framework span{padding:10px 7px;background:rgba(255,255,255,.1);font-size:9px;line-height:1.2;text-align:center;}
+.diagnostic-mini-footer{margin-top:auto;padding-top:22px;border-top:1px solid rgba(255,255,255,.24);color:#B9DDE0;font-size:10px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;}
+.home-diagnostic-copy{max-width:620px;}
+.home-diagnostic-copy h2{max-width:14ch;margin:17px 0 22px;}
+.home-diagnostic-copy>p{max-width:56ch;margin:0 0 16px;color:var(--steel);font-size:18px;line-height:1.7;}
+.home-diagnostic-copy .home-diagnostic-detail{margin-bottom:31px;color:var(--ink);font-size:14px;}
+
+@media(max-width:860px){
+  .home-diagnostic-teaser{padding:76px 0;}
+  .home-diagnostic-grid{grid-template-columns:1fr;gap:48px;}
+  .home-diagnostic-visual{max-width:390px;}
+}
+@media(max-width:520px){
+  .home-diagnostic-teaser{padding:64px 0;}
+  .diagnostic-mini-poster{min-height:450px;padding:26px;}
+  .diagnostic-mini-poster h3{font-size:31px;}
+  .diagnostic-mini-header{font-size:8.5px;}
+  .home-diagnostic-copy>p{font-size:16px;}
+}
