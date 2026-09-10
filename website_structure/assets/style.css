@@ -59,7 +59,11 @@ h1,h2,h3,h4{
 }
 .wrap{max-width:1140px;margin:0 auto;padding:0 32px;}
 a{color:inherit;}
-img{max-width:100%;display:block;}
+/* height:auto is required. Images now carry width/height attributes to reserve
+   layout space and prevent CLS, and those attributes act as presentational hints
+   that would otherwise fix the rendered height in pixels, defeating any CSS
+   aspect-ratio or container-driven sizing. */
+img{max-width:100%;height:auto;display:block;}
 
 ::selection{background:var(--accent);color:var(--white);}
 
@@ -272,7 +276,7 @@ body.menu-open > header{z-index:102;transform:translateY(0);}
 .positioning-home .new-hero{padding:92px 0 0;}
 .hero-positioning-grid{display:grid;grid-template-columns:minmax(0,1.12fr) minmax(360px,.88fr);gap:72px;align-items:center;}
 .hero-positioning-copy .eyebrow{display:block;margin-bottom:24px;font-size:13px;letter-spacing:.12em;}
-.hero-positioning-copy h1{font-size:clamp(42px,5vw,66px);line-height:1.03;max-width:15ch;letter-spacing:-.042em;}
+.hero-positioning-copy h1{font-size:clamp(38px,4.4vw,58px);line-height:1.04;max-width:20ch;letter-spacing:-.038em;}
 .hero-positioning-copy .hero-sub{max-width:61ch;font-size:18px;margin-top:26px;}
 .hero-positioning-copy .hero-bridge{font-size:15px;color:var(--steel);max-width:58ch;margin:17px 0 0;padding-left:17px;border-left:2px solid var(--accent);}
 .hero-ai-visual{background:#F2F5F7;border:1px solid var(--line);padding:28px;align-self:center;box-shadow:0 24px 60px rgba(20,24,31,.07);}
@@ -427,7 +431,7 @@ body.menu-open > header{z-index:102;transform:translateY(0);}
 .about-positioning-grid{display:grid;grid-template-columns:minmax(0,1.18fr) minmax(280px,.82fr);column-gap:72px;row-gap:44px;align-items:start;}
 .about-narrative{grid-column:1;grid-row:1;}
 .about-portrait{grid-column:2;grid-row:1;position:static;max-width:330px;justify-self:end;}
-.about-portrait img{width:100%;aspect-ratio:4 / 4.35;object-fit:cover;filter:saturate(.82);}
+.about-portrait img{display:block;width:100%;height:auto;aspect-ratio:4 / 4.35;object-fit:cover;filter:saturate(.82);}
 .about-narrative .eyebrow{color:#98C9CD;}
 .about-narrative h2{color:var(--paper);font-size:clamp(34px,4vw,50px);max-width:15ch;margin:18px 0 25px;letter-spacing:-.035em;}
 .about-narrative>p{color:#C3CBD4;font-size:15.5px;max-width:62ch;}
