@@ -32,6 +32,26 @@
       "source": "/:path*.html",
       "destination": "/:path*",
       "permanent": true
+    },
+    {
+      "source": "/old-home",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/coaching/1-1-transformation",
+      "destination": "/services",
+      "permanent": true
+    },
+    {
+      "source": "/coaching/:slug*",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/5-mental-fitness-techniques",
+      "destination": "/insights",
+      "permanent": true
     }
   ]
 }

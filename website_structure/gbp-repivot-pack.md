@@ -132,7 +132,7 @@ Use the appointment link field for your discovery call booking URL if you have o
 
 ---
 
-## 8. Posts, Q&A and reviews
+## 8. Posts, reviews and the AI answer layer
 
 **Posts.** Aim for one a fortnight, recycled from the insights you are already writing. Limit is 1,500 characters but only the first 150 or so show, so front-load. Three to start:
 
@@ -142,21 +142,17 @@ Use the appointment link field for your discovery call booking URL if you have o
 
 > *Choosing your first AI bid use case.* The instinct is to start with writing. It is usually the wrong call. A short guide to assessing candidate use cases against value, feasibility, data readiness and risk, so your first project earns the mandate for the second.
 
-**Q&A.** Seed these yourself, then answer them from your own account. Google allows this and it is one of the few underused fields left.
+**Q&A is gone. Do not look for it.** Google discontinued Business Profile Q&A: the API was switched off on 3 November 2025, the public section began phasing out on 3 December 2025, and existing Q&A content is frozen and being progressively deleted. There is no button to find. It has been replaced by AI-generated answers, drawn from your profile, your reviews and your website, surfaced through Ask Maps and similar Gemini-backed features.
 
-1. What does Ignis Leadership do? *(answer: the strapline, then the four connected areas)*
-2. What does a discovery engagement involve? *(answer: assessing the bid practice, finding the friction, prioritising where AI, process or capability changes would create value)*
-3. Do you build the AI solutions or just advise? *(answer: both. We prototype and implement, or work alongside your own technology teams where that capability exists)*
-4. Do you replace bid teams with AI? *(answer: no. Bid leadership first, AI applied with judgement, human decision gates throughout)*
-5. Do you work with organisations outside Manchester? *(answer: yes, North West, UK and internationally, most work delivered remotely with onsite workshops)*
-6. What sectors do you work in? *(answer: energy, infrastructure, industrial and other complex, technical and regulated environments)*
-7. Is there a standard package? *(answer: no fixed solution. We listen, understand and shape the right combination of advisory, technology and people development)*
+That change makes three things more important, not less. Your description and service fields are now feeding an answer engine rather than sitting in a box a customer might click. Your reviews are now training data for what Google says about you when someone asks. And the questions I drafted for seeding still have a home, just not here: put them on the website as a genuine FAQ section with FAQPage schema, where both Google and the AI assistants you have welcomed in robots.txt can read them. That is the substitute, and it is a better asset than the Q&A box ever was because you own it.
+
+Questions worth answering there: what Ignis Leadership does, what a discovery engagement involves, whether you build the AI solutions or only advise, whether you replace bid teams with AI, which sectors you work in, whether there is a standard package, and whether you work outside Manchester.
 
 **Reviews.** You have zero, and this is your biggest single gap. Ten reviews from named senior people at recognisable organisations would do more for your credibility than every other item in this document combined. Ask five former colleagues from bp, RWE or Bouygues, and any client from the coaching era whose feedback still transfers to leadership and judgement.
 
 Wording to send:
 
-> Hi [name], I have repositioned Ignis around bid practice transformation, helping organisations redesign how their people and AI agents work across complex bids. Google reviews carry real weight for a small consultancy and I have none yet. Would you be willing to leave a short one about working with me on [specific bid or programme]? Two or three lines is plenty. Link: [your review link]
+> Hi [name], I have repositioned Ignis around helping organisations improve how they lead, pursue and win complex, high-value opportunities. Google reviews carry real weight for a small consultancy and I have none yet, and they now feed what Google's AI says about the business when someone asks. Would you be willing to leave a short one about working with me on [specific bid or programme]? Two or three lines is plenty. Link: [your review link]
 
 Grab the link from the "Ask for reviews" button already on your dashboard.
 
@@ -187,5 +183,7 @@ Then run the three old URLs through Search Console's URL Inspection tool and req
 4. Paste the description. *(2 minutes)*
 5. Add the four services, plus any optional extras. *(20 minutes, do it in one sitting)*
 6. Send five review requests. *(20 minutes, highest long-term value)*
-7. Seed the Q&A, publish the first post. *(20 minutes)*
-8. Photos: replace anything coaching-branded. The headshot works. The exterior shot of the house should go once the address is hidden.
+7. Publish the first post. Add an FAQ section to the website separately. *(20 minutes)*
+8. Photos: replace anything coaching-branded. The headshot works.
+
+**On the map and street imagery.** The map tile and the "See outside" view of the house are generated by Google from the address, not uploaded by you, so there is no delete button for them. They disappear on their own as the address removal propagates, usually within a few days. What is worth checking now is the Photos section itself: if the freelancer uploaded an exterior shot of the property as a "storefront" image, that one is yours and will stay until you remove it. Delete it if it is there.
