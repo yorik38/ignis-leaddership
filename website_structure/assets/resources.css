@@ -358,6 +358,12 @@
 
 /* Text-led resource articles */
 .resource-article-page .issue-body{border-top:1px solid var(--line);}
+.resource-article-page .issue-body .resource-article-lead-shell{display:block;}
+.resource-article-page .resource-article-lead-shell .issue-article-content{max-width:720px;}
+.resource-article-page .resource-process-flow{width:100%;max-width:1120px;margin:40px 0 66px;}
+.resource-article-page .resource-process-flow-scroll{overflow-x:auto;overscroll-behavior-inline:contain;}
+.resource-article-page .resource-process-flow img{display:block;width:100%;height:auto;}
+.resource-article-page .resource-process-flow figcaption{margin:13px 0 0;color:var(--steel);font:400 12px/1.5 Inter,Arial,sans-serif;}
 .resource-article-page .issue-article-content>h2,
 .resource-article-page .resource-article-section{max-width:720px;}
 .resource-article-page .issue-article-content>h2{margin:58px 0 20px;font-size:30px;line-height:1.18;letter-spacing:-.028em;text-wrap:balance;}
@@ -370,7 +376,7 @@
 .resource-article-page .issue-body .resource-article-section>ul,
 .resource-article-page .issue-body .resource-article-section>ol{max-width:720px;}
 .resource-article-page .issue-body ul,
-.resource-article-page .issue-body ol{max-width:720px;margin:20px 0 26px;padding-left:25px;font-family:'Source Serif 4',Georgia,serif;font-size:18px;line-height:1.68;color:#222b38;}
+.resource-article-page .issue-body ol{max-width:720px;margin:20px 0 26px;padding-left:25px;font-family:Inter,Arial,sans-serif;font-size:17px;line-height:1.68;color:#222b38;}
 .resource-article-page .issue-body li+li{margin-top:10px;}
 .resource-article-page .issue-body .resource-plain-steps{padding-left:27px;}
 .resource-article-page .issue-body .resource-plain-steps li{padding-left:7px;}
@@ -392,7 +398,7 @@
 .resource-article-page .issue-body .resource-source-note ul{padding-left:19px;}
 .resource-article-page .resource-source-note a{color:var(--accent);}
 @media(max-width:900px){.resource-article-page .issue-feature{padding:18px;}.resource-article-page .maturity-article-feature .maturity-hero-visual{max-width:720px;}}
-@media(max-width:720px){.resource-article-page .issue-feature{padding:8px;}.resource-article-page .maturity-article-feature .maturity-hero-visual{padding:10px 6px 6px;}.resource-article-page .maturity-article-feature .maturity-curve-mini{min-height:250px;}.resource-article-page .issue-body .article-maturity-path li{grid-template-columns:1fr;gap:10px;padding:22px 20px;}.resource-article-page .issue-body .article-delegation-grid{grid-template-columns:1fr;}.resource-article-page .issue-body .article-delegation-grid .delegation-card{min-height:270px;}.resource-article-page .article-matrix-wrap{padding:14px;width:100%;}.resource-article-page .issue-body .article-application-grid{grid-template-columns:1fr;}.resource-article-page .article-resource-cta{padding:27px 22px;}.resource-article-page .resource-article-section{margin-top:46px;padding-top:46px;}.resource-article-page .resource-article-section h2,.resource-article-page .issue-article-content>h2{font-size:27px;}.resource-article-page .issue-body .resource-example{padding:21px 20px;}.resources-catalogue-meta{font-size:9px;letter-spacing:.07em;white-space:nowrap;}}
+@media(max-width:720px){.resource-article-page .issue-feature{padding:8px;}.resource-article-page .maturity-article-feature .maturity-hero-visual{padding:10px 6px 6px;}.resource-article-page .maturity-article-feature .maturity-curve-mini{min-height:250px;}.resource-article-page .issue-body .article-maturity-path li{grid-template-columns:1fr;gap:10px;padding:22px 20px;}.resource-article-page .issue-body .article-delegation-grid{grid-template-columns:1fr;}.resource-article-page .issue-body .article-delegation-grid .delegation-card{min-height:270px;}.resource-article-page .article-matrix-wrap{padding:14px;width:100%;}.resource-article-page .issue-body .article-application-grid{grid-template-columns:1fr;}.resource-article-page .article-resource-cta{padding:27px 22px;}.resource-article-page .resource-article-section{margin-top:46px;padding-top:46px;}.resource-article-page .resource-article-section h2,.resource-article-page .issue-article-content>h2{font-size:27px;}.resource-article-page .issue-body .resource-example{padding:21px 20px;}.resource-article-page .resource-process-flow{margin:30px 0 48px;}.resource-article-page .resource-process-flow img{width:760px;max-width:none;}.resources-catalogue-meta{font-size:9px;letter-spacing:.07em;white-space:nowrap;}}
 
 /* Editorial AI-augmented bid practice guide */
 .guide-article-page .guide-article-feature{padding:28px;background:#EEF3F7;border:1px solid #CFDDEA;}
