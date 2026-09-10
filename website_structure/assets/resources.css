@@ -355,3 +355,29 @@
 .resource-article-page .resource-sidebar-guide:hover strong{text-decoration:underline;text-underline-offset:3px;}
 @media(max-width:900px){.resource-article-page .issue-feature{padding:18px;}.resource-article-page .maturity-article-feature .maturity-hero-visual{max-width:720px;}}
 @media(max-width:720px){.resource-article-page .issue-feature{padding:8px;}.resource-article-page .maturity-article-feature .maturity-hero-visual{padding:10px 6px 6px;}.resource-article-page .maturity-article-feature .maturity-curve-mini{min-height:250px;}.resource-article-page .issue-body .article-maturity-path li{grid-template-columns:1fr;gap:10px;padding:22px 20px;}.resource-article-page .issue-body .article-delegation-grid{grid-template-columns:1fr;}.resource-article-page .issue-body .article-delegation-grid .delegation-card{min-height:270px;}.resource-article-page .article-matrix-wrap{padding:14px;width:100%;}.resource-article-page .issue-body .article-application-grid{grid-template-columns:1fr;}.resource-article-page .article-resource-cta{padding:27px 22px;}}
+
+/* Editorial AI-augmented bid practice guide */
+.guide-article-page .guide-article-feature{padding:28px;background:#EEF3F7;border:1px solid #CFDDEA;}
+.guide-article-page .guide-article-feature img{padding:18px;background:#EEF3F7;border:0;}
+.guide-article-page .guide-article-feature figcaption{margin:12px 0 0;color:var(--steel);font-size:11px;line-height:1.5;text-align:center;}
+.guide-article-page .issue-body .guide-route-grid{max-width:720px;margin:26px 0 48px;}
+.guide-article-page .issue-body .guide-route-grid article{min-height:190px;padding:24px;}
+.guide-article-page .issue-body .guide-route-grid h3{margin:20px 0 10px;font-size:19px;}
+.guide-article-page .issue-body .guide-route-grid p{margin:0;font:400 13px/1.58 Inter,sans-serif;color:var(--steel);}
+.guide-article-page .article-guide-pillar{max-width:720px;margin:58px 0 0;padding-top:58px;border-top:1px solid var(--line);}
+.guide-article-page .article-guide-visual{width:100%;margin:0 0 30px;aspect-ratio:16/9;overflow:hidden;background:#EEF3F7;border:1px solid #D3DFE8;}
+.guide-article-page .article-guide-visual img{display:block;width:100%;height:100%;object-fit:cover;}
+.guide-article-page .article-guide-visual--editorial img,.guide-article-page .article-guide-visual--diagram img{object-fit:contain;}
+.guide-article-page .article-guide-visual--diagram img{padding:20px;}
+.guide-article-page .article-guide-pillar .pillar-story-number{margin-bottom:14px;}
+.guide-article-page .article-guide-pillar h2{max-width:19ch;margin:0 0 21px;font-size:30px;line-height:1.18;letter-spacing:-.028em;text-wrap:balance;}
+.guide-article-page .issue-body .article-guide-pillar>p{margin:0 0 22px;font-family:Source Serif 4,Georgia,serif;font-size:18px;line-height:1.72;color:#222b38;}
+.guide-article-page .issue-body .article-guide-pillar .pillar-story-question{margin:24px 0 0!important;font-family:Inter,sans-serif;}
+.guide-article-page .article-workflow-formula{max-width:720px;margin:26px 0 24px;}
+.guide-article-page .article-use-case-filter{grid-template-columns:repeat(2,1fr);max-width:720px;margin:0 0 48px;}
+.guide-article-page .issue-body .article-use-case-filter p{margin:8px 0 0;font:400 12px/1.45 Inter,sans-serif;color:#263140;}
+.guide-article-page .article-test-grid{grid-template-columns:repeat(2,1fr);max-width:720px;margin:26px 0 48px;}
+.guide-article-page .issue-body .article-test-grid .test-canvas-card{min-height:190px;padding:25px;}
+.guide-article-page .issue-body .article-test-grid p{margin:0;font:400 13px/1.58 Inter,sans-serif;color:var(--steel);}
+.guide-article-page .sidebar-maturity-thumbnail{height:132px;border:1px solid #CFDDEA;flex:none;}
+@media(max-width:720px){.guide-article-page .guide-article-feature{padding:8px;}.guide-article-page .guide-article-feature img{padding:6px;}.guide-article-page .issue-body .guide-route-grid,.guide-article-page .article-test-grid{grid-template-columns:1fr;}.guide-article-page .article-guide-pillar{margin-top:46px;padding-top:46px;}.guide-article-page .article-guide-pillar h2{font-size:27px;}.guide-article-page .article-guide-visual{margin-bottom:24px;}.guide-article-page .article-guide-visual--diagram img{padding:8px;}.guide-article-page .article-use-case-filter{grid-template-columns:1fr;}}
