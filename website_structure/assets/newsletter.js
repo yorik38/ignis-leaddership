@@ -72,36 +72,49 @@
   }
 
   function copyShareUrl(){
+    if (legacyCopy(shareUrl)) {
+      updateShareStatus("Link copied.");
+      return;
+    }
     if (navigator.clipboard && window.isSecureContext) {
       navigator.clipboard.writeText(shareUrl).then(function(){
         updateShareStatus("Link copied.");
       }).catch(function(){
-        updateShareStatus(legacyCopy(shareUrl) ? "Link copied." : "Copy failed. Please copy the address from your browser.", true);
+        updateShareStatus("Copy failed. Please copy the address from your browser.", true);
       });
       return;
     }
-    updateShareStatus(legacyCopy(shareUrl) ? "Link copied." : "Copy failed. Please copy the address from your browser.", true);
+    updateShareStatus("Copy failed. Please copy the address from your browser.", true);
   }
 
-  document.querySelectorAll("[data-share]").forEach(function(button){
-    button.addEventListener("click", function(event){
-      event.preventDefault();
-      var type = button.getAttribute("data-share");
+  document.querySelectorAll("[data-share]").forEach(function(control){
+    var type = control.getAttribute("data-share");
+
+    if (type === "linkedin" || type === "email") {
+      var link = document.createElement("a");
+      link.className = control.className;
+      link.innerHTML = control.innerHTML;
+      link.setAttribute("data-share", type);
+      link.setAttribute("aria-label", control.getAttribute("aria-label") || (type === "linkedin" ? "Share on LinkedIn" : "Share by email"));
+      if (control.getAttribute("title")) link.setAttribute("title", control.getAttribute("title"));
+
       if (type === "linkedin") {
-        var linkedInUrl = "https://www.linkedin.com/sharing/share-offsite/?url=" + encodeURIComponent(shareUrl);
-        var shareWindow = window.open(linkedInUrl, "_blank");
-        if (shareWindow) {
-          shareWindow.opener = null;
-          updateShareStatus("LinkedIn opened in a new tab.");
-        } else {
-          updateShareStatus("Your browser blocked the new tab. Opening LinkedIn here.");
-          window.location.assign(linkedInUrl);
-        }
+        link.href = "https://www.linkedin.com/sharing/share-offsite/?url=" + encodeURIComponent(shareUrl);
+        link.target = "_blank";
+        link.rel = "noopener noreferrer";
+      } else {
+        link.href = "mailto:?subject=" + encodeURIComponent("A resource you might value") + "&body=" + encodeURIComponent(shareText + "\n\n" + shareUrl);
       }
-      if (type === "email") {
-        updateShareStatus("Opening your email app.");
-        window.location.href = "mailto:?subject=" + encodeURIComponent("A resource you might value") + "&body=" + encodeURIComponent(shareText + "\n\n" + shareUrl);
-      }
+
+      control.replaceWith(link);
+      link.addEventListener("click", function(){
+        updateShareStatus(type === "linkedin" ? "Opening LinkedIn sharing." : "Opening your email app.");
+      });
+      return;
+    }
+
+    control.addEventListener("click", function(event){
+      event.preventDefault();
       if (type === "copy") copyShareUrl();
     });
   });
