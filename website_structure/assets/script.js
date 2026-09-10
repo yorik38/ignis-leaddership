@@ -252,8 +252,8 @@ function initResourceNavigation(){
       '<div class="nav-resource-guide-list">',
         '<span class="nav-resource-list-label">Practical guides</span>',
         '<a class="nav-resource-guide" href="/resources/ai-augmented-bid-practice"><strong>How to build an AI-augmented bid practice</strong></a>',
-        '<a class="nav-resource-guide" href="/resources/bid-agent-maturity"><strong>What bid teams can build with AI in 2026</strong></a>',
-        '<a class="nav-resource-guide" href="/resources/choose-first-ai-bid-use-case"><strong>Choose your first AI bid use case</strong></a>',
+        '<a class="nav-resource-guide" href="/resources/bid-agent-maturity"><strong>What can bid teams build with AI agents in 2026?</strong></a>',
+        '<a class="nav-resource-guide" href="/resources/choose-first-ai-bid-use-case"><strong>Where should bid teams start with AI agents?</strong></a>',
       '</div>',
     '</div>'
   ].join("");
