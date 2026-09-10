@@ -18,7 +18,7 @@
 .newsletter-hero-signup .subscribe-form{max-width:none;margin:22px 0 0;}
 .newsletter-hero-signup .subscribe-fields{grid-template-columns:1fr;gap:10px;border:0;background:transparent;}
 .newsletter-hero-signup .subscribe-fields input{border:1px solid rgba(255,255,255,.28);background:#fff;padding:16px;}
-.newsletter-hero-signup .subscribe-fields button{padding:16px 22px;background:var(--cta);}
+.newsletter-hero-signup .subscribe-fields button{padding:16px 0;background:var(--cta);text-align:left;}
 .newsletter-hero-signup .subscribe-fields button:hover{background:var(--accent);}
 .newsletter-final-signup .subscribe-fields button:hover{background:#157D82;}
 .newsletter-hero-signup .subscribe-promise{color:#BFC9D4;line-height:1.45;}
