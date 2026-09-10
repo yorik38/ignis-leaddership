@@ -2,6 +2,8 @@
 .guides-page{background:#fff;}
 .resources-library-hero{padding:88px 0;border-bottom:1px solid var(--line);background:#fff;}
 .resources-library-hero-grid{display:grid;grid-template-columns:minmax(0,.95fr) minmax(380px,1.05fr);gap:80px;align-items:center;}
+.resources-library-hero-grid--text-only{display:block;}
+.resources-library-hero-grid--text-only .resources-library-hero-copy h1{max-width:14ch;}
 .resources-library-hero-copy .eyebrow{display:block;margin-bottom:18px;}
 .resources-library-hero-copy h1{max-width:12ch;margin:0;font-size:clamp(42px,5vw,64px);font-weight:600;line-height:1.03;letter-spacing:-.042em;text-wrap:balance;}
 .resources-library-hero-copy p{max-width:45ch;margin:24px 0 0;color:var(--steel);font-size:18px;line-height:1.55;}
@@ -353,8 +355,44 @@
 .resource-article-page .resource-sidebar-guide strong{font-size:16px;line-height:1.35;}
 .resource-article-page .resource-sidebar-guide>span:last-child{color:var(--accent);font-size:12px;font-weight:700;}
 .resource-article-page .resource-sidebar-guide:hover strong{text-decoration:underline;text-underline-offset:3px;}
+
+/* Text-led resource articles */
+.resource-article-page .issue-body{border-top:1px solid var(--line);}
+.resource-article-page .issue-article-content>h2,
+.resource-article-page .resource-article-section{max-width:720px;}
+.resource-article-page .issue-article-content>h2{margin:58px 0 20px;font-size:30px;line-height:1.18;letter-spacing:-.028em;text-wrap:balance;}
+.resource-article-page .resource-article-section{margin:58px 0 0;padding-top:58px;border-top:1px solid var(--line);}
+.resource-article-page .resource-article-section h2{max-width:20ch;margin:0 0 21px;font-size:30px;line-height:1.18;letter-spacing:-.028em;text-wrap:balance;}
+.resource-article-page .resource-article-section h3{margin:0 0 12px;font-size:23px;line-height:1.25;letter-spacing:-.02em;}
+.resource-article-page .resource-compact-section h3{margin-top:38px;}
+.resource-article-page .resource-compact-section h3:first-child{margin-top:0;}
+.resource-article-page .issue-body .resource-article-section>p,
+.resource-article-page .issue-body .resource-article-section>ul,
+.resource-article-page .issue-body .resource-article-section>ol{max-width:720px;}
+.resource-article-page .issue-body ul,
+.resource-article-page .issue-body ol{max-width:720px;margin:20px 0 26px;padding-left:25px;font-family:'Source Serif 4',Georgia,serif;font-size:18px;line-height:1.68;color:#222b38;}
+.resource-article-page .issue-body li+li{margin-top:10px;}
+.resource-article-page .issue-body .resource-plain-steps{padding-left:27px;}
+.resource-article-page .issue-body .resource-plain-steps li{padding-left:7px;}
+.resource-article-page .resource-table-wrap{max-width:720px;margin:30px 0 34px;overflow-x:auto;border:1px solid var(--line);background:#fff;}
+.resource-article-page .resource-article-table{width:100%;min-width:680px;border-collapse:collapse;color:var(--ink);font:400 13px/1.5 Inter,sans-serif;}
+.resource-article-page .resource-article-table th,
+.resource-article-page .resource-article-table td{padding:14px 15px;border-right:1px solid var(--line);border-bottom:1px solid var(--line);text-align:left;vertical-align:top;}
+.resource-article-page .resource-article-table th:last-child,
+.resource-article-page .resource-article-table td:last-child{border-right:0;}
+.resource-article-page .resource-article-table tr:last-child td{border-bottom:0;}
+.resource-article-page .resource-article-table th{background:#EEF3F7;color:var(--navy);font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;}
+.resource-article-page .resource-article-table td:first-child{font-weight:700;}
+.resource-article-page .issue-body .resource-example{max-width:720px;margin:25px 0;padding:24px 27px;border-left:3px solid var(--accent);background:#EEF3F7;color:var(--navy);font:500 18px/1.6 'Source Serif 4',Georgia,serif;}
+.resource-article-page .article-resource-cta h2{margin:0 0 12px;}
+.resource-article-page .resource-source-note{max-width:720px;margin:54px 0 0;padding-top:30px;border-top:1px solid var(--line);}
+.resource-article-page .resource-source-note h2{margin:0 0 14px;font-size:20px;line-height:1.25;letter-spacing:-.015em;}
+.resource-article-page .issue-body .resource-source-note p,
+.resource-article-page .issue-body .resource-source-note ul{margin:0 0 14px;color:var(--steel);font:400 13px/1.65 Inter,sans-serif;}
+.resource-article-page .issue-body .resource-source-note ul{padding-left:19px;}
+.resource-article-page .resource-source-note a{color:var(--accent);}
 @media(max-width:900px){.resource-article-page .issue-feature{padding:18px;}.resource-article-page .maturity-article-feature .maturity-hero-visual{max-width:720px;}}
-@media(max-width:720px){.resource-article-page .issue-feature{padding:8px;}.resource-article-page .maturity-article-feature .maturity-hero-visual{padding:10px 6px 6px;}.resource-article-page .maturity-article-feature .maturity-curve-mini{min-height:250px;}.resource-article-page .issue-body .article-maturity-path li{grid-template-columns:1fr;gap:10px;padding:22px 20px;}.resource-article-page .issue-body .article-delegation-grid{grid-template-columns:1fr;}.resource-article-page .issue-body .article-delegation-grid .delegation-card{min-height:270px;}.resource-article-page .article-matrix-wrap{padding:14px;width:100%;}.resource-article-page .issue-body .article-application-grid{grid-template-columns:1fr;}.resource-article-page .article-resource-cta{padding:27px 22px;}}
+@media(max-width:720px){.resource-article-page .issue-feature{padding:8px;}.resource-article-page .maturity-article-feature .maturity-hero-visual{padding:10px 6px 6px;}.resource-article-page .maturity-article-feature .maturity-curve-mini{min-height:250px;}.resource-article-page .issue-body .article-maturity-path li{grid-template-columns:1fr;gap:10px;padding:22px 20px;}.resource-article-page .issue-body .article-delegation-grid{grid-template-columns:1fr;}.resource-article-page .issue-body .article-delegation-grid .delegation-card{min-height:270px;}.resource-article-page .article-matrix-wrap{padding:14px;width:100%;}.resource-article-page .issue-body .article-application-grid{grid-template-columns:1fr;}.resource-article-page .article-resource-cta{padding:27px 22px;}.resource-article-page .resource-article-section{margin-top:46px;padding-top:46px;}.resource-article-page .resource-article-section h2,.resource-article-page .issue-article-content>h2{font-size:27px;}.resource-article-page .issue-body .resource-example{padding:21px 20px;}.resources-catalogue-meta{font-size:9px;letter-spacing:.07em;white-space:nowrap;}}
 
 /* Editorial AI-augmented bid practice guide */
 .guide-article-page .guide-article-feature{padding:28px;background:#EEF3F7;border:1px solid #CFDDEA;}
