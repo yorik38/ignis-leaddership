@@ -14,7 +14,7 @@
 .resources-catalogue-list{border-top:1px solid var(--line);}
 .resources-catalogue-row{display:grid;grid-template-columns:200px 1fr auto;gap:34px;align-items:center;padding:26px 0;border-bottom:1px solid var(--line);}
 .resources-catalogue-image{display:flex;align-items:center;overflow:hidden;aspect-ratio:16/9;background:#EEF3F7;border:1px solid #D7E1EA;}
-.resources-catalogue-image img{display:block;width:100%;height:100%;object-fit:contain;transition:transform .25s ease;}
+.resources-catalogue-image img{display:block;width:100%;height:100%;object-fit:cover;transition:transform .25s ease;}
 .resources-catalogue-image:hover img{transform:scale(1.025);}
 .resources-catalogue-meta{color:var(--accent);font-size:10.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;}
 .resources-catalogue-copy h3{margin:8px 0 7px;font-size:24px;line-height:1.15;letter-spacing:-.02em;}
@@ -374,6 +374,7 @@
 .guide-article-page .issue-body .article-guide-pillar>p{margin:0 0 22px;font-family:Source Serif 4,Georgia,serif;font-size:18px;line-height:1.72;color:#222b38;}
 .guide-article-page .issue-body .article-guide-pillar .pillar-story-question{margin:24px 0 0!important;font-family:Inter,sans-serif;}
 .guide-article-page .article-workflow-formula{max-width:720px;margin:26px 0 24px;}
+#choose-first-ai-use-case{scroll-margin-top:110px;}
 .guide-article-page .article-use-case-filter{grid-template-columns:repeat(2,1fr);max-width:720px;margin:0 0 48px;}
 .guide-article-page .issue-body .article-use-case-filter p{margin:8px 0 0;font:400 12px/1.45 Inter,sans-serif;color:#263140;}
 .guide-article-page .article-test-grid{grid-template-columns:repeat(2,1fr);max-width:720px;margin:26px 0 48px;}

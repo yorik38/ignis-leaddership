@@ -236,7 +236,70 @@ function initForm(){
 }
 
 /* ---------------------------------------------------------------------
-   5) MOBILE MENU: hamburger toggle + full-screen overlay
+   5) RESOURCE NAVIGATION
+   Keeps the richer desktop guide list and simpler mobile hub cards
+   consistent across the static site without duplicating menu markup.
+   --------------------------------------------------------------------- */
+function initResourceNavigation(){
+  var currentPath = window.location.pathname.replace(/\/+$/, "") || "/";
+  var isInsights = currentPath === "/insights" || currentPath.indexOf("/insights/") === 0 || currentPath === "/archive";
+  var isResources = currentPath === "/resources" || currentPath.indexOf("/resources/") === 0;
+
+  var desktopMarkup = [
+    '<a class="nav-resource-hub" href="/insights"><strong>Insights</strong><span>Bid More. Win More. Newsletter</span></a>',
+    '<div class="nav-resource-section">',
+      '<a class="nav-resource-hub" href="/resources"><strong>Build or transform your bid practice</strong><span>Practical strategy and tools for AI-augmented bids</span></a>',
+      '<div class="nav-resource-guide-list">',
+        '<span class="nav-resource-list-label">Practical guides</span>',
+        '<a class="nav-resource-guide" href="/resources/ai-augmented-bid-practice"><span>01</span><strong>How to build an AI-augmented bid practice</strong></a>',
+        '<a class="nav-resource-guide" href="/resources/bid-agent-maturity"><span>02</span><strong>What bid teams can build with AI in 2026</strong></a>',
+        '<a class="nav-resource-guide" href="/resources/ai-augmented-bid-practice#choose-first-ai-use-case"><span>03</span><strong>Choose your first AI bid use case</strong></a>',
+      '</div>',
+    '</div>'
+  ].join("");
+
+  document.querySelectorAll(".nav-dropdown-menu").forEach(function(menu){
+    menu.innerHTML = desktopMarkup;
+    var insightsLink = menu.querySelector('a[href="/insights"]');
+    var resourcesLink = menu.querySelector('a[href="/resources"]');
+    var exactGuide = menu.querySelector('.nav-resource-guide[href="' + currentPath + '"]');
+    if (isInsights && insightsLink) insightsLink.setAttribute("aria-current", "page");
+    if (isResources && resourcesLink) resourcesLink.setAttribute("aria-current", "page");
+    if (exactGuide) exactGuide.setAttribute("aria-current", "page");
+  });
+
+  var mobileMarkup = [
+    '<a href="/insights"><strong>Insights</strong><span>Bid More. Win More. Newsletter</span></a>',
+    '<a href="/resources"><strong>Build or transform your bid practice</strong><span>Practical strategy and tools for AI-augmented bids</span></a>'
+  ].join("");
+
+  document.querySelectorAll(".mobile-resource-links").forEach(function(menu){
+    menu.innerHTML = mobileMarkup;
+    var insightsLink = menu.querySelector('a[href="/insights"]');
+    var resourcesLink = menu.querySelector('a[href="/resources"]');
+    if (isInsights && insightsLink) insightsLink.setAttribute("aria-current", "page");
+    if (isResources && resourcesLink) resourcesLink.setAttribute("aria-current", "page");
+  });
+}
+
+function initDeferredAnchorTarget(){
+  if (!window.location.hash) return;
+  var targetId = decodeURIComponent(window.location.hash.slice(1));
+
+  function alignTarget(){
+    var target = document.getElementById(targetId);
+    if (!target) return;
+    var top = target.getBoundingClientRect().top + window.scrollY - 100;
+    window.scrollTo({ top: Math.max(0, top), behavior: "auto" });
+  }
+
+  window.setTimeout(alignTarget, 0);
+  window.setTimeout(alignTarget, 500);
+  window.addEventListener("load", function(){ window.setTimeout(alignTarget, 100); }, { once: true });
+}
+
+/* ---------------------------------------------------------------------
+   6) MOBILE MENU: hamburger toggle + full-screen overlay
    Only active at the mobile breakpoint (see assets/style.css); on wider
    screens the toggle is hidden and the overlay never displays.
    --------------------------------------------------------------------- */
@@ -265,7 +328,7 @@ function initMobileMenu(){
   });
 
   window.addEventListener("resize", function(){
-    if (window.innerWidth > 640) closeMenu();
+    if (window.innerWidth > 1024) closeMenu();
   });
 }
 
@@ -430,6 +493,8 @@ document.addEventListener("DOMContentLoaded", function(){
   initCalendly();
   initForm();
   initServiceRouteSelection();
+  initResourceNavigation();
+  initDeferredAnchorTarget();
   initMobileMenu();
   initScrollAwareHeader();
   initLightbox();
