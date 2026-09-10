@@ -124,7 +124,8 @@ body > header.header-hidden{transform:translateY(-100%);}
 .nav-resource-hub span{margin-top:3px;color:var(--steel);font-size:10.5px;line-height:1.4;}
 .nav-resource-section{background:#fff;}
 .nav-resource-section>.nav-resource-hub{border-bottom:1px solid var(--line);}
-.nav-resource-guide-list{padding:10px 14px 12px;background:var(--tint);}
+.nav-resource-guide-list{padding:10px 14px 12px;background:#fff;transition:background-color .15s ease;}
+.nav-resource-section:hover .nav-resource-guide-list,.nav-resource-section:focus-within .nav-resource-guide-list{background:var(--tint);}
 .nav-resource-list-label{display:block;margin:0 0 5px;color:var(--steel);font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;}
 .nav-resource-guide{display:block;padding:8px 0;color:var(--ink);text-decoration:none;border-bottom:1px solid var(--line-soft);}
 .nav-resource-guide:last-child{border-bottom:0;}
