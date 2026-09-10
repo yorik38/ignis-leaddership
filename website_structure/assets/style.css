@@ -5,6 +5,11 @@
    Trust & Authority proof patterns), not tech/industrial.
    ========================================================================== */
 
+/* Responsive images are wrapped in <picture> so modern browsers take the WebP
+   source. display:contents keeps the wrapper out of the layout entirely, so
+   every existing selector that targets the <img> still behaves as before. */
+picture{display:contents;}
+
 :root{
   --ink:#14181F;
   --paper:#FFFFFF;

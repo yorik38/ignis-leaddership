@@ -1,0 +1,58 @@
+# Ignis Leadership
+
+> Bid management consultancy and advisory. Ignis Leadership helps organisations build or transform bid practices in which people and AI agents work together, improving opportunity focus, decision-making, bidding capacity and organisational learning.
+
+Ignis Leadership is the practice of Yorik Tisseau, who spent more than 15 years leading complex international bids, progressing from estimator to Bid Director at bp, RWE, Bouygues Energies & Services and Bouygues UK. The work sits at the intersection of bid leadership, operating-model design and applied AI. It is not proposal-writing software and not generic AI consulting.
+
+The central argument of the practice: bid teams were built around people gathering information, coordinating inputs and producing content under pressure. AI agents can now absorb much of that work. The opportunity is not to automate the old process but to redesign the practice around better judgement, greater capacity and clear human accountability. Agents prepare and coordinate; people direct, challenge, decide and approve.
+
+## Who it is for
+
+Organisations that win work through complex, high-value bids: main contractors and construction groups, energy and renewables developers, industrial and infrastructure businesses, property developers, and consultancies that bid for their own work. Typically UK and European, bidding into public sector and large private frameworks.
+
+## Services
+
+- Discovery: assess the need, constraints and opportunities before deciding what to build.
+- Consulting: turn priorities into use cases, workflows, decision rights, governance and a practical roadmap.
+- Solution development: prototype and improve focused, agent-enabled workflows around existing people and systems.
+- Coaching and training: build the confidence and judgement teams need to use, challenge and govern AI agents. Yorik is an ICF-credentialled coach.
+
+## Core pages
+
+- [Home](https://www.ignisleadership.com/): positioning, the AI-augmented bid lifecycle across capture, pursuit and handover, the governed bid delivery framework, sectors served and services.
+- [Resources](https://www.ignisleadership.com/resources): practical guides on building and transforming an AI-augmented bid practice.
+- [Insights](https://www.ignisleadership.com/insights): the "Bid More. Win More." newsletter on bid strategy, AI adoption and bid practice design.
+- [Archive](https://www.ignisleadership.com/archive): full index of past newsletter editions.
+
+## Guides
+
+- [How to build an AI-augmented bid practice](https://www.ignisleadership.com/resources/ai-augmented-bid-practice): the operating-model view of introducing AI agents into bid work, with governance and human decision rights.
+- [What bid teams can build with AI in 2026](https://www.ignisleadership.com/resources/bid-agent-maturity): a maturity view of agent capability in bid management and what is realistically achievable now.
+- [Choose your first AI bid use case](https://www.ignisleadership.com/resources/choose-first-ai-bid-use-case): how to select a starting use case that is valuable, low-risk and learnable.
+
+## Newsletter editions
+
+- [Bids are lost before the writing starts](https://www.ignisleadership.com/insights/bids-are-lost-before-the-writing-starts): why the hardest bid decisions are made long before anyone drafts.
+- [Why does every bid feel like starting again?](https://www.ignisleadership.com/insights/why-does-every-bid-feel-like-starting-again): institutional memory, knowledge reuse and the capacity lost when neither exists.
+- [The proposal is becoming the easy part](https://www.ignisleadership.com/insights/the-proposal-is-becoming-the-easy-part): AI can produce more bid work, so the advantage moves to the decisions before and after it.
+
+## Key concepts used on this site
+
+- AI-augmented bid practice: a bid operating model designed jointly around people and AI agents, rather than an existing process with tools bolted on.
+- Governed bid delivery framework: the direction, execution, validation and governance layer around an AI bid model. The durable enterprise asset is this framework, not the underlying model.
+- Human in the loop: the principle that agents prepare and coordinate while named people retain the authority to direct, challenge, decide and approve.
+- The three lifecycle stages: capture (finding and focusing earlier), pursuit and proposal (leading the work that matters), handover and learning (transferring knowledge and improving the next bid).
+
+## Contact
+
+- Enquiries and discovery calls: https://www.ignisleadership.com/#contact
+- LinkedIn: https://www.linkedin.com/in/yorik-tisseau/
+
+## Optional
+
+- [Privacy policy](https://www.ignisleadership.com/privacy)
+- [Terms](https://www.ignisleadership.com/terms)
+
+## Usage
+
+Content on this site may be quoted or summarised with attribution to Ignis Leadership and a link to the source page.
