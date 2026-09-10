@@ -42,67 +42,63 @@ Do not append "Bid Management Consultancy" or similar. Keyword stuffing the name
 
 ## 4. Business description
 
-750 character limit. Only the first 250 or so show before the fold, so the pivot lands in sentence one. Draft below is **713 characters**.
+750 character limit. Only the first 250 or so show before the fold. Draft below is **734 characters** and is built from your live LinkedIn About, not inferred from the website.
 
 ```
 Ignis Leadership helps organisations improve how they lead, pursue and win complex, high-value opportunities.
 
-Founded by Yorik Tisseau, Managing Director, with 15+ years leading complex international bids at bp, RWE and Bouygues, from estimator to Bid Director.
+We work with commercial leaders, heads of bids and transformation teams to improve business development and bid-management practices, and to apply AI across the bid lifecycle.
 
-There are two ways to work with us. Bring us into a live strategic pursuit that needs senior leadership, extra capacity, sharper strategy or independent challenge. Or engage us to build or transform the business development and bid practice behind it: better workflows, enterprise context, human-controlled AI agents and clear governance.
+Support spans four connected areas: discovery, consulting and advisory, solution development, and coaching and training. There is no fixed solution. We listen, understand and respond to your needs.
+
+Founded by Yorik Tisseau, Managing Director. 15+ years across bp, RWE and Bouygues. 50+ public and private sector bids led, from a few million to multibillion pounds. Two bid practices established.
 
 Bid leadership first. AI applied with judgement.
-
-Manchester, the North West, nationwide and internationally.
 ```
 
-This now opens on the exact line from your LinkedIn About, so someone who checks both sees one business rather than two descriptions of it. I have used "Ignis Leadership helps" rather than "I help", because Google reads this field as the business entity and the third person sits better next to a company profile. Your LinkedIn already does the same thing ("Ignis helps organisations improve how they...").
+Three decisions worth knowing about.
 
-If you would rather not anchor to Manchester at all, cut the final line. You lose a little local relevance on a listing that was never going to convert locally. My preference is to keep it, because a profile that names a real place reads as a real business.
+**The four areas are named but not explained here.** Google renders your services as their own section directly beneath the description, so spelling out all four twice wastes characters you do not have. The full wording goes into the service fields in section 5 instead. That bought the room for the proof points.
 
-**One number to confirm before you paste.** I have written "15+ years", which is what your website and your LinkedIn About both say. Your recent LinkedIn posts say you left bp in March 2026 after 17 years there. If 17 years at bp is right, then "15+ years across bp, RWE and Bouygues" is understating you by some distance and should probably read closer to 20. Worth settling once and using the same figure everywhere, because inconsistent tenure claims across your own properties are the kind of thing a careful buyer notices.
+**Those proof points are the strongest thing you gave me.** "50+ public and private sector bids, from a few million to multibillion pounds. Two bid practices established." is concrete, checkable and rare. It was not on your website and I did not have it before. It should arguably be on the homepage too.
+
+**"Ignis Leadership helps", not "I help".** Your About already made this switch even though your headline still says "I help". Google reads this field as the business entity, so third person is right here. The inconsistency on LinkedIn itself is worth a look, since the headline and the About now speak in different voices two lines apart.
 
 ---
 
 ## 5. Services
 
-Your website only shows the transformation half of the business, so my first pass built ten services around it and left out fractional bid leadership entirely. That was half your offer missing. The list below is rebuilt from your LinkedIn: sparring partner for the live pursuit first, transformation partner for the practice underneath.
+These are your four connected areas, taken from your LinkedIn Services section and expanded to use the room Google gives you. Name limit 120 characters, description limit 300. Your own bullet wording opens each one so the two properties match.
 
-Order matters, Google displays these in the order you enter them, so put the fractional work at the top. Service name limit is 120 characters, description limit is 300. All drafts sit inside both.
+I had previously built this list around fractional bid leadership and red-team review. That framing is gone from both your About and your Services, so it is gone from here.
 
-### Lead the pursuit you are in now
+**Discovery**
+> Assess the bid practice and prioritise improvements. We map how your organisation currently leads, pursues and wins, identify where the friction sits, and prioritise where changes to AI, processes or capabilities would create value. You know the problem worth solving before committing budget.
 
-**Fractional Bid Executive**
-> Senior bid leadership for a live, strategically important pursuit. Director-level capacity when you need it, sharper win strategy, and independent challenge on an opportunity too important to run on internal bandwidth alone. Engaged for the bid, not on a standing retainer.
+**Consulting and Advisory**
+> Design the operating model, governance and human-controlled agentic workflows needed to transform how bids are managed. Decision rights, approval gates, approved sources and evidence traceability, set out as a roadmap your organisation can absorb rather than a target state it cannot reach.
 
-**Live Bid Leadership and Assurance**
-> Hands-on leadership of a complex, high-value bid already in flight. We take responsibility for structure, pace and commercial coherence, run the decision gates, and give your executive team an honest read on whether the bid is genuinely on track to win.
+**Solution Development**
+> Prototype and implement practical, governed AI use cases. We build agentic solutions around your people and systems, or work alongside your own technology and development teams where that capability already exists. Human decision gates throughout, not end-to-end automation.
 
-**Win Strategy Review and Red Team**
-> An independent read on a pursuit while there is still time to change course. We test the qualification logic, the competitive position and the evaluator's likely view, stress the pricing narrative, and set out what would need to be true for you to win.
+**Coaching and Training**
+> Build the leadership, AI literacy and critical judgement needed for adoption. Practical sessions grounded in your own tenders and workflows, aimed at the people who qualify opportunities, shape strategy and make commercial commitments, so new ways of working stick.
 
-### Transform the practice behind every pursuit
+### Optional additions
 
-**BD and Bid Practice Discovery**
-> A short, structured assessment of how your organisation currently leads, pursues and wins. We map where effort goes across capture, pursuit and handover and which constraints are real, so you know the problem worth solving before committing budget to a build.
+The four above are your actual offer and are enough. Google does let you list more, and each entry is a separate surface for matching, so these four sit genuinely inside the areas above rather than inventing anything new. Add them only if you want more surface area. My words, not yours, so change them freely.
 
-**Bid Practice Transformation**
-> For established teams. We redesign how people, agents and workflows operate across the opportunity lifecycle: which use cases to take on, who holds which decision rights, what governance the framework needs, and a roadmap your organisation can actually absorb.
+**Bid Practice Establishment**
+> Build a bid management practice from a standing start. Proportionate structure, process and governance shaped around your growth priorities, people and capacity, with AI-enabled workflows only where they earn their place. Established two such practices to date.
 
-**Bid Capability Build**
-> For organisations winning through bids without a mature function. We build a proportionate practice around your growth priorities, people and capacity, with AI-enabled workflows only where they earn their place. Stronger capability without standing up a large team.
+**AI Use Case Prioritisation**
+> Decide where to start. Candidate use cases assessed against value, feasibility, data readiness and risk, then sequenced so early wins fund and de-risk the harder work. Prevents the common failure of automating the existing process instead of redesigning the practice.
 
-**Capture and Pipeline Advisory**
-> Find and focus earlier. We look at how opportunity signals reach your pipeline, how qualification decisions actually get made, and where agents can broaden market coverage so your people spend more time with clients and less time gathering information.
-
-**AI Bid Workflow Development**
-> Prototype and test focused, agent-enabled workflows around your existing people and systems: requirement structuring, evidence retrieval, contribution coordination, change tracking and assurance support. Built around human decision gates, not end-to-end automation.
+**Bid Operating Model Design**
+> Redesign how people, agents and workflows operate across the bid lifecycle. Who does what, who decides what, and where the handoffs sit between capture, pursuit and handover, so capability is designed rather than inherited from how the last bid happened to run.
 
 **Bid Governance Framework Design**
-> Design the controls that make AI-augmented bidding defensible: approved sources, access rights, evidence traceability, compliance checks and a clean approval record. Enterprise value comes from how AI is directed and governed, not from the model.
-
-**Bid Team Coaching and Training**
-> Build the confidence and judgement your team needs to use, challenge and govern AI agents in live pursuits. Practical sessions grounded in your own tenders and workflows, aimed at the people who qualify opportunities, shape strategy and make commercial commitments.
+> Design the controls that make AI-augmented bidding defensible: approved sources, access rights, evidence traceability, compliance checks and a clean approval record. Enterprise value comes from how AI is directed and governed, not from the model itself.
 
 ---
 
@@ -110,9 +106,13 @@ Order matters, Google displays these in the order you enter them, so put the fra
 
 **Hide the street address and convert to a service area business.** Right now 35 Houseman Cres is published on a public Google listing. That is your home. There is no client-facing reason for it to be visible, and the trade is favourable: you lose proximity-based pack ranking that was never going to convert for bid consulting anyway.
 
-In Edit profile > Location, clear the address, then set the service area. Because you work nationwide, go broad rather than listing towns: add **United Kingdom** as the primary area, then **Greater Manchester** and **North West England** underneath it so the local relevance is still explicit. Google caps you at 20 service areas, so do not burn them on individual Cheshire towns when a country-level entry covers the same ground and matches how you actually sell.
+In Edit profile > Location, set the service area first, then clear the address (order matters, see below). Because you work nationwide, go broad rather than listing towns: add **United Kingdom** as the primary area, then **Greater Manchester** and **North West England** underneath it so the local relevance is still explicit. Google caps you at 20 service areas, so do not burn them on individual Cheshire towns when a country-level entry covers the same ground and matches how you actually sell.
 
 Note that a national service area and a Manchester map pin pull in slightly different directions: the broader you go, the less proximity weighting you get. That trade is the right one here, because your buyers are not searching by distance.
+
+**If the address will not clear.** Google requires every profile to carry either a valid address or at least one service area, so clearing the address before a service area exists fails validation and the save silently refuses. Add the service areas first, save, then remove the address. Do not put a hyphen, a full stop or any placeholder text in the address field to force it through: dummy address data is among the most reliably actioned GBP violations and risks losing the profile. If the Location tab offers a "Show business address to customers" toggle, use that instead of deleting anything, since Google then keeps the address for verification while the public never sees it.
+
+**Where Services lives.** It is not a tab inside the Edit profile dialog, which only holds About, Contact, Location, Hours and More. Services is a separate button on the main dashboard, second row, beside Edit products. Which services Google offers you depends on your primary category, so make the category change first.
 
 Hours: set them rather than leaving "Add business hours" showing. Monday to Friday, 09:00 to 17:30 is fine. An incomplete hours field is one of the things dragging your profile strength ring down.
 
@@ -144,12 +144,13 @@ Use the appointment link field for your discovery call booking URL if you have o
 
 **Q&A.** Seed these yourself, then answer them from your own account. Google allows this and it is one of the few underused fields left.
 
-1. What does Ignis Leadership do? *(answer: the strapline, then the two modes, sparring partner for the live pursuit and transformation partner for the practice)*
-2. Can you lead a live bid for us? *(answer: yes, that is the fractional bid executive engagement, senior leadership and independent challenge on a pursuit already in flight)*
-3. Do you work with organisations outside Manchester? *(answer: yes, North West, UK and internationally, most work delivered remotely with onsite workshops)*
-4. What size organisation do you work with? *(answer: organisations that win through bids, established practices and those building capability)*
-5. Do you replace bid teams with AI? *(answer: no. Bid leadership first, AI applied with judgement, human decision gates throughout)*
-6. How does an engagement usually start? *(answer: often with the live bid, and what it reveals becomes the starting point for the practice)*
+1. What does Ignis Leadership do? *(answer: the strapline, then the four connected areas)*
+2. What does a discovery engagement involve? *(answer: assessing the bid practice, finding the friction, prioritising where AI, process or capability changes would create value)*
+3. Do you build the AI solutions or just advise? *(answer: both. We prototype and implement, or work alongside your own technology teams where that capability exists)*
+4. Do you replace bid teams with AI? *(answer: no. Bid leadership first, AI applied with judgement, human decision gates throughout)*
+5. Do you work with organisations outside Manchester? *(answer: yes, North West, UK and internationally, most work delivered remotely with onsite workshops)*
+6. What sectors do you work in? *(answer: energy, infrastructure, industrial and other complex, technical and regulated environments)*
+7. Is there a standard package? *(answer: no fixed solution. We listen, understand and shape the right combination of advisory, technology and people development)*
 
 **Reviews.** You have zero, and this is your biggest single gap. Ten reviews from named senior people at recognisable organisations would do more for your credibility than every other item in this document combined. Ask five former colleagues from bp, RWE or Bouygues, and any client from the coaching era whose feedback still transfers to leadership and judgement.
 
@@ -174,17 +175,17 @@ Add these to the `redirects` array in `vercel.json`. They are ranked pages curre
 
 Then run the three old URLs through Search Console's URL Inspection tool and request indexing on the destinations. Worth checking Search Console for any other legacy coaching URLs still holding impressions before you finalise the list, since I could only see what public search would show me.
 
-**And a bigger gap, while we are here.** Your website's services section shows only four offers, all of them the transformation half: Discovery, Consulting, Solution Development, Coaching and Training. The fractional bid executive work, which your LinkedIn leads with and which is the more immediate sale, does not appear anywhere on the site. That is why my first pass at these services missed it too. Someone who finds you through the website cannot buy the thing you are most obviously ready to sell. Worth a separate conversation about adding a fifth card, or restructuring the section around the two partner modes the way LinkedIn does.
+**And a gap worth closing, while we are here.** Your website and your LinkedIn now agree on the four connected areas, which is good. What is on LinkedIn and missing from the website is the proof: 50+ public and private sector bids led, from a few million to multibillion pounds, two bid practices established, across energy, infrastructure and regulated environments. That is the most persuasive material you have and it currently only exists on a platform you do not own. It belongs on the homepage.
 
 ---
 
 ## 10. Order of work
 
 1. Redirects in `vercel.json`, deploy. *(15 minutes, highest value)*
-2. Hide the home address, set the service area, set hours. *(10 minutes, privacy)*
-3. Change categories, remove Life coach. *(5 minutes, expect possible re-verification)*
+2. Set the service area, then hide the home address, then set hours. *(10 minutes, privacy)*
+3. Change categories, remove Life coach. *(5 minutes, expect possible re-verification, and Services options change with the category)*
 4. Paste the description. *(2 minutes)*
-5. Add the ten services, fractional bid leadership first. *(30 minutes, tedious, do it in one sitting)*
+5. Add the four services, plus any optional extras. *(20 minutes, do it in one sitting)*
 6. Send five review requests. *(20 minutes, highest long-term value)*
 7. Seed the Q&A, publish the first post. *(20 minutes)*
 8. Photos: replace anything coaching-branded. The headshot works. The exterior shot of the house should go once the address is hidden.
