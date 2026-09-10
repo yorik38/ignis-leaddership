@@ -39,6 +39,11 @@
       "permanent": true
     },
     {
+      "source": "/about",
+      "destination": "/#about",
+      "permanent": true
+    },
+    {
       "source": "/coaching/1-1-transformation",
       "destination": "/services",
       "permanent": true
