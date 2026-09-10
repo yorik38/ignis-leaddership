@@ -361,8 +361,9 @@
 .resource-article-page .issue-body .resource-article-lead-shell{display:block;}
 .resource-article-page .resource-article-lead-shell .issue-article-content{max-width:720px;}
 .resource-article-page .resource-process-flow{width:100%;max-width:1120px;margin:40px 0 66px;}
-.resource-article-page .resource-process-flow-scroll{overflow-x:auto;overscroll-behavior-inline:contain;}
-.resource-article-page .resource-process-flow img{display:block;width:100%;height:auto;}
+.resource-article-page .resource-process-flow-framework{margin:0;}
+.resource-article-page .resource-process-flow .governed-step p{margin:0;color:#4F5E70;font-size:11.5px;line-height:1.55;}
+.resource-article-page .resource-process-flow .governed-outcome p{margin:0;color:var(--accent);font-size:13px;font-weight:700;line-height:1.4;}
 .resource-article-page .resource-process-flow figcaption{margin:13px 0 0;color:var(--steel);font:400 12px/1.5 Inter,Arial,sans-serif;}
 .resource-article-page .issue-article-content>h2,
 .resource-article-page .resource-article-section{max-width:720px;}
