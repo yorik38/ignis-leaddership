@@ -79,7 +79,7 @@ I had previously built this list around fractional bid leadership and red-team r
 > Design the operating model, governance and human-controlled agentic workflows needed to transform how bids are managed. Decision rights, approval gates, approved sources and evidence traceability, set out as a roadmap your organisation can absorb rather than a target state it cannot reach.
 
 **Solution Development**
-> Prototype and implement practical, governed AI use cases. We build agentic solutions around your people and systems, or work alongside your own technology and development teams where that capability already exists. Human decision gates throughout, not end-to-end automation.
+> Pilot and implement practical, governed AI use cases. We build agentic solutions around your people and systems, or work alongside your own technology and development teams where that capability already exists. Human decision gates throughout, not end-to-end automation.
 
 **Coaching and Training**
 > Build the leadership, AI literacy and critical judgement needed for adoption. Practical sessions grounded in your own tenders and workflows, aimed at the people who qualify opportunities, shape strategy and make commercial commitments, so new ways of working stick.

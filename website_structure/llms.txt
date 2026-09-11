@@ -14,7 +14,7 @@ Organisations that win work through complex, high-value bids: main contractors a
 
 - Discovery: assess the need, constraints and opportunities before deciding what to build.
 - Consulting: turn priorities into use cases, workflows, decision rights, governance and a practical roadmap.
-- Solution development: prototype and improve focused, agent-enabled workflows around existing people and systems.
+- Solution development: pilot and improve focused, agent-enabled workflows around existing people and systems.
 - Coaching and training: build the confidence and judgement teams need to use, challenge and govern AI agents. Yorik is an ICF-credentialled coach.
 
 ## Core pages
