@@ -497,10 +497,8 @@ body.menu-open > header{z-index:102;transform:translateY(0);}
 .positioning-home .rec-quote cite{color:var(--ink);}
 .positioning-home .rec-quote cite span{color:var(--steel);}
 .faq-section{padding:76px 0;background:#EEF3F7;border-top:1px solid var(--line);border-bottom:1px solid var(--line);scroll-margin-top:88px;}
-.faq-heading{display:grid;grid-template-columns:minmax(0,.82fr) minmax(0,1.18fr);column-gap:72px;align-items:end;margin-bottom:38px;}
-.faq-heading .eyebrow{grid-column:1;}
-.faq-heading h2{grid-column:1;font-size:clamp(34px,4vw,48px);max-width:15ch;margin-top:18px;letter-spacing:-.035em;}
-.faq-heading>p{grid-column:2;grid-row:1 / span 2;margin:0;color:var(--steel);font-size:17px;max-width:42ch;padding-bottom:5px;}
+.faq-heading{margin-bottom:38px;}
+.faq-heading h2{font-size:clamp(34px,4vw,48px);max-width:23ch;margin-top:18px;letter-spacing:-.035em;text-wrap:balance;}
 .faq-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));column-gap:48px;border-top:1px solid var(--line);}
 .faq-item{margin:0;border:0;border-bottom:1px solid var(--line);background:transparent;}
 .faq-item summary{position:relative;padding:23px 0 9px;list-style:none;color:var(--ink);font-size:16px;font-weight:600;line-height:1.35;cursor:default;pointer-events:none;}
@@ -552,9 +550,8 @@ body.menu-open > header{z-index:102;transform:translateY(0);}
 
 @media(max-width:700px){
   .faq-section{padding:56px 0;}
-  .faq-heading{display:block;margin-bottom:30px;}
-  .faq-heading h2{font-size:34px;margin-top:14px;}
-  .faq-heading>p{margin-top:18px;padding:0;font-size:15px;}
+  .faq-heading{margin-bottom:30px;text-align:left;}
+  .faq-heading h2{font-size:34px;max-width:17ch;margin:14px 0 0;text-align:left;}
   .faq-grid{grid-template-columns:1fr;}
   .faq-item summary{padding:19px 42px 19px 0;cursor:pointer;pointer-events:auto;font-size:15px;}
   .faq-item summary::after{content:"+";position:absolute;right:4px;top:50%;transform:translateY(-50%);color:var(--accent);font-size:24px;font-weight:400;line-height:1;}
