@@ -453,7 +453,7 @@ body.menu-open > header{z-index:102;transform:translateY(0);}
 .rec-quote cite span{display:block;margin-top:2px;font-size:12px;font-weight:500;color:#98C9CD;}
 .about-quote{font-family:'Source Serif 4',Georgia,serif;font-size:19px;line-height:1.4;font-style:italic;margin:20px 0 0;padding:0;border:0;color:var(--paper);max-width:28ch;}
 .about-quote::before{content:"“";display:block;height:38px;margin-bottom:8px;color:var(--accent);font-family:'Source Serif 4',Georgia,serif;font-size:68px;font-style:normal;font-weight:600;line-height:.72;}
-@media(min-width:981px){.about-narrative h2{max-width:22ch;}.about-quote{max-width:none;font-size:17.5px;}}
+@media(min-width:981px){.positioning-home .bridge-heading h2{max-width:21ch;}.about-narrative h2{max-width:22ch;}.about-quote{max-width:none;font-size:17.5px;}}
 
 .engagements-positioning{background:#F2F5F7;}
 .engagements-heading{max-width:760px;margin-bottom:52px;}
@@ -827,7 +827,7 @@ section.tint{background:var(--tint);}
 .who-we-help-grid{display:block;}
 .who-we-help-intro{max-width:800px;margin:0 auto;text-align:center;}
 .who-we-help-intro h2{max-width:23ch;margin:18px auto 22px;font-size:clamp(28px,3.3vw,40px);letter-spacing:-.03em;}
-.who-we-help-intro>p{max-width:68ch;margin:0 auto;color:var(--steel);font-size:17px;}
+.who-we-help-intro>p{max-width:68ch;margin:0 auto;color:var(--steel);font-size:17px;text-wrap:balance;}
 .who-we-help-options{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));margin-top:48px;}
 .who-we-help-options article{display:flex;flex-direction:column;padding:29px 30px 8px;border-left:1px solid var(--line);}
 .who-we-help-options article:first-child{border-left:0;}
