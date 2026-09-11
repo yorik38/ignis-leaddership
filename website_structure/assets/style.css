@@ -496,7 +496,7 @@ body.menu-open > header{z-index:102;transform:translateY(0);}
 .positioning-home .rec-avatar{border-color:var(--line);}
 .positioning-home .rec-quote cite{color:var(--ink);}
 .positioning-home .rec-quote cite span{color:var(--steel);}
-.faq-section{padding:76px 0;background:var(--tint);border-top:1px solid var(--line);border-bottom:1px solid var(--line);scroll-margin-top:88px;}
+.faq-section{padding:76px 0;background:#EEF3F7;border-top:1px solid var(--line);border-bottom:1px solid var(--line);scroll-margin-top:88px;}
 .faq-heading{display:grid;grid-template-columns:minmax(0,.82fr) minmax(0,1.18fr);column-gap:72px;align-items:end;margin-bottom:38px;}
 .faq-heading .eyebrow{grid-column:1;}
 .faq-heading h2{grid-column:1;font-size:clamp(34px,4vw,48px);max-width:15ch;margin-top:18px;letter-spacing:-.035em;}
