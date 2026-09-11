@@ -488,6 +488,32 @@ function initAiCardAccordion(){
   applyMode();
 }
 
+function initFaqAccordion(){
+  var items = Array.prototype.slice.call(document.querySelectorAll(".faq-item"));
+  if (!items.length || !window.matchMedia) return;
+
+  var mobile = window.matchMedia("(max-width: 700px)");
+
+  function applyMode(){
+    items.forEach(function(item, index){
+      item.open = mobile.matches ? index === 0 : true;
+    });
+  }
+
+  items.forEach(function(item){
+    item.addEventListener("toggle", function(){
+      if (!mobile.matches || !item.open) return;
+      items.forEach(function(other){
+        if (other !== item) other.open = false;
+      });
+    });
+  });
+
+  if (mobile.addEventListener) mobile.addEventListener("change", applyMode);
+  else mobile.addListener(applyMode);
+  applyMode();
+}
+
 document.addEventListener("DOMContentLoaded", function(){
   initCookieBanner();
   initCalendly();
@@ -500,4 +526,5 @@ document.addEventListener("DOMContentLoaded", function(){
   initLightbox();
   initAiOpportunityTimeline();
   initAiCardAccordion();
+  initFaqAccordion();
 });
