@@ -34,6 +34,7 @@ Organisations that win work through complex, high-value bids: main contractors a
 
 - [Bids are lost before the writing starts](https://www.ignisleadership.com/insights/bids-are-lost-before-the-writing-starts): why the hardest bid decisions are made long before anyone drafts.
 - [Why does every bid feel like starting again?](https://www.ignisleadership.com/insights/why-does-every-bid-feel-like-starting-again): institutional memory, knowledge reuse and the capacity lost when neither exists.
+- [AI will expose your slowest bid decision](https://www.ignisleadership.com/insights/ai-will-expose-your-slowest-bid-decision): Faster production will make slow approvals and unclear ownership harder to hide.
 - [The proposal is becoming the easy part](https://www.ignisleadership.com/insights/the-proposal-is-becoming-the-easy-part): AI can produce more bid work, so the advantage moves to the decisions before and after it.
 
 ## Key concepts used on this site
