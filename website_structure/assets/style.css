@@ -802,6 +802,7 @@ section.tint{background:var(--tint);}
 @media(max-width:680px){
   .governed-framework-section{padding:68px 0;}
   .governed-framework-intro{margin-bottom:30px;text-align:left;}
+  .governed-framework-intro h2{font-size:34px;}
   .governed-framework-intro h2,.governed-framework-intro p{margin-left:0;margin-right:0;text-wrap:wrap;}
   .governed-framework{padding:16px 14px 14px;border-radius:13px;}
   .governed-frame-label{gap:10px;margin:0 2px 15px;}
