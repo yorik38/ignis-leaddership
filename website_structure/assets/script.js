@@ -422,6 +422,23 @@ function initAiOpportunityTimeline(){
   var timeline = document.querySelector("[data-ai-lifecycle]");
   if (!timeline) return;
 
+  function positionFirstDot(){
+    var node = timeline.querySelector(".ai-path-capture");
+    var dot = node && node.querySelector("i");
+    var path = timeline.querySelector(".ai-path-guide");
+    if (!dot || !path) return;
+    if (window.matchMedia("(max-width: 820px)").matches) {
+      dot.style.removeProperty("left");
+      dot.style.removeProperty("top");
+      return;
+    }
+    var point = path.getPointAtLength(path.getTotalLength() * 0.04);
+    dot.style.left = (point.x * timeline.clientWidth / 1000 - node.offsetLeft - dot.offsetWidth / 2) + "px";
+    dot.style.top = (point.y * timeline.clientHeight / 280 - node.offsetTop - dot.offsetHeight / 2) + "px";
+  }
+  positionFirstDot();
+  window.addEventListener("resize", positionFirstDot);
+
   var reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   if (reduceMotion || !("IntersectionObserver" in window)) {
     timeline.classList.add("is-visible");
