@@ -826,7 +826,7 @@ section.tint{background:var(--tint);}
 .who-we-help-section{padding:72px 0;background:var(--paper);border-bottom:1px solid var(--line);scroll-margin-top:86px;}
 .who-we-help-grid{display:block;}
 .who-we-help-intro{max-width:800px;margin:0 auto;text-align:center;}
-.who-we-help-intro h2{max-width:23ch;margin:18px auto 22px;font-size:clamp(28px,3.3vw,40px);letter-spacing:-.03em;}
+.who-we-help-intro h2{max-width:25ch;margin:18px auto 22px;font-size:clamp(34px,4vw,52px);letter-spacing:-.035em;}
 .who-we-help-intro>p{max-width:68ch;margin:0 auto;color:var(--steel);font-size:17px;text-wrap:balance;}
 .who-we-help-options{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px;margin-top:32px;}
 .who-we-help-options article{display:flex;flex-direction:column;padding:30px 32px 34px;border:1px solid var(--line);border-top:3px solid var(--accent);background:#f1f4f8;}
