@@ -823,26 +823,26 @@ section.tint{background:var(--tint);}
 }
 
 /* Who I work with */
-.who-we-help-section{background:var(--paper);border-bottom:1px solid var(--line);scroll-margin-top:86px;}
+.who-we-help-section{padding:72px 0;background:var(--paper);border-bottom:1px solid var(--line);scroll-margin-top:86px;}
 .who-we-help-grid{display:block;}
 .who-we-help-intro{max-width:800px;margin:0 auto;text-align:center;}
 .who-we-help-intro h2{max-width:23ch;margin:18px auto 22px;font-size:clamp(28px,3.3vw,40px);letter-spacing:-.03em;}
 .who-we-help-intro>p{max-width:68ch;margin:0 auto;color:var(--steel);font-size:17px;text-wrap:balance;}
-.who-we-help-options{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));margin-top:48px;}
-.who-we-help-connection{max-width:80ch;margin:28px 0 0;color:var(--steel);font-size:14.5px;}
-.who-we-help-options article{display:flex;flex-direction:column;padding:29px 30px 8px;border-left:1px solid var(--line);}
-.who-we-help-options article:first-child{border-left:0;}
-.who-we-help-options article>span{min-height:34px;padding-top:0;color:var(--accent);font-size:10.5px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;}
+.who-we-help-options{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px;margin-top:32px;}
+.who-we-help-options article{display:flex;flex-direction:column;padding:30px 32px 34px;border:1px solid var(--line);border-top:3px solid var(--accent);background:#f1f4f8;}
+.who-we-help-options article:nth-child(2){background:#edf6f5;}
+.who-we-help-options article>span{min-height:0;padding-top:0;color:var(--accent);font-size:10.5px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;}
 .who-we-help-options h3{margin:10px 0 12px;font-size:23px;}
 .who-we-help-options p{max-width:54ch;margin:0;color:var(--steel);font-size:14.5px;}
 .who-we-help-options .who-we-help-fit{min-height:9.3em;margin-top:auto;padding-top:18px;font-size:12.5px;line-height:1.55;}
 .who-we-help-fit strong{color:var(--ink);}
-.who-we-help-cta{display:table;margin:42px auto 0;}
+.who-we-help-cta{display:table;margin:30px auto 0;}
 @media(max-width:820px){
   .who-we-help-intro{text-align:left;}
   .who-we-help-intro h2,.who-we-help-intro>p{margin-left:0;margin-right:0;}
-  .who-we-help-options{grid-template-columns:1fr;margin-top:36px;}
-  .who-we-help-options article{padding:25px 0;border-left:0;border-bottom:1px solid var(--line);}
+  .who-we-help-section{padding:48px 0;}
+  .who-we-help-options{grid-template-columns:1fr;gap:16px;margin-top:28px;}
+  .who-we-help-options article{padding:24px;border:1px solid var(--line);border-top:3px solid var(--accent);}
   .who-we-help-options article>span{min-height:0;}
   .who-we-help-options h3{margin-top:9px;}
   .who-we-help-options .who-we-help-fit{min-height:0;}
