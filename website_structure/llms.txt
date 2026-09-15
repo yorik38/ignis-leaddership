@@ -1,21 +1,21 @@
 # Ignis Leadership
 
-> Bid management consultancy and advisory. Ignis Leadership helps organisations build or transform bid practices in which people and AI agents work together, improving opportunity focus, decision-making, bidding capacity and organisational learning.
+> Bid and tender consultancy and advisory. Ignis Leadership transforms bid and tender processes, integrating AI agents to add capacity and strengthen judgement, supplier engagement and commercial decisions.
 
-Ignis Leadership is the practice of Yorik Tisseau, who spent more than 15 years leading complex international bids, progressing from estimator to Bid Director at bp, RWE, Bouygues Energies & Services and Bouygues UK. The work sits at the intersection of bid leadership, operating-model design and applied AI. It is not proposal-writing software and not generic AI consulting.
+Ignis Leadership is the practice of Yorik Tisseau. At Bouygues, he progressed from project engineer, preparing RFPs, appraising bids and selecting suppliers, to Senior Bid Manager, bidding to secure major EPC contracts. He then moved into offshore wind, leading complex bids across Europe as Bid Director at bp and RWE.
 
 The central argument of the practice: bid teams were built around people gathering information, coordinating inputs and producing content under pressure. AI agents can now absorb much of that work. The opportunity is not to automate the old process but to redesign the practice around better judgement, greater capacity and clear human accountability. Agents prepare and coordinate; people direct, challenge, decide and approve.
 
 ## Who it is for
 
-Organisations that win work through complex, high-value bids: main contractors and construction groups, energy and renewables developers, industrial and infrastructure businesses, property developers, and consultancies that bid for their own work. Typically UK and European, bidding into public sector and large private frameworks.
+Organisations bidding for complex, high-value work and organisations tendering to award it, particularly in energy, infrastructure and industrial markets.
 
 ## Services
 
-- Discovery: assess the need, constraints and opportunities before deciding what to build.
-- Consulting: turn priorities into use cases, workflows, decision rights, governance and a practical roadmap.
-- Solution development: pilot and improve focused, agent-enabled workflows around existing people and systems.
-- Coaching and training: build the confidence and judgement teams need to use, challenge and govern AI agents. Yorik is an ICF-credentialled coach.
+- Discovery: understand where work stalls, uncertainty builds and teams lose time.
+- Consulting and advisory: redesign bid and tender processes, responsibilities, controls and decision rights.
+- Solution development: build and test focused AI agents and workflows around existing people and systems.
+- Training and upskilling: help teams use, question and improve AI workflows through practical work.
 
 ## Core pages
 
