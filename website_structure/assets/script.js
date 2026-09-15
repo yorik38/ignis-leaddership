@@ -1,6 +1,6 @@
 /* ==========================================================================
    Ignis Leadership: site scripts
-   Handles: cookie consent banner, gated GA4 loading, Calendly embed,
+   Handles: cookie consent banner, gated analytics loading, Calendly embed,
    and the lead-qualification form submission via Formspree.
    ========================================================================== */
 
@@ -26,9 +26,25 @@ function loadGA4(){
 }
 
 /* ---------------------------------------------------------------------
-   2) COOKIE CONSENT BANNER
+   2) HUBSPOT TRACKING
+   HubSpot portal 149324702 loads alongside GA4 after analytics consent.
+   --------------------------------------------------------------------- */
+function loadHubSpotTracking(){
+  if (window.__hubSpotTrackingLoaded) return;
+  window.__hubSpotTrackingLoaded = true;
+  var s = document.createElement("script");
+  s.type = "text/javascript";
+  s.id = "hs-script-loader";
+  s.async = true;
+  s.defer = true;
+  s.src = "https://js-eu1.hs-scripts.com/149324702.js";
+  document.body.appendChild(s);
+}
+
+/* ---------------------------------------------------------------------
+   3) COOKIE CONSENT BANNER
    Simple accept/decline banner. Choice is stored for 180 days.
-   Analytics (GA4) is gated behind acceptance; essential site function
+   Analytics (GA4 and HubSpot) is gated behind acceptance; essential site function
    (the enquiry form, Calendly) is not a tracking cookie and always works.
    --------------------------------------------------------------------- */
 var COOKIE_NAME = "ignis_cookie_consent";
@@ -45,13 +61,26 @@ function setCookie(name, value, days){
 }
 
 function initCookieBanner(){
-  var banner = document.getElementById("cookie-banner");
-  if (!banner) return;
   var consent = getCookie(COOKIE_NAME);
+  var banner = document.getElementById("cookie-banner");
 
   if (consent === "accepted") {
     loadGA4();
-  } else if (consent !== "declined") {
+    loadHubSpotTracking();
+  }
+
+  // Most pages are static documents, so add the shared consent banner when
+  // the page does not already contain the homepage version.
+  if (!banner && consent !== "accepted" && consent !== "declined") {
+    banner = document.createElement("div");
+    banner.id = "cookie-banner";
+    banner.innerHTML = '<div class="cookie-inner"><p class="cookie-text">We use a small number of cookies to understand how this site is used. Essential cookies are always on; analytics cookies only run if you accept. See our <a href="/privacy">Privacy Policy</a> for details.</p><div class="cookie-actions"><button class="cookie-btn decline" id="cookie-decline">Decline</button><button class="cookie-btn accept" id="cookie-accept">Accept</button></div></div>';
+    document.body.appendChild(banner);
+  }
+
+  if (!banner) return;
+
+  if (consent !== "accepted" && consent !== "declined") {
     // no prior choice recorded; show the banner
     window.setTimeout(function(){ banner.classList.add("visible"); }, 400);
   }
@@ -64,6 +93,7 @@ function initCookieBanner(){
       setCookie(COOKIE_NAME, "accepted", 180);
       banner.classList.remove("visible");
       loadGA4();
+      loadHubSpotTracking();
     });
   }
   if (declineBtn) {
@@ -75,7 +105,7 @@ function initCookieBanner(){
 }
 
 /* ---------------------------------------------------------------------
-   3) CALENDLY: popup widget
+   4) CALENDLY: popup widget
    Every "Book a discovery call" button opens the Calendly scheduler
    in a popup overlay on the same page. The href is still set to the
    real Calendly link as a no-JS fallback.
@@ -144,7 +174,7 @@ function initCalendlyInlineEmbed(){
 }
 
 /* ---------------------------------------------------------------------
-   4) LEAD QUALIFICATION FORM: Formspree
+   5) LEAD QUALIFICATION FORM: Formspree
    The form still degrades gracefully: without JS it posts normally
    and Formspree redirects back with its own thank-you page.
    --------------------------------------------------------------------- */
@@ -236,7 +266,7 @@ function initForm(){
 }
 
 /* ---------------------------------------------------------------------
-   5) RESOURCE NAVIGATION
+   6) RESOURCE NAVIGATION
    Keeps the richer desktop guide list and simpler mobile hub cards
    consistent across the static site without duplicating menu markup.
    --------------------------------------------------------------------- */
@@ -299,7 +329,7 @@ function initDeferredAnchorTarget(){
 }
 
 /* ---------------------------------------------------------------------
-   6) MOBILE MENU: hamburger toggle + full-screen overlay
+   7) MOBILE MENU: hamburger toggle + full-screen overlay
    Only active at the mobile breakpoint (see assets/style.css); on wider
    screens the toggle is hidden and the overlay never displays.
    --------------------------------------------------------------------- */
@@ -333,7 +363,7 @@ function initMobileMenu(){
 }
 
 /* ---------------------------------------------------------------------
-   6) SCROLL-AWARE HEADER
+   8) SCROLL-AWARE HEADER
    Keeps the navigation available without occupying the screen while the
    visitor is reading. It hides on downward movement, returns immediately
    on upward movement, and returns shortly after scrolling stops.
@@ -380,7 +410,7 @@ function initScrollAwareHeader(){
 }
 
 /* ---------------------------------------------------------------------
-   7) ARCHITECTURE DIAGRAM: tap/click to enlarge in a lightbox
+   9) ARCHITECTURE DIAGRAM: tap/click to enlarge in a lightbox
    The diagram is dense, so on small screens it's shown as a thumbnail
    that opens full-size (native resolution, pan/pinch-zoom) on tap.
    --------------------------------------------------------------------- */
