@@ -316,6 +316,7 @@ body.menu-open > header{z-index:102;transform:translateY(0);}
 .bridge-heading p{font-family:'Inter',Arial,sans-serif;font-style:normal;font-size:16.5px;line-height:1.6;color:var(--steel);max-width:65ch;margin:0 auto;padding-top:24px;}
 .bridge-heading p+p{padding-top:12px;}
 .service-route-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;padding:1px;background:var(--line);}
+.service-delivery-note{max-width:76ch;margin:28px auto 0;text-align:center;color:var(--steel);font-size:15.5px;line-height:1.6;}
 .service-route{padding:38px;display:flex;flex-direction:column;text-decoration:none;background:var(--paper);min-height:290px;position:relative;transition:transform .2s ease,box-shadow .2s ease,filter .2s ease;}
 .service-route-discovery{background:#EEF1F4;}
 .service-route-consulting{background:#E7F0F3;}
