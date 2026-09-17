@@ -49,8 +49,38 @@
       "permanent": true
     },
     {
+      "source": "/services",
+      "destination": "/#services",
+      "permanent": true
+    },
+    {
+      "source": "/executive-coaching-mid-senior-leaders",
+      "destination": "/#services",
+      "permanent": true
+    },
+    {
+      "source": "/high-performance-team-coaching",
+      "destination": "/#services",
+      "permanent": true
+    },
+    {
+      "source": "/leadership-accelerator",
+      "destination": "/#services",
+      "permanent": true
+    },
+    {
+      "source": "/contact",
+      "destination": "/#contact",
+      "permanent": true
+    },
+    {
       "source": "/cookie-policy",
       "destination": "/privacy",
+      "permanent": true
+    },
+    {
+      "source": "/terms-and-conditions",
+      "destination": "/terms",
       "permanent": true
     },
     {
