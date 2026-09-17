@@ -278,7 +278,7 @@ function initResourceNavigation(){
   var desktopMarkup = [
     '<a class="nav-resource-hub" href="/insights"><strong>Insights</strong><span>Bid More. Win More. Newsletter</span></a>',
     '<div class="nav-resource-section">',
-      '<a class="nav-resource-hub" href="/resources"><strong>Build or transform your bid practice</strong><span>Practical strategy and tools for AI-augmented bids</span></a>',
+      '<a class="nav-resource-hub" href="/resources"><strong>Human-Agent Systems</strong><span>Practical guides for commercial teams.</span></a>',
       '<div class="nav-resource-guide-list">',
         '<span class="nav-resource-list-label">Practical guides</span>',
         '<a class="nav-resource-guide" href="/resources/ai-augmented-bid-practice"><strong>How to build an AI-augmented bid practice</strong></a>',
@@ -300,7 +300,7 @@ function initResourceNavigation(){
 
   var mobileMarkup = [
     '<a href="/insights"><strong>Insights</strong><span>Bid More. Win More. Newsletter</span></a>',
-    '<a href="/resources"><strong>Build or transform your bid practice</strong><span>Practical strategy and tools for AI-augmented bids</span></a>'
+    '<a href="/resources"><strong>Human-Agent Systems</strong><span>Practical guides for commercial teams.</span></a>'
   ].join("");
 
   document.querySelectorAll(".mobile-resource-links").forEach(function(menu){
