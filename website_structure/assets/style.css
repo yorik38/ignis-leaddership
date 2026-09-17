@@ -674,11 +674,11 @@ section.tint{background:var(--tint);}
 .ai-path-node i{position:absolute;display:block;width:13px;height:13px;border:3px solid rgba(255,255,255,.9);border-radius:50%;background:#63D1D6;box-shadow:0 0 0 1px rgba(99,209,214,.35);}
 .ai-path-node span{display:block;margin-bottom:6px;color:#8FDDE1;font-size:11px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;}
 .ai-path-node strong{display:block;font-size:13px;font-weight:500;line-height:1.35;}
-.ai-path-capture{left:-3.5%;top:-1%;transform:none;}
+.ai-path-capture{left:-3.5%;top:-1%;width:280px;transform:none;}
 .ai-path-capture i{left:calc(100% + 21px);top:calc(100% + 12px);}
 .ai-path-pursuit{left:20.5%;top:74%;width:300px;transform:none;}
 .ai-path-pursuit i{left:calc(100% - 5px);top:-32px;}
-.ai-path-handover{left:94.5%;top:41%;width:360px;transform:translate(calc(-100% - 18px),calc(-100% - 18px));}
+.ai-path-handover{left:94.5%;top:41%;width:280px;transform:translate(calc(-100% - 18px),calc(-100% - 18px));}
 .ai-path-handover i{left:calc(100% + 12.5px);top:calc(100% + 13px);}
 .ai-lifecycle-path.ai-motion-ready .ai-path-progress{stroke-dasharray:1500;stroke-dashoffset:1500;}
 .ai-lifecycle-path.ai-motion-ready .ai-path-node{opacity:0;}
