@@ -54,6 +54,11 @@
       "permanent": true
     },
     {
+      "source": "/consulting-excellence",
+      "destination": "/#services",
+      "permanent": true
+    },
+    {
       "source": "/executive-coaching-mid-senior-leaders",
       "destination": "/#services",
       "permanent": true
