@@ -44,8 +44,18 @@
       "permanent": true
     },
     {
+      "source": "/about-me",
+      "destination": "/#about",
+      "permanent": true
+    },
+    {
+      "source": "/cookie-policy",
+      "destination": "/privacy",
+      "permanent": true
+    },
+    {
       "source": "/coaching/1-1-transformation",
-      "destination": "/services",
+      "destination": "/#services",
       "permanent": true
     },
     {
