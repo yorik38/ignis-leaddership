@@ -1623,3 +1623,54 @@ footer{background:var(--cta);border-top:1px solid var(--line-onink);padding:60px
   .diagnostic-mini-poster h3{font-size:31px;}
   .diagnostic-mini-header{font-size:8.5px;}
 }
+
+/* Keep every homepage section heading at the quieter governance scale. */
+.positioning-home .emerging-challenge-heading h2,
+.positioning-home .ai-opportunity-intro h2,
+.positioning-home .governed-framework-intro h2,
+.positioning-home .who-we-help-intro h2,
+.positioning-home .bridge-heading h2,
+.positioning-home .about-narrative h2,
+.positioning-home .faq-heading h2,
+.positioning-home .contact-intro h2,
+.positioning-home .home-newsletter-copy h2{
+  font-size:clamp(30px,3.5vw,46px);
+}
+@media(max-width:680px){
+  .positioning-home .emerging-challenge-heading h2,
+  .positioning-home .ai-opportunity-intro h2,
+  .positioning-home .governed-framework-intro h2,
+  .positioning-home .who-we-help-intro h2,
+  .positioning-home .bridge-heading h2,
+  .positioning-home .about-narrative h2,
+  .positioning-home .faq-heading h2,
+  .positioning-home .contact-intro h2,
+  .positioning-home .home-newsletter-copy h2{
+    font-size:34px;
+  }
+}
+
+/* Main section introductions share one readable size; compact component copy
+   keeps its smaller scale inside cards, diagrams and FAQs. */
+.positioning-home .emerging-challenge-copy>p:not(.emerging-challenge-outcome),
+.positioning-home .ai-opportunity-intro>p,
+.positioning-home .governed-framework-intro>p,
+.positioning-home .who-we-help-intro>p,
+.positioning-home .bridge-heading>p,
+.positioning-home .about-narrative>p,
+.positioning-home .contact-intro>p,
+.positioning-home .home-newsletter-copy>p{
+  font-size:17px;
+}
+@media(max-width:680px){
+  .positioning-home .emerging-challenge-copy>p:not(.emerging-challenge-outcome),
+  .positioning-home .ai-opportunity-intro>p,
+  .positioning-home .governed-framework-intro>p,
+  .positioning-home .who-we-help-intro>p,
+  .positioning-home .bridge-heading>p,
+  .positioning-home .about-narrative>p,
+  .positioning-home .contact-intro>p,
+  .positioning-home .home-newsletter-copy>p{
+    font-size:16px;
+  }
+}
