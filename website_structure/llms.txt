@@ -32,6 +32,7 @@ Organisations bidding for complex, high-value work and organisations tendering t
 
 ## Newsletter editions
 
+- [Why do tenders inherit decisions without their history?](https://www.ignisleadership.com/insights/why-do-tenders-inherit-decisions-without-their-history): how commercial memory preserves evidence, assumptions and decision authority as an opportunity moves from origination through tender and close.
 - [Bids are lost before the writing starts](https://www.ignisleadership.com/insights/bids-are-lost-before-the-writing-starts): why the hardest bid decisions are made long before anyone drafts.
 - [Why does every bid feel like starting again?](https://www.ignisleadership.com/insights/why-does-every-bid-feel-like-starting-again): institutional memory, knowledge reuse and the capacity lost when neither exists.
 - [AI will expose your slowest bid decision.](https://www.ignisleadership.com/insights/ai-will-expose-your-slowest-bid-decision): Faster production will make slow approvals and unclear ownership harder to hide.
@@ -39,6 +40,7 @@ Organisations bidding for complex, high-value work and organisations tendering t
 
 ## Key concepts used on this site
 
+- Commercial memory: the usable record of what an organisation believed, why it believed it, what changed and who has authority to make the next commitment.
 - AI-augmented bid practice: a bid operating model designed jointly around people and AI agents, rather than an existing process with tools bolted on.
 - Governed bid delivery framework: the direction, execution, validation and governance layer around an AI bid model. The durable enterprise asset is this framework, not the underlying model.
 - Human in the loop: the principle that agents prepare and coordinate while named people retain the authority to direct, challenge, decide and approve.
