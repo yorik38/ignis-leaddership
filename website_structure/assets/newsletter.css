@@ -11,7 +11,7 @@
 .newsletter-subhead{font:600 19px/1.5 'Inter',sans-serif;color:var(--ink);max-width:640px;margin:26px auto 0;}
 .newsletter-lede{font-family:'Source Serif 4',Georgia,serif;font-size:clamp(19px,2.2vw,22px);line-height:1.5;color:var(--steel);max-width:650px;margin:18px auto 0;}
 .newsletter-hero-copy h1{margin:0;max-width:13ch;}
-.newsletter-hero-copy .newsletter-subhead{max-width:44ch;margin:24px 0 0;font-size:18px;}
+.newsletter-hero-copy .newsletter-subhead{max-width:44ch;margin:24px 0 0;font-family:var(--newsletter-sans);font-size:17px;font-weight:400;line-height:1.6;color:var(--steel);}
 .newsletter-hero-copy .newsletter-lede{max-width:50ch;margin:16px 0 0;font-family:var(--newsletter-sans);font-size:17px;line-height:1.58;}
 .newsletter-hero-signup{background:var(--cta);color:#fff;padding:38px;box-shadow:0 22px 48px rgba(18,33,58,.12);}
 .newsletter-signup-title{margin:0;color:#fff;font-size:19px;font-weight:600;}
@@ -114,6 +114,7 @@
 body>header.header-hidden~main .issue-sidebar{top:24px;}
 .issue-hero{position:relative;top:auto;z-index:auto;}
 .newsletter-hero h1,.archive-hero h1,.issue-hero h1{font-family:var(--newsletter-sans);line-height:1.06;letter-spacing:-.035em;}.archive-hero h1,.issue-hero h1{font-size:var(--newsletter-page-title);}.newsletter-lede,.archive-hero p,.issue-standfirst{font-family:var(--newsletter-editorial);font-size:var(--newsletter-standfirst);line-height:1.55;}.latest-feature-copy p,.past-edition-copy p,.coming-card p,.archive-edition p,.edition-card p,.mid-signup-copy p,.manifesto-copy p,.issue-body p{font-family:var(--newsletter-editorial);}.archive-prompt p,.author-card p{font-family:var(--newsletter-editorial);font-size:17px;line-height:1.55;}
+.archive-page .archive-hero p{font-family:var(--newsletter-sans);font-size:17px;font-weight:400;line-height:1.6;color:var(--steel);}
 .issue-page .issue-standfirst{font-family:var(--newsletter-sans);font-size:18px;line-height:1.55;}
 .issue-page .issue-body p{font-family:var(--newsletter-sans);font-size:17px;line-height:1.72;}
 .issue-page .issue-body .issue-author-bio p{font:400 14px/1.65 var(--newsletter-sans);color:var(--steel);margin:0;}.issue-page .issue-body .issue-author-bio p+p{margin-top:12px;}

@@ -19,7 +19,7 @@ Organisations bidding for complex, high-value work and organisations tendering t
 
 ## Core pages
 
-- [Home](https://www.ignisleadership.com/): positioning, the AI-augmented bid lifecycle across capture, pursuit and handover, the governed bid delivery framework, sectors served and services.
+- [Home](https://www.ignisleadership.com/): positioning, the AI-augmented bid lifecycle across capture, pursuit and handover, the governed commercial delivery framework, sectors served and services.
 - [Resources](https://www.ignisleadership.com/resources): practical guides on building and transforming an AI-augmented bid practice.
 - [Insights](https://www.ignisleadership.com/insights): the "Bid More. Win More." newsletter on bid strategy, AI adoption and bid practice design.
 - [Archive](https://www.ignisleadership.com/archive): full index of past newsletter editions.
@@ -42,7 +42,7 @@ Organisations bidding for complex, high-value work and organisations tendering t
 
 - Commercial memory: the usable record of what an organisation believed, why it believed it, what changed and who has authority to make the next commitment.
 - AI-augmented bid practice: a bid operating model designed jointly around people and AI agents, rather than an existing process with tools bolted on.
-- Governed bid delivery framework: the direction, execution, validation and governance layer around an AI bid model. The durable enterprise asset is this framework, not the underlying model.
+- Governed commercial delivery framework: the direction, execution, validation and governance layer around an AI-enabled commercial delivery model. The durable enterprise asset is this framework, not the underlying model.
 - Human in the loop: the principle that agents prepare and coordinate while named people retain the authority to direct, challenge, decide and approve.
 - The three lifecycle stages: capture (finding and focusing earlier), pursuit and proposal (leading the work that matters), handover and learning (transferring knowledge and improving the next bid).
 
