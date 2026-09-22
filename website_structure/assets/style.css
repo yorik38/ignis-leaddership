@@ -891,6 +891,7 @@ section.tint{background:var(--tint);}
 .who-we-help-audience{max-width:900px;margin:28px auto 0;text-align:center;color:var(--steel);}
 .who-we-help-audience p{margin:0;font-size:14px;font-weight:600;line-height:1.55;}
 .who-we-help-audience span{color:var(--accent);margin:0 4px;}
+.who-we-help-audience .who-we-help-audience-sector{display:block;margin:0;color:inherit;}
 .who-we-help-cta{display:table;margin:30px auto 0;}
 @media(max-width:980px){
   .who-we-help-options{grid-template-columns:1fr;}
@@ -907,6 +908,9 @@ section.tint{background:var(--tint);}
   .who-we-help-audience{margin-top:24px;text-align:left;}
   .who-we-help-audience p{font-size:13.5px;}
   .who-we-help-cta{margin-left:0;}
+}
+@media(max-width:640px){
+  .who-we-help-audience .who-we-help-audience-sector{display:inline;}
 }
 
 /* MAP framework */
