@@ -207,18 +207,24 @@ function initCheckboxGroupValidation(form, fieldName, message){
 function initServiceRouteSelection(){
   var routes = document.querySelectorAll("[data-service-interest]");
   var choices = document.querySelectorAll('input[name="service_interest"]');
-  if (!routes.length || !choices.length) return;
+  if (!choices.length) return;
+
+  function selectService(requestedValue){
+    Array.prototype.forEach.call(choices, function(choice){
+      if (choice.value !== requestedValue) return;
+      choice.checked = true;
+      choice.dispatchEvent(new Event("change", { bubbles: true }));
+    });
+  }
 
   Array.prototype.forEach.call(routes, function(route){
     route.addEventListener("click", function(){
-      var requestedValue = route.getAttribute("data-service-interest");
-      Array.prototype.forEach.call(choices, function(choice){
-        if (choice.value !== requestedValue) return;
-        choice.checked = true;
-        choice.dispatchEvent(new Event("change", { bubbles: true }));
-      });
+      selectService(route.getAttribute("data-service-interest"));
     });
   });
+
+  var requestedService = new URLSearchParams(window.location.search).get("service");
+  if (requestedService) selectService(requestedService);
 }
 
 function initForm(){
@@ -266,7 +272,38 @@ function initForm(){
 }
 
 /* ---------------------------------------------------------------------
-   6) RESOURCE NAVIGATION
+   6) SERVICES NAVIGATION
+   Turns the existing Services link into the same hover and focus pattern
+   used by Resources. The plain link remains as the no-JavaScript fallback.
+   --------------------------------------------------------------------- */
+function initServicesNavigation(){
+  var overviewHref = window.location.pathname === "/" ? "#services" : "/#services";
+  var desktopServiceLink = document.querySelector('.nav-links > a.navlink[href="#services"], .nav-links > a.navlink[href="/#services"]');
+
+  if (desktopServiceLink) {
+    var dropdown = document.createElement("div");
+    dropdown.className = "nav-dropdown";
+    dropdown.innerHTML = '<button type="button" class="navlink nav-dropdown-trigger" aria-haspopup="true">Services <span aria-hidden="true">⌄</span></button><div class="nav-dropdown-menu nav-services-menu" data-nav-menu="services" aria-label="Service sections"><a class="nav-resource-hub" href="' + overviewHref + '"><strong>Services overview</strong><span>From commercial problem to adopted system.</span></a><a class="nav-resource-hub" href="/discovery"><strong>Commercial Discovery</strong><span>Find the one workflow worth fixing first.</span></a></div>';
+    desktopServiceLink.replaceWith(dropdown);
+  }
+
+  var mobileServiceLink = document.querySelector('.mobile-menu-links > a.mobile-navlink[href="#services"], .mobile-menu-links > a.mobile-navlink[href="/#services"]');
+  if (mobileServiceLink) {
+    var label = document.createElement("span");
+    label.className = "mobile-navlink mobile-nav-group-label";
+    label.textContent = "Services";
+
+    var links = document.createElement("div");
+    links.className = "mobile-resource-links mobile-service-links";
+    links.setAttribute("aria-label", "Service sections");
+    links.innerHTML = '<a href="' + overviewHref + '"><strong>Services overview</strong><span>From commercial problem to adopted system.</span></a><a href="/discovery"><strong>Commercial Discovery</strong><span>Find the one workflow worth fixing first.</span></a>';
+
+    mobileServiceLink.replaceWith(label, links);
+  }
+}
+
+/* ---------------------------------------------------------------------
+   7) RESOURCE NAVIGATION
    Keeps the richer desktop guide list and simpler mobile hub cards
    consistent across the static site without duplicating menu markup.
    --------------------------------------------------------------------- */
@@ -288,7 +325,7 @@ function initResourceNavigation(){
     '</div>'
   ].join("");
 
-  document.querySelectorAll(".nav-dropdown-menu").forEach(function(menu){
+  document.querySelectorAll('.nav-dropdown-menu:not([data-nav-menu="services"])').forEach(function(menu){
     menu.innerHTML = desktopMarkup;
     var insightsLink = menu.querySelector('a[href="/insights"]');
     var resourcesLink = menu.querySelector('a[href="/resources"]');
@@ -303,7 +340,7 @@ function initResourceNavigation(){
     '<a href="/resources"><strong>Human-Agent Systems</strong><span>Practical guides for commercial teams.</span></a>'
   ].join("");
 
-  document.querySelectorAll(".mobile-resource-links").forEach(function(menu){
+  document.querySelectorAll(".mobile-resource-links:not(.mobile-service-links)").forEach(function(menu){
     menu.innerHTML = mobileMarkup;
     var insightsLink = menu.querySelector('a[href="/insights"]');
     var resourcesLink = menu.querySelector('a[href="/resources"]');
@@ -566,6 +603,7 @@ document.addEventListener("DOMContentLoaded", function(){
   initCalendly();
   initForm();
   initServiceRouteSelection();
+  initServicesNavigation();
   initResourceNavigation();
   initDeferredAnchorTarget();
   initMobileMenu();
