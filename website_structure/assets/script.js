@@ -327,9 +327,11 @@ function initResourceNavigation(){
 
   document.querySelectorAll('.nav-dropdown-menu:not([data-nav-menu="services"])').forEach(function(menu){
     menu.innerHTML = desktopMarkup;
+    var parentTrigger = menu.closest(".nav-dropdown") && menu.closest(".nav-dropdown").querySelector(".nav-dropdown-trigger");
     var insightsLink = menu.querySelector('a[href="/insights"]');
     var resourcesLink = menu.querySelector('a[href="/resources"]');
     var exactGuide = menu.querySelector('.nav-resource-guide[href="' + currentPath + '"]');
+    if ((isInsights || isResources) && parentTrigger) parentTrigger.setAttribute("aria-current", "page");
     if (isInsights && insightsLink) insightsLink.setAttribute("aria-current", "page");
     if (isResources && resourcesLink) resourcesLink.setAttribute("aria-current", "page");
     if (exactGuide) exactGuide.setAttribute("aria-current", "page");
