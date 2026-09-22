@@ -382,7 +382,7 @@ function initMobileMenu(){
   if (serviceLinks && serviceLabel && serviceLabel.classList.contains("mobile-nav-group-label")) {
     serviceToggle = document.createElement("button");
     serviceToggle.type = "button";
-    serviceToggle.className = "mobile-navlink mobile-nav-group-label mobile-services-toggle";
+    serviceToggle.className = "mobile-navlink mobile-services-toggle";
     serviceToggle.setAttribute("aria-expanded", "false");
     serviceToggle.setAttribute("aria-controls", "mobile-service-links");
     serviceToggle.innerHTML = '<span>Services</span><span class="mobile-nav-arrow" aria-hidden="true">⌄</span>';

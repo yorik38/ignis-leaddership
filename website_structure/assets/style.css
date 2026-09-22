@@ -343,8 +343,8 @@ body.menu-open > header{z-index:102;transform:translateY(0);}
 .service-pathway{display:grid;grid-template-columns:minmax(0,1.08fr) minmax(0,.92fr);gap:18px;align-items:stretch;}
 .service-pathway-next{display:flex;flex-direction:column;gap:18px;}
 .service-stage{display:flex;flex-direction:column;min-width:0;padding:34px;background:#EEF1F4;border:1px solid var(--line);color:var(--ink);text-decoration:none;transition:transform .2s ease,box-shadow .2s ease,border-color .2s ease;}
-.service-stage-featured{align-self:start;padding:42px;background:#E7F0F3;border-top:4px solid var(--accent);}
-.service-stage.service-stage-featured>.route-link{margin:18px 0 0;padding:11px 15px;background:var(--cta);color:var(--paper);font-size:13.5px;}
+.service-stage-featured{align-self:stretch;padding:42px;background:#E7F0F3;border-top:4px solid var(--accent);}
+.service-stage.service-stage-featured>.route-link{margin:auto 0 0;padding:11px 15px;background:var(--cta);color:var(--paper);font-size:13.5px;}
 .service-stage-dark{background:var(--cta);color:var(--paper);}
 .service-stage .route-label{display:flex;align-items:baseline;gap:10px;}
 .route-number{font-size:22px;font-weight:700;line-height:1;letter-spacing:-.03em;}
@@ -368,7 +368,7 @@ body.menu-open > header{z-index:102;transform:translateY(0);}
 .service-pathway-next .route-link{margin-top:18px;}
 @media (hover:hover){.service-stage:hover{z-index:2;transform:translateY(-3px);border-color:rgba(27,58,99,.32);box-shadow:0 14px 30px rgba(20,24,31,.09);}}
 @media (prefers-reduced-motion:reduce){.service-stage:hover{transform:none;}}
-@media (max-width:900px){.service-pathway{grid-template-columns:1fr;}.service-pathway-next{display:grid;grid-template-columns:1fr 1fr;}}
+@media (max-width:900px){.service-pathway{grid-template-columns:1fr;}.service-stage-featured{align-self:auto;}.service-stage.service-stage-featured>.route-link{margin-top:18px;}.service-pathway-next{display:grid;grid-template-columns:1fr 1fr;}}
 @media (max-width:680px){.service-pathway-next{grid-template-columns:1fr;}.service-stage,.service-stage-featured{padding:28px;}.service-stage h3{font-size:25px;}}
 .bid-leadership-section{background:var(--paper);border-bottom:1px solid var(--line);scroll-margin-top:86px;}
 .bid-leadership-grid{display:grid;grid-template-columns:minmax(0,.86fr) minmax(0,1.14fr);column-gap:86px;row-gap:32px;align-items:start;}
