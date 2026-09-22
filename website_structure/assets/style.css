@@ -890,7 +890,6 @@ section.tint{background:var(--tint);}
 .who-we-help-fit strong{color:var(--ink);}
 .who-we-help-audience{max-width:900px;margin:28px auto 0;text-align:center;color:var(--steel);}
 .who-we-help-audience p{margin:0;font-size:14px;font-weight:600;line-height:1.55;}
-.who-we-help-audience p+p{margin-top:7px;font-weight:500;}
 .who-we-help-audience span{color:var(--accent);margin:0 4px;}
 .who-we-help-cta{display:table;margin:30px auto 0;}
 @media(max-width:980px){
