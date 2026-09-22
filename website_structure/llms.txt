@@ -12,14 +12,14 @@ Organisations bidding for complex, high-value work and organisations tendering t
 
 ## Services
 
-- Commercial Discovery: a focused, two-week engagement to establish the current-state evidence, select the first workflow worth redesigning, recommend a delivery route and create a decision-ready investment case.
+- Commercial Discovery: a focused, two-week engagement to establish the current-state evidence, select the first workflow worth redesigning, compare delivery routes and produce a phased investment envelope from design through adoption and operation.
 - System Design: redesign the selected workflow around decision rights, trusted information, agent tasks, human judgement, approvals and evidence.
 - Delivery Support and Adoption: support internal delivery, develop a focused solution, or oversee a specialist partner while helping the team adopt and improve the system.
 
 ## Core pages
 
 - [Home](https://www.ignisleadership.com/): positioning, the AI-augmented bid lifecycle across capture, pursuit and handover, the governed commercial delivery framework, sectors served and services.
-- [Commercial Discovery](https://www.ignisleadership.com/discovery): the two-week, fixed-fee starting point for selecting one commercial workflow and producing the evidence, roadmap and investment case needed for a leadership decision.
+- [Commercial Discovery](https://www.ignisleadership.com/discovery): the two-week, fixed-fee starting point for selecting one commercial workflow and producing the evidence, route comparison and indicative total investment needed for a leadership decision.
 - [Resources](https://www.ignisleadership.com/resources): practical guides on building and transforming an AI-augmented bid practice.
 - [Insights](https://www.ignisleadership.com/insights): the "Bid More. Win More." newsletter on bid strategy, AI adoption and bid practice design.
 - [Archive](https://www.ignisleadership.com/archive): full index of past newsletter editions.
