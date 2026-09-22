@@ -276,7 +276,6 @@ body.menu-open > header{z-index:102;transform:translateY(0);}
 .sector-line p{margin:0;font-size:12.5px;font-weight:600;text-transform:uppercase;letter-spacing:.14em;color:var(--steel);}
 .sector-line span{color:var(--accent);margin:0 2px;}
 .sector-line .client-types{margin-top:10px;font-size:11.5px;font-weight:500;text-transform:none;letter-spacing:.04em;}
-.sector-line .client-coaching{margin-top:8px;font-size:12px;font-weight:500;text-transform:none;letter-spacing:0;}
 @media (max-width:640px){.sector-line p{text-align:center;font-size:11.5px;letter-spacing:.1em;}}
 
 /* ==========================================================================
@@ -889,6 +888,10 @@ section.tint{background:var(--tint);}
 .who-we-help-options p{max-width:54ch;margin:0;color:var(--steel);font-size:14.5px;}
 .who-we-help-options .who-we-help-fit{min-height:9.3em;margin-top:auto;padding-top:18px;font-size:12.5px;line-height:1.55;}
 .who-we-help-fit strong{color:var(--ink);}
+.who-we-help-audience{max-width:900px;margin:28px auto 0;text-align:center;color:var(--steel);}
+.who-we-help-audience p{margin:0;font-size:14px;font-weight:600;line-height:1.55;}
+.who-we-help-audience p+p{margin-top:7px;font-weight:500;}
+.who-we-help-audience span{color:var(--accent);margin:0 4px;}
 .who-we-help-cta{display:table;margin:30px auto 0;}
 @media(max-width:980px){
   .who-we-help-options{grid-template-columns:1fr;}
@@ -902,6 +905,8 @@ section.tint{background:var(--tint);}
   .who-we-help-options article>span{min-height:0;}
   .who-we-help-options h3{margin-top:9px;}
   .who-we-help-options .who-we-help-fit{min-height:0;}
+  .who-we-help-audience{margin-top:24px;text-align:left;}
+  .who-we-help-audience p{font-size:13.5px;}
   .who-we-help-cta{margin-left:0;}
 }
 
