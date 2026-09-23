@@ -274,7 +274,7 @@ function initForm(){
       statusEl.style.display = "block";
     }).finally(function(){
       submitBtn.disabled = false;
-      submitBtn.textContent = "Send your enquiry →";
+      submitBtn.textContent = "Start the conversation →";
     });
   });
 }
@@ -287,7 +287,7 @@ function initForm(){
 function initServicesNavigation(){
   var overviewHref = window.location.pathname === "/" ? "#services" : "/#services";
   var currentPath = window.location.pathname.replace(/\/+$/, "") || "/";
-  var desktopServiceLink = document.querySelector('.nav-links > a.navlink[href="#services"], .nav-links > a.navlink[href="/#services"]');
+  var desktopServiceLink = document.querySelector('.nav-links > a.navlink[href="/#services"]');
 
   if (desktopServiceLink) {
     var dropdown = document.createElement("div");
@@ -301,7 +301,7 @@ function initServicesNavigation(){
     }
   }
 
-  var mobileServiceLink = document.querySelector('.mobile-menu-links > a.mobile-navlink[href="#services"], .mobile-menu-links > a.mobile-navlink[href="/#services"]');
+  var mobileServiceLink = document.querySelector('.mobile-menu-links > a.mobile-navlink[href="/#services"]');
   if (mobileServiceLink) {
     var label = document.createElement("span");
     label.className = "mobile-navlink mobile-nav-group-label";
