@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 480" role="img" aria-labelledby="title2 desc2">
+  <title id="title2">Where FORGE can operate</title>
+  <desc id="desc2">Two customer-facing routes: Win work for bid and proposal management, and Buy well for tendering, evaluation and supplier sourcing. The full practice map lights only the cells that leak.</desc>
+  <rect width="1200" height="480" fill="#FFFFFF"/>
+
+  <text x="60" y="48" font-family="Inter, -apple-system, BlinkMacSystemFont, Arial, sans-serif" font-size="18" font-weight="500" fill="#14181F">Where FORGE can operate</text>
+  <text x="60" y="72" font-family="Inter, -apple-system, BlinkMacSystemFont, Arial, sans-serif" font-size="13" fill="#586170">Two routes. One governed practice.</text>
+
+  <!-- Left card: Win work -->
+  <g transform="translate(60,110)">
+    <rect x="0" y="0" width="520" height="260" rx="6" fill="#FFFFFF" stroke="#E2E4E7" stroke-width="1.25"/>
+    <!-- accent top rule -->
+    <line x1="0" y1="0" x2="520" y2="0" stroke="#1B3A63" stroke-width="2.5"/>
+    <text x="36" y="48" font-family="Inter, -apple-system, BlinkMacSystemFont, Arial, sans-serif" font-size="12" letter-spacing="1.5" fill="#1B3A63">WIN WORK</text>
+    <text x="36" y="88" font-family="Inter, -apple-system, BlinkMacSystemFont, Arial, sans-serif" font-size="20" font-weight="500" fill="#14181F">Bid and proposal</text>
+    <text x="36" y="114" font-family="Inter, -apple-system, BlinkMacSystemFont, Arial, sans-serif" font-size="20" font-weight="500" fill="#14181F">management</text>
+    <line x1="36" y1="140" x2="120" y2="140" stroke="#E2E4E7" stroke-width="1"/>
+    <text x="36" y="172" font-family="Inter, -apple-system, BlinkMacSystemFont, Arial, sans-serif" font-size="13" fill="#586170">Compete for work under ITT / RFP pressure.</text>
+    <text x="36" y="194" font-family="Inter, -apple-system, BlinkMacSystemFont, Arial, sans-serif" font-size="13" fill="#586170">Typical first spine: compliance / response matrix.</text>
+    <text x="36" y="230" font-family="Inter, -apple-system, BlinkMacSystemFont, Arial, sans-serif" font-size="12" fill="#14181F">People keep Go / No-Go, strategy and submission sign-off.</text>
+  </g>
+
+  <!-- Right card: Buy well -->
+  <g transform="translate(620,110)">
+    <rect x="0" y="0" width="520" height="260" rx="6" fill="#FFFFFF" stroke="#E2E4E7" stroke-width="1.25"/>
+    <line x1="0" y1="0" x2="520" y2="0" stroke="#14181F" stroke-width="2.5"/>
+    <text x="36" y="48" font-family="Inter, -apple-system, BlinkMacSystemFont, Arial, sans-serif" font-size="12" letter-spacing="1.5" fill="#586170">BUY WELL</text>
+    <text x="36" y="88" font-family="Inter, -apple-system, BlinkMacSystemFont, Arial, sans-serif" font-size="20" font-weight="500" fill="#14181F">Tendering, evaluation</text>
+    <text x="36" y="114" font-family="Inter, -apple-system, BlinkMacSystemFont, Arial, sans-serif" font-size="20" font-weight="500" fill="#14181F">and supplier sourcing</text>
+    <line x1="36" y1="140" x2="120" y2="140" stroke="#E2E4E7" stroke-width="1"/>
+    <text x="36" y="172" font-family="Inter, -apple-system, BlinkMacSystemFont, Arial, sans-serif" font-size="13" fill="#586170">Issue packages, evaluate returns, source supply.</text>
+    <text x="36" y="194" font-family="Inter, -apple-system, BlinkMacSystemFont, Arial, sans-serif" font-size="13" fill="#586170">Typical first spine: comparable evaluation matrix.</text>
+    <text x="36" y="230" font-family="Inter, -apple-system, BlinkMacSystemFont, Arial, sans-serif" font-size="12" fill="#14181F">People keep award judgement and commercial gates.</text>
+  </g>
+
+  <!-- Note -->
+  <text x="60" y="420" font-family="Inter, -apple-system, BlinkMacSystemFont, Arial, sans-serif" font-size="12" fill="#586170">The full practice map stays dark until you need it. FORGE lights only the cells that leak — usually one spine first.</text>
+  <text x="60" y="444" font-family="Inter, -apple-system, BlinkMacSystemFont, Arial, sans-serif" font-size="11" fill="#586170">Ignis Leadership · visitor language: Win work / Buy well (internal modes stay behind the menu)</text>
+</svg>

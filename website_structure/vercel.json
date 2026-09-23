@@ -5,6 +5,10 @@
     "api/subscribe.js": {
       "memory": 128,
       "maxDuration": 10
+    },
+    "api/readiness.js": {
+      "memory": 128,
+      "maxDuration": 10
     }
   },
   "redirects": [

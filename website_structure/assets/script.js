@@ -278,13 +278,19 @@ function initForm(){
    --------------------------------------------------------------------- */
 function initServicesNavigation(){
   var overviewHref = window.location.pathname === "/" ? "#services" : "/#services";
+  var currentPath = window.location.pathname.replace(/\/+$/, "") || "/";
   var desktopServiceLink = document.querySelector('.nav-links > a.navlink[href="#services"], .nav-links > a.navlink[href="/#services"]');
 
   if (desktopServiceLink) {
     var dropdown = document.createElement("div");
     dropdown.className = "nav-dropdown";
-    dropdown.innerHTML = '<button type="button" class="navlink nav-dropdown-trigger" aria-haspopup="true">Services <span aria-hidden="true">⌄</span></button><div class="nav-dropdown-menu nav-services-menu" data-nav-menu="services" aria-label="Service sections"><a class="nav-resource-hub" href="' + overviewHref + '"><strong>Services overview</strong><span>From commercial problem to adopted system.</span></a><a class="nav-resource-hub" href="/discovery"><strong>Commercial Discovery</strong><span>Find the one workflow worth fixing first.</span></a></div>';
+    dropdown.innerHTML = '<button type="button" class="navlink nav-dropdown-trigger" aria-haspopup="true">Services <span aria-hidden="true">⌄</span></button><div class="nav-dropdown-menu nav-services-menu" data-nav-menu="services" aria-label="Service sections"><a class="nav-resource-hub" href="' + overviewHref + '"><strong>Services overview</strong><span>From commercial problem to adopted system.</span></a><a class="nav-resource-hub" href="/discovery"><strong>Commercial Discovery</strong><span>Find the one workflow worth fixing first.</span></a><a class="nav-resource-hub" href="/forge"><strong>FORGE</strong><span>A governed agentic system for bids and tenders.</span></a></div>';
     desktopServiceLink.replaceWith(dropdown);
+    if (currentPath === "/discovery" || currentPath === "/forge") {
+      dropdown.querySelector(".nav-dropdown-trigger").setAttribute("aria-current", "page");
+      var currentService = dropdown.querySelector('a[href="' + currentPath + '"]');
+      if (currentService) currentService.setAttribute("aria-current", "page");
+    }
   }
 
   var mobileServiceLink = document.querySelector('.mobile-menu-links > a.mobile-navlink[href="#services"], .mobile-menu-links > a.mobile-navlink[href="/#services"]');
@@ -296,7 +302,7 @@ function initServicesNavigation(){
     var links = document.createElement("div");
     links.className = "mobile-resource-links mobile-service-links";
     links.setAttribute("aria-label", "Service sections");
-    links.innerHTML = '<a href="' + overviewHref + '"><strong>Services overview</strong><span>From commercial problem to adopted system.</span></a><a href="/discovery"><strong>Commercial Discovery</strong><span>Find the one workflow worth fixing first.</span></a>';
+    links.innerHTML = '<a href="' + overviewHref + '"><strong>Services overview</strong><span>From commercial problem to adopted system.</span></a><a href="/discovery"><strong>Commercial Discovery</strong><span>Find the one workflow worth fixing first.</span></a><a href="/forge"><strong>FORGE</strong><span>A governed agentic system for bids and tenders.</span></a>';
 
     mobileServiceLink.replaceWith(label, links);
   }
@@ -310,10 +316,12 @@ function initServicesNavigation(){
 function initResourceNavigation(){
   var currentPath = window.location.pathname.replace(/\/+$/, "") || "/";
   var isInsights = currentPath === "/insights" || currentPath.indexOf("/insights/") === 0 || currentPath === "/archive";
-  var isResources = currentPath === "/resources" || currentPath.indexOf("/resources/") === 0;
+  var isResources = currentPath === "/resources" || currentPath.indexOf("/resources/") === 0 || currentPath === "/commercial-ai-readiness" || currentPath === "/forge-pilot-example";
 
   var desktopMarkup = [
     '<a class="nav-resource-hub" href="/insights"><strong>Insights</strong><span>Bid More. Win More. Newsletter</span></a>',
+    '<a class="nav-resource-hub" href="/commercial-ai-readiness"><strong>Commercial AI Readiness Check</strong><span>Find the safest workflow to test first.</span></a>',
+    '<a class="nav-resource-hub" href="/forge-pilot-example"><strong>Worked FORGE pilot example</strong><span>See the workflow, controls and pilot measures.</span></a>',
     '<div class="nav-resource-section">',
       '<a class="nav-resource-hub" href="/resources"><strong>Human-Agent Systems</strong><span>Practical guides for commercial teams.</span></a>',
       '<div class="nav-resource-guide-list">',
@@ -331,14 +339,18 @@ function initResourceNavigation(){
     var insightsLink = menu.querySelector('a[href="/insights"]');
     var resourcesLink = menu.querySelector('a[href="/resources"]');
     var exactGuide = menu.querySelector('.nav-resource-guide[href="' + currentPath + '"]');
+    var exactResource = menu.querySelector('.nav-resource-hub[href="' + currentPath + '"]');
     if ((isInsights || isResources) && parentTrigger) parentTrigger.setAttribute("aria-current", "page");
     if (isInsights && insightsLink) insightsLink.setAttribute("aria-current", "page");
     if (isResources && resourcesLink) resourcesLink.setAttribute("aria-current", "page");
     if (exactGuide) exactGuide.setAttribute("aria-current", "page");
+    if (exactResource) exactResource.setAttribute("aria-current", "page");
   });
 
   var mobileMarkup = [
     '<a href="/insights"><strong>Insights</strong><span>Bid More. Win More. Newsletter</span></a>',
+    '<a href="/commercial-ai-readiness"><strong>Commercial AI Readiness Check</strong><span>Find the safest workflow to test first.</span></a>',
+    '<a href="/forge-pilot-example"><strong>Worked FORGE pilot example</strong><span>See the workflow and controls.</span></a>',
     '<a href="/resources"><strong>Human-Agent Systems</strong><span>Practical guides for commercial teams.</span></a>'
   ].join("");
 

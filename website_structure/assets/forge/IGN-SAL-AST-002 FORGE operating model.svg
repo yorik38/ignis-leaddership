@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 420" role="img" aria-labelledby="title desc">
+  <title id="title">FORGE operating model</title>
+  <desc id="desc">Left-to-right flow: trusted sources, Forge Manager, selected workflows, human decisions, controlled outputs, then learning. People retain judgement and accountability.</desc>
+  <rect width="1200" height="420" fill="#FFFFFF"/>
+
+  <!-- Title -->
+  <text x="60" y="48" font-family="Inter, -apple-system, BlinkMacSystemFont, Arial, sans-serif" font-size="18" font-weight="500" fill="#14181F">FORGE operating model</text>
+  <text x="60" y="72" font-family="Inter, -apple-system, BlinkMacSystemFont, Arial, sans-serif" font-size="13" fill="#586170">People retain judgement and accountability.</text>
+
+  <!-- Baseline guide (very light) -->
+  <line x1="80" y1="230" x2="1120" y2="230" stroke="#E2E4E7" stroke-width="1" stroke-dasharray="2 6" opacity="0.45"/>
+
+  <!-- Node positions -->
+  <!-- 1 Trusted sources -->
+  <g transform="translate(100,180)">
+    <circle cx="0" cy="0" r="8" fill="none" stroke="#14181F" stroke-width="1.25"/>
+    <circle cx="0" cy="0" r="2.5" fill="#14181F"/>
+    <text x="0" y="42" text-anchor="middle" font-family="Inter, -apple-system, BlinkMacSystemFont, Arial, sans-serif" font-size="13" fill="#14181F">Trusted sources</text>
+    <text x="0" y="60" text-anchor="middle" font-family="Inter, -apple-system, BlinkMacSystemFont, Arial, sans-serif" font-size="11" fill="#586170">ITT · library · evidence</text>
+  </g>
+
+  <!-- connector 1→2 -->
+  <path d="M130 230 H220" fill="none" stroke="#E2E4E7" stroke-width="1.25"/>
+  <polygon points="220,226 230,230 220,234" fill="#E2E4E7"/>
+
+  <!-- 2 Forge Manager -->
+  <g transform="translate(290,180)">
+    <rect x="-54" y="-28" width="108" height="56" rx="4" fill="#F6F7F8" stroke="#14181F" stroke-width="1.25"/>
+    <text x="0" y="0" text-anchor="middle" dominant-baseline="middle" font-family="Inter, -apple-system, BlinkMacSystemFont, Arial, sans-serif" font-size="13" font-weight="500" fill="#14181F">Forge Manager</text>
+    <text x="0" y="52" text-anchor="middle" font-family="Inter, -apple-system, BlinkMacSystemFont, Arial, sans-serif" font-size="11" fill="#586170">routes the work</text>
+  </g>
+
+  <!-- connector 2→3 -->
+  <path d="M344 230 H430" fill="none" stroke="#E2E4E7" stroke-width="1.25"/>
+  <polygon points="430,226 440,230 430,234" fill="#E2E4E7"/>
+
+  <!-- 3 Selected workflows -->
+  <g transform="translate(510,180)">
+    <rect x="-58" y="-34" width="116" height="68" rx="4" fill="#FFFFFF" stroke="#14181F" stroke-width="1.25"/>
+    <!-- thin inner lines suggesting stacked workflows -->
+    <line x1="-38" y1="-12" x2="38" y2="-12" stroke="#E2E4E7" stroke-width="1"/>
+    <line x1="-38" y1="0" x2="38" y2="0" stroke="#1B3A63" stroke-width="1.5"/>
+    <line x1="-38" y1="12" x2="28" y2="12" stroke="#E2E4E7" stroke-width="1"/>
+    <text x="0" y="58" text-anchor="middle" font-family="Inter, -apple-system, BlinkMacSystemFont, Arial, sans-serif" font-size="13" fill="#14181F">Selected workflows</text>
+    <text x="0" y="76" text-anchor="middle" font-family="Inter, -apple-system, BlinkMacSystemFont, Arial, sans-serif" font-size="11" fill="#586170">lit outcomes only</text>
+  </g>
+
+  <!-- connector 3→4 -->
+  <path d="M568 230 H650" fill="none" stroke="#E2E4E7" stroke-width="1.25"/>
+  <polygon points="650,226 660,230 650,234" fill="#E2E4E7"/>
+
+  <!-- 4 Human decisions (accent gate) -->
+  <g transform="translate(730,180)">
+    <circle cx="0" cy="0" r="28" fill="#FFFFFF" stroke="#1B3A63" stroke-width="1.5"/>
+    <!-- small gate mark -->
+    <line x1="-10" y1="-6" x2="10" y2="-6" stroke="#1B3A63" stroke-width="1.25"/>
+    <line x1="0" y1="-6" x2="0" y2="10" stroke="#1B3A63" stroke-width="1.25"/>
+    <text x="0" y="58" text-anchor="middle" font-family="Inter, -apple-system, BlinkMacSystemFont, Arial, sans-serif" font-size="13" fill="#14181F">Human decisions</text>
+    <text x="0" y="76" text-anchor="middle" font-family="Inter, -apple-system, BlinkMacSystemFont, Arial, sans-serif" font-size="11" fill="#586170">gates · sign-off</text>
+  </g>
+
+  <!-- connector 4→5 -->
+  <path d="M758 230 H850" fill="none" stroke="#E2E4E7" stroke-width="1.25"/>
+  <polygon points="850,226 860,230 850,234" fill="#E2E4E7"/>
+
+  <!-- 5 Controlled outputs -->
+  <g transform="translate(930,180)">
+    <rect x="-50" y="-26" width="100" height="52" rx="3" fill="#FFFFFF" stroke="#14181F" stroke-width="1.25"/>
+    <line x1="-30" y1="-6" x2="30" y2="-6" stroke="#E2E4E7" stroke-width="1"/>
+    <line x1="-30" y1="6" x2="18" y2="6" stroke="#E2E4E7" stroke-width="1"/>
+    <text x="0" y="52" text-anchor="middle" font-family="Inter, -apple-system, BlinkMacSystemFont, Arial, sans-serif" font-size="13" fill="#14181F">Controlled outputs</text>
+    <text x="0" y="70" text-anchor="middle" font-family="Inter, -apple-system, BlinkMacSystemFont, Arial, sans-serif" font-size="11" fill="#586170">cited · owned</text>
+  </g>
+
+  <!-- connector 5→6 (learning loop up) -->
+  <path d="M980 230 H1060" fill="none" stroke="#E2E4E7" stroke-width="1.25"/>
+  <polygon points="1060,226 1070,230 1060,234" fill="#E2E4E7"/>
+
+  <!-- 6 Learning -->
+  <g transform="translate(1110,180)">
+    <circle cx="0" cy="0" r="8" fill="none" stroke="#14181F" stroke-width="1.25"/>
+    <path d="M-3 1 A4 4 0 1 1 3 1" fill="none" stroke="#14181F" stroke-width="1.1"/>
+    <polygon points="3,-1 5,2 1,2" fill="#14181F"/>
+    <text x="0" y="42" text-anchor="middle" font-family="Inter, -apple-system, BlinkMacSystemFont, Arial, sans-serif" font-size="13" fill="#14181F">Learning</text>
+    <text x="0" y="60" text-anchor="middle" font-family="Inter, -apple-system, BlinkMacSystemFont, Arial, sans-serif" font-size="11" fill="#586170">library grows</text>
+  </g>
+
+  <!-- subtle return arc learning → sources (dashed, light) -->
+  <path d="M1110 150 C900 90, 400 90, 100 150" fill="none" stroke="#E2E4E7" stroke-width="1" stroke-dasharray="3 5" opacity="0.55"/>
+  <text x="600" y="108" text-anchor="middle" font-family="Inter, -apple-system, BlinkMacSystemFont, Arial, sans-serif" font-size="11" fill="#586170">evidence returns to trusted sources</text>
+
+  <!-- footer micro -->
+  <text x="60" y="392" font-family="Inter, -apple-system, BlinkMacSystemFont, Arial, sans-serif" font-size="11" fill="#586170">Ignis Leadership · FORGE · operators run workflows; judgement stays with people</text>
+</svg>
