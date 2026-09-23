@@ -26,7 +26,7 @@
       <line x1="873" y1="306" x2="873" y2="326"/><line x1="1055" y1="306" x2="1055" y2="326"/>
     </g>
 
-    <text x="60" y="316" font-size="10" font-weight="700" letter-spacing="1.1" fill="#646E7A">SPECIALIST CAPABILITIES</text>
+    <text x="60" y="294" font-size="10" font-weight="700" letter-spacing="1.1" fill="#646E7A">SPECIALIST CAPABILITIES</text>
 
     <g font-size="12" text-anchor="middle">
       <g transform="translate(60,326)"><rect width="170" height="86" rx="4" fill="#FFFFFF" stroke="#B9C7D4"/><text x="85" y="35" font-weight="600" fill="#14181F">Qualify &amp; Gates</text><text x="85" y="58" fill="#586170">criteria · entry decisions</text></g>

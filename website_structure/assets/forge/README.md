@@ -14,4 +14,13 @@
 - Alt text: “Two FORGE routes: Win work for bid and proposal management, and Buy well for tendering, evaluation and supplier sourcing.”
 - Status: approved source asset; the website uses a responsive HTML interpretation for readability; not yet published
 
-No client result, performance figure or maturity claim is represented in either visual.
+## IGN-SAL-AST-004 — FORGE system architecture
+
+- Source: Ignis-designed SVG derived from the approved FORGE command-centre artwork and the orchestration architecture in REF-009
+- Association: `/forge`, “What FORGE is” section
+- Visual hierarchy: team → FORGE Manager / orchestrator → six specialist capabilities → selected protocol → shared skills → tools and connectors → named human gate
+- Accuracy note: the public label is “specialist capabilities”; the current engine has five dedicated agent folders while Mobilisation & Commercial is represented by live skills and is the locked sixth capability in the target chassis
+- Alt text: “FORGE structure chart showing the bid or tender team, Forge Manager, six specialist capabilities, selected protocols, shared skills, tools and connectors, and a named human gate.”
+- Status: implemented locally; publication pending
+
+No client result, performance figure or maturity claim is represented in these visuals.
