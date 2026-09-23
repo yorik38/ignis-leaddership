@@ -22,7 +22,7 @@
       fetch(form.action, {
         method: "POST",
         headers: {"Content-Type": "application/json", "Accept": "application/json"},
-        body: JSON.stringify(Object.fromEntries(new FormData(form).entries()))
+        body: JSON.stringify(Object.assign(Object.fromEntries(new FormData(form).entries()), {page_url: window.location.href}))
       }).then(function(response){
         return response.json().catch(function(){ return {}; }).then(function(data){
           if (!response.ok) throw new Error(data.error || "We could not add you just now.");
@@ -31,7 +31,7 @@
       }).then(function(){
         form.reset();
         if (sourceField) sourceField.value = resolvedSource;
-        status.textContent = "You’re nearly there. Check your inbox to confirm your subscription.";
+        status.textContent = "You’re subscribed. The next edition will arrive by email.";
         button.textContent = "Subscribed";
       }).catch(function(error){
         status.className = "subscribe-status error";

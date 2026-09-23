@@ -1,6 +1,6 @@
 const HUBSPOT_PORTAL_ID = process.env.HUBSPOT_PORTAL_ID || "149324702";
-const HUBSPOT_FORM_ID = process.env.HUBSPOT_READINESS_FORM_ID;
-const HUBSPOT_SUBSCRIPTION_TYPE_ID = process.env.HUBSPOT_READINESS_SUBSCRIPTION_TYPE_ID;
+const HUBSPOT_FORM_ID = process.env.HUBSPOT_READINESS_FORM_ID || "ed1c58a7-3ca9-498e-aa49-0b70bf1f3c1e";
+const HUBSPOT_SUBSCRIPTION_TYPE_ID = process.env.HUBSPOT_READINESS_SUBSCRIPTION_TYPE_ID || "3723081039";
 
 function send(res, status, payload) {
   res.statusCode = status;
@@ -31,7 +31,7 @@ module.exports = async function readinessHandler(req, res) {
   if (!fullName || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
     return send(res, 400, { ok: false, error: "invalid_details" });
   }
-  if (!HUBSPOT_FORM_ID || !HUBSPOT_SUBSCRIPTION_TYPE_ID) {
+  if (!HUBSPOT_SUBSCRIPTION_TYPE_ID) {
     console.error("Readiness form is missing HubSpot environment configuration.");
     return send(res, 503, { ok: false, error: "form_not_configured" });
   }

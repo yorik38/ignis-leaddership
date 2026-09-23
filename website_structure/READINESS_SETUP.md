@@ -1,10 +1,10 @@
-# Commercial AI Readiness Check — launch setup
+# Commercial AI Readiness Check: launch setup
 
-The page and deterministic scoring work locally without external services. Production submission is deliberately blocked until the HubSpot form and subscription are configured.
+The page and deterministic scoring work locally. Production submissions are connected to HubSpot.
 
 ## HubSpot form
 
-Create a HubSpot form with these exact field/property names:
+The published `Commercial AI Readiness Check` form contains these exact field/property names:
 
 - `firstname`
 - `lastname`
@@ -21,9 +21,9 @@ The custom properties must also be present on the form definition. HubSpot valid
 
 ## Vercel environment variables
 
-- `HUBSPOT_PORTAL_ID` — optional; defaults to the current portal `149324702`
-- `HUBSPOT_READINESS_FORM_ID` — the form GUID
-- `HUBSPOT_READINESS_SUBSCRIPTION_TYPE_ID` — the subscription type used for the result and five-email follow-up
+- `HUBSPOT_PORTAL_ID`: optional; defaults to `149324702`
+- `HUBSPOT_READINESS_FORM_ID`: optional; defaults to `ed1c58a7-3ca9-498e-aa49-0b70bf1f3c1e`
+- `HUBSPOT_READINESS_SUBSCRIPTION_TYPE_ID`: optional; defaults to `3723081039`
 
 ## HubSpot workflow
 

@@ -1,7 +1,7 @@
 /* ==========================================================================
    Ignis Leadership: site scripts
    Handles: cookie consent banner, gated analytics loading, Calendly embed,
-   and the lead-qualification form submission via Formspree.
+   and the lead-qualification form submission via HubSpot.
    ========================================================================== */
 
 /* ---------------------------------------------------------------------
@@ -174,11 +174,11 @@ function initCalendlyInlineEmbed(){
 }
 
 /* ---------------------------------------------------------------------
-   5) LEAD QUALIFICATION FORM: Formspree
-   The form still degrades gracefully: without JS it posts normally
-   and Formspree redirects back with its own thank-you page.
+   5) LEAD QUALIFICATION FORM: HubSpot
+   The visible form stays fully on-brand while the serverless endpoint
+   records the enquiry and source fields in HubSpot.
    --------------------------------------------------------------------- */
-var FORMSPREE_ENDPOINT = "https://formspree.io/f/xbgrllwj";
+var CONTACT_ENDPOINT = "/api/contact";
 
 // "Select all that apply" checkbox groups (challenges, tender value) need
 // at least one box ticked, but a plain `required` attribute on one box
@@ -231,7 +231,7 @@ function initForm(){
   var form = document.getElementById("qualify-form");
   if (!form) return;
 
-  form.setAttribute("action", FORMSPREE_ENDPOINT);
+  form.setAttribute("action", CONTACT_ENDPOINT);
 
   var statusEl = document.getElementById("form-status");
   var successPanel = document.getElementById("form-success");
@@ -242,10 +242,18 @@ function initForm(){
     submitBtn.disabled = true;
     submitBtn.textContent = "Sending...";
 
-    fetch(FORMSPREE_ENDPOINT, {
+    var values = {};
+    new FormData(form).forEach(function(value, key){
+      if (Object.prototype.hasOwnProperty.call(values, key)) return;
+      values[key] = value;
+    });
+    values.page_url = window.location.href;
+    values.source = new URLSearchParams(window.location.search).get("utm_source") || "website";
+
+    fetch(CONTACT_ENDPOINT, {
       method: "POST",
-      body: new FormData(form),
-      headers: { "Accept": "application/json" }
+      body: JSON.stringify(values),
+      headers: { "Accept": "application/json", "Content-Type": "application/json" }
     }).then(function(response){
       if (response.ok) {
         form.reset();
