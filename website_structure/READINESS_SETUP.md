@@ -7,6 +7,7 @@ The page and deterministic scoring work locally without external services. Produ
 Create a HubSpot form with these exact field/property names:
 
 - `firstname`
+- `lastname`
 - `email`
 - `readiness_route`
 - `readiness_band`

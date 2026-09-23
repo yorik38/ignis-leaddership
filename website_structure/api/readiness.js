@@ -24,8 +24,11 @@ module.exports = async function readinessHandler(req, res) {
   if (body.company_website) return send(res, 200, { ok: true });
 
   const email = String(body.email || "").trim().toLowerCase();
-  const firstname = String(body.firstname || "").trim().slice(0, 80);
-  if (!firstname || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+  const fullName = String(body.full_name || body.firstname || "").trim().replace(/\s+/g, " ").slice(0, 160);
+  const nameParts = fullName.split(" ");
+  const firstname = nameParts.shift() || "";
+  const lastname = nameParts.join(" ");
+  if (!fullName || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
     return send(res, 400, { ok: false, error: "invalid_details" });
   }
   if (!HUBSPOT_FORM_ID || !HUBSPOT_SUBSCRIPTION_TYPE_ID) {
@@ -37,6 +40,7 @@ module.exports = async function readinessHandler(req, res) {
   const allowedBands = new Set(["foundation", "pilot", "connect", "scale"]);
   const fields = [
     { name: "firstname", value: firstname },
+    { name: "lastname", value: lastname },
     { name: "email", value: email },
     { name: "readiness_route", value: allowedRoutes.has(body.route) ? body.route : "" },
     { name: "readiness_band", value: allowedBands.has(body.readiness_band) ? body.readiness_band : "" },
