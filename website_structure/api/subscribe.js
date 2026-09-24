@@ -1,8 +1,18 @@
-const HUBSPOT_PORTAL_ID = process.env.HUBSPOT_PORTAL_ID || "149324702";
-const HUBSPOT_FORM_ID = process.env.HUBSPOT_NEWSLETTER_FORM_ID || "9694ec84-e70c-4134-b426-383c2e458f22";
-const HUBSPOT_SUBSCRIPTION_TYPE_ID = process.env.HUBSPOT_NEWSLETTER_SUBSCRIPTION_TYPE_ID || "3723080970";
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-const ALLOWED_SOURCES = new Set(["website", "linkedin", "email", "shared", "article-end"]);
+const SOURCE_TAG_ENV = {
+  website: "KIT_TAG_SOURCE_WEBSITE",
+  linkedin: "KIT_TAG_SOURCE_LINKEDIN",
+  email: "KIT_TAG_SOURCE_EMAIL",
+  shared: "KIT_TAG_SOURCE_SHARED"
+};
+const SOURCE_TAG_NAME = {
+  website: "Source - Website",
+  linkedin: "Source - LinkedIn",
+  email: "Source - Email",
+  shared: "Source - Reader share"
+};
+const NEWSLETTER_TAG_NAME = "Newsletter - Bid more. Win more.";
+let cachedTags;
 
 function json(response, status, payload) {
   response.status(status).setHeader("Content-Type", "application/json");
@@ -10,9 +20,30 @@ function json(response, status, payload) {
   return response.end(JSON.stringify(payload));
 }
 
-function cookieValue(header, name) {
-  const match = String(header || "").match(new RegExp("(?:^|;\\s*)" + name + "=([^;]+)"));
-  return match ? decodeURIComponent(match[1]) : undefined;
+async function kitRequest(path, apiKey, body, method = "POST") {
+  const response = await fetch(`https://api.kit.com/v4${path}`, {
+    method,
+    headers: {"Content-Type": "application/json", "X-Kit-Api-Key": apiKey},
+    body: body ? JSON.stringify(body) : undefined
+  });
+  const payload = await response.json().catch(() => ({}));
+  if (!response.ok) throw new Error(payload.errors?.join(" ") || "Kit rejected the subscription.");
+  return payload;
+}
+
+async function resolveTagIds(apiKey, source) {
+  const configuredIds = [process.env.KIT_TAG_NEWSLETTER, process.env[SOURCE_TAG_ENV[source]]].filter(Boolean);
+  if (configuredIds.length === 2) return configuredIds;
+
+  if (!cachedTags) {
+    const payload = await kitRequest("/tags", apiKey, null, "GET");
+    cachedTags = payload.tags || [];
+  }
+
+  const requiredNames = [NEWSLETTER_TAG_NAME, SOURCE_TAG_NAME[source]];
+  const resolvedIds = requiredNames.map((name) => cachedTags.find((tag) => tag.name === name)?.id).filter(Boolean);
+  if (resolvedIds.length !== requiredNames.length) throw new Error("Required Kit tags could not be found.");
+  return resolvedIds;
 }
 
 module.exports = async function subscribe(request, response) {
@@ -23,54 +54,29 @@ module.exports = async function subscribe(request, response) {
 
   const email = String(body.email || "").trim().toLowerCase();
   const firstName = String(body.first_name || "").trim().slice(0, 80);
-  const source = ALLOWED_SOURCES.has(body.source) ? body.source : "website";
+  const source = Object.hasOwn(SOURCE_TAG_ENV, body.source) ? body.source : "website";
   if (!EMAIL_PATTERN.test(email)) return json(response, 422, {error: "Enter a valid email address."});
-  if (!HUBSPOT_SUBSCRIPTION_TYPE_ID) {
-    return json(response, 503, {error: "Newsletter signup is awaiting its final HubSpot connection."});
-  }
 
-  const fields = [
-    {name: "email", value: email},
-    {name: "newsletter_source", value: source},
-    {name: "acquisition_source", value: source},
-    {name: "conversion_asset", value: "bid_more_win_more_newsletter"}
-  ];
-  if (firstName) fields.push({name: "firstname", value: firstName});
-
-  const context = {
-    pageUri: String(body.page_url || "https://www.ignisleadership.com/insights").slice(0, 500),
-    pageName: "Bid More. Win More."
-  };
-  const hutk = cookieValue(request.headers.cookie, "hubspotutk");
-  if (hutk) context.hutk = hutk;
-
-  const submission = {
-    submittedAt: Date.now(),
-    fields,
-    context,
-    legalConsentOptions: {
-      consent: {
-        consentToProcess: true,
-        text: "Subscribe to Bid More. Win More. You can unsubscribe at any time.",
-        communications: [{
-          value: true,
-          subscriptionTypeId: Number(HUBSPOT_SUBSCRIPTION_TYPE_ID),
-          text: "Receive Bid More. Win More. by email."
-        }]
-      }
-    }
-  };
+  const apiKey = process.env.KIT_API_KEY;
+  const formId = process.env.KIT_FORM_ID || "8043482";
+  if (!apiKey) return json(response, 503, {error: "Newsletter signup is awaiting its final Kit connection."});
 
   try {
-    const hubspotResponse = await fetch(
-      `https://api.hsforms.com/submissions/v3/integration/submit/${encodeURIComponent(HUBSPOT_PORTAL_ID)}/${encodeURIComponent(HUBSPOT_FORM_ID)}`,
-      {method: "POST", headers: {"Content-Type": "application/json"}, body: JSON.stringify(submission)}
-    );
-    if (!hubspotResponse.ok) {
-      const detail = (await hubspotResponse.text()).slice(0, 800);
-      console.error("HubSpot newsletter submission failed", hubspotResponse.status, detail);
-      throw new Error("HubSpot rejected the subscription.");
-    }
+    // Kit V4 requires the subscriber to exist before they can be added to a form.
+    // Creating without an active state preserves the form's double opt-in flow.
+    const created = await kitRequest("/subscribers", apiKey, {
+      email_address: email,
+      first_name: firstName || null
+    });
+    const subscriberId = created.subscriber?.id;
+    if (!subscriberId) throw new Error("Kit did not return a subscriber ID.");
+
+    await kitRequest(`/forms/${formId}/subscribers/${subscriberId}`, apiKey, {
+      referrer: "https://www.ignisleadership.com/insights"
+    });
+
+    const tagIds = await resolveTagIds(apiKey, source);
+    await Promise.all(tagIds.map((tagId) => kitRequest(`/tags/${tagId}/subscribers/${subscriberId}`, apiKey, {})));
     return json(response, 200, {ok: true});
   } catch (error) {
     console.error("Newsletter subscription failed:", error.message);

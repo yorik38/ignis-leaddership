@@ -1,7 +1,7 @@
 /* ==========================================================================
    Ignis Leadership: site scripts
    Handles: cookie consent banner, gated analytics loading, Calendly embed,
-   and the lead-qualification form submission via HubSpot.
+   and the lead-qualification form submission via Formspree.
    ========================================================================== */
 
 /* ---------------------------------------------------------------------
@@ -174,11 +174,11 @@ function initCalendlyInlineEmbed(){
 }
 
 /* ---------------------------------------------------------------------
-   5) LEAD QUALIFICATION FORM: HubSpot
-   The visible form stays fully on-brand while the serverless endpoint
-   records the enquiry and source fields in HubSpot.
+   5) LEAD QUALIFICATION FORM: Formspree
+   The form still degrades gracefully: without JS it posts normally
+   and Formspree redirects back with its own thank-you page.
    --------------------------------------------------------------------- */
-var CONTACT_ENDPOINT = "/api/contact";
+var FORMSPREE_ENDPOINT = "https://formspree.io/f/xbgrllwj";
 
 // "Select all that apply" checkbox groups (challenges, tender value) need
 // at least one box ticked, but a plain `required` attribute on one box
@@ -231,50 +231,21 @@ function initForm(){
   var form = document.getElementById("qualify-form");
   if (!form) return;
 
-  form.setAttribute("action", CONTACT_ENDPOINT);
+  form.setAttribute("action", FORMSPREE_ENDPOINT);
 
   var statusEl = document.getElementById("form-status");
   var successPanel = document.getElementById("form-success");
   var submitBtn = form.querySelector("button[type=submit]");
-  var serviceChoices = form.querySelectorAll('input[name="service_interest"]');
-  var serviceChoiceError = document.getElementById("service-choice-error");
-
-  form.addEventListener("invalid", function(event){
-    if (event.target && event.target.name === "service_interest" && serviceChoiceError) {
-      serviceChoiceError.hidden = false;
-    }
-    statusEl.textContent = event.target && event.target.name === "service_interest"
-      ? "Choose what you would like to discuss before sending."
-      : "Complete the highlighted required field before sending.";
-    statusEl.className = "form-status error";
-    statusEl.style.display = "block";
-  }, true);
-
-  Array.prototype.forEach.call(serviceChoices, function(choice){
-    choice.addEventListener("change", function(){
-      if (serviceChoiceError) serviceChoiceError.hidden = true;
-      statusEl.style.display = "none";
-    });
-  });
 
   form.addEventListener("submit", function(e){
     e.preventDefault();
-    statusEl.style.display = "none";
     submitBtn.disabled = true;
     submitBtn.textContent = "Sending...";
 
-    var values = {};
-    new FormData(form).forEach(function(value, key){
-      if (Object.prototype.hasOwnProperty.call(values, key)) return;
-      values[key] = value;
-    });
-    values.page_url = window.location.href;
-    values.source = new URLSearchParams(window.location.search).get("utm_source") || "website";
-
-    fetch(CONTACT_ENDPOINT, {
+    fetch(FORMSPREE_ENDPOINT, {
       method: "POST",
-      body: JSON.stringify(values),
-      headers: { "Accept": "application/json", "Content-Type": "application/json" }
+      body: new FormData(form),
+      headers: { "Accept": "application/json" }
     }).then(function(response){
       if (response.ok) {
         form.reset();
@@ -295,7 +266,7 @@ function initForm(){
       statusEl.style.display = "block";
     }).finally(function(){
       submitBtn.disabled = false;
-      submitBtn.textContent = "Start the conversation →";
+      submitBtn.textContent = "Send your enquiry →";
     });
   });
 }
@@ -307,22 +278,16 @@ function initForm(){
    --------------------------------------------------------------------- */
 function initServicesNavigation(){
   var overviewHref = window.location.pathname === "/" ? "#services" : "/#services";
-  var currentPath = window.location.pathname.replace(/\/+$/, "") || "/";
-  var desktopServiceLink = document.querySelector('.nav-links > a.navlink[href="/#services"]:not([data-no-services-menu])');
+  var desktopServiceLink = document.querySelector('.nav-links > a.navlink[href="#services"], .nav-links > a.navlink[href="/#services"]');
 
   if (desktopServiceLink) {
     var dropdown = document.createElement("div");
     dropdown.className = "nav-dropdown";
-    dropdown.innerHTML = '<button type="button" class="navlink nav-dropdown-trigger" aria-haspopup="true">Services <span aria-hidden="true">⌄</span></button><div class="nav-dropdown-menu nav-services-menu" data-nav-menu="services" aria-label="Service sections"><a class="nav-resource-hub" href="' + overviewHref + '"><strong>Services overview</strong><span>From commercial problem to adopted system.</span></a><a class="nav-resource-hub" href="/discovery"><strong>Commercial Discovery</strong><span>Find the one workflow worth fixing first.</span></a><a class="nav-resource-hub" href="/forge"><strong>FORGE</strong><span>A governed agentic system for bids and tenders.</span></a></div>';
+    dropdown.innerHTML = '<button type="button" class="navlink nav-dropdown-trigger" aria-haspopup="true">Services <span aria-hidden="true">⌄</span></button><div class="nav-dropdown-menu nav-services-menu" data-nav-menu="services" aria-label="Service sections"><a class="nav-resource-hub" href="' + overviewHref + '"><strong>Services overview</strong><span>From commercial problem to adopted system.</span></a><a class="nav-resource-hub" href="/discovery"><strong>Commercial Discovery</strong><span>Find the one workflow worth fixing first.</span></a></div>';
     desktopServiceLink.replaceWith(dropdown);
-    if (currentPath === "/discovery" || currentPath === "/forge") {
-      dropdown.querySelector(".nav-dropdown-trigger").setAttribute("aria-current", "page");
-      var currentService = dropdown.querySelector('a[href="' + currentPath + '"]');
-      if (currentService) currentService.setAttribute("aria-current", "page");
-    }
   }
 
-  var mobileServiceLink = document.querySelector('.mobile-menu-links > a.mobile-navlink[href="/#services"]:not([data-no-services-menu])');
+  var mobileServiceLink = document.querySelector('.mobile-menu-links > a.mobile-navlink[href="#services"], .mobile-menu-links > a.mobile-navlink[href="/#services"]');
   if (mobileServiceLink) {
     var label = document.createElement("span");
     label.className = "mobile-navlink mobile-nav-group-label";
@@ -331,7 +296,7 @@ function initServicesNavigation(){
     var links = document.createElement("div");
     links.className = "mobile-resource-links mobile-service-links";
     links.setAttribute("aria-label", "Service sections");
-    links.innerHTML = '<a href="' + overviewHref + '"><strong>Services overview</strong><span>From commercial problem to adopted system.</span></a><a href="/discovery"><strong>Commercial Discovery</strong><span>Find the one workflow worth fixing first.</span></a><a href="/forge"><strong>FORGE</strong><span>A governed agentic system for bids and tenders.</span></a>';
+    links.innerHTML = '<a href="' + overviewHref + '"><strong>Services overview</strong><span>From commercial problem to adopted system.</span></a><a href="/discovery"><strong>Commercial Discovery</strong><span>Find the one workflow worth fixing first.</span></a>';
 
     mobileServiceLink.replaceWith(label, links);
   }
@@ -345,12 +310,10 @@ function initServicesNavigation(){
 function initResourceNavigation(){
   var currentPath = window.location.pathname.replace(/\/+$/, "") || "/";
   var isInsights = currentPath === "/insights" || currentPath.indexOf("/insights/") === 0 || currentPath === "/archive";
-  var isResources = currentPath === "/resources" || currentPath.indexOf("/resources/") === 0 || currentPath === "/commercial-ai-readiness" || currentPath === "/forge-pilot-example";
+  var isResources = currentPath === "/resources" || currentPath.indexOf("/resources/") === 0;
 
   var desktopMarkup = [
     '<a class="nav-resource-hub" href="/insights"><strong>Insights</strong><span>Bid More. Win More. Newsletter</span></a>',
-    '<a class="nav-resource-hub" href="/commercial-ai-readiness"><strong>Commercial AI Readiness Check</strong><span>Find the safest workflow to test first.</span></a>',
-    '<a class="nav-resource-hub" href="/forge-pilot-example"><strong>Worked FORGE pilot example</strong><span>See the workflow, controls and pilot measures.</span></a>',
     '<div class="nav-resource-section">',
       '<a class="nav-resource-hub" href="/resources"><strong>Human-Agent Systems</strong><span>Practical guides for commercial teams.</span></a>',
       '<div class="nav-resource-guide-list">',
@@ -368,18 +331,14 @@ function initResourceNavigation(){
     var insightsLink = menu.querySelector('a[href="/insights"]');
     var resourcesLink = menu.querySelector('a[href="/resources"]');
     var exactGuide = menu.querySelector('.nav-resource-guide[href="' + currentPath + '"]');
-    var exactResource = menu.querySelector('.nav-resource-hub[href="' + currentPath + '"]');
     if ((isInsights || isResources) && parentTrigger) parentTrigger.setAttribute("aria-current", "page");
     if (isInsights && insightsLink) insightsLink.setAttribute("aria-current", "page");
     if (isResources && resourcesLink) resourcesLink.setAttribute("aria-current", "page");
     if (exactGuide) exactGuide.setAttribute("aria-current", "page");
-    if (exactResource) exactResource.setAttribute("aria-current", "page");
   });
 
   var mobileMarkup = [
     '<a href="/insights"><strong>Insights</strong><span>Bid More. Win More. Newsletter</span></a>',
-    '<a href="/commercial-ai-readiness"><strong>Commercial AI Readiness Check</strong><span>Find the safest workflow to test first.</span></a>',
-    '<a href="/forge-pilot-example"><strong>Worked FORGE pilot example</strong><span>See the workflow and controls.</span></a>',
     '<a href="/resources"><strong>Human-Agent Systems</strong><span>Practical guides for commercial teams.</span></a>'
   ].join("");
 
