@@ -37,7 +37,6 @@ module.exports = async function contactHandler(req, res) {
     {name: "email", value: email},
     {name: "firstname", value: firstname},
     {name: "lastname", value: lastname},
-    {name: "service_interest", value: String(body.service_interest || "").trim().slice(0, 180)},
     {name: "acquisition_source", value: String(body.source || "website").trim().slice(0, 180)},
     {name: "conversion_asset", value: "website_enquiry"}
   ];
