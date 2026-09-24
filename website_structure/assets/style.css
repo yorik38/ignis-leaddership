@@ -2194,6 +2194,8 @@ footer{background:var(--cta);border-top:1px solid var(--line-onink);padding:60px
 .hero-editorial-actions{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-top:32px;}
 .hero-editorial-actions>span{color:var(--steel-light);}
 .hero-editorial-actions .inline-link{font-size:14px;font-weight:700;}
+.positioning-home .new-hero .logo-strip-label{font-size:0;}
+.positioning-home .new-hero .logo-strip-label::after{content:"Experience from bp, RWE and Bouygues.";font-size:12px;}
 .positioning-home .home-story{padding:104px 0;border-bottom:1px solid var(--line);}
 .home-editorial{max-width:930px;}
 .home-editorial>.eyebrow,.home-about-editorial .eyebrow{display:block;margin-bottom:18px;}
