@@ -28,8 +28,9 @@ module.exports = async function contactHandler(req, res) {
   const firstname = parts.shift() || "";
   const lastname = parts.join(" ");
   const email = String(body.email || "").trim().toLowerCase();
+  const company = String(body.organisation || "").trim().slice(0, 180);
   const message = String(body.message || "").trim().slice(0, 5000);
-  if (!fullName || !EMAIL_PATTERN.test(email)) {
+  if (!fullName || !company || !EMAIL_PATTERN.test(email)) {
     return send(res, 422, {ok: false, error: "invalid_details"});
   }
 
@@ -37,6 +38,9 @@ module.exports = async function contactHandler(req, res) {
     {name: "email", value: email},
     {name: "firstname", value: firstname},
     {name: "lastname", value: lastname},
+    {name: "company", value: company},
+    {name: "jobtitle", value: String(body.role || "").trim().slice(0, 180)},
+    {name: "service_interest", value: String(body.service_interest || "").trim().slice(0, 180)},
     {name: "acquisition_source", value: String(body.source || "website").trim().slice(0, 180)},
     {name: "conversion_asset", value: "website_enquiry"}
   ];

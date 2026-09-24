@@ -301,31 +301,94 @@ function initForm(){
 }
 
 /* ---------------------------------------------------------------------
-   6) PRIMARY NAVIGATION
-   Keep the same short navigation story across every static page. Older
-   pages retain their source markup as a no-JavaScript fallback, while this
-   shared layer prevents templates from drifting apart in normal use.
+   6) SERVICES NAVIGATION
+   Turns the existing Services link into the same hover and focus pattern
+   used by Resources. The plain link remains as the no-JavaScript fallback.
    --------------------------------------------------------------------- */
-function initPrimaryNavigation(){
+function initServicesNavigation(){
+  var overviewHref = window.location.pathname === "/" ? "#services" : "/#services";
   var currentPath = window.location.pathname.replace(/\/+$/, "") || "/";
-  var resourcesActive = currentPath === "/insights" ||
-    currentPath.indexOf("/insights/") === 0 ||
-    currentPath === "/archive" ||
-    currentPath === "/resources" ||
-    currentPath.indexOf("/resources/") === 0;
+  var desktopServiceLink = document.querySelector('.nav-links > a.navlink[href="/#services"]:not([data-no-services-menu])');
 
-  document.querySelectorAll('.nav-readiness-link[href="/commercial-ai-readiness"], .mobile-readiness-link[href="/commercial-ai-readiness"]').forEach(function(link){
-    if (currentPath === "/commercial-ai-readiness") link.setAttribute("aria-current", "page");
-  });
-
-  if (resourcesActive) {
-    document.querySelectorAll(".nav-dropdown-trigger").forEach(function(trigger){
-      trigger.setAttribute("aria-current", "page");
-    });
+  if (desktopServiceLink) {
+    var dropdown = document.createElement("div");
+    dropdown.className = "nav-dropdown";
+    dropdown.innerHTML = '<button type="button" class="navlink nav-dropdown-trigger" aria-haspopup="true">Services <span aria-hidden="true">⌄</span></button><div class="nav-dropdown-menu nav-services-menu" data-nav-menu="services" aria-label="Service sections"><a class="nav-resource-hub" href="' + overviewHref + '"><strong>Services overview</strong><span>From commercial problem to adopted system.</span></a><a class="nav-resource-hub" href="/discovery"><strong>Commercial Discovery</strong><span>Find the one workflow worth fixing first.</span></a><a class="nav-resource-hub" href="/forge"><strong>FORGE</strong><span>A governed agentic system for bids and tenders.</span></a></div>';
+    desktopServiceLink.replaceWith(dropdown);
+    if (currentPath === "/discovery" || currentPath === "/forge") {
+      dropdown.querySelector(".nav-dropdown-trigger").setAttribute("aria-current", "page");
+      var currentService = dropdown.querySelector('a[href="' + currentPath + '"]');
+      if (currentService) currentService.setAttribute("aria-current", "page");
+    }
   }
 
-  document.querySelectorAll('.nav-resource-hub[href="' + currentPath + '"], .mobile-menu-links a[href="' + currentPath + '"]').forEach(function(link){
-    link.setAttribute("aria-current", "page");
+  var mobileServiceLink = document.querySelector('.mobile-menu-links > a.mobile-navlink[href="/#services"]:not([data-no-services-menu])');
+  if (mobileServiceLink) {
+    var label = document.createElement("span");
+    label.className = "mobile-navlink mobile-nav-group-label";
+    label.textContent = "Services";
+
+    var links = document.createElement("div");
+    links.className = "mobile-resource-links mobile-service-links";
+    links.setAttribute("aria-label", "Service sections");
+    links.innerHTML = '<a href="' + overviewHref + '"><strong>Services overview</strong><span>From commercial problem to adopted system.</span></a><a href="/discovery"><strong>Commercial Discovery</strong><span>Find the one workflow worth fixing first.</span></a><a href="/forge"><strong>FORGE</strong><span>A governed agentic system for bids and tenders.</span></a>';
+
+    mobileServiceLink.replaceWith(label, links);
+  }
+}
+
+/* ---------------------------------------------------------------------
+   7) RESOURCE NAVIGATION
+   Keeps the richer desktop guide list and simpler mobile hub cards
+   consistent across the static site without duplicating menu markup.
+   --------------------------------------------------------------------- */
+function initResourceNavigation(){
+  var currentPath = window.location.pathname.replace(/\/+$/, "") || "/";
+  var isInsights = currentPath === "/insights" || currentPath.indexOf("/insights/") === 0 || currentPath === "/archive";
+  var isResources = currentPath === "/resources" || currentPath.indexOf("/resources/") === 0 || currentPath === "/commercial-ai-readiness" || currentPath === "/forge-pilot-example";
+
+  var desktopMarkup = [
+    '<a class="nav-resource-hub" href="/insights"><strong>Insights</strong><span>Bid More. Win More. Newsletter</span></a>',
+    '<a class="nav-resource-hub" href="/commercial-ai-readiness"><strong>Commercial AI Readiness Check</strong><span>Find the safest workflow to test first.</span></a>',
+    '<a class="nav-resource-hub" href="/forge-pilot-example"><strong>Worked FORGE pilot example</strong><span>See the workflow, controls and pilot measures.</span></a>',
+    '<div class="nav-resource-section">',
+      '<a class="nav-resource-hub" href="/resources"><strong>Human-Agent Systems</strong><span>Practical guides for commercial teams.</span></a>',
+      '<div class="nav-resource-guide-list">',
+        '<span class="nav-resource-list-label">Practical guides</span>',
+        '<a class="nav-resource-guide" href="/resources/ai-augmented-bid-practice"><strong>How to build an AI-augmented bid practice</strong></a>',
+        '<a class="nav-resource-guide" href="/resources/bid-agent-maturity"><strong>What can bid teams build with AI agents in 2026?</strong></a>',
+        '<a class="nav-resource-guide" href="/resources/choose-first-ai-bid-use-case"><strong>Where should bid teams start with AI agents?</strong></a>',
+      '</div>',
+    '</div>'
+  ].join("");
+
+  document.querySelectorAll('.nav-dropdown-menu:not([data-nav-menu="services"])').forEach(function(menu){
+    menu.innerHTML = desktopMarkup;
+    var parentTrigger = menu.closest(".nav-dropdown") && menu.closest(".nav-dropdown").querySelector(".nav-dropdown-trigger");
+    var insightsLink = menu.querySelector('a[href="/insights"]');
+    var resourcesLink = menu.querySelector('a[href="/resources"]');
+    var exactGuide = menu.querySelector('.nav-resource-guide[href="' + currentPath + '"]');
+    var exactResource = menu.querySelector('.nav-resource-hub[href="' + currentPath + '"]');
+    if ((isInsights || isResources) && parentTrigger) parentTrigger.setAttribute("aria-current", "page");
+    if (isInsights && insightsLink) insightsLink.setAttribute("aria-current", "page");
+    if (isResources && resourcesLink) resourcesLink.setAttribute("aria-current", "page");
+    if (exactGuide) exactGuide.setAttribute("aria-current", "page");
+    if (exactResource) exactResource.setAttribute("aria-current", "page");
+  });
+
+  var mobileMarkup = [
+    '<a href="/insights"><strong>Insights</strong><span>Bid More. Win More. Newsletter</span></a>',
+    '<a href="/commercial-ai-readiness"><strong>Commercial AI Readiness Check</strong><span>Find the safest workflow to test first.</span></a>',
+    '<a href="/forge-pilot-example"><strong>Worked FORGE pilot example</strong><span>See the workflow and controls.</span></a>',
+    '<a href="/resources"><strong>Human-Agent Systems</strong><span>Practical guides for commercial teams.</span></a>'
+  ].join("");
+
+  document.querySelectorAll(".mobile-resource-links:not(.mobile-service-links)").forEach(function(menu){
+    menu.innerHTML = mobileMarkup;
+    var insightsLink = menu.querySelector('a[href="/insights"]');
+    var resourcesLink = menu.querySelector('a[href="/resources"]');
+    if (isInsights && insightsLink) insightsLink.setAttribute("aria-current", "page");
+    if (isResources && resourcesLink) resourcesLink.setAttribute("aria-current", "page");
   });
 }
 
@@ -612,7 +675,8 @@ document.addEventListener("DOMContentLoaded", function(){
   initCalendly();
   initForm();
   initServiceRouteSelection();
-  initPrimaryNavigation();
+  initServicesNavigation();
+  initResourceNavigation();
   initDeferredAnchorTarget();
   initMobileMenu();
   initScrollAwareHeader();
