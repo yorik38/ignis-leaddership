@@ -12,6 +12,40 @@
     learning: "Learning and improvement"
   };
 
+  var dimensionExplanations = {
+    process: [
+      "The workflow still depends on memory and individual workarounds.",
+      "Some structure exists, but hand-offs are likely to fail under pressure.",
+      "The main workflow is clear enough to support a bounded test.",
+      "The workflow is owned, repeatable and ready to support careful expansion."
+    ],
+    information: [
+      "Trusted sources and evidence would need to be established before a safe pilot.",
+      "Useful information exists, but finding and tracing it still creates risk.",
+      "Sources and evidence are structured enough for one controlled workflow.",
+      "Information is trusted, traceable and ready to support connected workflows."
+    ],
+    governance: [
+      "Human decisions and approval boundaries need to be made explicit first.",
+      "Decision ownership is understood informally but may vary between teams.",
+      "Named decisions and approvals are clear enough for a governed pilot.",
+      "Decision rights, evidence and escalation paths are established and followed."
+    ],
+    team_readiness: [
+      "The work currently relies heavily on a small number of experienced people.",
+      "Shared working exists, but the team still needs frequent local support.",
+      "A sponsor and operator can support a bounded change in the way of working.",
+      "The team can run, challenge and improve a shared workflow with clear ownership."
+    ],
+    learning: [
+      "Little evidence is carried from one pursuit or tender into the next.",
+      "Lessons are discussed, but reuse and measures are not yet systematic.",
+      "Practical measures and reusable learning can be built into a pilot.",
+      "Measures, review points and reuse are established enough to support scaling."
+    ]
+  };
+  var scaleLabels = ["Foundation needed","Early foundation","Pilot ready","Well established"];
+
   var shared = [
     {id:"q1", dimension:"process", title:"How clearly is the end-to-end workflow defined?", options:["It mostly lives in people’s heads.","There is a rough path, but teams follow it differently.","The main stages and responsibilities are documented.","It is owned, used as the default and updated when the work changes."]},
     {id:"q2", dimension:"process", title:"How are hand-offs managed between contributors?", options:["Informally; gaps are usually found late.","Through email and meetings, with some ambiguity.","Owners, inputs and outputs are named for the main hand-offs.","Hand-offs are checklist-driven and checked before work moves on."]},
@@ -38,7 +72,7 @@
     ]
   };
 
-  var state = {route:null, index:-1, answers:{}};
+  var state = {route:null, index:-1, answers:{}, started:false, previewed:false, completed:false};
   var progressBar = document.getElementById("readiness-progress-bar");
   var progressText = document.getElementById("readiness-progress-text");
   var screen = document.getElementById("readiness-screen");
@@ -57,6 +91,11 @@
     progressBar.style.width = percentage + "%";
   }
 
+  function trackReadinessEvent(name, parameters){
+    if (typeof window.gtag !== "function") return;
+    window.gtag("event",name,parameters || {});
+  }
+
   function routeScreen(){
     updateProgress("Choose your route",0);
     screen.innerHTML = '<span class="eyebrow">First, choose the work</span><h2>Which side of the commercial process are you assessing?</h2><p class="screen-copy">The language and first-workflow recommendation will adapt to your answer.</p><div class="readiness-route-grid"><label class="readiness-choice"><input type="radio" name="route" value="bid"><strong>We compete for work</strong><span>Win work: bid and proposal management.</span></label><label class="readiness-choice"><input type="radio" name="route" value="tender"><strong>We issue and evaluate tenders</strong><span>Buy well: tendering, evaluation and supplier sourcing.</span></label></div><div class="readiness-actions"><span></span><button class="btn-primary" type="button" data-next>Start the check →</button></div><p class="readiness-error" role="alert"></p>';
@@ -65,6 +104,8 @@
       if (!chosen) { screen.querySelector(".readiness-error").textContent = "Choose the route that is closest to your work."; return; }
       state.route = chosen.value;
       state.index = 0;
+      state.started = true;
+      trackReadinessEvent("readiness_check_started",{readiness_route:state.route});
       questionScreen();
     });
   }
@@ -104,7 +145,9 @@
     updateProgress("Your tailored result",90);
     var result=calculate();
     var preview={foundation:"Your practice appears to need a stronger foundation before an AI pilot.",pilot:"Your practice appears ready for a bounded pilot.",connect:"Your practice appears ready to connect workflows.",scale:"Your practice appears ready to scale carefully."};
-    screen.innerHTML = '<span class="eyebrow">Initial result</span><h2>'+preview[result.band]+'</h2><p class="screen-copy">Enter your full name and work email to see the full readiness band, weakest dimension and recommended first workflow.</p><form id="readiness-gate-form"><div class="readiness-gate"><label>Full name<input type="text" name="full_name" autocomplete="name" required></label><label>Work email<input type="email" name="email" autocomplete="email" inputmode="email" required></label></div><input class="readiness-honeypot" type="text" name="company_website" tabindex="-1" autocomplete="off" aria-hidden="true"><p class="readiness-consent">Receive your result and a short five-email follow-up explaining what it means. Unsubscribe at any time. See our <a href="/privacy">Privacy Policy</a>.</p><div class="readiness-actions"><button class="btn-secondary" type="button" data-back>← Back</button><button class="btn-primary" type="submit">Show my result →</button></div><p class="readiness-error" role="alert"></p></form>';
+    state.previewed = true;
+    trackReadinessEvent("readiness_result_previewed",{readiness_route:state.route,readiness_band:result.band});
+    screen.innerHTML = '<span class="eyebrow">Your instant result</span><h2>'+preview[result.band]+'</h2><p class="screen-copy">Here is how the five dimensions look from your answers.</p><div class="dimension-list dimension-list-preview">'+dimensionRows(result)+'</div><div class="readiness-preview-gate"><h3>Get the full interpretation</h3><p>Enter your details to see the weakest dimension, what it means and the first workflow worth testing.</p><form id="readiness-gate-form"><div class="readiness-gate"><label>Full name<input type="text" name="full_name" autocomplete="name" required></label><label>Work email<input type="email" name="email" autocomplete="email" inputmode="email" required></label></div><input class="readiness-honeypot" type="text" name="company_website" tabindex="-1" autocomplete="off" aria-hidden="true"><p class="readiness-consent">Your details and assessment result will be saved so Ignis can follow up about this result. You will not be added to the newsletter. See our <a href="/privacy">Privacy Policy</a>.</p><div class="readiness-actions"><button class="btn-secondary" type="button" data-back>← Back</button><button class="btn-primary" type="submit">Show my full report →</button></div><p class="readiness-error" role="alert"></p></form></div>';
     screen.querySelector("[data-back]").addEventListener("click",function(){state.index=questions().length-1;questionScreen();});
     screen.querySelector("form").addEventListener("submit",submitAssessment);
   }
@@ -142,6 +185,14 @@
     return ["Test a comparable evaluation matrix","Create one source-linked view of supplier returns and mandatory checks before scoring accelerates."];
   }
 
+  function dimensionRows(result){
+    return Object.keys(dimensions).map(function(key){
+      var level=Math.round(result.averages[key]);
+      var pct=Math.round(result.averages[key]/3*100);
+      return '<div class="dimension-row"><div class="dimension-copy"><strong>'+dimensions[key]+'</strong><span>'+dimensionExplanations[key][level]+'</span></div><div class="dimension-track" aria-hidden="true"><span style="width:'+pct+'%"></span></div><span class="dimension-label">'+scaleLabels[level]+'</span></div>';
+    }).join("");
+  }
+
   function submitAssessment(event){
     event.preventDefault();
     var form=event.currentTarget, error=form.querySelector(".readiness-error"), button=form.querySelector('button[type="submit"]');
@@ -152,14 +203,13 @@
     button.disabled=true;button.textContent="Preparing your result…";error.textContent="";
     var local=/^(localhost|127\.0\.0\.1)$/.test(window.location.hostname);
     var request=local?Promise.resolve({ok:true,json:function(){return Promise.resolve({ok:true,preview:true});}}):fetch("/api/readiness",{method:"POST",headers:{"Content-Type":"application/json","Accept":"application/json"},body:JSON.stringify(payload)});
-    request.then(function(response){if(!response.ok) throw new Error("submit");return response.json();}).then(function(){resultScreen(result,rec,payload.full_name);}).catch(function(){error.textContent="We could not save your details. Please try again, or email admin@ignisleadership.com.";button.disabled=false;button.textContent="Show my result →";});
+    request.then(function(response){if(!response.ok) throw new Error("submit");return response.json();}).then(function(){state.completed=true;trackReadinessEvent("readiness_report_unlocked",{readiness_route:state.route,readiness_band:result.band,weakest_dimension:result.weakest});resultScreen(result,rec,payload.full_name);}).catch(function(){error.textContent="We could not save your details. Please try again, or email admin@ignisleadership.com.";button.disabled=false;button.textContent="Show my full report →";});
   }
 
   function resultScreen(result,rec,fullName){
     updateProgress("Assessment complete",100);
     var bands={foundation:["Foundation needed","Structure the process before any AI pilot."],pilot:["Ready for a bounded pilot","One workflow appears ready to be tested safely."],connect:["Ready to connect workflows","The foundations exist; coordination is now the constraint."],scale:["Ready to scale carefully","The evidence supports connecting more of the practice map."]};
-    var scaleLabels=["Foundation needed","Early foundation","Pilot ready","Well established"];
-    var rows=Object.keys(dimensions).map(function(key){var pct=Math.round(result.averages[key]/3*100);return '<div class="dimension-row"><strong>'+dimensions[key]+'</strong><div class="dimension-track" aria-hidden="true"><span style="width:'+pct+'%"></span></div><span class="dimension-label">'+scaleLabels[Math.round(result.averages[key])]+'</span></div>';}).join("");
+    var rows=dimensionRows(result);
     var firstName=String(fullName || "").trim().split(/\s+/)[0];
     screen.innerHTML='<div class="readiness-result-head"><span class="result-band">'+bands[result.band][0]+'</span><h2>'+escapeHtml(firstName)+', your practice '+(result.band==="foundation"?"needs a stronger foundation before an AI pilot.":"appears "+bands[result.band][0].toLowerCase()+".")+'</h2><p>'+bands[result.band][1]+' Your weakest dimension is <strong>'+dimensions[result.weakest].toLowerCase()+'</strong>.</p></div><div class="dimension-list">'+rows+'</div><div class="readiness-recommendation"><span>Recommended first move</span><h3>'+rec[0]+'</h3><p>'+rec[1]+'</p></div><div class="readiness-next"><a class="btn-primary" href="/#contact">Start a conversation about this result →</a><a class="btn-secondary" href="/discovery">Or begin with Discovery →</a></div>';
     if (typeof initCalendly === "function") initCalendly();
@@ -167,4 +217,8 @@
   }
 
   routeScreen();
+  window.addEventListener("pagehide",function(){
+    if (!state.started || state.completed) return;
+    trackReadinessEvent("readiness_check_abandoned",{readiness_route:state.route || "unknown",readiness_stage:state.previewed ? "result_preview" : "question_"+(state.index+1)});
+  });
 })();

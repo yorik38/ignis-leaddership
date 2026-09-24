@@ -67,11 +67,11 @@ module.exports = async function readinessHandler(req, res) {
     legalConsentOptions: {
       consent: {
         consentToProcess: true,
-        text: "Receive your result and a short five-email follow-up explaining what it means. Unsubscribe at any time.",
+        text: "Receive your Commercial AI Readiness result and relevant follow-up. Unsubscribe at any time.",
         communications: [{
           value: true,
           subscriptionTypeId: Number(HUBSPOT_SUBSCRIPTION_TYPE_ID),
-          text: "Commercial AI Readiness Check result and five-email follow-up."
+          text: "Commercial AI Readiness Check result and relevant follow-up."
         }]
       }
     }
