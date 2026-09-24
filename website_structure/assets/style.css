@@ -2217,9 +2217,9 @@ footer{background:var(--cta);border-top:1px solid var(--line-onink);padding:60px
 .home-editorial-list li::before{content:"";position:absolute;left:0;top:29px;width:12px;height:2px;background:var(--accent);}
 .home-text-link{display:inline-block;margin-top:28px;color:var(--accent);font-size:14px;font-weight:700;text-decoration:none;border-bottom:1px solid currentColor;padding-bottom:3px;}
 .home-route-lines{display:grid;grid-template-columns:1fr 1fr;gap:0;max-width:930px;border-top:1px solid var(--line);border-bottom:1px solid var(--line);}
-.home-route-lines p{font-size:19px;line-height:1.6;color:var(--steel);margin:0;padding:28px 36px 28px 0;}
+.home-route-lines p{font-size:18px;line-height:1.7;color:var(--steel);margin:0;padding:28px 36px 28px 0;}
 .home-route-lines p+p{border-left:1px solid var(--line);padding-left:36px;padding-right:0;}
-.home-route-lines strong{color:var(--ink);}
+.home-route-lines strong{color:inherit;}
 .home-editorial-steps{max-width:820px;margin:0;padding:0;list-style:none;counter-reset:home-step;border-top:1px solid var(--line);}
 .home-editorial-steps li{counter-increment:home-step;position:relative;padding:22px 0 22px 54px;border-bottom:1px solid var(--line);font-size:17px;line-height:1.6;color:var(--steel);}
 .home-editorial-steps li::before{content:"0" counter(home-step);position:absolute;left:0;top:25px;color:var(--accent);font-size:11px;font-weight:700;letter-spacing:.08em;}
@@ -2240,7 +2240,7 @@ footer{background:var(--cta);border-top:1px solid var(--line-onink);padding:60px
   .home-editorial h2,.home-about-editorial h2{font-size:36px;margin-bottom:28px;}
   .home-story-copy p,.home-about-editorial>div>p{font-size:16.5px;line-height:1.65;}
   .home-route-lines{grid-template-columns:1fr;}
-  .home-route-lines p{padding:24px 0;}
+  .home-route-lines p{padding:24px 0;font-size:16.5px;line-height:1.65;}
   .home-route-lines p+p{border-left:0;border-top:1px solid var(--line);padding-left:0;}
   .home-about-editorial{grid-template-columns:1fr;gap:42px;}
   .home-about-editorial figure{max-width:480px;}
