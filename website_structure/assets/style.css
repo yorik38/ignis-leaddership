@@ -1893,6 +1893,7 @@ footer{background:var(--cta);border-top:1px solid var(--line-onink);padding:60px
 .readiness-option input{margin-top:4px;accent-color:var(--accent);}
 .readiness-option span{font-size:14.5px;color:var(--steel);}
 .readiness-actions{display:flex;justify-content:space-between;gap:14px;margin-top:32px;}
+.readiness-actions [hidden]{display:none!important;}
 .readiness-actions .btn-secondary,.readiness-actions .btn-primary{min-width:120px;text-align:center;}
 .readiness-gate{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:24px 0 16px;}
 .readiness-gate label{font-size:12px;font-weight:600;color:var(--steel);}

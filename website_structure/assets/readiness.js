@@ -8,7 +8,7 @@
     process: "Process clarity",
     information: "Information and evidence",
     governance: "Governance and decision rights",
-    adoption: "Team adoption",
+    team_readiness: "Team readiness",
     learning: "Learning and improvement"
   };
 
@@ -17,9 +17,9 @@
     {id:"q2", dimension:"process", title:"How are hand-offs managed between contributors?", options:["Informally; gaps are usually found late.","Through email and meetings, with some ambiguity.","Owners, inputs and outputs are named for the main hand-offs.","Hand-offs are checklist-driven and checked before work moves on."]},
     {id:"q5", dimension:"governance", title:"How clear are the decisions that must remain with people?", options:["They are not explicitly defined.","People know informally, but it varies by team.","Important approvals and decision owners are documented.","Decision rights, evidence and escalation paths are explicit and followed."]},
     {id:"q6", dimension:"governance", title:"How is AI or automation used in this work today?", options:["It is not used, or use is unknown.","Individuals experiment without a shared method.","Some approved tools and boundaries exist.","Use is governed, traceable and tied to named human approvals."]},
-    {id:"q7", dimension:"adoption", title:"If a new AI-supported process were introduced, could the team use it consistently without ongoing help from the person who designed it?", options:["No; the work still depends on a few individuals.","Only with frequent support and explanation.","Most team members could follow clear written steps.","The team could use, challenge and improve the process themselves."]},
+    {id:"q7", dimension:"team_readiness", title:"How consistently can the team follow a shared process without relying on one or two key people?", options:["The work depends heavily on individuals and local workarounds.","Some shared steps exist, but frequent support is still needed.","Most people can follow documented steps and templates.","The team can run, challenge and improve a shared process with a clear owner."]},
     {id:"q8", dimension:"learning", title:"What happens after a win, loss or award decision?", options:["Little is captured for the next cycle.","Lessons are discussed but rarely reused.","Useful lessons and evidence are stored in a shared place.","Learning is reviewed, curated and deliberately carried into the next pursuit."]},
-    {id:"q11", dimension:"adoption", title:"Who would be responsible for helping the team adopt the first AI-supported process?", options:["No one is clearly accountable yet.","A likely sponsor exists, but responsibility is informal.","A sponsor and day-to-day owner can be named.","A sponsor, owner and user group are ready to support a bounded pilot."]},
+    {id:"q11", dimension:"team_readiness", title:"Who could own and support the first AI-supported workflow if you chose to test one?", options:["No one is clearly accountable yet.","A likely sponsor exists, but day-to-day responsibility is unclear.","A sponsor and day-to-day owner can be named.","A sponsor, owner and user group are ready to support a bounded pilot."]},
     {id:"q12", dimension:"learning", title:"How would you know whether the first AI-supported change was working?", options:["We have not agreed what to measure.","We would rely mainly on anecdotal feedback.","A few practical measures could be defined before a pilot.","Measures, baseline evidence and a review point are already understood."]}
   ];
 
@@ -27,13 +27,13 @@
     bid: [
       {id:"q3", dimension:"information", title:"When an ITT or RFP lands, how quickly can the team establish one trusted requirements view?", options:["Requirements are discovered while responses are already being written.","A first view exists, but duplicates and omissions are common.","A structured compliance or response matrix is normally created.","The matrix is complete, owned, source-linked and kept current."]},
       {id:"q4", dimension:"information", title:"Can the team trace a response claim back to its source and owner?", options:["Rarely, without reconstructing the history.","For important items, if the right person is available.","Most material claims have an identifiable source and owner.","Citations, owners, versions and approvals are consistently visible."]},
-      {id:"q9", title:"Where does the greatest constraint appear today?", nonScored:true, options:["Understanding and allocating requirements","Finding trusted evidence and reusable content","Making timely Go / No-Go and strategy decisions","Coordinating contributors and reviews","Carrying learning into the next pursuit"]},
+      {id:"q9", title:"Where does bid work most often slow down or lose control?", nonScored:true, options:["Turning the ITT into clear, owned requirements","Finding approved evidence and reusable content","Securing timely Go / No-Go, strategy and commercial decisions","Coordinating contributors, reviews and revisions","Closing the pursuit and reusing what the team learned"]},
       {id:"q10", title:"Which part of the work would you most like AI agents to support first?", nonScored:true, options:["Compliance and response matrix","Go / No-Go and strategy gate","Evidence and citation control","Red-team and submission assurance","I am not sure yet"]}
     ],
     tender: [
       {id:"q3", dimension:"information", title:"When supplier returns arrive, how quickly can the team create a comparable view?", options:["Comparison starts in separate files and judgement calls.","A consolidated view is built, but gaps and different interpretations remain.","A standard evaluation matrix and mandatory checks are normally used.","Returns are complete, source-linked and comparable under one controlled structure."]},
       {id:"q4", dimension:"information", title:"Can the team trace an evaluation conclusion to the supplier return and agreed criteria?", options:["Rarely, without reconstructing the history.","For important items, if the evaluator is available.","Most conclusions have a visible source and rationale.","Sources, clarifications, versions and approvals are consistently visible."]},
-      {id:"q9", title:"Where does the greatest constraint appear today?", nonScored:true, options:["Building a complete, comparable evaluation","Checking mandatory requirements","Managing clarifications consistently","Coordinating evaluators and approvals","Carrying learning into the next sourcing cycle"]},
+      {id:"q9", title:"Where does tender work most often slow down or lose control?", nonScored:true, options:["Turning supplier returns into one comparable view","Verifying mandatory requirements and evidence","Managing clarifications consistently","Coordinating evaluators, moderation and approvals","Closing the tender and reusing what the team learned"]},
       {id:"q10", title:"Which part of the work would you most like AI agents to support first?", nonScored:true, options:["Comparable evaluation matrix","Mandatory requirements checks","Clarification control","Evaluation assurance and moderation","I am not sure yet"]}
     ]
   };
@@ -73,12 +73,22 @@
     var list = questions();
     var q = list[state.index];
     var count = state.index + 1;
+    var isLast = state.index === list.length-1;
+    var hasSavedAnswer = Boolean(state.answers[q.id]);
     updateProgress("Question " + count + " of " + list.length,Math.round(count/list.length*82));
     var options = q.options.map(function(option,i){
       var checked = state.answers[q.id] && state.answers[q.id].value === i ? " checked" : "";
       return '<label class="readiness-option"><input type="radio" name="answer" value="'+i+'"'+checked+'><span>'+escapeHtml(option)+'</span></label>';
     }).join("");
-    screen.innerHTML = '<span class="eyebrow">'+(q.nonScored ? "Your priority" : escapeHtml(dimensions[q.dimension]))+'</span><h2>'+escapeHtml(q.title)+'</h2>'+(q.nonScored?'<p class="screen-copy">This shapes the recommendation but does not affect your readiness band.</p>':'')+'<div class="readiness-options">'+options+'</div><div class="readiness-actions"><button class="btn-secondary" type="button" data-back>← Back</button><button class="btn-primary" type="button" data-next>'+(state.index === list.length-1?"See the email step →":"Next →")+'</button></div><p class="readiness-error" role="alert"></p>';
+    screen.innerHTML = '<span class="eyebrow">'+(q.nonScored ? "Your priority" : escapeHtml(dimensions[q.dimension]))+'</span><h2>'+escapeHtml(q.title)+'</h2>'+(q.nonScored?'<p class="screen-copy">This shapes the recommendation but does not affect your readiness band.</p>':'')+'<div class="readiness-options">'+options+'</div><div class="readiness-actions"><button class="btn-secondary" type="button" data-back>← Back</button><button class="btn-primary" type="button" data-next'+(isLast && !hasSavedAnswer?' hidden':'')+'>'+(isLast?"Get your results →":"Next →")+'</button></div><p class="readiness-error" role="alert"></p>';
+    if (isLast) {
+      Array.prototype.forEach.call(screen.querySelectorAll('input[name="answer"]'),function(answer){
+        answer.addEventListener("change",function(){
+          screen.querySelector("[data-next]").hidden = false;
+          screen.querySelector(".readiness-error").textContent = "";
+        });
+      });
+    }
     screen.querySelector("[data-back]").addEventListener("click",function(){
       if (state.index === 0) routeScreen(); else { state.index -= 1; questionScreen(); }
     });
@@ -86,7 +96,7 @@
       var chosen = screen.querySelector('input[name="answer"]:checked');
       if (!chosen) { screen.querySelector(".readiness-error").textContent = "Choose the answer that is closest to your current practice."; return; }
       state.answers[q.id] = {value:Number(chosen.value),label:q.options[Number(chosen.value)],dimension:q.dimension || null};
-      if (state.index === list.length-1) gateScreen(); else { state.index += 1; questionScreen(); }
+      if (isLast) gateScreen(); else { state.index += 1; questionScreen(); }
     });
   }
 
@@ -109,12 +119,12 @@
     });
     var averages = {};
     Object.keys(dimensions).forEach(function(key){averages[key]=counts[key]?totals[key]/counts[key]:0;});
-    var weights={process:1.2,information:1.2,governance:1.2,adoption:1,learning:1};
+    var weights={process:1.2,information:1.2,governance:1.2,team_readiness:1,learning:1};
     var weighted=0,weightTotal=0;
     Object.keys(dimensions).forEach(function(key){weighted+=averages[key]*weights[key];weightTotal+=weights[key];});
     var score=weighted/weightTotal;
     var band=score<1?"foundation":score<1.75?"pilot":score<2.4?"connect":"scale";
-    var priorityOrder=["governance","information","process","adoption","learning"];
+    var priorityOrder=["governance","information","process","team_readiness","learning"];
     var weakest=priorityOrder.slice().sort(function(a,b){return averages[a]-averages[b] || priorityOrder.indexOf(a)-priorityOrder.indexOf(b);})[0];
     return {score:score,band:band,weakest:weakest,averages:averages};
   }
