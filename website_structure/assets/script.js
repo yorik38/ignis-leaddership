@@ -308,22 +308,28 @@ function initForm(){
    --------------------------------------------------------------------- */
 function initPrimaryNavigation(){
   var currentPath = window.location.pathname.replace(/\/+$/, "") || "/";
+  var resourcesActive = currentPath === "/insights" ||
+    currentPath.indexOf("/insights/") === 0 ||
+    currentPath === "/archive" ||
+    currentPath === "/resources" ||
+    currentPath.indexOf("/resources/") === 0 ||
+    currentPath === "/commercial-ai-readiness";
   var links = [
     { label: "Approach", href: "/approach", active: currentPath === "/approach" },
-    { label: "Win or buy", href: "/win-or-buy", active: currentPath === "/win-or-buy" },
-    { label: "Insights", href: "/insights", active: currentPath === "/insights" || currentPath.indexOf("/insights/") === 0 }
+    { label: "Win or buy", href: "/win-or-buy", active: currentPath === "/win-or-buy" }
   ];
+  var resourceDropdown = '<div class="nav-dropdown"><button type="button" class="navlink nav-dropdown-trigger" aria-haspopup="true"' + (resourcesActive ? ' aria-current="page"' : '') + '>Resources <span aria-hidden="true">⌄</span></button><div class="nav-dropdown-menu" aria-label="Resource sections"></div></div>';
 
   document.querySelectorAll(".nav-links").forEach(function(nav){
     nav.innerHTML = links.map(function(link){
       return '<a href="' + link.href + '" class="navlink"' + (link.active ? ' aria-current="page"' : '') + '>' + link.label + '</a>';
-    }).join("") + '<div class="nav-ctas"><a class="cta-link" href="/#contact">Start a conversation →</a></div>';
+    }).join("") + resourceDropdown + '<div class="nav-ctas"><a class="cta-link" href="/#contact">Start a conversation →</a></div>';
   });
 
   document.querySelectorAll(".mobile-menu-links").forEach(function(nav){
     nav.innerHTML = links.map(function(link){
       return '<a href="' + link.href + '" class="mobile-navlink"' + (link.active ? ' aria-current="page"' : '') + '>' + link.label + '</a>';
-    }).join("");
+    }).join("") + '<span class="mobile-navlink mobile-nav-group-label"' + (resourcesActive ? ' aria-current="page"' : '') + '>Resources</span><div class="mobile-resource-links" aria-label="Resource sections"></div>';
   });
 
   document.querySelectorAll(".mobile-menu-cta").forEach(function(link){
@@ -376,12 +382,11 @@ function initServicesNavigation(){
 function initResourceNavigation(){
   var currentPath = window.location.pathname.replace(/\/+$/, "") || "/";
   var isInsights = currentPath === "/insights" || currentPath.indexOf("/insights/") === 0 || currentPath === "/archive";
-  var isResources = currentPath === "/resources" || currentPath.indexOf("/resources/") === 0 || currentPath === "/commercial-ai-readiness" || currentPath === "/win-or-buy";
+  var isResources = currentPath === "/resources" || currentPath.indexOf("/resources/") === 0 || currentPath === "/commercial-ai-readiness";
 
   var desktopMarkup = [
     '<a class="nav-resource-hub" href="/insights"><strong>Insights</strong><span>Bid More. Win More. Newsletter</span></a>',
     '<a class="nav-resource-hub" href="/commercial-ai-readiness"><strong>Commercial AI Readiness Check</strong><span>Find the safest workflow to test first.</span></a>',
-    '<a class="nav-resource-hub" href="/win-or-buy"><strong>Win or buy</strong><span>See both desks in one worked example.</span></a>',
     '<div class="nav-resource-section">',
       '<a class="nav-resource-hub" href="/resources"><strong>Human-Agent Systems</strong><span>Practical guides for commercial teams.</span></a>',
       '<div class="nav-resource-guide-list">',
@@ -410,16 +415,20 @@ function initResourceNavigation(){
   var mobileMarkup = [
     '<a href="/insights"><strong>Insights</strong><span>Bid More. Win More. Newsletter</span></a>',
     '<a href="/commercial-ai-readiness"><strong>Commercial AI Readiness Check</strong><span>Find the safest workflow to test first.</span></a>',
-    '<a href="/win-or-buy"><strong>Win or buy</strong><span>See both desks in one worked example.</span></a>',
-    '<a href="/resources"><strong>Human-Agent Systems</strong><span>Practical guides for commercial teams.</span></a>'
+    '<a href="/resources"><strong>Practical guides</strong><span>Human-agent systems for commercial teams.</span></a>',
+    '<a href="/resources/ai-augmented-bid-practice"><strong>Redesign a bid practice around people and AI</strong></a>',
+    '<a href="/resources/bid-agent-maturity"><strong>What bid teams can build with AI agents now</strong></a>',
+    '<a href="/resources/choose-first-ai-bid-use-case"><strong>Choose the first AI bid use case</strong></a>'
   ].join("");
 
   document.querySelectorAll(".mobile-resource-links:not(.mobile-service-links)").forEach(function(menu){
     menu.innerHTML = mobileMarkup;
     var insightsLink = menu.querySelector('a[href="/insights"]');
     var resourcesLink = menu.querySelector('a[href="/resources"]');
+    var exactResource = menu.querySelector('a[href="' + currentPath + '"]');
     if (isInsights && insightsLink) insightsLink.setAttribute("aria-current", "page");
     if (isResources && resourcesLink) resourcesLink.setAttribute("aria-current", "page");
+    if (exactResource) exactResource.setAttribute("aria-current", "page");
   });
 }
 
