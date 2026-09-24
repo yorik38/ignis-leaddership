@@ -301,9 +301,40 @@ function initForm(){
 }
 
 /* ---------------------------------------------------------------------
-   6) SERVICES NAVIGATION
-   Turns the existing Services link into the same hover and focus pattern
-   used by Resources. The plain link remains as the no-JavaScript fallback.
+   6) PRIMARY NAVIGATION
+   Keep the same short navigation story across every static page. Older
+   pages retain their source markup as a no-JavaScript fallback, while this
+   shared layer prevents templates from drifting apart in normal use.
+   --------------------------------------------------------------------- */
+function initPrimaryNavigation(){
+  var currentPath = window.location.pathname.replace(/\/+$/, "") || "/";
+  var links = [
+    { label: "How it works", href: "/forge", active: currentPath === "/forge" },
+    { label: "Win or buy", href: "/win-or-buy", active: currentPath === "/win-or-buy" },
+    { label: "Insights", href: "/insights", active: currentPath === "/insights" || currentPath.indexOf("/insights/") === 0 }
+  ];
+
+  document.querySelectorAll(".nav-links").forEach(function(nav){
+    nav.innerHTML = links.map(function(link){
+      return '<a href="' + link.href + '" class="navlink"' + (link.active ? ' aria-current="page"' : '') + '>' + link.label + '</a>';
+    }).join("") + '<div class="nav-ctas"><a class="cta-link" href="/#contact">Start a conversation →</a></div>';
+  });
+
+  document.querySelectorAll(".mobile-menu-links").forEach(function(nav){
+    nav.innerHTML = links.map(function(link){
+      return '<a href="' + link.href + '" class="mobile-navlink"' + (link.active ? ' aria-current="page"' : '') + '>' + link.label + '</a>';
+    }).join("");
+  });
+
+  document.querySelectorAll(".mobile-menu-cta").forEach(function(link){
+    link.href = "/#contact";
+    link.textContent = "Start a conversation →";
+  });
+}
+
+/* ---------------------------------------------------------------------
+   Legacy dropdown builders. These remain for archived markup but the
+   simplified primary navigation no longer exposes either dropdown.
    --------------------------------------------------------------------- */
 function initServicesNavigation(){
   var overviewHref = window.location.pathname === "/" ? "#services" : "/#services";
@@ -675,6 +706,7 @@ document.addEventListener("DOMContentLoaded", function(){
   initCalendly();
   initForm();
   initServiceRouteSelection();
+  initPrimaryNavigation();
   initServicesNavigation();
   initResourceNavigation();
   initDeferredAnchorTarget();

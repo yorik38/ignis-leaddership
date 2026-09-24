@@ -32,6 +32,11 @@
       "permanent": true
     },
     {
+      "source": "/forge-pilot-example",
+      "destination": "/win-or-buy",
+      "permanent": true
+    },
+    {
       "source": "/privacy-policy",
       "destination": "/privacy",
       "permanent": true
