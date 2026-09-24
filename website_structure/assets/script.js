@@ -376,12 +376,12 @@ function initServicesNavigation(){
 function initResourceNavigation(){
   var currentPath = window.location.pathname.replace(/\/+$/, "") || "/";
   var isInsights = currentPath === "/insights" || currentPath.indexOf("/insights/") === 0 || currentPath === "/archive";
-  var isResources = currentPath === "/resources" || currentPath.indexOf("/resources/") === 0 || currentPath === "/commercial-ai-readiness" || currentPath === "/forge-pilot-example";
+  var isResources = currentPath === "/resources" || currentPath.indexOf("/resources/") === 0 || currentPath === "/commercial-ai-readiness" || currentPath === "/win-or-buy";
 
   var desktopMarkup = [
     '<a class="nav-resource-hub" href="/insights"><strong>Insights</strong><span>Bid More. Win More. Newsletter</span></a>',
     '<a class="nav-resource-hub" href="/commercial-ai-readiness"><strong>Commercial AI Readiness Check</strong><span>Find the safest workflow to test first.</span></a>',
-    '<a class="nav-resource-hub" href="/forge-pilot-example"><strong>Worked FORGE pilot example</strong><span>See the workflow, controls and pilot measures.</span></a>',
+    '<a class="nav-resource-hub" href="/win-or-buy"><strong>Win or buy</strong><span>See both desks in one worked example.</span></a>',
     '<div class="nav-resource-section">',
       '<a class="nav-resource-hub" href="/resources"><strong>Human-Agent Systems</strong><span>Practical guides for commercial teams.</span></a>',
       '<div class="nav-resource-guide-list">',
@@ -410,7 +410,7 @@ function initResourceNavigation(){
   var mobileMarkup = [
     '<a href="/insights"><strong>Insights</strong><span>Bid More. Win More. Newsletter</span></a>',
     '<a href="/commercial-ai-readiness"><strong>Commercial AI Readiness Check</strong><span>Find the safest workflow to test first.</span></a>',
-    '<a href="/forge-pilot-example"><strong>Worked FORGE pilot example</strong><span>See the workflow and controls.</span></a>',
+    '<a href="/win-or-buy"><strong>Win or buy</strong><span>See both desks in one worked example.</span></a>',
     '<a href="/resources"><strong>Human-Agent Systems</strong><span>Practical guides for commercial teams.</span></a>'
   ].join("");
 
