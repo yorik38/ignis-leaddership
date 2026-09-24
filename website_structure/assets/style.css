@@ -2197,7 +2197,7 @@ footer{background:var(--cta);border-top:1px solid var(--line-onink);padding:60px
 .hero-editorial-actions>span{color:var(--steel-light);}
 .hero-editorial-actions .inline-link{font-size:14px;font-weight:700;}
 .positioning-home .home-story{padding:104px 0;border-bottom:1px solid var(--line);}
-.home-editorial{max-width:930px;}
+.home-editorial{max-width:1140px;}
 .home-editorial>.eyebrow,.home-about-editorial .eyebrow{display:block;margin-bottom:18px;}
 .home-editorial h2,.home-about-editorial h2{font-size:clamp(34px,4.5vw,54px);line-height:1.04;letter-spacing:-.04em;max-width:18ch;margin:0 0 36px;text-wrap:balance;}
 .home-story-copy{max-width:760px;}
