@@ -312,123 +312,20 @@ function initPrimaryNavigation(){
     currentPath.indexOf("/insights/") === 0 ||
     currentPath === "/archive" ||
     currentPath === "/resources" ||
-    currentPath.indexOf("/resources/") === 0 ||
-    currentPath === "/commercial-ai-readiness";
-  var links = [
-    { label: "Approach", href: "/approach", active: currentPath === "/approach" },
-    { label: "Win or buy", href: "/win-or-buy", active: currentPath === "/win-or-buy" }
-  ];
-  var resourceDropdown = '<div class="nav-dropdown"><button type="button" class="navlink nav-dropdown-trigger" aria-haspopup="true"' + (resourcesActive ? ' aria-current="page"' : '') + '>Resources <span aria-hidden="true">⌄</span></button><div class="nav-dropdown-menu" aria-label="Resource sections"></div></div>';
+    currentPath.indexOf("/resources/") === 0;
 
-  document.querySelectorAll(".nav-links").forEach(function(nav){
-    nav.innerHTML = links.map(function(link){
-      return '<a href="' + link.href + '" class="navlink"' + (link.active ? ' aria-current="page"' : '') + '>' + link.label + '</a>';
-    }).join("") + resourceDropdown + '<div class="nav-ctas"><a class="cta-link" href="/#contact">Start a conversation →</a></div>';
+  document.querySelectorAll('.nav-readiness-link[href="/commercial-ai-readiness"], .mobile-readiness-link[href="/commercial-ai-readiness"]').forEach(function(link){
+    if (currentPath === "/commercial-ai-readiness") link.setAttribute("aria-current", "page");
   });
 
-  document.querySelectorAll(".mobile-menu-links").forEach(function(nav){
-    nav.innerHTML = links.map(function(link){
-      return '<a href="' + link.href + '" class="mobile-navlink"' + (link.active ? ' aria-current="page"' : '') + '>' + link.label + '</a>';
-    }).join("") + '<span class="mobile-navlink mobile-nav-group-label"' + (resourcesActive ? ' aria-current="page"' : '') + '>Resources</span><div class="mobile-resource-links" aria-label="Resource sections"></div>';
-  });
-
-  document.querySelectorAll(".mobile-menu-cta").forEach(function(link){
-    link.href = "/#contact";
-    link.textContent = "Start a conversation →";
-  });
-}
-
-/* ---------------------------------------------------------------------
-   Legacy dropdown builders. These remain for archived markup but the
-   simplified primary navigation no longer exposes either dropdown.
-   --------------------------------------------------------------------- */
-function initServicesNavigation(){
-  var overviewHref = window.location.pathname === "/" ? "#services" : "/#services";
-  var currentPath = window.location.pathname.replace(/\/+$/, "") || "/";
-  var desktopServiceLink = document.querySelector('.nav-links > a.navlink[href="/#services"]:not([data-no-services-menu])');
-
-  if (desktopServiceLink) {
-    var dropdown = document.createElement("div");
-    dropdown.className = "nav-dropdown";
-    dropdown.innerHTML = '<button type="button" class="navlink nav-dropdown-trigger" aria-haspopup="true">Services <span aria-hidden="true">⌄</span></button><div class="nav-dropdown-menu nav-services-menu" data-nav-menu="services" aria-label="Service sections"><a class="nav-resource-hub" href="' + overviewHref + '"><strong>Services overview</strong><span>From commercial problem to adopted system.</span></a><a class="nav-resource-hub" href="/discovery"><strong>Commercial Discovery</strong><span>Audit the current practice and define how it should evolve.</span></a><a class="nav-resource-hub" href="/approach"><strong>Approach</strong><span>Audit, pilot and embed a governed system around the work.</span></a></div>';
-    desktopServiceLink.replaceWith(dropdown);
-    if (currentPath === "/discovery" || currentPath === "/approach") {
-      dropdown.querySelector(".nav-dropdown-trigger").setAttribute("aria-current", "page");
-      var currentService = dropdown.querySelector('a[href="' + currentPath + '"]');
-      if (currentService) currentService.setAttribute("aria-current", "page");
-    }
+  if (resourcesActive) {
+    document.querySelectorAll(".nav-dropdown-trigger").forEach(function(trigger){
+      trigger.setAttribute("aria-current", "page");
+    });
   }
 
-  var mobileServiceLink = document.querySelector('.mobile-menu-links > a.mobile-navlink[href="/#services"]:not([data-no-services-menu])');
-  if (mobileServiceLink) {
-    var label = document.createElement("span");
-    label.className = "mobile-navlink mobile-nav-group-label";
-    label.textContent = "Services";
-
-    var links = document.createElement("div");
-    links.className = "mobile-resource-links mobile-service-links";
-    links.setAttribute("aria-label", "Service sections");
-    links.innerHTML = '<a href="' + overviewHref + '"><strong>Services overview</strong><span>From commercial problem to adopted system.</span></a><a href="/discovery"><strong>Commercial Discovery</strong><span>Audit the current practice and define how it should evolve.</span></a><a href="/approach"><strong>Approach</strong><span>Audit, pilot and embed a governed system around the work.</span></a>';
-
-    mobileServiceLink.replaceWith(label, links);
-  }
-}
-
-/* ---------------------------------------------------------------------
-   7) RESOURCE NAVIGATION
-   Keeps the richer desktop guide list and simpler mobile hub cards
-   consistent across the static site without duplicating menu markup.
-   --------------------------------------------------------------------- */
-function initResourceNavigation(){
-  var currentPath = window.location.pathname.replace(/\/+$/, "") || "/";
-  var isInsights = currentPath === "/insights" || currentPath.indexOf("/insights/") === 0 || currentPath === "/archive";
-  var isResources = currentPath === "/resources" || currentPath.indexOf("/resources/") === 0 || currentPath === "/commercial-ai-readiness";
-
-  var desktopMarkup = [
-    '<a class="nav-resource-hub" href="/insights"><strong>Insights</strong><span>Bid More. Win More. Newsletter</span></a>',
-    '<a class="nav-resource-hub" href="/commercial-ai-readiness"><strong>Commercial AI Readiness Check</strong><span>Find the safest workflow to test first.</span></a>',
-    '<div class="nav-resource-section">',
-      '<a class="nav-resource-hub" href="/resources"><strong>Human-Agent Systems</strong><span>Practical guides for commercial teams.</span></a>',
-      '<div class="nav-resource-guide-list">',
-        '<span class="nav-resource-list-label">Practical guides</span>',
-        '<a class="nav-resource-guide" href="/resources/ai-augmented-bid-practice"><strong>How to build an AI-augmented bid practice</strong></a>',
-        '<a class="nav-resource-guide" href="/resources/bid-agent-maturity"><strong>What can bid teams build with AI agents in 2026?</strong></a>',
-        '<a class="nav-resource-guide" href="/resources/choose-first-ai-bid-use-case"><strong>Where should bid teams start with AI agents?</strong></a>',
-      '</div>',
-    '</div>'
-  ].join("");
-
-  document.querySelectorAll('.nav-dropdown-menu:not([data-nav-menu="services"])').forEach(function(menu){
-    menu.innerHTML = desktopMarkup;
-    var parentTrigger = menu.closest(".nav-dropdown") && menu.closest(".nav-dropdown").querySelector(".nav-dropdown-trigger");
-    var insightsLink = menu.querySelector('a[href="/insights"]');
-    var resourcesLink = menu.querySelector('a[href="/resources"]');
-    var exactGuide = menu.querySelector('.nav-resource-guide[href="' + currentPath + '"]');
-    var exactResource = menu.querySelector('.nav-resource-hub[href="' + currentPath + '"]');
-    if ((isInsights || isResources) && parentTrigger) parentTrigger.setAttribute("aria-current", "page");
-    if (isInsights && insightsLink) insightsLink.setAttribute("aria-current", "page");
-    if (isResources && resourcesLink) resourcesLink.setAttribute("aria-current", "page");
-    if (exactGuide) exactGuide.setAttribute("aria-current", "page");
-    if (exactResource) exactResource.setAttribute("aria-current", "page");
-  });
-
-  var mobileMarkup = [
-    '<a href="/insights"><strong>Insights</strong><span>Bid More. Win More. Newsletter</span></a>',
-    '<a href="/commercial-ai-readiness"><strong>Commercial AI Readiness Check</strong><span>Find the safest workflow to test first.</span></a>',
-    '<a href="/resources"><strong>Practical guides</strong><span>Human-agent systems for commercial teams.</span></a>',
-    '<a href="/resources/ai-augmented-bid-practice"><strong>Redesign a bid practice around people and AI</strong></a>',
-    '<a href="/resources/bid-agent-maturity"><strong>What bid teams can build with AI agents now</strong></a>',
-    '<a href="/resources/choose-first-ai-bid-use-case"><strong>Choose the first AI bid use case</strong></a>'
-  ].join("");
-
-  document.querySelectorAll(".mobile-resource-links:not(.mobile-service-links)").forEach(function(menu){
-    menu.innerHTML = mobileMarkup;
-    var insightsLink = menu.querySelector('a[href="/insights"]');
-    var resourcesLink = menu.querySelector('a[href="/resources"]');
-    var exactResource = menu.querySelector('a[href="' + currentPath + '"]');
-    if (isInsights && insightsLink) insightsLink.setAttribute("aria-current", "page");
-    if (isResources && resourcesLink) resourcesLink.setAttribute("aria-current", "page");
-    if (exactResource) exactResource.setAttribute("aria-current", "page");
+  document.querySelectorAll('.nav-resource-hub[href="' + currentPath + '"], .mobile-menu-links a[href="' + currentPath + '"]').forEach(function(link){
+    link.setAttribute("aria-current", "page");
   });
 }
 
@@ -716,8 +613,6 @@ document.addEventListener("DOMContentLoaded", function(){
   initForm();
   initServiceRouteSelection();
   initPrimaryNavigation();
-  initServicesNavigation();
-  initResourceNavigation();
   initDeferredAnchorTarget();
   initMobileMenu();
   initScrollAwareHeader();
