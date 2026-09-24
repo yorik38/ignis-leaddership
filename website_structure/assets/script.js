@@ -309,7 +309,7 @@ function initForm(){
 function initPrimaryNavigation(){
   var currentPath = window.location.pathname.replace(/\/+$/, "") || "/";
   var links = [
-    { label: "How it works", href: "/forge", active: currentPath === "/forge" },
+    { label: "Approach", href: "/approach", active: currentPath === "/approach" },
     { label: "Win or buy", href: "/win-or-buy", active: currentPath === "/win-or-buy" },
     { label: "Insights", href: "/insights", active: currentPath === "/insights" || currentPath.indexOf("/insights/") === 0 }
   ];
@@ -344,9 +344,9 @@ function initServicesNavigation(){
   if (desktopServiceLink) {
     var dropdown = document.createElement("div");
     dropdown.className = "nav-dropdown";
-    dropdown.innerHTML = '<button type="button" class="navlink nav-dropdown-trigger" aria-haspopup="true">Services <span aria-hidden="true">⌄</span></button><div class="nav-dropdown-menu nav-services-menu" data-nav-menu="services" aria-label="Service sections"><a class="nav-resource-hub" href="' + overviewHref + '"><strong>Services overview</strong><span>From commercial problem to adopted system.</span></a><a class="nav-resource-hub" href="/discovery"><strong>Commercial Discovery</strong><span>Audit the current practice and define how it should evolve.</span></a><a class="nav-resource-hub" href="/forge"><strong>FORGE</strong><span>A governed agentic system for bids and tenders.</span></a></div>';
+    dropdown.innerHTML = '<button type="button" class="navlink nav-dropdown-trigger" aria-haspopup="true">Services <span aria-hidden="true">⌄</span></button><div class="nav-dropdown-menu nav-services-menu" data-nav-menu="services" aria-label="Service sections"><a class="nav-resource-hub" href="' + overviewHref + '"><strong>Services overview</strong><span>From commercial problem to adopted system.</span></a><a class="nav-resource-hub" href="/discovery"><strong>Commercial Discovery</strong><span>Audit the current practice and define how it should evolve.</span></a><a class="nav-resource-hub" href="/approach"><strong>Approach</strong><span>Audit, pilot and embed a governed system around the work.</span></a></div>';
     desktopServiceLink.replaceWith(dropdown);
-    if (currentPath === "/discovery" || currentPath === "/forge") {
+    if (currentPath === "/discovery" || currentPath === "/approach") {
       dropdown.querySelector(".nav-dropdown-trigger").setAttribute("aria-current", "page");
       var currentService = dropdown.querySelector('a[href="' + currentPath + '"]');
       if (currentService) currentService.setAttribute("aria-current", "page");
@@ -362,7 +362,7 @@ function initServicesNavigation(){
     var links = document.createElement("div");
     links.className = "mobile-resource-links mobile-service-links";
     links.setAttribute("aria-label", "Service sections");
-    links.innerHTML = '<a href="' + overviewHref + '"><strong>Services overview</strong><span>From commercial problem to adopted system.</span></a><a href="/discovery"><strong>Commercial Discovery</strong><span>Audit the current practice and define how it should evolve.</span></a><a href="/forge"><strong>FORGE</strong><span>A governed agentic system for bids and tenders.</span></a>';
+    links.innerHTML = '<a href="' + overviewHref + '"><strong>Services overview</strong><span>From commercial problem to adopted system.</span></a><a href="/discovery"><strong>Commercial Discovery</strong><span>Audit the current practice and define how it should evolve.</span></a><a href="/approach"><strong>Approach</strong><span>Audit, pilot and embed a governed system around the work.</span></a>';
 
     mobileServiceLink.replaceWith(label, links);
   }

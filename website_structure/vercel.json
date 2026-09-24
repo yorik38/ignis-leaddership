@@ -37,6 +37,11 @@
       "permanent": true
     },
     {
+      "source": "/forge",
+      "destination": "/approach",
+      "permanent": true
+    },
+    {
       "source": "/privacy-policy",
       "destination": "/privacy",
       "permanent": true
