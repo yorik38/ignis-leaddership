@@ -1767,7 +1767,7 @@ footer{background:var(--cta);border-top:1px solid var(--line-onink);padding:60px
 .forge-visual-frame{border:1px solid var(--line);background:#fff;padding:22px;}
 .forge-visual-frame img{width:100%;}
 .forge-visual-caption{font-size:12.5px;color:var(--steel);margin:12px 0 0;}
-.forge-architecture-frame{padding:10px 18px 18px;}
+.forge-architecture-frame{box-sizing:border-box;width:min(1440px,calc(100vw - 48px));max-width:none;position:relative;left:50%;transform:translateX(-50%);padding:10px 18px 18px;}
 .forge-section-note{max-width:74ch;margin:24px 0 0;color:var(--steel);font-size:13.5px;}
 .forge-route-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;}
 .forge-route-card{background:#fff;border:1px solid var(--line);padding:32px;position:relative;}
@@ -1943,6 +1943,7 @@ footer{background:var(--cta);border-top:1px solid var(--line-onink);padding:60px
 @media(max-width:640px){
   .forge-hero,.readiness-hero{padding:54px 0;}
   .forge-section{padding:62px 0;}
+  .forge-architecture-frame{width:calc(100vw - 24px);padding:6px 8px 12px;}
   .forge-hero-actions,.readiness-hero-actions{display:grid;}
   .forge-final-grid{grid-template-columns:1fr;}
   .forge-entry-grid{grid-template-columns:1fr;gap:30px;}
