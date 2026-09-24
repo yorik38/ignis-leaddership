@@ -1140,29 +1140,6 @@ section.tint{background:var(--tint);}
   }
 }
 
-/* One consistent homepage H2 scale, clearly below the hero headline. */
-.positioning-home .home-vision-heading h2,
-.positioning-home .home-editorial h2,
-.positioning-home .home-about-editorial h2,
-.positioning-home .home-ownership h2,
-.positioning-home .contact-intro h2,
-.positioning-home .faq-heading h2,
-.positioning-home .home-newsletter-copy h2{
-  font-size:clamp(30px,3.4vw,44px);
-  line-height:1.07;
-  letter-spacing:-.035em;
-}
-@media(max-width:760px){
-  .positioning-home .home-vision-heading h2,
-  .positioning-home .home-editorial h2,
-  .positioning-home .home-about-editorial h2,
-  .positioning-home .home-ownership h2,
-  .positioning-home .contact-intro h2,
-  .positioning-home .faq-heading h2,
-  .positioning-home .home-newsletter-copy h2{
-    font-size:32px;
-  }
-}
 @media (max-width:520px){
   .method-intro h2,
   .method-intro p{
@@ -2204,6 +2181,58 @@ footer{background:var(--cta);border-top:1px solid var(--line-onink);padding:60px
   .positioning-home .contact-intro h2,
   .positioning-home .home-newsletter-copy h2{
     font-size:30px;
+  }
+}
+
+/* Final homepage typography scale. */
+.positioning-home .home-vision-heading h2,
+.positioning-home .home-editorial h2,
+.positioning-home .home-about-editorial h2,
+.positioning-home .home-ownership h2,
+.positioning-home .contact-intro h2,
+.positioning-home .faq-heading h2,
+.positioning-home .home-newsletter-copy h2{
+  font-size:clamp(30px,3.4vw,44px);
+  line-height:1.07;
+  letter-spacing:-.035em;
+}
+.positioning-home .home-vision-copy p,
+.positioning-home .home-story-copy p,
+.positioning-home .home-section-intro,
+.positioning-home .home-agent-card p,
+.positioning-home .home-ownership p,
+.positioning-home .home-route-bridge,
+.positioning-home .home-desk-how p,
+.positioning-home .home-start-steps p,
+.positioning-home .home-about-editorial>div>p,
+.positioning-home .contact-intro>p,
+.positioning-home .home-newsletter-copy>p{
+  font-size:18px;
+  line-height:1.7;
+}
+@media(max-width:760px){
+  .positioning-home .home-vision-heading h2,
+  .positioning-home .home-editorial h2,
+  .positioning-home .home-about-editorial h2,
+  .positioning-home .home-ownership h2,
+  .positioning-home .contact-intro h2,
+  .positioning-home .faq-heading h2,
+  .positioning-home .home-newsletter-copy h2{
+    font-size:32px;
+  }
+  .positioning-home .home-vision-copy p,
+  .positioning-home .home-story-copy p,
+  .positioning-home .home-section-intro,
+  .positioning-home .home-agent-card p,
+  .positioning-home .home-ownership p,
+  .positioning-home .home-route-bridge,
+  .positioning-home .home-desk-how p,
+  .positioning-home .home-start-steps p,
+  .positioning-home .home-about-editorial>div>p,
+  .positioning-home .contact-intro>p,
+  .positioning-home .home-newsletter-copy>p{
+    font-size:16.5px;
+    line-height:1.65;
   }
 }
 
