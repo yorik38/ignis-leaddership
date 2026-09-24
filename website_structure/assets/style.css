@@ -2199,7 +2199,9 @@ footer{background:var(--cta);border-top:1px solid var(--line-onink);padding:60px
 /* Editorial homepage narrative */
 .positioning-home .new-hero .hero-positioning-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(420px,1fr);gap:32px;max-width:1140px;padding-bottom:86px;}
 .positioning-home .new-hero .hero-positioning-copy{max-width:620px;}
-.positioning-home .new-hero .hero-positioning-copy h1{font-size:clamp(40px,4.7vw,54px);max-width:19ch;}
+.positioning-home .new-hero .hero-positioning-copy h1{font-size:clamp(38px,4.4vw,50px);max-width:19ch;line-height:1;}
+.hero-h1-lead,.hero-h1-accent{display:block;}
+.hero-h1-accent{margin-top:8px;color:var(--accent);font-family:'Source Serif 4',Georgia,serif;font-size:1.06em;font-style:italic;font-weight:500;letter-spacing:-.035em;}
 .positioning-home .new-hero .hero-positioning-copy .hero-sub{max-width:48ch;text-wrap:balance;}
 .positioning-home .new-hero .hero-visual{display:flex;}
 .positioning-home .new-hero .hero-ctas-approved{display:none;}
