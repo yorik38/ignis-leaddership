@@ -236,9 +236,30 @@ function initForm(){
   var statusEl = document.getElementById("form-status");
   var successPanel = document.getElementById("form-success");
   var submitBtn = form.querySelector("button[type=submit]");
+  var serviceChoices = form.querySelectorAll('input[name="service_interest"]');
+  var serviceChoiceError = document.getElementById("service-choice-error");
+
+  form.addEventListener("invalid", function(event){
+    if (event.target && event.target.name === "service_interest" && serviceChoiceError) {
+      serviceChoiceError.hidden = false;
+    }
+    statusEl.textContent = event.target && event.target.name === "service_interest"
+      ? "Choose what you would like to discuss before sending."
+      : "Complete the highlighted required field before sending.";
+    statusEl.className = "form-status error";
+    statusEl.style.display = "block";
+  }, true);
+
+  Array.prototype.forEach.call(serviceChoices, function(choice){
+    choice.addEventListener("change", function(){
+      if (serviceChoiceError) serviceChoiceError.hidden = true;
+      statusEl.style.display = "none";
+    });
+  });
 
   form.addEventListener("submit", function(e){
     e.preventDefault();
+    statusEl.style.display = "none";
     submitBtn.disabled = true;
     submitBtn.textContent = "Sending...";
 
