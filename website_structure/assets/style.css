@@ -2244,7 +2244,16 @@ footer{background:var(--cta);border-top:1px solid var(--line-onink);padding:60px
 .home-desk{padding:34px 42px 36px 0;}
 .home-desk+.home-desk{padding-right:0;padding-left:42px;border-left:1px solid var(--line);}
 .home-desk h3{margin:0 0 16px;color:var(--ink);font-size:24px;line-height:1.2;letter-spacing:-.025em;}
-.home-desk p{margin:0;color:var(--steel);font-size:17px;line-height:1.7;}
+.home-desk-label{display:block;margin-top:28px;color:var(--accent);font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;}
+.home-desk h3+.home-desk-label{margin-top:0;}
+.home-desk-benefits{margin:16px 0 0;padding:0;list-style:none;border-top:1px solid var(--line);}
+.home-desk-benefits li{position:relative;padding:15px 0 15px 22px;border-bottom:1px solid var(--line);color:var(--ink);font-size:16px;line-height:1.5;}
+.home-desk-benefits li::before{content:"";position:absolute;left:0;top:26px;width:9px;height:2px;background:var(--accent);}
+.home-desk-how-label{margin-top:30px;}
+.home-desk-how{margin-top:14px;}
+.home-desk-how p{margin:0;color:var(--steel);font-size:16px;line-height:1.65;}
+.home-desk-how p+p{margin-top:12px;}
+.home-desk-how strong{color:var(--ink);}
 .home-route-closer{margin:34px 0 0;color:var(--ink);font-family:'Source Serif 4',Georgia,serif;font-size:21px;font-weight:600;line-height:1.5;}
 .home-start-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin:0;padding:0;list-style:none;counter-reset:home-start;max-width:1100px;border-top:1px solid var(--line);border-bottom:1px solid var(--line);}
 .home-start-steps li{counter-increment:home-start;position:relative;min-height:230px;padding:72px 34px 30px 0;}
