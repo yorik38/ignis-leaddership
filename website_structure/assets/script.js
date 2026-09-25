@@ -174,11 +174,8 @@ function initCalendlyInlineEmbed(){
 }
 
 /* ---------------------------------------------------------------------
-   5) LEAD QUALIFICATION FORM: Formspree
-   The form still degrades gracefully: without JS it posts normally
-   and Formspree redirects back with its own thank-you page.
+   5) LEAD QUALIFICATION FORM: HubSpot via the server-side contact route
    --------------------------------------------------------------------- */
-var FORMSPREE_ENDPOINT = "https://formspree.io/f/xbgrllwj";
 
 // "Select all that apply" checkbox groups (challenges, tender value) need
 // at least one box ticked, but a plain `required` attribute on one box
@@ -231,7 +228,7 @@ function initForm(){
   var form = document.getElementById("qualify-form");
   if (!form) return;
 
-  form.setAttribute("action", FORMSPREE_ENDPOINT);
+  form.setAttribute("action", "/api/contact");
 
   var statusEl = document.getElementById("form-status");
   var successPanel = document.getElementById("form-success");
@@ -242,10 +239,19 @@ function initForm(){
     submitBtn.disabled = true;
     submitBtn.textContent = "Sending...";
 
-    fetch(FORMSPREE_ENDPOINT, {
+    var formData = new FormData(form);
+    var payload = {};
+    formData.forEach(function(value, key){ payload[key] = value; });
+    payload.source = "website";
+    payload.page_url = window.location.href;
+
+    fetch("/api/contact", {
       method: "POST",
-      body: new FormData(form),
-      headers: { "Accept": "application/json" }
+      body: JSON.stringify(payload),
+      headers: {
+        "Accept": "application/json",
+        "Content-Type": "application/json"
+      }
     }).then(function(response){
       if (response.ok) {
         form.reset();
