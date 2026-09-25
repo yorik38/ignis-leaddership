@@ -341,6 +341,7 @@ body.menu-open > header{z-index:102;transform:translateY(0);}
 .ownership-grid{display:grid;grid-template-columns:minmax(280px,.82fr) minmax(0,1.18fr);gap:92px;align-items:center;}
 .ownership-grid h2{max-width:10ch;margin:0;font-size:clamp(30px,3.5vw,46px);line-height:1.08;letter-spacing:-.035em;text-wrap:balance;}
 .ownership-grid p{max-width:58ch;margin:0;color:var(--steel);font-size:17px;line-height:1.65;}
+.ownership-copy p+p{margin-top:20px;}
 
 .positioning-bridge{background:var(--paper);border-top:1px solid var(--line);border-bottom:1px solid var(--line);}
 .bridge-heading{text-align:center;margin-bottom:48px;}
@@ -1796,7 +1797,7 @@ footer{background:var(--cta);border-top:1px solid var(--line-onink);padding:60px
    keeps its smaller scale inside cards, diagrams and FAQs. */
 .positioning-home .emerging-challenge-copy>p:not(.emerging-challenge-outcome),
 .positioning-home .capacity-intro>p,
-.positioning-home .ownership-grid>p,
+.positioning-home .ownership-copy>p,
 .positioning-home .ai-opportunity-intro>p,
 .positioning-home .governed-framework-intro>p,
 .positioning-home .who-we-help-intro>p,
@@ -1809,7 +1810,7 @@ footer{background:var(--cta);border-top:1px solid var(--line-onink);padding:60px
 @media(max-width:680px){
   .positioning-home .emerging-challenge-copy>p:not(.emerging-challenge-outcome),
   .positioning-home .capacity-intro>p,
-  .positioning-home .ownership-grid>p,
+  .positioning-home .ownership-copy>p,
   .positioning-home .ai-opportunity-intro>p,
   .positioning-home .governed-framework-intro>p,
   .positioning-home .who-we-help-intro>p,
