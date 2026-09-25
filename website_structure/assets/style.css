@@ -319,6 +319,29 @@ body.menu-open > header{z-index:102;transform:translateY(0);}
 .emerging-challenge-copy>p{max-width:58ch;margin:0 0 24px;color:var(--steel);font-size:17px;}
 .emerging-challenge-copy .emerging-challenge-outcome{margin:34px 0 0;padding:0;color:var(--ink);font-family:'Source Serif 4',Georgia,serif;font-size:20px;font-style:italic;font-weight:500;line-height:1.5;}
 
+.capacity-section{background:var(--paper);border-top:1px solid var(--line);}
+.capacity-intro{max-width:850px;margin-bottom:46px;}
+.capacity-intro .eyebrow{display:block;margin-bottom:18px;}
+.capacity-intro h2{max-width:18ch;margin:0;font-size:clamp(30px,3.5vw,46px);line-height:1.1;letter-spacing:-.035em;text-wrap:balance;}
+.capacity-intro>p{max-width:72ch;margin:24px 0 0;color:var(--steel);font-size:17px;line-height:1.65;}
+.capacity-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;align-items:stretch;}
+.capacity-card{display:flex;min-height:300px;flex-direction:column;padding:34px;border:1px solid var(--line);}
+.capacity-card-production{background:#E7F0F3;border-top:4px solid var(--accent);}
+.capacity-card-coordination{background:#EEF1F4;}
+.capacity-card-continuity{background:var(--cta);color:var(--paper);}
+.capacity-number{font-size:22px;font-weight:700;line-height:1;letter-spacing:-.03em;color:var(--accent);}
+.capacity-card-continuity .capacity-number{color:#98C9CD;}
+.capacity-card h3{margin:56px 0 16px;font-size:clamp(24px,2.2vw,31px);line-height:1.15;letter-spacing:-.025em;}
+.capacity-card-continuity h3{color:var(--paper);}
+.capacity-card p{max-width:42ch;margin:0;color:var(--steel);font-size:15.5px;line-height:1.65;}
+.capacity-card-continuity p{color:#D0D6DE;}
+.capacity-closer{max-width:75ch;margin:34px 0 0;color:var(--ink);font-family:'Source Serif 4',Georgia,serif;font-size:18px;font-style:italic;font-weight:500;line-height:1.55;}
+
+.ownership-section{background:var(--paper);border-top:1px solid var(--line);border-bottom:1px solid var(--line);}
+.ownership-grid{display:grid;grid-template-columns:minmax(280px,.82fr) minmax(0,1.18fr);gap:92px;align-items:center;}
+.ownership-grid h2{max-width:10ch;margin:0;font-size:clamp(30px,3.5vw,46px);line-height:1.08;letter-spacing:-.035em;text-wrap:balance;}
+.ownership-grid p{max-width:58ch;margin:0;color:var(--steel);font-size:17px;line-height:1.65;}
+
 .positioning-bridge{background:var(--paper);border-top:1px solid var(--line);border-bottom:1px solid var(--line);}
 .bridge-heading{text-align:center;margin-bottom:48px;}
 .bridge-heading .eyebrow{display:block;margin-bottom:18px;}
@@ -541,6 +564,8 @@ body.menu-open > header{z-index:102;transform:translateY(0);}
 .positioning-home .rec-quote cite{color:var(--ink);}
 .positioning-home .rec-quote cite span{color:var(--steel);}
 .positioning-home .emerging-challenge-heading h2,
+.positioning-home .capacity-intro h2,
+.positioning-home .ownership-grid h2,
 .positioning-home .ai-opportunity-intro h2,
 .positioning-home .governed-framework-intro h2,
 .positioning-home .who-we-help-intro h2,
@@ -594,7 +619,10 @@ body.menu-open > header{z-index:102;transform:translateY(0);}
 
 @media(max-width:980px){
   .desktop-title-break{display:none;}
-  .hero-positioning-grid,.emerging-challenge-grid,.bridge-grid,.service-story-grid,.about-positioning-grid,.contact-positioning-grid{grid-template-columns:1fr;gap:52px;}
+  .hero-positioning-grid,.emerging-challenge-grid,.ownership-grid,.bridge-grid,.service-story-grid,.about-positioning-grid,.contact-positioning-grid{grid-template-columns:1fr;gap:52px;}
+  .capacity-grid{grid-template-columns:1fr;}
+  .capacity-card{min-height:0;}
+  .capacity-card h3{margin-top:32px;}
   .emerging-challenge-copy{padding:0;border-left:0;}
   .hero-choice{display:grid;grid-template-columns:1fr 1fr;}.choice-panel{border-bottom:0;border-right:1px solid var(--line);}.choice-panel:last-child{border-right:0;}
   .bridge-copy{padding:0;border:0;}.service-story-intro h2{max-width:18ch;}.about-portrait{grid-column:1;grid-row:auto;position:static;max-width:440px;}.experience-ledger{grid-column:1;grid-row:auto;}.rec-grid{grid-template-columns:1fr;}.contact-intro{position:static;}.contact-intro h2{max-width:18ch;}
@@ -1750,6 +1778,8 @@ footer{background:var(--cta);border-top:1px solid var(--line-onink);padding:60px
 }
 @media(max-width:680px){
   .positioning-home .emerging-challenge-heading h2,
+  .positioning-home .capacity-intro h2,
+  .positioning-home .ownership-grid h2,
   .positioning-home .ai-opportunity-intro h2,
   .positioning-home .governed-framework-intro h2,
   .positioning-home .who-we-help-intro h2,
@@ -1765,6 +1795,8 @@ footer{background:var(--cta);border-top:1px solid var(--line-onink);padding:60px
 /* Main section introductions share one readable size; compact component copy
    keeps its smaller scale inside cards, diagrams and FAQs. */
 .positioning-home .emerging-challenge-copy>p:not(.emerging-challenge-outcome),
+.positioning-home .capacity-intro>p,
+.positioning-home .ownership-grid>p,
 .positioning-home .ai-opportunity-intro>p,
 .positioning-home .governed-framework-intro>p,
 .positioning-home .who-we-help-intro>p,
@@ -1776,6 +1808,8 @@ footer{background:var(--cta);border-top:1px solid var(--line-onink);padding:60px
 }
 @media(max-width:680px){
   .positioning-home .emerging-challenge-copy>p:not(.emerging-challenge-outcome),
+  .positioning-home .capacity-intro>p,
+  .positioning-home .ownership-grid>p,
   .positioning-home .ai-opportunity-intro>p,
   .positioning-home .governed-framework-intro>p,
   .positioning-home .who-we-help-intro>p,
