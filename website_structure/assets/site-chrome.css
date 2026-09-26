@@ -677,8 +677,9 @@ body.menu-open { overflow: hidden; }
 }
 
 .site-footer .footer-top p {
-  max-width: 320px;
+  max-width: none;
   margin: 0;
+  white-space: nowrap;
 }
 
 .footer-top nav {
@@ -703,6 +704,7 @@ body.menu-open { overflow: hidden; }
 
 @media (max-width: 850px) {
   .footer-top { grid-template-columns: 1fr; }
+  .site-footer .footer-top p { white-space: normal; }
   .footer-top nav,
   .footer-meta { justify-content: flex-start; }
   .footer-bottom { justify-content: flex-start; }
