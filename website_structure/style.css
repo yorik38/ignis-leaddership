@@ -300,8 +300,6 @@ section.tint{background:var(--tint);}
 /* about */
 .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:start;}
 .about-grid p{color:var(--steel);font-size:16.5px;}
-.about-photo{margin-bottom:28px;}
-.about-photo img{width:100%;border-radius:4px;filter:grayscale(0.15);}
 blockquote.pull{
   font-family:'Source Serif 4',serif;font-style:italic;font-weight:500;
   font-size:22px;color:var(--ink);line-height:1.5;margin:0 0 24px;
