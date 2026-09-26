@@ -51,8 +51,9 @@ for (const page of pages) {
   html = html.replace(/<main(?![^>]*\bid=)/, '<main id="main"');
   html = html.replace(/<footer(?: class="[^"]*")?>.*?<\/footer>/s, footer);
 
-  if (!html.includes('/assets/site-chrome.css?v=1')) {
-    html = html.replace("</head>", '<link rel="stylesheet" href="/assets/site-chrome.css?v=1">\n</head>');
+  html = html.replace(/\/assets\/site-chrome\.css\?v=\d+/g, "/assets/site-chrome.css?v=2");
+  if (!html.includes('/assets/site-chrome.css?v=2')) {
+    html = html.replace("</head>", '<link rel="stylesheet" href="/assets/site-chrome.css?v=2">\n</head>');
   }
 
   if (!html.includes('/assets/capability.js?v=5')) {

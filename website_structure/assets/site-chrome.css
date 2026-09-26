@@ -346,3 +346,261 @@ body.menu-open { overflow: hidden; }
   .brand-name,
   .menu-overlay { transition-duration: .01ms !important; }
 }
+
+/* Shared FF-style insight signup */
+.home-community,
+.home-newsletter,
+.newsletter-mid-signup {
+  color: #fff;
+  background: #111;
+}
+
+.home-community,
+.home-newsletter {
+  padding: clamp(4.5rem, 8vw, 7.5rem) 0;
+}
+
+.home-community .community-grid,
+.home-newsletter .home-newsletter-grid,
+.newsletter-mid-signup .mid-signup-inner {
+  display: grid;
+  grid-template-columns: minmax(260px, .72fr) minmax(420px, 1.28fr);
+  gap: clamp(3rem, 8vw, 9rem);
+  align-items: start;
+}
+
+.home-community .community-promise,
+.home-newsletter .home-newsletter-copy,
+.newsletter-mid-signup .mid-signup-copy {
+  display: block;
+  max-width: 31rem;
+}
+
+.home-newsletter .home-newsletter-copy::before,
+.newsletter-mid-signup .mid-signup-copy::before {
+  display: block;
+  width: 52px;
+  height: 52px;
+  margin-bottom: 2.75rem;
+  border-radius: 4px;
+  background: #fff url('/assets/img/favicon-light.png') center / cover no-repeat;
+  content: "";
+}
+
+.home-community .community-promise img {
+  display: block;
+  width: 52px;
+  height: 52px;
+  margin-bottom: 2.75rem;
+  border-radius: 4px;
+}
+
+.home-community .community-promise .section-label,
+.home-newsletter .home-newsletter-copy .eyebrow,
+.newsletter-mid-signup .mid-signup-copy .eyebrow {
+  display: none;
+}
+
+.home-community .community-promise h2,
+.home-newsletter .home-newsletter-copy h2,
+.newsletter-mid-signup .mid-signup-copy h2 {
+  max-width: 19ch;
+  margin: 0;
+  color: #fff;
+  font-family: "Inter", system-ui, -apple-system, sans-serif;
+  font-size: clamp(1.35rem, 2vw, 1.8rem);
+  font-style: normal;
+  font-weight: 500;
+  line-height: 1.35;
+  letter-spacing: -.025em;
+}
+
+.home-newsletter .home-newsletter-copy p,
+.newsletter-mid-signup .mid-signup-copy p {
+  margin: 1rem 0 0;
+  color: #aeb5bf;
+  font-family: "Inter", system-ui, -apple-system, sans-serif;
+  font-size: .95rem;
+  line-height: 1.55;
+}
+
+.home-community h3,
+.home-newsletter .home-newsletter-form > label,
+.newsletter-mid-signup .subscribe-form::before {
+  display: block;
+  margin: 0 0 1.8rem;
+  color: #fff;
+  font-family: "Inter", system-ui, -apple-system, sans-serif;
+  font-size: clamp(1.35rem, 2vw, 1.8rem);
+  font-style: normal;
+  font-weight: 600;
+  line-height: 1.25;
+  letter-spacing: -.025em;
+}
+
+.newsletter-mid-signup .subscribe-form::before {
+  content: "Be part of our community";
+}
+
+.home-community .community-form,
+.home-newsletter .home-newsletter-form,
+.newsletter-mid-signup .subscribe-form {
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  color: #fff;
+  background: transparent;
+}
+
+.home-community .community-form-double,
+.home-newsletter .home-newsletter-fields,
+.newsletter-mid-signup .subscribe-fields {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0;
+}
+
+.home-community .community-form input,
+.home-newsletter .home-newsletter-fields input,
+.newsletter-mid-signup .subscribe-fields input {
+  width: 100%;
+  min-width: 0;
+  padding: 1rem 0 1.05rem;
+  border: 0;
+  border-bottom: 1px solid rgba(255, 255, 255, .16);
+  border-radius: 0;
+  color: #fff;
+  background: transparent;
+  box-shadow: none;
+  font: 400 1rem/1.4 "Inter", system-ui, -apple-system, sans-serif;
+  outline: 0;
+}
+
+.home-community .community-form input::placeholder,
+.home-newsletter .home-newsletter-fields input::placeholder,
+.newsletter-mid-signup .subscribe-fields input::placeholder {
+  color: #8d949d;
+  opacity: 1;
+}
+
+.home-community .community-form input:focus,
+.home-newsletter .home-newsletter-fields input:focus,
+.newsletter-mid-signup .subscribe-fields input:focus {
+  border-bottom-color: #8fb0d6;
+  box-shadow: none;
+}
+
+.home-community .community-form button,
+.home-newsletter .home-newsletter-fields button,
+.newsletter-mid-signup .subscribe-fields button {
+  justify-self: start;
+  width: auto;
+  margin: 1.8rem 0 0;
+  padding: 0 0 .35rem;
+  border: 0;
+  border-bottom: 1px solid currentColor;
+  border-radius: 0;
+  color: #fff;
+  background: transparent;
+  font: 700 .9rem/1.2 "Inter", system-ui, -apple-system, sans-serif;
+  letter-spacing: .035em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.home-community .community-form button:hover,
+.home-newsletter .home-newsletter-fields button:hover,
+.newsletter-mid-signup .subscribe-fields button:hover { color: #8fb0d6; background: transparent; }
+
+.home-newsletter .home-newsletter-promise,
+.newsletter-mid-signup .subscribe-promise { display: none; }
+
+.home-community .form-status,
+.home-newsletter .subscribe-status,
+.newsletter-mid-signup .subscribe-status {
+  min-height: 1.4rem;
+  margin: .8rem 0 0;
+  color: #8fb0d6;
+  font-size: .8rem;
+}
+
+.issue-end-newsletter .home-latest {
+  border-top-color: rgba(255, 255, 255, .16);
+}
+
+.issue-end-newsletter .home-latest-heading,
+.issue-end-newsletter .home-latest-row {
+  border-color: rgba(255, 255, 255, .16);
+}
+
+.issue-end-newsletter .home-latest-copy h3,
+.issue-end-newsletter .home-latest-heading,
+.issue-end-newsletter .home-latest-heading a { color: #fff; }
+.issue-end-newsletter .home-latest-copy p { color: #aeb5bf; }
+
+/* Compact article signup, using the same dark and underlined form language. */
+.issue-sidebar-card {
+  border-color: #111;
+  color: #fff;
+  background: #111;
+}
+
+.issue-sidebar-card h2 { color: #fff; }
+.issue-sidebar-card > p { color: #aeb5bf; }
+
+.issue-sidebar-form input {
+  width: 100%;
+  padding: .9rem 0;
+  border: 0;
+  border-bottom: 1px solid rgba(255, 255, 255, .16);
+  border-radius: 0;
+  color: #fff;
+  background: transparent;
+  box-shadow: none;
+}
+
+.issue-sidebar-form input::placeholder { color: #8d949d; opacity: 1; }
+.issue-sidebar-form input:focus { border-bottom-color: #8fb0d6; outline: 0; }
+
+.issue-sidebar-form button {
+  width: auto;
+  margin-top: 1.35rem;
+  padding: 0 0 .3rem;
+  border: 0;
+  border-bottom: 1px solid currentColor;
+  color: #fff;
+  background: transparent;
+  text-transform: uppercase;
+}
+
+.issue-sidebar-form button:hover { color: #8fb0d6; background: transparent; }
+.issue-sidebar-form .subscribe-promise { display: none; }
+.issue-sidebar-form .subscribe-status { color: #8fb0d6; }
+
+@media (max-width: 850px) {
+  .home-community .community-grid,
+  .home-newsletter .home-newsletter-grid,
+  .newsletter-mid-signup .mid-signup-inner {
+    grid-template-columns: 1fr;
+    gap: 3.5rem;
+  }
+
+  .home-community .community-promise,
+  .home-newsletter .home-newsletter-copy,
+  .newsletter-mid-signup .mid-signup-copy { max-width: 34rem; }
+}
+
+@media (max-width: 520px) {
+  .home-community,
+  .home-newsletter { padding: 4rem 0; }
+
+  .home-community .community-promise img,
+  .home-newsletter .home-newsletter-copy::before,
+  .newsletter-mid-signup .mid-signup-copy::before {
+    width: 46px;
+    height: 46px;
+    margin-bottom: 2rem;
+  }
+}
