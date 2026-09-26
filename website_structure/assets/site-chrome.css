@@ -689,7 +689,7 @@ body.menu-open { overflow: hidden; }
 .footer-bottom {
   display: flex;
   justify-content: flex-end;
-  margin-top: clamp(4rem, 9vw, 8rem);
+  margin-top: clamp(2rem, 4vw, 3.5rem);
 }
 
 .footer-meta {
