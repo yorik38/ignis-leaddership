@@ -65,9 +65,9 @@ for (const page of pages) {
     html = html.replace(/<section class="band band-dark home-community">.*?<\/section>/s, community);
   }
 
-  html = html.replace(/\/assets\/site-chrome\.css\?v=\d+/g, "/assets/site-chrome.css?v=11");
-  if (!html.includes('/assets/site-chrome.css?v=11')) {
-    html = html.replace("</head>", '<link rel="stylesheet" href="/assets/site-chrome.css?v=11">\n</head>');
+  html = html.replace(/\/assets\/site-chrome\.css\?v=\d+/g, "/assets/site-chrome.css?v=13");
+  if (!html.includes('/assets/site-chrome.css?v=13')) {
+    html = html.replace("</head>", '<link rel="stylesheet" href="/assets/site-chrome.css?v=13">\n</head>');
   }
 
   html = html.replace(/\/assets\/capability\.js\?v=\d+/g, "/assets/capability.js?v=6");
