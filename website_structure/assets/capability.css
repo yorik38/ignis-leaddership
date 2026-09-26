@@ -71,9 +71,37 @@
 
 /* Shared homepage-led hero system. */
 .hero{
-  background-image:linear-gradient(90deg,rgba(0,0,0,.97) 0%,rgba(0,0,0,.88) 34%,rgba(0,0,0,.28) 64%,rgba(0,0,0,.08) 100%),url('/assets/img/hero-governed-flow-v1.png');
-  background-position:center;
-  background-size:cover;
+  position:relative;
+  isolation:isolate;
+  overflow:hidden;
+  background:#000;
+}
+.hero::before,.hero::after{
+  position:absolute;
+  content:"";
+  pointer-events:none;
+}
+.hero::before{
+  inset:-3%;
+  z-index:0;
+  background:url('/assets/img/hero-governed-flow-v1.png') center/cover no-repeat;
+  transform:translate3d(1.5%,0,0) scale(1.035);
+  transform-origin:62% center;
+  animation:hero-flow 20s cubic-bezier(.45,0,.2,1) infinite alternate;
+  will-change:transform;
+}
+.hero::after{
+  inset:0;
+  z-index:1;
+  background:linear-gradient(90deg,rgba(0,0,0,.97) 0%,rgba(0,0,0,.88) 34%,rgba(0,0,0,.28) 64%,rgba(0,0,0,.08) 100%);
+}
+.hero-inner{
+  position:relative;
+  z-index:2;
+}
+@keyframes hero-flow{
+  from{transform:translate3d(1.5%,0,0) scale(1.035)}
+  to{transform:translate3d(-1.5%,0,0) scale(1.06)}
 }
 .page-hero{
   min-height:min(900px,100svh);
@@ -105,10 +133,14 @@
 }
 .page-hero .button-row{margin-top:2rem}
 @media(max-width:850px){
-  .hero{background-image:linear-gradient(90deg,rgba(0,0,0,.96),rgba(0,0,0,.68)),url('/assets/img/hero-governed-flow-v1.png');background-position:58% center}
+  .hero::before{background-position:58% center}
+  .hero::after{background:linear-gradient(90deg,rgba(0,0,0,.96),rgba(0,0,0,.68))}
   .page-hero{min-height:100svh;padding-top:78px}
   .page-hero-grid{min-height:calc(100svh - 78px);padding-top:clamp(3rem,7vh,5rem);padding-bottom:clamp(3rem,8vh,5rem)}
   .page-hero h1{max-width:760px}
+}
+@media(prefers-reduced-motion:reduce){
+  .hero::before{animation:none;transform:scale(1.04)}
 }
 @media(max-width:520px){
   .page-hero .section-label{margin-bottom:1.5rem}
