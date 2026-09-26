@@ -36,7 +36,7 @@
 @media(max-width:560px){.capability-item{grid-template-columns:1fr}.capability-detail{grid-column:auto;grid-template-columns:1fr}.insight-row{grid-template-columns:1fr;grid-template-areas:"title" "media" "summary";row-gap:1rem}.insight-row img{width:100%;max-width:none}.contact-form{grid-template-columns:1fr}.field-full{grid-column:auto}.community-form{grid-template-columns:1fr}.community-form button{padding:1rem}}
 .home-community .community-form-double{grid-template-columns:1fr 1fr auto;gap:1rem;border:0}.home-community .community-form-double button{align-self:center;justify-self:start;margin:0;padding:.8rem 0;border-bottom:1px solid currentColor;color:var(--paper);background:transparent;white-space:nowrap}.home-community .community-form-double button:hover{color:var(--sky)}.home-community .community-form-double .form-status{grid-column:1/-1}
 @media(max-width:720px){.community-form.community-form-double{grid-template-columns:1fr}.community-form.community-form-double button{padding:1rem}.home-community .community-form-double button{margin-top:.5rem;padding:.8rem 0}}
-@media(min-width:851px){.statement-approach .statement-grid{grid-template-columns:48px minmax(0,1fr);gap:clamp(2rem,4vw,4rem)}.statement-approach .statement-grid h2{font-size:clamp(2.25rem,3.4vw,4rem)}}
+@media(min-width:851px){.statement-approach .statement-grid{grid-template-columns:clamp(10rem,12vw,11.5rem) minmax(0,1fr);gap:clamp(3rem,4vw,4rem)}.statement-approach .statement-grid h2{max-width:1050px;font-size:clamp(2.25rem,3.4vw,4rem)}.statement-approach .approach-grid{grid-template-columns:minmax(0,1.08fr) minmax(0,.92fr)}}
 @media(max-width:850px){.statement-approach .statement-grid h2{font-size:clamp(1.9rem,6vw,2.5rem);line-height:1.08;letter-spacing:-.04em}}
 @media(max-width:720px){.outcomes-preview{grid-template-columns:1fr}.outcome-preview-card{padding:2rem 0}.outcome-preview-card+.outcome-preview-card{border-top:1px solid var(--line);border-left:0;padding-left:0}.outcomes-preview-footer{align-items:flex-start;flex-direction:column}.outcome-shift>div{grid-template-columns:1fr;gap:.5rem}}
 .closing-band-light .close-grid p:not(.section-label){color:var(--ink-muted)}
@@ -68,3 +68,50 @@
 @media(max-width:720px){.outcome-preview-card,.outcome-preview-card+.outcome-preview-card{padding:1.5rem;border:1px solid var(--line)}.outcome-card-link{padding-top:1.5rem}}
 .outcomes-preview-footer p{font-size:.78rem}
 .outcome-kicker{margin-bottom:.75rem;font-family:var(--font-sans);font-size:.8rem;font-style:normal;font-weight:600;line-height:1.2;letter-spacing:.1em;text-transform:uppercase}
+
+/* Shared homepage-led hero system. */
+.hero{
+  background-image:linear-gradient(90deg,rgba(0,0,0,.97) 0%,rgba(0,0,0,.88) 34%,rgba(0,0,0,.28) 64%,rgba(0,0,0,.08) 100%),url('/assets/img/hero-governed-flow-v1.png');
+  background-position:center;
+  background-size:cover;
+}
+.page-hero{
+  min-height:min(900px,100svh);
+  padding:96px 0 0;
+}
+.page-hero-grid{
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  min-height:calc(min(900px,100svh) - 96px);
+  padding-top:clamp(3rem,7vh,6rem);
+  padding-bottom:clamp(3rem,8vh,6rem);
+}
+.page-hero .section-label{margin:0 0 clamp(1.75rem,4vh,3rem)}
+.page-hero h1{
+  display:grid;
+  max-width:940px;
+  margin:0;
+  font-size:var(--hero);
+  font-weight:400;
+  line-height:.9;
+  letter-spacing:-.055em;
+  text-wrap:balance;
+}
+.page-hero-copy>p{
+  max-width:620px;
+  margin:clamp(2.5rem,6vh,4.5rem) 0 0;
+  font-size:clamp(1.05rem,1.6vw,1.35rem);
+}
+.page-hero .button-row{margin-top:2rem}
+@media(max-width:850px){
+  .hero{background-image:linear-gradient(90deg,rgba(0,0,0,.96),rgba(0,0,0,.68)),url('/assets/img/hero-governed-flow-v1.png');background-position:58% center}
+  .page-hero{min-height:100svh;padding-top:78px}
+  .page-hero-grid{min-height:calc(100svh - 78px);padding-top:clamp(3rem,7vh,5rem);padding-bottom:clamp(3rem,8vh,5rem)}
+  .page-hero h1{max-width:760px}
+}
+@media(max-width:520px){
+  .page-hero .section-label{margin-bottom:1.5rem}
+  .page-hero-copy>p{margin-top:2.25rem}
+  .page-hero .button-row{align-items:flex-start;flex-direction:column;gap:0;margin-top:1.5rem}
+}
