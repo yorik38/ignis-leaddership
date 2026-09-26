@@ -67,3 +67,4 @@
 @media(max-width:850px){.workflow-steps{grid-template-columns:1fr}.workflow-steps li{grid-template-columns:2rem 1fr;gap:1rem}.workflow-steps li+li{border-top:1px solid var(--line);border-left:0}}
 @media(max-width:720px){.outcome-preview-card,.outcome-preview-card+.outcome-preview-card{padding:1.5rem;border:1px solid var(--line)}.outcome-card-link{padding-top:1.5rem}}
 .outcomes-preview-footer p{font-size:.78rem}
+.outcome-kicker{margin-bottom:.75rem;font-family:var(--font-sans);font-size:.8rem;font-style:normal;font-weight:600;line-height:1.2;letter-spacing:.1em;text-transform:uppercase}
