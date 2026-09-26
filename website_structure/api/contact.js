@@ -33,10 +33,10 @@ module.exports = async function contactHandler(req, res) {
   const firstname = parts.shift() || "";
   const lastname = parts.join(" ");
   const email = String(body.email || "").trim().toLowerCase();
-  const serviceInterest = String(body.service_interest || "").trim().slice(0, 180);
+  const phone = String(body.phone || "").trim().slice(0, 80);
   const message = String(body.message || "").trim().slice(0, 5000);
 
-  if (!fullName || !serviceInterest || !EMAIL_PATTERN.test(email)) {
+  if (!fullName || !EMAIL_PATTERN.test(email)) {
     return send(res, 422, {ok: false, error: "invalid_details"});
   }
 
@@ -44,10 +44,10 @@ module.exports = async function contactHandler(req, res) {
     {name: "email", value: email},
     {name: "firstname", value: firstname},
     {name: "lastname", value: lastname},
-    {name: "service_interest", value: serviceInterest},
     {name: "acquisition_source", value: String(body.source || "website").trim().slice(0, 180)},
     {name: "conversion_asset", value: "website_enquiry"}
   ];
+  if (phone) fields.push({name: "phone", value: phone});
   if (message) fields.push({name: "message", value: message});
 
   const context = {

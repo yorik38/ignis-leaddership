@@ -1,85 +1,90 @@
+const HUBSPOT_PORTAL_ID = process.env.HUBSPOT_PORTAL_ID || "149324702";
+const HUBSPOT_FORM_ID = process.env.HUBSPOT_NEWSLETTER_FORM_ID || process.env.HUBSPOT_CONTACT_FORM_ID || "c4133ecb-5cca-4779-bb4e-9f85bf3d8bc3";
+const HUBSPOT_SUBSCRIPTION_TYPE_ID = process.env.HUBSPOT_NEWSLETTER_SUBSCRIPTION_TYPE_ID || "3723081039";
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-const SOURCE_TAG_ENV = {
-  website: "KIT_TAG_SOURCE_WEBSITE",
-  linkedin: "KIT_TAG_SOURCE_LINKEDIN",
-  email: "KIT_TAG_SOURCE_EMAIL",
-  shared: "KIT_TAG_SOURCE_SHARED"
-};
-const SOURCE_TAG_NAME = {
-  website: "Source - Website",
-  linkedin: "Source - LinkedIn",
-  email: "Source - Email",
-  shared: "Source - Reader share"
-};
-const NEWSLETTER_TAG_NAME = "Newsletter - Bid more. Win more.";
-let cachedTags;
 
-function json(response, status, payload) {
-  response.status(status).setHeader("Content-Type", "application/json");
+function send(response, status, payload) {
+  response.statusCode = status;
+  response.setHeader("Content-Type", "application/json; charset=utf-8");
   response.setHeader("Cache-Control", "no-store");
-  return response.end(JSON.stringify(payload));
+  response.end(JSON.stringify(payload));
 }
 
-async function kitRequest(path, apiKey, body, method = "POST") {
-  const response = await fetch(`https://api.kit.com/v4${path}`, {
-    method,
-    headers: {"Content-Type": "application/json", "X-Kit-Api-Key": apiKey},
-    body: body ? JSON.stringify(body) : undefined
-  });
-  const payload = await response.json().catch(() => ({}));
-  if (!response.ok) throw new Error(payload.errors?.join(" ") || "Kit rejected the subscription.");
-  return payload;
-}
-
-async function resolveTagIds(apiKey, source) {
-  const configuredIds = [process.env.KIT_TAG_NEWSLETTER, process.env[SOURCE_TAG_ENV[source]]].filter(Boolean);
-  if (configuredIds.length === 2) return configuredIds;
-
-  if (!cachedTags) {
-    const payload = await kitRequest("/tags", apiKey, null, "GET");
-    cachedTags = payload.tags || [];
-  }
-
-  const requiredNames = [NEWSLETTER_TAG_NAME, SOURCE_TAG_NAME[source]];
-  const resolvedIds = requiredNames.map((name) => cachedTags.find((tag) => tag.name === name)?.id).filter(Boolean);
-  if (resolvedIds.length !== requiredNames.length) throw new Error("Required Kit tags could not be found.");
-  return resolvedIds;
+function cookieValue(header, name) {
+  const match = String(header || "").match(new RegExp("(?:^|;\\s*)" + name + "=([^;]+)"));
+  return match ? decodeURIComponent(match[1]) : undefined;
 }
 
 module.exports = async function subscribe(request, response) {
-  if (request.method !== "POST") return json(response, 405, {error: "Method not allowed."});
+  if (request.method !== "POST") {
+    response.setHeader("Allow", "POST");
+    return send(response, 405, {ok: false, error: "method_not_allowed"});
+  }
 
-  const body = typeof request.body === "string" ? JSON.parse(request.body || "{}") : (request.body || {});
-  if (body.company_website) return json(response, 200, {ok: true});
+  let body;
+  try {
+    body = typeof request.body === "string" ? JSON.parse(request.body || "{}") : (request.body || {});
+  } catch (_error) {
+    return send(response, 400, {ok: false, error: "invalid_json"});
+  }
+  if (body.company_website) return send(response, 200, {ok: true});
 
+  const fullName = String(body.name || body.first_name || "").trim().replace(/\s+/g, " ").slice(0, 160);
+  const parts = fullName.split(" ");
+  const firstname = parts.shift() || "";
+  const lastname = parts.join(" ");
   const email = String(body.email || "").trim().toLowerCase();
-  const firstName = String(body.first_name || "").trim().slice(0, 80);
-  const source = Object.hasOwn(SOURCE_TAG_ENV, body.source) ? body.source : "website";
-  if (!EMAIL_PATTERN.test(email)) return json(response, 422, {error: "Enter a valid email address."});
+  const source = String(body.source || "website").trim().slice(0, 180);
 
-  const apiKey = process.env.KIT_API_KEY;
-  const formId = process.env.KIT_FORM_ID || "8043482";
-  if (!apiKey) return json(response, 503, {error: "Newsletter signup is awaiting its final Kit connection."});
+  if (!EMAIL_PATTERN.test(email)) {
+    return send(response, 422, {ok: false, error: "Enter a valid email address."});
+  }
+
+  const fields = [
+    {name: "email", value: email},
+    {name: "acquisition_source", value: source},
+    {name: "conversion_asset", value: "website_newsletter"}
+  ];
+  if (firstname) fields.push({name: "firstname", value: firstname});
+  if (lastname) fields.push({name: "lastname", value: lastname});
+  const context = {
+    pageUri: String(body.page_url || "https://www.ignisleadership.com/insights").slice(0, 500),
+    pageName: "Bid more. Win more. newsletter signup"
+  };
+  const hutk = cookieValue(request.headers.cookie, "hubspotutk");
+  if (hutk) context.hutk = hutk;
+
+  const subscriptionTypeId = Number(HUBSPOT_SUBSCRIPTION_TYPE_ID);
+  const consent = {
+    consentToProcess: true,
+    text: "Ignis Leadership may use these details to send Bid more. Win more. You can unsubscribe at any time."
+  };
+  if (Number.isFinite(subscriptionTypeId)) {
+    consent.communications = [{
+      value: true,
+      subscriptionTypeId,
+      text: "I want to receive Bid more. Win more. from Ignis Leadership."
+    }];
+  }
 
   try {
-    // Kit V4 requires the subscriber to exist before they can be added to a form.
-    // Creating without an active state preserves the form's double opt-in flow.
-    const created = await kitRequest("/subscribers", apiKey, {
-      email_address: email,
-      first_name: firstName || null
-    });
-    const subscriberId = created.subscriber?.id;
-    if (!subscriberId) throw new Error("Kit did not return a subscriber ID.");
+    const hubspotResponse = await fetch(
+      `https://api.hsforms.com/submissions/v3/integration/submit/${encodeURIComponent(HUBSPOT_PORTAL_ID)}/${encodeURIComponent(HUBSPOT_FORM_ID)}`,
+      {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({submittedAt: Date.now(), fields, context, legalConsentOptions: {consent}})
+      }
+    );
 
-    await kitRequest(`/forms/${formId}/subscribers/${subscriberId}`, apiKey, {
-      referrer: "https://www.ignisleadership.com/insights"
-    });
-
-    const tagIds = await resolveTagIds(apiKey, source);
-    await Promise.all(tagIds.map((tagId) => kitRequest(`/tags/${tagId}/subscribers/${subscriberId}`, apiKey, {})));
-    return json(response, 200, {ok: true});
+    if (!hubspotResponse.ok) {
+      const detail = (await hubspotResponse.text()).slice(0, 800);
+      console.error("HubSpot newsletter submission failed", hubspotResponse.status, detail);
+      return send(response, 502, {ok: false, error: "We could not add you just now."});
+    }
+    return send(response, 200, {ok: true});
   } catch (error) {
-    console.error("Newsletter subscription failed:", error.message);
-    return json(response, 502, {error: "We could not add you just now."});
+    console.error("HubSpot newsletter submission error", error && error.message);
+    return send(response, 502, {ok: false, error: "We could not add you just now."});
   }
 };

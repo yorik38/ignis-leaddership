@@ -1,4 +1,4 @@
-# Ignis Leadership — FAQ brief for strategy input
+# Ignis Leadership: FAQ brief for strategy input
 
 ## Context
 

@@ -235,7 +235,7 @@ It is showing less of the working before the reader gets something they can use.
 
 ## 5. Conversion architecture
 
-### 5.1 The hub page — Agreed
+### 5.1 The hub page: Agreed
 
 **Live now**
 
@@ -255,7 +255,7 @@ The sub and the intro say the same thing twice, and the H1 says nothing about In
 The intro names both readers and the ICP in one sentence, which is a job no page on the
 site currently does.
 
-### 5.2 Grouping by problem, shown as a tag rather than a section split — Agreed
+### 5.2 Grouping by problem, shown as a tag rather than a section split: Agreed
 
 The hub currently lists "Latest edition", "Past editions" and "Upcoming issues". Issue
 number is the publisher's organising principle, not the reader's. A visitor who has just
@@ -279,7 +279,7 @@ checklist in section 7. Advertising future titles publicly is only worth the mai
 cost if it drives subscriptions, and there is no data either way. The safer version is a
 single line: "A new issue most Mondays."
 
-### 5.3 The article page — Agreed
+### 5.3 The article page: Agreed
 
 Keep the mailto prompt, the author bio and the subscribe box. They are working and the
 tone is right.
