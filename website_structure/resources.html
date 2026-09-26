@@ -28,12 +28,12 @@
 <link rel="stylesheet" href="assets/style.css?v=132">
 <link rel="stylesheet" href="assets/resources.css?v=20">
 <link rel="icon" href="/favicon.ico?v=3" sizes="any">
-<link rel="stylesheet" href="/assets/site-chrome.css?v=2">
+<link rel="stylesheet" href="/assets/site-chrome.css?v=5">
 </head>
 <body class="guides-page">
 <a class="skip-link" href="#main">Skip to content</a>
   <header class="site-header"><a class="wordmark" href="/" aria-label="Ignis Leadership home"><span class="brand-icon"><img src="/assets/img/favicon-light.png" alt="" width="48" height="48"></span><span class="brand-name"><span class="brand-accent">I</span>gnis</span></a><div class="header-actions"><a class="contact-symbol" href="/contact" aria-label="Contact us"><span aria-hidden="true">↗</span></a><button class="menu-button" type="button" aria-expanded="false" aria-controls="menu-overlay" data-menu-open><span>Menu</span><i aria-hidden="true"></i></button></div></header>
-  <div class="menu-overlay" id="menu-overlay" aria-hidden="true" data-menu-overlay><div class="overlay-top"><a class="wordmark" href="/" aria-label="Ignis Leadership home"><span class="brand-icon"><img src="/assets/img/favicon-light.png" alt="" width="48" height="48"></span><span class="brand-name"><span class="brand-accent">I</span>gnis</span></a><button class="menu-close" type="button" data-menu-close>Close <span aria-hidden="true">×</span></button></div><nav class="overlay-nav" aria-label="Main navigation"><a href="/about"><span>01</span>About</a><a href="/bid"><span>02</span>Bid</a><a href="/tender"><span>03</span>Tender</a><a href="/case-study"><span>04</span>Case study</a><a href="/insights"><span>05</span>Insights</a><a href="/contact"><span>06</span>Contact us</a></nav><p class="overlay-note">Governed human-AI capability for commercial teams.</p></div>
+  <div class="menu-overlay" id="menu-overlay" aria-hidden="true" data-menu-overlay><div class="overlay-top"><a class="wordmark" href="/" aria-label="Ignis Leadership home"><span class="brand-icon"><img src="/assets/img/favicon-light.png" alt="" width="48" height="48"></span><span class="brand-name"><span class="brand-accent">I</span>gnis</span></a><button class="menu-close" type="button" data-menu-close>Close <span aria-hidden="true">×</span></button></div><nav class="overlay-nav" aria-label="Main navigation"><a href="/about"><span>01</span>About</a><a href="/bid"><span>02</span>Bid</a><a href="/tender"><span>03</span>Tender</a><a href="/case-study"><span>04</span>Outcomes</a><a href="/insights"><span>05</span>Insights</a><a href="/contact"><span>06</span>Contact us</a></nav><p class="overlay-note">Governed human-AI capability for commercial teams.</p></div>
 <main id="main">
   <section class="resources-library-hero" aria-labelledby="resources-title">
     <div class="wrap resources-library-hero-grid resources-library-hero-grid--text-only">
@@ -87,6 +87,9 @@
         <form class="home-newsletter-form" id="resources-newsletter-form" data-newsletter-form action="/api/subscribe" method="POST" novalidate>
           <label for="resources-newsletter-email">Get Bid More. Win More. in your inbox every week.</label>
           <div class="home-newsletter-fields">
+            <label class="sr-only" for="resources-newsletter-name">Name</label>
+            <input id="resources-newsletter-name" name="name" type="text" autocomplete="name" placeholder="Name" required>
+            <label class="sr-only" for="resources-newsletter-email">Email address</label>
             <input id="resources-newsletter-email" name="email" type="email" autocomplete="email" inputmode="email" placeholder="Work email" required>
             <button type="submit">Subscribe <span aria-hidden="true">→</span></button>
           </div>
@@ -124,7 +127,7 @@
 
 <footer class="site-footer"><div class="wrap footer-grid"><a class="footer-mark" href="/" aria-label="Ignis home"><img src="/assets/img/favicon-light.png" alt="" width="40" height="40"><span><span class="brand-accent">I</span>gnis</span></a><p>Governed human-AI systems for commercial teams.</p><nav aria-label="Footer navigation"><a href="/about">About</a><a href="/bid">Bid</a><a href="/tender">Tender</a><a href="/insights">Insights</a><a href="/contact">Contact</a></nav><div class="footer-meta"><span>© 2026 Ignis Leadership</span><a href="/privacy">Privacy</a><a href="/terms">Terms</a></div></div></footer>
 <script src="assets/script.js?v=64"></script>
-<script src="assets/newsletter.js?v=3"></script>
-<script src="/assets/capability.js?v=5"></script>
+<script src="assets/newsletter.js?v=4"></script>
+<script src="/assets/capability.js?v=6"></script>
 </body>
 </html>

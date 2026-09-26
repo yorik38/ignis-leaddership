@@ -51,13 +51,14 @@ for (const page of pages) {
   html = html.replace(/<main(?![^>]*\bid=)/, '<main id="main"');
   html = html.replace(/<footer(?: class="[^"]*")?>.*?<\/footer>/s, footer);
 
-  html = html.replace(/\/assets\/site-chrome\.css\?v=\d+/g, "/assets/site-chrome.css?v=2");
-  if (!html.includes('/assets/site-chrome.css?v=2')) {
-    html = html.replace("</head>", '<link rel="stylesheet" href="/assets/site-chrome.css?v=2">\n</head>');
+  html = html.replace(/\/assets\/site-chrome\.css\?v=\d+/g, "/assets/site-chrome.css?v=5");
+  if (!html.includes('/assets/site-chrome.css?v=5')) {
+    html = html.replace("</head>", '<link rel="stylesheet" href="/assets/site-chrome.css?v=5">\n</head>');
   }
 
-  if (!html.includes('/assets/capability.js?v=5')) {
-    html = html.replace("</body>", '<script src="/assets/capability.js?v=5"></script>\n</body>');
+  html = html.replace(/\/assets\/capability\.js\?v=\d+/g, "/assets/capability.js?v=6");
+  if (!html.includes('/assets/capability.js?v=6')) {
+    html = html.replace("</body>", '<script src="/assets/capability.js?v=6"></script>\n</body>');
   }
 
   await writeFile(url, html);

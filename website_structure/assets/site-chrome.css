@@ -176,6 +176,15 @@ body.menu-open { overflow: hidden; }
   background: var(--chrome-paper);
 }
 
+/* Match boxed site CTAs to the header control radius. */
+.button,
+.service-view,
+.btn-primary,
+.btn-secondary,
+.newsletter-nav-cta {
+  border-radius: 4px;
+}
+
 .menu-overlay {
   position: fixed;
   inset: 0;
@@ -352,8 +361,11 @@ body.menu-open { overflow: hidden; }
 .home-newsletter,
 .newsletter-mid-signup {
   color: #fff;
-  background: #111;
+  background: #121416;
 }
+
+/* Keep the final light section before Start here unmistakably white. */
+.about-preview { background: #fff; }
 
 .home-community,
 .home-newsletter {
@@ -404,15 +416,15 @@ body.menu-open { overflow: hidden; }
 .home-community .community-promise h2,
 .home-newsletter .home-newsletter-copy h2,
 .newsletter-mid-signup .mid-signup-copy h2 {
-  max-width: 19ch;
+  max-width: 30ch;
   margin: 0;
   color: #fff;
   font-family: "Inter", system-ui, -apple-system, sans-serif;
-  font-size: clamp(1.35rem, 2vw, 1.8rem);
+  font-size: clamp(1.2rem, 1.8vw, 1.55rem);
   font-style: normal;
-  font-weight: 500;
-  line-height: 1.35;
-  letter-spacing: -.025em;
+  font-weight: 600;
+  line-height: 1.45;
+  letter-spacing: -.02em;
 }
 
 .home-newsletter .home-newsletter-copy p,
@@ -602,5 +614,13 @@ body.menu-open { overflow: hidden; }
     width: 46px;
     height: 46px;
     margin-bottom: 2rem;
+  }
+
+  .home-community .community-promise h2,
+  .home-newsletter .home-newsletter-copy h2,
+  .newsletter-mid-signup .mid-signup-copy h2 {
+    max-width: 34ch;
+    font-size: 1.05rem;
+    line-height: 1.45;
   }
 }
