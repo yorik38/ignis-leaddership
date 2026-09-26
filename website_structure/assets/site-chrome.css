@@ -649,14 +649,14 @@ body.menu-open { overflow: hidden; }
   gap: .85rem;
   margin-bottom: 2.75rem;
   color: #fff;
-  font: 600 1.35rem/1 "Inter", system-ui, -apple-system, sans-serif;
+  font: 600 1.45rem/1 "Inter", system-ui, -apple-system, sans-serif;
   letter-spacing: -.02em;
   text-decoration: none;
 }
 
 .home-community .community-brand img {
-  width: 52px;
-  height: 52px;
+  width: 51px;
+  height: 51px;
   margin: 0;
   border-radius: 4px;
 }
@@ -687,19 +687,9 @@ body.menu-open { overflow: hidden; }
 }
 
 .footer-bottom {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
-  gap: 2rem;
-  align-items: end;
+  display: flex;
+  justify-content: flex-end;
   margin-top: clamp(4rem, 9vw, 8rem);
-}
-
-.footer-wordmark {
-  justify-self: start;
-  color: #fff;
-  font: 500 clamp(4.5rem, 12vw, 11rem)/.8 "Inter", system-ui, -apple-system, sans-serif;
-  letter-spacing: -.075em;
-  text-decoration: none;
 }
 
 .footer-meta {
@@ -712,22 +702,20 @@ body.menu-open { overflow: hidden; }
 }
 
 @media (max-width: 850px) {
-  .footer-top,
-  .footer-bottom { grid-template-columns: 1fr; }
+  .footer-top { grid-template-columns: 1fr; }
   .footer-top nav,
   .footer-meta { justify-content: flex-start; }
-  .footer-bottom { gap: 2.5rem; }
-  .footer-wordmark { font-size: clamp(4rem, 22vw, 7rem); }
+  .footer-bottom { justify-content: flex-start; }
 }
 
 @media (max-width: 520px) {
   .community-brand {
     margin-bottom: 2rem;
-    font-size: 1.2rem;
+    font-size: 1.3rem;
   }
 
   .home-community .community-brand img {
-    width: 46px;
-    height: 46px;
+    width: 47px;
+    height: 47px;
   }
 }

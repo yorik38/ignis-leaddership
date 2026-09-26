@@ -1,5 +1,5 @@
 import { readFile, writeFile } from "node:fs/promises";
-import { join, relative } from "node:path";
+import { relative } from "node:path";
 
 const root = new URL("../", import.meta.url);
 const pages = [
@@ -26,11 +26,16 @@ const pages = [
   "resources/ai-augmented-bid-practice.html",
 ];
 
-const canonical = await readFile(new URL("../index.html", import.meta.url), "utf8");
-const header = canonical.match(/(?:<a class="skip-link".*?<\/a>\s*)?<header class="site-header">.*?(?=<main\b)/s)?.[0];
-const footer = canonical.match(/<footer class="site-footer">.*?<\/footer>/s)?.[0];
+const communityPages = new Map([
+  ["index.html", "home"],
+  ["insights.html", "insights"],
+]);
 
-if (!header || !footer) throw new Error("Canonical site chrome was not found in index.html");
+const header = (await readFile(new URL("../partials/site-header.html", import.meta.url), "utf8")).trim();
+const footer = (await readFile(new URL("../partials/site-footer.html", import.meta.url), "utf8")).trim();
+const communityTemplate = (await readFile(new URL("../partials/community-signup.html", import.meta.url), "utf8")).trim();
+
+if (!header || !footer || !communityTemplate) throw new Error("A shared site template is empty");
 
 for (const page of pages) {
   const url = new URL(page, root);
@@ -51,9 +56,18 @@ for (const page of pages) {
   html = html.replace(/<main(?![^>]*\bid=)/, '<main id="main"');
   html = html.replace(/<footer(?: class="[^"]*")?>.*?<\/footer>/s, footer);
 
-  html = html.replace(/\/assets\/site-chrome\.css\?v=\d+/g, "/assets/site-chrome.css?v=7");
-  if (!html.includes('/assets/site-chrome.css?v=7')) {
-    html = html.replace("</head>", '<link rel="stylesheet" href="/assets/site-chrome.css?v=7">\n</head>');
+  const communityFormId = communityPages.get(page);
+  if (communityFormId) {
+    const community = communityTemplate.replaceAll("{{FORM_ID}}", communityFormId);
+    if (!/<section class="band band-dark home-community">.*?<\/section>/s.test(html)) {
+      throw new Error(`Community signup section was not found in ${page}`);
+    }
+    html = html.replace(/<section class="band band-dark home-community">.*?<\/section>/s, community);
+  }
+
+  html = html.replace(/\/assets\/site-chrome\.css\?v=\d+/g, "/assets/site-chrome.css?v=8");
+  if (!html.includes('/assets/site-chrome.css?v=8')) {
+    html = html.replace("</head>", '<link rel="stylesheet" href="/assets/site-chrome.css?v=8">\n</head>');
   }
 
   html = html.replace(/\/assets\/capability\.js\?v=\d+/g, "/assets/capability.js?v=6");
