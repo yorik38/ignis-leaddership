@@ -664,6 +664,7 @@ body.menu-open { overflow: hidden; }
 .site-footer {
   padding: 0 0 2rem;
   border-top: 0;
+  color: #929aa5;
 }
 
 .site-footer .footer-grid { display: block; }
@@ -679,6 +680,7 @@ body.menu-open { overflow: hidden; }
 .site-footer .footer-top p {
   max-width: none;
   margin: 0;
+  color: inherit;
   white-space: nowrap;
 }
 
@@ -704,7 +706,17 @@ body.menu-open { overflow: hidden; }
 
 @media (max-width: 850px) {
   .footer-top { grid-template-columns: 1fr; }
-  .site-footer .footer-top p { white-space: normal; }
+  .site-footer .footer-top p {
+    font-size: .72rem;
+    letter-spacing: -.015em;
+    white-space: nowrap;
+  }
+  .site-footer nav {
+    flex-wrap: nowrap;
+    gap: .5rem;
+    font-size: .75rem;
+    white-space: nowrap;
+  }
   .footer-top nav,
   .footer-meta { justify-content: flex-start; }
   .footer-bottom { justify-content: flex-start; }
