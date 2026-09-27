@@ -573,6 +573,13 @@ body.menu-open { overflow: hidden; }
 .issue-end-newsletter .home-latest-heading a { color: #fff; }
 .issue-end-newsletter .home-latest-copy p { color: #aeb5bf; }
 
+/* Match the established Bid capability-link blue on dark backgrounds. */
+.issue-end-newsletter .home-latest-heading .eyebrow,
+.issue-end-newsletter .home-latest-meta,
+.issue-end-newsletter .home-latest-arrow {
+  color: #8fb0d6;
+}
+
 /* Compact article signup, using the same dark and underlined form language. */
 .issue-sidebar-card {
   border-color: #111;

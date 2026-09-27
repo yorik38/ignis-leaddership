@@ -7,12 +7,34 @@
 
   document.querySelectorAll(".issue-sidebar-card").forEach(function(card){
     var heading = card.querySelector("h2");
+    var description = card.querySelector("p");
     var button = card.querySelector(".issue-sidebar-form button[type='submit']");
-    if (heading) heading.textContent = "Get Bid more. Win more. newsletter in your inbox every week.";
+    if (heading) heading.textContent = "Be part of the community";
+    if (description) description.innerHTML = 'Get the <em>Bid more. Win more.</em> newsletter in your inbox.';
     if (button) {
       button.innerHTML = 'Subscribe now <span aria-hidden="true">↗</span>';
       button.setAttribute("aria-label", "Subscribe now");
     }
+  });
+
+  document.querySelectorAll(".issue-end-newsletter").forEach(function(section){
+    var title = section.querySelector(".home-newsletter-copy h2");
+    var description = section.querySelector(".home-newsletter-copy p");
+    var formHeading = section.querySelector(".home-newsletter-form > label");
+    var button = section.querySelector(".home-newsletter-form button[type='submit']");
+    var browseLink = section.querySelector(".home-latest-heading a");
+
+    if (title) title.textContent = "Be part of the community";
+    if (description) description.innerHTML = 'Get the <em>Bid more. Win more.</em> newsletter in your inbox.';
+    if (formHeading) {
+      formHeading.textContent = "Email address";
+      formHeading.classList.add("sr-only");
+    }
+    if (button) {
+      button.innerHTML = 'Subscribe now <span aria-hidden="true">↗</span>';
+      button.setAttribute("aria-label", "Subscribe now");
+    }
+    if (browseLink) browseLink.setAttribute("href", "/insights");
   });
 
   function updateShareStatus(message, isError){
