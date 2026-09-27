@@ -686,7 +686,10 @@ body.menu-open { overflow: hidden; }
   color: #929aa5;
 }
 
-.site-footer .footer-grid { display: block; }
+.site-footer .footer-grid {
+  display: block;
+  text-align: left;
+}
 
 .footer-top {
   display: grid;
