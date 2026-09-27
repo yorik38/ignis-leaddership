@@ -50,7 +50,7 @@
   </url>
   <url>
     <loc>https://www.ignisleadership.com/insights</loc>
-    <lastmod>2026-09-27</lastmod>
+    <lastmod>2026-09-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -99,6 +99,12 @@
   <url>
     <loc>https://www.ignisleadership.com/insights/why-do-tenders-inherit-decisions-without-their-history</loc>
     <lastmod>2026-09-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.ignisleadership.com/insights/why-is-your-tender-team-still-overloaded</loc>
+    <lastmod>2026-09-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>

@@ -5,6 +5,16 @@
   var shareText = document.body.getAttribute("data-share-title") || "Bid more. Win more.: practical field notes on AI-augmented bid management.";
   var shareStatus = document.getElementById("share-status");
 
+  document.querySelectorAll(".issue-sidebar-card").forEach(function(card){
+    var heading = card.querySelector("h2");
+    var button = card.querySelector(".issue-sidebar-form button[type='submit']");
+    if (heading) heading.textContent = "Get Bid more. Win more. newsletter in your inbox every week.";
+    if (button) {
+      button.innerHTML = 'Subscribe now <span aria-hidden="true">↗</span>';
+      button.setAttribute("aria-label", "Subscribe now");
+    }
+  });
+
   function updateShareStatus(message, isError){
     if (!shareStatus) return;
     shareStatus.textContent = message;

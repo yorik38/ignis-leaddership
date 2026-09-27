@@ -147,6 +147,10 @@ body>header.header-hidden~main .issue-sidebar{top:24px;}
 }
 @media(max-width:520px){.newsletter-final-signup .final-signup-form{padding:22px;}.final-signup-fields input{border-bottom:1px solid var(--line);}.final-signup-fields button{padding:16px;}}
 
+/* Keep article titles clear of the fixed site header on every issue page. */
+.issue-page .issue-hero{padding-top:calc(96px + clamp(3rem,6vw,5rem))}
+@media(max-width:720px){.issue-page .issue-hero{padding-top:calc(76px + 2.5rem)}}
+
 /* Shared article ending: signup first, then related editions. */
 .issue-end-newsletter{background:#EEF3F7;border-top:1px solid var(--line);}
 .issue-end-newsletter .issue-continue{margin-top:64px;}
