@@ -4,19 +4,19 @@ The website newsletter forms now submit to HubSpot through the server-side `/api
 
 ## HubSpot form
 
-1. Create a HubSpot form named `Website newsletter`.
+1. Use the published HubSpot form named `Website Newsletter Subscription`.
 2. Include `Email`, `First name`, `Last name`, `Acquisition source` and `Conversion asset` in the form definition.
 3. Keep the newsletter subscription type enabled and confirm that its ID is `3723081039`.
 4. Set the form follow-up workflow for `Bid more. Win more.`
 5. Test the form, consent record and unsubscribe flow before launch.
 
-Until a dedicated newsletter form ID is supplied, the endpoint uses the existing website contact form ID. Submissions are distinguished by `conversion_asset = website_newsletter`.
+The newsletter endpoint uses the dedicated published HubSpot form `Website Newsletter Subscription`. The contact form uses the separate `Website Enquiry` form. When the optional newsletter checkbox is selected on the contact page, the server records the enquiry first and then sends a second, explicit-consent submission to the newsletter form.
 
 ## Vercel environment variables
 
 ```text
 HUBSPOT_PORTAL_ID=149324702
-HUBSPOT_NEWSLETTER_FORM_ID=
+HUBSPOT_NEWSLETTER_FORM_ID=9694ec84-e70c-4134-b426-383c2e458f22
 HUBSPOT_NEWSLETTER_SUBSCRIPTION_TYPE_ID=3723081039
 ```
 

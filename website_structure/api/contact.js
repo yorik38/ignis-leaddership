@@ -1,5 +1,7 @@
 const HUBSPOT_PORTAL_ID = process.env.HUBSPOT_PORTAL_ID || "149324702";
 const HUBSPOT_FORM_ID = process.env.HUBSPOT_CONTACT_FORM_ID || "c4133ecb-5cca-4779-bb4e-9f85bf3d8bc3";
+const HUBSPOT_NEWSLETTER_FORM_ID = process.env.HUBSPOT_NEWSLETTER_FORM_ID || "9694ec84-e70c-4134-b426-383c2e458f22";
+const HUBSPOT_NEWSLETTER_SUBSCRIPTION_TYPE_ID = process.env.HUBSPOT_NEWSLETTER_SUBSCRIPTION_TYPE_ID || "3723081039";
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 function send(res, status, payload) {
@@ -12,6 +14,23 @@ function send(res, status, payload) {
 function cookieValue(header, name) {
   const match = String(header || "").match(new RegExp("(?:^|;\\s*)" + name + "=([^;]+)"));
   return match ? decodeURIComponent(match[1]) : undefined;
+}
+
+async function submitHubspotForm(formId, payload) {
+  const response = await fetch(
+    `https://api.hsforms.com/submissions/v3/integration/submit/${encodeURIComponent(HUBSPOT_PORTAL_ID)}/${encodeURIComponent(formId)}`,
+    {
+      method: "POST",
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify(payload)
+    }
+  );
+  if (!response.ok) {
+    const detail = (await response.text()).slice(0, 800);
+    const error = new Error(`HubSpot form submission failed: ${response.status}`);
+    error.detail = detail;
+    throw error;
+  }
 }
 
 module.exports = async function contactHandler(req, res) {
@@ -35,6 +54,7 @@ module.exports = async function contactHandler(req, res) {
   const email = String(body.email || "").trim().toLowerCase();
   const phone = String(body.phone || "").trim().slice(0, 80);
   const message = String(body.message || "").trim().slice(0, 5000);
+  const newsletterOptIn = body.newsletter_opt_in === true || body.newsletter_opt_in === "true" || body.newsletter_opt_in === "on";
 
   if (!fullName || !EMAIL_PATTERN.test(email)) {
     return send(res, 422, {ok: false, error: "invalid_details"});
@@ -58,33 +78,55 @@ module.exports = async function contactHandler(req, res) {
   if (hutk) context.hutk = hutk;
 
   try {
-    const hubspotResponse = await fetch(
-      `https://api.hsforms.com/submissions/v3/integration/submit/${encodeURIComponent(HUBSPOT_PORTAL_ID)}/${encodeURIComponent(HUBSPOT_FORM_ID)}`,
-      {
-        method: "POST",
-        headers: {"Content-Type": "application/json"},
-        body: JSON.stringify({
-          submittedAt: Date.now(),
-          fields,
-          context,
-          legalConsentOptions: {
-            consent: {
-              consentToProcess: true,
-              text: "I agree that Ignis Leadership may use these details to respond to my enquiry."
-            }
-          }
-        })
+    await submitHubspotForm(HUBSPOT_FORM_ID, {
+      submittedAt: Date.now(),
+      fields,
+      context,
+      legalConsentOptions: {
+        consent: {
+          consentToProcess: true,
+          text: "I agree that Ignis Leadership may use these details to respond to my enquiry."
+        }
       }
-    );
-
-    if (!hubspotResponse.ok) {
-      const detail = (await hubspotResponse.text()).slice(0, 800);
-      console.error("HubSpot enquiry submission failed", hubspotResponse.status, detail);
-      return send(res, 502, {ok: false, error: "submission_failed"});
-    }
-    return send(res, 200, {ok: true});
+    });
   } catch (error) {
-    console.error("HubSpot enquiry submission error", error && error.message);
+    console.error("HubSpot enquiry submission error", error && error.message, error && error.detail);
     return send(res, 502, {ok: false, error: "submission_failed"});
+  }
+
+  if (!newsletterOptIn) return send(res, 200, {ok: true, newsletterSubscribed: false});
+
+  const subscriptionTypeId = Number(HUBSPOT_NEWSLETTER_SUBSCRIPTION_TYPE_ID);
+  const newsletterConsent = {
+    consentToProcess: true,
+    text: "Ignis Leadership may use these details to send Bid more. Win more. You can unsubscribe at any time."
+  };
+  if (Number.isFinite(subscriptionTypeId)) {
+    newsletterConsent.communications = [{
+      value: true,
+      subscriptionTypeId,
+      text: "I want to receive Bid more. Win more. from Ignis Leadership."
+    }];
+  }
+
+  const newsletterFields = [
+    {name: "email", value: email},
+    {name: "firstname", value: firstname},
+    {name: "lastname", value: lastname},
+    {name: "acquisition_source", value: String(body.source || "website").trim().slice(0, 180)},
+    {name: "conversion_asset", value: "website_newsletter"}
+  ];
+
+  try {
+    await submitHubspotForm(HUBSPOT_NEWSLETTER_FORM_ID, {
+      submittedAt: Date.now(),
+      fields: newsletterFields,
+      context: {...context, pageName: "Bid more. Win more. newsletter signup from contact"},
+      legalConsentOptions: {consent: newsletterConsent}
+    });
+    return send(res, 200, {ok: true, newsletterSubscribed: true});
+  } catch (error) {
+    console.error("HubSpot newsletter opt-in submission error", error && error.message, error && error.detail);
+    return send(res, 200, {ok: true, newsletterSubscribed: false, warning: "newsletter_submission_failed"});
   }
 };
