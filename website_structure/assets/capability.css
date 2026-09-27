@@ -144,6 +144,9 @@
   grid-template-columns:minmax(0,.95fr) minmax(0,1.05fr);
   gap:clamp(3rem,6vw,6rem);
 }
+.about-page .profile-image{
+  margin:0;
+}
 .about-page .profile-image img{
   display:block;
   aspect-ratio:3/2;
