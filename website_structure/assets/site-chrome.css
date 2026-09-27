@@ -727,14 +727,15 @@ body.menu-open { overflow: hidden; }
 @media (max-width: 850px) {
   .footer-top { grid-template-columns: 1fr; }
   .site-footer .footer-top p {
-    font-size: .82rem;
+    font-size: clamp(.88rem, 3.55vw, .92rem);
+    font-weight: 700;
     letter-spacing: -.015em;
     white-space: nowrap;
   }
   .site-footer nav {
     flex-wrap: nowrap;
-    gap: .5rem;
-    font-size: .82rem;
+    gap: clamp(.35rem, 1.55vw, .55rem);
+    font-size: clamp(.88rem, 3.45vw, .9rem);
     white-space: nowrap;
   }
   .footer-top nav,
