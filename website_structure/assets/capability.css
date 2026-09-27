@@ -164,3 +164,6 @@
   .page-hero-copy>p{margin-top:2.25rem}
   .page-hero .button-row{align-items:flex-start;flex-direction:column;gap:0;margin-top:1.5rem}
 }
+
+/* Keep the supplied monochrome BP mark faithful to its original proportions. */
+.logo-card img.logo-bp-ref{max-height:78px;filter:none;mix-blend-mode:multiply}

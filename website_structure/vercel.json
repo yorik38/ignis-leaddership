@@ -32,6 +32,16 @@
       "permanent": true
     },
     {
+      "source": "/resources",
+      "destination": "/insights",
+      "permanent": true
+    },
+    {
+      "source": "/resources/:slug*",
+      "destination": "/insights",
+      "permanent": true
+    },
+    {
       "source": "/privacy-policy",
       "destination": "/privacy",
       "permanent": true

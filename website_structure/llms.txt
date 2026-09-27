@@ -1,54 +1,52 @@
 # Ignis Leadership
 
-> Commercial excellence for organisations pursuing and awarding complex, high-value opportunities. Ignis Leadership builds governed human-agent systems across the commercial lifecycle, designed for real team adoption.
+> Ignis Leadership helps lean commercial teams ignite governed human-AI systems to bid more, buy better and stay in control.
 
-Ignis Leadership is the practice of Yorik Tisseau. At Bouygues, he progressed from project engineer, preparing RFPs, appraising bids and selecting suppliers, to Senior Bid Manager, bidding to secure major EPC contracts. He then moved into offshore wind, leading complex bids across Europe as Bid Director at bp and RWE.
+Ignis Leadership is the practice of Yorik Tisseau. He brings 17 years of experience across procurement, bid management and commercial leadership in energy, infrastructure and industrial markets, including senior roles at Bouygues, bp and RWE.
 
-The central argument of the practice: bid teams were built around people gathering information, coordinating inputs and producing content under pressure. AI agents can now absorb much of that work. The opportunity is not to automate the old process but to redesign the practice around better judgement, greater capacity and clear human accountability. Agents prepare and coordinate; people direct, challenge, decide and approve.
+The central argument of the practice: AI should strengthen commercial judgement, not replace it. Ignis combines the organisation's process, evidence and capability with agents that prepare and coordinate work, while named people retain authority to direct, challenge, decide and approve.
 
 ## Who it is for
 
-Organisations bidding for complex, high-value work and organisations tendering to award it, particularly in energy, infrastructure and industrial markets.
+Lean commercial teams pursuing complex, high-value work and teams running tenders to award it, particularly in energy, infrastructure and industrial markets.
 
 ## Services
 
-- Commercial Discovery: a focused, two-week engagement to establish the current-state evidence, select the first workflow worth redesigning, compare delivery routes and produce a phased investment envelope from design through adoption and operation.
-- System Design: redesign the selected workflow around decision rights, trusted information, agent tasks, human judgement, approvals and evidence.
-- Delivery Support and Adoption: support internal delivery, develop a focused solution, or oversee a specialist partner while helping the team adopt and improve the system.
+- Bid — Win work: bid management audit, human-AI process redesign, governed workflow design, operating model embed and team adoption.
+- Tender — Buy well: tender management audit, human-AI process redesign, governed workflow design, operating model embed and team adoption.
+- Engagement approach: audit the current process and capability, design and prove one bounded pilot, then extend the modular system across the lifecycle.
 
 ## Core pages
 
-- [Home](https://www.ignisleadership.com/): positioning, the AI-augmented bid lifecycle across capture, pursuit and handover, the governed commercial delivery framework, sectors served and services.
-- [Commercial Discovery](https://www.ignisleadership.com/discovery): the two-week, fixed-fee starting point for selecting one commercial workflow and producing the evidence, route comparison and indicative total investment needed for a leadership decision.
-- [Resources](https://www.ignisleadership.com/resources): practical guides on building and transforming an AI-augmented bid practice.
-- [Insights](https://www.ignisleadership.com/insights): the "Bid More. Win More." newsletter on bid strategy, AI adoption and bid practice design.
-- [Archive](https://www.ignisleadership.com/archive): full index of past newsletter editions.
-
-## Guides
-
-- [How to build an AI-augmented bid practice](https://www.ignisleadership.com/resources/ai-augmented-bid-practice): the operating-model view of introducing AI agents into bid work, with governance and human decision rights.
-- [What can bid teams build with AI agents in 2026?](https://www.ignisleadership.com/resources/bid-agent-maturity): a maturity view of agent capability in bid management and what is realistically achievable now.
-- [Where should bid teams start with AI agents?](https://www.ignisleadership.com/resources/choose-first-ai-bid-use-case): how to select a starting use case that is valuable, low-risk and learnable.
+- [Home](https://www.ignisleadership.com/): Ignis positioning, approach, experience, services, illustrative outcomes and engagement model.
+- [About Yorik](https://www.ignisleadership.com/about): Yorik Tisseau's experience and approach to commercial leadership, executive coaching and adoption.
+- [Bid](https://www.ignisleadership.com/bid): governed human-AI bid capabilities for teams pursuing complex work.
+- [Tender](https://www.ignisleadership.com/tender): governed human-AI tender capabilities for teams making defensible buying decisions.
+- [Outcomes](https://www.ignisleadership.com/case-study): illustrative bid and tender outcomes, clearly presented as examples rather than client claims.
+- [Commercial Discovery](https://www.ignisleadership.com/discovery): a focused starting point for auditing the current workflow, selecting a pilot and defining a practical delivery route.
+- [Commercial AI Readiness](https://www.ignisleadership.com/commercial-ai-readiness): a short readiness check for selecting a safe, useful bid or tender workflow to test first.
+- [Insights](https://www.ignisleadership.com/insights): the "Bid more. Win more." newsletter on commercial judgement, bid and tender leadership, commercial memory and governed human-AI systems.
+- [Archive](https://www.ignisleadership.com/archive): index of past newsletter editions.
+- [Contact](https://www.ignisleadership.com/contact): start a conversation with Ignis Leadership.
 
 ## Newsletter editions
 
 - [Why do tenders inherit decisions without their history?](https://www.ignisleadership.com/insights/why-do-tenders-inherit-decisions-without-their-history): how commercial memory preserves evidence, assumptions and decision authority as an opportunity moves from origination through tender and close.
 - [Bids are lost before the writing starts](https://www.ignisleadership.com/insights/bids-are-lost-before-the-writing-starts): why the hardest bid decisions are made long before anyone drafts.
 - [Why does every bid feel like starting again?](https://www.ignisleadership.com/insights/why-does-every-bid-feel-like-starting-again): institutional memory, knowledge reuse and the capacity lost when neither exists.
-- [AI will expose your slowest bid decision.](https://www.ignisleadership.com/insights/ai-will-expose-your-slowest-bid-decision): Faster production will make slow approvals and unclear ownership harder to hide.
+- [AI will expose your slowest bid decision.](https://www.ignisleadership.com/insights/ai-will-expose-your-slowest-bid-decision): faster production will make slow approvals and unclear ownership harder to hide.
 - [The proposal is becoming the easy part](https://www.ignisleadership.com/insights/the-proposal-is-becoming-the-easy-part): AI can produce more bid work, so the advantage moves to the decisions before and after it.
 
 ## Key concepts used on this site
 
+- Governed human-AI system: a commercial operating model that combines the team's process, evidence and judgement with bounded agent tasks, named decision rights and human approval.
 - Commercial memory: the usable record of what an organisation believed, why it believed it, what changed and who has authority to make the next commitment.
-- AI-augmented bid practice: a bid operating model designed jointly around people and AI agents, rather than an existing process with tools bolted on.
-- Governed commercial delivery framework: the direction, execution, validation and governance layer around an AI-enabled commercial delivery model. The durable enterprise asset is this framework, not the underlying model.
-- Human in the loop: the principle that agents prepare and coordinate while named people retain the authority to direct, challenge, decide and approve.
-- The three lifecycle stages: capture (finding and focusing earlier), pursuit and proposal (leading the work that matters), handover and learning (transferring knowledge and improving the next bid).
+- Human accountability: agents prepare and coordinate while named people retain authority to direct, challenge, decide and approve.
+- Modular adoption: start with one useful pilot, prove it under real conditions, then extend the system one capability at a time.
 
 ## Contact
 
-- Enquiries and discovery calls: https://www.ignisleadership.com/#contact
+- Enquiries: https://www.ignisleadership.com/contact
 - LinkedIn: https://www.linkedin.com/in/yorik-tisseau/
 
 ## Optional
