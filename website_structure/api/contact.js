@@ -99,13 +99,13 @@ module.exports = async function contactHandler(req, res) {
   const subscriptionTypeId = Number(HUBSPOT_NEWSLETTER_SUBSCRIPTION_TYPE_ID);
   const newsletterConsent = {
     consentToProcess: true,
-    text: "Ignis Leadership may use these details to send Bid more. Win more. You can unsubscribe at any time."
+    text: "Ignis Leadership may use these details to send the Bid more. Win more. newsletter. You can unsubscribe at any time."
   };
   if (Number.isFinite(subscriptionTypeId)) {
     newsletterConsent.communications = [{
       value: true,
       subscriptionTypeId,
-      text: "I want to receive Bid more. Win more. from Ignis Leadership."
+      text: "I want to receive the Bid more. Win more. newsletter from Ignis Leadership."
     }];
   }
 

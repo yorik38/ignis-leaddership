@@ -57,13 +57,13 @@ module.exports = async function subscribe(request, response) {
   const subscriptionTypeId = Number(HUBSPOT_SUBSCRIPTION_TYPE_ID);
   const consent = {
     consentToProcess: true,
-    text: "Ignis Leadership may use these details to send Bid more. Win more. You can unsubscribe at any time."
+    text: "Ignis Leadership may use these details to send the Bid more. Win more. newsletter. You can unsubscribe at any time."
   };
   if (Number.isFinite(subscriptionTypeId)) {
     consent.communications = [{
       value: true,
       subscriptionTypeId,
-      text: "I want to receive Bid more. Win more. from Ignis Leadership."
+      text: "I want to receive the Bid more. Win more. newsletter from Ignis Leadership."
     }];
   }
 
