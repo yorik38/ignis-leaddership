@@ -302,6 +302,7 @@
   .lifecycle-summary{margin-top:1.5rem}
   .lifecycle-art{width:100%;margin-top:.5rem}
   .bid-page .foundation-mobile-join{display:none}
+  .lifecycle-band .stage-mobile-join{display:none}
 }
 
 /* Stage split: human value on the left, bounded agentic work in a compact matrix. */
