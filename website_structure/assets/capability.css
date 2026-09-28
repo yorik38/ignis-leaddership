@@ -125,7 +125,7 @@
   background-image:url('/assets/img/hero-bid-flow-v1.png');
 }
 .tender-page .page-hero::before{
-  background-image:url('/assets/img/hero-tender-flow-v1.png');
+  background-image:url('/assets/img/hero-tender-flow-v2.png');
 }
 .page-hero::after{
   z-index:1;
