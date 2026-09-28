@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 420" fill="none">
+  <defs>
+    <linearGradient id="bidThread" x1="55" y1="350" x2="665" y2="70" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#43C5E8"/>
+      <stop offset=".5" stop-color="#418DFF"/>
+      <stop offset="1" stop-color="#8A6CFF"/>
+    </linearGradient>
+    <filter id="bidGlow" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="5"/></filter>
+  </defs>
+  <path d="M40 354C96 354 116 294 174 278C232 262 253 316 308 286C365 255 363 202 425 188C482 175 506 225 558 192C610 159 613 103 680 72" stroke="url(#bidThread)" stroke-opacity=".2" stroke-width="12" filter="url(#bidGlow)"/>
+  <path d="M40 354C96 354 116 294 174 278C232 262 253 316 308 286C365 255 363 202 425 188C482 175 506 225 558 192C610 159 613 103 680 72" stroke="url(#bidThread)" stroke-width="2.5"/>
+  <g stroke="#9AA8B8" stroke-width="1" opacity=".34"><path d="M40 373C108 372 124 320 179 303C234 286 264 332 320 304C374 276 388 228 440 214C491 201 520 239 570 210C622 180 638 130 690 105"/><path d="M31 333C86 330 109 273 166 255C226 237 249 288 299 261C354 232 353 181 416 163C475 146 499 198 548 165C595 134 608 83 668 50"/></g>
+  <g stroke="url(#bidThread)" stroke-width="2"><circle cx="83" cy="336" r="30" fill="#05090E"/><circle cx="188" cy="280" r="30" fill="#05090E"/><circle cx="306" cy="286" r="30" fill="#05090E"/><circle cx="424" cy="188" r="30" fill="#05090E"/><circle cx="553" cy="195" r="30" fill="#05090E"/><circle cx="648" cy="96" r="30" fill="#05090E"/></g>
+  <g stroke="#F4F6F8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <g transform="translate(83 336)"><circle r="4"/><path d="M-12-2a13 13 0 0 1 0 4M-19-7a22 22 0 0 1 0 14M12-2a13 13 0 0 0 0 4M19-7a22 22 0 0 0 0 14"/></g>
+    <g transform="translate(188 280)"><path d="M-15 13V-12H15V13M-7 13V-3H7V13M-20 13H20"/><path d="M-15-12L0-20 15-12"/></g>
+    <g transform="translate(306 286)"><circle cx="-13" cy="8" r="4"/><circle cx="0" cy="-12" r="4"/><circle cx="14" cy="8" r="4"/><path d="M-10 5L-2-9M3-9L11 5M-9 8H10"/></g>
+    <g transform="translate(424 188)"><rect x="-13" y="-16" width="26" height="32" rx="2"/><path d="M-7-8H7M-7-1H7M-7 6H3"/><path d="M-18-10v31h25"/></g>
+    <g transform="translate(553 195)"><circle cx="-4" cy="-4" r="12"/><path d="M5 5L16 16M-9-4h10M-4-9v10"/></g>
+    <g transform="translate(648 96)"><path d="M-19-6H8M3-12l7 6-7 6M19 8H-8M-3 2l-7 6 7 6"/></g>
+  </g>
+</svg>

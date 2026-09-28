@@ -235,3 +235,52 @@
 .newsletter-lockup>span{font-size:clamp(2.25rem,3.5vw,4rem);font-weight:500;line-height:.95;letter-spacing:-.055em;white-space:nowrap}
 .newsletter-lockup em{margin-top:.28em;color:var(--on-dark-muted);font-family:var(--font-serif);font-size:clamp(1.8rem,2.75vw,3.15rem);font-weight:500;line-height:1;font-style:italic;letter-spacing:.01em;white-space:nowrap}
 @media(max-width:850px){.insights-hero-grid{grid-template-columns:1fr;align-content:center;gap:clamp(3rem,8vh,5rem)}.newsletter-lockup{justify-self:center}.newsletter-lockup>span{font-size:clamp(2rem,9.5vw,3rem)}.newsletter-lockup em{font-size:clamp(1.65rem,7.5vw,2.4rem)}}
+
+/* Bid and tender lifecycle: one commercial thread, carried through six governed stages. */
+.lifecycle-band{color:var(--on-dark);background:#000}
+.lifecycle-header{display:grid;grid-template-columns:minmax(0,1.08fr) minmax(340px,.92fr);gap:clamp(3rem,7vw,8rem);align-items:center;margin-bottom:clamp(4rem,7vw,6rem)}
+.lifecycle-heading>.section-label{margin:0 0 2rem;color:#8ea8ff;font-family:var(--font-serif);font-size:clamp(1.4rem,1.9vw,1.85rem);font-style:italic;font-weight:500;letter-spacing:0;text-transform:none}
+.tender-page .lifecycle-heading>.section-label{color:#5ee1d5}
+.lifecycle-heading h2{max-width:760px;margin:0;color:#fff;font-size:var(--h2);font-weight:400;line-height:1.02;letter-spacing:-.05em}
+.lifecycle-summary{max-width:680px;margin:2rem 0 0;color:var(--on-dark-muted);font-size:clamp(1.05rem,1.4vw,1.18rem)}
+.lifecycle-art{margin:0}
+.lifecycle-art img{display:block;width:100%;height:auto}
+.lifecycle-band .capability-list{border-top-color:var(--line-dark)}
+.lifecycle-band .capability-item{border-bottom-color:var(--line-dark)}
+.lifecycle-band .capability-item>span{color:#8ea8ff}
+.tender-page .lifecycle-band .capability-item>span{color:#5ee1d5}
+.lifecycle-band .capability-item h3{color:#fff}
+.lifecycle-band .stage-value p{color:var(--on-dark-muted)}
+.lifecycle-band .agent-activities{color:#d8dde4}
+.lifecycle-band .agent-activities li{border-bottom-color:var(--line-dark)}
+
+/* Keep the commercial memory statement visually attached to the lifecycle. */
+.lifecycle-learning{color:#fff;border-top:1px solid var(--line-dark);background:#07101d}
+.tender-page .lifecycle-learning{background:#061511}
+.lifecycle-learning .learning-grid>.section-label{color:#8ea8ff}
+.tender-page .lifecycle-learning .learning-grid>.section-label{color:#5ee1d5}
+.lifecycle-learning .learning-grid h2{color:#fff}
+.lifecycle-learning .learning-grid p{color:var(--on-dark-muted)}
+
+/* The operating foundation is intentionally quieter than the lifecycle. */
+.foundation-band{color:var(--ink);border-top:0;background:#f2f3f4}
+.foundation-grid>.section-label{color:var(--navy-mid)}
+.tender-page .foundation-grid>.section-label{color:var(--teal)}
+.foundation-copy h2{color:var(--ink)}
+.foundation-copy>p{color:var(--ink-muted)}
+.foundation-points{border-top-color:var(--line);border-bottom-color:var(--line)}
+.foundation-points article+article{border-left-color:var(--line)}
+.foundation-points h3{color:var(--ink)}
+.foundation-points p{color:var(--ink-muted)}
+.install-band{border-top:1px solid var(--line)}
+
+@media(max-width:850px){
+  .lifecycle-header{grid-template-columns:1fr;gap:2.5rem;margin-bottom:3.75rem}
+  .lifecycle-art{width:min(100%,620px);margin-inline:auto}
+  .foundation-band .foundation-points article:nth-child(n+3){border-top-color:var(--line)}
+}
+@media(max-width:560px){
+  .lifecycle-header{gap:2rem;margin-bottom:3rem}
+  .lifecycle-summary{margin-top:1.5rem}
+  .lifecycle-art{width:100%;margin-top:.5rem}
+}
