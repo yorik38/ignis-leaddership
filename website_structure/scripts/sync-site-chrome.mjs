@@ -28,6 +28,8 @@ const pages = [
 
 const communityPages = new Map([
   ["index.html", "home"],
+  ["bid.html", "bid"],
+  ["tender.html", "tender"],
   ["insights.html", "insights"],
 ]);
 
@@ -65,14 +67,14 @@ for (const page of pages) {
     html = html.replace(/<section class="band band-dark home-community">.*?<\/section>/s, community);
   }
 
-  html = html.replace(/\/assets\/site-chrome\.css\?v=\d+/g, "/assets/site-chrome.css?v=13");
-  if (!html.includes('/assets/site-chrome.css?v=13')) {
-    html = html.replace("</head>", '<link rel="stylesheet" href="/assets/site-chrome.css?v=13">\n</head>');
+  html = html.replace(/\/assets\/site-chrome\.css\?v=\d+/g, "/assets/site-chrome.css?v=17");
+  if (!html.includes('/assets/site-chrome.css?v=17')) {
+    html = html.replace("</head>", '<link rel="stylesheet" href="/assets/site-chrome.css?v=17">\n</head>');
   }
 
-  html = html.replace(/\/assets\/capability\.js\?v=\d+/g, "/assets/capability.js?v=6");
-  if (!html.includes('/assets/capability.js?v=6')) {
-    html = html.replace("</body>", '<script src="/assets/capability.js?v=6"></script>\n</body>');
+  html = html.replace(/\/assets\/capability\.js\?v=\d+/g, "/assets/capability.js?v=7");
+  if (!html.includes('/assets/capability.js?v=7')) {
+    html = html.replace("</body>", '<script src="/assets/capability.js?v=7"></script>\n</body>');
   }
 
   await writeFile(url, html);
