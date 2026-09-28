@@ -284,3 +284,23 @@
   .lifecycle-summary{margin-top:1.5rem}
   .lifecycle-art{width:100%;margin-top:.5rem}
 }
+
+/* Stage split: human value on the left, bounded agentic work in a compact matrix. */
+.lifecycle-band .capability-item{grid-template-columns:4.5rem minmax(250px,.72fr) minmax(0,1.28fr)}
+.agent-work{min-width:0}
+.agent-work-label{margin:0 0 .9rem;color:#8ea8ff;font-size:.72rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase}
+.tender-page .agent-work-label{color:#5ee1d5}
+.lifecycle-band .agent-activities{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));border-top:1px solid var(--line-dark);font-size:clamp(1rem,1.3vw,1.25rem)}
+.lifecycle-band .agent-activities li{display:flex;align-items:center;min-height:4.25rem;padding:1rem 1.25rem;border-bottom:1px solid var(--line-dark)}
+.lifecycle-band .agent-activities li:nth-child(odd){padding-left:0}
+.lifecycle-band .agent-activities li:nth-child(even){border-left:1px solid var(--line-dark)}
+@media(max-width:850px){
+  .lifecycle-band .capability-item{grid-template-columns:2.5rem 1fr}
+  .lifecycle-band .agent-work{grid-column:2/-1;margin-top:1.5rem}
+}
+@media(max-width:560px){
+  .lifecycle-band .capability-item{grid-template-columns:1fr}
+  .lifecycle-band .agent-work{grid-column:auto}
+  .lifecycle-band .agent-activities{grid-template-columns:1fr}
+  .lifecycle-band .agent-activities li,.lifecycle-band .agent-activities li:nth-child(odd),.lifecycle-band .agent-activities li:nth-child(even){min-height:0;padding:1rem 0;border-left:0}
+}
