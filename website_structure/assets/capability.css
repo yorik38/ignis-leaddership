@@ -288,8 +288,7 @@
 /* Stage split: human value on the left, bounded agentic work in a compact matrix. */
 .lifecycle-band .capability-item{grid-template-columns:4.5rem minmax(250px,.72fr) minmax(0,1.28fr)}
 .agent-work{min-width:0}
-.agent-work-label{margin:0 0 .9rem;color:#8ea8ff;font-size:.72rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase}
-.tender-page .agent-work-label{color:#5ee1d5}
+.agent-work-label{margin:0 0 .9rem;color:#8f98a5;font-size:.72rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase}
 .lifecycle-band .agent-activities{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));border-top:1px solid var(--line-dark);font-size:clamp(1rem,1.3vw,1.25rem)}
 .lifecycle-band .agent-activities li{display:flex;align-items:center;min-height:4.25rem;padding:1rem 1.25rem;border-bottom:1px solid var(--line-dark)}
 .lifecycle-band .agent-activities li:nth-child(odd){padding-left:0}
