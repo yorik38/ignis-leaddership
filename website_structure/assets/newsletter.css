@@ -155,3 +155,7 @@ body>header.header-hidden~main .issue-sidebar{top:24px;}
 .issue-end-newsletter{background:#EEF3F7;border-top:1px solid var(--line);}
 .issue-end-newsletter .issue-continue{margin-top:64px;}
 @media(max-width:520px){.issue-end-newsletter .issue-continue{margin-top:48px;}}
+
+/* Match article recommendations to the Insights archive metadata rhythm. */
+.issue-continue .home-latest-meta{color:#8fb0d6;font-family:var(--newsletter-sans);font-size:.72rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;}
+@media(max-width:520px){.issue-continue .home-latest-meta{font-size:.64rem;line-height:inherit;letter-spacing:.06em;}}
