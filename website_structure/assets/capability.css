@@ -102,10 +102,38 @@
   z-index:2;
 }
 .page-hero{
+  position:relative;
+  isolation:isolate;
+  overflow:hidden;
   min-height:min(900px,100svh);
   padding:96px 0 0;
+  background:#000;
+}
+.page-hero::before,.page-hero::after{
+  position:absolute;
+  inset:0;
+  content:"";
+  pointer-events:none;
+}
+.page-hero::before{
+  z-index:0;
+  background-position:center;
+  background-size:cover;
+  background-repeat:no-repeat;
+}
+.bid-page .page-hero::before{
+  background-image:url('/assets/img/hero-bid-flow-v1.png');
+}
+.tender-page .page-hero::before{
+  background-image:url('/assets/img/hero-tender-flow-v1.png');
+}
+.page-hero::after{
+  z-index:1;
+  background:linear-gradient(90deg,rgba(0,0,0,.98) 0%,rgba(0,0,0,.9) 38%,rgba(0,0,0,.48) 64%,rgba(0,0,0,.06) 100%);
 }
 .page-hero-grid{
+  position:relative;
+  z-index:2;
   display:flex;
   flex-direction:column;
   justify-content:center;
@@ -133,6 +161,8 @@
 @media(max-width:850px){
   .hero::before{background-position:64% center}
   .hero::after{background:linear-gradient(90deg,rgba(0,0,0,.97) 0%,rgba(0,0,0,.78) 52%,rgba(0,0,0,.3) 100%)}
+  .page-hero::before{background-position:68% center}
+  .page-hero::after{background:linear-gradient(90deg,rgba(0,0,0,.98) 0%,rgba(0,0,0,.9) 58%,rgba(0,0,0,.5) 100%)}
   .page-hero{min-height:100svh;padding-top:78px}
   .page-hero-grid{min-height:calc(100svh - 78px);padding-top:clamp(3rem,7vh,5rem);padding-bottom:clamp(3rem,8vh,5rem)}
   .page-hero h1{max-width:760px}
