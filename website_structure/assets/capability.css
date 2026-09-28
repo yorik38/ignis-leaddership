@@ -299,7 +299,7 @@
 @media(max-width:560px){
   .lifecycle-band .capability-item{grid-template-columns:1fr}
   .lifecycle-band .agent-work{grid-column:auto}
-  .lifecycle-band .agent-activities{grid-template-columns:1fr}
+  .lifecycle-band .agent-activities{grid-template-columns:1fr;font-size:1.25rem}
   .lifecycle-band .agent-activities li,.lifecycle-band .agent-activities li:nth-child(odd),.lifecycle-band .agent-activities li:nth-child(even){min-height:0;padding:1rem 0;border-left:0}
 }
 
