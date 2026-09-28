@@ -320,6 +320,7 @@
   .lifecycle-band .agent-work{grid-column:auto}
   .lifecycle-band .agent-activities{grid-template-columns:1fr;font-size:1.25rem}
   .lifecycle-band .agent-activities li,.lifecycle-band .agent-activities li:nth-child(odd),.lifecycle-band .agent-activities li:nth-child(even){min-height:0;padding:1rem 0;border-left:0}
+  .lifecycle-band .agent-activities li:last-child{border-bottom:0}
 }
 
 .bid-page .install-capabilities span{color:var(--navy-mid)}
