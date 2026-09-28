@@ -254,13 +254,12 @@
 .lifecycle-band .agent-activities{color:#d8dde4}
 .lifecycle-band .agent-activities li{border-bottom-color:var(--line-dark)}
 
-/* Keep the commercial memory statement visually attached to the lifecycle. */
-.lifecycle-learning{color:#fff;border-top:1px solid var(--line-dark);background:#07101d}
-.tender-page .lifecycle-learning{background:#061511}
-.lifecycle-learning .learning-grid>.section-label{color:#8ea8ff}
-.tender-page .lifecycle-learning .learning-grid>.section-label{color:#5ee1d5}
-.lifecycle-learning .learning-grid h2{color:#fff}
-.lifecycle-learning .learning-grid p{color:var(--on-dark-muted)}
+/* Let the compounding benefit breathe between the dark lifecycle and grey foundation. */
+.lifecycle-learning{color:var(--ink);border-top:0;background:var(--paper)}
+.tender-page .lifecycle-learning{background:var(--paper)}
+.lifecycle-learning .learning-grid>.section-label,.tender-page .lifecycle-learning .learning-grid>.section-label{color:#8f98a5}
+.lifecycle-learning .learning-grid h2{color:var(--ink)}
+.lifecycle-learning .learning-grid p{color:var(--ink-muted)}
 
 /* The operating foundation is intentionally quieter than the lifecycle. */
 .foundation-band{color:var(--ink);border-top:0;background:#f2f3f4}
