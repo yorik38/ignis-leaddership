@@ -189,14 +189,23 @@
   object-position:center;
   filter:none;
 }
-.about-page .credential-row{
-  grid-template-columns:repeat(4,minmax(0,1fr));
-}
+.about-page .profile-copy>.section-label{margin:0 0 1.5rem;color:var(--navy-mid);font-family:var(--font-serif);font-size:clamp(1.4rem,1.9vw,1.85rem);font-style:italic;font-weight:500;letter-spacing:0;text-transform:none}
+.about-page .profile-copy h2{max-width:740px;margin:0 0 2rem;font-size:clamp(2.25rem,4vw,4.3rem);font-weight:400;line-height:1.03;letter-spacing:-.05em}
+.about-page .profile-copy p:not(.section-label){color:var(--ink-muted)}
+.about-page .credential-strip{display:flex;flex-wrap:wrap;gap:.65rem 0;margin:3.5rem 0 0;padding:1.4rem 0 0;border-top:1px solid var(--line);list-style:none;color:var(--ink);font-size:.82rem;font-weight:600;letter-spacing:.02em}
+.about-page .credential-strip li+li::before{padding:0 .75rem;color:var(--teal);content:"·"}
+.about-case .statement-grid,.about-method .statement-grid{align-items:start}
+.about-case .statement-grid>.section-label,.about-method .statement-grid>.section-label,.about-principle .close-grid>.section-label{font-family:var(--font-serif);font-size:clamp(1.4rem,1.9vw,1.85rem);font-style:italic;font-weight:500;letter-spacing:0;text-transform:none}
+.about-case-copy{display:grid;grid-template-columns:1fr 1fr;gap:clamp(2rem,5vw,5rem);max-width:980px;margin-top:2.5rem;padding-top:2rem;border-top:1px solid var(--line)}
+.about-case-copy p{margin:0;color:var(--ink-muted);font-size:clamp(1.05rem,1.4vw,1.2rem)}
+.about-method .statement-grid .lead-muted{max-width:720px}
+.about-principle{padding:clamp(5rem,9vw,8rem) 0}
+.about-principle blockquote{max-width:980px;color:var(--paper);font-size:clamp(2rem,4vw,4.2rem);line-height:1.12}
 @media(max-width:850px){
   .about-page .profile-grid{grid-template-columns:1fr}
   .about-page .profile-image{width:100%;max-width:none}
   .about-page .profile-image img{aspect-ratio:3/2}
-  .about-page .credential-row{grid-template-columns:1fr}
+  .about-case-copy{grid-template-columns:1fr}
 }
 @media(max-width:520px){
   .page-hero .section-label{margin-bottom:1.5rem}
