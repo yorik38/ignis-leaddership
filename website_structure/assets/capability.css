@@ -334,7 +334,7 @@
 .outcomes-hero .page-hero-copy h1 .hero-serif{max-width:1050px;margin-top:.08em}
 .outcomes-system{scroll-margin-top:76px}
 .outcomes-system-intro,.designed-outcomes-heading{display:grid;grid-template-columns:minmax(150px,.45fr) minmax(0,1.55fr);gap:clamp(2rem,7vw,8rem);align-items:start;margin-bottom:clamp(3.5rem,7vw,6rem)}
-.outcomes-system-intro>.section-label,.designed-outcomes-heading>.section-label{font-family:var(--font-serif);font-size:clamp(1.4rem,1.9vw,1.85rem);font-style:italic;font-weight:500;letter-spacing:0;text-transform:none}
+.outcomes-system-intro>.section-label,.designed-outcomes-heading>.section-label,.outcomes-principle .statement-grid>.section-label{font-family:var(--font-serif);font-size:clamp(1.4rem,1.9vw,1.85rem);font-style:italic;font-weight:500;letter-spacing:0;text-transform:none}
 .outcomes-system-intro h2,.designed-outcomes-heading h2{margin:0;font-size:var(--h2);font-weight:400;line-height:1.02;letter-spacing:-.05em}
 .outcomes-system-intro>div>p,.designed-outcomes-heading>div>p{max-width:760px;margin:1.5rem 0 0;color:var(--ink-muted);font-size:clamp(1.05rem,1.45vw,1.2rem)}
 .outcomes-system-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
