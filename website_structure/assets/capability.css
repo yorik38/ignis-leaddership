@@ -329,9 +329,10 @@
 
 /* Outcomes: one capability becoming a governed system. */
 .outcomes-hero .page-hero-grid{align-items:flex-start}
-.outcomes-hero .page-hero-copy h1{margin-top:0}
+.outcomes-hero .page-hero-copy h1{max-width:1050px;margin-top:0}
 .outcomes-hero .page-hero-copy h1 span{display:block}
 .outcomes-hero .page-hero-copy h1 .hero-serif{max-width:1050px;margin-top:.08em}
+@media(min-width:851px){.outcomes-hero .page-hero-copy h1{font-size:clamp(3.25rem,6vw,6.5rem)}}
 .outcomes-system{scroll-margin-top:76px}
 .outcomes-system-intro,.designed-outcomes-heading{display:grid;grid-template-columns:minmax(150px,.45fr) minmax(0,1.55fr);gap:clamp(2rem,7vw,8rem);align-items:start;margin-bottom:clamp(3.5rem,7vw,6rem)}
 .outcomes-system-intro>.section-label,.designed-outcomes-heading>.section-label,.outcomes-principle .statement-grid>.section-label{font-family:var(--font-serif);font-size:clamp(1.4rem,1.9vw,1.85rem);font-style:italic;font-weight:500;letter-spacing:0;text-transform:none}
