@@ -289,7 +289,7 @@ function initServicesNavigation(){
   if (desktopServiceLink) {
     var dropdown = document.createElement("div");
     dropdown.className = "nav-dropdown";
-    dropdown.innerHTML = '<button type="button" class="navlink nav-dropdown-trigger" aria-haspopup="true">Services <span aria-hidden="true">⌄</span></button><div class="nav-dropdown-menu nav-services-menu" data-nav-menu="services" aria-label="Service sections"><a class="nav-resource-hub" href="' + overviewHref + '"><strong>Services overview</strong><span>From commercial problem to adopted system.</span></a><a class="nav-resource-hub" href="/discovery"><strong>Commercial Discovery</strong><span>Find the one workflow worth fixing first.</span></a></div>';
+    dropdown.innerHTML = '<button type="button" class="navlink nav-dropdown-trigger" aria-haspopup="true">Services <span aria-hidden="true">⌄</span></button><div class="nav-dropdown-menu nav-services-menu" data-nav-menu="services" aria-label="Service sections"><a class="nav-resource-hub" href="' + overviewHref + '"><strong>Engagement approach</strong><span>Audit the work, prove one pilot, then scale.</span></a><a class="nav-resource-hub" href="/bid"><strong>Bid</strong><span>Build governed capability to win work.</span></a><a class="nav-resource-hub" href="/tender"><strong>Tender</strong><span>Build governed capability to buy well.</span></a></div>';
     desktopServiceLink.replaceWith(dropdown);
   }
 
@@ -302,7 +302,7 @@ function initServicesNavigation(){
     var links = document.createElement("div");
     links.className = "mobile-resource-links mobile-service-links";
     links.setAttribute("aria-label", "Service sections");
-    links.innerHTML = '<a href="' + overviewHref + '"><strong>Services overview</strong><span>From commercial problem to adopted system.</span></a><a href="/discovery"><strong>Commercial Discovery</strong><span>Find the one workflow worth fixing first.</span></a>';
+    links.innerHTML = '<a href="' + overviewHref + '"><strong>Engagement approach</strong><span>Audit the work, prove one pilot, then scale.</span></a><a href="/bid"><strong>Bid</strong><span>Build governed capability to win work.</span></a><a href="/tender"><strong>Tender</strong><span>Build governed capability to buy well.</span></a>';
 
     mobileServiceLink.replaceWith(label, links);
   }
@@ -316,44 +316,34 @@ function initServicesNavigation(){
 function initResourceNavigation(){
   var currentPath = window.location.pathname.replace(/\/+$/, "") || "/";
   var isInsights = currentPath === "/insights" || currentPath.indexOf("/insights/") === 0 || currentPath === "/archive";
-  var isResources = currentPath === "/resources" || currentPath.indexOf("/resources/") === 0;
+  var isArchive = currentPath === "/archive";
 
   var desktopMarkup = [
-    '<a class="nav-resource-hub" href="/insights"><strong>Insights</strong><span>Bid More. Win More. Newsletter</span></a>',
-    '<div class="nav-resource-section">',
-      '<a class="nav-resource-hub" href="/resources"><strong>Human-Agent Systems</strong><span>Practical guides for commercial teams.</span></a>',
-      '<div class="nav-resource-guide-list">',
-        '<span class="nav-resource-list-label">Practical guides</span>',
-        '<a class="nav-resource-guide" href="/resources/ai-augmented-bid-practice"><strong>How to build an AI-augmented bid practice</strong></a>',
-        '<a class="nav-resource-guide" href="/resources/bid-agent-maturity"><strong>What can bid teams build with AI agents in 2026?</strong></a>',
-        '<a class="nav-resource-guide" href="/resources/choose-first-ai-bid-use-case"><strong>Where should bid teams start with AI agents?</strong></a>',
-      '</div>',
-    '</div>'
+    '<a class="nav-resource-hub" href="/insights"><strong>Insights</strong><span>Practical thinking for bid, tender and commercial leaders.</span></a>',
+    '<a class="nav-resource-hub" href="/archive"><strong>Archive</strong><span>Browse every Bid More. Win More. edition.</span></a>'
   ].join("");
 
   document.querySelectorAll('.nav-dropdown-menu:not([data-nav-menu="services"])').forEach(function(menu){
     menu.innerHTML = desktopMarkup;
     var parentTrigger = menu.closest(".nav-dropdown") && menu.closest(".nav-dropdown").querySelector(".nav-dropdown-trigger");
     var insightsLink = menu.querySelector('a[href="/insights"]');
-    var resourcesLink = menu.querySelector('a[href="/resources"]');
-    var exactGuide = menu.querySelector('.nav-resource-guide[href="' + currentPath + '"]');
-    if ((isInsights || isResources) && parentTrigger) parentTrigger.setAttribute("aria-current", "page");
+    var archiveLink = menu.querySelector('a[href="/archive"]');
+    if ((isInsights || isArchive) && parentTrigger) parentTrigger.setAttribute("aria-current", "page");
     if (isInsights && insightsLink) insightsLink.setAttribute("aria-current", "page");
-    if (isResources && resourcesLink) resourcesLink.setAttribute("aria-current", "page");
-    if (exactGuide) exactGuide.setAttribute("aria-current", "page");
+    if (isArchive && archiveLink) archiveLink.setAttribute("aria-current", "page");
   });
 
   var mobileMarkup = [
-    '<a href="/insights"><strong>Insights</strong><span>Bid More. Win More. Newsletter</span></a>',
-    '<a href="/resources"><strong>Human-Agent Systems</strong><span>Practical guides for commercial teams.</span></a>'
+    '<a href="/insights"><strong>Insights</strong><span>Practical thinking for bid, tender and commercial leaders.</span></a>',
+    '<a href="/archive"><strong>Archive</strong><span>Browse every Bid More. Win More. edition.</span></a>'
   ].join("");
 
   document.querySelectorAll(".mobile-resource-links:not(.mobile-service-links)").forEach(function(menu){
     menu.innerHTML = mobileMarkup;
     var insightsLink = menu.querySelector('a[href="/insights"]');
-    var resourcesLink = menu.querySelector('a[href="/resources"]');
+    var archiveLink = menu.querySelector('a[href="/archive"]');
     if (isInsights && insightsLink) insightsLink.setAttribute("aria-current", "page");
-    if (isResources && resourcesLink) resourcesLink.setAttribute("aria-current", "page");
+    if (isArchive && archiveLink) archiveLink.setAttribute("aria-current", "page");
   });
 }
 
