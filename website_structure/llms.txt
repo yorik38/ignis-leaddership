@@ -23,11 +23,10 @@ Lean commercial teams pursuing complex, high-value work and teams running tender
 - [Bid](https://www.ignisleadership.com/bid): governed human-AI bid capabilities for teams pursuing complex work.
 - [Tender](https://www.ignisleadership.com/tender): governed human-AI tender capabilities for teams making defensible buying decisions.
 - [Outcomes](https://www.ignisleadership.com/case-study): illustrative bid and tender outcomes, clearly presented as examples rather than client claims.
-- [Commercial Discovery](https://www.ignisleadership.com/discovery): a focused starting point for auditing the current workflow, selecting a pilot and defining a practical delivery route.
-- [Commercial AI Readiness](https://www.ignisleadership.com/commercial-ai-readiness): a short readiness check for selecting a safe, useful bid or tender workflow to test first.
 - [Insights](https://www.ignisleadership.com/insights): the "Bid more. Win more." newsletter on commercial judgement, bid and tender leadership, commercial memory and governed human-AI systems.
 - [Archive](https://www.ignisleadership.com/archive): index of past newsletter editions.
 - [Contact](https://www.ignisleadership.com/contact): start a conversation with Ignis Leadership.
+- [Governed agentic system brochure](https://www.ignisleadership.com/assets/downloads/ignis-governed-agentic-system-brochure.pdf): a free, ungated overview of how people, agents, knowledge and controls work together across bids and tenders.
 
 ## Newsletter editions
 

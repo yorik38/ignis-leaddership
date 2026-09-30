@@ -42,6 +42,56 @@
       "permanent": true
     },
     {
+      "source": "/win-or-buy",
+      "destination": "/#capabilities",
+      "permanent": true
+    },
+    {
+      "source": "/forge",
+      "destination": "/#services",
+      "permanent": true
+    },
+    {
+      "source": "/forge-pilot-example",
+      "destination": "/case-study",
+      "permanent": true
+    },
+    {
+      "source": "/how-it-works",
+      "destination": "/#services",
+      "permanent": true
+    },
+    {
+      "source": "/guides",
+      "destination": "/insights",
+      "permanent": true
+    },
+    {
+      "source": "/brochure",
+      "destination": "/#brochure",
+      "permanent": true
+    },
+    {
+      "source": "/start",
+      "destination": "/contact",
+      "permanent": true
+    },
+    {
+      "source": "/start-a-conversation",
+      "destination": "/contact",
+      "permanent": true
+    },
+    {
+      "source": "/discovery",
+      "destination": "/#services",
+      "permanent": true
+    },
+    {
+      "source": "/commercial-ai-readiness",
+      "destination": "/#services",
+      "permanent": true
+    },
+    {
       "source": "/privacy-policy",
       "destination": "/privacy",
       "permanent": true
