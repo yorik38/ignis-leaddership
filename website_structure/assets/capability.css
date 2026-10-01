@@ -70,16 +70,18 @@
 }
 .button{border-radius:4px}
 .brochure-band{padding:clamp(3.5rem,7vw,6rem) 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:#f2f3f4}
-.brochure-grid{display:grid;grid-template-columns:minmax(150px,.45fr) minmax(0,1.55fr);gap:clamp(2rem,7vw,8rem);align-items:center}
-.brochure-cover{width:min(100%,210px);margin:0;justify-self:center;box-shadow:0 18px 44px rgba(15,20,25,.16)}
+.brochure-grid{display:grid;grid-template-columns:minmax(150px,.45fr) minmax(0,1.55fr);grid-template-areas:"cover eyebrow" "cover copy";column-gap:clamp(2rem,7vw,8rem);row-gap:0;align-items:center}
+.brochure-eyebrow{grid-area:eyebrow;align-self:end;margin:0 0 .65rem;font-family:var(--font-serif);font-size:clamp(1.4rem,1.9vw,1.85rem);font-style:italic;font-weight:500;letter-spacing:0;text-transform:none}
+.brochure-cover{grid-area:cover;width:min(100%,210px);margin:0;justify-self:center;box-shadow:0 18px 44px rgba(15,20,25,.16)}
 .brochure-cover img{width:100%;height:auto}
-.brochure-copy h2{max-width:900px;margin:.65rem 0 0;font-size:clamp(2.2rem,4vw,4.5rem);font-weight:400;line-height:1.02;letter-spacing:-.05em}
+.brochure-copy{grid-area:copy;align-self:start}
+.brochure-copy h2{max-width:900px;margin:0;font-size:clamp(2.2rem,4vw,4.5rem);font-weight:400;line-height:1.02;letter-spacing:-.05em}
 .brochure-copy>p:not(.section-label):not(.brochure-meta){max-width:720px;margin:1.5rem 0 0;color:var(--ink-muted);font-size:clamp(1.05rem,1.4vw,1.18rem)}
-.brochure-download{max-width:100%;flex-wrap:wrap;text-align:left}
+.brochure-download{max-width:100%;white-space:nowrap;text-align:left}
 .brochure-meta{margin:.85rem 0 0;color:var(--ink-muted);font-size:.78rem;letter-spacing:.04em}
 .brochure-page-link{display:flex;width:max-content;max-width:100%;margin-top:1.5rem}
-@media(max-width:850px){.brochure-grid{grid-template-columns:120px 1fr;gap:2rem}.brochure-cover{width:120px}.brochure-copy h2{font-size:clamp(2rem,6vw,3rem)}}
-@media(max-width:620px){.brochure-grid{grid-template-columns:1fr}.brochure-cover{width:150px;justify-self:start}.brochure-download{line-height:1.4}}
+@media(max-width:850px){.brochure-grid{grid-template-columns:120px 1fr;column-gap:2rem}.brochure-cover{width:120px}.brochure-copy h2{font-size:clamp(2rem,6vw,3rem)}}
+@media(max-width:620px){.brochure-grid{grid-template-columns:1fr;grid-template-areas:"eyebrow" "cover" "copy";gap:1.5rem}.brochure-eyebrow{margin:0}.brochure-cover{width:150px;justify-self:start}.brochure-download{line-height:1.4}}
 .mobile-copy-break{display:inline}
 @media(max-width:720px){.mobile-copy-break{display:block}}
 .outcomes-preview{gap:1rem;border-top:0}
