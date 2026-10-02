@@ -448,3 +448,23 @@
   .outcomes-system-step+.outcomes-system-step{border-top:1px solid var(--line);border-left:0}
   .outcomes-system-step h3{margin-top:1.25rem}
 }
+
+/* Keep teal text above WCAG AA contrast on paper backgrounds. Brighter teal remains on dark sections. */
+:root{--teal-readable:#08756d}
+.text-link:not(.light) span,
+.sector-list span,
+#services .steps span,
+.case-status,
+.human-agent .section-label,
+.tender-page .learning-grid>.section-label,
+.tender-page .foundation-grid>.section-label,
+.install-capabilities span,
+.case-sequence span,
+.outcome-tender,
+.outcome-detail-tender .outcome-shift span,
+.outcome-card-link span,
+.outcome-detail-tender .workflow-steps li>span,
+.insights-browser .insight-row>span,
+.insights-archive-toggle span,
+.outcomes-system-step:nth-child(n+3)>span,
+.designed-outcome-tender .text-link span{color:var(--teal-readable)}
