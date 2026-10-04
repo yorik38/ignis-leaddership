@@ -30,6 +30,7 @@ Lean commercial teams pursuing complex, high-value work and teams running tender
 
 ## Newsletter editions
 
+- [Your team uses AI. Does the business?](https://www.ignisleadership.com/insights/your-team-uses-ai-does-the-business): why informal LLM use and one failed chatbot experiment call for a governed commercial workflow, not a blanket AI ban.
 - [Why is your tender team still overloaded?](https://www.ignisleadership.com/insights/why-is-your-tender-team-still-overloaded): how to distinguish information-extraction pressure from coordination pressure before choosing the first workflow to redesign.
 - [Why do tenders inherit decisions without their history?](https://www.ignisleadership.com/insights/why-do-tenders-inherit-decisions-without-their-history): how commercial memory preserves evidence, assumptions and decision authority as an opportunity moves from origination through tender and close.
 - [Bids are lost before the writing starts](https://www.ignisleadership.com/insights/bids-are-lost-before-the-writing-starts): why the hardest bid decisions are made long before anyone drafts.
