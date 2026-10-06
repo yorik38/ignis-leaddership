@@ -302,11 +302,25 @@
 .insights-browser .insight-row .insight-meta{display:flex;gap:1rem;margin:0;color:var(--ink-muted);font-family:var(--font-sans);font-size:.72rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase}
 .insights-browser .insight-row .insight-summary{margin:0;color:var(--ink-muted);font-size:.95rem}
 .insights-browser .insight-row>span{grid-area:arrow;color:var(--teal)}
+.insights-buyer-feature{margin:0 0 clamp(4.5rem,8vw,7rem)}
+.insights-buyer-card{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(260px,.8fr);gap:clamp(2.5rem,7vw,7rem);align-items:center;padding:clamp(2rem,5vw,4.5rem);color:#fff;background:linear-gradient(135deg,#0a4f58 0%,#11757a 100%);text-decoration:none;transition:transform .2s ease,box-shadow .2s ease}
+.insights-buyer-card:hover,.insights-buyer-card:focus-visible{transform:translateY(-2px);box-shadow:0 18px 40px rgba(6,43,48,.18)}
+.insights-buyer-meta{margin:0 0 1rem;color:#bde9e9;font-size:.7rem;font-weight:700;letter-spacing:.09em;text-transform:uppercase}
+.insights-buyer-copy h2{max-width:15ch;margin:0;color:#fff;font-size:clamp(2rem,4vw,3.6rem);font-weight:400;line-height:1.03;letter-spacing:-.045em;text-wrap:balance}
+.insights-buyer-copy>p:not(.insights-buyer-meta){max-width:59ch;margin:1.35rem 0 0;color:#d8eeee;font-size:1rem;line-height:1.65}
+.insights-buyer-cta{display:inline-flex;gap:.65rem;margin-top:2rem;padding-bottom:.35rem;border-bottom:1px solid rgba(255,255,255,.7);color:#fff;font-size:.76rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase}
+.insights-buyer-routes{display:grid;grid-template-columns:1fr;gap:.55rem;padding:clamp(1.5rem,3vw,2.4rem);border:1px solid rgba(255,255,255,.28);background:rgba(3,32,36,.18)}
+.insights-buyer-routes span{margin-top:.65rem;color:#bde9e9;font-size:.67rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase}
+.insights-buyer-routes span:first-child{margin-top:0}
+.insights-buyer-routes b{display:inline-block;min-width:2rem;color:#fff}
+.insights-buyer-routes strong{padding-bottom:.75rem;border-bottom:1px solid rgba(255,255,255,.2);color:#fff;font-size:clamp(1.25rem,2.4vw,1.9rem);font-weight:500;line-height:1.1}
+.insights-buyer-routes strong:last-child{padding-bottom:0;border-bottom:0}
 .insights-no-results{padding:2rem 0;color:var(--ink-muted)}
 .insights-archive-toggle{display:inline-flex;align-items:center;gap:.55rem;padding:.4rem 0;border:0;border-bottom:1px solid currentColor;color:var(--ink);background:transparent;font:600 .78rem/1 var(--font-sans);letter-spacing:.08em;text-transform:uppercase;cursor:pointer}
 .insights-archive-toggle span{color:var(--teal)}
-@media(max-width:850px){.insights-toolbar{grid-template-columns:1fr;gap:1.5rem}.insights-browser .insight-row{grid-template-columns:6.5rem 1fr auto;grid-template-areas:"media copy arrow"}.insights-browser .insight-row>span{display:block}}
+@media(max-width:850px){.insights-toolbar{grid-template-columns:1fr;gap:1.5rem}.insights-browser .insight-row{grid-template-columns:6.5rem 1fr auto;grid-template-areas:"media copy arrow"}.insights-browser .insight-row>span{display:block}.insights-buyer-card{grid-template-columns:1fr}.insights-buyer-routes{grid-template-columns:repeat(3,1fr);gap:1rem}.insights-buyer-routes span{margin-top:0}.insights-buyer-routes strong{padding:0;border:0;font-size:1.1rem}}
 @media(max-width:560px){.insights-browser .insight-row{grid-template-columns:5.75rem 1fr;grid-template-areas:"media copy";gap:1rem;padding:1.2rem 0}.insights-browser .insight-row>span{display:none}.insights-browser .insight-row .insight-meta{gap:.6rem;font-size:.64rem}.insights-browser .insight-row h2{font-size:1.08rem}.insights-browser .insight-row .insight-summary{display:none}}
+@media(max-width:560px){.insights-buyer-card{padding:1.6rem}.insights-buyer-routes{grid-template-columns:1fr;gap:.45rem}.insights-buyer-routes span{margin-top:.65rem}.insights-buyer-routes span:first-child{margin-top:0}.insights-buyer-routes strong{padding-bottom:.65rem;border-bottom:1px solid rgba(255,255,255,.2)}.insights-buyer-routes strong:last-child{padding-bottom:0;border-bottom:0}}
 
 /* Homepage hero links retain their service identity on interaction. */
 .hero .button-row .text-link{transition:color .2s ease}
