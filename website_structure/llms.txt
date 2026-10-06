@@ -55,6 +55,20 @@ Lean commercial teams pursuing complex, high-value work and teams running tender
 - [Privacy policy](https://www.ignisleadership.com/privacy)
 - [Terms](https://www.ignisleadership.com/terms)
 
+## Questions this site answers
+
+### What can AI agents safely do in bids and tenders?
+
+Agents can extract, reconcile, draft, check and coordinate bounded work using approved evidence and controls. People retain authority for strategy, relationships, price, risk, evaluation and every material commitment.
+
+### How do you govern AI in bids and tenders?
+
+Give agents approved evidence, bounded tasks and explicit controls. Keep named people responsible for strategy, evaluation, price, risk and final approval. Preserve the evidence and decision trail so outputs can be challenged and verified.
+
+### Where should a bid or tender team start with agentic AI?
+
+Start with one pressure point in live work. Audit the process, evidence, decisions and controls; prove one bounded capability; measure what changes; then scale only what the evidence supports.
+
 ## Usage
 
 Content on this site may be quoted or summarised with attribution to Ignis Leadership and a link to the source page.
