@@ -54,6 +54,21 @@ module.exports = async function contactHandler(req, res) {
   const email = String(body.email || "").trim().toLowerCase();
   const phone = String(body.phone || "").trim().slice(0, 80);
   const message = String(body.message || "").trim().slice(0, 5000);
+  const discoverySource = String(body.discovery_source || "").trim().slice(0, 80);
+  const allowedDiscoverySources = new Set([
+    "linkedin",
+    "google_search",
+    "chatgpt",
+    "claude",
+    "perplexity",
+    "other_ai_assistant",
+    "recommendation_referral",
+    "event_podcast_article",
+    "other"
+  ]);
+  const acquisitionSource = allowedDiscoverySources.has(discoverySource)
+    ? `self_reported_${discoverySource}`
+    : String(body.source || "website").trim().slice(0, 180);
   const newsletterOptIn = body.newsletter_opt_in === true || body.newsletter_opt_in === "true" || body.newsletter_opt_in === "on";
 
   if (!fullName || !EMAIL_PATTERN.test(email)) {
@@ -64,7 +79,7 @@ module.exports = async function contactHandler(req, res) {
     {name: "email", value: email},
     {name: "firstname", value: firstname},
     {name: "lastname", value: lastname},
-    {name: "acquisition_source", value: String(body.source || "website").trim().slice(0, 180)},
+    {name: "acquisition_source", value: acquisitionSource},
     {name: "conversion_asset", value: "website_enquiry"}
   ];
   if (phone) fields.push({name: "phone", value: phone});
