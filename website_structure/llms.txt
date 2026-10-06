@@ -28,6 +28,12 @@ Lean commercial teams pursuing complex, high-value work and teams running tender
 - [Contact](https://www.ignisleadership.com/contact): start a conversation with Ignis Leadership.
 - [Governed agentic system brochure](https://www.ignisleadership.com/assets/downloads/ignis-governed-agentic-system-brochure.pdf): a free, ungated overview of how people, agents, knowledge and controls work together across bids and tenders.
 
+## Practical insights
+
+- [Why do unclear tenders produce incomparable bids?](https://www.ignisleadership.com/insights/why-do-unclear-tenders-produce-incomparable-bids): how unclear requirements, interfaces and evaluation methods cause suppliers to answer different versions of the tender.
+- [When do tender clarifications become a second specification?](https://www.ignisleadership.com/insights/when-do-tender-clarifications-become-a-second-specification): when clarification answers alter scope, risk or evidence, the log becomes part of the controlled commercial baseline.
+- [Is commercial work too judgement-heavy for AI agents?](https://www.ignisleadership.com/insights/is-commercial-work-too-judgement-heavy-for-ai-agents): why the work surrounding commercial decisions suits governed agents precisely because the decisions must remain human.
+
 ## Newsletter editions
 
 - [Your team uses AI. Does the business?](https://www.ignisleadership.com/insights/your-team-uses-ai-does-the-business): why informal LLM use and one failed chatbot experiment call for a governed commercial workflow, not a blanket AI ban.
