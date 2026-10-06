@@ -37,11 +37,6 @@
       "permanent": true
     },
     {
-      "source": "/resources/:slug*",
-      "destination": "/insights",
-      "permanent": true
-    },
-    {
       "source": "/win-or-buy",
       "destination": "/#capabilities",
       "permanent": true
