@@ -30,6 +30,7 @@ Lean commercial teams pursuing complex, high-value work and teams running tender
 
 ## Practical insights
 
+- [RFP software or a bespoke agentic bid workflow?](https://www.ignisleadership.com/rfp-software-vs-agentic-bid-system): a buyer guide comparing established proposal-response software with a governed workflow designed around complex bid work, including when the right answer is both.
 - [Why do unclear tenders produce incomparable bids?](https://www.ignisleadership.com/insights/why-do-unclear-tenders-produce-incomparable-bids): how unclear requirements, interfaces and evaluation methods cause suppliers to answer different versions of the tender.
 - [When do tender clarifications become a second specification?](https://www.ignisleadership.com/insights/when-do-tender-clarifications-become-a-second-specification): when clarification answers alter scope, risk or evidence, the log becomes part of the controlled commercial baseline.
 - [Is commercial work too judgement-heavy for AI agents?](https://www.ignisleadership.com/insights/is-commercial-work-too-judgement-heavy-for-ai-agents): why the work surrounding commercial decisions suits governed agents precisely because the decisions must remain human.
