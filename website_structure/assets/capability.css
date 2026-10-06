@@ -277,6 +277,10 @@
 
 /* Insights landing: compact archive rows, search and in-page expansion. */
 .insights-browser{padding-top:clamp(3.5rem,7vw,6rem)}
+.insights-jump-nav{display:flex;flex-wrap:wrap;gap:.75rem 1rem;margin-top:2rem}
+.insights-jump-nav a{display:inline-flex;align-items:center;justify-content:space-between;gap:1.5rem;min-width:12.5rem;padding:.85rem 1rem;border:1px solid rgba(255,255,255,.35);color:var(--paper);font-size:.75rem;font-weight:600;letter-spacing:.07em;text-decoration:none;text-transform:uppercase;transition:border-color .2s,background .2s}
+.insights-jump-nav a:hover,.insights-jump-nav a:focus-visible{border-color:var(--sky);background:rgba(255,255,255,.08)}
+.insights-jump-nav span{color:var(--sky)}
 .insights-guides{margin-bottom:clamp(4.5rem,8vw,7rem)}
 .insights-guides-heading{display:grid;grid-template-columns:minmax(0,760px);margin-bottom:2rem}
 .insights-guides-heading .section-label{margin:0 0 .55rem;font-family:var(--font-serif);font-size:clamp(1.35rem,1.8vw,1.7rem);font-style:italic;font-weight:500;letter-spacing:0;text-transform:none}
@@ -284,7 +288,9 @@
 .insights-guides-heading p:last-child{max-width:700px;margin:1rem 0 0;color:var(--ink-muted)}
 .insights-toolbar{display:grid;grid-template-columns:1fr minmax(260px,440px);gap:clamp(2rem,6vw,6rem);align-items:end;margin-bottom:2.5rem}
 .insights-toolbar .section-label{margin:0 0 .55rem;font-family:var(--font-serif);font-size:clamp(1.35rem,1.8vw,1.7rem);font-style:italic;font-weight:500;letter-spacing:0;text-transform:none}
+.insights-toolbar h2{margin:0;font-size:clamp(2rem,4vw,3.5rem);font-weight:400;line-height:1.05;letter-spacing:-.045em}
 .insights-toolbar p:last-child{margin:0;color:var(--ink-muted)}
+.insights-toolbar h2+p{margin-top:1rem}
 .insights-search input{width:100%;padding:1rem 0;border:0;border-bottom:1px solid var(--ink);border-radius:0;color:var(--ink);background:transparent;font:inherit;outline:none}
 .insights-search input::placeholder{color:var(--ink-muted)}
 .insights-search input:focus{border-bottom-color:var(--teal);box-shadow:0 1px 0 var(--teal)}
@@ -474,5 +480,5 @@
 .outcomes-system-step:nth-child(n+3)>span,
 .designed-outcome-tender .text-link span{color:var(--teal-readable)}
 .section-answer{max-width:760px;margin:1.5rem 0 0;color:var(--ink-muted);font-size:clamp(1.05rem,1.4vw,1.18rem)}
-#approach,#brochure,#capabilities,#services,#faq{scroll-margin-top:96px}
+#approach,#brochure,#capabilities,#services,#faq,#guides,#newsletter-editions{scroll-margin-top:96px}
 .field select{width:100%;padding:1rem 1.1rem;border:1px solid transparent;border-radius:0;color:var(--ink);background:#f2f3f4;outline:none;transition:background .2s,border-color .2s}.field select:hover{background:#eceff1}.field select:focus{border-color:var(--teal);background:#fff;box-shadow:none}.field-optional{color:var(--ink-muted);font-size:.72rem;font-weight:500;letter-spacing:0;text-transform:none}
