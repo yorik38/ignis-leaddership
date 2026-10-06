@@ -199,6 +199,33 @@ label.skip-link {
   background: var(--chrome-paper);
 }
 
+/* Article and practical-guide heroes use a light background. Keep the initial
+   header legible there, while preserving the white treatment over dark chrome. */
+.issue-page .site-header {
+  color: var(--chrome-ink);
+}
+
+.issue-page .site-header .brand-icon img {
+  filter: invert(1);
+}
+
+.issue-page .site-header.is-scrolling {
+  color: var(--chrome-paper);
+}
+
+.issue-page .site-header.is-scrolling .brand-icon img,
+.issue-page .menu-overlay .brand-icon img {
+  filter: none;
+}
+
+.issue-page.menu-open .site-header {
+  color: var(--chrome-paper);
+}
+
+.issue-page.menu-open .site-header .brand-icon img {
+  filter: none;
+}
+
 /* Match boxed site CTAs to the header control radius. */
 .button,
 .service-view,
