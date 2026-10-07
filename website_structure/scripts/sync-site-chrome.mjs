@@ -67,14 +67,14 @@ for (const page of pages) {
     html = html.replace(/<section class="band band-dark home-community">.*?<\/section>/s, community);
   }
 
-  html = html.replace(/\/assets\/site-chrome\.css\?v=\d+/g, "/assets/site-chrome.css?v=17");
-  if (!html.includes('/assets/site-chrome.css?v=17')) {
-    html = html.replace("</head>", '<link rel="stylesheet" href="/assets/site-chrome.css?v=17">\n</head>');
+  html = html.replace(/\/assets\/site-chrome\.css\?v=\d+/g, "/assets/site-chrome.css?v=18");
+  if (!html.includes('/assets/site-chrome.css?v=18')) {
+    html = html.replace("</head>", '<link rel="stylesheet" href="/assets/site-chrome.css?v=18">\n</head>');
   }
 
-  html = html.replace(/\/assets\/capability\.js\?v=\d+/g, "/assets/capability.js?v=7");
-  if (!html.includes('/assets/capability.js?v=7')) {
-    html = html.replace("</body>", '<script src="/assets/capability.js?v=7"></script>\n</body>');
+  html = html.replace(/\/assets\/capability\.js\?v=\d+/g, "/assets/capability.js?v=10");
+  if (!html.includes('/assets/capability.js?v=10')) {
+    html = html.replace("</body>", '<script src="/assets/capability.js?v=10"></script>\n</body>');
   }
 
   await writeFile(url, html);
