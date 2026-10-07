@@ -554,6 +554,8 @@
 
 /* Preserve a clear H1/H2 hierarchy on narrow screens, including long section titles. */
 @media(max-width:520px){
+  body .site-footer .footer-top nav{flex-wrap:wrap;white-space:normal}
+  body .site-footer .footer-top p{white-space:normal}
   .value-proposition,.ai-roulette,.adoption-gap,.engagement-offer,.services,.case-preview,.about-preview,.closing-band,.home-community{padding-top:4rem;padding-bottom:4rem}
   .trust-band{padding:3.5rem 0}
   .faq-section{padding:4rem 0}
