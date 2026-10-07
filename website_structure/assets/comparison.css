@@ -44,7 +44,8 @@
 .platform-grid a:hover{text-decoration:underline;text-underline-offset:3px}
 .comparison-scope-note{max-width:82ch;margin:1.5rem 0 0;color:var(--steel);font-size:.82rem;line-height:1.6}
 .comparison-reality{background:#07111b;color:#fff}
-.comparison-reality-heading{display:grid;grid-template-columns:minmax(180px,.35fr) minmax(0,.9fr) minmax(260px,.75fr);gap:clamp(2rem,5vw,5rem);align-items:start}
+.comparison-reality-heading{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(280px,.8fr);gap:clamp(3rem,8vw,8rem);align-items:start}
+.comparison-reality-heading .section-label{display:none}
 .comparison-reality-heading h2{max-width:13ch;margin:0;color:#fff;font-size:clamp(2.5rem,5vw,4.6rem);font-weight:400;line-height:1;letter-spacing:-.05em;text-wrap:balance}
 .comparison-reality-heading>p:last-child{margin:0;color:#b8c6d1;font-size:1rem;line-height:1.7}
 .comparison-reality-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;margin-top:clamp(3rem,6vw,5rem);background:rgba(255,255,255,.17);border:1px solid rgba(255,255,255,.17)}
