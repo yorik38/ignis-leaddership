@@ -89,12 +89,48 @@ for (const page of pages) {
       '<h3>Productivity without<br>commercial design</h3>',
     );
     html = html.replace(
-      '<p class="section-label section-label-dark">Two routes</p>',
-      '<p class="section-label section-label-dark">Services</p>',
+      '<div class="services-intro"><p class="section-label section-label-dark">Services</p><p class="services-lead">Partnering with commercial leaders to turn AI ambition into work that performs and value customers can buy.</p></div>',
+      '<div class="services-intro"><p class="section-label section-label-dark">Ways to start</p><div class="services-intro-copy"><h2>Start with the commercial opportunity. Or start with the work already under pressure.</h2><p>Every engagement begins with a live commercial pressure or opportunity and ends with a decision you can act on.</p></div></div>',
     );
     html = html.replace(
-      'One commercially grounded method, applied in two places.',
-      'Partnering with commercial leaders to turn AI ambition into work that performs and value customers can buy.',
+      '<p class="section-label section-label-dark">Two routes</p>',
+      '<p class="section-label section-label-dark">Ways to start</p>',
+    );
+    html = html.replace(
+      '<p class="section-label section-label-dark">Services</p><p class="services-lead">Partnering with commercial leaders to turn AI ambition into work that performs and value customers can buy.</p>',
+      '<p class="section-label section-label-dark">Ways to start</p><div class="services-intro-copy"><h2>Start with the commercial opportunity. Or start with the work already under pressure.</h2><p>Every engagement begins with a live commercial pressure or opportunity and ends with a decision you can act on.</p></div>',
+    );
+    html = html.replace(/<span class="service-number">0[12]<\/span>/g, '');
+    if (!html.includes('<p class="service-proof">')) {
+      html = html.replace(
+        '<p class="service-summary">Make today’s commercial work more effective, governed and scalable.</p>',
+        '<p class="service-summary">Make today’s commercial work more effective, governed and scalable.</p><p class="service-proof"><strong>Start with bids and tenders.</strong> Turn qualification, requirements, evidence, coordination, drafting and assurance into a governed human-agent workflow.</p>',
+      );
+    }
+    html = html.replace(/<ol class="services-method">.*?<\/ol>/s, '');
+    html = html.replace(
+      'Map customer needs, commercial processes, expertise, data, systems, decision rights and constraints. Identify where AI can strengthen an existing operation or make a new offer viable.',
+      'Map the work, data, governance, systems and decision rights. Identify the priority opportunities, then leave with a commercially grounded AI strategy and roadmap.',
+    );
+    html = html.replace(
+      'Turn the priority into a governed delivery model: the customer proposition, workflow, evidence, human responsibilities, data, controls and delivery requirements.',
+      'Turn the priority into a governed model: the proposition, workflow, evidence, human responsibilities, data, controls and a build-ready pilot brief.',
+    );
+    html = html.replace(
+      'Stay involved while an internal team or technology partner builds, tests and refines the system. Protect the commercial intent through implementation and into customer use.',
+      'Stay involved while an internal team or technology partner builds, tests and refines the system. Protect the commercial intent, test the pilot and guide adoption into use.',
+    );
+    html = html.replace(
+      'Find the next commercial offer AI makes viable.',
+      'Develop commercial innovations: new services, offers and delivery models that AI makes viable.',
+    );
+    html = html.replace(
+      'Ignis defines and protects the commercial requirement. We work with your internal team or technology partner; direct technical delivery can be separately scoped where appropriate.',
+      'Ignis defines the commercial requirement, workflow, controls and pilot scope, then supports your internal team or technology partner through delivery. Where appropriate, delivery can be scoped separately.',
+    );
+    html = html.replace(
+      'It is the work of identifying and testing services, offers and delivery models that AI makes commercially viable.',
+      'It is the work of identifying, testing and delivering commercial innovations: services, offers and delivery models that AI makes commercially viable.',
     );
     html = html.replace(
       'Energy <span>·</span> Infrastructure <span>·</span> Industrial <span>·</span> Construction',
@@ -105,8 +141,8 @@ for (const page of pages) {
       '<h2>Turn AI ambition into <span class="gradient-word serif-accent">commercial advantage.</span></h2>',
     );
     html = html.replace(
-      /<section class="band band-paper specialist-applications">.*?<\/section>(?=\s*<section class="band brochure-band">)/s,
-      '<section class="band band-paper specialist-applications"><div class="wrap"><div class="section-heading"><p class="section-label">A practical starting point</p><div><h2>Start with the opportunity. Or start with the work.</h2><p class="section-answer">Explore what AI could make commercially viable, or redesign the commercial process you already have.</p></div></div><div class="outcomes-preview"><a class="outcome-preview-card" href="/commercial-transformation"><p class="outcome-kicker">Commercial transformation</p><h2>Explore the opportunity.</h2><p>Find the customer value, service or delivery model that AI could make viable.</p><span class="outcome-card-link">Explore Commercial transformation <span aria-hidden="true">↗</span></span></a><a class="outcome-preview-card" href="/commercial-ai-adoption"><p class="outcome-kicker">Commercial AI adoption</p><h2>Adopt the capability.</h2><p>Map and govern the existing commercial work where AI can create value now.</p><span class="outcome-card-link">Explore Commercial AI adoption <span aria-hidden="true">↗</span></span></a></div></div></section>',
+      /\s*<section class="band band-paper specialist-applications">.*?<\/section>(?=\s*<section class="band brochure-band">)/s,
+      '',
     );
     if (!html.includes('What stays human?')) {
       html = html.replace(
@@ -139,6 +175,33 @@ for (const page of pages) {
     );
   }
 
+  if (page === "commercial-transformation.html") {
+    html = html.replaceAll(
+      'Identify and test the services, offers and delivery models AI can make commercially viable, then design the governed system behind them.',
+      'Identify and test commercial innovations: the services, offers and delivery models AI can make viable, then design the governed system behind them.',
+    );
+    html = html.replaceAll(
+      'Identify and test the services, offers and delivery models AI can make commercially viable.',
+      'Identify and test commercial innovations: the services, offers and delivery models AI can make viable.',
+    );
+    html = html.replace(
+      'Explore the services, offers and delivery models that become possible when expertise, monitoring and decision support can be delivered at a different scale.',
+      'Explore the commercial innovations that become possible when expertise, monitoring and decision support can be delivered at a different scale.',
+    );
+    html = html.replace(
+      '<p class="section-label">The opportunity</p>',
+      '<p class="section-label">Commercial innovation</p>',
+    );
+    html = html.replace(
+      'Illustrative opportunity patterns',
+      'Illustrative innovation patterns',
+    );
+    html = html.replace(
+      'From commercial opportunity to a buildable delivery model.',
+      'From commercial innovation to a buildable delivery model.',
+    );
+  }
+
   if (page === "bid.html") {
     html = html.replace(
       '<p class="section-label">Bid</p><h1>',
@@ -165,9 +228,35 @@ for (const page of pages) {
     }
   }
 
-  html = html.replace(/\/assets\/site-chrome\.css\?v=\d+/g, "/assets/site-chrome.css?v=25");
-  if (!html.includes('/assets/site-chrome.css?v=25')) {
-    html = html.replace("</head>", '<link rel="stylesheet" href="/assets/site-chrome.css?v=25">\n</head>');
+  if (page === "commercial-ai-adoption.html") {
+    html = html.replace(
+      '<p class="section-label">The shift</p>',
+      '<p class="section-label">Commercial workflow design</p>',
+    );
+    html = html.replace(
+      '<p class="section-label">The work</p>',
+      '<p class="section-label">A governed system</p>',
+    );
+    html = html.replace(
+      'Where should AI make commercial work <span class="serif-accent">more valuable first?</span>',
+      'Which commercial workflow should AI make <span class="serif-accent">more effective first?</span>',
+    );
+    if (!html.includes('From commercial work to a governed human-agent system.')) {
+      html = html.replace(
+        '    <section class="band band-paper specialist-applications">',
+        '    <section class="band band-paper engagement-offer"><div class="wrap"><div class="engagement-heading"><p class="section-label">How Ignis helps</p><div><h2>From commercial work to a governed human-agent system.</h2></div></div><div class="engagement-grid"><article><span>01</span><h3>Map<br>the work</h3><p>Map the process, evidence, data, systems, decision rights and pressure points. Leave with a commercially grounded adoption strategy and roadmap.</p></article><article><span>02</span><h3>Design<br>the system</h3><p>Turn the priority into a governed workflow: responsibilities, evidence, controls, information needs and a build-ready pilot brief.</p></article><article><span>03</span><h3>Support<br>delivery</h3><p>Stay involved while an internal team or technology partner builds, tests and refines the system. Protect commercial intent through adoption.</p></article></div><div class="engagement-boundary"><a class="text-link" href="/contact">Start a conversation <span aria-hidden="true">↗</span></a></div></div></section>\n    <section class="band band-paper specialist-applications">',
+      );
+    }
+  }
+
+  html = html.replace(/\/assets\/capability\.css\?v=\d+/g, "/assets/capability.css?v=117");
+  if (!html.includes('/assets/capability.css?v=117')) {
+    html = html.replace("</head>", '<link rel="stylesheet" href="/assets/capability.css?v=117">\n</head>');
+  }
+
+  html = html.replace(/\/assets\/site-chrome\.css\?v=\d+/g, "/assets/site-chrome.css?v=26");
+  if (!html.includes('/assets/site-chrome.css?v=26')) {
+    html = html.replace("</head>", '<link rel="stylesheet" href="/assets/site-chrome.css?v=26">\n</head>');
   }
 
   html = html.replace(/\/assets\/capability\.js\?v=\d+/g, "/assets/capability.js?v=12");
