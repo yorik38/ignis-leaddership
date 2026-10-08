@@ -479,8 +479,8 @@ label.skip-link {
 .home-newsletter .home-newsletter-grid,
 .newsletter-mid-signup .mid-signup-inner {
   display: grid;
-  grid-template-columns: minmax(260px, .72fr) minmax(420px, 1.28fr);
-  gap: clamp(3rem, 8vw, 9rem);
+  grid-template-columns: minmax(260px, 360px) minmax(0, 1fr);
+  gap: clamp(3rem, 5vw, 6.5rem);
   align-items: start;
 }
 
