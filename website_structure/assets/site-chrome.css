@@ -348,8 +348,25 @@ label.skip-link {
 .overlay-nav a:hover .overlay-nav-mark,
 .overlay-nav a:focus-visible .overlay-nav-mark { color: var(--chrome-sky); }
 
+@media (min-width: 851px) {
+  .overlay-nav-mark {
+    flex-basis: 3.25rem;
+    font-size: clamp(4rem, 5.5vw, 5.75rem);
+    transform: scaleX(1.3);
+    transform-origin: left center;
+  }
+
+  .overlay-nav a { gap: .75rem; }
+}
+
 @media (max-width: 850px) {
   .overlay-nav a:last-child { border-bottom: 0; }
+  .overlay-nav-mark {
+    flex-basis: 1.5rem;
+    justify-content: flex-start;
+    font-size: 2.25rem;
+  }
+  .overlay-nav a { gap: .35rem; }
 }
 
 .site-footer {
