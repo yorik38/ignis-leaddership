@@ -100,18 +100,6 @@ for (const page of pages) {
       '<p class="section-label section-label-dark">Ways to start</p><div class="services-intro-copy"><h2>Start with the commercial opportunity. Or start with the work already under pressure.</h2><p>Every engagement begins with a live commercial pressure or opportunity and ends with a decision you can act on.</p></div>',
     );
     html = html.replace(/<span class="service-number">0[12]<\/span>/g, '');
-    if (!html.includes('<p class="service-proof">')) {
-      html = html.replace(
-        '<p class="service-summary">Make today’s commercial work more effective, governed and scalable.</p>',
-        '<p class="service-summary">Make today’s commercial work more effective, governed and scalable.</p><p class="service-proof"><strong>Start with bids and tenders.</strong> Turn qualification, requirements, evidence, coordination, drafting and assurance into a governed human-agent workflow.</p>',
-      );
-    }
-    if (!html.includes('Start with a service, offer or delivery model.')) {
-      html = html.replace(
-        '<p class="service-summary">Develop commercial innovations: new services, offers and delivery models that AI makes viable.</p>',
-        '<p class="service-summary">Develop commercial innovations: new services, offers and delivery models that AI makes viable.</p><p class="service-proof"><strong>Start with a service, offer or delivery model.</strong> Test what customers would value, why you can win and what it would take to deliver before you build.</p>',
-      );
-    }
     html = html.replace(/<ol class="services-method">.*?<\/ol>/s, '');
     html = html.replace(
       'Map customer needs, commercial processes, expertise, data, systems, decision rights and constraints. Identify where AI can strengthen an existing operation or make a new offer viable.',
@@ -248,9 +236,9 @@ for (const page of pages) {
     );
   }
 
-  html = html.replace(/\/assets\/capability\.css\?v=\d+/g, "/assets/capability.css?v=119");
-  if (!html.includes('/assets/capability.css?v=119')) {
-    html = html.replace("</head>", '<link rel="stylesheet" href="/assets/capability.css?v=119">\n</head>');
+  html = html.replace(/\/assets\/capability\.css\?v=\d+/g, "/assets/capability.css?v=121");
+  if (!html.includes('/assets/capability.css?v=121')) {
+    html = html.replace("</head>", '<link rel="stylesheet" href="/assets/capability.css?v=121">\n</head>');
   }
 
   html = html.replace(/\/assets\/site-chrome\.css\?v=\d+/g, "/assets/site-chrome.css?v=31");

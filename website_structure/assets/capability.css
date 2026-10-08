@@ -631,29 +631,6 @@
 .route-services .service-title p{color:var(--sky)}
 .route-services .route-transformation .service-title p{color:#b6d8d5}
 
-/* Concrete proof point for the adoption route on the homepage. */
-.route-services .service-title p.service-proof{
-  max-width:360px;
-  margin:1.25rem 0 0;
-  padding-top:1.25rem;
-  border-top:1px solid var(--line-dark);
-  color:var(--on-dark-muted);
-  font-size:.85rem;
-  font-weight:400;
-  letter-spacing:0;
-  line-height:1.5;
-  text-transform:none;
-}
-.route-services .service-proof strong{
-  display:block;
-  margin-bottom:.35rem;
-  color:var(--paper);
-  font-size:.78rem;
-  font-weight:600;
-  letter-spacing:.07em;
-  text-transform:uppercase;
-}
-
 /* Homepage entry-point framing. */
 .services-intro-copy{max-width:800px;color:var(--paper)}
 .services-intro-copy h2{max-width:800px;margin:0;font-size:clamp(2rem,3.2vw,3.6rem);font-weight:400;line-height:1.04;letter-spacing:-.05em}
@@ -743,4 +720,11 @@
 }
 @media(max-width:560px){
   .proposition-page .lifecycle-band .capability-item{grid-template-columns:1rem minmax(0,1fr)}
+}
+
+@media(max-width:850px){
+  .proposition-page .lifecycle-band .capability-list{margin-top:2.25rem}
+}
+@media(max-width:560px){
+  .proposition-page .foundation-points{border-top:0}
 }
