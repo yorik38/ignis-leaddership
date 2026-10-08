@@ -66,13 +66,12 @@ for (const page of pages) {
   html = html.replace(/<main(?![^>]*\bid=)/, '<main id="main"');
   html = html.replace(/<footer(?: class="[^"]*")?>.*?<\/footer>/s, footer);
 
-  const communityFormId = communityPages.get(page);
-  if (communityFormId) {
-    const community = communityTemplate.replaceAll("{{FORM_ID}}", communityFormId);
-    if (!/<section class="band band-dark home-community">.*?<\/section>/s.test(html)) {
-      throw new Error(`Community signup section was not found in ${page}`);
-    }
+  const communityFormId = communityPages.get(page) ?? `page-${page.replace(/\.html$/, "").replaceAll("/", "-")}`;
+  const community = communityTemplate.replaceAll("{{FORM_ID}}", communityFormId);
+  if (/<section class="band band-dark home-community">.*?<\/section>/s.test(html)) {
     html = html.replace(/<section class="band band-dark home-community">.*?<\/section>/s, community);
+  } else {
+    html = html.replace(/(?=<footer class="site-footer">)/, `${community}\n`);
   }
 
   if (page === "index.html") {
