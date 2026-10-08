@@ -25,6 +25,13 @@
 /* Shared diagnostic-stage numbering uses the Ignis gradient; desk accents remain reserved for Bid and Tender. */
 .roulette-split span,.adoption-gap-split span{background:linear-gradient(105deg,#8fb0d6,#14919b);background-clip:text;-webkit-background-clip:text;color:transparent}
 
+/* A direct final conversion prompt: no repeated eyebrow or empty grid column. */
+.direct-close{max-width:980px;margin:0 auto}.direct-close h2{margin:0;font-size:var(--h2);font-weight:400;line-height:1.02;letter-spacing:-.05em;text-wrap:balance}.direct-close p{max-width:620px;margin:1.5rem 0 0;color:var(--ink-muted);font-size:1.2rem}.direct-close .button{margin-top:2rem}
+
+/* Keep the homepage value proposition compact on mobile without dropping its brand marker. */
+@media(max-width:850px){.value-proposition-grid{grid-template-columns:auto minmax(0,1fr);gap:1rem}.value-proposition .brand-stamp{display:flex}.value-proposition .brand-stamp img{width:40px;height:40px}}
+@media(max-width:520px){:root{--h2:clamp(1.75rem,7.8vw,2.15rem);--h3:clamp(1.25rem,5.3vw,1.7rem)}.value-proposition h2{font-size:clamp(1.7rem,7.2vw,1.95rem);line-height:1.06}}
+
 /* Homepage positioning: promise, value proposition and adoption gap. */
 .hero h1{max-width:1120px;font-size:clamp(3.2rem,5.15vw,5.8rem)}
 .hero .hero-serif{display:block;padding-bottom:.08em}
@@ -100,6 +107,7 @@
   .services-intro,.statement-approach .approach-grid{grid-template-columns:8rem minmax(300px,.72fr) minmax(0,1.55fr);gap:2rem}
   .services-lead,.statement-approach .approach-copy{grid-column:3}
 }
+
 @media(min-width:851px) and (max-width:1150px){
   .services-intro,.statement-approach .approach-grid{grid-template-columns:4rem minmax(240px,.8fr) 1fr;gap:2rem}
   .services-lead,.statement-approach .approach-copy{grid-column:3}
@@ -600,3 +608,7 @@
     line-height:1.06;
   }
 }
+
+/* Final mobile hierarchy override: keep the VP marker beside a compact title. */
+@media(max-width:850px){.value-proposition-grid{grid-template-columns:auto minmax(0,1fr);gap:1rem}.value-proposition .brand-stamp{display:flex}.value-proposition .brand-stamp img{width:40px;height:40px}}
+@media(max-width:520px){:root{--h2:clamp(1.75rem,7.8vw,2.15rem);--h3:clamp(1.25rem,5.3vw,1.7rem)}.value-proposition h2{font-size:clamp(1.65rem,7vw,1.9rem);line-height:1.06}.adoption-gap-heading h2,.engagement-heading h2{font-size:var(--h2);line-height:1.06}.roulette-split h3,.adoption-gap-split h3{font-size:clamp(1.35rem,5.6vw,1.6rem)}.engagement-grid h3{font-size:clamp(1.3rem,5.4vw,1.55rem)}}
