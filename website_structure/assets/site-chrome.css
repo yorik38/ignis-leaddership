@@ -349,6 +349,11 @@ label.skip-link {
 .overlay-nav a:focus-visible .overlay-nav-mark { color: var(--chrome-sky); }
 
 @media (min-width: 851px) {
+  /* Match the fixed site header's desktop content rail. */
+  .menu-overlay {
+    padding-inline: max(var(--gutter), calc((100vw - var(--wrap)) / 2));
+  }
+
   .overlay-nav-mark {
     flex-basis: 3.25rem;
     font-size: clamp(4rem, 5.5vw, 5.75rem);
