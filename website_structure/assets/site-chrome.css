@@ -318,17 +318,20 @@ label.skip-link {
 }
 
 .overlay-nav-mark {
-  display: block;
-  margin-bottom: .75rem;
+  display: inline-block;
+  flex: 0 0 2.5rem;
   color: #fff;
   font-family: "Source Serif 4", Georgia, serif;
-  font-size: 1.5rem;
+  font-size: clamp(1.75rem, 2.7vw, 2.6rem);
   font-style: italic;
-  line-height: 1;
+  font-weight: 500;
+  line-height: .8;
 }
 
 .overlay-nav a {
   display: flex;
+  align-items: baseline;
+  gap: clamp(.75rem, 2vw, 1.5rem);
   padding: clamp(.65rem, 1.4vh, 1.1rem) 0;
   border-bottom: 1px solid var(--chrome-line);
   color: inherit;
@@ -340,25 +343,8 @@ label.skip-link {
 }
 
 .overlay-nav a:hover { color: var(--chrome-sky); }
-
-.overlay-bottom {
-  display: flex;
-  justify-content: flex-start;
-  width: min(100%, 1040px);
-  margin: 0 auto;
-}
-
-.overlay-contact {
-  background: #fff;
-  color: #000;
-  text-decoration: none;
-}
-
-.overlay-contact:hover,
-.overlay-contact:focus-visible {
-  background: var(--chrome-sky);
-  color: #000;
-}
+.overlay-nav a:hover .overlay-nav-mark,
+.overlay-nav a:focus-visible .overlay-nav-mark { color: var(--chrome-sky); }
 
 @media (max-width: 850px) {
   .overlay-nav a:last-child { border-bottom: 0; }
@@ -448,7 +434,6 @@ label.skip-link {
     white-space: nowrap;
   }
 
-  .overlay-bottom { padding-bottom: .5rem; }
 }
 
 @media (prefers-reduced-motion: reduce) {
