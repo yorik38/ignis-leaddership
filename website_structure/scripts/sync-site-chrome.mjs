@@ -75,6 +75,39 @@ for (const page of pages) {
     html = html.replace(/<section class="band band-dark home-community">.*?<\/section>/s, community);
   }
 
+  if (page === "index.html") {
+    html = html.replace(
+      'Make AI change how commercial work runs and what your business can offer.',
+      'Make AI change how commercial work runs.',
+    );
+    html = html.replace(
+      '<span class="hero-sans">Make AI change how commercial work runs</span><span class="gradient-word hero-serif">and what your business can offer.</span>',
+      '<span class="hero-sans">Make AI change how</span><span class="gradient-word hero-serif">commercial work runs.</span>',
+    );
+    html = html.replace(
+      '<h3>Productivity without a commercial design</h3>',
+      '<h3>Productivity without<br>commercial design</h3>',
+    );
+    html = html.replace(
+      'Energy <span>·</span> Infrastructure <span>·</span> Industrial <span>·</span> Construction',
+      'Energy <span>·</span> Industrial <span>·</span> Construction',
+    );
+    html = html.replace(
+      '<h2>Turn AI ambition into <span class="serif-accent">commercial advantage.</span></h2>',
+      '<h2>Turn AI ambition into <span class="gradient-word serif-accent">commercial advantage.</span></h2>',
+    );
+    html = html.replace(
+      /<section class="band band-paper specialist-applications">.*?<\/section>(?=\s*<section class="band brochure-band">)/s,
+      '<section class="band band-paper specialist-applications"><div class="wrap"><div class="section-heading"><p class="section-label">A practical starting point</p><div><h2>Start with the opportunity. Or start with the work.</h2><p class="section-answer">Explore what AI could make commercially viable, or redesign the commercial process you already have.</p></div></div><div class="outcomes-preview"><a class="outcome-preview-card" href="/commercial-transformation"><p class="outcome-kicker">Commercial transformation</p><h2>Explore the opportunity.</h2><p>Find the customer value, service or delivery model that AI could make viable.</p><span class="outcome-card-link">Explore Commercial transformation <span aria-hidden="true">↗</span></span></a><a class="outcome-preview-card" href="/commercial-ai-adoption"><p class="outcome-kicker">Commercial AI adoption</p><h2>Adopt the capability.</h2><p>Map and govern the existing commercial work where AI can create value now.</p><span class="outcome-card-link">Explore Commercial AI adoption <span aria-hidden="true">↗</span></span></a></div></div></section>',
+    );
+    if (!html.includes('What stays human?')) {
+      html = html.replace(
+        '</details></div></div></section>\n    <section class="band band-paper closing-band closing-band-light">',
+        '</details><details class="faq-item"><summary>Where should we start?</summary><div class="faq-answer"><p>Start with a live commercial pressure or opportunity. Map the value, feasibility and controls, then choose one bounded next move.</p></div></details><details class="faq-item"><summary>Can we use our existing technology?</summary><div class="faq-answer"><p>Usually, yes. The work starts with the information and systems you already have, replacing or adding technology only where the evidence requires it.</p></div></details><details class="faq-item"><summary>What stays human?</summary><div class="faq-answer"><p>Commercial judgement, customer commitments, risk decisions and exceptions remain human-owned. Agents support defined tasks with clear evidence and escalation points.</p></div></details></div></div></section>\n    <section class="band band-paper closing-band closing-band-light">',
+      );
+    }
+  }
+
   if (page === "bid.html") {
     html = html.replace(
       '<p class="section-label">Bid</p><h1>',
