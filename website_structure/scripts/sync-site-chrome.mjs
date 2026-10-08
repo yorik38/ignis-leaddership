@@ -260,9 +260,9 @@ for (const page of pages) {
     html = html.replace("</head>", '<link rel="stylesheet" href="/assets/capability.css?v=118">\n</head>');
   }
 
-  html = html.replace(/\/assets\/site-chrome\.css\?v=\d+/g, "/assets/site-chrome.css?v=28");
-  if (!html.includes('/assets/site-chrome.css?v=28')) {
-    html = html.replace("</head>", '<link rel="stylesheet" href="/assets/site-chrome.css?v=28">\n</head>');
+  html = html.replace(/\/assets\/site-chrome\.css\?v=\d+/g, "/assets/site-chrome.css?v=30");
+  if (!html.includes('/assets/site-chrome.css?v=30')) {
+    html = html.replace("</head>", '<link rel="stylesheet" href="/assets/site-chrome.css?v=30">\n</head>');
   }
 
   html = html.replace(/\/assets\/capability\.js\?v=\d+/g, "/assets/capability.js?v=12");
