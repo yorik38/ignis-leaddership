@@ -707,3 +707,40 @@
   .transformation-tests{grid-template-columns:1fr}
   .transformation-tests article,.transformation-tests article:first-child{padding:2rem 0}
 }
+
+/* Proposition pages use the Ignis slash as a quiet marker; only the shared three-step process remains numbered. */
+.proposition-page .slash-marker{
+  color:currentColor;
+  font-family:var(--font-serif);
+  font-size:1.35rem;
+  font-style:italic;
+  font-weight:500;
+  letter-spacing:0;
+  line-height:1;
+}
+.proposition-page .lifecycle-band .slash-marker{color:#fff}
+.proposition-page .transformation-tests .slash-marker{color:var(--ink)}
+.proposition-page .transformation-tests h3{margin-top:1.5rem}
+
+/* Keep the commercial-front-end cards legible on a narrow screen: one quiet marker, then the content. */
+@media(max-width:850px){
+  .proposition-page .lifecycle-band .capability-item{
+    grid-template-columns:1rem minmax(0,1fr);
+    gap:1rem;
+  }
+  .proposition-page .lifecycle-band .capability-item>.slash-marker{
+    grid-column:1;
+    grid-row:1;
+  }
+  .proposition-page .lifecycle-band .capability-item>.stage-value{
+    grid-column:2;
+    grid-row:1;
+  }
+  .proposition-page .lifecycle-band .capability-item>.agent-work{
+    grid-column:2;
+    margin-top:1.25rem;
+  }
+}
+@media(max-width:560px){
+  .proposition-page .lifecycle-band .capability-item{grid-template-columns:1rem minmax(0,1fr)}
+}

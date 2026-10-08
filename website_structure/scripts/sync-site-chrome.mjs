@@ -247,17 +247,11 @@ for (const page of pages) {
       'Where should AI make commercial work <span class="serif-accent">more valuable first?</span>',
       'Which commercial workflow should AI make <span class="serif-accent">more effective first?</span>',
     );
-    if (!html.includes('From commercial work to a governed human-agent system.')) {
-      html = html.replace(
-        '    <section class="band band-paper specialist-applications">',
-        '    <section class="band band-paper engagement-offer"><div class="wrap"><div class="engagement-heading"><p class="section-label">How Ignis helps</p><div><h2>From commercial work to a governed human-agent system.</h2></div></div><div class="engagement-grid"><article><span>01</span><h3>Map<br>the work</h3><p>Map the process, evidence, data, systems, decision rights and pressure points. Leave with a commercially grounded adoption strategy and roadmap.</p></article><article><span>02</span><h3>Design<br>the system</h3><p>Turn the priority into a governed workflow: responsibilities, evidence, controls, information needs and a build-ready pilot brief.</p></article><article><span>03</span><h3>Support<br>delivery</h3><p>Stay involved while an internal team or technology partner builds, tests and refines the system. Protect commercial intent through adoption.</p></article></div><div class="engagement-boundary"><a class="text-link" href="/contact">Start a conversation <span aria-hidden="true">↗</span></a></div></div></section>\n    <section class="band band-paper specialist-applications">',
-      );
-    }
   }
 
-  html = html.replace(/\/assets\/capability\.css\?v=\d+/g, "/assets/capability.css?v=118");
-  if (!html.includes('/assets/capability.css?v=118')) {
-    html = html.replace("</head>", '<link rel="stylesheet" href="/assets/capability.css?v=118">\n</head>');
+  html = html.replace(/\/assets\/capability\.css\?v=\d+/g, "/assets/capability.css?v=119");
+  if (!html.includes('/assets/capability.css?v=119')) {
+    html = html.replace("</head>", '<link rel="stylesheet" href="/assets/capability.css?v=119">\n</head>');
   }
 
   html = html.replace(/\/assets\/site-chrome\.css\?v=\d+/g, "/assets/site-chrome.css?v=31");
