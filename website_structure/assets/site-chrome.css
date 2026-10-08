@@ -9,6 +9,36 @@
   --chrome-teal: #1cbdad;
 }
 
+/* Shared editorial eyebrow treatment across both site template systems. */
+.section-label,
+.eyebrow {
+  font-family: var(--font-serif, "Source Serif 4", Georgia, serif) !important;
+  font-size: clamp(1.4rem, 1.9vw, 1.85rem) !important;
+  font-style: italic !important;
+  font-weight: 500 !important;
+  line-height: 1.1 !important;
+  letter-spacing: 0 !important;
+  text-transform: none !important;
+  background: linear-gradient(105deg, #365f89, #08756d) !important;
+  background-clip: text !important;
+  -webkit-background-clip: text !important;
+  color: transparent !important;
+}
+
+.band-dark .section-label,
+.page-hero .section-label,
+.home-community .section-label,
+.service-story-dark .eyebrow,
+.about-positioning .eyebrow,
+.discovery-final .eyebrow,
+.comparison-hero .section-label,
+.comparison-reality .section-label,
+.comparison-cta .section-label {
+  background: linear-gradient(105deg, #8fb0d6, #14919b) !important;
+  background-clip: text !important;
+  -webkit-background-clip: text !important;
+}
+
 .wrap {
   width: min(100%, calc(var(--wrap) + var(--gutter) * 2));
   max-width: none;

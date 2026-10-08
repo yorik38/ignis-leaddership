@@ -22,7 +22,7 @@
 .comparison-answer,.comparison-scenarios,.comparison-retainer{background:#fff}
 .comparison-faq{background:#f5f7f8}
 .comparison-answer-grid{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:clamp(3rem,8vw,7rem);align-items:start}
-.comparison-answer h2,.comparison-section-intro h2,.comparison-owned h2,.comparison-retainer h2,.comparison-cta h2{margin:0;font-size:clamp(2.2rem,4.5vw,4rem);font-weight:400;line-height:1.04;letter-spacing:-.045em;text-wrap:balance}
+.comparison-answer h2,.comparison-section-intro h2,.comparison-owned h2,.comparison-retainer h2,.comparison-cta h2{margin:0;font-size:clamp(2.2rem,3.4vw,4rem);font-weight:400;line-height:1.04;letter-spacing:-.045em;text-wrap:balance}
 .comparison-route-list{border-top:1px solid var(--line)}
 .comparison-route-list article{display:grid;grid-template-columns:2.5rem minmax(0,1fr);gap:.25rem 1.25rem;padding:1.5rem 0;border-bottom:1px solid var(--line)}
 .comparison-route-list article>span{grid-row:1/3;color:var(--accent);font-size:.75rem;font-weight:700;letter-spacing:.08em}
@@ -46,7 +46,7 @@
 .comparison-reality{background:#07111b;color:#fff}
 .comparison-reality-heading{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(280px,.8fr);gap:clamp(3rem,8vw,8rem);align-items:start}
 .comparison-reality-heading .section-label{display:none}
-.comparison-reality-heading h2{max-width:13ch;margin:0;color:#fff;font-size:clamp(2.5rem,5vw,4.6rem);font-weight:400;line-height:1;letter-spacing:-.05em;text-wrap:balance}
+.comparison-reality-heading h2{max-width:13ch;margin:0;color:#fff;font-size:clamp(2.25rem,3.4vw,4rem);font-weight:400;line-height:1;letter-spacing:-.05em;text-wrap:balance}
 .comparison-reality-heading>p:last-child{margin:0;color:#b8c6d1;font-size:1rem;line-height:1.7}
 .comparison-reality-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;margin-top:clamp(3rem,6vw,5rem);background:rgba(255,255,255,.17);border:1px solid rgba(255,255,255,.17)}
 .comparison-reality-grid article{padding:clamp(1.75rem,4vw,3rem);background:#0c1925}
@@ -113,3 +113,4 @@
 @media(max-width:850px){.platform-grid article{grid-template-columns:repeat(2,minmax(0,1fr));grid-template-areas:"name name" "position read" "link link"}.platform-grid a{margin-top:.4rem}}
 @media(max-width:760px){.comparison-shell{width:calc(100% - 32px)}.comparison-answer-grid,.comparison-owned-grid,.comparison-retainer-grid,.comparison-cta-grid,.workflow-benefits,.comparison-reality-grid,.comparison-reality-callout,.decision-pull,.work-shift{grid-template-columns:1fr}.comparison-steps{grid-template-columns:1fr}.comparison-owned-grid li{grid-template-columns:1fr;gap:.45rem}.comparison-cta-grid .button{justify-self:start}.comparison-hero h1{font-size:clamp(2.75rem,13vw,4.5rem)}.comparison-hero-actions{align-items:flex-start;flex-direction:column}.comparison-faq details p{padding-right:0}}
 @media(max-width:520px){.platform-grid article{grid-template-columns:1fr;grid-template-areas:"name" "position" "read" "link";gap:1rem}.platform-grid .platform-vp{padding-left:0;border-left:0}.platform-grid .platform-read{padding:1rem 0 0;border-top:1px solid var(--line);border-left:0}.workflow-chain{grid-template-columns:1fr}.workflow-chain article:last-child{grid-column:auto}.comparison-principle{padding:1.5rem}.comparison-route-list article{grid-template-columns:2rem minmax(0,1fr)}}
+@media(max-width:520px){.comparison-answer h2,.comparison-section-intro h2,.comparison-owned h2,.comparison-retainer h2,.comparison-cta h2,.comparison-reality-heading h2{font-size:clamp(1.9rem,8.6vw,2.35rem)}}
