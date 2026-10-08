@@ -93,6 +93,10 @@ for (const page of pages) {
       '<p class="section-label section-label-dark">Services</p>',
     );
     html = html.replace(
+      'One commercially grounded method, applied in two places.',
+      'Partnering with commercial leaders to turn AI ambition into work that performs and value customers can buy.',
+    );
+    html = html.replace(
       'Energy <span>·</span> Infrastructure <span>·</span> Industrial <span>·</span> Construction',
       'Energy <span>·</span> Industrial <span>·</span> Construction',
     );
