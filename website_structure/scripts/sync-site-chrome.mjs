@@ -89,6 +89,10 @@ for (const page of pages) {
       '<h3>Productivity without<br>commercial design</h3>',
     );
     html = html.replace(
+      '<p class="section-label section-label-dark">Two routes</p>',
+      '<p class="section-label section-label-dark">Services</p>',
+    );
+    html = html.replace(
       'Energy <span>·</span> Infrastructure <span>·</span> Industrial <span>·</span> Construction',
       'Energy <span>·</span> Industrial <span>·</span> Construction',
     );
