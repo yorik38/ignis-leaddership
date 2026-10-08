@@ -783,6 +783,8 @@ label.skip-link {
   align-self: start;
 }
 
+.footer-top nav a { white-space: nowrap; }
+
 .footer-bottom {
   display: flex;
   justify-content: flex-end;
