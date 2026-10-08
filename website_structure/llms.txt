@@ -1,6 +1,6 @@
 # Ignis Leadership
 
-> Ignis Leadership helps lean commercial teams ignite governed human-AI systems to bid more, buy better and stay in control.
+> Ignis Leadership helps commercial leaders adopt governed AI and develop the services, offers and delivery models it makes viable.
 
 Ignis Leadership is the practice of Yorik Tisseau. He brings 17 years of experience across procurement, bid management and commercial leadership in energy, infrastructure and industrial markets, including senior roles at Bouygues, bp and RWE.
 
@@ -8,22 +8,21 @@ The central argument of the practice: AI should strengthen commercial judgement,
 
 ## Who it is for
 
-Lean commercial teams pursuing complex, high-value work and teams running tenders to award it, particularly in energy, infrastructure and industrial markets.
+Commercial and transformation leaders who want to redesign existing work or develop new customer value through governed human-agent systems.
 
 ## Services
 
-- Bid — Win work: bid management audit, human-AI process redesign, governed workflow design, operating model embed and team adoption.
-- Tender — Buy well: tender management audit, human-AI process redesign, governed workflow design, operating model embed and team adoption.
-- Engagement approach: audit the current process and capability, design and prove one bounded pilot, then extend the modular system across the lifecycle.
+- Commercial AI adoption: redesign commercial work as governed human-agent systems, from business development and bids to mobilisation and handover.
+- Commercial transformation: identify and test services, offers and delivery models that AI can make commercially viable.
+- Engagement approach: map the operating reality, define the strategy and roadmap, then design or support the build of the first governed system.
 
 ## Core pages
 
 - [Home](https://www.ignisleadership.com/): Ignis positioning, approach, experience, services, illustrative outcomes and engagement model.
 - [About Yorik](https://www.ignisleadership.com/about): Yorik Tisseau's experience and approach to commercial leadership, executive coaching and adoption.
-- [Bid](https://www.ignisleadership.com/bid): governed human-AI bid capabilities for teams pursuing complex work.
-- [Tender](https://www.ignisleadership.com/tender): governed human-AI tender capabilities for teams making defensible buying decisions.
-- [Outcomes](https://www.ignisleadership.com/case-study): illustrative bid and tender outcomes, clearly presented as examples rather than client claims.
-- [Insights](https://www.ignisleadership.com/insights): the "Bid more. Win more." newsletter on commercial judgement, bid and tender leadership, commercial memory and governed human-AI systems.
+- [Commercial AI adoption](https://www.ignisleadership.com/commercial-ai-adoption): governed human-agent systems for the commercial front end, including business development, bids, tenders, mobilisation and handover.
+- [Commercial transformation](https://www.ignisleadership.com/commercial-transformation): how to identify and test the new services, offers and delivery models AI can make viable.
+- [Insights](https://www.ignisleadership.com/insights): the "Bid more. Win more." newsletter on commercial AI adoption, transformation, commercial judgement and governed human-agent systems.
 - [Archive](https://www.ignisleadership.com/archive): index of past newsletter editions.
 - [Contact](https://www.ignisleadership.com/contact): start a conversation with Ignis Leadership.
 - [Governed agentic system brochure](https://www.ignisleadership.com/assets/downloads/ignis-governed-agentic-system-brochure.pdf): a free, ungated overview of how people, agents, knowledge and controls work together across bids and tenders.

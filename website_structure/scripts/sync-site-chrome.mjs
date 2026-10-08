@@ -116,6 +116,29 @@ for (const page of pages) {
     }
   }
 
+  if (page === "insights.html") {
+    html = html.replaceAll(
+      'Bid &amp; Tender AI Insights | Ignis Leadership',
+      'Commercial AI Insights | Ignis Leadership',
+    );
+    html = html.replaceAll(
+      'Practical analysis for commercial leaders on agentic AI, bid and tender management, commercial memory, governance and human decision-making.',
+      'Practical notes for commercial leaders on AI adoption, transformation, governance and human-agent systems.',
+    );
+    html = html.replaceAll(
+      'Practical analysis of agentic AI, commercial judgement and governance across bids and tenders.',
+      'Practical notes on commercial AI adoption, transformation, governance and human-agent systems.',
+    );
+    html = html.replaceAll(
+      '"name":"Bid and Tender AI Insights"',
+      '"name":"Commercial AI Insights"',
+    );
+    html = html.replaceAll(
+      'Practical notes on how agentic AI is changing the way teams bid, tender and make commercial decisions.',
+      'Practical notes on how agentic AI is changing commercial work, customer value and growth.',
+    );
+  }
+
   if (page === "bid.html") {
     html = html.replace(
       '<p class="section-label">Bid</p><h1>',
@@ -142,9 +165,9 @@ for (const page of pages) {
     }
   }
 
-  html = html.replace(/\/assets\/site-chrome\.css\?v=\d+/g, "/assets/site-chrome.css?v=24");
-  if (!html.includes('/assets/site-chrome.css?v=24')) {
-    html = html.replace("</head>", '<link rel="stylesheet" href="/assets/site-chrome.css?v=24">\n</head>');
+  html = html.replace(/\/assets\/site-chrome\.css\?v=\d+/g, "/assets/site-chrome.css?v=25");
+  if (!html.includes('/assets/site-chrome.css?v=25')) {
+    html = html.replace("</head>", '<link rel="stylesheet" href="/assets/site-chrome.css?v=25">\n</head>');
   }
 
   html = html.replace(/\/assets\/capability\.js\?v=\d+/g, "/assets/capability.js?v=12");
