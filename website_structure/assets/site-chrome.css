@@ -843,6 +843,10 @@ label.skip-link {
 }
 
 @media (max-width: 850px) {
+  /* Keep the final signup and sitemap visually connected on small screens. */
+  .home-community { padding-bottom: 2.5rem; }
+  .footer-top { padding-top: 2rem; }
+
   .footer-top { grid-template-columns: 1fr; }
   .site-footer .footer-top p {
     font-size: clamp(.88rem, 3.55vw, .92rem);

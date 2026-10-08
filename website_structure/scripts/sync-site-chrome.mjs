@@ -241,9 +241,9 @@ for (const page of pages) {
     html = html.replace("</head>", '<link rel="stylesheet" href="/assets/capability.css?v=121">\n</head>');
   }
 
-  html = html.replace(/\/assets\/site-chrome\.css\?v=\d+/g, "/assets/site-chrome.css?v=34");
-  if (!html.includes('/assets/site-chrome.css?v=34')) {
-    html = html.replace("</head>", '<link rel="stylesheet" href="/assets/site-chrome.css?v=34">\n</head>');
+  html = html.replace(/\/assets\/site-chrome\.css\?v=\d+/g, "/assets/site-chrome.css?v=35");
+  if (!html.includes('/assets/site-chrome.css?v=35')) {
+    html = html.replace("</head>", '<link rel="stylesheet" href="/assets/site-chrome.css?v=35">\n</head>');
   }
 
   html = html.replace(/\/assets\/capability\.js\?v=\d+/g, "/assets/capability.js?v=12");
