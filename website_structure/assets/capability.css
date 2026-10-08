@@ -19,6 +19,12 @@
 /* The five shared route steps are neutral; desk-specific accents begin below. */
 .services-method li:nth-child(n) span{color:var(--on-dark-muted)}
 
+/* Keep the AI-roulette conclusion easy to scan on wide layouts without forcing a mobile break. */
+@media(min-width:521px){.roulette-conclusion em{display:block}}
+
+/* Shared diagnostic-stage numbering uses the Ignis gradient; desk accents remain reserved for Bid and Tender. */
+.roulette-split span,.adoption-gap-split span{background:linear-gradient(105deg,#8fb0d6,#14919b);background-clip:text;-webkit-background-clip:text;color:transparent}
+
 /* Homepage positioning: promise, value proposition and adoption gap. */
 .hero h1{max-width:1120px;font-size:clamp(3.2rem,5.15vw,5.8rem)}
 .hero .hero-serif{display:block;padding-bottom:.08em}
