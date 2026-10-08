@@ -313,7 +313,7 @@ label.skip-link {
 .overlay-nav {
   align-self: center;
   display: grid;
-  width: min(100%, 880px);
+  width: min(100%, 1040px);
   margin: 2rem auto;
 }
 
@@ -324,7 +324,7 @@ label.skip-link {
   padding: clamp(.65rem, 1.4vh, 1.1rem) 0;
   border-bottom: 1px solid var(--chrome-line);
   color: inherit;
-  font-size: clamp(2rem, 5vw, 4.6rem);
+  font-size: clamp(2rem, 4.25vw, 3.8rem);
   font-weight: 400;
   line-height: 1.05;
   letter-spacing: -.04em;
