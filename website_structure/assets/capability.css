@@ -661,6 +661,21 @@
 @media(min-width:1151px){.services-intro-copy{grid-column:3}}
 @media(min-width:851px) and (max-width:1150px){.services-intro-copy{grid-column:3}}
 
+/* Keep the two entry-point cards on the same content rail as their heading. */
+@media(min-width:1151px){
+  .route-services>.wrap{display:grid;grid-template-columns:8rem minmax(300px,.72fr) minmax(0,1.55fr);gap:2rem}
+  .route-services .services-intro{grid-column:1/-1}
+  .route-services .services-desks{grid-column:3;grid-template-columns:repeat(2,minmax(0,1fr))}
+  .route-services .services-visual{display:none}
+}
+@media(min-width:851px) and (max-width:1150px){
+  .route-services>.wrap{display:grid;grid-template-columns:4rem minmax(240px,.8fr) minmax(0,1fr);gap:2rem}
+  .route-services .services-intro{grid-column:1/-1}
+  .route-services .services-desks{grid-column:3;grid-template-columns:repeat(2,minmax(0,1fr))}
+  .route-services .services-visual{display:none}
+}
+@media(max-width:850px){.route-services>.wrap{display:block}}
+
 /* WEB-005 refinement: preserve serif descenders and rebalance the value narrative. */
 .hero h1,.hero h1 .hero-serif,.section-label{overflow:visible}
 .hero h1{line-height:.96;padding-bottom:.1em}
