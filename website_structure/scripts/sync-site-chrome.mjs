@@ -44,8 +44,9 @@ const communityPages = new Map([
 const header = (await readFile(new URL("../partials/site-header.html", import.meta.url), "utf8")).trim();
 const footer = (await readFile(new URL("../partials/site-footer.html", import.meta.url), "utf8")).trim();
 const communityTemplate = (await readFile(new URL("../partials/community-signup.html", import.meta.url), "utf8")).trim();
+const primaryClosingCta = (await readFile(new URL("../partials/primary-closing-cta.html", import.meta.url), "utf8")).trim();
 
-if (!header || !footer || !communityTemplate) throw new Error("A shared site template is empty");
+if (!header || !footer || !communityTemplate || !primaryClosingCta) throw new Error("A shared site template is empty");
 
 for (const page of pages) {
   const url = new URL(page, root);
@@ -136,10 +137,6 @@ for (const page of pages) {
     html = html.replace(
       'Energy <span>·</span> Industrial <span>·</span> Construction',
       'Energy <span>·</span> Infrastructure <span>·</span> Industrial',
-    );
-    html = html.replace(
-      '<h2>Turn AI ambition into <span class="serif-accent">commercial advantage.</span></h2>',
-      '<h2>Turn AI ambition into <span class="gradient-word serif-accent">commercial advantage.</span></h2>',
     );
     html = html.replace(
       /\s*<section class="band band-paper specialist-applications">.*?<\/section>(?=\s*<section class="band brochure-band">)/s,
@@ -388,6 +385,12 @@ for (const page of pages) {
       'Tell me where capacity, control or continuity breaks on the next bid or tender.',
       'Tell me where commercial work is under pressure, or where AI could make a new customer offer viable.',
     );
+  }
+
+  if (page === "index.html" || page === "about.html") {
+    const sharedClosingCta = /<section class="band band-paper closing-band closing-band-light"><div class="wrap direct-close">.*?<\/section>/s;
+    if (!sharedClosingCta.test(html)) throw new Error(`Shared closing CTA not found in ${page}`);
+    html = html.replace(sharedClosingCta, primaryClosingCta);
   }
 
   html = html.replace(/\/assets\/capability\.css\?v=\d+/g, "/assets/capability.css?v=125");
