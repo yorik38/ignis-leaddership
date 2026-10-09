@@ -736,13 +736,11 @@
   .proposition-page .foundation-points{border-top:0}
 }
 
-/* Homepage promise: keep the same two-line reading order at every width. */
-.hero h1{grid-template-columns:max-content max-content;column-gap:.22em}
-.hero h1 .hero-opening{grid-column:1;grid-row:1;white-space:nowrap}
-.hero h1 .hero-work{grid-column:2;grid-row:1;white-space:nowrap}
-.hero h1 .hero-serif{grid-column:1/-1;grid-row:2;white-space:nowrap}
+/* Homepage promise: balance the two lines consistently across viewports. */
+.hero h1{display:flex;flex-wrap:wrap;column-gap:.35em}
+.hero h1 .hero-opening{flex-basis:100%;white-space:nowrap}
+.hero h1 .hero-work,.hero h1 .hero-serif{white-space:nowrap}
 @media(max-width:700px){
-  .hero h1{display:flex;flex-wrap:wrap;column-gap:.35em;font-size:clamp(2rem,9.4vw,3.2rem)}
-  .hero h1 .hero-opening{flex-basis:100%}
+  .hero h1{font-size:clamp(2rem,9.4vw,3.2rem)}
   .hero h1 .hero-serif{padding-bottom:.08em}
 }

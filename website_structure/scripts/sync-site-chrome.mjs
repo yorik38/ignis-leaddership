@@ -390,12 +390,12 @@ for (const page of pages) {
     );
   }
 
-  html = html.replace(/\/assets\/capability\.css\?v=\d+/g, "/assets/capability.css?v=124");
-  if (!html.includes('/assets/capability.css?v=124')) {
-    html = html.replace("</head>", '<link rel="stylesheet" href="/assets/capability.css?v=124">\n</head>');
+  html = html.replace(/\/assets\/capability\.css\?v=\d+/g, "/assets/capability.css?v=125");
+  if (!html.includes('/assets/capability.css?v=125')) {
+    html = html.replace("</head>", '<link rel="stylesheet" href="/assets/capability.css?v=125">\n</head>');
   }
   let capabilityStyles = 0;
-  html = html.replace(/<link rel="stylesheet" href="\/assets\/capability\.css\?v=124">\s*/g, (match) => {
+  html = html.replace(/<link rel="stylesheet" href="\/assets\/capability\.css\?v=125">\s*/g, (match) => {
     capabilityStyles += 1;
     return capabilityStyles === 1 ? match : '';
   });
