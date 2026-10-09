@@ -2,8 +2,8 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import {maturitySlices,slicePath,labelPosition} from "../assets/ai-roulette-wheel.mjs";
 
-test("decorative maturity wheel covers all seven stages",()=>{
-  assert.equal(maturitySlices.length,7);
+test("decorative maturity wheel covers all four use patterns",()=>{
+  assert.equal(maturitySlices.length,4);
   assert.equal(maturitySlices[0].start,0);
   assert.equal(maturitySlices.at(-1).end,360);
   for(let i=1;i<maturitySlices.length;i++)assert.equal(maturitySlices[i-1].end,maturitySlices[i].start);

@@ -1,4 +1,4 @@
-:root{--ar-ink:#f5f7f8;--ar-muted:#b7c0ca;--ar-line:#30383f;--ar-panel:#11171c;--ar-sky:#8fb0d6;--ar-teal:#69c0bc;--ar-amber:#e3b575;--ar-accent:#ef6675;--ar-gradient:linear-gradient(100deg,#8fb0d6,#27a8ad);--ar-display:"Anton",Impact,"Inter",sans-serif}
+:root{--ar-ink:#f5f7f8;--ar-muted:#b7c0ca;--ar-line:#30383f;--ar-panel:#11171c;--ar-sky:#8fb0d6;--ar-teal:#69c0bc;--ar-amber:#e3b575;--ar-accent:#ef6675;--ar-gradient:#ef6675;--ar-display:"Anton",Impact,"Inter",sans-serif}
 .ar-gradient-text{background:var(--ar-gradient);-webkit-background-clip:text;background-clip:text;color:transparent}
 *{box-sizing:border-box}
 .ar-page [hidden]{display:none!important}
@@ -184,6 +184,10 @@ body.ar-focus-mode .ar-main{padding-top:clamp(2.5rem,5vw,4rem)}
 .ar-stack-item{display:flex;flex-direction:column;justify-content:center;min-height:clamp(330px,68vh,620px);opacity:.32;transition:opacity .28s ease}
 .ar-stack-item.is-active{opacity:1}
 .ar-stack-item .ar-question{margin-bottom:1.4rem}
+.ar-stack-item .ar-question:focus{outline:none}
+.ar-sticky-head{position:sticky;top:0;z-index:5;padding:1rem 0 .1rem;background:#080c10}
+.ar-sticky-head .ar-top-bar{margin-bottom:1rem}
+.ar-sticky-head .ar-progress-block{margin-bottom:1.2rem}
 
 .ar-pause,.ar-gate{max-width:640px;margin:clamp(3rem,10vw,7rem) auto 0;text-align:center}
 .ar-pause h2,.ar-gate h2{margin:.8rem 0 1.2rem;font-family:var(--ar-display);font-size:clamp(2.2rem,4.4vw,3.3rem);font-weight:400;letter-spacing:.01em}
@@ -207,7 +211,7 @@ body.ar-focus-mode .ar-main{padding-top:clamp(2.5rem,5vw,4rem)}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.ar-lane,.ar-progress span,.ar-wheel{transition:none!important;animation:none!important}}
 
 /* The entry is deliberately bright; the assessment moves into a focused dark room. */
-.ar-page.ar-is-landing .ar-main{background:radial-gradient(circle at 85% 12%,#91d5d5 0,transparent 38%),radial-gradient(circle at 12% 75%,#a2bfe1 0,transparent 44%),linear-gradient(135deg,#eff5f7,#dbe7ee 65%,#d2eeec);color:#102027}
+.ar-page.ar-is-landing .ar-main{background:#f2f3f1;color:#102027}
 .ar-page.ar-is-landing .ar-lede,.ar-page.ar-is-landing .ar-ladder-label,.ar-page.ar-is-landing .ar-wheel-caption{color:#364952}
 .ar-page.ar-is-landing .ar-promise li{color:#17333c}
 .ar-page.ar-is-landing .ar-audience-props{background:rgba(255,255,255,.64);border-color:#8aa8ad}
@@ -218,12 +222,12 @@ body.ar-focus-mode .ar-main{padding-top:clamp(2.5rem,5vw,4rem)}
 .ar-page.ar-is-landing .ar-outline{color:#0c2b32;border-color:#31525b}
 .ar-page.ar-is-landing .ar-outline:hover{background:#e9f5f4}
 .ar-page.ar-is-landing .site-header:not(.is-scrolled){color:#102027}
-.ar-page .ar-button{background:var(--ar-gradient);color:#071719}
+.ar-page .ar-button{background:var(--ar-accent);color:#10171b}
 .ar-page .ar-button:disabled{background:#495158;color:#c3c9ca}
 .ar-page .ar-category-kicker{font-size:.85rem;font-weight:800;letter-spacing:.19em;text-transform:uppercase}
 .ar-page .ar-flow,.ar-page .ar-intro,.ar-page .ar-gate{max-width:860px}
 .ar-page .ar-section-title{font-size:clamp(3rem,7vw,6.8rem);line-height:.98}
-.ar-page .ar-question{font-family:Inter,system-ui,sans-serif;font-weight:800;font-size:clamp(1.85rem,3.1vw,2.7rem);line-height:1.18;letter-spacing:-.04em}
+.ar-page .ar-question{font-family:Inter,system-ui,sans-serif;font-weight:800;font-size:clamp(1.75rem,2.65vw,2.4rem);line-height:1.2;letter-spacing:-.04em}
 .ar-page .ar-stack{text-align:left}
 .ar-page .ar-stack .ar-flow-actions{margin-top:4rem}
 .ar-page .ar-stack .ar-button{min-width:min(100%,420px)}
@@ -231,7 +235,7 @@ body.ar-focus-mode .ar-main{padding-top:clamp(2.5rem,5vw,4rem)}
 .ar-page .ar-seg.is-active{background:linear-gradient(to right,var(--ar-accent) var(--ar-segment-fill),#414a50 var(--ar-segment-fill));box-shadow:0 0 12px rgba(239,102,117,.3)}
 .ar-page .ar-subdim-heading em{color:var(--ar-accent)}
 .ar-page .ar-dots-labels{max-width:100%;margin:0 0 .8rem;font-size:.84rem;font-weight:800;letter-spacing:.15em;text-transform:uppercase}
-.ar-page .ar-dots-labels span:last-child{color:#8bd6d4}
+.ar-page .ar-dots-labels span:last-child{color:var(--ar-accent)}
 .ar-page .ar-dots{justify-content:space-between;gap:.4rem;width:100%;margin:0;padding:0 .15rem}
 .ar-page .ar-dot{width:clamp(36px,5vw,58px);height:clamp(36px,5vw,58px);border:3px solid #72777b}
 .ar-page .ar-dot:nth-child(3){width:clamp(32px,4.5vw,50px);height:clamp(32px,4.5vw,50px)}
@@ -252,5 +256,17 @@ body.ar-focus-mode .ar-main{padding-top:clamp(2.5rem,5vw,4rem)}
 .ar-page .ar-gate .ar-button{min-width:min(100%,520px)}
 .ar-page .ar-result-score{display:flex;align-items:baseline;gap:.5rem;font-size:clamp(4rem,10vw,8rem);font-weight:800;line-height:1}
 .ar-page .ar-result-score span{font-size:1rem;font-weight:500}
+.ar-page.ar-is-landing .ar-kicker{color:#ad3949;background:none}
+.ar-page.ar-is-landing .ar-landing h1 span{color:#d94a60;background:none}
+.ar-outcomes{margin:1.2rem 0 .2rem;font-size:.92rem;font-weight:700;line-height:1.5;color:#1d323a}
+.ar-outcomes span{padding:0 .3rem;color:#c64c5e}
+.ar-fineprint,.ar-perspective{margin:.5rem 0 0;color:#43525a;font-size:.84rem;line-height:1.5}
+.ar-perspective{max-width:46ch;margin:0 auto 2rem}
+.ar-landing-visual{margin:2rem 0 1rem}
+.ar-page.ar-is-landing .ar-start{margin-top:1.5rem}
+.ar-page.ar-is-landing .ar-outline.ar-start{margin-top:.7rem}
+.ar-page.ar-is-landing .ar-button:hover{background:#d94a60}
+.ar-page .ar-button:hover:not(:disabled){background:#ff8793}
+@media(max-width:600px){.ar-outcomes{max-width:30ch}.ar-outcomes span{padding:0 .12rem}.ar-landing-visual{margin-top:1.6rem}.ar-page.ar-is-landing .ar-landing h1{font-size:clamp(2.6rem,11vw,3.4rem)}}
 @media(max-width:600px){.ar-page .ar-section-title{font-size:clamp(2.6rem,12vw,4rem)}.ar-page .ar-question{font-size:clamp(1.55rem,6.6vw,2.1rem)}.ar-stack-item{min-height:clamp(340px,64svh,560px)}.ar-page .ar-stack .ar-flow-actions{margin-top:2.5rem}.ar-page .ar-dots{gap:.1rem}.ar-page .ar-dot{width:38px;height:38px}.ar-page .ar-dot:nth-child(3){width:34px;height:34px}.ar-page .ar-pause h2,.ar-page .ar-gate h2{font-size:clamp(3rem,13vw,4.5rem)}}
 @media(prefers-reduced-motion:reduce){.ar-stack-item{transition:none}}
