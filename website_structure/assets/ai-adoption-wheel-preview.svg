@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" role="img" aria-labelledby="wheel-title wheel-desc">
+  <title id="wheel-title">AI Roulette: seven AI adoption stages</title>
+  <desc id="wheel-desc">A decorative wheel turns, then pauses. Its stages are no access, shadow use, approved copilot, custom agents, team workflows, pilot and production. It does not choose an assessment result.</desc>
+  <style>
+    .wheel { transform-origin: 400px 400px; animation: turn 16s cubic-bezier(.14,.78,.18,1) infinite; }
+    .wheel text { font: 700 17px Inter, Arial, sans-serif; letter-spacing: .045em; }
+    .hub-title { font: italic 38px Georgia, serif; fill: #fff; }
+    .hub-subtitle { font: 700 11px Inter, Arial, sans-serif; letter-spacing: .2em; fill: #a8d6da; }
+    .spark { transform-origin: 400px 400px; animation: glow 16s ease-in-out infinite; }
+    @keyframes turn { 0% { transform: rotate(0deg); } 61%,100% { transform: rotate(720deg); } }
+    @keyframes glow { 0%,65%,100% { opacity: .32; } 58%,62% { opacity: .8; } }
+    @media (prefers-reduced-motion: reduce) { .wheel,.spark { animation: none; } }
+  </style>
+  <defs>
+    <radialGradient id="backdrop"><stop offset="0" stop-color="#172934"/><stop offset=".62" stop-color="#0c151c"/><stop offset="1" stop-color="#070a0d"/></radialGradient>
+    <linearGradient id="edge" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#8fb0d6"/><stop offset=".5" stop-color="#4fa39c"/><stop offset="1" stop-color="#e3b575"/></linearGradient>
+    <radialGradient id="sheen" cx=".25" cy=".2" r=".85"><stop stop-color="#fff" stop-opacity=".2"/><stop offset=".55" stop-color="#fff" stop-opacity=".02"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient>
+    <filter id="soft-glow" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="13"/></filter>
+  </defs>
+  <rect width="800" height="800" fill="#070a0d"/>
+  <circle cx="400" cy="400" r="388" fill="url(#backdrop)"/>
+  <circle class="spark" cx="400" cy="400" r="345" fill="none" stroke="url(#edge)" stroke-width="18" filter="url(#soft-glow)"/>
+  <circle cx="400" cy="400" r="334" fill="#080d11" stroke="#536e7d" stroke-width="2"/>
+  <g class="wheel">
+    <path d="M 400 400 L 400.00 80.00 A 320 320 0 0 1 650.19 200.48 Z" fill="#39424a" stroke="#080d11" stroke-width="6"/>
+    <text x="495.02" y="202.69" transform="rotate(25.71 495.02 202.69)" fill="#f5f7f8" text-anchor="middle" dominant-baseline="middle">NO ACCESS</text>
+    <path d="M 400 400 L 650.19 200.48 A 320 320 0 0 1 711.98 471.21 Z" fill="#55626c" stroke="#080d11" stroke-width="6"/>
+    <text x="613.51" y="351.27" transform="rotate(77.14 613.51 351.27)" fill="#f5f7f8" text-anchor="middle" dominant-baseline="middle">SHADOW USE</text>
+    <path d="M 400 400 L 711.98 471.21 A 320 320 0 0 1 538.84 688.31 Z" fill="#7fa0c9" stroke="#080d11" stroke-width="6"/>
+    <text x="571.22" y="536.54" transform="rotate(308.57 571.22 536.54)" fill="#081015" text-anchor="middle" dominant-baseline="middle">APPROVED COPILOT</text>
+    <path d="M 400 400 L 538.84 688.31 A 320 320 0 0 1 261.16 688.31 Z" fill="#8fb0d6" stroke="#080d11" stroke-width="6"/>
+    <text x="400" y="619" fill="#081015" text-anchor="middle" dominant-baseline="middle">CUSTOM AGENTS</text>
+    <path d="M 400 400 L 261.16 688.31 A 320 320 0 0 1 88.02 471.21 Z" fill="#69c0bc" stroke="#080d11" stroke-width="6"/>
+    <text x="228.78" y="536.54" transform="rotate(51.43 228.78 536.54)" fill="#081015" text-anchor="middle" dominant-baseline="middle">TEAM WORKFLOWS</text>
+    <path d="M 400 400 L 88.02 471.21 A 320 320 0 0 1 149.81 200.48 Z" fill="#4fa39c" stroke="#080d11" stroke-width="6"/>
+    <text x="186.49" y="351.27" transform="rotate(282.86 186.49 351.27)" fill="#f5f7f8" text-anchor="middle" dominant-baseline="middle">PILOT</text>
+    <path d="M 400 400 L 149.81 200.48 A 320 320 0 0 1 400.00 80.00 Z" fill="#e3b575" stroke="#080d11" stroke-width="6"/>
+    <text x="304.98" y="202.69" transform="rotate(334.29 304.98 202.69)" fill="#081015" text-anchor="middle" dominant-baseline="middle">PRODUCTION</text>
+    <circle cx="400" cy="400" r="320" fill="url(#sheen)"/>
+    <circle cx="400" cy="400" r="322" fill="none" stroke="#d8edf0" stroke-opacity=".65" stroke-width="2"/>
+  </g>
+  <circle cx="400" cy="400" r="99" fill="#081015" stroke="#eff7f8" stroke-width="6"/>
+  <circle cx="400" cy="400" r="83" fill="none" stroke="#58747d" stroke-width="1"/>
+  <text class="hub-title" x="400" y="403" text-anchor="middle">AI roulette</text>
+  <text class="hub-subtitle" x="400" y="431" text-anchor="middle">ADOPTION STAGES</text>
+  <path d="M400 50 379 12h42z" fill="#f5f7f8" stroke="#081015" stroke-width="5"/>
+</svg>
