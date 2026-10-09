@@ -222,7 +222,7 @@ app.addEventListener("submit",event=>{
   event.preventDefault();
   const form=event.target;
   if(form.matches("[data-segment-form]")){const value=new FormData(form).get("segment");if(!value){form.querySelector("input")?.focus();return}state.segment=value;state.stage="question";state.sectionIdx=0;state.qIdx=0;render({focus:true});return}
-  if(form.matches("[data-branch-form]")){const id=form.dataset.branchId,value=new FormData(form).get(id);if(!value){form.querySelector("input")?.focus();return}if(id==="T0"){state.transformationBranch=value;goToSection(1)}else{state.adoptionBranch=value;goToSection(4)}return}
+  if(form.matches("[data-branch-form]")){const id=form.dataset.branchId,value=new FormData(form).get(id);if(!value){form.querySelector("input")?.focus();return}if(id==="A0"){state.adoptionBranch=value;goToSection(1)}else{state.transformationBranch=value;goToSection(4)}return}
   if(form.matches("[data-gate-form]")){const data=new FormData(form),email=data.get("email"),name=data.get("name");if(!form.reportValidity())return;state.emailCaptured=true;state.capturedEmail=email;state.capturedName=name;goToSection(7);return}
 });
 
