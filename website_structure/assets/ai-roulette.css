@@ -339,6 +339,15 @@ body.ar-is-landing .site-header,body.ar-is-landing .ar-footer{display:none}
 .ar-perspective-step .ar-choose-note{margin:1.1rem auto 0;color:#858585;font-size:.85rem}
 .ar-page:not(.ar-is-landing) .ar-category-kicker{background:#ef5f78;-webkit-background-clip:text;background-clip:text}
 .ar-page:not(.ar-is-landing) .ar-subdim-heading em{color:#ef5f78}
+.ar-page .ar-perspective-step,.ar-page .ar-pause,.ar-page .ar-gate{margin-top:0}
+.ar-page .ar-perspective-step .ar-top-bar{margin-bottom:clamp(3rem,9vh,6rem)}
+.ar-page .ar-perspective-step .ar-section-title{margin-top:0}
+.ar-page .ar-pause .ar-top-bar{margin-bottom:clamp(4rem,11vh,8rem)}
+.ar-page .ar-gate .ar-top-bar{margin-bottom:clamp(2.5rem,6vh,4.5rem)}
+.ar-page .ar-gate .ar-choose-note{max-width:52ch;margin-inline:auto}
+.ar-page .ar-perspective-options button{justify-content:center;min-height:78px;border-color:#747474;text-align:center;font-size:1.02rem}
+.ar-page .ar-perspective-options button:hover{transform:none;border-color:#f2d58d}
+.ar-page .ar-scale-value{min-height:1.3em;margin:.85rem 0 0;color:#c5c9cc;font-size:.82rem;font-weight:800;letter-spacing:.13em;text-align:center;text-transform:uppercase}
 
 @media(max-width:700px){
   .ar-page.ar-is-landing .ar-main{padding-top:1.5rem}

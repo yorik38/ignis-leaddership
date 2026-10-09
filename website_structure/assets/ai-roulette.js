@@ -54,7 +54,7 @@ function render({focus=false}={}){
 
 function topBar(backLabel="Back"){return `<div class="ar-top-bar"><button class="ar-back" type="button" data-back>← ${backLabel}</button><button class="ar-text-button" type="button" data-save-exit>Save &amp; finish later</button></div>`}
 
-function renderSegment(){return `<section class="ar-flow ar-centered ar-perspective-step" aria-labelledby="ar-segment-title">${topBar()}<p class="ar-category-kicker">One quick thing</p><h2 class="ar-section-title" id="ar-segment-title">Which one are you?</h2><div class="ar-perspective-options" role="group" aria-describedby="ar-perspective-note"><button type="button" data-segment="decision_maker">I help set direction and make decisions <span aria-hidden="true">→</span></button><button type="button" data-segment="practitioner">I'm close to how AI is used day to day <span aria-hidden="true">→</span></button></div><p class="ar-choose-note" id="ar-perspective-note">Same questions and score either way. This only changes how we explain your result.</p></section>`}
+function renderSegment(){return `<section class="ar-flow ar-centered ar-perspective-step" aria-labelledby="ar-segment-title">${topBar()}<p class="ar-category-kicker">One quick thing</p><h2 class="ar-section-title" id="ar-segment-title">Which one are you?</h2><div class="ar-perspective-options" role="group" aria-describedby="ar-perspective-note"><button type="button" data-segment="decision_maker">I help set direction and make decisions</button><button type="button" data-segment="practitioner">I'm close to how AI is used day to day</button></div><p class="ar-choose-note" id="ar-perspective-note">Same questions and score either way. This only changes how we explain your result.</p></section>`}
 
 const partStarts=[0,1,3,5];
 function renderIntro(){const sec=structure()[state.sectionIdx],label=sectionLabels[sec.section];const part=partStarts.indexOf(state.sectionIdx)+1;return `<section class="ar-pause ar-intro" aria-labelledby="ar-intro-title">${topBar()}<p class="ar-category-kicker">Part ${part} of 4</p><h2 id="ar-intro-title">${label.title}</h2><p class="ar-choose-note">${label.blurb}</p><div class="ar-part-progress" aria-label="Part ${part} of 4">${partStarts.map((_,i)=>`<span class="${i<part?"is-current":""}"></span>`).join("")}</div><button class="ar-button" type="button" data-begin-part>${part===1?"Begin":"Keep going"} <span aria-hidden="true">→</span></button></section>`}
@@ -72,8 +72,9 @@ function progressHeader(){
 
 function renderQuestionBlock(q,isActive){
   const saved=state.answers[q.id];
+  const scaleLabels=["Strongly disagree","Disagree","Neutral","Agree","Strongly agree"];
   const body=q.type==="scale"
-    ? `<div class="ar-dots-labels"><span>Disagree</span><span>Agree</span></div><fieldset class="ar-dots"><legend class="skip-link">${q.text}</legend>${[1,2,3,4,5].map(v=>`<label class="ar-dot ${Number(saved)>=v?"is-lit":""}"><input type="radio" name="${q.id}" value="${v}" aria-label="${["Strongly disagree","Disagree","Neutral","Agree","Strongly agree"][v-1]}" ${String(saved)===String(v)?"checked":""}></label>`).join("")}</fieldset><p class="ar-scale-cue">Select how much you agree</p>`
+    ? `<div class="ar-dots-labels"><span>Disagree</span><span>Agree</span></div><fieldset class="ar-dots"><legend class="skip-link">${q.text}</legend>${[1,2,3,4,5].map(v=>`<label class="ar-dot ${Number(saved)>=v?"is-lit":""}"><input type="radio" name="${q.id}" value="${v}" aria-label="${scaleLabels[v-1]}" ${String(saved)===String(v)?"checked":""}></label>`).join("")}</fieldset><p class="ar-scale-value" data-scale-value aria-live="polite">${saved?scaleLabels[Number(saved)-1]:"Select how much you agree"}</p>`
     : `<fieldset class="ar-options"><legend class="skip-link">${q.text}</legend>${q.options.map(o=>optionMarkup(q.id,o.value,o.label,saved===o.value)).join("")}</fieldset>`;
   return `<div class="ar-stack-item ${isActive?"is-active":""}" data-question-id="${q.id}"><h2 class="ar-question" ${isActive?'id="ar-question-title"':""}>${q.text}</h2>${body}</div>`;
 }
@@ -84,7 +85,8 @@ function renderQuestionStage(){
   return `<section class="ar-flow ar-stack" aria-labelledby="ar-question-title"><div class="ar-sticky-head">${progressHeader()}</div>${state.notice?`<p class="ar-question-notice" role="alert">${state.notice}</p>`:""}<div class="ar-stack-list">${blocks.join("")}</div><div class="ar-flow-actions"><button class="ar-button" type="button" data-next-question ${complete?"":"disabled"}>Continue <span aria-hidden="true">→</span></button></div></section>`;
 }
 
-function lightDots(fieldset,through){fieldset.querySelectorAll(".ar-dot").forEach((dot,i)=>dot.classList.toggle("is-lit",i<through))}
+const scaleLabels=["Strongly disagree","Disagree","Neutral","Agree","Strongly agree"];
+function lightDots(fieldset,through){fieldset.querySelectorAll(".ar-dot").forEach((dot,i)=>dot.classList.toggle("is-lit",i<through));const label=fieldset.parentElement?.querySelector("[data-scale-value]");if(label)label.textContent=through?scaleLabels[through-1]:"Select how much you agree"}
 function activateQuestion(index,{scroll=true}={}){
   const blocks=[...app.querySelectorAll(".ar-stack-item")];
   blocks.forEach((block,i)=>{block.classList.toggle("is-active",i===index);block.classList.toggle("is-muted",i!==index);const heading=block.querySelector(".ar-question");if(i===index)heading.id="ar-question-title";else heading.removeAttribute("id")});
@@ -111,7 +113,7 @@ window.addEventListener("scroll",()=>{
   });
 },{passive:true});
 
-function renderGate(){return `<section class="ar-gate" aria-labelledby="ar-gate-title">${topBar()}<p class="ar-category-kicker">Starting point complete</p><h2 id="ar-gate-title">Now see the full picture.</h2><p class="ar-choose-note">30 short statements remain across adoption, governance and new opportunities. Estimated time: around four minutes. You can save and return later. Add your name and email to continue. In this review preview, nothing is sent to Ignis and no report is emailed. Your email is held only in this open tab, not in saved progress.</p><form data-gate-form><div class="ar-capture-fields"><label>First name <input name="name" autocomplete="given-name" required></label><label>Email <input name="email" type="email" autocomplete="email" inputmode="email" required></label></div><div class="ar-flow-actions"><button class="ar-button" type="submit">Continue <span aria-hidden="true">→</span></button></div></form></section>`}
+function renderGate(){return `<section class="ar-gate" aria-labelledby="ar-gate-title">${topBar()}<p class="ar-category-kicker">Starting point complete</p><h2 id="ar-gate-title">See the full picture.</h2><p class="ar-choose-note">30 statements remain across adoption, governance and new opportunities. Add your name and email to continue. This review preview does not send or save your details.</p><form data-gate-form><div class="ar-capture-fields"><label>First name <input name="name" autocomplete="given-name" required></label><label>Email <input name="email" type="email" autocomplete="email" inputmode="email" required></label></div><div class="ar-flow-actions"><button class="ar-button" type="submit">Continue <span aria-hidden="true">→</span></button></div></form></section>`}
 
 const segmentFraming={decision_maker:{experimenting:" Compare this with what people doing the work actually experience.",design:" Focus investment on the weakest condition before a wider rollout.",pilot:" Check the foundations in live work before expanding."},practitioner:{experimenting:" Share one concrete use and its constraints with the people setting direction.",design:" Show leaders where the work needs clearer rules or support.",pilot:" Test whether this picture holds beyond your own team."}};
 const segmentGapCallout={decision_maker:"People doing the day-to-day work may see AI use differently. Treat this as a starting hypothesis until you compare views.",practitioner:"Your view may not describe the whole organisation. Compare it with other teams before making a wider claim."};
@@ -243,7 +245,7 @@ app.addEventListener("click",event=>{
 app.addEventListener("change",event=>{
   const input=event.target;
   const block=input.closest(".ar-stack-item");
-  if(block){state.answers[input.name]=input.value;state.notice=null;app.querySelector(".ar-question-notice")?.remove();const dots=input.closest(".ar-dots");if(dots)lightDots(dots,Number(input.value));const sec=currentSection(),complete=sec.questions.every(q=>state.answers[q.id]!==undefined);const next=app.querySelector("[data-next-question]");if(next)next.disabled=!complete;const index=sec.questions.findIndex(q=>q.id===input.name);activateQuestion(Math.min(index+1,sec.questions.length-1),{scroll:index<sec.questions.length-1});}
+  if(block){state.answers[input.name]=input.value;state.notice=null;app.querySelector(".ar-question-notice")?.remove();const dots=input.closest(".ar-dots");if(dots)lightDots(dots,Number(input.value));const sec=currentSection(),complete=sec.questions.every(q=>state.answers[q.id]!==undefined);const next=app.querySelector("[data-next-question]");if(next)next.disabled=!complete;const index=sec.questions.findIndex(q=>q.id===input.name);activateQuestion(index,{scroll:false});}
 });
 
 app.addEventListener("pointerover",event=>{const dot=event.target.closest(".ar-dot");if(dot)lightDots(dot.closest(".ar-dots"),Number(dot.querySelector("input").value))});
