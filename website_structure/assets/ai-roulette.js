@@ -210,7 +210,7 @@ function advanceQuestion(){
 }
 
 function back(){
-  if(state.stage==="segment"){state.stage="landing";render({focus:true});return}
+  if(state.stage==="segment"){state=blankState();clearProgress();render({focus:true});return}
   if(state.stage==="intro"){
     if(state.sectionIdx===0){state.stage="segment";render({focus:true});return}
     if(state.sectionIdx===1){state.stage="gate";render({focus:true});return}
@@ -226,7 +226,7 @@ function back(){
 
 function restart(){state=blankState();clearProgress();render({focus:true})}
 
-landing.querySelector("[data-start]")?.addEventListener("click",()=>{state.stage="segment";render({focus:true})});
+landing.querySelector("[data-start]")?.addEventListener("click",()=>{state=blankState();clearProgress();state.stage="segment";render({focus:true})});
 const resumeBtn=landing.querySelector("[data-resume]");
 resumeBtn?.addEventListener("click",()=>{const saved=loadProgress();if(saved){state=saved;render({focus:true})}});
 
