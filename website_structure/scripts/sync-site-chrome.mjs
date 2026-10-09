@@ -127,7 +127,11 @@ for (const page of pages) {
     );
     html = html.replace(
       'Energy <span>·</span> Infrastructure <span>·</span> Industrial <span>·</span> Construction',
+      'Energy <span>·</span> Infrastructure <span>·</span> Industrial',
+    );
+    html = html.replace(
       'Energy <span>·</span> Industrial <span>·</span> Construction',
+      'Energy <span>·</span> Infrastructure <span>·</span> Industrial',
     );
     html = html.replace(
       '<h2>Turn AI ambition into <span class="serif-accent">commercial advantage.</span></h2>',
@@ -254,6 +258,10 @@ for (const page of pages) {
       '<h3>Win work.<br>Deliver work.</h3><p class="service-summary">Make existing commercial work more effective, governed and scalable.</p>',
     );
     html = html.replace(
+      /<section class="band band-dark services route-services" id="routes">.*?<\/section>(?=\s*<section class="band brochure-band">)/s,
+      `<section class="band band-dark services route-services" id="routes"><div class="wrap"><div class="services-intro"><p class="section-label section-label-dark">Ways to start</p><div class="services-intro-copy"><h2>Start with the commercial opportunity. Or start with the work already under pressure.</h2><p>Every engagement begins with a live commercial pressure or opportunity and ends with a decision you can act on.</p></div></div><div class="services-desks"><a class="service-row route-adoption" href="/commercial-ai-adoption"><div class="service-title"><p>Commercial AI adoption</p><h3>Win work.<br>Deliver work.</h3></div><p class="service-outcome">Make commercial work faster and more scalable while keeping evidence, judgement and accountability connected from opportunity to delivery.</p><span class="service-view">Explore adoption <span aria-hidden="true">▶</span></span></a><a class="service-row route-transformation" href="/commercial-transformation"><div class="service-title"><p>Commercial transformation</p><h3>Sell differently.</h3></div><p class="service-outcome">Turn the expertise, insight and delivery capability you already have into services, offers or outcomes that customers can buy.</p><span class="service-view">Explore transformation <span aria-hidden="true">▶</span></span></a></div></div></section>`,
+    );
+    html = html.replace(
       '<h2>How do you move AI<br><span class="serif-accent">from experiment to commercial value?</span></h2><p>A practical guide to choosing the opportunity, designing the human-agent system and keeping people accountable.</p>',
       '<h2>A practical guide to governed AI<br><span class="serif-accent">for bids and tenders.</span></h2><p>Choose a useful commercial workflow, design the human-agent system and keep people accountable.</p>',
     );
@@ -374,15 +382,25 @@ for (const page of pages) {
     );
   }
 
-  html = html.replace(/\/assets\/capability\.css\?v=\d+/g, "/assets/capability.css?v=121");
-  if (!html.includes('/assets/capability.css?v=121')) {
-    html = html.replace("</head>", '<link rel="stylesheet" href="/assets/capability.css?v=121">\n</head>');
+  html = html.replace(/\/assets\/capability\.css\?v=\d+/g, "/assets/capability.css?v=122");
+  if (!html.includes('/assets/capability.css?v=122')) {
+    html = html.replace("</head>", '<link rel="stylesheet" href="/assets/capability.css?v=122">\n</head>');
   }
+  let capabilityStyles = 0;
+  html = html.replace(/<link rel="stylesheet" href="\/assets\/capability\.css\?v=122">\s*/g, (match) => {
+    capabilityStyles += 1;
+    return capabilityStyles === 1 ? match : '';
+  });
 
-  html = html.replace(/\/assets\/site-chrome\.css\?v=\d+/g, "/assets/site-chrome.css?v=36");
-  if (!html.includes('/assets/site-chrome.css?v=36')) {
-    html = html.replace("</head>", '<link rel="stylesheet" href="/assets/site-chrome.css?v=36">\n</head>');
+  html = html.replace(/\/assets\/site-chrome\.css\?v=\d+/g, "/assets/site-chrome.css?v=37");
+  if (!html.includes('/assets/site-chrome.css?v=37')) {
+    html = html.replace("</head>", '<link rel="stylesheet" href="/assets/site-chrome.css?v=37">\n</head>');
   }
+  let chromeStyles = 0;
+  html = html.replace(/<link rel="stylesheet" href="\/assets\/site-chrome\.css\?v=37">\s*/g, (match) => {
+    chromeStyles += 1;
+    return chromeStyles === 1 ? match : '';
+  });
 
   html = html.replace(/\/assets\/capability\.js\?v=\d+/g, "/assets/capability.js?v=12");
   if (!html.includes('/assets/capability.js?v=12')) {
