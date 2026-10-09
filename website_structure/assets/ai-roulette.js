@@ -27,7 +27,7 @@ function updateHeader(){header?.classList.toggle("is-scrolled",window.scrollY>24
 updateHeader();window.addEventListener("scroll",updateHeader,{passive:true});
 
 const optionMarkup=(name,value,label,checked,type="radio")=>`<label class="ar-option"><input type="${type}" name="${name}" value="${value}" ${checked?"checked":""}><span>${label}</span></label>`;
-function focusContent(){window.requestAnimationFrame(()=>{window.scrollTo({top:0,behavior:"instant"});const target=state.stage==="landing"?landing.querySelector("h1"):app.querySelector("#ar-question-title")||app.querySelector("h2")||app.querySelector("h3");if(target){target.tabIndex=-1;target.focus({preventScroll:true})}})}
+function focusContent(){window.requestAnimationFrame(()=>{const target=state.stage==="landing"?landing.querySelector("h1"):app.querySelector("#ar-question-title")||app.querySelector("h2")||app.querySelector("h3");if(state.stage==="question")app.querySelector(".ar-stack-item.is-active")?.scrollIntoView({block:"center",behavior:"instant"});else window.scrollTo({top:0,behavior:"instant"});if(target){target.tabIndex=-1;target.focus({preventScroll:true})}})}
 
 const structure=()=>structureFor(state.transformationBranch,state.adoptionBranch);
 const currentSection=()=>structure()[state.sectionIdx];
@@ -79,15 +79,29 @@ function progressHeader(){
 function renderQuestionBlock(q,isActive){
   const saved=state.answers[q.id];
   const body=q.type==="scale"
-    ? `<div class="ar-dots-labels"><span>Disagree</span><span>Agree</span></div><fieldset class="ar-dots"><legend class="skip-link">${q.text}</legend>${[1,2,3,4,5].map(v=>`<label class="ar-dot"><input type="radio" name="${q.id}" value="${v}" aria-label="${["Strongly disagree","Disagree","Neutral","Agree","Strongly agree"][v-1]}" ${String(saved)===String(v)?"checked":""}></label>`).join("")}</fieldset><p class="ar-scale-cue">Select how much you agree</p>`
+    ? `<div class="ar-dots-labels"><span>Disagree</span><span>Agree</span></div><fieldset class="ar-dots"><legend class="skip-link">${q.text}</legend>${[1,2,3,4,5].map(v=>`<label class="ar-dot ${Number(saved)>=v?"is-lit":""}"><input type="radio" name="${q.id}" value="${v}" aria-label="${["Strongly disagree","Disagree","Neutral","Agree","Strongly agree"][v-1]}" ${String(saved)===String(v)?"checked":""}></label>`).join("")}</fieldset><p class="ar-scale-cue">Select how much you agree</p>`
     : `<fieldset class="ar-options"><legend class="skip-link">${q.text}</legend>${q.options.map(o=>optionMarkup(q.id,o.value,o.label,saved===o.value)).join("")}</fieldset>`;
-  return `<div class="ar-stack-item ${isActive?"is-active":"is-done"}"><h2 class="ar-question" ${isActive?'id="ar-question-title"':""}>${q.text}</h2>${body}</div>`;
+  return `<div class="ar-stack-item ${isActive?"is-active":""}" data-question-id="${q.id}"><h2 class="ar-question" ${isActive?'id="ar-question-title"':""}>${q.text}</h2>${body}</div>`;
 }
 function renderQuestionStage(){
   const sec=currentSection();
-  const blocks=[];
-  blocks.push(renderQuestionBlock(sec.questions[state.qIdx],true));
-  return `<section class="ar-flow ar-stack" aria-labelledby="ar-question-title">${progressHeader()}${state.notice?`<p class="ar-question-notice" role="alert">${state.notice}</p>`:""}<div class="ar-stack-list">${blocks.join("")}</div><div class="ar-flow-actions"><button class="ar-button" type="button" data-next-question ${state.answers[sec.questions[state.qIdx].id]===undefined?"disabled":""}>Continue <span aria-hidden="true">→</span></button></div></section>`;
+  const blocks=sec.questions.map((q,i)=>renderQuestionBlock(q,i===state.qIdx));
+  const complete=sec.questions.every(q=>state.answers[q.id]!==undefined);
+  return `<section class="ar-flow ar-stack" aria-labelledby="ar-question-title"><div class="ar-sticky-head">${progressHeader()}</div>${state.notice?`<p class="ar-question-notice" role="alert">${state.notice}</p>`:""}<div class="ar-stack-list">${blocks.join("")}</div><div class="ar-flow-actions"><button class="ar-button" type="button" data-next-question ${complete?"":"disabled"}>Continue <span aria-hidden="true">→</span></button></div></section>`;
+}
+
+function lightDots(fieldset,through){fieldset.querySelectorAll(".ar-dot").forEach((dot,i)=>dot.classList.toggle("is-lit",i<through))}
+function activateQuestion(index,{scroll=true}={}){
+  const blocks=[...app.querySelectorAll(".ar-stack-item")];
+  blocks.forEach((block,i)=>{block.classList.toggle("is-active",i===index);block.classList.toggle("is-muted",i!==index);const heading=block.querySelector(".ar-question");if(i===index)heading.id="ar-question-title";else heading.removeAttribute("id")});
+  state.qIdx=index;
+  const total=structure().slice(0,state.sectionIdx).reduce((n,s)=>n+s.questions.length,0)+index+1;
+  const step=app.querySelector(".ar-step-label");if(step)step.textContent=`Question ${total} of 60`;
+  const number=app.querySelector(".ar-subdim-heading em");if(number)number.textContent=String(total).padStart(2,"0");
+  const progress=app.querySelector(".ar-seg.is-active");if(progress)progress.style.setProperty("--ar-segment-fill",`${Math.round((index+1)/6*100)}%`);
+  app.querySelector(".ar-seg-row")?.setAttribute("aria-valuenow",String(total-1));
+  if(scroll)blocks[index]?.scrollIntoView({block:"center",behavior:window.matchMedia("(prefers-reduced-motion: reduce)").matches?"instant":"smooth"});
+  saveProgress();
 }
 
 function renderPause(){const sec=currentSection(),part=partStarts.indexOf(state.sectionIdx+1);return `<section class="ar-pause" aria-labelledby="ar-pause-title">${topBar()}<p class="ar-category-kicker">Part ${part>0?part:4} complete</p><h2 id="ar-pause-title">${sec.section==="maturity"?"Your starting point is set.":"That section is done."}</h2><p class="ar-choose-note">${sec.section==="maturity"?"Now we can look at the work, the rules and the opportunity.":"Your answers are saved on this device as you go."}</p><button class="ar-button" type="button" data-continue-section>Continue <span aria-hidden="true">→</span></button></section>`}
@@ -185,9 +199,8 @@ function afterSectionContinue(){
 }
 
 function advanceQuestion(){
-  const sec=currentSection(),q=sec.questions[state.qIdx];
-  if(state.answers[q.id]===undefined)return;
-  if(state.qIdx<sec.questions.length-1){state.qIdx++;render({focus:true});return}
+  const sec=currentSection();
+  if(sec.questions.some(q=>state.answers[q.id]===undefined)){const index=sec.questions.findIndex(q=>state.answers[q.id]===undefined);activateQuestion(index);return}
   if([0,3,6,9].includes(state.sectionIdx)){state.stage="pause";render({focus:true});return}
   goToSection(state.sectionIdx+1);
 }
@@ -226,8 +239,14 @@ app.addEventListener("click",event=>{
 
 app.addEventListener("change",event=>{
   const input=event.target;
-  if(input.closest(".ar-stack-item.is-active")){state.answers[input.name]=input.value;state.notice=null;app.querySelector(".ar-question-notice")?.remove();saveProgress();const next=app.querySelector("[data-next-question]");if(next)next.disabled=false}
+  const block=input.closest(".ar-stack-item");
+  if(block){state.answers[input.name]=input.value;state.notice=null;app.querySelector(".ar-question-notice")?.remove();const dots=input.closest(".ar-dots");if(dots)lightDots(dots,Number(input.value));const sec=currentSection(),complete=sec.questions.every(q=>state.answers[q.id]!==undefined);const next=app.querySelector("[data-next-question]");if(next)next.disabled=!complete;const index=sec.questions.findIndex(q=>q.id===input.name);activateQuestion(Math.min(index+1,sec.questions.length-1),{scroll:index<sec.questions.length-1});}
 });
+
+app.addEventListener("pointerover",event=>{const dot=event.target.closest(".ar-dot");if(dot)lightDots(dot.closest(".ar-dots"),Number(dot.querySelector("input").value))});
+app.addEventListener("pointerout",event=>{const dots=event.target.closest(".ar-dots");if(dots&&!dots.contains(event.relatedTarget)){const checked=dots.querySelector("input:checked");lightDots(dots,checked?Number(checked.value):0)}});
+app.addEventListener("focusin",event=>{const dot=event.target.closest(".ar-dot");if(dot)lightDots(dot.closest(".ar-dots"),Number(dot.querySelector("input").value))});
+app.addEventListener("focusout",event=>{const dots=event.target.closest(".ar-dots");if(dots&&!dots.contains(event.relatedTarget)){const checked=dots.querySelector("input:checked");lightDots(dots,checked?Number(checked.value):0)}});
 
 app.addEventListener("submit",event=>{
   event.preventDefault();

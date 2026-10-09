@@ -180,9 +180,9 @@ body.ar-focus-mode .ar-main{padding-top:clamp(2.5rem,5vw,4rem)}
 .ar-subdim-heading{margin:.9rem 0 0;color:var(--ar-ink);font-size:1.3rem;font-weight:600;letter-spacing:.03em}
 .ar-subdim-heading em{color:#7dcacb;font-style:normal}
 
-.ar-stack-list{display:grid;gap:clamp(2.5rem,6vw,4.5rem)}
-.ar-stack-item.is-done{opacity:.45}
-.ar-stack-item.is-done .ar-option{cursor:default}
+.ar-stack-list{display:grid;gap:clamp(1rem,3vw,2rem)}
+.ar-stack-item{display:flex;flex-direction:column;justify-content:center;min-height:clamp(330px,68vh,620px);opacity:.32;transition:opacity .28s ease}
+.ar-stack-item.is-active{opacity:1}
 .ar-stack-item .ar-question{margin-bottom:1.4rem}
 
 .ar-pause,.ar-gate{max-width:640px;margin:clamp(3rem,10vw,7rem) auto 0;text-align:center}
@@ -223,7 +223,7 @@ body.ar-focus-mode .ar-main{padding-top:clamp(2.5rem,5vw,4rem)}
 .ar-page .ar-category-kicker{font-size:.85rem;font-weight:800;letter-spacing:.19em;text-transform:uppercase}
 .ar-page .ar-flow,.ar-page .ar-intro,.ar-page .ar-gate{max-width:860px}
 .ar-page .ar-section-title{font-size:clamp(3rem,7vw,6.8rem);line-height:.98}
-.ar-page .ar-question{font-family:Inter,system-ui,sans-serif;font-weight:800;font-size:clamp(2rem,4.4vw,3.6rem);line-height:1.13;letter-spacing:-.045em}
+.ar-page .ar-question{font-family:Inter,system-ui,sans-serif;font-weight:800;font-size:clamp(1.85rem,3.1vw,2.7rem);line-height:1.18;letter-spacing:-.04em}
 .ar-page .ar-stack{text-align:left}
 .ar-page .ar-stack .ar-flow-actions{margin-top:4rem}
 .ar-page .ar-stack .ar-button{min-width:min(100%,420px)}
@@ -235,8 +235,10 @@ body.ar-focus-mode .ar-main{padding-top:clamp(2.5rem,5vw,4rem)}
 .ar-page .ar-dots{justify-content:space-between;gap:.4rem;width:100%;margin:0;padding:0 .15rem}
 .ar-page .ar-dot{width:clamp(36px,5vw,58px);height:clamp(36px,5vw,58px);border:3px solid #72777b}
 .ar-page .ar-dot:nth-child(3){width:clamp(32px,4.5vw,50px);height:clamp(32px,4.5vw,50px)}
-.ar-page .ar-dot:has(input:checked){background:var(--ar-accent);border-color:var(--ar-accent);box-shadow:0 0 0 5px rgba(239,102,117,.25)}
-.ar-page .ar-dot:has(input:focus-visible){outline:3px solid #9edce1;outline-offset:4px}
+.ar-page .ar-dot.is-lit{background:var(--ar-accent);border-color:var(--ar-accent)}
+.ar-page .ar-dot:has(input:checked){box-shadow:0 0 0 3px #fff}
+.ar-page .ar-dot:has(input:checked):not(.is-lit){background:transparent;border-color:#72777b;box-shadow:none}
+.ar-page .ar-dot:hover,.ar-page .ar-dot:has(input:focus-visible){box-shadow:0 0 0 3px #fff;outline:0}
 .ar-page .ar-scale-cue{margin:.85rem 0 0;color:var(--ar-muted);font-size:.8rem;text-align:center;text-transform:uppercase;letter-spacing:.1em}
 .ar-page .ar-pause,.ar-page .ar-gate{margin:clamp(3rem,9vw,7rem) auto;text-align:center}
 .ar-page .ar-pause h2,.ar-page .ar-gate h2{font-size:clamp(3.5rem,8vw,7rem);line-height:1.02;text-transform:uppercase}
@@ -250,4 +252,5 @@ body.ar-focus-mode .ar-main{padding-top:clamp(2.5rem,5vw,4rem)}
 .ar-page .ar-gate .ar-button{min-width:min(100%,520px)}
 .ar-page .ar-result-score{display:flex;align-items:baseline;gap:.5rem;font-size:clamp(4rem,10vw,8rem);font-weight:800;line-height:1}
 .ar-page .ar-result-score span{font-size:1rem;font-weight:500}
-@media(max-width:600px){.ar-page .ar-section-title{font-size:clamp(2.6rem,12vw,4rem)}.ar-page .ar-question{font-size:clamp(1.9rem,8vw,2.6rem)}.ar-page .ar-stack .ar-flow-actions{margin-top:2.5rem}.ar-page .ar-dots{gap:.1rem}.ar-page .ar-dot{width:38px;height:38px}.ar-page .ar-dot:nth-child(3){width:34px;height:34px}.ar-page .ar-pause h2,.ar-page .ar-gate h2{font-size:clamp(3rem,13vw,4.5rem)}}
+@media(max-width:600px){.ar-page .ar-section-title{font-size:clamp(2.6rem,12vw,4rem)}.ar-page .ar-question{font-size:clamp(1.55rem,6.6vw,2.1rem)}.ar-stack-item{min-height:clamp(340px,64svh,560px)}.ar-page .ar-stack .ar-flow-actions{margin-top:2.5rem}.ar-page .ar-dots{gap:.1rem}.ar-page .ar-dot{width:38px;height:38px}.ar-page .ar-dot:nth-child(3){width:34px;height:34px}.ar-page .ar-pause h2,.ar-page .ar-gate h2{font-size:clamp(3rem,13vw,4.5rem)}}
+@media(prefers-reduced-motion:reduce){.ar-stack-item{transition:none}}
