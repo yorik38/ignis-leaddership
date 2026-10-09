@@ -52,8 +52,6 @@ function render({focus=false}={}){
   if(resumeBtn)resumeBtn.hidden=!loadProgress();
 }
 
-function renderMaturityLadder(){return `<div class="ar-ladder" role="img" aria-label="Four broad patterns of AI use, from not yet in routine use to wider use">${maturityStages.map(stage=>`<div class="ar-ladder-step"><span class="ar-ladder-bar" style="background:${stage.color}"></span><span class="ar-ladder-label">${stage.label}</span></div>`).join("")}</div>`}
-
 function topBar(backLabel="Back"){return `<div class="ar-top-bar"><button class="ar-back" type="button" data-back>← ${backLabel}</button><button class="ar-text-button" type="button" data-save-exit>Save &amp; finish later</button></div>`}
 
 function renderSegment(){return `<section class="ar-flow ar-centered" aria-labelledby="ar-segment-title">${topBar()}<p class="ar-category-kicker">First, one quick thing</p><h2 class="ar-section-title" id="ar-segment-title">Which perspective are you answering from?</h2><p class="ar-choose-note">The questions and score are the same. This only changes how we explain your result.</p><form data-segment-form><fieldset class="ar-options"><legend class="skip-link">Your perspective</legend>${optionMarkup("segment","decision_maker","I help set direction and make decisions",state.segment==="decision_maker")}${optionMarkup("segment","practitioner","I'm close to how AI is used day to day",state.segment==="practitioner")}</fieldset><div class="ar-flow-actions"><button class="ar-button" type="submit">Continue <span aria-hidden="true">→</span></button></div></form></section>`}
@@ -248,7 +246,7 @@ app.addEventListener("change",event=>{
 
 app.addEventListener("pointerover",event=>{const dot=event.target.closest(".ar-dot");if(dot)lightDots(dot.closest(".ar-dots"),Number(dot.querySelector("input").value))});
 app.addEventListener("pointerout",event=>{const dots=event.target.closest(".ar-dots");if(dots&&!dots.contains(event.relatedTarget)){const checked=dots.querySelector("input:checked");lightDots(dots,checked?Number(checked.value):0)}});
-app.addEventListener("focusin",event=>{const dot=event.target.closest(".ar-dot");if(dot)lightDots(dot.closest(".ar-dots"),Number(dot.querySelector("input").value))});
+app.addEventListener("focusin",event=>{const block=event.target.closest(".ar-stack-item");if(block){const index=[...app.querySelectorAll(".ar-stack-item")].indexOf(block);if(index>=0&&index!==state.qIdx)activateQuestion(index,{scroll:false})}const dot=event.target.closest(".ar-dot");if(dot)lightDots(dot.closest(".ar-dots"),Number(dot.querySelector("input").value))});
 app.addEventListener("focusout",event=>{const dots=event.target.closest(".ar-dots");if(dots&&!dots.contains(event.relatedTarget)){const checked=dots.querySelector("input:checked");lightDots(dots,checked?Number(checked.value):0)}});
 
 app.addEventListener("submit",event=>{
@@ -258,7 +256,6 @@ app.addEventListener("submit",event=>{
   if(form.matches("[data-gate-form]")){const data=new FormData(form),email=data.get("email"),name=data.get("name");if(!form.reportValidity())return;state.emailCaptured=true;state.capturedEmail=email;state.capturedName=name;if(state.sectionIdx<1){state.sectionIdx=1;state.qIdx=0;state.stage="intro"}else if(partStarts.includes(state.sectionIdx)&&state.qIdx===0){state.stage="intro"}else state.stage="question";render({focus:true});return}
 });
 
-document.getElementById("ar-maturity-ladder").innerHTML=renderMaturityLadder();
 const savedProgress=loadProgress();
 if(savedProgress&&resumeBtn)resumeBtn.hidden=false;
 render();
