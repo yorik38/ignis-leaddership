@@ -85,7 +85,7 @@ for (const page of pages) {
     );
     html = html.replace(
       '<span class="hero-sans">Make AI change how</span><span class="gradient-word hero-serif">commercial work runs.</span>',
-      '<span class="hero-sans">Make commercial work</span><span class="gradient-word hero-serif">with AI.</span>',
+      '<span class="hero-sans hero-opening">Make commercial</span> <span class="hero-sans hero-work">work</span> <span class="gradient-word hero-serif">with AI.</span>',
     );
     html = html.replace(
       '<h3>Productivity without a commercial design</h3>',
@@ -390,12 +390,12 @@ for (const page of pages) {
     );
   }
 
-  html = html.replace(/\/assets\/capability\.css\?v=\d+/g, "/assets/capability.css?v=123");
-  if (!html.includes('/assets/capability.css?v=123')) {
-    html = html.replace("</head>", '<link rel="stylesheet" href="/assets/capability.css?v=123">\n</head>');
+  html = html.replace(/\/assets\/capability\.css\?v=\d+/g, "/assets/capability.css?v=124");
+  if (!html.includes('/assets/capability.css?v=124')) {
+    html = html.replace("</head>", '<link rel="stylesheet" href="/assets/capability.css?v=124">\n</head>');
   }
   let capabilityStyles = 0;
-  html = html.replace(/<link rel="stylesheet" href="\/assets\/capability\.css\?v=123">\s*/g, (match) => {
+  html = html.replace(/<link rel="stylesheet" href="\/assets\/capability\.css\?v=124">\s*/g, (match) => {
     capabilityStyles += 1;
     return capabilityStyles === 1 ? match : '';
   });
