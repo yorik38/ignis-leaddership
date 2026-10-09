@@ -1,5 +1,4 @@
 import {maturity,transformationBranch as transformationBranchQ,adoptionBranch as adoptionBranchQ,structureFor,evaluate,archetypes,dimensionLabels,sectionLabels,bandLabels,movesFor,startingPlanFor,maturityStages} from "./ai-roulette-model.mjs";
-import {maturitySlices,slicePath,labelPosition} from "./ai-roulette-wheel.mjs";
 
 const app=document.getElementById("ar-app");
 const landing=document.querySelector(".ar-landing");
@@ -52,11 +51,7 @@ function render({focus=false}={}){
   saveProgress();
 }
 
-function renderMaturityWheel(){
-  const pegs=maturitySlices.map(slice=>{const rad=slice.start*Math.PI/180,x=200+194*Math.sin(rad),y=200-194*Math.cos(rad);return `<circle class="ar-wheel-peg" cx="${x.toFixed(2)}" cy="${y.toFixed(2)}" r="5"/>`}).join("");
-  return `<div class="ar-wheel-wrap"><div class="ar-wheel-pointer" aria-hidden="true"></div><svg class="ar-wheel" viewBox="0 0 400 400" role="img" aria-label="Wheel showing seven stages of AI maturity, from no access to production"><defs><radialGradient id="ar-wheel-sheen" cx="32%" cy="24%" r="78%"><stop offset="0%" stop-color="#fff" stop-opacity=".24"/><stop offset="45%" stop-color="#fff" stop-opacity=".05"/><stop offset="100%" stop-color="#fff" stop-opacity="0"/></radialGradient></defs><circle cx="200" cy="200" r="194" fill="#071016" stroke="#6c7780" stroke-width="3"/>${maturitySlices.map(slice=>{const p=labelPosition(slice.start,slice.end);return `<g class="ar-wheel-slice"><path d="${slicePath(slice.start,slice.end)}" fill="${slice.color}"/><text x="${p.x}" y="${p.y}" transform="rotate(${p.angle} ${p.x} ${p.y})" text-anchor="middle" dominant-baseline="middle" fill="${slice.textDark?"#0f1419":"#f5f7f8"}">${slice.shortLabel}</text></g>`}).join("")}<circle cx="200" cy="200" r="194" fill="url(#ar-wheel-sheen)"/>${pegs}<circle cx="200" cy="200" r="44" fill="#080d11" stroke="#fff" stroke-width="4"/><text x="200" y="205" text-anchor="middle" dominant-baseline="middle" class="ar-wheel-hub">/</text></svg></div>`;
-}
-function renderMaturityLegend(){return `<div class="ar-legend ar-maturity-legend" role="list" aria-label="AI maturity stages">${maturityStages.map(stage=>`<span role="listitem"><i class="ar-legend-dot" style="background:${stage.color}" aria-hidden="true"></i>${stage.label}</span>`).join("")}</div>`}
+function renderMaturityLadder(){return `<div class="ar-ladder" role="img" aria-label="Seven stages of AI maturity, from no access to production">${maturityStages.map(stage=>`<div class="ar-ladder-step"><span class="ar-ladder-bar" style="background:${stage.color}"></span><span class="ar-ladder-label">${stage.label}</span></div>`).join("")}</div>`}
 
 function topBar(backLabel="Back"){return `<div class="ar-top-bar"><button class="ar-back" type="button" data-back>← ${backLabel}</button><button class="ar-text-button" type="button" data-save-exit>Save &amp; finish later</button></div>`}
 
@@ -175,8 +170,8 @@ function goToSection(idx){state.sectionIdx=idx;state.qIdx=0;state.stage="questio
 
 function afterSectionContinue(){
   const next=state.sectionIdx+1;
-  if(next===1&&!state.transformationBranch){state.stage="branch_t";render({focus:true});return}
-  if(next===4&&!state.adoptionBranch){state.stage="branch_a";render({focus:true});return}
+  if(next===1&&!state.adoptionBranch){state.stage="branch_a";render({focus:true});return}
+  if(next===4&&!state.transformationBranch){state.stage="branch_t";render({focus:true});return}
   if(next===7&&!state.emailCaptured){state.stage="gate";render({focus:true});return}
   if(next>=structure().length){state.result=evaluate(structure(),state.answers);state.stage="result";clearProgress();render({focus:true});return}
   goToSection(next);
@@ -191,15 +186,15 @@ function answerCurrentQuestion(value){
 
 function back(){
   if(state.stage==="segment"){state.stage="landing";render({focus:true});return}
-  if(state.stage==="branch_t"){state.sectionIdx=0;state.qIdx=maturity.length-1;state.stage="question";render({focus:true});return}
-  if(state.stage==="branch_a"){state.sectionIdx=3;state.qIdx=currentSection().questions.length-1;state.stage="question";render({focus:true});return}
+  if(state.stage==="branch_a"){state.sectionIdx=0;state.qIdx=maturity.length-1;state.stage="question";render({focus:true});return}
+  if(state.stage==="branch_t"){state.sectionIdx=3;state.qIdx=currentSection().questions.length-1;state.stage="question";render({focus:true});return}
   if(state.stage==="gate"){goToSection(6);return}
   if(state.stage==="pause"){state.stage="question";render({focus:true});return}
   if(state.stage==="question"){
     if(state.qIdx>0){state.qIdx--;render({focus:true});return}
     if(state.sectionIdx===0){state.stage="segment";render({focus:true});return}
-    if(state.sectionIdx===1){state.stage="branch_t";render({focus:true});return}
-    if(state.sectionIdx===4){state.stage="branch_a";render({focus:true});return}
+    if(state.sectionIdx===1){state.stage="branch_a";render({focus:true});return}
+    if(state.sectionIdx===4){state.stage="branch_t";render({focus:true});return}
     if(state.sectionIdx===7){state.stage="gate";render({focus:true});return}
     state.sectionIdx--;state.qIdx=structure()[state.sectionIdx].questions.length-1;render({focus:true});return
   }
@@ -231,8 +226,7 @@ app.addEventListener("submit",event=>{
   if(form.matches("[data-gate-form]")){const data=new FormData(form),email=data.get("email"),name=data.get("name");if(!form.reportValidity())return;state.emailCaptured=true;state.capturedEmail=email;state.capturedName=name;goToSection(7);return}
 });
 
-document.getElementById("ar-wheel-preview").innerHTML=renderMaturityWheel();
-document.getElementById("ar-landing-legend").innerHTML=renderMaturityLegend();
+document.getElementById("ar-maturity-ladder").innerHTML=renderMaturityLadder();
 const savedProgress=loadProgress();
 if(savedProgress&&resumeBtn)resumeBtn.hidden=false;
 render();

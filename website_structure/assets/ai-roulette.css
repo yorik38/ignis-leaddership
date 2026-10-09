@@ -15,11 +15,21 @@ body.ar-page{margin:0;background:#070a0d;color:var(--ar-ink);font-family:Inter,s
 .ar-landing h1{margin:0;font-size:clamp(2.6rem,6vw,4.4rem);font-weight:400;letter-spacing:-.055em;line-height:.95;text-wrap:balance}
 .ar-landing h1 span{font-family:"Source Serif 4",Georgia,serif;font-style:italic;background:linear-gradient(100deg,#8fb0d6,#27a8ad);-webkit-background-clip:text;background-clip:text;color:transparent;padding-right:.12em}
 .ar-lede{max-width:46ch;margin:1.3rem 0 0;color:var(--ar-muted);font-size:clamp(1rem,1.25vw,1.2rem);line-height:1.6}
+.ar-promise{display:grid;gap:.6rem;max-width:40ch;margin:1.6rem auto 0;padding:0;list-style:none;text-align:left}
+.ar-promise li{position:relative;padding-left:1.6rem;color:#d6dee3;font-size:.94rem;line-height:1.4}
+.ar-promise li::before{content:"✓";position:absolute;left:0;color:#7dcacb;font-weight:700}
 .ar-start{margin-top:.5rem}
 .ar-audience-props{display:grid;gap:.6rem;max-width:52ch;margin:2rem 0 2.2rem;padding:1.3rem 1.5rem;border:1px solid var(--ar-line);background:var(--ar-panel);text-align:left}
 .ar-audience-props p{margin:0;color:#d6dee3;font-size:.94rem;line-height:1.5}
 .ar-audience-props strong{color:#9dd7d5}
-.ar-landing-visual{width:100%;max-width:420px;margin:2.4rem 0}
+.ar-landing-visual{width:100%;max-width:560px;margin:2.4rem 0}
+.ar-ladder{position:relative;display:flex;gap:.3rem;overflow:hidden;padding:4px 0}
+.ar-ladder::before{content:"";position:absolute;top:4px;bottom:28px;left:-20%;width:18%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.4),transparent);animation:ar-ladder-scan 6s linear infinite;pointer-events:none}
+.ar-ladder-step{flex:1;display:flex;flex-direction:column;align-items:center;gap:.6rem;min-width:0}
+.ar-ladder-bar{display:block;width:100%;height:10px;border-radius:5px}
+.ar-ladder-label{color:var(--ar-muted);font-size:.72rem;line-height:1.3;text-align:center}
+@keyframes ar-ladder-scan{0%{left:-20%}100%{left:100%}}
+@media(prefers-reduced-motion:reduce){.ar-ladder::before{animation:none;display:none}}
 .ar-wheel-preview{max-width:360px;margin:auto;pointer-events:none}
 .ar-wheel-preview .ar-wheel,.ar-spin .ar-wheel{animation:ar-wheel-drift 90s linear infinite}
 .ar-spin .ar-wheel-wrap:hover .ar-wheel,.ar-spin .ar-wheel-wrap:active .ar-wheel,.ar-spin .ar-wheel-wrap:focus-within .ar-wheel{animation-play-state:paused}
