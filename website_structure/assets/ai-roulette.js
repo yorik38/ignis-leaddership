@@ -49,7 +49,6 @@ function render({focus=false}={}){
   }
   if(focus)focusContent();
   saveProgress();
-  if(resumeBtn)resumeBtn.hidden=!loadProgress();
 }
 
 function topBar(backLabel="Back"){return `<div class="ar-top-bar"><button class="ar-back" type="button" data-back>← ${backLabel}</button><button class="ar-text-button" type="button" data-save-exit>Save &amp; finish later</button></div>`}
@@ -228,9 +227,7 @@ function back(){
 
 function restart(){state=blankState();clearProgress();render({focus:true})}
 
-landing.querySelector("[data-start]")?.addEventListener("click",()=>{state=blankState();clearProgress();state.stage="segment";render({focus:true})});
-const resumeBtn=landing.querySelector("[data-resume]");
-resumeBtn?.addEventListener("click",()=>{const saved=loadProgress();if(saved){state=saved;render({focus:true})}});
+landing.querySelector("[data-start]")?.addEventListener("click",()=>{const saved=loadProgress();if(saved)state=saved;else{state=blankState();clearProgress();state.stage="segment"}render({focus:true})});
 
 app.addEventListener("click",event=>{
   if(event.target.closest("[data-back]")){back();return}
@@ -260,6 +257,4 @@ app.addEventListener("submit",event=>{
   if(form.matches("[data-gate-form]")){const data=new FormData(form),email=data.get("email"),name=data.get("name");if(!form.reportValidity())return;state.emailCaptured=true;state.capturedEmail=email;state.capturedName=name;if(state.sectionIdx<1){state.sectionIdx=1;state.qIdx=0;state.stage="intro"}else if(partStarts.includes(state.sectionIdx)&&state.qIdx===0){state.stage="intro"}else state.stage="question";render({focus:true});return}
 });
 
-const savedProgress=loadProgress();
-if(savedProgress&&resumeBtn)resumeBtn.hidden=false;
 render();
