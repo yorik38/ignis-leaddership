@@ -156,6 +156,7 @@
 .brochure-page-link{display:flex;width:max-content;max-width:100%;margin-top:1.5rem}
 @media(max-width:850px){.brochure-grid{grid-template-columns:120px 1fr;column-gap:2rem}.brochure-cover{width:120px}.brochure-copy h2{font-size:clamp(2rem,6vw,3rem)}}
 @media(max-width:620px){.brochure-grid{grid-template-columns:1fr;grid-template-areas:"eyebrow" "cover" "copy";gap:1.5rem}.brochure-eyebrow{margin:0}.brochure-cover{width:150px;justify-self:start}.brochure-download{line-height:1.4}}
+@media(max-width:620px){.brochure-title-break{display:none}}
 .mobile-copy-break{display:inline}
 @media(max-width:720px){.mobile-copy-break{display:block}}
 .community-insights{grid-column:1/-1;justify-self:start;margin-top:1rem}
