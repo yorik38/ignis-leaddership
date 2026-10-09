@@ -84,6 +84,10 @@ for (const page of pages) {
       '<span class="hero-sans">Make AI change how</span><span class="gradient-word hero-serif">commercial work runs.</span>',
     );
     html = html.replace(
+      '<span class="hero-sans">Make AI change how</span><span class="gradient-word hero-serif">commercial work runs.</span>',
+      '<span class="hero-sans">Make commercial work</span><span class="gradient-word hero-serif">with AI.</span>',
+    );
+    html = html.replace(
       '<h3>Productivity without a commercial design</h3>',
       '<h3>Productivity without<br>commercial design</h3>',
     );
@@ -243,7 +247,11 @@ for (const page of pages) {
   if (page === "index.html") {
     html = html.replace(
       'I help commercial and transformation leaders in energy, industrial and construction redesign the work they do today and develop the services and offers AI makes viable next.',
+      'I help commercial and transformation leaders in the energy, infrastructure and industrial sectors use AI to win work, deliver work and create new value to sell.',
+    );
+    html = html.replace(
       'I help commercial and transformation leaders in energy, infrastructure, industrial and construction use AI to win work, deliver work and create new value to sell.',
+      'I help commercial and transformation leaders in the energy, infrastructure and industrial sectors use AI to win work, deliver work and create new value to sell.',
     );
     html = html.replace(
       '<h3>Productivity without<br>commercial design</h3><p>Teams experiment with tools. Central functions run pilots. Tasks move faster, but evidence, decision rights, customer value and the offer itself remain unchanged.</p>',
@@ -259,7 +267,7 @@ for (const page of pages) {
     );
     html = html.replace(
       /<section class="band band-dark services route-services" id="routes">.*?<\/section>(?=\s*<section class="band brochure-band">)/s,
-      `<section class="band band-dark services route-services" id="routes"><div class="wrap"><div class="services-intro"><p class="section-label section-label-dark">Ways to start</p><div class="services-intro-copy"><h2>Start with the commercial opportunity. Or start with the work already under pressure.</h2><p>Every engagement begins with a live commercial pressure or opportunity and ends with a decision you can act on.</p></div></div><div class="services-desks"><a class="service-row route-adoption" href="/commercial-ai-adoption"><div class="service-title"><p>Commercial AI adoption</p><h3>Win work.<br>Deliver work.</h3></div><p class="service-outcome">Make commercial work faster and more scalable while keeping evidence, judgement and accountability connected from opportunity to delivery.</p><span class="service-view">Explore adoption <span aria-hidden="true">▶</span></span></a><a class="service-row route-transformation" href="/commercial-transformation"><div class="service-title"><p>Commercial transformation</p><h3>Sell differently.</h3></div><p class="service-outcome">Turn the expertise, insight and delivery capability you already have into services, offers or outcomes that customers can buy.</p><span class="service-view">Explore transformation <span aria-hidden="true">▶</span></span></a></div></div></section>`,
+      `<section class="band band-dark services route-services" id="routes"><div class="wrap"><div class="services-intro"><p class="section-label section-label-dark">Ways to start</p><div class="services-intro-copy"><h2>Start with the commercial opportunity. Or start with the work already under pressure.</h2></div></div><div class="services-desks"><a class="service-row route-adoption" href="/commercial-ai-adoption"><span class="service-eyebrow">Commercial AI adoption</span><div class="service-main"><h3>Win work.<br>Deliver work.</h3><div class="service-copy"><p class="service-description">Redesign how teams win work and carry commercial commitments into delivery with governed human–AI workflows.</p><p class="service-benefit">Move faster while keeping evidence, judgement and accountability connected.</p><span class="service-view">Explore adoption <span aria-hidden="true">▶</span></span></div></div></a><a class="service-row route-transformation" href="/commercial-transformation"><span class="service-eyebrow">Commercial transformation</span><div class="service-main"><h3>Sell differently.</h3><div class="service-copy"><p class="service-description">Develop AI-enabled services, offers and delivery models from the expertise and insight your business already holds.</p><p class="service-benefit">Give customers new value to buy, with a model your team can deliver and govern.</p><span class="service-view">Explore transformation <span aria-hidden="true">▶</span></span></div></div></a></div></div></section>`,
     );
     html = html.replace(
       '<h2>How do you move AI<br><span class="serif-accent">from experiment to commercial value?</span></h2><p>A practical guide to choosing the opportunity, designing the human-agent system and keeping people accountable.</p>',
@@ -382,12 +390,12 @@ for (const page of pages) {
     );
   }
 
-  html = html.replace(/\/assets\/capability\.css\?v=\d+/g, "/assets/capability.css?v=122");
-  if (!html.includes('/assets/capability.css?v=122')) {
-    html = html.replace("</head>", '<link rel="stylesheet" href="/assets/capability.css?v=122">\n</head>');
+  html = html.replace(/\/assets\/capability\.css\?v=\d+/g, "/assets/capability.css?v=123");
+  if (!html.includes('/assets/capability.css?v=123')) {
+    html = html.replace("</head>", '<link rel="stylesheet" href="/assets/capability.css?v=123">\n</head>');
   }
   let capabilityStyles = 0;
-  html = html.replace(/<link rel="stylesheet" href="\/assets\/capability\.css\?v=122">\s*/g, (match) => {
+  html = html.replace(/<link rel="stylesheet" href="\/assets\/capability\.css\?v=123">\s*/g, (match) => {
     capabilityStyles += 1;
     return capabilityStyles === 1 ? match : '';
   });

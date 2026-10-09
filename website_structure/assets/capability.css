@@ -628,9 +628,6 @@
 .transformation-tests article{padding-inline:1.25rem}
 .transformation-tests article:first-child{padding-left:0}
 .specialist-applications{border-top:1px solid var(--line)}
-.route-services .service-title p{color:var(--sky)}
-.route-services .route-transformation .service-title p{color:#b6d8d5}
-
 /* Homepage entry-point framing. */
 .services-intro-copy{max-width:800px;color:var(--paper)}
 .services-intro-copy h2{max-width:800px;margin:0;font-size:clamp(2rem,3.2vw,3.6rem);font-weight:400;line-height:1.04;letter-spacing:-.05em}
@@ -642,19 +639,25 @@
 .route-services .services-intro{grid-template-columns:minmax(150px,.45fr) minmax(0,1.55fr);gap:clamp(2rem,7vw,8rem)}
 .route-services .services-intro-copy{grid-column:2}
 .route-services .services-desks{display:block;border-top:1px solid var(--line-dark);border-bottom:1px solid var(--line-dark)}
-.route-services .service-row{display:grid;grid-template-columns:minmax(230px,.85fr) minmax(0,1fr) auto;align-items:center;column-gap:clamp(2rem,5vw,6rem);padding:clamp(2.5rem,4vw,4rem) 0;min-height:0}
+.route-services .service-row{display:grid;grid-template-columns:minmax(150px,.45fr) minmax(0,1.55fr);align-items:start;column-gap:clamp(2rem,7vw,8rem);padding:clamp(2.5rem,4vw,4rem) 0;min-height:0}
 .route-services .service-row+.service-row{border-top:1px solid var(--line-dark);border-left:0}
-.route-services .service-title p{margin-bottom:.7rem}
-.route-services .service-title h3{font-size:clamp(2.5rem,4.2vw,4.8rem)}
-.route-services .service-outcome{max-width:480px;margin:0;color:var(--on-dark-muted);font-size:clamp(1rem,1.35vw,1.18rem);line-height:1.5}
-.route-services .service-view{margin:0;white-space:nowrap}
+.route-services .service-eyebrow{padding-top:.55rem;color:var(--sky);font-size:.8rem;font-weight:600;letter-spacing:.1em;line-height:1.35;text-transform:uppercase}
+.route-services .route-transformation .service-eyebrow{color:#b6d8d5}
+.route-services .service-main{display:grid;grid-template-columns:minmax(250px,.9fr) minmax(0,1fr);gap:clamp(2rem,4vw,4.5rem);align-items:start}
+.route-services .service-main h3{margin:0;font-size:clamp(2.4rem,3.7vw,4.3rem);font-weight:400;line-height:1.02;letter-spacing:-.05em}
+.route-services .service-copy{max-width:480px}
+.route-services .service-copy p{margin:0;line-height:1.5}
+.route-services .service-description{color:var(--on-dark-muted);font-size:clamp(1rem,1.3vw,1.15rem)}
+.route-services .service-benefit{padding-top:1.2rem;color:var(--paper);font-family:var(--font-serif);font-size:clamp(1.15rem,1.55vw,1.45rem);font-style:italic}
+.route-services .service-view{margin-top:1.8rem;white-space:nowrap}
 .route-services .services-visual{display:none}
 @media(max-width:850px){
   .route-services .services-intro{grid-template-columns:1fr;gap:1.25rem}
   .route-services .services-intro-copy{grid-column:auto}
-  .route-services .service-row{grid-template-columns:1fr;gap:1.35rem;padding:2.5rem 0}
-  .route-services .service-outcome{max-width:38rem}
-  .route-services .service-view{justify-self:start}
+  .route-services .service-row{grid-template-columns:1fr;gap:1rem;padding:2.5rem 0}
+  .route-services .service-eyebrow{padding-top:0}
+  .route-services .service-main{grid-template-columns:1fr;gap:1.25rem}
+  .route-services .service-copy{max-width:38rem}
 }
 
 /* WEB-005 refinement: preserve serif descenders and rebalance the value narrative. */
