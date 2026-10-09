@@ -54,7 +54,7 @@ function render({focus=false}={}){
 
 function topBar(backLabel="Back"){return `<div class="ar-top-bar"><button class="ar-back" type="button" data-back>← ${backLabel}</button><button class="ar-text-button" type="button" data-save-exit>Save &amp; finish later</button></div>`}
 
-function renderSegment(){return `<section class="ar-flow ar-centered" aria-labelledby="ar-segment-title">${topBar()}<p class="ar-category-kicker">First, one quick thing</p><h2 class="ar-section-title" id="ar-segment-title">Which perspective are you answering from?</h2><p class="ar-choose-note">The questions and score are the same. This only changes how we explain your result.</p><form data-segment-form><fieldset class="ar-options"><legend class="skip-link">Your perspective</legend>${optionMarkup("segment","decision_maker","I help set direction and make decisions",state.segment==="decision_maker")}${optionMarkup("segment","practitioner","I'm close to how AI is used day to day",state.segment==="practitioner")}</fieldset><div class="ar-flow-actions"><button class="ar-button" type="submit">Continue <span aria-hidden="true">→</span></button></div></form></section>`}
+function renderSegment(){return `<section class="ar-flow ar-centered ar-perspective-step" aria-labelledby="ar-segment-title">${topBar()}<p class="ar-category-kicker">One quick thing</p><h2 class="ar-section-title" id="ar-segment-title">Which one are you?</h2><div class="ar-perspective-options" role="group" aria-describedby="ar-perspective-note"><button type="button" data-segment="decision_maker">I help set direction and make decisions <span aria-hidden="true">→</span></button><button type="button" data-segment="practitioner">I'm close to how AI is used day to day <span aria-hidden="true">→</span></button></div><p class="ar-choose-note" id="ar-perspective-note">Same questions and score either way. This only changes how we explain your result.</p></section>`}
 
 const partStarts=[0,1,3,5];
 function renderIntro(){const sec=structure()[state.sectionIdx],label=sectionLabels[sec.section];const part=partStarts.indexOf(state.sectionIdx)+1;return `<section class="ar-pause ar-intro" aria-labelledby="ar-intro-title">${topBar()}<p class="ar-category-kicker">Part ${part} of 4</p><h2 id="ar-intro-title">${label.title}</h2><p class="ar-choose-note">${label.blurb}</p><div class="ar-part-progress" aria-label="Part ${part} of 4">${partStarts.map((_,i)=>`<span class="${i<part?"is-current":""}"></span>`).join("")}</div><button class="ar-button" type="button" data-begin-part>${part===1?"Begin":"Keep going"} <span aria-hidden="true">→</span></button></section>`}
@@ -233,6 +233,8 @@ resumeBtn?.addEventListener("click",()=>{const saved=loadProgress();if(saved){st
 app.addEventListener("click",event=>{
   if(event.target.closest("[data-back]")){back();return}
   if(event.target.closest("[data-save-exit]")){saveProgress();state.stage="landing";render({focus:true});return}
+  const segmentButton=event.target.closest("[data-segment]");
+  if(segmentButton){state.segment=segmentButton.dataset.segment;state.stage="intro";state.sectionIdx=0;state.qIdx=0;render({focus:true});return}
   if(event.target.closest("[data-begin-part]")){state.stage="question";render({focus:true});return}
   if(event.target.closest("[data-next-question]")){advanceQuestion();return}
   if(event.target.closest("[data-restart]")){restart();return}
