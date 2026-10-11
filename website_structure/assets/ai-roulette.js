@@ -99,8 +99,10 @@ function activateQuestion(index,{scroll=true}={}){
   saveProgress();
 }
 let questionScrollFrame=0;
+let autoScrollUntil=0;
+let answerAdvanceToken=0;
 window.addEventListener("scroll",()=>{
-  if(state.stage!=="question"||questionScrollFrame)return;
+  if(state.stage!=="question"||questionScrollFrame||performance.now()<autoScrollUntil)return;
   questionScrollFrame=window.requestAnimationFrame(()=>{
     questionScrollFrame=0;
     const blocks=[...app.querySelectorAll(".ar-stack-item")];
@@ -242,7 +244,35 @@ app.addEventListener("click",event=>{
 app.addEventListener("change",event=>{
   const input=event.target;
   const block=input.closest(".ar-stack-item");
-  if(block){state.answers[input.name]=input.value;state.notice=null;app.querySelector(".ar-question-notice")?.remove();const dots=input.closest(".ar-dots");if(dots)lightDots(dots,Number(input.value));const sec=currentSection(),complete=sec.questions.every(q=>state.answers[q.id]!==undefined);const next=app.querySelector("[data-next-question]");if(next)next.disabled=!complete;const index=sec.questions.findIndex(q=>q.id===input.name);activateQuestion(index,{scroll:false});}
+  if(block){
+    state.answers[input.name]=input.value;
+    state.notice=null;
+    app.querySelector(".ar-question-notice")?.remove();
+    const dots=input.closest(".ar-dots");
+    if(dots)lightDots(dots,Number(input.value));
+    const sec=currentSection(),complete=sec.questions.every(q=>state.answers[q.id]!==undefined);
+    const next=app.querySelector("[data-next-question]");
+    if(next)next.disabled=!complete;
+    const index=sec.questions.findIndex(q=>q.id===input.name);
+    const sectionIdx=state.sectionIdx, token=++answerAdvanceToken;
+    activateQuestion(index,{scroll:false});
+    if(index<sec.questions.length-1){
+      autoScrollUntil=performance.now()+900;
+      window.setTimeout(()=>{
+        if(state.stage!=="question"||state.sectionIdx!==sectionIdx||token!==answerAdvanceToken)return;
+        activateQuestion(index+1);
+        const heading=app.querySelector("#ar-question-title");
+        if(heading){heading.tabIndex=-1;heading.focus({preventScroll:true})}
+      },140);
+    }else if(complete&&next){
+      autoScrollUntil=performance.now()+900;
+      window.setTimeout(()=>{
+        if(state.stage!=="question"||state.sectionIdx!==sectionIdx||token!==answerAdvanceToken)return;
+        next.scrollIntoView({block:"center",behavior:window.matchMedia("(prefers-reduced-motion: reduce)").matches?"instant":"smooth"});
+        next.focus({preventScroll:true});
+      },140);
+    }
+  }
 });
 
 app.addEventListener("pointerover",event=>{const dot=event.target.closest(".ar-dot");if(dot)lightDots(dot.closest(".ar-dots"),Number(dot.querySelector("input").value))});
