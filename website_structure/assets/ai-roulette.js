@@ -1,290 +1,350 @@
-import {maturity,structureFor,evaluate,dimensionLabels,sectionLabels,bandLabels,movesFor,startingPlanFor,maturityStages} from "./ai-roulette-model.mjs";
+import {bankVersion,visibleQuestions,sectorText,optionFor,scoreGap,scoreCost,urgencyLevel,pathFor,formatRange} from "./ai-roulette-v4-model.mjs";
 
 const app=document.getElementById("ar-app");
 const landing=document.querySelector(".ar-landing");
-const STORAGE_KEY="ar-progress-v3";
-const FOCUS_STAGES=new Set(["landing","segment","intro","question","gate"]);
-const TOTAL_QUESTIONS=structureFor().reduce((total,section)=>total+section.questions.length,0);
+const STORAGE_KEY="ai_roulette_v4";
+const params=new URLSearchParams(location.search);
+const reduced=matchMedia("(prefers-reduced-motion: reduce)");
+const esc=value=>String(value??"").replace(/[&<>"']/g,char=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[char]));
+let bank=null;
+let state=null;
+let advanceTimer=0;
+let scrollLockUntil=0;
 
-const blankState=()=>({stage:"landing",segment:null,sectionIdx:0,qIdx:0,answers:{},emailCaptured:false,capturedEmail:null,capturedName:null,result:null,notice:null});
-let state=blankState();
-
-function saveProgress(){
-  if(state.stage==="landing"||state.stage==="result")return;
-  try{const snapshot={...state,capturedEmail:null,capturedName:null,emailCaptured:false,result:null};if(state.emailCaptured)snapshot.stage="gate";localStorage.setItem(STORAGE_KEY,JSON.stringify(snapshot))}catch(_e){}
+const overlay=document.querySelector("[data-menu-overlay]");
+const openMenu=document.querySelector("[data-menu-open]");
+const closeMenu=document.querySelector("[data-menu-close]");
+let oldFocus=null;
+function setMenu(open){
+  if(!overlay)return;
+  if(open)oldFocus=document.activeElement;
+  overlay.classList.toggle("is-open",open);
+  overlay.setAttribute("aria-hidden",String(!open));
+  openMenu?.setAttribute("aria-expanded",String(open));
+  for(const selector of [".site-header","main","footer"]){const element=document.querySelector(selector);if(element)element.inert=open}
+  if(open)closeMenu?.focus();else oldFocus?.focus();
 }
-function loadProgress(){try{const raw=localStorage.getItem(STORAGE_KEY);const saved=raw?JSON.parse(raw):null;return saved&&saved.answers&&["segment","intro","question","gate"].includes(saved.stage)?saved:null}catch(_e){return null}}
-function clearProgress(){try{localStorage.removeItem(STORAGE_KEY)}catch(_e){}}
-
-const overlay=document.querySelector("[data-menu-overlay]"),menuOpen=document.querySelector("[data-menu-open]"),menuClose=document.querySelector("[data-menu-close]");
-let previousFocus=null;
-function setMenu(open){if(!overlay||!menuOpen)return;if(open)previousFocus=document.activeElement;overlay.classList.toggle("is-open",open);overlay.setAttribute("aria-hidden",String(!open));menuOpen.setAttribute("aria-expanded",String(open));document.body.classList.toggle("menu-open",open);document.querySelector(".site-header").inert=open;document.querySelector("main").inert=open;document.querySelector("footer").inert=open;if(open)menuClose?.focus();else previousFocus?.focus()}
-menuOpen?.addEventListener("click",()=>setMenu(true));
-menuClose?.addEventListener("click",()=>setMenu(false));
+openMenu?.addEventListener("click",()=>setMenu(true));
+closeMenu?.addEventListener("click",()=>setMenu(false));
 overlay?.querySelectorAll("a").forEach(link=>link.addEventListener("click",()=>setMenu(false)));
-document.addEventListener("keydown",event=>{if(!overlay?.classList.contains("is-open"))return;if(event.key==="Escape"){setMenu(false);return}if(event.key==="Tab"){const items=[...overlay.querySelectorAll("a,button")],first=items[0],last=items.at(-1);if(event.shiftKey&&document.activeElement===first){event.preventDefault();last.focus()}else if(!event.shiftKey&&document.activeElement===last){event.preventDefault();first.focus()}}});
-const header=document.querySelector(".site-header");
-function updateHeader(){header?.classList.toggle("is-scrolled",window.scrollY>24)}
-updateHeader();window.addEventListener("scroll",updateHeader,{passive:true});
-
-const optionMarkup=(name,value,label,checked,type="radio")=>`<label class="ar-option"><input type="${type}" name="${name}" value="${value}" ${checked?"checked":""}><span>${label}</span></label>`;
-function focusContent(){window.requestAnimationFrame(()=>{const target=state.stage==="landing"?landing.querySelector("h1"):app.querySelector("#ar-question-title")||app.querySelector("h2")||app.querySelector("h3");if(state.stage==="question")app.querySelector(".ar-stack-item.is-active")?.scrollIntoView({block:"center",behavior:"instant"});else window.scrollTo({top:0,behavior:"instant"});if(target){target.tabIndex=-1;target.focus({preventScroll:true})}})}
-
-const structure=()=>structureFor();
-const currentSection=()=>structure()[state.sectionIdx];
-
-function render({focus=false}={}){
-  landing.hidden=state.stage!=="landing";
-  app.hidden=state.stage==="landing";
-  document.body.classList.toggle("ar-focus-mode",FOCUS_STAGES.has(state.stage));
-  document.body.classList.toggle("ar-is-landing",state.stage==="landing");
-  const mark=document.querySelector(".ar-mark");if(mark)mark.hidden=state.stage!=="landing";
-  if(state.stage!=="landing"){
-    app.innerHTML=
-      state.stage==="segment"?renderSegment():
-      state.stage==="intro"?renderIntro():
-      state.stage==="question"?renderQuestionStage():
-      state.stage==="gate"?renderGate():
-      renderResult();
+document.addEventListener("keydown",event=>{
+  if(!overlay?.classList.contains("is-open"))return;
+  if(event.key==="Escape"){setMenu(false);return}
+  if(event.key==="Tab"){
+    const focusables=[...overlay.querySelectorAll("a,button")],first=focusables[0],last=focusables.at(-1);
+    if(event.shiftKey&&document.activeElement===first){event.preventDefault();last.focus()}
+    if(!event.shiftKey&&document.activeElement===last){event.preventDefault();first.focus()}
   }
-  if(focus)focusContent();
-  saveProgress();
+});
+addEventListener("scroll",()=>document.querySelector(".site-header")?.classList.toggle("is-scrolled",scrollY>24),{passive:true});
+
+function blankState(){
+  const pack=bank.meta.packs.find(item=>item.id===params.get("p"))?.id??null;
+  const sector=bank.sector.options.some(item=>item.id===params.get("s"))?params.get("s"):bank.meta.packs.find(item=>item.id===pack)?.sector??null;
+  return {version:bankVersion,screen:"landing",answers:{},sector,role:null,pack,questionIndex:0,visionDetail:"",fidCount:null,ownNumber:"",ownType:"delayMonth",currency:bank.cost.ownNumber.defaultCurrency};
 }
-
-function topBar(backLabel="Back"){return `<div class="ar-top-bar"><button class="ar-back" type="button" data-back>← ${backLabel}</button><button class="ar-text-button" type="button" data-save-exit>Save &amp; finish later</button></div>`}
-
-function renderSegment(){return `<section class="ar-flow ar-centered ar-perspective-step" aria-labelledby="ar-segment-title">${topBar()}<p class="ar-category-kicker">One quick thing</p><h2 class="ar-section-title" id="ar-segment-title">Which one are you?</h2><div class="ar-perspective-options" role="group" aria-describedby="ar-perspective-note"><button type="button" data-segment="decision_maker">I help set direction and make decisions</button><button type="button" data-segment="practitioner">I'm close to how AI is used day to day</button></div><p class="ar-choose-note" id="ar-perspective-note">Same questions and score either way. This only changes how we explain your result.</p></section>`}
-
-const partStarts=[0,1,3,5];
-function renderIntro(){const sec=structure()[state.sectionIdx],label=sectionLabels[sec.section];const part=partStarts.indexOf(state.sectionIdx)+1;return `<section class="ar-pause ar-intro" aria-labelledby="ar-intro-title">${topBar()}<p class="ar-category-kicker">Part ${part} of 4</p><h2 id="ar-intro-title">${label.title}</h2><p class="ar-choose-note">${label.blurb}</p><div class="ar-part-progress" aria-label="Part ${part} of 4">${partStarts.map((_,i)=>`<span class="${i<part?"is-current":""}"></span>`).join("")}</div><button class="ar-button" type="button" data-begin-part>${part===1?"Begin":"Keep going"} <span aria-hidden="true">→</span></button></section>`}
-
-const SECTION_GROUPS=[[0],[1,2],[3,4],[5]];
-function renderSegmentRow(){
-  const answered=structure().slice(0,state.sectionIdx).reduce((n,s)=>n+s.questions.length,0)+state.qIdx;
-  return `<div class="ar-seg-row" role="progressbar" aria-label="Quiz progress" aria-valuenow="${answered}" aria-valuemin="0" aria-valuemax="${TOTAL_QUESTIONS}">${SECTION_GROUPS.map(group=>`<div class="ar-seg-group">${group.map(i=>{const cls=i<state.sectionIdx?"is-done":i===state.sectionIdx?"is-active":"";const fill=i===state.sectionIdx?` style="--ar-segment-fill:${Math.round((state.qIdx+1)/6*100)}%"`:"";return `<span class="ar-seg ${cls}"${fill}></span>`}).join("")}</div>`).join("")}</div>`;
+function loadSaved(){
+  try{const value=JSON.parse(localStorage.getItem(STORAGE_KEY));return value?.version===bankVersion&&value.answers&&typeof value.screen==="string"?value:null}catch{return null}
 }
-function progressHeader(){
-  const sec=currentSection(),label=sectionLabels[sec.section],dimName=(dimensionLabels[sec.dimension]||"").split(", ")[0];
-  const answered=structure().slice(0,state.sectionIdx).reduce((n,s)=>n+s.questions.length,0)+state.qIdx+1;
-  return `${topBar()}<div class="ar-progress-block"><div class="ar-progress-top"><p class="ar-category-kicker">${label.title.toUpperCase()}</p><span class="ar-step-label">Question ${answered} of ${TOTAL_QUESTIONS}</span></div>${renderSegmentRow()}<p class="ar-subdim-heading"><em>${String(answered).padStart(2,"0")}</em> · ${dimName.toUpperCase()}</p></div>`;
+function save(){
+  try{if(state.screen==="landing"||state.screen==="result")return;localStorage.setItem(STORAGE_KEY,JSON.stringify(state))}catch{}
 }
-
-function renderQuestionBlock(q,isActive){
-  const saved=state.answers[q.id];
-  const scaleLabels=["Strongly disagree","Disagree","Neutral","Agree","Strongly agree"];
-  const body=q.type==="scale"
-    ? `<div class="ar-dots-labels"><span>Disagree</span><span>Agree</span></div><fieldset class="ar-dots"><legend class="skip-link">${q.text}</legend>${[1,2,3,4,5].map(v=>`<label class="ar-dot ${Number(saved)>=v?"is-lit":""}"><input type="radio" name="${q.id}" value="${v}" aria-label="${scaleLabels[v-1]}" ${String(saved)===String(v)?"checked":""}></label>`).join("")}</fieldset><p class="ar-scale-value" data-scale-value aria-live="polite">${saved?scaleLabels[Number(saved)-1]:"Select how much you agree"}</p>`
-    : `<fieldset class="ar-options"><legend class="skip-link">${q.text}</legend>${q.options.map(o=>optionMarkup(q.id,o.value,o.label,saved===o.value)).join("")}</fieldset>`;
-  return `<div class="ar-stack-item ${isActive?"is-active":""}" data-question-id="${q.id}"><h2 class="ar-question" ${isActive?'id="ar-question-title"':""}>${q.text}</h2>${body}</div>`;
+function clearSave(){try{localStorage.removeItem(STORAGE_KEY)}catch{}}
+function screenList(){
+  const cost=visibleQuestions(bank,state.answers).filter(q=>q.section==="cost");
+  return [
+    {id:"sector",kind:"tap",question:bank.sector},
+    {id:"role",kind:"tap",question:bank.role},
+    {id:"intro-vision",kind:"intro",title:bank.copy.sectionIntros.vision,label:"01 / Direction"},
+    {id:"V1",kind:"tap",question:bank.questions.find(q=>q.id==="V1")},
+    {id:"intro-maturity",kind:"intro",title:bank.copy.sectionIntros.maturity,label:"02 / Today"},
+    ...bank.questions.filter(q=>q.section==="maturity").map(q=>({id:q.id,kind:"tap",question:q})),
+    ...bank.groups.flatMap((group,index)=>[
+      {id:`intro-${group.id}`,kind:"intro",title:group.question,label:`0${index+3} / ${group.label}`},
+      {id:`gap-${group.id}`,kind:"gap",group,questions:bank.questions.filter(q=>q.section==="gap"&&q.group===group.id)}
+    ]),
+    {id:"intro-cost",kind:"intro",title:bank.copy.sectionIntros.cost,label:"06 / Your numbers"},
+    ...cost.map(q=>({id:q.id,kind:"tap",question:q})),
+    {id:"intro-urgency",kind:"intro",title:bank.copy.sectionIntros.urgency,label:"07 / Last question"},
+    {id:"U1",kind:"multi",question:bank.questions.find(q=>q.id==="U1")},
+    {id:"result",kind:"result"}
+  ];
 }
-function renderQuestionStage(){
-  const sec=currentSection();
-  const blocks=sec.questions.map((q,i)=>renderQuestionBlock(q,i===state.qIdx));
-  const complete=sec.questions.every(q=>state.answers[q.id]!==undefined);
-  return `<section class="ar-flow ar-stack" aria-labelledby="ar-question-title"><div class="ar-sticky-head">${progressHeader()}</div>${state.notice?`<p class="ar-question-notice" role="alert">${state.notice}</p>`:""}<div class="ar-stack-list">${blocks.join("")}</div><div class="ar-flow-actions"><button class="ar-button" type="button" data-next-question ${complete?"":"disabled"}>Continue <span aria-hidden="true">→</span></button></div></section>`;
+function currentScreen(){return screenList().find(item=>item.id===state.screen)}
+function move(offset){
+  clearTimeout(advanceTimer);
+  const screens=screenList(),index=screens.findIndex(item=>item.id===state.screen);
+  const next=screens[index+offset];
+  if(!next)return;
+  state.screen=next.id;
+  state.questionIndex=next.kind==="gap"?(offset<0?next.questions.length-1:0):0;
+  if(next.id==="result")clearSave();
+  render(true);
 }
-
-const scaleLabels=["Strongly disagree","Disagree","Neutral","Agree","Strongly agree"];
-function lightDots(fieldset,through){fieldset.querySelectorAll(".ar-dot").forEach((dot,i)=>dot.classList.toggle("is-lit",i<through));const label=fieldset.parentElement?.querySelector("[data-scale-value]");if(label)label.textContent=through?scaleLabels[through-1]:"Select how much you agree"}
-function activateQuestion(index,{scroll=true}={}){
-  const blocks=[...app.querySelectorAll(".ar-stack-item")];
-  blocks.forEach((block,i)=>{block.classList.toggle("is-active",i===index);block.classList.toggle("is-muted",i!==index);const heading=block.querySelector(".ar-question");if(i===index)heading.id="ar-question-title";else heading.removeAttribute("id")});
-  state.qIdx=index;
-  const total=structure().slice(0,state.sectionIdx).reduce((n,s)=>n+s.questions.length,0)+index+1;
-  const step=app.querySelector(".ar-step-label");if(step)step.textContent=`Question ${total} of ${TOTAL_QUESTIONS}`;
-  const number=app.querySelector(".ar-subdim-heading em");if(number)number.textContent=String(total).padStart(2,"0");
-  const progress=app.querySelector(".ar-seg.is-active");if(progress)progress.style.setProperty("--ar-segment-fill",`${Math.round((index+1)/6*100)}%`);
-  app.querySelector(".ar-seg-row")?.setAttribute("aria-valuenow",String(total-1));
-  if(scroll)blocks[index]?.scrollIntoView({block:"center",behavior:window.matchMedia("(prefers-reduced-motion: reduce)").matches?"instant":"smooth"});
-  saveProgress();
-}
-let questionScrollFrame=0;
-let autoScrollUntil=0;
-let answerAdvanceToken=0;
-window.addEventListener("scroll",()=>{
-  if(state.stage!=="question"||questionScrollFrame||performance.now()<autoScrollUntil)return;
-  questionScrollFrame=window.requestAnimationFrame(()=>{
-    questionScrollFrame=0;
-    const blocks=[...app.querySelectorAll(".ar-stack-item")];
-    if(!blocks.length)return;
-    const headerHeight=app.querySelector(".ar-sticky-head")?.getBoundingClientRect().height||0;
-    const center=headerHeight+(window.innerHeight-headerHeight)/2;
-    const nearest=blocks.map((block,i)=>({i,distance:Math.abs((block.getBoundingClientRect().top+block.getBoundingClientRect().bottom)/2-center)})).sort((a,b)=>a.distance-b.distance)[0];
-    if(nearest.i!==state.qIdx)activateQuestion(nearest.i,{scroll:false});
-  });
-},{passive:true});
-
-function renderGate(){return `<section class="ar-gate" aria-labelledby="ar-gate-title">${topBar()}<p class="ar-category-kicker">Starting point complete</p><h2 id="ar-gate-title">See the full picture.</h2><p class="ar-choose-note">30 statements remain across adoption, governance and new opportunities. Add your name and email to continue. This review preview does not send or save your details.</p><form data-gate-form><div class="ar-capture-fields"><label>First name <input name="name" autocomplete="given-name" required></label><label>Email <input name="email" type="email" autocomplete="email" inputmode="email" required></label></div><div class="ar-flow-actions"><button class="ar-button" type="submit">Continue <span aria-hidden="true">→</span></button></div></form></section>`}
-
-const segmentFraming={decision_maker:{experimenting:" Compare this with what people doing the work actually experience.",design:" Focus investment on the weakest condition before a wider rollout.",pilot:" Check the foundations in live work before expanding."},practitioner:{experimenting:" Share one concrete use and its constraints with the people setting direction.",design:" Show leaders where the work needs clearer rules or support.",pilot:" Test whether this picture holds beyond your own team."}};
-const segmentGapCallout={decision_maker:"People doing the day-to-day work may see AI use differently. Treat this as a starting hypothesis until you compare views.",practitioner:"Your view may not describe the whole organisation. Compare it with other teams before making a wider claim."};
-const segmentLabel={decision_maker:"Decision view",practitioner:"Day-to-day view"};
-const segmentShareLine={decision_maker:"Share this with someone close to the work for a reality check: https://www.ignisleadership.com/ai-roulette",practitioner:"Share this with someone setting direction to compare perspectives: https://www.ignisleadership.com/ai-roulette"};
-const humanBoundary="People retain responsibility for important decisions, external commitments and anything that materially affects another person.";
-
-function levelLabel(pct){return pct<40?"Needs work":pct<70?"Getting there":"Strength"}
-
-function reportText(){
-  const r=state.result;
-  const sorted=Object.entries(r.dimensions).sort((a,b)=>a[1]-b[1]);
-  const second=sorted[1];
-  const maturityStage=maturityStages.find(s=>s.id===state.answers.M1);
-  const lines=[
-    `Your AI Roulette result`,
-    `Archetype: ${r.archetype.name}, ${r.archetype.line}`,
-    `Score: ${r.score}/100 (indicative only) · ${bandLabels[r.band]}`,
-    `Weakest lever: ${dimensionLabels[r.constraint]}`,
-    "",
-    maturityStage?`AI use today: ${maturityStage.label}, ${maturityStage.note}`:"",
-    `New-opportunity lens: ${r.opportunityScore}/100 (shown separately; not part of the core score)`,
-    "",
-    "All levers:",
-    ...sorted.map(([key,value])=>`- ${dimensionLabels[key]}: ${value}% (${levelLabel(value)})`),
-    "",
-    `Fix first, ${dimensionLabels[r.constraint]}:`,
-    ...movesFor(r.constraint).map((m,i)=>`${i+1}. ${m}`),
-    "",
-    second?`Next after that, ${dimensionLabels[second[0]]}:`:"",
-    second?movesFor(second[0])[0]||"":"",
-    "",
-    "30-day starting plan:",
-    ...startingPlanFor(r.band).map((item,i)=>`${i+1}. ${item}`),
-    "",
-    "What stays human: "+humanBoundary,
-    "",
-    "This is an indicative interpretation of self-reported answers, not an organisational assessment or a benchmark.",
-    "",
-    segmentShareLine[state.segment]||"Know someone who should see this? They can take their own assessment: https://www.ignisleadership.com/ai-roulette"
-  ].filter(Boolean);
-  return lines.join("\n");
-}
-
-function renderResult(){
-  const r=state.result;
-  const sorted=Object.entries(r.dimensions).sort((a,b)=>a[1]-b[1]);
-  const second=sorted[1];
-  const maturityStage=maturityStages.find(s=>s.id===state.answers.M1);
-  const moves=movesFor(r.constraint);
-  const interpretation=(r.band==="experimenting"?`Your answers suggest you're early, there's a useful opening, but the work needs mapping before a governed AI pilot.`:r.band==="design"?`You have enough to design one bounded change, provided the unresolved conditions are tested.`:`Your answers suggest real foundations for a bounded pilot. Test them against live work before expanding.`)+(segmentFraming[state.segment]?.[r.band]||"");
-  const gapCallout=segmentGapCallout[state.segment]||"";
-  const shareHref=`mailto:?subject=${encodeURIComponent(`AI Roulette result: ${r.archetype.name}`)}&body=${encodeURIComponent(`I ran Ignis's AI Roulette and came out as "${r.archetype.name}", ${r.archetype.line}\n\nScore: ${r.score}/100 (indicative only). Weakest lever: ${dimensionLabels[r.constraint]}.\n\nTake a few minutes and see where you land: https://www.ignisleadership.com/ai-roulette`)}`;
-  const actions=`<a class="ar-button" href="/contact">Talk it through <span aria-hidden="true">↗</span></a><a class="ar-outline" href="${shareHref}">Compare perspectives <span aria-hidden="true">↗</span></a>`;
-  const emailHref=state.capturedEmail?`mailto:${state.capturedEmail}?subject=${encodeURIComponent("Your AI Roulette report")}&body=${encodeURIComponent(reportText())}`:null;
-  return `<section class="ar-result" aria-labelledby="ar-result-title">
-    <div class="ar-result-head">
-      <p class="ar-result-kicker">Your AI Roulette result${segmentLabel[state.segment]?` · ${segmentLabel[state.segment]}`:""}</p>
-      <span class="ar-band">${bandLabels[r.band]}</span>
-      <h2 id="ar-result-title">${r.archetype.name}</h2>
-      <p class="ar-result-lead">${r.archetype.line} ${r.archetype.detail}</p>
-      <p class="ar-result-score">${r.score}<span>/100, indicative only</span></p>
-      <p class="ar-result-lead">${interpretation}</p>
-      ${gapCallout?`<p class="ar-caveat"><strong>The gap worth checking:</strong> ${gapCallout}</p>`:""}
-      ${maturityStage?`<p class="ar-caveat"><strong>AI use today:</strong> ${maturityStage.label}, ${maturityStage.note}</p>`:""}
-      <p class="ar-caveat"><strong>New-opportunity lens:</strong> ${r.opportunityScore}/100. This is shown separately and does not change your core score, which reflects adoption and governance.</p>
-      <p class="ar-caveat">This is an indicative interpretation of self-reported answers, not an organisational assessment or a benchmark. In this preview, no answers or contact details have been sent to Ignis. Saved progress on this device is cleared when you finish.</p>
-    </div>
-    <div class="ar-result-grid">
-      <article><p class="ar-result-kicker">Fix first, ${dimensionLabels[r.constraint]}</p><h3>${moves[0]}</h3><p>${moves.slice(1).map(m=>`<span>${m}</span>`).join(" ")}</p></article>
-      <article><p class="ar-result-kicker">Next after that</p><h3>${second?dimensionLabels[second[0]]:""}</h3><p>${second?movesFor(second[0])[0]:""}</p><h3>What stays human</h3><p>${humanBoundary}</p></article>
-    </div>
-    <div class="ar-lever-chart" aria-label="All levers, lowest to highest">${sorted.map(([key,value])=>`<div class="ar-lever-row"><span class="ar-lever-name">${dimensionLabels[key]}</span><span class="ar-lever-track"><span class="ar-lever-fill" style="width:${value}%" data-level="${levelLabel(value)}"></span></span><span class="ar-lever-value">${value}%</span></div>`).join("")}</div>
-    ${r.gates.length?`<p class="ar-caveat"><strong>Why this result is bounded:</strong> ${r.gates.join(" ")}</p>`:""}
-    <div class="ar-result-actions">${actions}</div>
-    ${emailHref?`<div class="ar-result-actions"><a class="ar-outline" href="${emailHref}">Email me this report <span aria-hidden="true">↗</span></a></div>`:""}
-    <div class="ar-result-actions"><button class="ar-text-button" type="button" data-restart>Start again</button></div>
-  </section>`;
-}
-
-function afterSectionContinue(){
-  const next=state.sectionIdx+1;
-  if(next>=structure().length){
-    for(const [sectionIdx,section] of structure().entries())for(const [qIdx,q] of section.questions.entries())if(state.answers[q.id]===undefined){state.sectionIdx=sectionIdx;state.qIdx=qIdx;state.notice="One question still needs an answer before your result is ready.";state.stage="question";render({focus:true});return}
-    try{state.result=evaluate(structure(),state.answers)}catch(_error){state.notice="One answer could not be scored. Please review this section.";state.stage="question";render({focus:true});return}
-    state.stage="result";clearProgress();render({focus:true});return
-  }
-  if(next===1&&!state.emailCaptured){state.stage="gate";render({focus:true});return}
-  state.sectionIdx=next;state.qIdx=0;state.stage=partStarts.includes(next)?"intro":"question";render({focus:true});
-}
-
-function advanceQuestion(){
-  const sec=currentSection();
-  if(sec.questions.some(q=>state.answers[q.id]===undefined)){const index=sec.questions.findIndex(q=>state.answers[q.id]===undefined);activateQuestion(index);return}
-  afterSectionContinue();
-}
-
 function back(){
-  if(state.stage==="segment"){state=blankState();clearProgress();render({focus:true});return}
-  if(state.stage==="intro"){
-    if(state.sectionIdx===0){state.stage="segment";render({focus:true});return}
-    if(state.sectionIdx===1){state.stage="gate";render({focus:true});return}
-    state.sectionIdx--;state.qIdx=structure()[state.sectionIdx].questions.length-1;state.stage="question";render({focus:true});return
-  }
-  if(state.stage==="gate"){state.sectionIdx=0;state.qIdx=maturity.length-1;state.stage="question";render({focus:true});return}
-  if(state.stage==="question"){
-    if(state.qIdx>0){state.qIdx--;render({focus:true});return}
-    if(partStarts.includes(state.sectionIdx)){state.stage="intro";render({focus:true});return}
-    state.sectionIdx--;state.qIdx=structure()[state.sectionIdx].questions.length-1;render({focus:true});return
+  if(state.screen==="landing")return;
+  if(state.screen.startsWith("gap-")&&state.questionIndex>0){activateQuestion(state.questionIndex-1);return}
+  if(state.screen==="sector"){state.screen="landing";render(true);return}
+  move(-1);
+}
+function topBar(){return `<div class="ar-top-bar"><button type="button" class="ar-back" data-back>← Back</button><button type="button" class="ar-text-button" data-save>Save &amp; finish later</button></div>`}
+function progress(){
+  const gapItems=bank.questions.filter(q=>q.section==="gap");
+  const completed=gapItems.filter(q=>state.answers[q.id]!==undefined).length;
+  const group=bank.groups.find(g=>state.screen===`gap-${g.id}`);
+  return `<div class="ar-progress-block"><div class="ar-progress-top"><span>${esc(group?.label??"AI Roulette")}</span><span>${completed} / ${gapItems.length} statements</span></div><div class="ar-seg-row" role="progressbar" aria-label="Gap statements answered" aria-valuemin="0" aria-valuemax="${gapItems.length}" aria-valuenow="${completed}">${bank.groups.map(g=>{const n=gapItems.filter(q=>q.group===g.id&&state.answers[q.id]!==undefined).length;return `<span class="ar-seg" style="--fill:${n/4*100}%" aria-hidden="true"></span>`}).join("")}</div></div>`
+}
+function screenTitle(screen){
+  return sectorText(screen.question,"text",state.sector??"ipp");
+}
+function choiceOption(option){
+  return `<button type="button" class="ar-choice" data-choice="${esc(option.value)}"><span>${esc(sectorText(option,"label",state.sector??"ipp"))}</span>${option.help?`<small>${esc(option.help)}</small>`:""}</button>`
+}
+function renderTap(screen){
+  const q=screen.question;
+  const heading=screenTitle(screen);
+  const help=sectorText(q,"help",state.sector??"ipp")||q.note||"";
+  const progressLabel=screen.id==="sector"?"First, a little context":screen.id==="role"?"One more thing":screen.id==="V1"?"Your 12-month goal":q.section==="maturity"?"Where AI is today":"Your own estimate";
+  const selected=state.answers[q.id];
+  return `<section class="ar-flow ar-tap" aria-labelledby="ar-screen-title">${topBar()}<p class="ar-category-kicker">${esc(progressLabel)}</p><h2 id="ar-screen-title">${esc(heading)}</h2>${help?`<p class="ar-screen-help">${esc(help)}</p>`:""}<div class="ar-choice-list">${q.options.map(choiceOption).join("")}</div>${screen.id==="V1"&&selected==="3"&&state.sector==="ipp"?renderFidFollowup(q):""}${screen.id==="V1"&&selected==="6"?`<label class="ar-detail-label">In a few words (optional)<input data-vision-detail maxlength="80" value="${esc(state.visionDetail)}"></label>`:""}${screen.id==="V1"&&selected?`<button class="ar-button" type="button" data-next>Continue →</button>`:""}</section>`
+}
+function renderFidFollowup(q){
+  const follow=q.options.find(option=>option.id==="fid")?.followUp;
+  return `<fieldset class="ar-followup"><legend>${esc(follow.text)}</legend>${follow.options.map(option=>`<label><input type="radio" name="fidCount" value="${esc(option.id)}" ${state.fidCount===option.id?"checked":""}><span>${esc(option.label)}</span></label>`).join("")}</fieldset>`;
+}
+function renderIntro(screen){
+  return `<section class="ar-pause" aria-labelledby="ar-screen-title">${topBar()}<p class="ar-category-kicker">${esc(screen.label)}</p><h2 id="ar-screen-title">${esc(screen.title)}</h2><button class="ar-button" type="button" data-next>Continue →</button></section>`;
+}
+function dotLabels(q){
+  return `<div class="ar-dots-labels"><span>${esc(bank.scale.endLabels.left)}</span><span>${esc(bank.scale.endLabels.right)}</span></div><fieldset class="ar-dots" aria-label="${esc(q.text)}">${bank.scale.labels.map((label,i)=>`<label class="ar-dot" data-point="${i+1}"><input type="radio" name="${esc(q.id)}" value="${i+1}" aria-label="${esc(label)}" ${String(state.answers[q.id])===String(i+1)?"checked":""}><span aria-hidden="true"></span></label>`).join("")}</fieldset>`;
+}
+function renderGap(screen){
+  const blocks=screen.questions.map((q,i)=>`<article class="ar-stack-item ${i===state.questionIndex?"is-active":""}" data-question-index="${i}" data-question-id="${esc(q.id)}"><h2 ${i===state.questionIndex?'id="ar-screen-title"':""} class="ar-question">${esc(sectorText(q,"text",state.sector??"ipp"))}</h2>${dotLabels(q)}<p class="ar-scale-value" data-scale-value>${state.answers[q.id]==="0"?"Not sure":state.answers[q.id]?esc(bank.scale.labels[Number(state.answers[q.id])-1]):"Tap how much you agree"}</p><button type="button" class="ar-not-sure ${state.answers[q.id]==="0"?"is-selected":""}" data-not-sure="${esc(q.id)}">Not sure</button></article>`).join("");
+  const complete=screen.questions.every(q=>state.answers[q.id]!==undefined);
+  return `<section class="ar-flow ar-stack" aria-labelledby="ar-screen-title"><div class="ar-sticky-head">${topBar()}${progress()}<p class="ar-subdim-heading"><em>${String(state.questionIndex+1).padStart(2,"0")}</em> · ${esc(screen.group.name)}</p></div><div class="ar-stack-list">${blocks}</div><div class="ar-flow-actions"><button class="ar-button" type="button" data-next ${complete?"":"disabled"}>Continue →</button></div></section>`;
+}
+function renderMulti(screen){
+  const selected=state.answers.U1??[];
+  return `<section class="ar-flow ar-tap" aria-labelledby="ar-screen-title">${topBar()}<p class="ar-category-kicker">One last question</p><h2 id="ar-screen-title">${esc(screen.question.text)}</h2><p class="ar-screen-help">${esc(screen.question.help)}</p><div class="ar-choice-list">${screen.question.options.map(option=>`<button type="button" class="ar-choice ${selected.includes(option.id)?"is-selected":""}" aria-pressed="${selected.includes(option.id)}" data-multi="${esc(option.id)}">${esc(sectorText(option,"label",state.sector??"ipp"))}</button>`).join("")}</div><p class="ar-screen-help">Choose up to three.</p><button class="ar-button" type="button" data-next ${selected.length?"":"disabled"}>See my result →</button></section>`;
+}
+function visionPhrase(){
+  const q=bank.questions.find(item=>item.id==="V1");
+  const option=optionFor(q,state.answers.V1);
+  if(option?.id==="fid"&&state.sector==="ipp"&&state.fidCount)return option.followUp.options.find(item=>item.id===state.fidCount)?.visionPhrase??option.phrase;
+  return sectorText(option,"phrase",state.sector??"ipp")||"get where you need the business to be";
+}
+function urgencyEcho(){
+  const q=bank.questions.find(item=>item.id==="U1");
+  const selected=(state.answers.U1??[]).map(id=>q.options.find(option=>option.id===id)).filter(item=>item?.class==="need"&&item.echo).slice(0,2);
+  if(!selected.length)return "";
+  return `You told us that if nothing changes in the next 30 days, ${selected.map(item=>item.echo).join(" and ")}.`;
+}
+function costTile(title,range,unit){
+  return `<div class="ar-cost-tile"><span>${esc(title)}</span><strong>${esc(formatRange(range))}${range?` ${unit}`:""}</strong><small>Your estimate</small></div>`;
+}
+function result(){
+  const gap=scoreGap(bank,state.answers);
+  const cost=scoreCost(bank,state.answers,gap.archetype);
+  const urgency=urgencyLevel(bank,state.answers,cost);
+  const path=pathFor(gap,optionFor(bank.questions.find(q=>q.id==="V1"),state.answers.V1)?.id);
+  const pathData=bank.paths.options[path];
+  const archetype=gap.archetype?.archetype;
+  const lever=gap.archetype?.name??"visibility";
+  const moveLever=gap.fixFirst??gap.archetype;
+  const move=sectorText(moveLever?.archetype,"move",state.sector??"ipp")||moveLever?.archetype?.moveBySector?.[state.sector??"ipp"]||"Ask the people doing the work where AI is used, what it changes, and how it is checked.";
+  const bandData=bank.scoring.bands.find(item=>item.id===gap.band);
+  const resultHeading=gap.visibilityOnly?"Not enough visibility yet":archetype?.name??"Your result";
+  const primaryTalk=urgency==="need";
+  const talkLink=`<a class="ar-button" href="/contact?source=ai-roulette">Talk it through ↗</a>`;
+  const reportButton=`<button class="ar-button" type="button" data-report>View the full report ↓</button>`;
+  const costName={time:"time",delay:"delay",missed:"missed value"};
+  const costHeadline=cost.biggest?`By your own estimate, this shows up most as ${costName[cost.biggest]}.`:"Your answers do not point to one main cost yet. That is worth finding out.";
+  const ownNumber=Number(state.ownNumber);
+  const symbol=state.currency==="e"?"€":"£";
+  const moneyRange=state.ownType==="delayMonth"&&cost.delay?cost.delay.map(value=>value===null?null:Math.round(value/bank.cost.assumptions.weeksPerMonth*ownNumber)):state.ownType==="dealValue"&&cost.missed?cost.missed.map(value=>value===null?null:Math.round(value*ownNumber)):null;
+  const moneyLine=ownNumber>0&&moneyRange?`<p class="ar-money-result">At your figure, roughly ${symbol}${formatRange(moneyRange)} ${state.ownType==="delayMonth"?"a year of slippage":"of work you passed on"}. ${state.ownType==="dealValue"?"That is value at stake, not lost profit.":""}</p>`:"";
+  return `<section class="ar-result" aria-labelledby="ar-result-title"><div class="ar-result-hero"><p class="ar-category-kicker">Your AI Roulette result</p><h2 id="ar-result-title">${esc(resultHeading)}</h2><p class="ar-result-line">${esc(archetype?.oneLiner??bank.copy.result.visibilityOnly)}</p><div class="ar-result-score">${gap.total}<span>/100</span></div><p class="ar-band">${esc(bandData?.name??"Indicative score")}</p><p class="ar-result-lead">You want to ${esc(visionPhrase())}. ${gap.visibilityOnly?"We cannot name one gap from the answers you were unsure of.":`The biggest thing in the way appears to be ${esc(lever)}.`}</p>${gap.gatedLever?`<p class="ar-caveat">${esc(bank.scoring.governanceGate.message.replace("{lever}",gap.gatedLever.name))}</p>`:""}${gap.straightLining?`<p class="ar-caveat">${esc(bank.scoring.straightLiningNote)}</p>`:""}</div><section class="ar-result-section"><h3>What it may cost</h3><p>${esc(costHeadline)}</p><div class="ar-cost-grid">${costTile("Time",cost.time,"hours / year")}${costTile("Delay",cost.delay,"weeks / year")}${costTile("Missed value",cost.missed,"opportunities")}</div><p class="ar-caveat">These are your estimates multiplied out, not industry averages. We cannot tell from these answers which gap causes which cost.</p><div class="ar-own-number"><label for="ar-own-value">Want a money figure? Add one number you know. Optional.</label><div class="ar-own-controls"><select data-own-type aria-label="Type of value">${bank.cost.ownNumber.types.map(item=>`<option value="${item.id}" ${state.ownType===item.id?"selected":""}>${esc(sectorText(item,"label",state.sector??"ipp"))}</option>`).join("")}</select><select data-currency aria-label="Currency"><option value="g" ${state.currency==="g"?"selected":""}>£ GBP</option><option value="e" ${state.currency==="e"?"selected":""}>€ EUR</option></select><input id="ar-own-value" data-own-number type="number" inputmode="decimal" min="0" step="any" placeholder="Your figure" value="${esc(state.ownNumber)}"></div>${moneyLine}<small>It stays on this device unless you choose to share it.</small></div><p class="ar-caveat">${esc(bank.cost.footer)}</p></section><section class="ar-result-section"><h3>One move for the next 30 days</h3><p class="ar-next-move">${esc(move)}</p>${gap.fixFirst&&gap.archetype&&gap.fixFirst.id!==gap.archetype.id?`<p class="ar-caveat">Your lowest lever is ${esc(gap.archetype.name)}, but we'd address ${esc(gap.fixFirst.name)} first.</p>`:""}<div class="ar-path"><span>On the Ignis path</span><h4>${esc(pathData.label)}</h4><p>${esc(pathData.line)}</p><a href="/commercial-ai-adoption">Explore Commercial AI adoption ↗</a></div></section><section class="ar-result-section ar-result-cta"><h3>${primaryTalk?"Talk it through":"Keep your result"}</h3>${primaryTalk&&urgencyEcho()?`<p>${esc(urgencyEcho())}</p>`:""}<p>${primaryTalk?"A short conversation about the live pressure point and one next move.":"You can review the six levers and share this page with a colleague to compare perspectives."}</p><div class="ar-result-actions">${primaryTalk?talkLink+reportButton:reportButton+talkLink}</div><p class="ar-caveat">A report-by-email service is not connected in this preview. Your full result is available below without sign-up.</p></section><details class="ar-result-section ar-details" id="ar-full-report"><summary>Your six levers and full report</summary><div class="ar-lever-chart">${gap.groups.map(group=>`<h4>${esc(group.label)} · ${group.health}/100</h4>${gap.levers.filter(item=>item.group===group.id).map(item=>`<div class="ar-lever-row"><span>${esc(item.name)}</span><span class="ar-lever-track"><span class="ar-lever-fill" style="width:${item.health??50}%" data-level="${item.health===null?"unknown":item.health<40?"low":item.health<70?"mid":"high"}"></span></span><span>${item.health===null?"Not sure":`${item.health}%`}</span></div>`).join("")}`).join("")}</div>${gap.blindSpots.length?`<p class="ar-caveat">Not sure on ${gap.blindSpots.map(item=>item.name).join(", ")}. Compare this with someone else in the business.</p>`:""}<p class="ar-caveat">${esc(bank.meta.disclaimer)}</p></details><div class="ar-result-actions"><button class="ar-text-button" type="button" data-restart>Retake the assessment</button><button class="ar-text-button" type="button" data-copy>Copy a link to the assessment</button></div></section>`;
+}
+function render(focus=false){
+  const isLanding=state.screen==="landing";
+  landing.hidden=!isLanding;
+  app.hidden=isLanding;
+  document.body.classList.toggle("ar-is-landing",isLanding);
+  document.body.classList.toggle("ar-focus-mode",!isLanding&&state.screen!=="result");
+  document.querySelector(".ar-mark").hidden=!isLanding;
+  if(isLanding){if(focus)scrollTo(0,0);return}
+  const screen=currentScreen();
+  app.innerHTML=screen.kind==="tap"?renderTap(screen):screen.kind==="intro"?renderIntro(screen):screen.kind==="gap"?renderGap(screen):screen.kind==="multi"?renderMulti(screen):result();
+  if(screen.kind==="gap")updateDots();
+  save();
+  if(focus){
+    requestAnimationFrame(()=>{
+      if(screen.kind==="gap")scrollToQuestion(state.questionIndex,false);
+      else scrollTo({top:0,behavior:"instant"});
+      const heading=app.querySelector("#ar-screen-title,#ar-result-title");
+      if(heading){heading.tabIndex=-1;heading.focus({preventScroll:true})}
+    });
   }
 }
-
-function restart(){state=blankState();clearProgress();render({focus:true})}
-
-landing.querySelector("[data-start]")?.addEventListener("click",()=>{const saved=loadProgress();if(saved)state=saved;else{state=blankState();clearProgress();state.stage="segment"}render({focus:true})});
-
+function scrollToQuestion(index,smooth=true){
+  const block=app.querySelector(`[data-question-index="${index}"]`);
+  if(!block)return;
+  const sticky=app.querySelector(".ar-sticky-head")?.getBoundingClientRect().height??0;
+  const top=scrollY+block.getBoundingClientRect().top-sticky-20;
+  scrollLockUntil=performance.now()+1000;
+  scrollTo({top,behavior:smooth&&!reduced.matches?"smooth":"instant"});
+}
+function updateDots(preview=null){
+  app.querySelectorAll(".ar-stack-item").forEach(block=>{
+    const id=block.dataset.questionId;
+    const saved=Number(state.answers[id]);
+    const chosen=preview?.id===id?preview.value:saved;
+    block.querySelectorAll(".ar-dot").forEach((dot,i)=>dot.classList.toggle("is-lit",chosen>0&&i<chosen));
+    block.querySelector(".ar-scale-value").textContent=preview?.id===id?bank.scale.labels[chosen-1]??"Tap how much you agree":saved===0&&state.answers[id]!==undefined?"Not sure":saved?bank.scale.labels[saved-1]:"Tap how much you agree";
+  });
+}
+function activateQuestion(index){
+  const screen=currentScreen();
+  if(screen?.kind!=="gap"||index<0||index>=screen.questions.length)return;
+  state.questionIndex=index;
+  app.querySelectorAll(".ar-stack-item").forEach((block,i)=>{
+    block.classList.toggle("is-active",i===index);
+    const heading=block.querySelector("h2");
+    if(i===index)heading.id="ar-screen-title";else heading.removeAttribute("id");
+  });
+  app.querySelector(".ar-subdim-heading em").textContent=String(index+1).padStart(2,"0");
+  scrollToQuestion(index,true);
+  save();
+}
+function selectGap(id,value){
+  const screen=currentScreen();
+  const index=screen.questions.findIndex(q=>q.id===id);
+  if(index<0)return;
+  state.answers[id]=String(value);
+  app.querySelector(`[data-question-id="${id}"] .ar-not-sure`)?.classList.toggle("is-selected",value===0);
+  updateDots();
+  app.querySelector("[data-next]").disabled=!screen.questions.every(q=>state.answers[q.id]!==undefined);
+  save();
+  clearTimeout(advanceTimer);
+  if(index<screen.questions.length-1){
+    advanceTimer=setTimeout(()=>{
+      if(state.screen!==screen.id)return;
+      activateQuestion(index+1);
+      const heading=app.querySelector("#ar-screen-title");
+      if(heading){heading.tabIndex=-1;heading.focus({preventScroll:true})}
+    },220);
+  }else{
+    advanceTimer=setTimeout(()=>{
+      const button=app.querySelector("[data-next]");
+      if(button&&!button.disabled){button.scrollIntoView({block:"center",behavior:reduced.matches?"instant":"smooth"});button.focus({preventScroll:true})}
+    },220);
+  }
+}
+function updateLanding(){
+  const pack=bank.meta.packs.find(item=>item.id===state.pack);
+  const sector=state.sector??"ipp";
+  landing.querySelector(".ar-lede").textContent=bank.copy.landing.subBySector?.[sector]??bank.copy.landing.sub;
+  landing.querySelector(".ar-support").textContent=bank.copy.landing.support;
+  landing.querySelector(".ar-score-tease span").textContent=bank.copy.landing.example.score;
+  landing.querySelector(".ar-score-caption").textContent=bank.copy.landing.example.caption;
+  landing.querySelector(".ar-fineprint").textContent=bank.copy.landing.fine;
+  landing.querySelector(".ar-perspective").textContent=bank.copy.landing.roleLine;
+  landing.querySelectorAll(".ar-landing-outcome p").forEach((node,i)=>node.textContent=bank.copy.landing.outcomes[i]);
+  const packLine=landing.querySelector(".ar-pack-line");
+  packLine.hidden=!pack;
+  if(pack)packLine.textContent=bank.copy.landing.packLine.replace("{packShort}",pack.shortTitle);
+}
 app.addEventListener("click",event=>{
   if(event.target.closest("[data-back]")){back();return}
-  if(event.target.closest("[data-save-exit]")){saveProgress();state.stage="landing";render({focus:true});return}
-  const segmentButton=event.target.closest("[data-segment]");
-  if(segmentButton){state.segment=segmentButton.dataset.segment;state.stage="intro";state.sectionIdx=0;state.qIdx=0;render({focus:true});return}
-  if(event.target.closest("[data-begin-part]")){state.stage="question";render({focus:true});return}
-  if(event.target.closest("[data-next-question]")){advanceQuestion();return}
-  if(event.target.closest("[data-restart]")){restart();return}
+  if(event.target.closest("[data-save]")){save();state.screen="landing";render(true);return}
+  if(event.target.closest("[data-restart]")){clearSave();state=blankState();render(true);return}
+  if(event.target.closest("[data-copy]")){navigator.clipboard?.writeText("https://www.ignisleadership.com/ai-roulette");event.target.textContent="Link copied";return}
+  if(event.target.closest("[data-report]")){const details=app.querySelector("#ar-full-report");details.open=true;details.scrollIntoView({block:"start",behavior:reduced.matches?"instant":"smooth"});return}
+  const choice=event.target.closest("[data-choice]");
+  if(choice){
+    const screen=currentScreen();
+    if(screen.id==="sector"){state.sector=screen.question.options.find(item=>item.value===choice.dataset.choice)?.id??"ipp";state.answers.X2=choice.dataset.choice}
+    else if(screen.id==="role"){state.role=screen.question.options.find(item=>item.value===choice.dataset.choice)?.id??"direction";state.answers.X1=choice.dataset.choice}
+    else state.answers[screen.id]=choice.dataset.choice;
+    save();
+    if(screen.id==="V1"){
+      render(false);
+      if(choice.dataset.choice!=="3"&&choice.dataset.choice!=="6")move(1);
+    }else move(1);
+    return;
+  }
+  const notSure=event.target.closest("[data-not-sure]");
+  if(notSure){selectGap(notSure.dataset.notSure,0);return}
+  const multi=event.target.closest("[data-multi]");
+  if(multi){
+    const option=bank.questions.find(q=>q.id==="U1").options.find(item=>item.id===multi.dataset.multi);
+    let selected=state.answers.U1??[];
+    if(option.exclusive)selected=selected.includes(option.id)?[]:[option.id];
+    else if(selected.includes(option.id))selected=selected.filter(id=>id!==option.id);
+    else selected=[...selected.filter(id=>!bank.questions.find(q=>q.id==="U1").options.find(item=>item.id===id)?.exclusive),option.id].slice(0,3);
+    state.answers.U1=selected;render(false);return;
+  }
+  if(event.target.closest("[data-next]")){if(!event.target.closest("[data-next]").disabled)move(1);return}
 });
-
 app.addEventListener("change",event=>{
   const input=event.target;
-  const block=input.closest(".ar-stack-item");
-  if(block){
-    state.answers[input.name]=input.value;
-    state.notice=null;
-    app.querySelector(".ar-question-notice")?.remove();
-    const dots=input.closest(".ar-dots");
-    if(dots)lightDots(dots,Number(input.value));
-    const sec=currentSection(),complete=sec.questions.every(q=>state.answers[q.id]!==undefined);
-    const next=app.querySelector("[data-next-question]");
-    if(next)next.disabled=!complete;
-    const index=sec.questions.findIndex(q=>q.id===input.name);
-    const sectionIdx=state.sectionIdx, token=++answerAdvanceToken;
-    activateQuestion(index,{scroll:false});
-    if(index<sec.questions.length-1){
-      autoScrollUntil=performance.now()+900;
-      window.setTimeout(()=>{
-        if(state.stage!=="question"||state.sectionIdx!==sectionIdx||token!==answerAdvanceToken)return;
-        activateQuestion(index+1);
-        const heading=app.querySelector("#ar-question-title");
-        if(heading){heading.tabIndex=-1;heading.focus({preventScroll:true})}
-      },140);
-    }else if(complete&&next){
-      autoScrollUntil=performance.now()+900;
-      window.setTimeout(()=>{
-        if(state.stage!=="question"||state.sectionIdx!==sectionIdx||token!==answerAdvanceToken)return;
-        next.scrollIntoView({block:"center",behavior:window.matchMedia("(prefers-reduced-motion: reduce)").matches?"instant":"smooth"});
-        next.focus({preventScroll:true});
-      },140);
+  if(input.closest(".ar-dot")){selectGap(input.name,Number(input.value));return}
+  if(input.name==="fidCount"){state.fidCount=input.value;save();return}
+  if(input.matches("[data-own-type]"))state.ownType=input.value;
+  if(input.matches("[data-currency]"))state.currency=input.value;
+  if(input.matches("[data-own-type],[data-currency]"))render(false);
+});
+app.addEventListener("input",event=>{
+  if(event.target.matches("[data-vision-detail]")){state.visionDetail=event.target.value;save()}
+  if(event.target.matches("[data-own-number]")){state.ownNumber=event.target.value;const position=scrollY;render(false);scrollTo(0,position);app.querySelector("[data-own-number]")?.focus({preventScroll:true})}
+});
+app.addEventListener("pointerover",event=>{
+  const dot=event.target.closest(".ar-dot");
+  if(dot)updateDots({id:dot.closest(".ar-stack-item").dataset.questionId,value:Number(dot.dataset.point)});
+});
+app.addEventListener("pointerout",event=>{
+  const dots=event.target.closest(".ar-dots");
+  if(dots&&!dots.contains(event.relatedTarget))updateDots();
+});
+app.addEventListener("focusin",event=>{
+  const dot=event.target.closest(".ar-dot");
+  if(dot)updateDots({id:dot.closest(".ar-stack-item").dataset.questionId,value:Number(dot.dataset.point)});
+});
+app.addEventListener("focusout",event=>{
+  if(event.target.closest(".ar-dot"))updateDots();
+});
+let scrollFrame=0;
+addEventListener("scroll",()=>{
+  if(scrollFrame||performance.now()<scrollLockUntil||!state?.screen.startsWith("gap-"))return;
+  scrollFrame=requestAnimationFrame(()=>{
+    scrollFrame=0;
+    const blocks=[...app.querySelectorAll(".ar-stack-item")];
+    const sticky=app.querySelector(".ar-sticky-head")?.getBoundingClientRect().height??0;
+    const center=sticky+(innerHeight-sticky)/2;
+    const nearest=blocks.map((node,i)=>({i,delta:Math.abs((node.getBoundingClientRect().top+node.getBoundingClientRect().bottom)/2-center)})).sort((a,b)=>a.delta-b.delta)[0];
+    if(nearest&&nearest.i!==state.questionIndex){
+      state.questionIndex=nearest.i;
+      blocks.forEach((block,i)=>{block.classList.toggle("is-active",i===nearest.i);const title=block.querySelector("h2");if(i===nearest.i)title.id="ar-screen-title";else title.removeAttribute("id")});
+      app.querySelector(".ar-subdim-heading em").textContent=String(nearest.i+1).padStart(2,"0");
+      save();
     }
-  }
+  });
+},{passive:true});
+document.querySelector("[data-start]")?.addEventListener("click",()=>{
+  const saved=loadSaved();
+  state=saved??blankState();
+  if(!saved){state.screen="sector";clearSave()}
+  render(true);
 });
-
-app.addEventListener("pointerover",event=>{const dot=event.target.closest(".ar-dot");if(dot)lightDots(dot.closest(".ar-dots"),Number(dot.querySelector("input").value))});
-app.addEventListener("pointerout",event=>{const dots=event.target.closest(".ar-dots");if(dots&&!dots.contains(event.relatedTarget)){const checked=dots.querySelector("input:checked");lightDots(dots,checked?Number(checked.value):0)}});
-app.addEventListener("focusin",event=>{const block=event.target.closest(".ar-stack-item");if(block){const index=[...app.querySelectorAll(".ar-stack-item")].indexOf(block);if(index>=0&&index!==state.qIdx)activateQuestion(index,{scroll:false})}const dot=event.target.closest(".ar-dot");if(dot)lightDots(dot.closest(".ar-dots"),Number(dot.querySelector("input").value))});
-app.addEventListener("focusout",event=>{const dots=event.target.closest(".ar-dots");if(dots&&!dots.contains(event.relatedTarget)){const checked=dots.querySelector("input:checked");lightDots(dots,checked?Number(checked.value):0)}});
-
-app.addEventListener("submit",event=>{
-  event.preventDefault();
-  const form=event.target;
-  if(form.matches("[data-segment-form]")){const value=new FormData(form).get("segment");if(!value){form.querySelector("input")?.focus();return}state.segment=value;state.stage="intro";state.sectionIdx=0;state.qIdx=0;render({focus:true});return}
-  if(form.matches("[data-gate-form]")){const data=new FormData(form),email=data.get("email"),name=data.get("name");if(!form.reportValidity())return;state.emailCaptured=true;state.capturedEmail=email;state.capturedName=name;if(state.sectionIdx<1){state.sectionIdx=1;state.qIdx=0;state.stage="intro"}else if(partStarts.includes(state.sectionIdx)&&state.qIdx===0){state.stage="intro"}else state.stage="question";render({focus:true});return}
+document.addEventListener("keydown",event=>{
+  if(!state?.screen.startsWith("gap-")||/INPUT|TEXTAREA|SELECT/.test(document.activeElement?.tagName??""))return;
+  if(/^[1-7]$/.test(event.key)){event.preventDefault();const q=currentScreen().questions[state.questionIndex];selectGap(q.id,Number(event.key))}
+  if(event.key==="0"||event.key.toLowerCase()==="n"){event.preventDefault();const q=currentScreen().questions[state.questionIndex];selectGap(q.id,0)}
 });
-
-render();
+fetch("/assets/ai-roulette-v4-questions.json")
+  .then(response=>{if(!response.ok)throw new Error("Question bank unavailable");return response.json()})
+  .then(data=>{
+    if(data.meta.version!==bankVersion)throw new Error("Question bank version mismatch");
+    bank=data;state=blankState();updateLanding();render();
+  })
+  .catch(()=>{app.hidden=false;app.innerHTML='<p class="ar-error" role="alert">The assessment could not load. Please refresh the page or try again later.</p>'});
