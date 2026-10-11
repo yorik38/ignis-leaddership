@@ -677,7 +677,7 @@
 /* WEB-005 refinement: preserve serif descenders and rebalance the value narrative. */
 .hero h1,.hero h1 .hero-serif,.section-label{overflow:visible}
 .hero h1{line-height:.96;padding-bottom:.1em}
-.hero h1 .hero-serif{display:block;padding-bottom:.08em}
+.hero h1 .hero-serif{display:block;padding-bottom:.25em}
 .trust-band .section-label,.services .section-label,.section-heading>.section-label,.case-grid>.section-label,.about-preview .statement-grid>.section-label,.close-grid>.section-label,.roulette-heading>.section-label,.adoption-gap-heading>.section-label,.engagement-heading>.section-label,.learning-grid>.section-label,.foundation-grid>.section-label,.install-grid>.section-label,.lifecycle-heading>.section-label,.outcomes-system-intro>.section-label,.designed-outcomes-heading>.section-label,.outcomes-principle .statement-grid>.section-label{line-height:1.22;padding-bottom:.1em;overflow:visible}
 .adoption-gap-bridge{max-width:760px}
 .specialist-applications .outcome-preview-card .outcome-kicker{color:var(--ink-muted)}
