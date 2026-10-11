@@ -5,8 +5,12 @@
   --chrome-paper: #fff;
   --chrome-muted: #d0d6de;
   --chrome-line: rgba(255, 255, 255, .16);
-  --chrome-sky: #8fb0d6;
-  --chrome-teal: #1cbdad;
+  --ignis-green: #1cbdad;
+  --ignis-green-dark: #08756d;
+  --ignis-green-light: #75d9cc;
+  --ignis-mint: #b5e4e0;
+  --chrome-sky: var(--ignis-green-light);
+  --chrome-teal: var(--ignis-green);
 }
 
 /* Shared editorial eyebrow treatment across both site template systems. */
@@ -19,7 +23,7 @@
   line-height: 1.1 !important;
   letter-spacing: 0 !important;
   text-transform: none !important;
-  background: linear-gradient(105deg, #365f89, #08756d) !important;
+  background: linear-gradient(105deg, #08756d, #04534e) !important;
   background-clip: text !important;
   -webkit-background-clip: text !important;
   color: transparent !important;
@@ -34,7 +38,7 @@
 .comparison-hero .section-label,
 .comparison-reality .section-label,
 .comparison-cta .section-label {
-  background: linear-gradient(105deg, #8fb0d6, #14919b) !important;
+  background: linear-gradient(105deg, #75d9cc, #1cbdad) !important;
   background-clip: text !important;
   -webkit-background-clip: text !important;
 }
@@ -624,7 +628,7 @@ label.skip-link {
 .home-community .community-form input:focus,
 .home-newsletter .home-newsletter-fields input:focus,
 .newsletter-mid-signup .subscribe-fields input:focus {
-  border-bottom-color: #8fb0d6;
+  border-bottom-color: var(--chrome-sky);
   box-shadow: none;
 }
 
@@ -648,7 +652,7 @@ label.skip-link {
 
 .home-community .community-form button:hover,
 .home-newsletter .home-newsletter-fields button:hover,
-.newsletter-mid-signup .subscribe-fields button:hover { color: #8fb0d6; background: transparent; }
+.newsletter-mid-signup .subscribe-fields button:hover { color: var(--chrome-sky); background: transparent; }
 
 .home-newsletter .home-newsletter-promise,
 .newsletter-mid-signup .subscribe-promise { display: none; }
@@ -658,7 +662,7 @@ label.skip-link {
 .newsletter-mid-signup .subscribe-status {
   min-height: 1.4rem;
   margin: .8rem 0 0;
-  color: #8fb0d6;
+  color: var(--chrome-sky);
   font-size: .8rem;
 }
 
@@ -676,11 +680,11 @@ label.skip-link {
 .issue-end-newsletter .home-latest-heading a { color: #fff; }
 .issue-end-newsletter .home-latest-copy p { color: #aeb5bf; }
 
-/* Match the established Bid capability-link blue on dark backgrounds. */
+/* Use the shared Ignis green accent on dark backgrounds. */
 .issue-end-newsletter .home-latest-heading .eyebrow,
 .issue-end-newsletter .home-latest-meta,
 .issue-end-newsletter .home-latest-arrow {
-  color: #8fb0d6;
+  color: var(--chrome-sky);
 }
 
 /* Compact article signup, using the same dark and underlined form language. */
@@ -705,7 +709,7 @@ label.skip-link {
 }
 
 .issue-sidebar-form input::placeholder { color: #8d949d; opacity: 1; }
-.issue-sidebar-form input:focus { border-bottom-color: #8fb0d6; outline: 0; }
+.issue-sidebar-form input:focus { border-bottom-color: var(--chrome-sky); outline: 0; }
 
 .issue-sidebar-form button {
   width: auto;
@@ -718,9 +722,9 @@ label.skip-link {
   text-transform: uppercase;
 }
 
-.issue-sidebar-form button:hover { color: #8fb0d6; background: transparent; }
+.issue-sidebar-form button:hover { color: var(--chrome-sky); background: transparent; }
 .issue-sidebar-form .subscribe-promise { display: none; }
-.issue-sidebar-form .subscribe-status { color: #8fb0d6; }
+.issue-sidebar-form .subscribe-status { color: var(--chrome-sky); }
 
 @media (max-width: 850px) {
   .home-community .community-grid,
