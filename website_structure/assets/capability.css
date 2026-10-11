@@ -770,3 +770,25 @@
   .developer-audience .value-proposition-grid{grid-template-columns:auto minmax(0,1fr)}
   .developer-audience .brand-stamp{display:flex}
 }
+
+/* Homepage workflow outcomes sit between the proof strip and the delivery method. */
+.builds-band{padding-block:clamp(4.5rem,8vw,7rem);border-bottom:1px solid var(--line);background:#edf4f5}
+.builds-heading{display:grid;grid-template-columns:minmax(150px,.45fr) minmax(0,1.55fr);gap:clamp(2rem,7vw,8rem)}
+.builds-heading>.section-label{font-family:var(--font-serif);font-size:clamp(1.4rem,1.9vw,1.85rem);font-style:italic;font-weight:500;line-height:1.1;letter-spacing:0;text-transform:none}
+.builds-heading h2{max-width:900px;margin:0;font-size:var(--h2);font-weight:400;line-height:1.02;letter-spacing:-.05em;text-wrap:balance}
+.builds-heading>div>p{max-width:700px;margin:1.5rem 0 0;color:var(--ink-muted);font-size:clamp(1.05rem,1.4vw,1.18rem)}
+.builds-rows{margin-top:clamp(3rem,5vw,5rem);border-top:1px solid var(--line)}
+.builds-row{display:grid;grid-template-columns:minmax(190px,.75fr) minmax(0,1fr) minmax(0,1.05fr);gap:clamp(1.5rem,4vw,4rem);align-items:start;padding:clamp(2rem,3.5vw,3.5rem) 0;border-bottom:1px solid var(--line)}
+.builds-row h3{margin:0;font-size:clamp(1.75rem,2.7vw,3rem);font-weight:400;line-height:1.08;letter-spacing:-.045em}
+.builds-row p{max-width:45ch;margin:.2rem 0 0;color:var(--ink-muted);font-size:1rem;line-height:1.6}
+.builds-row .builds-outcome{color:var(--ink);font-size:clamp(1.1rem,1.45vw,1.35rem);line-height:1.4;letter-spacing:-.02em}
+.builds-foundation{display:grid;grid-template-columns:minmax(190px,.75fr) minmax(0,2.05fr);gap:clamp(1.5rem,4vw,4rem);align-items:start;padding-top:clamp(2rem,3.5vw,3.5rem)}
+.builds-foundation h3{margin:0;color:#17656a;font-size:clamp(1.3rem,1.75vw,1.8rem);font-weight:500;line-height:1.2;letter-spacing:-.025em}
+.builds-foundation p{max-width:800px;margin:0;color:var(--ink-muted);line-height:1.6}
+@media(max-width:1000px){
+  .builds-heading,.builds-row,.builds-foundation{grid-template-columns:1fr}
+  .builds-heading{gap:1.25rem}
+  .builds-row{gap:.8rem}
+  .builds-row p{max-width:62ch}
+  .builds-foundation{gap:.8rem}
+}
