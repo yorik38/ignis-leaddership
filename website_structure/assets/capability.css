@@ -737,11 +737,23 @@
   .proposition-page .foundation-points{border-top:0}
 }
 
-/* Homepage promise: balance the two lines consistently across viewports. */
-.hero h1{display:flex;flex-wrap:wrap;column-gap:.35em}
-.hero h1 .hero-opening{flex-basis:100%;white-space:nowrap}
-.hero h1 .hero-work,.hero h1 .hero-serif{white-space:nowrap}
-@media(max-width:700px){
-  .hero h1{font-size:clamp(2rem,9.4vw,3.2rem)}
-  .hero h1 .hero-serif{padding-bottom:.08em}
+/* Homepage hero and audience statement. */
+.hero-eyebrow{margin:0 0 1.6rem;color:var(--sky);font-size:.8rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase}
+.hero h1{display:grid;max-width:1120px}
+.hero h1 .hero-sans,.hero h1 .hero-serif{display:block}
+.hero-actions{display:flex;align-items:center;flex-wrap:wrap;gap:1rem}
+.hero .button-outline{border:1px solid rgba(255,255,255,.72);color:#fff;background:rgba(0,0,0,.22)}
+.hero .button-outline:hover{color:#000;background:#fff}
+.hero .button-outline:focus-visible{outline:2px solid var(--sky);outline-offset:3px}
+@media(max-width:850px){
+  .developer-audience .value-proposition-grid{grid-template-columns:auto minmax(0,1fr);gap:1rem}
+  .developer-audience .brand-stamp{display:flex}
+  .developer-audience .brand-stamp img{width:40px;height:40px}
+}
+@media(max-width:520px){
+  .hero h1{font-size:clamp(2.4rem,10vw,3rem)}
+  .hero-actions{align-items:flex-start;flex-direction:column}
+  .hero-actions .button{margin:0}
+  .developer-audience .value-proposition-grid{grid-template-columns:auto minmax(0,1fr)}
+  .developer-audience .brand-stamp{display:flex}
 }
