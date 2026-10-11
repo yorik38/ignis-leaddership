@@ -285,35 +285,30 @@ function updateLanding(){
     dot.setAttribute("cy",point.y);
     scoreNumber.textContent=Math.round(score);
   };
-  gauge.setAttribute("aria-label",reduced.matches?`Example AI Roulette score: ${sampleScore} out of 100`:`Animated example AI Roulette score, moving up and down and returning to ${sampleScore} out of 100`);
+  gauge.setAttribute("aria-label",`Example AI Roulette score: ${sampleScore} out of 100`);
   gauge.style.setProperty("--sample-score",sampleScore);
   paintScore(sampleScore);
   if(!reduced.matches){
     const frames=[
       {at:0,value:0},
-      {at:.3,value:Math.min(100,sampleScore+26)},
-      {at:.55,value:Math.max(0,sampleScore-22)},
-      {at:.75,value:Math.min(100,sampleScore+11)},
-      {at:.9,value:sampleScore},
+      {at:.28,value:Math.min(100,sampleScore+30)},
+      {at:.54,value:Math.max(0,sampleScore-12)},
+      {at:.75,value:Math.min(100,sampleScore+6)},
       {at:1,value:sampleScore}
     ];
     let started;
     const animate=now=>{
       started??=now;
       if(reduced.matches){paintScore(sampleScore);return}
-      if(!landing.hidden&&!document.hidden){
-        const progress=((now-started)%5600)/5600;
-        const first=progress<.9&&now-started<5600?frames[0]:{at:0,value:sampleScore};
-        const points=first===frames[0]?frames:[first,...frames.slice(1)];
-        const end=points.findIndex((point,index)=>index>0&&progress<=point.at);
-        const next=end<0?points.length-1:end;
-        const from=points[Math.max(0,next-1)];
-        const to=points[next];
-        const fraction=to.at===from.at?1:Math.max(0,Math.min(1,(progress-from.at)/(to.at-from.at)));
-        const eased=fraction*fraction*(3-2*fraction);
-        paintScore(from.value+(to.value-from.value)*eased);
-      }
-      requestAnimationFrame(animate);
+      const progress=Math.min((now-started)/4200,1);
+      const end=frames.findIndex((point,index)=>index>0&&progress<=point.at);
+      const next=end<0?frames.length-1:end;
+      const from=frames[Math.max(0,next-1)];
+      const to=frames[next];
+      const fraction=to.at===from.at?1:Math.max(0,Math.min(1,(progress-from.at)/(to.at-from.at)));
+      const eased=fraction*fraction*(3-2*fraction);
+      paintScore(from.value+(to.value-from.value)*eased);
+      if(progress<1)requestAnimationFrame(animate);
     };
     requestAnimationFrame(animate);
   }
