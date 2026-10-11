@@ -35,7 +35,7 @@ export function scoreGap(bank, answers) {
   const fixFirst = reds[0] ?? archetype;
   const strongest = [...known].sort((a,b) => b.health-a.health || a.order-b.order)[0] ?? null;
   let band = bank.scoring.bands.find(item => total >= item.min && total <= item.max)?.id ?? "betting";
-  const gatedLever = band === "house" ? levers.find(lever => bank.scoring.governanceGate.levers.includes(lever.id) && lever.health !== null && lever.health < bank.scoring.governanceGate.thresholdPct) : null;
+  const gatedLever = band === "house" ? levers.find(lever => bank.scoring.governanceGate.levers.includes(lever.id) && lever.health !== null && lever.health < bank.scoring.governanceGate.thresholdPct) ?? null : null;
   if (gatedLever) band = "betting";
   const raw = gapQuestions.map(q => Number(answers[q.id])).filter(value => value >= 1 && value <= 7);
   const mean = raw.reduce((sum,value) => sum+value,0)/(raw.length || 1);
@@ -52,7 +52,8 @@ export function scoreCost(bank,answers,archetype=null){
   const delay=k3?.range?.[0]===0?[0,0]:multiplyRange(k3,k4);
   const missed=k6?.range??null;
   const severity={time:k2?.severity??null,delay:k3?.range?.[0]===0?0:(k3?.severity!=null&&k4?.severity!=null?(k3.severity+k4.severity)/2:null),missed:k6?.severity??null};
-  const candidates=Object.entries(severity).filter(([,value])=>value>0).sort((a,b)=>b[1]-a[1] || (archetype?.costDims?.indexOf(a[0])??99)-(archetype?.costDims?.indexOf(b[0])??99) || bank.cost.dimOrder.indexOf(a[0])-bank.cost.dimOrder.indexOf(b[0]));
+  const costRank=dim=>{const rank=archetype?.costDims?.indexOf(dim)??-1;return rank<0?99:rank};
+  const candidates=Object.entries(severity).filter(([,value])=>value>0).sort((a,b)=>b[1]-a[1] || costRank(a[0])-costRank(b[0]) || bank.cost.dimOrder.indexOf(a[0])-bank.cost.dimOrder.indexOf(b[0]));
   return {time,delay,missed,severity,biggest:candidates[0]?.[0]??null};
 }
 
