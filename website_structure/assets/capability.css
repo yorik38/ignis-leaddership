@@ -819,3 +819,7 @@
 /* Keep older eyebrow, keyword and numbered-step accents in the Ignis palette. */
 :root{--navy-mid:var(--ignis-green-dark,#08756d)}
 .lifecycle-band .capability-item>span{color:var(--ignis-green-light,#75d9cc)}
+
+
+/* Tender lifecycle recovery on Commercial AI Adoption. */
+.lifecycle-tender-adoption{color:var(--ink);background:#e5efed}.lifecycle-tender-adoption .lifecycle-heading>.section-label{color:var(--ignis-green-dark,#08756d)}.lifecycle-tender-adoption .lifecycle-heading h2,.lifecycle-tender-adoption .capability-item h3{color:var(--ink)}.lifecycle-tender-adoption .lifecycle-summary,.lifecycle-tender-adoption .stage-value p{color:var(--ink-muted)}.lifecycle-tender-adoption .capability-list,.lifecycle-tender-adoption .capability-item,.lifecycle-tender-adoption .agent-activities,.lifecycle-tender-adoption .agent-activities li{border-color:rgba(15,32,32,.18)}.lifecycle-tender-adoption .capability-item>span{color:var(--ignis-green-dark,#08756d)}.lifecycle-tender-adoption .agent-work-label{color:#42605d}.lifecycle-tender-adoption .agent-activities{color:var(--ink)}.lifecycle-tender-adoption .agent-activities li:nth-child(even){border-left-color:rgba(15,32,32,.18)}.lifecycle-tender-adoption .lifecycle-route{color:var(--ink)}.lifecycle-tender-adoption .lifecycle-route span{color:var(--ignis-green-dark,#08756d)}.adoption-lifecycle-learning{border-top:1px solid var(--line);background:var(--paper)}
