@@ -403,12 +403,12 @@ for (const page of pages) {
     return capabilityStyles === 1 ? match : '';
   });
 
-  html = html.replace(/\/assets\/site-chrome\.css\?v=\d+/g, "/assets/site-chrome.css?v=37");
-  if (!html.includes('/assets/site-chrome.css?v=37')) {
-    html = html.replace("</head>", '<link rel="stylesheet" href="/assets/site-chrome.css?v=37">\n</head>');
+  html = html.replace(/\/assets\/site-chrome\.css\?v=\d+/g, "/assets/site-chrome.css?v=41");
+  if (!html.includes('/assets/site-chrome.css?v=41')) {
+    html = html.replace("</head>", '<link rel="stylesheet" href="/assets/site-chrome.css?v=41">\n</head>');
   }
   let chromeStyles = 0;
-  html = html.replace(/<link rel="stylesheet" href="\/assets\/site-chrome\.css\?v=37">\s*/g, (match) => {
+  html = html.replace(/<link rel="stylesheet" href="\/assets\/site-chrome\.css\?v=41">\s*/g, (match) => {
     chromeStyles += 1;
     return chromeStyles === 1 ? match : '';
   });

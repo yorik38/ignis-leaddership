@@ -13,7 +13,7 @@
   --chrome-teal: var(--ignis-green);
 }
 
-/* Shared editorial eyebrow treatment across both site template systems. */
+/* Shared editorial eyebrow treatment: neutral ink on light, soft white on dark. */
 .section-label,
 .eyebrow {
   font-family: var(--font-serif, "Source Serif 4", Georgia, serif) !important;
@@ -23,13 +23,15 @@
   line-height: 1.1 !important;
   letter-spacing: 0 !important;
   text-transform: none !important;
-  background: linear-gradient(105deg, #08756d, #04534e) !important;
-  background-clip: text !important;
-  -webkit-background-clip: text !important;
-  color: transparent !important;
+  background: none !important;
+  background-clip: border-box !important;
+  -webkit-background-clip: border-box !important;
+  color: #111820 !important;
 }
 
 .band-dark .section-label,
+.band-dark .eyebrow,
+.lifecycle-band .section-label,
 .page-hero .section-label,
 .home-community .section-label,
 .service-story-dark .eyebrow,
@@ -37,11 +39,21 @@
 .discovery-final .eyebrow,
 .comparison-hero .section-label,
 .comparison-reality .section-label,
-.comparison-cta .section-label {
-  background: linear-gradient(105deg, #75d9cc, #1cbdad) !important;
-  background-clip: text !important;
-  -webkit-background-clip: text !important;
+.comparison-cta .section-label,
+.workflow-benefits .section-label,
+.authority-band .eyebrow,
+.why-band .eyebrow,
+.newsletter-share .eyebrow,
+.home-newsletter .home-latest-heading .eyebrow,
+.issue-end-newsletter .eyebrow {
+  color: #e8edec !important;
 }
+
+.builds-band .section-label,
+.lifecycle-tender-adoption .section-label { color: #fff !important; }
+
+/* This legacy component is paper-coloured despite its dark variant name. */
+.positioning-home .about-positioning .eyebrow { color: #111820 !important; }
 
 .wrap {
   width: min(100%, calc(var(--wrap) + var(--gutter) * 2));
