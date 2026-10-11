@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "meta": {
-    "name": "AI Roulette",
+    "name": "AI Assessment",
     "version": "2026-10-v4",
     "permalinkVersion": "4",
     "owner": "Ignis Leadership",
@@ -1695,8 +1695,8 @@
   },
   "copy": {
     "landing": {
-      "eyebrow": "AI Roulette",
-      "h1": "Is AI moving your work forward?",
+      "eyebrow": "AI Assessment",
+      "h1": "What's stopping AI from moving your projects forward?",
       "sub": "Get your AI score. See your biggest gap and what to do next.",
       "promise": "Your result identifies your lowest-scoring AI lever and a practical place to start.",
       "support": "Answer for the commercial work you know. Your result shows where AI is helping, where it needs attention, and what your own estimates suggest is at stake.",
