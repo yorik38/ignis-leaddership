@@ -1698,6 +1698,7 @@
       "eyebrow": "AI Roulette",
       "h1": "Is AI moving your work forward?",
       "sub": "Get an indicative score, see your biggest gap, and leave with one practical move to make next.",
+      "promise": "Your result identifies your lowest-scoring AI lever—and a practical place to start.",
       "support": "Answer for the commercial work you know. Your result shows where AI is helping, where it needs attention, and what your own estimates suggest is at stake.",
       "packLine": "You've seen where {packShort} could be in 12 months. Now see what's in the way.",
       "noPackLine": null,
@@ -1709,7 +1710,7 @@
       ],
       "example": {
         "score": 62,
-        "caption": "Example score · Your result is indicative, not a benchmark"
+        "caption": "Indicative result, not a benchmark"
       },
       "roleLine": "Lead the business? See where to focus. Run the work? See where to start.",
       "fine": "Instant, indicative result · No sign-up or email required",

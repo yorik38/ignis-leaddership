@@ -269,8 +269,23 @@ function selectGap(id,value){
 function updateLanding(){
   const pack=bank.meta.packs.find(item=>item.id===state.pack);
   landing.querySelector(".ar-lede").textContent=bank.copy.landing.sub;
-  landing.querySelector(".ar-support").textContent=bank.copy.landing.support;
-  landing.querySelector(".ar-score-tease span").textContent=bank.copy.landing.example.score;
+  landing.querySelector(".ar-result-promise").textContent=bank.copy.landing.promise;
+  const sampleScore=Number(bank.copy.landing.example.score);
+  const scoreNumber=landing.querySelector("[data-sample-score]");
+  const gauge=landing.querySelector(".ar-score-tease");
+  gauge.setAttribute("aria-label",`Example AI Roulette score: ${sampleScore} out of 100`);
+  gauge.style.setProperty("--sample-score",sampleScore);
+  if(reduced.matches){scoreNumber.textContent=sampleScore}else{
+    scoreNumber.textContent="0";
+    let startTime;
+    const count=now=>{
+      startTime??=now;
+      const progress=Math.min((now-startTime)/1500,1);
+      scoreNumber.textContent=Math.round(sampleScore*(1-(1-progress)**3));
+      if(progress<1)requestAnimationFrame(count);
+    };
+    requestAnimationFrame(count);
+  }
   landing.querySelector(".ar-score-caption").textContent=bank.copy.landing.example.caption;
   landing.querySelector(".ar-fineprint").textContent=bank.copy.landing.fine;
   landing.querySelectorAll(".ar-landing-outcome p").forEach((node,i)=>node.textContent=bank.copy.landing.outcomes[i]);
