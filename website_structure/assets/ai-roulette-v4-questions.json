@@ -1186,7 +1186,7 @@
       "type": "single",
       "scored": "semi",
       "text": "When one slipped, how long was the typical delay?",
-      "help": "Skipped if you answered None above.",
+      "help": "Think of the delay to the milestone or decision, not the whole project.",
       "options": [
         {
           "value": "1",
@@ -1695,34 +1695,24 @@
   },
   "copy": {
     "landing": {
-      "eyebrow": "Commercial AI gap check",
-      "h1": "AI Roulette",
-      "sub": "Where could your pipeline be in 12 months, what's in the way, and what is it costing you?",
-      "subAlternatives": [
-        "Where do you need the business to be in 12 months, what's stopping it, and what is the gap costing you?",
-        "The next auction, the next FID, the board's AI question: see what's in the way and what it's costing you."
-      ],
-      "subBySector": {
-        "epc": "Where could your order book be in 12 months, what's in the way, and what is it costing you?",
-        "oem": "Where could your order book be in 12 months, what's in the way, and what is it costing you?",
-        "services": "Where could your business be in 12 months, what's in the way, and what is it costing you?",
-        "other": "Where could your business be in 12 months, what's in the way, and what is it costing you?"
-      },
-      "support": "Tell us where you need to be. Answer 12 short statements and 5 quick estimates about the work you know. See your biggest gap, what it costs in your own numbers, and one move to make next.",
+      "eyebrow": "AI Roulette",
+      "h1": "Is AI moving your work forward?",
+      "sub": "Get an indicative score, see your biggest gap, and leave with one practical move to make next.",
+      "support": "Answer for the commercial work you know. Your result shows where AI is helping, where it needs attention, and what your own estimates suggest is at stake.",
       "packLine": "You've seen where {packShort} could be in 12 months. Now see what's in the way.",
       "noPackLine": null,
       "pov": "AI fails in commercial work when it's done fast, without governance, on work that doesn't matter.",
       "outcomes": [
-        "Your Gap score and the gap that holds you back most",
-        "What that gap is costing you, in your own numbers",
+        "Your indicative score and lowest-scoring AI lever",
+        "Time, delay and missed-value ranges from your estimates",
         "One practical move to make in the next 30 days"
       ],
       "example": {
         "score": 62,
         "caption": "Example score · Your result is indicative, not a benchmark"
       },
-      "roleLine": "Set direction or do the work day to day? You answer the same questions; the result is framed for your perspective.",
-      "fine": "Around 5 minutes · Instant, indicative result · No sign-up or email required",
+      "roleLine": "Lead the business? See where to focus. Run the work? See where to start.",
+      "fine": "Instant, indicative result · No sign-up or email required",
       "cta": "Start →"
     },
     "howItWorks": {

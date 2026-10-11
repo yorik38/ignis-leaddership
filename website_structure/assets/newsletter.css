@@ -90,7 +90,7 @@
 .upcoming-signup{border:1px solid var(--line);border-top:0;padding:48px;}
 .newsletter-page .newsletter-share{padding:0;background:var(--cta);}
 .share-card{background:var(--cta);color:#fff;padding:64px 0;display:grid;grid-template-columns:1fr auto;gap:24px 40px;align-items:end;}
-.share-card h2{color:#fff;}.share-card .eyebrow{color:#8fb0d6;}
+.share-card h2{color:#fff;}.share-card .eyebrow{color:#75d9cc;}
 .share-actions{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end;}
 .share-actions button{border:1px solid rgba(255,255,255,.35);background:transparent;color:#fff;width:44px;height:44px;padding:0;display:inline-grid;place-items:center;cursor:pointer;}
 .share-icon{display:block;width:20px;height:20px;}
@@ -158,5 +158,5 @@ body>header.header-hidden~main .issue-sidebar{top:24px;}
 @media(max-width:520px){.issue-end-newsletter .issue-continue{margin-top:48px;}}
 
 /* Match article recommendations to the Insights archive metadata rhythm. */
-.issue-continue .home-latest-meta{color:#8fb0d6;font-family:var(--newsletter-sans);font-size:.72rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;}
+.issue-continue .home-latest-meta{color:#08756d;font-family:var(--newsletter-sans);font-size:.72rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;}
 @media(max-width:520px){.issue-continue .home-latest-meta{font-size:.64rem;line-height:inherit;letter-spacing:.06em;}}

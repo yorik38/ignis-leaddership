@@ -816,3 +816,6 @@
 }
 .builds-band .section-label{background:linear-gradient(105deg,#08645b,#04534e)!important;background-clip:text!important;-webkit-background-clip:text!important}
 .builds-eyebrow,.builds-foundation h3{color:#08645b}
+/* Keep older eyebrow, keyword and numbered-step accents in the Ignis palette. */
+:root{--navy-mid:var(--ignis-green-dark,#08756d)}
+.lifecycle-band .capability-item>span{color:var(--ignis-green-light,#75d9cc)}

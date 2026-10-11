@@ -55,17 +55,17 @@ function screenList(){
   return [
     {id:"sector",kind:"tap",question:bank.sector},
     {id:"role",kind:"tap",question:bank.role},
-    {id:"intro-vision",kind:"intro",title:bank.copy.sectionIntros.vision,label:"01 / Direction"},
+    {id:"intro-vision",kind:"intro",title:"Where next?",help:"Start with the outcome that matters most over the next 12 months.",label:"Part 01 of 07 · Direction"},
     {id:"V1",kind:"tap",question:bank.questions.find(q=>q.id==="V1")},
-    {id:"intro-maturity",kind:"intro",title:bank.copy.sectionIntros.maturity,label:"02 / Today"},
+    {id:"intro-maturity",kind:"intro",title:"AI today",help:"Two quick questions to set the scene. These are not scored.",label:"Part 02 of 07 · Today"},
     ...bank.questions.filter(q=>q.section==="maturity").map(q=>({id:q.id,kind:"tap",question:q})),
     ...bank.groups.flatMap((group,index)=>[
-      {id:`intro-${group.id}`,kind:"intro",title:group.question,label:`0${index+3} / ${group.label}`},
+      {id:`intro-${group.id}`,kind:"intro",title:group.label,help:group.question,label:`Part 0${index+3} of 07 · ${group.label}`},
       {id:`gap-${group.id}`,kind:"gap",group,questions:bank.questions.filter(q=>q.section==="gap"&&q.group===group.id)}
     ]),
-    {id:"intro-cost",kind:"intro",title:bank.copy.sectionIntros.cost,label:"06 / Your numbers"},
+    {id:"intro-cost",kind:"intro",title:"What is at stake?",help:"Use your best rough estimates. Not sure is fine.",label:"Part 06 of 07 · Your numbers"},
     ...cost.map(q=>({id:q.id,kind:"tap",question:q})),
-    {id:"intro-urgency",kind:"intro",title:bank.copy.sectionIntros.urgency,label:"07 / Last question"},
+    {id:"intro-urgency",kind:"intro",title:"One last question",label:"Part 07 of 07 · Last question"},
     {id:"U1",kind:"multi",question:bank.questions.find(q=>q.id==="U1")},
     {id:"result",kind:"result"}
   ];
@@ -112,7 +112,7 @@ function renderFidFollowup(q){
   return `<fieldset class="ar-followup"><legend>${esc(follow.text)}</legend>${follow.options.map(option=>`<label><input type="radio" name="fidCount" value="${esc(option.id)}" ${state.fidCount===option.id?"checked":""}><span>${esc(option.label)}</span></label>`).join("")}</fieldset>`;
 }
 function renderIntro(screen){
-  return `<section class="ar-pause" aria-labelledby="ar-screen-title">${topBar()}<p class="ar-category-kicker">${esc(screen.label)}</p><h2 id="ar-screen-title">${esc(screen.title)}</h2><button class="ar-button" type="button" data-next>Continue →</button></section>`;
+  return `<section class="ar-pause" aria-labelledby="ar-screen-title">${topBar()}<p class="ar-category-kicker">${esc(screen.label)}</p><h2 id="ar-screen-title">${esc(screen.title)}</h2>${screen.help?`<p class="ar-screen-help">${esc(screen.help)}</p>`:""}<button class="ar-button" type="button" data-next>Continue →</button></section>`;
 }
 function dotLabels(q){
   return `<div class="ar-dots-labels"><span>${esc(bank.scale.endLabels.left)}</span><span>${esc(bank.scale.endLabels.right)}</span></div><fieldset class="ar-dots" aria-label="${esc(q.text)}">${bank.scale.labels.map((label,i)=>`<label class="ar-dot" data-point="${i+1}"><input type="radio" name="${esc(q.id)}" value="${i+1}" aria-label="${esc(label)}" ${String(state.answers[q.id])===String(i+1)?"checked":""}><span aria-hidden="true"></span></label>`).join("")}</fieldset>`;
@@ -120,11 +120,11 @@ function dotLabels(q){
 function renderGap(screen){
   const blocks=screen.questions.map((q,i)=>`<article class="ar-stack-item ${i===state.questionIndex?"is-active":""}" data-question-index="${i}" data-question-id="${esc(q.id)}"><h2 ${i===state.questionIndex?'id="ar-screen-title"':""} class="ar-question">${esc(sectorText(q,"text",state.sector??"ipp"))}</h2>${dotLabels(q)}<p class="ar-scale-value" data-scale-value>${state.answers[q.id]==="0"?"Not sure":state.answers[q.id]?esc(bank.scale.labels[Number(state.answers[q.id])-1]):"Tap how much you agree"}</p><button type="button" class="ar-not-sure ${state.answers[q.id]==="0"?"is-selected":""}" data-not-sure="${esc(q.id)}">Not sure</button></article>`).join("");
   const complete=screen.questions.every(q=>state.answers[q.id]!==undefined);
-  return `<section class="ar-flow ar-stack" aria-labelledby="ar-screen-title"><div class="ar-sticky-head">${topBar()}${progress()}<p class="ar-subdim-heading"><em>${String(state.questionIndex+1).padStart(2,"0")}</em> · ${esc(screen.group.name)}</p></div><div class="ar-stack-list">${blocks}</div><div class="ar-flow-actions"><button class="ar-button" type="button" data-next ${complete?"":"disabled"}>Continue →</button></div></section>`;
+  return `<section class="ar-flow ar-stack" aria-labelledby="ar-screen-title"><div class="ar-sticky-head">${topBar()}${progress()}<p class="ar-subdim-heading"><em>Statement ${String(state.questionIndex+1).padStart(2,"0")} of ${String(screen.questions.length).padStart(2,"0")}</em> · ${esc(screen.group.name)}</p></div><div class="ar-stack-list">${blocks}</div><div class="ar-flow-actions"><button class="ar-button" type="button" data-next ${complete?"":"disabled"}>Continue →</button></div></section>`;
 }
 function renderMulti(screen){
   const selected=state.answers.U1??[];
-  return `<section class="ar-flow ar-tap" aria-labelledby="ar-screen-title">${topBar()}<p class="ar-category-kicker">One last question</p><h2 id="ar-screen-title">${esc(screen.question.text)}</h2><p class="ar-screen-help">${esc(screen.question.help)}</p><div class="ar-choice-list">${screen.question.options.map(option=>`<button type="button" class="ar-choice ${selected.includes(option.id)?"is-selected":""}" aria-pressed="${selected.includes(option.id)}" data-multi="${esc(option.id)}">${esc(sectorText(option,"label",state.sector??"ipp"))}</button>`).join("")}</div><p class="ar-screen-help">Choose up to three.</p><button class="ar-button" type="button" data-next ${selected.length?"":"disabled"}>See my result →</button></section>`;
+  return `<section class="ar-flow ar-tap" aria-labelledby="ar-screen-title">${topBar()}<p class="ar-category-kicker">One last question</p><h2 id="ar-screen-title">${esc(screen.question.text)}</h2><p class="ar-screen-help">${esc(screen.question.help)}</p><div class="ar-choice-list">${screen.question.options.map(option=>`<button type="button" class="ar-choice ${selected.includes(option.id)?"is-selected":""}" aria-pressed="${selected.includes(option.id)}" data-multi="${esc(option.id)}">${esc(sectorText(option,"label",state.sector??"ipp"))}</button>`).join("")}</div><button class="ar-button" type="button" data-next ${selected.length?"":"disabled"}>See my result →</button></section>`;
 }
 function visionPhrase(){
   const q=bank.questions.find(item=>item.id==="V1");
@@ -154,7 +154,7 @@ function result(){
   const bandData=bank.scoring.bands.find(item=>item.id===gap.band);
   const resultHeading=gap.visibilityOnly?"Not enough visibility yet":archetype?.name??"Your result";
   const primaryTalk=urgency==="need";
-  const talkLink=`<a class="ar-button" href="/contact?source=ai-roulette">Talk it through ↗</a>`;
+  const talkLink=`<a class="ar-button" href="/contact?source=ai-roulette">Discuss my next move ↗</a>`;
   const reportButton=`<button class="ar-button" type="button" data-report>View the full report ↓</button>`;
   const costName={time:"time",delay:"delay",missed:"missed value"};
   const costHeadline=cost.biggest?`By your own estimate, this shows up most as ${costName[cost.biggest]}.`:"Your answers do not point to one main cost yet. That is worth finding out.";
@@ -175,6 +175,23 @@ function render(focus=false){
   const screen=currentScreen();
   app.innerHTML=screen.kind==="tap"?renderTap(screen):screen.kind==="intro"?renderIntro(screen):screen.kind==="gap"?renderGap(screen):screen.kind==="multi"?renderMulti(screen):result();
   if(screen.kind==="gap")updateDots();
+  if(screen.kind==="result"){
+    const gap=scoreGap(bank,state.answers);
+    const score=app.querySelector(".ar-result-score");
+    if(score){
+      score.style.setProperty("--score-angle",`${gap.total*3.6}deg`);
+      score.setAttribute("aria-label",`Indicative AI Roulette score: ${gap.total} out of 100`);
+      const scale=document.createElement("p");
+      scale.className="ar-score-key";
+      scale.textContent="0–33 Spinning the wheel · 34–66 Placing bets · 67–100 Running the house";
+      score.insertAdjacentElement("afterend",scale);
+    }
+    const rationale=app.querySelector(".ar-next-move + .ar-caveat");
+    if(rationale&&gap.fixFirst&&gap.archetype){
+      const reason=gap.fixFirst.group==="aim"?"A clear commercial target comes before wider adoption and controls.":gap.fixFirst.group==="build"?"A repeatable workflow makes later checks and ownership meaningful.":"This control needs attention before the wider use of AI is safe.";
+      rationale.textContent=`Your lowest score is ${gap.archetype.name}. We suggest ${gap.fixFirst.name} first because ${reason}`;
+    }
+  }
   save();
   if(focus){
     requestAnimationFrame(()=>{
@@ -211,7 +228,7 @@ function activateQuestion(index){
     const heading=block.querySelector("h2");
     if(i===index)heading.id="ar-screen-title";else heading.removeAttribute("id");
   });
-  app.querySelector(".ar-subdim-heading em").textContent=String(index+1).padStart(2,"0");
+  app.querySelector(".ar-subdim-heading em").textContent=`Statement ${String(index+1).padStart(2,"0")} of ${String(screen.questions.length).padStart(2,"0")}`;
   scrollToQuestion(index,true);
   save();
 }
@@ -251,13 +268,11 @@ function selectGap(id,value){
 }
 function updateLanding(){
   const pack=bank.meta.packs.find(item=>item.id===state.pack);
-  const sector=state.sector??"ipp";
-  landing.querySelector(".ar-lede").textContent=bank.copy.landing.subBySector?.[sector]??bank.copy.landing.sub;
+  landing.querySelector(".ar-lede").textContent=bank.copy.landing.sub;
   landing.querySelector(".ar-support").textContent=bank.copy.landing.support;
   landing.querySelector(".ar-score-tease span").textContent=bank.copy.landing.example.score;
   landing.querySelector(".ar-score-caption").textContent=bank.copy.landing.example.caption;
   landing.querySelector(".ar-fineprint").textContent=bank.copy.landing.fine;
-  landing.querySelector(".ar-perspective").textContent=bank.copy.landing.roleLine;
   landing.querySelectorAll(".ar-landing-outcome p").forEach((node,i)=>node.textContent=bank.copy.landing.outcomes[i]);
   const packLine=landing.querySelector(".ar-pack-line");
   packLine.hidden=!pack;
@@ -278,6 +293,7 @@ app.addEventListener("click",event=>{
     save();
     if(screen.id==="V1"){
       render(false);
+      if(choice.dataset.choice==="3"&&state.sector==="ipp")requestAnimationFrame(()=>app.querySelector(".ar-followup")?.scrollIntoView({block:"center",behavior:reduced.matches?"instant":"smooth"}));
       if(choice.dataset.choice!=="3"&&choice.dataset.choice!=="6")move(1);
     }else move(1);
     return;
@@ -334,7 +350,7 @@ addEventListener("scroll",()=>{
     if(nearest&&nearest.i!==state.questionIndex){
       state.questionIndex=nearest.i;
       blocks.forEach((block,i)=>{block.classList.toggle("is-active",i===nearest.i);const title=block.querySelector("h2");if(i===nearest.i)title.id="ar-screen-title";else title.removeAttribute("id")});
-      app.querySelector(".ar-subdim-heading em").textContent=String(nearest.i+1).padStart(2,"0");
+      app.querySelector(".ar-subdim-heading em").textContent=`Statement ${String(nearest.i+1).padStart(2,"0")} of ${String(currentScreen().questions.length).padStart(2,"0")}`;
       save();
     }
   });

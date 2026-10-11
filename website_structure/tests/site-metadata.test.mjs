@@ -6,6 +6,7 @@ import { fileURLToPath } from 'node:url';
 
 const site = join(dirname(fileURLToPath(import.meta.url)), '..');
 const origin = 'https://www.ignisleadership.com';
+const sitemap = readFileSync(join(site, 'sitemap.xml'), 'utf8');
 
 function pages(directory) {
   return readdirSync(directory, { withFileTypes: true }).flatMap((entry) => {
@@ -52,5 +53,6 @@ for (const file of pages(site)) {
     assert.ok(existsSync(join(site, image.slice(origin.length))));
     const robots = tag(html, 'name', 'robots');
     assert.match(robots ?? '', name === 'ai-roulette.html' ? /noindex/ : /index/);
+    assert.equal(sitemap.includes(`<loc>${canonical}</loc>`), !robots?.includes('noindex'));
   });
 }
