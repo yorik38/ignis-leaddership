@@ -270,21 +270,52 @@ function updateLanding(){
   const pack=bank.meta.packs.find(item=>item.id===state.pack);
   landing.querySelector(".ar-lede").textContent=bank.copy.landing.sub;
   landing.querySelector(".ar-result-promise").textContent=bank.copy.landing.promise;
-  const sampleScore=Number(bank.copy.landing.example.score);
+  const sampleScore=Math.max(0,Math.min(100,Number(bank.copy.landing.example.score)||0));
   const scoreNumber=landing.querySelector("[data-sample-score]");
   const gauge=landing.querySelector(".ar-score-tease");
-  gauge.setAttribute("aria-label",`Example AI Roulette score: ${sampleScore} out of 100`);
+  const track=gauge.querySelector(".ar-gauge-track");
+  const fill=gauge.querySelector(".ar-gauge-fill");
+  const dot=gauge.querySelector(".ar-gauge-dot");
+  const trackLength=track.getTotalLength();
+  const paintScore=value=>{
+    const score=Math.max(0,Math.min(100,value));
+    const point=track.getPointAtLength(trackLength*score/100);
+    fill.style.strokeDasharray=`${score} 100`;
+    dot.setAttribute("cx",point.x);
+    dot.setAttribute("cy",point.y);
+    scoreNumber.textContent=Math.round(score);
+  };
+  gauge.setAttribute("aria-label",reduced.matches?`Example AI Roulette score: ${sampleScore} out of 100`:`Animated example AI Roulette score, moving up and down and returning to ${sampleScore} out of 100`);
   gauge.style.setProperty("--sample-score",sampleScore);
-  if(reduced.matches){scoreNumber.textContent=sampleScore}else{
-    scoreNumber.textContent="0";
-    let startTime;
-    const count=now=>{
-      startTime??=now;
-      const progress=Math.min((now-startTime)/1500,1);
-      scoreNumber.textContent=Math.round(sampleScore*(1-(1-progress)**3));
-      if(progress<1)requestAnimationFrame(count);
+  paintScore(sampleScore);
+  if(!reduced.matches){
+    const frames=[
+      {at:0,value:0},
+      {at:.3,value:Math.min(100,sampleScore+26)},
+      {at:.55,value:Math.max(0,sampleScore-22)},
+      {at:.75,value:Math.min(100,sampleScore+11)},
+      {at:.9,value:sampleScore},
+      {at:1,value:sampleScore}
+    ];
+    let started;
+    const animate=now=>{
+      started??=now;
+      if(reduced.matches){paintScore(sampleScore);return}
+      if(!landing.hidden&&!document.hidden){
+        const progress=((now-started)%5600)/5600;
+        const first=progress<.9&&now-started<5600?frames[0]:{at:0,value:sampleScore};
+        const points=first===frames[0]?frames:[first,...frames.slice(1)];
+        const end=points.findIndex((point,index)=>index>0&&progress<=point.at);
+        const next=end<0?points.length-1:end;
+        const from=points[Math.max(0,next-1)];
+        const to=points[next];
+        const fraction=to.at===from.at?1:Math.max(0,Math.min(1,(progress-from.at)/(to.at-from.at)));
+        const eased=fraction*fraction*(3-2*fraction);
+        paintScore(from.value+(to.value-from.value)*eased);
+      }
+      requestAnimationFrame(animate);
     };
-    requestAnimationFrame(count);
+    requestAnimationFrame(animate);
   }
   landing.querySelector(".ar-score-caption").textContent=bank.copy.landing.example.caption;
   landing.querySelector(".ar-fineprint").textContent=bank.copy.landing.fine;

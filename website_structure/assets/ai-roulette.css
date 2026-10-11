@@ -36,8 +36,8 @@ body.ar-page{margin:0;background:var(--ar-black);color:var(--ar-white);font-fami
 .ar-score-tease svg{display:block;width:100%;height:100%;overflow:visible}
 .ar-score-tease path{fill:none;stroke-width:11;stroke-linecap:round}
 .ar-gauge-track{stroke:#7cb9b3}
-.ar-gauge-fill{stroke:#08645b;stroke-dasharray:var(--sample-score,62) 100;animation:ar-gauge-draw 1.5s ease-out both}
-@keyframes ar-gauge-draw{from{stroke-dasharray:0 100}to{stroke-dasharray:var(--sample-score,62) 100}}
+.ar-gauge-fill{stroke:#08645b;stroke-dasharray:var(--sample-score,62) 100}
+.ar-gauge-dot{fill:#f8faf9;stroke:#08645b;stroke-width:2.5}
 .ar-gauge-value{position:absolute;inset:55px 0 0;display:flex;justify-content:center;align-items:baseline;align-content:center;flex-wrap:wrap;white-space:nowrap}
 .ar-gauge-value strong{font-family:var(--ar-display);font-size:3.7rem;font-weight:400;line-height:1}
 .ar-gauge-value small{font-size:.85rem;font-weight:800}
@@ -215,5 +215,4 @@ body.ar-page{margin:0;background:var(--ar-black);color:var(--ar-white);font-fami
 @media(prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
   .ar-stack-item,.ar-dot span,.ar-button,.ar-seg::before{transition:none}
-  .ar-gauge-fill{animation:none}
 }
