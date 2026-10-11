@@ -128,7 +128,7 @@ function reportText(){
   const second=sorted[1];
   const maturityStage=maturityStages.find(s=>s.id===state.answers.M1);
   const lines=[
-    `Your AI Roulette result`,
+    `Your Commercial AI Score result`,
     `Archetype: ${r.archetype.name}, ${r.archetype.line}`,
     `Score: ${r.score}/100 (indicative only) · ${bandLabels[r.band]}`,
     `Weakest lever: ${dimensionLabels[r.constraint]}`,
@@ -165,12 +165,12 @@ function renderResult(){
   const moves=movesFor(r.constraint);
   const interpretation=(r.band==="experimenting"?`Your answers suggest you're early, there's a useful opening, but the work needs mapping before a governed AI pilot.`:r.band==="design"?`You have enough to design one bounded change, provided the unresolved conditions are tested.`:`Your answers suggest real foundations for a bounded pilot. Test them against live work before expanding.`)+(segmentFraming[state.segment]?.[r.band]||"");
   const gapCallout=segmentGapCallout[state.segment]||"";
-  const shareHref=`mailto:?subject=${encodeURIComponent(`AI Roulette result: ${r.archetype.name}`)}&body=${encodeURIComponent(`I ran Ignis's AI Roulette and came out as "${r.archetype.name}", ${r.archetype.line}\n\nScore: ${r.score}/100 (indicative only). Weakest lever: ${dimensionLabels[r.constraint]}.\n\nTake a few minutes and see where you land: https://www.ignisleadership.com/ai-roulette`)}`;
+  const shareHref=`mailto:?subject=${encodeURIComponent(`Commercial AI Score result: ${r.archetype.name}`)}&body=${encodeURIComponent(`I completed Ignis's Commercial AI Score and came out as "${r.archetype.name}", ${r.archetype.line}\n\nScore: ${r.score}/100 (indicative only). Weakest lever: ${dimensionLabels[r.constraint]}.\n\nTake a few minutes and see where you land: https://www.ignisleadership.com/ai-roulette`)}`;
   const actions=`<a class="ar-button" href="/contact">Talk it through <span aria-hidden="true">↗</span></a><a class="ar-outline" href="${shareHref}">Compare perspectives <span aria-hidden="true">↗</span></a>`;
-  const emailHref=state.capturedEmail?`mailto:${state.capturedEmail}?subject=${encodeURIComponent("Your AI Roulette report")}&body=${encodeURIComponent(reportText())}`:null;
+  const emailHref=state.capturedEmail?`mailto:${state.capturedEmail}?subject=${encodeURIComponent("Your Commercial AI Score report")}&body=${encodeURIComponent(reportText())}`:null;
   return `<section class="ar-result" aria-labelledby="ar-result-title">
     <div class="ar-result-head">
-      <p class="ar-result-kicker">Your AI Roulette result${segmentLabel[state.segment]?` · ${segmentLabel[state.segment]}`:""}</p>
+      <p class="ar-result-kicker">Your Commercial AI Score result${segmentLabel[state.segment]?` · ${segmentLabel[state.segment]}`:""}</p>
       <span class="ar-band">${bandLabels[r.band]}</span>
       <h2 id="ar-result-title">${r.archetype.name}</h2>
       <p class="ar-result-lead">${r.archetype.line} ${r.archetype.detail}</p>
