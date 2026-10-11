@@ -263,6 +263,7 @@
   background-position:center;
   background-size:cover;
   background-repeat:no-repeat;
+  filter:hue-rotate(-28deg);
 }
 .bid-page .page-hero::before{
   background-image:url('/assets/img/hero-bid-flow-v1.png');
@@ -773,7 +774,7 @@
 }
 
 /* Homepage workflow outcomes sit between the proof strip and the delivery method. */
-.builds-band{padding-block:clamp(4.5rem,8vw,7rem);border-bottom:1px solid var(--line);background:var(--ignis-mint,#b5e4e0)}
+.builds-band{--ink-muted:#4f5964;padding-block:clamp(4.5rem,8vw,7rem);border-bottom:1px solid var(--line);background:var(--ignis-mint,#b5e4e0)}
 .builds-heading{display:grid;grid-template-columns:minmax(150px,.45fr) minmax(0,1.55fr);gap:clamp(2rem,7vw,8rem)}
 .builds-heading>.section-label{font-family:var(--font-serif);font-size:clamp(1.4rem,1.9vw,1.85rem);font-style:italic;font-weight:500;line-height:1.22!important;padding-bottom:.1em;letter-spacing:0;text-transform:none}
 .builds-heading h2{max-width:900px;margin:0;font-size:var(--h2);font-weight:400;line-height:1.02;letter-spacing:-.05em;text-wrap:balance}
@@ -813,4 +814,5 @@
   background-clip:text;
   -webkit-background-clip:text;
 }
-.builds-eyebrow,.builds-foundation h3{color:var(--ignis-green-dark,#08756d)}
+.builds-band .section-label{background:linear-gradient(105deg,#08645b,#04534e)!important;background-clip:text!important;-webkit-background-clip:text!important}
+.builds-eyebrow,.builds-foundation h3{color:#08645b}
