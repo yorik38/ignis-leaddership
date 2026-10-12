@@ -6,8 +6,19 @@ import {assess, scoreSection} from "../assets/ai-assessment-v7-model.mjs";
 const bank = JSON.parse(readFileSync(new URL("../assets/ai-assessment-v7.json", import.meta.url)));
 const all = Object.fromEntries(bank.sections.flatMap(section => section.questions.filter(q => q.type === "likert").map(q => [q.id, "5"])));
 
+test("AI score uses the public URL and redirects the retired roulette path", () => {
+  const html = readFileSync(new URL("../ai-score.html", import.meta.url), "utf8");
+  const homepage = readFileSync(new URL("../index.html", import.meta.url), "utf8");
+  const vercel = JSON.parse(readFileSync(new URL("../vercel.json", import.meta.url), "utf8"));
+  assert.match(html, /rel="canonical" href="https:\/\/www\.ignisleadership\.com\/ai-score"/);
+  assert.match(html, /property="og:url" content="https:\/\/www\.ignisleadership\.com\/ai-score"/);
+  assert.match(homepage, /href="\/ai-score">See your AI score/);
+  assert.ok(vercel.redirects.some(route => route.source === "/ai-roulette" && route.destination === "/ai-score" && route.permanent));
+  assert.ok(vercel.redirects.some(route => route.source === "/ai-roulette.html" && route.destination === "/ai-score" && route.permanent));
+});
+
 test("landing stays concise while answer-sharing is disclosed before the questions", () => {
-  const html = readFileSync(new URL("../ai-roulette.html", import.meta.url), "utf8");
+  const html = readFileSync(new URL("../ai-score.html", import.meta.url), "utf8");
   const controller = readFileSync(new URL("../assets/ai-assessment-v7.js", import.meta.url), "utf8");
   const landing = html.match(/<section class="ar-landing"[\s\S]*?<\/section>/)?.[0];
   assert.ok(landing);

@@ -850,7 +850,7 @@
 /* Homepage: a short typographic bridge from pressure to method. */
 .pipeline-statement{display:flex;align-items:center;min-height:clamp(360px,42vw,560px);border-bottom:1px solid var(--line);padding-block:clamp(5rem,9vw,8rem)}
 .pipeline-statement-layout{display:block}
-.pipeline-statement h2{max-width:none;margin:0;color:#626d6b;font-size:clamp(1.9rem,3.35vw,4.2rem);font-weight:600;line-height:1.3;letter-spacing:-.045em;white-space:nowrap}
+.pipeline-statement h2{max-width:none;margin:0;color:#626d6b;font-size:var(--h2);font-weight:400;line-height:1.02;letter-spacing:-.05em;white-space:nowrap}
 .pipeline-statement-tail{white-space:nowrap}
 .pipeline-statement-word{display:inline-block;min-height:1.18em;vertical-align:baseline;color:var(--ink);font-size:1.18em;line-height:1;white-space:nowrap}
 .pipeline-statement-word>span{display:inline-block;max-width:100%;will-change:transform,opacity}
@@ -889,7 +889,7 @@
   .pipeline-statement-word{line-height:1}
   .system-build-heading,.system-build-workstreams{grid-template-columns:1fr}
   .pipeline-statement{padding-block:4.5rem}
-  .pipeline-statement h2{font-size:clamp(1.35rem,6.7vw,2.2rem)}
+  .pipeline-statement h2{font-size:var(--h2)}
   .system-build-layers{flex-direction:column}
   .system-build-heading{gap:1.25rem}
   .system-build-workstreams{margin-top:3rem}

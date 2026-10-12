@@ -52,7 +52,7 @@ for (const file of pages(site)) {
     assert.ok(image?.startsWith(origin));
     assert.ok(existsSync(join(site, image.slice(origin.length))));
     const robots = tag(html, 'name', 'robots');
-    assert.match(robots ?? '', name === 'ai-roulette.html' ? /noindex/ : /index/);
+    assert.match(robots ?? '', name === 'ai-score.html' ? /noindex/ : /index/);
     assert.equal(sitemap.includes(`<loc>${canonical}</loc>`), !robots?.includes('noindex'));
   });
 }

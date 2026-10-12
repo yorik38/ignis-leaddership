@@ -200,7 +200,21 @@ function updateGauge() {
   requestAnimationFrame(animate);
 }
 
-start.addEventListener("click", () => { const persona = document.querySelector('input[name="persona"]:checked')?.value; state = saved || fresh(); if (persona) state.context.persona = persona; if (state.screen === "landing") state.screen = "context-0"; render(true); });
+const personaPicker = document.querySelector(".ar-persona-picker");
+const personaError = document.getElementById("ar-persona-error");
+personaPicker.addEventListener("change", event => { if (event.target.matches('input[name="persona"]')) personaError.hidden = true; });
+start.addEventListener("click", () => {
+  const persona = document.querySelector('input[name="persona"]:checked');
+  if (!persona) {
+    personaError.hidden = false;
+    personaPicker.querySelector('input[name="persona"]').focus();
+    return;
+  }
+  state = saved || fresh();
+  state.context.persona = persona.value;
+  if (state.screen === "landing") state.screen = "context-0";
+  render(true);
+});
 app.addEventListener("click", async event => {
   const target = event.target.closest("button, .ar-stack-item"); if (!target) return;
   if (target.matches("[data-back]")) return back();

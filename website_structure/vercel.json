@@ -21,6 +21,16 @@
   },
   "redirects": [
     {
+      "source": "/ai-roulette",
+      "destination": "/ai-score",
+      "permanent": true
+    },
+    {
+      "source": "/ai-roulette.html",
+      "destination": "/ai-score",
+      "permanent": true
+    },
+    {
       "source": "/index.html",
       "destination": "/",
       "permanent": true
