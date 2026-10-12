@@ -760,6 +760,9 @@
 .hero h1 .hero-sans,.hero h1 .hero-serif{display:block}
 .hero h1+.hero-actions{margin-top:clamp(2.5rem,6vh,4.5rem)}
 .value-proposition-audience{max-width:900px;margin:1.5rem 0 0;color:var(--ink-muted);font-size:clamp(.95rem,1.15vw,1.1rem);line-height:1.5}
+.developer-sectors{display:flex;flex-wrap:wrap;align-items:start;gap:clamp(1.25rem,3vw,3rem);margin-top:clamp(2rem,4vw,3rem);color:var(--ink)}
+.developer-sectors>div{display:grid;justify-items:center;gap:.35rem;min-width:64px;font-size:.72rem;font-weight:750;letter-spacing:.08em;line-height:1.25;text-transform:uppercase}
+.developer-sectors svg{display:block;width:46px;height:46px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
 .hero-actions{display:flex;align-items:center;flex-wrap:wrap;gap:1rem}
 .hero .button-outline{border:1px solid rgba(255,255,255,.72);color:#fff;background:rgba(0,0,0,.22)}
 .hero .button-outline:hover{color:#000;background:#fff}
@@ -775,6 +778,9 @@
   .hero-actions .button{margin:0}
   .developer-audience .value-proposition-grid{grid-template-columns:auto minmax(0,1fr)}
   .developer-audience .brand-stamp{display:flex}
+  .developer-sectors{gap:clamp(.5rem,3vw,1rem)}
+  .developer-sectors>div{min-width:58px}
+  .developer-sectors svg{width:40px;height:40px}
 }
 
 /* Homepage workflow outcomes sit between the proof strip and the delivery method. */
