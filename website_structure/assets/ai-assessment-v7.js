@@ -145,15 +145,42 @@ async function notifyCompletion() {
 function updateGauge() {
   const score = document.querySelector("[data-sample-score]");
   const gauge = document.querySelector(".ar-score-tease");
+  const track = gauge?.querySelector(".ar-gauge-track");
+  const fill = gauge?.querySelector(".ar-gauge-fill");
   const dot = gauge?.querySelector(".ar-gauge-dot");
-  if (!score || !gauge || !dot || reducedMotion) return;
-  const points = [47, 68, 29, 57, 43, 49, 47]; let step = 0;
+  if (!score || !track || !fill || !dot) return;
+  const finalScore = 47;
+  const trackLength = track.getTotalLength();
   function set(value) {
-    score.textContent = String(value); gauge.style.setProperty("--sample-score", String(value));
-    const angle = Math.PI * (1 - value / 100); dot.setAttribute("cx", String(120 + 100 * Math.cos(angle))); dot.setAttribute("cy", String(120 - 100 * Math.sin(angle)));
+    const position = Math.max(0, Math.min(100, value));
+    const point = track.getPointAtLength(trackLength * position / 100);
+    score.textContent = String(Math.round(position));
+    fill.style.strokeDasharray = `${position} 100`;
+    dot.setAttribute("cx", String(point.x));
+    dot.setAttribute("cy", String(point.y));
   }
-  set(points[0]);
-  setInterval(() => { step = (step + 1) % points.length; set(points[step]); }, 1100);
+  set(finalScore);
+  if (reducedMotion) return;
+  const frames = [
+    {at: 0, value: finalScore},
+    {at: .3, value: 64},
+    {at: .55, value: 38},
+    {at: .78, value: 53},
+    {at: 1, value: finalScore}
+  ];
+  let started;
+  function animate(now) {
+    started ??= now;
+    const progress = Math.min((now - started) / 6500, 1);
+    const nextIndex = frames.findIndex((frame, index) => index > 0 && progress <= frame.at);
+    const next = frames[nextIndex < 0 ? frames.length - 1 : nextIndex];
+    const previous = frames[frames.indexOf(next) - 1];
+    const fraction = Math.max(0, Math.min(1, (progress - previous.at) / (next.at - previous.at)));
+    const eased = fraction * fraction * (3 - 2 * fraction);
+    set(previous.value + (next.value - previous.value) * eased);
+    if (progress < 1) requestAnimationFrame(animate);
+  }
+  requestAnimationFrame(animate);
 }
 
 start.addEventListener("click", () => { state = saved || fresh(); if (state.screen === "landing") state.screen = "context-0"; render(true); });
