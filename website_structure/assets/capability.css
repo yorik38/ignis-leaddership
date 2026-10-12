@@ -849,11 +849,12 @@
 
 /* Homepage: a short typographic bridge from pressure to method. */
 .pipeline-statement{display:flex;align-items:center;min-height:clamp(360px,42vw,560px);border-bottom:1px solid var(--line);padding-block:clamp(5rem,9vw,8rem)}
-.pipeline-statement-layout{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.85fr);gap:clamp(2rem,6vw,6rem);align-items:center}
-.pipeline-statement h2{max-width:740px;margin:0;font-size:clamp(2.8rem,5vw,5.8rem);font-weight:650;line-height:1.02;letter-spacing:-.06em;text-transform:uppercase;text-wrap:balance}
-.pipeline-statement-word{display:flex;align-items:center;min-width:0;min-height:1.35em;overflow:hidden;color:var(--ink);font-size:clamp(2.8rem,5vw,5.8rem);font-weight:650;line-height:1.02;letter-spacing:-.06em;text-transform:uppercase;white-space:nowrap}
+.pipeline-statement-layout{display:flex;align-items:baseline;gap:clamp(1.25rem,2.5vw,3rem)}
+.pipeline-statement h2{flex:none;max-width:none;margin:0;color:#626d6b;font-size:clamp(1.75rem,3vw,3.75rem);font-weight:600;line-height:1.12;letter-spacing:-.045em;white-space:nowrap}
+.pipeline-statement-word{display:flex;flex:1 1 auto;align-items:center;min-width:0;min-height:1.35em;overflow:hidden;color:#626d6b;font-size:clamp(1.75rem,3vw,3.75rem);font-weight:600;line-height:1.12;letter-spacing:-.045em;white-space:nowrap}
 .pipeline-statement-word>span{display:inline-block;max-width:100%;will-change:transform,opacity}
 .pipeline-statement-word .brand-accent{color:var(--ignis-green,#1cbdad)}
+.pipeline-statement-word.is-brand{color:var(--ink)}
 .pipeline-statement-assistive{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
 
 /* Homepage: the shared system beneath both commercial workstreams. */
@@ -878,15 +879,14 @@
 .system-build-examples span{color:#91e1d6}
 .system-build-footnote{max-width:900px;margin:1.75rem 0 0;color:#c5cfcd;font-size:1rem;line-height:1.6}
 @media(max-width:900px){
-  .pipeline-statement-layout{grid-template-columns:1fr 1fr;gap:2rem}
   .system-build-layer{grid-template-columns:2.2rem minmax(0,1fr)}
   .system-build-layer .system-build-examples{grid-column:2;justify-self:start;max-width:none;text-align:left}
 }
 @media(max-width:700px){
-  .pipeline-statement-layout,.system-build-heading,.system-build-workstreams{grid-template-columns:1fr}
+  .pipeline-statement-layout{flex-direction:column;align-items:flex-start;gap:.6rem}
+  .system-build-heading,.system-build-workstreams{grid-template-columns:1fr}
   .pipeline-statement{padding-block:4.5rem}
-  .pipeline-statement h2{max-width:12ch;font-size:clamp(2.5rem,10vw,4rem)}
-  .pipeline-statement-word{font-size:clamp(2.5rem,10vw,4rem)}
+  .pipeline-statement h2,.pipeline-statement-word{font-size:clamp(1.25rem,6.2vw,2rem)}
   .system-build-heading{gap:1.25rem}
   .system-build-workstreams{margin-top:3rem}
   .system-build-workstreams>div{min-height:5.25rem}

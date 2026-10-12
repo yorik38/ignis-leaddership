@@ -9,7 +9,7 @@
   var reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
   if (reducedMotion.matches) return;
 
-  var stages = ["Process", "Context", "Data", "Governance", "Workflows"];
+  var stages = ["process", "context", "data", "governance", "workflows"];
   var generation = 0;
   var animation = null;
   var playing = false;
@@ -54,21 +54,21 @@
       if (!await move([
         { opacity: 0, transform: "translateY(18px)" },
         { opacity: 1, transform: "translateY(0)" }
-      ], 190, run)) return;
-      await pause(130);
+      ], 330, run)) return;
+      await pause(600);
       if (run !== generation) return;
       if (!await move([
         { opacity: 1, transform: "translateY(0)" },
         { opacity: 0, transform: "translateY(-14px)" }
-      ], 100, run)) return;
+      ], 220, run)) return;
     }
 
     if (run !== generation) return;
     showWord("Ignis");
     if (!await move([
-      { opacity: 0, transform: "translateY(24px)" },
+      { opacity: 0, transform: "translateY(16px)" },
       { opacity: 1, transform: "translateY(0)" }
-    ], 850, run)) return;
+    ], 1350, run)) return;
     playing = false;
   }
 
