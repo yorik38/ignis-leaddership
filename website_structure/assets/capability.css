@@ -757,6 +757,8 @@
 .hero-eyebrow{margin:0 0 1.6rem;color:var(--sky);font-size:.8rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase}
 .hero h1{display:grid;max-width:1120px}
 .hero h1 .hero-sans,.hero h1 .hero-serif{display:block}
+.hero h1+.hero-actions{margin-top:clamp(2.5rem,6vh,4.5rem)}
+.value-proposition-audience{max-width:900px;margin:1.5rem 0 0;color:var(--ink-muted);font-size:clamp(.95rem,1.15vw,1.1rem);line-height:1.5}
 .hero-actions{display:flex;align-items:center;flex-wrap:wrap;gap:1rem}
 .hero .button-outline{border:1px solid rgba(255,255,255,.72);color:#fff;background:rgba(0,0,0,.22)}
 .hero .button-outline:hover{color:#000;background:#fff}
