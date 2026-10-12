@@ -23,6 +23,9 @@ test("landing stays concise while answer-sharing is disclosed before the questio
   const landing = html.match(/<section class="ar-landing"[\s\S]*?<\/section>/)?.[0];
   assert.ok(landing);
   assert.match(landing, /Instant result · No sign-up required/);
+  assert.match(landing, /Is AI built into the work that moves your projects forward\?/);
+  assert.match(landing, /See where your team uses AI today, what limits reliable use, and what to build next\./);
+  assert.match(landing, /Governed AI capability/);
   assert.doesNotMatch(landing, /Indicative result, not a benchmark/);
   assert.match(landing, /Individual contributor/);
   assert.match(landing, /Team leader/);
@@ -104,6 +107,33 @@ test("new opportunities do not reduce the main score", () => {
   const high = assess(bank, all, {outcome: "scale", bottleneck: "unclear"});
   const noOffers = Object.fromEntries(Object.entries(all).map(([id, value]) => [id, id.startsWith("O") ? "1" : value]));
   assert.equal(assess(bank, noOffers, {outcome: "scale", bottleneck: "unclear"}).score, high.score);
+});
+
+test("headline gauge measures AI in work, not strong non-AI foundations", () => {
+  const answers = Object.fromEntries(Object.entries(all).map(([id]) => [id, /^(A|N|L)/.test(id) ? "1" : "7"]));
+  const result = assess(bank, {...answers,A1:["none"],A2:"none"}, {});
+  assert.equal(result.score, 0);
+  assert.equal(result.dimensions.find(item => item.id === "workflow").score, 100);
+  assert.equal(result.dimensions.find(item => item.id === "data").score, 100);
+  assert.match(result.scoreExplanation, /limited by governance/);
+});
+
+test("governance limits the gauge without giving workflow or data score weight", () => {
+  const answers = Object.fromEntries(Object.entries(all).map(([id]) => [id, id.startsWith("G") ? "3" : "7"]));
+  const result = assess(bank, {...answers,A1:["workflow"],A2:"team"}, {});
+  assert.equal(result.score, 33);
+  assert.equal(result.dimensions.find(item => item.id === "adoption").score, 100);
+  assert.equal(result.dimensions.find(item => item.id === "win").score, 100);
+  assert.equal(result.dimensions.find(item => item.id === "deliver").score, 100);
+});
+
+test("a score needs visibility of adoption, governance and at least one work area", () => {
+  const noWork = Object.fromEntries(Object.entries(all).map(([id,value]) => [id,/^(N|L)/.test(id) ? "outside" : value]));
+  const noWorkResult = assess(bank, noWork, {});
+  assert.equal(noWorkResult.score, null);
+  assert.equal(noWorkResult.priority.id, "visibility");
+  const oneArea = {...noWork,N1:"5",N2:"5",N3:"5"};
+  assert.equal(assess(bank, oneArea, {}).score, 67);
 });
 
 test("active AI use with weak governance prioritises controls", () => {

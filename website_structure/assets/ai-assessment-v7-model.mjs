@@ -196,13 +196,17 @@ export function assess(bank, answers = {}, context = {}) {
   const dimensions = bank.sections.map(section => scoreSection(section, answers));
   const byId = Object.fromEntries(dimensions.map(dimension => [dimension.id, dimension]));
   const workScores = [byId.win?.score, byId.deliver?.score].filter(value => value != null);
-  const core = [byId.adoption?.score, byId.workflow?.score, byId.data?.score, byId.governance?.score, workScores.length ? mean(workScores) : null].filter(value => value != null);
-  const score = byId.adoption?.score != null && byId.governance?.score != null && core.length >= 4 ? mean(core) : null;
+  // The gauge describes AI capability demonstrated in reported work. Foundations
+  // are separate findings; governance limits the claim rather than inflating it.
+  const workScore = workScores.length ? mean(workScores) : null;
+  const useScore = byId.adoption?.score != null && workScore != null ? mean([byId.adoption.score, workScore]) : null;
+  const score = useScore != null && byId.governance?.score != null ? Math.min(useScore, byId.governance.score) : null;
   const priorityId = score === null ? "visibility" : choosePriority(byId, context);
   const priority = {id: priorityId, ...BUILD[priorityId]};
   const unknown = dimensions.filter(dimension => dimension.score === null).map(dimension => dimension.label);
   return {
     score,
+    scoreExplanation: "The score combines reported AI adoption and AI use in live work, limited by governance. Workflow and data are shown separately.",
     stage: stageFor(answers, byId.adoption),
     scope: stageScope(context.stages),
     dimensions,

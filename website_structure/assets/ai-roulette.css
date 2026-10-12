@@ -156,7 +156,7 @@ body.ar-page{margin:0;background:var(--ar-black);color:var(--ar-white);font-fami
 .ar-result-score{position:relative;isolation:isolate;display:flex;justify-content:center;align-items:center;width:190px;height:190px;margin:1.5rem auto .7rem;border-radius:50%;background:conic-gradient(var(--ar-green) 0 var(--score-angle,0deg),#39464a var(--score-angle,0deg) 360deg);color:var(--ar-white);font-family:var(--ar-display);font-size:5rem;line-height:1}
 .ar-result-score::before{content:"";position:absolute;inset:13px;z-index:-1;border-radius:50%;background:var(--ar-black)}
 .ar-result-score span{align-self:center;margin-top:1.7rem;font-family:Inter,system-ui,sans-serif;font-size:1rem;font-weight:750}
-.ar-score-key{max-width:56ch;margin:0 auto .7rem;color:#aebcba;font-size:.78rem;font-weight:700;line-height:1.45;text-align:center}
+.ar-score-key{max-width:56ch;margin:0 auto .7rem;color:#aebcba;font-size:.875rem;font-weight:700;line-height:1.45;text-align:center}
 .ar-band{display:inline-block;margin:.5rem auto 1rem;padding:.45rem .8rem;border:1px solid var(--ar-green);color:#d9f5f0;font-size:.87rem}
 .ar-result-lead{max-width:60ch;margin:1rem auto 0;font-size:clamp(1.25rem,2vw,1.7rem);line-height:1.35}
 .ar-result-section{margin-top:3rem;padding-top:2rem;border-top:1px solid var(--ar-line)}

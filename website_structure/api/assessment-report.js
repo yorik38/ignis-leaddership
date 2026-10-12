@@ -40,7 +40,8 @@ function researchSummary(result,answers,context,attemptId) {
   const answerLines = bank.sections.flatMap(section => [section.title.toUpperCase(),...section.questions.map(question => `${question.id}. ${question.text}\n${answerLabel(question,answers[question.id])}`),""]);
   return [
     `Attempt: ${attemptId}`,
-    `Overall score: ${result.score == null ? "not scored" : `${result.score}/100`}`,
+    `Governed AI capability score: ${result.score == null ? "not scored" : `${result.score}/100`}`,
+    `Score method: ${result.scoreExplanation}`,
     `AI stage: ${result.stage}`,
     `Build priority: ${result.priority.title}`,
     `Why: ${result.priority.why}`,

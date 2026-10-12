@@ -1,4 +1,4 @@
-import { assess, VERSION } from "./ai-assessment-v7-model.mjs";
+import { assess, VERSION } from "./ai-assessment-v7-model.mjs?v=3";
 
 const app = document.getElementById("ar-app");
 const landing = document.querySelector(".ar-landing");
@@ -98,7 +98,7 @@ function resultScreen() {
   const byId = Object.fromEntries(report.dimensions.map(dimension => [dimension.id, dimension]));
   const work = [byId.win, byId.deliver, byId.opportunity];
   const score = report.score;
-  return `<section class="ar-result" aria-labelledby="ar-screen-title">${topBar()}<div class="ar-result-hero"><p class="ar-category-kicker">Your AI score</p><h2 id="ar-screen-title">What to build next</h2><div class="ar-result-score" style="--score-angle:${score == null ? 0 : score * 3.6}deg" aria-label="${score == null ? "Not enough answers for a score" : `Score ${score} out of 100`}">${score == null ? "?" : score}<span>/100</span></div>${score == null ? '<p class="ar-score-key">Not enough answers for a responsible overall score.</p>' : ""}<p class="ar-band">${escapeHTML(report.stage)}</p><p class="ar-result-line">${escapeHTML(report.scope)}</p></div>
+  return `<section class="ar-result" aria-labelledby="ar-screen-title">${topBar()}<div class="ar-result-hero"><p class="ar-category-kicker">Your governed AI capability</p><h2 id="ar-screen-title">What to build next</h2><div class="ar-result-score" style="--score-angle:${score == null ? 0 : score * 3.6}deg" aria-label="${score == null ? "Not enough answers for a governed AI capability score" : `Governed AI capability score ${score} out of 100`}">${score == null ? "?" : score}<span>/100</span></div><p class="ar-score-key">${escapeHTML(score == null ? "Not enough AI-in-work or governance answers for a responsible overall score." : report.scoreExplanation)}</p><p class="ar-band">${escapeHTML(report.stage)}</p><p class="ar-result-line">${escapeHTML(report.scope)}</p></div>
   <div class="ar-result-section"><p class="ar-category-kicker">01 · Where you stand</p><h3>AI today</h3><p>${escapeHTML(report.findings.adoption)}</p>${scoreRow(byId.adoption)}</div>
   <div class="ar-result-section"><p class="ar-category-kicker">02 · What blocks scale</p><h3>Workflow, data and governance</h3><p>${escapeHTML(report.findings.foundations)}</p>${[byId.workflow,byId.data,byId.governance].map(scoreRow).join("")}</div>
   <div class="ar-result-section"><p class="ar-category-kicker">03 · Where it matters</p><h3>Work and new value</h3><p>${escapeHTML(report.findings.work)}</p>${work.map(scoreRow).join("")}</div>
