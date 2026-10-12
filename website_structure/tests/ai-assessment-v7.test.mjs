@@ -1,7 +1,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import {readFileSync} from "node:fs";
-import {assess, scoreSection} from "../assets/ai-assessment-v7-model.mjs";
+import {assess, scoreSection, stageScope} from "../assets/ai-assessment-v7-model.mjs";
 
 const bank = JSON.parse(readFileSync(new URL("../assets/ai-assessment-v7.json", import.meta.url)));
 const all = Object.fromEntries(bank.sections.flatMap(section => section.questions.filter(q => q.type === "likert").map(q => [q.id, "5"])));
@@ -64,12 +64,33 @@ test("progress is visual without visible question or section counts", () => {
   assert.doesNotMatch(controller, /\$\{done\} \/ \$\{total\} questions|of 06|of 07|of 3|ar-subdim-heading/);
 });
 
-test("Likert questions offer only the seven-point disagree-to-agree scale", () => {
+test("Likert questions distinguish a genuine midpoint from outside my view", () => {
   const controller = readFileSync(new URL("../assets/ai-assessment-v7.js", import.meta.url), "utf8");
-  assert.match(controller, /<span>Disagree<\/span><span>Neutral<\/span><span>Agree<\/span>/);
+  assert.match(controller, /<span>Disagree<\/span><span>Neither<\/span><span>Agree<\/span>/);
+  assert.match(controller, /Neither agree nor disagree/);
   assert.match(controller, /scaleNames\.map/);
-  assert.doesNotMatch(controller, /data-alternative|ar-answer-alternatives|ar-not-sure/);
+  assert.match(controller, /data-outside/);
   assert.match(controller, /delete value\.answers\[question\.id\]/);
+});
+
+test("project-stage context permits two stages or the full lifecycle", () => {
+  const stage = bank.context.find(item => item.id === "stages");
+  assert.equal(stage.type, "multi");
+  assert.equal(stage.max, 2);
+  assert.deepEqual(stage.options.map(option => option.id), ["development", "route", "procurement", "close", "all"]);
+  assert.equal(stage.options.at(-1).exclusive, true);
+  assert.match(stageScope(["development", "procurement"]), /early development and procurement and contracting/);
+  assert.match(stageScope(["all"]), /full project lifecycle/);
+});
+
+test("stage context changes scope, not the score or priority", () => {
+  const answers = {...all,A1:["copilot"],A2:"team"};
+  const development = assess(bank, answers, {persona:"team",outcome:"scale",bottleneck:"evidence",stages:["development"]});
+  const close = assess(bank, answers, {persona:"team",outcome:"scale",bottleneck:"evidence",stages:["close"]});
+  assert.equal(development.score, close.score);
+  assert.equal(development.priority.id, close.priority.id);
+  assert.match(development.scope, /early development/);
+  assert.match(close.scope, /financial close/);
 });
 
 test("unknown and outside-role responses are not treated as low scores", () => {

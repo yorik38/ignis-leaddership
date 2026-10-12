@@ -20,15 +20,22 @@ function validAnswers(answers) {
   }));
 }
 function validContext(context) {
-  return context && typeof context === "object" && (!context.persona || ["individual", "team", "leader"].includes(context.persona)) && bank.context.every(item => item.options.some(option => option.id === context[item.id]));
+  return context && typeof context === "object" && (!context.persona || ["individual", "team", "leader"].includes(context.persona)) && bank.context.every(item => {
+    const value = context[item.id];
+    if (item.type === "multi") {
+      if (value === undefined) return true; // Preserve reports for attempts saved before this context step existed.
+      return Array.isArray(value) && value.length > 0 && value.length <= item.max && new Set(value).size === value.length && value.every(choice => item.options.some(option => option.id === choice)) && !(value.includes("all") && value.length > 1);
+    }
+    return item.options.some(option => option.id === value);
+  });
 }
 function answerLabel(question,value) {
-  if (question.type === "likert") return value === "0" ? "Not sure" : value === "outside" ? "Not involved" : `${value}/7`;
+  if (question.type === "likert") return value === "0" ? "Not sure" : value === "outside" ? "Outside my view" : `${value}/7`;
   const values = Array.isArray(value) ? value : [value];
   return values.map(item => question.options.find(option => option.id === item)?.label || item).join(", ");
 }
 function researchSummary(result,answers,context,attemptId) {
-  const contextLines = [`Reader perspective: ${{individual:"Individual contributor",team:"Team leader",leader:"Business leader"}[context.persona] || "Not selected"}`, ...bank.context.map(item => `${item.title}: ${item.options.find(option => option.id === context[item.id])?.label || context[item.id]}`)];
+  const contextLines = [`Reader perspective: ${{individual:"Individual contributor",team:"Team leader",leader:"Business leader"}[context.persona] || "Not selected"}`, ...bank.context.map(item => `${item.title}: ${item.type === "multi" ? (context[item.id] || []).map(value => item.options.find(option => option.id === value)?.label || value).join(", ") || "Not selected" : item.options.find(option => option.id === context[item.id])?.label || context[item.id]}`)];
   const scoreLines = result.dimensions.map(item => `${item.label}: ${item.score == null ? "not scored" : `${item.score}/100`} (${item.answered}/${item.possible} scored answers)`);
   const answerLines = bank.sections.flatMap(section => [section.title.toUpperCase(),...section.questions.map(question => `${question.id}. ${question.text}\n${answerLabel(question,answers[question.id])}`),""]);
   return [

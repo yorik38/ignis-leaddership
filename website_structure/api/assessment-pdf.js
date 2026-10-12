@@ -38,6 +38,7 @@ function makePageOne(report,answers,details) {
   p.text("What to build with AI next",LEFT,738,23,true,DARK);
   const company = plain(details.company || "Organisation");
   p.text(`${company.length > 65 ? `${company.slice(0,62)}...` : company}  |  ${new Date().toISOString().slice(0,10)}`,LEFT,710,10,false,GREY);
+  p.paragraph(report.scope,LEFT,689,96,9.4,12,GREY);
   p.text(report.score==null?"?":String(report.score),LEFT,640,58,true,GREEN); p.text("/100",LEFT+75,647,17,true,GREY);
   p.text(report.score==null?"Not enough coverage for an overall score":report.stage,LEFT+155,654,16,true,DARK);
   p.text("A practical reading of your answers",LEFT+155,635,9,false,GREY);

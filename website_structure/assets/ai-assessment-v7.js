@@ -5,7 +5,7 @@ const landing = document.querySelector(".ar-landing");
 const start = document.querySelector("[data-start]");
 const KEY = "ignis_ai_self_assessment_v7";
 const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
-const scaleNames = ["Strongly disagree", "Disagree", "Somewhat disagree", "Neutral", "Somewhat agree", "Agree", "Strongly agree"];
+const scaleNames = ["Strongly disagree", "Disagree", "Somewhat disagree", "Neither agree nor disagree", "Somewhat agree", "Agree", "Strongly agree"];
 const escapeHTML = value => String(value ?? "").replace(/[&<>"']/g, character => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[character]));
 let bank;
 let saved;
@@ -20,7 +20,8 @@ function fresh() { return {version: VERSION, screen: "landing", context: {}, ans
 function restore() {
   try {
     const value = JSON.parse(localStorage.getItem(KEY));
-    if (value?.version === VERSION && value.answers && value.context && Number.isInteger(value.section)) {
+    const previousVersion = value?.version === "2026-10-ceo-review-1";
+    if ((value?.version === VERSION || previousVersion) && value.answers && value.context && Number.isInteger(value.section)) {
       if (value.context.role) {
         if (!value.context.persona) value.context.persona = value.context.role === "leader" ? "leader" : "individual";
         if (value.screen === "context-2") value.screen = "context-1";
@@ -28,6 +29,8 @@ function restore() {
         else if (value.screen === "context-0" && value.context.outcome) value.screen = "context-1";
         delete value.context.role;
       }
+      if (previousVersion && value.screen === "context-1" && !value.context.stages) value.screen = "context-2";
+      value.version = VERSION;
       const legacyAnswer = bank.sections.flatMap((section, sectionIndex) => section.questions.map((question, questionIndex) => ({question, sectionIndex, questionIndex})))
         .find(({question}) => question.type === "likert" && ["0", "outside"].includes(value.answers[question.id]));
       if (legacyAnswer) {
@@ -63,7 +66,8 @@ function contextScreen() {
   const index = Number(state.screen.slice(-1));
   const item = bank.context[index];
   const selected = state.context[item.id];
-  return `<section class="ar-flow ar-tap" aria-labelledby="ar-screen-title">${topBar()}<p class="ar-category-kicker">Before we begin</p><h2 id="ar-screen-title">${escapeHTML(item.title)}</h2><p class="ar-screen-help">This helps us frame your result. It does not change your score.</p>${index === 0 ? '<p class="ar-caveat">When you finish, Ignis receives your answers and result for assessment research, even if you do not request the emailed report. Contact details are optional. <a href="/privacy">How we use your answers</a>.</p>' : ""}<div class="ar-choice-list">${item.options.map(option => `<button class="ar-choice ${selected === option.id ? "is-selected" : ""}" type="button" data-context-choice="${escapeHTML(option.id)}">${escapeHTML(option.label)}</button>`).join("")}</div></section>`;
+  const multiple = item.type === "multi";
+  return `<section class="ar-flow ar-tap" aria-labelledby="ar-screen-title">${topBar()}<p class="ar-category-kicker">Before we begin</p><h2 id="ar-screen-title">${escapeHTML(item.title)}</h2><p class="ar-screen-help">${escapeHTML(item.help || "This helps us frame your result. It does not change your score.")}</p>${index === 0 ? '<p class="ar-caveat">When you finish, Ignis receives your answers and result for assessment research, even if you do not request the emailed report. Contact details are optional. <a href="/privacy">How we use your answers</a>.</p>' : ""}<div class="ar-choice-list">${item.options.map(option => { const picked = multiple ? Array.isArray(selected) && selected.includes(option.id) : selected === option.id; return `<button class="ar-choice ${picked ? "is-selected" : ""}" type="button" data-context-choice="${escapeHTML(option.id)}" aria-pressed="${picked}">${escapeHTML(option.label)}</button>`; }).join("")}</div>${multiple ? `<p class="ar-context-feedback" role="status" aria-live="polite"></p><button class="ar-button" type="button" data-context-continue ${Array.isArray(selected) && selected.length ? "" : "disabled"}>Continue →</button>` : ""}</section>`;
 }
 function progress() {
   const total = bank.sections.reduce((sum, section) => sum + section.questions.length, 0);
@@ -76,8 +80,9 @@ function choices(question) {
   return `<div class="ar-question-options" role="group" aria-label="${escapeHTML(question.text)}">${question.options.map(option => { const chosen = multi ? Array.isArray(picked) && picked.includes(option.id) : picked === option.id; return `<button type="button" class="ar-choice ${chosen ? "is-selected" : ""}" aria-pressed="${chosen}" data-option="${escapeHTML(option.id)}" data-question-id="${question.id}">${escapeHTML(option.label)}</button>`; }).join("")}</div>${multi ? `<button type="button" class="ar-text-button ar-choice-done" data-multi-done="${question.id}" ${Array.isArray(picked) && picked.length ? "" : "disabled"}>Continue →</button>` : ""}`;
 }
 function dots(question) {
-  const selected = Number(state.answers[question.id]);
-  return `<div class="ar-dots-labels"><span>Disagree</span><span>Neutral</span><span>Agree</span></div><fieldset class="ar-dots" aria-label="${escapeHTML(question.text)}">${scaleNames.map((label,index) => `<label class="ar-dot ${selected >= index + 1 ? "is-lit" : ""}" data-point="${index + 1}"><input type="radio" name="${question.id}" value="${index + 1}" aria-label="${label}" ${selected === index + 1 ? "checked" : ""}><span aria-hidden="true"></span></label>`).join("")}</fieldset><p class="ar-scale-value">${selected ? scaleNames[selected - 1] : "Tap how much you agree"}</p>`;
+  const outside = state.answers[question.id] === "outside";
+  const selected = outside ? 0 : Number(state.answers[question.id]);
+  return `<div class="ar-dots-labels"><span>Disagree</span><span>Neither</span><span>Agree</span></div><fieldset class="ar-dots" aria-label="${escapeHTML(question.text)}">${scaleNames.map((label,index) => `<label class="ar-dot ${selected >= index + 1 ? "is-lit" : ""}" data-point="${index + 1}"><input type="radio" name="${question.id}" value="${index + 1}" aria-label="${label}" ${selected === index + 1 ? "checked" : ""}><span aria-hidden="true"></span></label>`).join("")}</fieldset><p class="ar-scale-value">${outside ? "Outside my view" : selected ? scaleNames[selected - 1] : "Tap how much you agree"}</p><button type="button" class="ar-text-button ar-outside ${outside ? "is-selected" : ""}" aria-pressed="${outside}" data-outside="${question.id}">Outside my view</button>`;
 }
 function questionScreen() {
   const section = bank.sections[state.section];
@@ -93,7 +98,7 @@ function resultScreen() {
   const byId = Object.fromEntries(report.dimensions.map(dimension => [dimension.id, dimension]));
   const work = [byId.win, byId.deliver, byId.opportunity];
   const score = report.score;
-  return `<section class="ar-result" aria-labelledby="ar-screen-title">${topBar()}<div class="ar-result-hero"><p class="ar-category-kicker">Your AI score</p><h2 id="ar-screen-title">What to build next</h2><div class="ar-result-score" style="--score-angle:${score == null ? 0 : score * 3.6}deg" aria-label="${score == null ? "Not enough answers for a score" : `Score ${score} out of 100`}">${score == null ? "?" : score}<span>/100</span></div>${score == null ? '<p class="ar-score-key">Not enough answers for a responsible overall score.</p>' : ""}<p class="ar-band">${escapeHTML(report.stage)}</p></div>
+  return `<section class="ar-result" aria-labelledby="ar-screen-title">${topBar()}<div class="ar-result-hero"><p class="ar-category-kicker">Your AI score</p><h2 id="ar-screen-title">What to build next</h2><div class="ar-result-score" style="--score-angle:${score == null ? 0 : score * 3.6}deg" aria-label="${score == null ? "Not enough answers for a score" : `Score ${score} out of 100`}">${score == null ? "?" : score}<span>/100</span></div>${score == null ? '<p class="ar-score-key">Not enough answers for a responsible overall score.</p>' : ""}<p class="ar-band">${escapeHTML(report.stage)}</p><p class="ar-result-line">${escapeHTML(report.scope)}</p></div>
   <div class="ar-result-section"><p class="ar-category-kicker">01 · Where you stand</p><h3>AI today</h3><p>${escapeHTML(report.findings.adoption)}</p>${scoreRow(byId.adoption)}</div>
   <div class="ar-result-section"><p class="ar-category-kicker">02 · What blocks scale</p><h3>Workflow, data and governance</h3><p>${escapeHTML(report.findings.foundations)}</p>${[byId.workflow,byId.data,byId.governance].map(scoreRow).join("")}</div>
   <div class="ar-result-section"><p class="ar-category-kicker">03 · Where it matters</p><h3>Work and new value</h3><p>${escapeHTML(report.findings.work)}</p>${work.map(scoreRow).join("")}</div>
@@ -219,10 +224,12 @@ app.addEventListener("click", async event => {
   const target = event.target.closest("button, .ar-stack-item"); if (!target) return;
   if (target.matches("[data-back]")) return back();
   if (target.matches("[data-save]")) { persist(); saved = {...state}; state = fresh(); render(true); return; }
-  if (target.matches("[data-context-choice]")) { const index = Number(state.screen.slice(-1)); state.context[bank.context[index].id] = target.dataset.contextChoice; state.screen = index === bank.context.length - 1 ? "intro" : `context-${index + 1}`; return render(true); }
+  if (target.matches("[data-context-choice]")) { const index = Number(state.screen.slice(-1)); const item = bank.context[index]; if (item.type === "multi") { const selected = new Set(state.context[item.id] || []); const option = item.options.find(choice => choice.id === target.dataset.contextChoice); if (option.exclusive) { if (selected.has(option.id)) selected.clear(); else { selected.clear(); selected.add(option.id); } } else { selected.delete("all"); if (selected.has(option.id)) selected.delete(option.id); else if (selected.size < item.max) selected.add(option.id); else { app.querySelector(".ar-context-feedback").textContent = `Choose up to ${item.max}, or select across the full lifecycle.`; return; } } state.context[item.id] = [...selected]; render(false); app.querySelector(`[data-context-choice="${option.id}"]`)?.focus(); return; } state.context[item.id] = target.dataset.contextChoice; state.screen = index === bank.context.length - 1 ? "intro" : `context-${index + 1}`; return render(true); }
+  if (target.matches("[data-context-continue]")) { const index = Number(state.screen.slice(-1)); if (!(state.context[bank.context[index].id] || []).length) return; state.screen = index === bank.context.length - 1 ? "intro" : `context-${index + 1}`; render(true); return; }
   if (target.matches("[data-begin-section]")) { state.screen = "questions"; state.active = 0; render(true); return; }
   if (target.matches("[data-option]")) { const question = bank.sections[state.section].questions.find(item => item.id === target.dataset.questionId); if (question.type === "multi") { const selected = new Set(state.answers[question.id] || []); const option = question.options.find(item => item.id === target.dataset.option); if (option.exclusive) { selected.clear(); selected.add(option.id); } else { selected.delete("none"); if (selected.has(option.id)) selected.delete(option.id); else selected.add(option.id); } state.answers[question.id] = [...selected]; render(false); } else answer(question.id, target.dataset.option); return; }
   if (target.matches("[data-multi-done]")) { if ((state.answers[target.dataset.multiDone] || []).length) activate(Math.min(state.active + 1,5)); return; }
+  if (target.matches("[data-outside]")) { answer(target.dataset.outside, "outside"); return; }
   if (target.matches("[data-next-section]")) { if (state.section < bank.sections.length - 1) { state.section += 1; state.screen = "intro"; } else state.screen = "result"; render(true); return; }
   if (target.matches(".ar-stack-item")) { const index = Number(target.dataset.questionIndex); if (index !== state.active) activate(index); }
 });

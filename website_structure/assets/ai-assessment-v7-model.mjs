@@ -1,4 +1,19 @@
-export const VERSION = "2026-10-ceo-review-1";
+export const VERSION = "2026-10-ceo-review-2";
+
+const STAGES = {
+  development: "early development",
+  route: "route to market",
+  procurement: "procurement and contracting",
+  close: "financial close"
+};
+
+export function stageScope(stages) {
+  if (!Array.isArray(stages) || !stages.length) return "This result reflects the work you know; no project stages were selected.";
+  if (stages.includes("all")) return "This result reflects your view across the full project lifecycle.";
+  const selected = [...new Set(stages)].filter(stage => STAGES[stage]).slice(0, 2).map(stage => STAGES[stage]);
+  if (!selected.length) return "This result reflects the work you know; no project stages were selected.";
+  return `This result reflects your view of ${selected.join(" and ")}.`;
+}
 
 export const SECTION_LABELS = {
   adoption: "AI adoption",
@@ -189,6 +204,7 @@ export function assess(bank, answers = {}, context = {}) {
   return {
     score,
     stage: stageFor(answers, byId.adoption),
+    scope: stageScope(context.stages),
     dimensions,
     priority,
     foundationFinding: foundationFinding(byId, context),

@@ -108,6 +108,7 @@ body.ar-page{margin:0;background:var(--ar-black);color:var(--ar-white);font-fami
 .ar-choice{display:grid;align-content:center;min-height:64px;padding:.9rem 1.2rem;border:1px solid #677276;border-radius:1px;background:#111618;color:#fff;font-size:clamp(.96rem,1.25vw,1.12rem);font-weight:700;line-height:1.35;text-align:center}
 .ar-choice small{display:block;margin-top:.2rem;color:#aebaba;font-size:.8rem;font-weight:400}
 .ar-choice:hover,.ar-choice:focus-visible,.ar-choice.is-selected{border-color:var(--ar-green);background:#132925}
+.ar-context-feedback{min-height:1.4em;margin:-.8rem auto 1rem;color:#d2dddb;font-size:.9rem}
 .ar-detail-label{display:grid;gap:.6rem;max-width:540px;margin:1.5rem auto;text-align:left;font-size:.88rem}
 .ar-detail-label input,.ar-own-controls input,.ar-own-controls select{width:100%;min-height:48px;padding:.7rem .85rem;border:1px solid #718184;background:#101719;color:#fff}
 .ar-followup{display:flex;justify-content:center;gap:.6rem;flex-wrap:wrap;max-width:600px;margin:1.5rem auto;padding:1rem;border:0}
@@ -144,6 +145,8 @@ body.ar-page{margin:0;background:var(--ar-black);color:var(--ar-white);font-fami
 .ar-dot input{position:absolute;inset:0;width:100%;height:100%;margin:0;opacity:0;cursor:pointer}
 .ar-dot input:focus-visible{outline:3px solid #fff;outline-offset:3px}
 .ar-scale-value{min-height:1.5em;margin:.75rem 0 0;color:#cbd5d2;font-size:.78rem;font-weight:750;letter-spacing:.12em;text-align:center;text-transform:uppercase}
+.ar-outside{align-self:center;margin:.5rem auto 0;color:#cbd5d2;font-size:.82rem}
+.ar-outside.is-selected{color:#fff;font-weight:750}
 .ar-flow-actions{display:flex;justify-content:center;margin:2rem 0 0}
 .ar-flow-actions .ar-button{min-width:280px}
 .ar-result{max-width:950px;margin:0 auto;padding-bottom:5rem}
