@@ -66,9 +66,9 @@
     if (run !== generation) return;
     showWord("Ignis");
     if (!await move([
-      { opacity: 0, transform: "translateY(16px)" },
+      { opacity: 0.25, transform: "translateY(12px)" },
       { opacity: 1, transform: "translateY(0)" }
-    ], 1350, run)) return;
+    ], 1200, run)) return;
     playing = false;
   }
 

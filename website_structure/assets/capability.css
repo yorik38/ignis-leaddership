@@ -234,7 +234,7 @@
   height:100%;
   object-fit:cover;
   object-position:center;
-  filter:hue-rotate(-28deg);
+  filter:none;
 }
 .hero::after{
   inset:0;
@@ -849,12 +849,13 @@
 
 /* Homepage: a short typographic bridge from pressure to method. */
 .pipeline-statement{display:flex;align-items:center;min-height:clamp(360px,42vw,560px);border-bottom:1px solid var(--line);padding-block:clamp(5rem,9vw,8rem)}
-.pipeline-statement-layout{display:flex;align-items:baseline;gap:clamp(1.25rem,2.5vw,3rem)}
-.pipeline-statement h2{flex:none;max-width:none;margin:0;color:#626d6b;font-size:clamp(1.75rem,3vw,3.75rem);font-weight:600;line-height:1.12;letter-spacing:-.045em;white-space:nowrap}
-.pipeline-statement-word{display:flex;flex:1 1 auto;align-items:center;min-width:0;min-height:1.35em;overflow:hidden;color:#626d6b;font-size:clamp(1.75rem,3vw,3.75rem);font-weight:600;line-height:1.12;letter-spacing:-.045em;white-space:nowrap}
+.pipeline-statement-layout{display:block}
+.pipeline-statement h2{max-width:none;margin:0;color:#626d6b;font-size:clamp(1.9rem,3.35vw,4.2rem);font-weight:600;line-height:1.3;letter-spacing:-.045em;white-space:nowrap}
+.pipeline-statement-tail{white-space:nowrap}
+.pipeline-statement-word{display:inline-block;min-height:1.18em;vertical-align:baseline;color:#626d6b;font-size:inherit;white-space:nowrap}
 .pipeline-statement-word>span{display:inline-block;max-width:100%;will-change:transform,opacity}
 .pipeline-statement-word .brand-accent{color:var(--ignis-green,#1cbdad)}
-.pipeline-statement-word.is-brand{color:var(--ink)}
+.pipeline-statement-word.is-brand{color:var(--ink);font-size:1.18em}
 .pipeline-statement-assistive{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
 
 /* Homepage: the shared system beneath both commercial workstreams. */
@@ -866,12 +867,12 @@
 .system-build-workstreams{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem;margin-top:clamp(3rem,6vw,5.5rem)}
 .system-build-workstreams>div{display:flex;align-items:center;min-height:clamp(6rem,11vw,9rem);padding:clamp(1.25rem,2.5vw,2.25rem);border:1px solid var(--ignis-green,#1cbdad);border-radius:.35rem;color:#fff;font-size:clamp(1.35rem,2.25vw,2.6rem);font-weight:500;line-height:1.16;letter-spacing:-.04em}
 .system-build-guide{margin:2.5rem 0 .8rem;color:var(--ignis-green-light,#75d9cc);font-size:.76rem;font-weight:700;letter-spacing:.13em;text-transform:uppercase}
-.system-build-layers{display:grid;gap:.6rem}
-.system-build-layer{display:grid;grid-template-columns:3rem minmax(0,1fr) minmax(250px,.85fr);gap:1.25rem;align-items:center;min-height:7.4rem;padding:1.25rem clamp(1.25rem,2.5vw,2.5rem);border-radius:.25rem;background:#0a3734}
-.system-build-layer:nth-child(2){background:#0b4540}
+.system-build-layers{display:flex;flex-direction:column-reverse;gap:.6rem}
+.system-build-layer{display:grid;grid-template-columns:3rem minmax(0,1fr) minmax(250px,.85fr);gap:1.25rem;align-items:center;min-height:7.4rem;padding:1.25rem clamp(1.25rem,2.5vw,2.5rem);border-radius:.25rem;background:#08756d}
+.system-build-layer:nth-child(2){background:#0b6058}
 .system-build-layer:nth-child(3){background:#0c514b}
-.system-build-layer:nth-child(4){background:#0b6058}
-.system-build-layer:nth-child(5){background:#08756d}
+.system-build-layer:nth-child(4){background:#0b4540}
+.system-build-layer:nth-child(5){background:#0a3734}
 .system-build-number{align-self:start;padding-top:.55rem;color:#a5e7de;font-size:.85rem;font-weight:700;letter-spacing:.08em}
 .system-build-layer h3{margin:0;color:#fff;font-size:clamp(1.55rem,2.25vw,2.25rem);font-weight:600;line-height:1.12;letter-spacing:-.035em}
 .system-build-layer p{margin:.4rem 0 0;color:#e2f2ef;font-size:clamp(.95rem,1.12vw,1.06rem);line-height:1.45}
@@ -883,10 +884,12 @@
   .system-build-layer .system-build-examples{grid-column:2;justify-self:start;max-width:none;text-align:left}
 }
 @media(max-width:700px){
-  .pipeline-statement-layout{flex-direction:column;align-items:flex-start;gap:.6rem}
+  .hero::after{background:linear-gradient(180deg,rgba(0,0,0,.58),rgba(0,0,0,.72))}
+  .pipeline-statement-tail{display:block}
   .system-build-heading,.system-build-workstreams{grid-template-columns:1fr}
   .pipeline-statement{padding-block:4.5rem}
-  .pipeline-statement h2,.pipeline-statement-word{font-size:clamp(1.25rem,6.2vw,2rem)}
+  .pipeline-statement h2{font-size:clamp(1.35rem,6.7vw,2.2rem)}
+  .system-build-layers{flex-direction:column}
   .system-build-heading{gap:1.25rem}
   .system-build-workstreams{margin-top:3rem}
   .system-build-workstreams>div{min-height:5.25rem}
