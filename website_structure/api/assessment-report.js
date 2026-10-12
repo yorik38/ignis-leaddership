@@ -20,7 +20,7 @@ function validAnswers(answers) {
   }));
 }
 function validContext(context) {
-  return context && typeof context === "object" && bank.context.every(item => item.options.some(option => option.id === context[item.id]));
+  return context && typeof context === "object" && (!context.persona || ["individual", "team", "leader"].includes(context.persona)) && bank.context.every(item => item.options.some(option => option.id === context[item.id]));
 }
 function answerLabel(question,value) {
   if (question.type === "likert") return value === "0" ? "Not sure" : value === "outside" ? "Not involved" : `${value}/7`;
@@ -28,7 +28,7 @@ function answerLabel(question,value) {
   return values.map(item => question.options.find(option => option.id === item)?.label || item).join(", ");
 }
 function researchSummary(result,answers,context,attemptId) {
-  const contextLines = bank.context.map(item => `${item.title}: ${item.options.find(option => option.id === context[item.id])?.label || context[item.id]}`);
+  const contextLines = [`Reader perspective: ${{individual:"Individual contributor",team:"Team leader",leader:"Business leader"}[context.persona] || "Not selected"}`, ...bank.context.map(item => `${item.title}: ${item.options.find(option => option.id === context[item.id])?.label || context[item.id]}`)];
   const scoreLines = result.dimensions.map(item => `${item.label}: ${item.score == null ? "not scored" : `${item.score}/100`} (${item.answered}/${item.possible} scored answers)`);
   const answerLines = bank.sections.flatMap(section => [section.title.toUpperCase(),...section.questions.map(question => `${question.id}. ${question.text}\n${answerLabel(question,answers[question.id])}`),""]);
   return [

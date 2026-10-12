@@ -127,6 +127,55 @@ function foundationFinding(byId, context) {
   return `${lowest[0].label} is the lowest measured foundation at ${lowest[0].score}/100.`;
 }
 
+function readerLead(persona) {
+  if (persona === "team") return "In the work your team does,";
+  if (persona === "leader") return "From your view of the business,";
+  return "In the work you know,";
+}
+
+function adoptionFinding(answers, byId, stage, persona) {
+  const lead = readerLead(persona);
+  const modes = Array.isArray(answers.A1) ? answers.A1.filter(mode => mode !== "none") : [];
+  const embedded = modes.includes("workflow") && Number(answers.A6) >= 5;
+  if (!modes.length || answers.A2 === "none") return `${lead} AI is not yet part of regular work. Start with one useful task and an approved way to try it.`;
+  if (stage === "Exploring") return `${lead} AI use is still exploratory. People may be trying tools, but the answers do not yet show a shared way of working.`;
+  if (stage === "Individual use") {
+    const mode = modes.length === 1 && modes[0] === "copilot" ? "mostly through an assistant or copilot" : "through tools and individual experiments";
+    return `${lead} AI is being used ${mode}, but it has not yet become a repeatable team practice. The next step is to make one use case work beyond the person who started it.`;
+  }
+  if (embedded) return `${lead} AI is moving beyond individual prompts and into an agreed workflow. The opportunity now is to check whether the evidence, controls and ownership can support that way of working consistently.`;
+  if (stage === "Shared practice") return `${lead} AI use is spreading across a team or wider business. You are moving beyond isolated prompting, but the answers suggest there is still work to do before it becomes a dependable system.`;
+  return `${lead} there is some AI use, but its reach is not clear from these answers. Check how consistently the practice is shared before scaling it.`;
+}
+
+function foundationNarrative(byId) {
+  const foundations = [byId.workflow, byId.data, byId.governance].filter(item => item?.score != null).sort((a, b) => a.score - b.score);
+  if (!foundations.length) return "You may need a clearer picture of the workflow, evidence and controls before deciding what to scale.";
+  const lowest = foundations.filter(item => item.score === foundations[0].score);
+  if (lowest.length > 1) return `${lowest.map(item => item.label.toLowerCase()).join(" and ")} look equally in need of attention. Test them together in one live workflow so the next build tackles the real constraint.`;
+  const label = lowest[0].label.toLowerCase();
+  return lowest[0].score < 45
+    ? `${label.charAt(0).toUpperCase() + label.slice(1)} looks like the clearest barrier to scaling AI reliably. Strengthening it will make shared use easier to trust and repeat.`
+    : `${label.charAt(0).toUpperCase() + label.slice(1)} is the next foundation to strengthen. Check it in a live workflow before asking more people to rely on AI.`;
+}
+
+function workFinding(byId) {
+  const win = byId.win?.score, deliver = byId.deliver?.score, opportunity = byId.opportunity?.score;
+  if (win == null && deliver == null) return "There is not enough visibility yet to say where AI is helping winning or delivering work. A small pilot can make that clearer.";
+  const weaker = win == null ? "delivering work" : deliver == null ? "winning work" : win < deliver ? "winning work" : "delivering work";
+  const comparison = win != null && deliver != null && Math.abs(win - deliver) >= 10
+    ? `Your answers point to ${weaker} as the less developed area.`
+    : "Winning and delivering work appear to be at a similar stage.";
+  const opportunityLine = opportunity == null ? "Your answers do not yet give a clear view of new AI-enabled opportunities." : opportunity < 50
+    ? "New AI-enabled offers look less developed, and that need not hold back improvements to current work."
+    : "You may also have a basis for testing a new AI-enabled offer, separately from improving current work.";
+  return `${comparison} ${opportunityLine}`;
+}
+
+function priorityFinding(priority) {
+  return `Your answers point to this as the next thing to build because ${priority.why.charAt(0).toLowerCase() + priority.why.slice(1)} Start small, then check the result with the people who own the work.`;
+}
+
 export function assess(bank, answers = {}, context = {}) {
   if (bank.version !== VERSION) throw new Error("Question bank version mismatch");
   const dimensions = bank.sections.map(section => scoreSection(section, answers));
@@ -143,6 +192,12 @@ export function assess(bank, answers = {}, context = {}) {
     dimensions,
     priority,
     foundationFinding: foundationFinding(byId, context),
+    findings: {
+      adoption: adoptionFinding(answers, byId, stageFor(answers, byId.adoption), context.persona),
+      foundations: foundationNarrative(byId),
+      work: workFinding(byId),
+      priority: priorityFinding(priority)
+    },
     unknown,
     outcome: context.outcome || null,
     bottleneck: context.bottleneck || null,

@@ -24,15 +24,12 @@ function page() {
     }
   };
 }
-function reportDimension(report,id) { return report.dimensions.find(item => item.id === id); }
-function summary(report,answers) {
-  const adoption=reportDimension(report,"adoption");
-  const modes=Array.isArray(answers.A1) ? answers.A1.filter(item=>item!=="none").map(item=>({copilot:"copilots",plugin:"plug-ins",personal_agent:"personal agents",team_agent:"team agents",workflow:"embedded workflows"}[item]||item)) : [];
+function summary(report) {
   return [
-    {label:"01 / AI TODAY", title:report.stage, body:`${modes.length?`AI use identified: ${modes.join(", ")}.`:"No current AI mode was identified."} ${adoption?.score==null?"Adoption could not be scored reliably.":`Adoption score: ${adoption.score}/100.`}`},
-    {label:"02 / WHAT BLOCKS SCALE", title:"Workflow, data and governance", body:`${report.foundationFinding} Review process, evidence quality and controls before scaling AI.`},
-    {label:"03 / WHERE IT MATTERS", title:"Work and new value", body:`Winning work: ${reportDimension(report,"win")?.score??"not scored"}/100. Delivering work: ${reportDimension(report,"deliver")?.score??"not scored"}/100. New opportunities: ${reportDimension(report,"opportunity")?.score??"not scored"}/100 (shown separately from the core score).`},
-    {label:"04 / WHAT TO BUILD", title:report.priority.title, body:`${report.priority.why} First move: ${report.priority.first}`}
+    {label:"01 / AI TODAY", title:report.stage, body:report.findings.adoption},
+    {label:"02 / WHAT BLOCKS SCALE", title:"Workflow, data and governance", body:report.findings.foundations},
+    {label:"03 / WHERE IT MATTERS", title:"Work and new value", body:report.findings.work},
+    {label:"04 / WHAT TO BUILD", title:report.priority.title, body:report.findings.priority}
   ];
 }
 function makePageOne(report,answers,details) {
@@ -43,9 +40,9 @@ function makePageOne(report,answers,details) {
   p.text(`${company.length > 65 ? `${company.slice(0,62)}...` : company}  |  ${new Date().toISOString().slice(0,10)}`,LEFT,710,10,false,GREY);
   p.text(report.score==null?"?":String(report.score),LEFT,640,58,true,GREEN); p.text("/100",LEFT+75,647,17,true,GREY);
   p.text(report.score==null?"Not enough coverage for an overall score":report.stage,LEFT+155,654,16,true,DARK);
-  p.text("Directional self-assessment, not an external benchmark",LEFT+155,635,9,false,GREY);
+  p.text("A practical reading of your answers",LEFT+155,635,9,false,GREY);
   p.line(610); let y=585;
-  for (const block of summary(report,answers)) {
+  for (const block of summary(report)) {
     p.text(block.label,LEFT,y,9,true,GREEN); y-=20;
     p.text(block.title,LEFT,y,15,true,DARK); y-=20;
     y=p.paragraph(block.body,LEFT,y,91,10.2,14.5,GREY)-17;

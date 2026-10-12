@@ -1,16 +1,8 @@
 {
   "version": "2026-10-ceo-review-1",
   "status": "review candidate",
-  "reference": "Answer for the part of the business you know, thinking about the last six months. Not sure and Not involved are not scored as disagreement.",
+  "reference": "Answer for the part of the business you know, thinking about the last six months. Rate each statement from strongly disagree to strongly agree, with neutral at the midpoint.",
   "context": [
-    {
-      "id": "role",
-      "title": "Which best describes your perspective?",
-      "options": [
-        {"id": "leader", "label": "I lead the business or a major function"},
-        {"id": "practitioner", "label": "I run or contribute to the work"}
-      ]
-    },
     {
       "id": "outcome",
       "title": "Which result matters most over the next 12 months?",

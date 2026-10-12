@@ -6,11 +6,59 @@ import {assess, scoreSection} from "../assets/ai-assessment-v7-model.mjs";
 const bank = JSON.parse(readFileSync(new URL("../assets/ai-assessment-v7.json", import.meta.url)));
 const all = Object.fromEntries(bank.sections.flatMap(section => section.questions.filter(q => q.type === "likert").map(q => [q.id, "5"])));
 
+test("landing stays concise while answer-sharing is disclosed before the questions", () => {
+  const html = readFileSync(new URL("../ai-roulette.html", import.meta.url), "utf8");
+  const controller = readFileSync(new URL("../assets/ai-assessment-v7.js", import.meta.url), "utf8");
+  const landing = html.match(/<section class="ar-landing"[\s\S]*?<\/section>/)?.[0];
+  assert.ok(landing);
+  assert.match(landing, /Instant result · No sign-up required/);
+  assert.doesNotMatch(landing, /Indicative result, not a benchmark/);
+  assert.match(landing, /Individual contributor/);
+  assert.match(landing, /Team leader/);
+  assert.match(landing, /Business leader/);
+  assert.doesNotMatch(landing, /When you finish, Ignis receives your answers/);
+  assert.match(controller, /index === 0 \? '<p class="ar-caveat">When you finish, Ignis receives your answers/);
+  assert.match(controller, /When you finish, your answers and result are shared with Ignis/);
+});
+
+test("reader perspective changes wording, not the score or next build", () => {
+  const answers = {...all, A1:["copilot"], A2:"individual"};
+  const individual = assess(bank, answers, {persona:"individual",outcome:"scale",bottleneck:"evidence"});
+  const leader = assess(bank, answers, {persona:"leader",outcome:"scale",bottleneck:"evidence"});
+  assert.equal(individual.score, leader.score);
+  assert.equal(individual.priority.id, leader.priority.id);
+  assert.match(individual.findings.adoption, /In the work you know/);
+  assert.match(leader.findings.adoption, /From your view of the business/);
+  assert.match(leader.findings.adoption, /mostly through an assistant or copilot/);
+});
+
+test("shared AI practice receives a constructive finding", () => {
+  const result = assess(bank, {...all,A1:["copilot","workflow"],A2:"team",A6:"6"}, {persona:"team",outcome:"scale",bottleneck:"unclear"});
+  assert.match(result.findings.adoption, /moving beyond individual prompts/);
+  assert.match(result.findings.foundations, /foundation|attention/i);
+  assert.match(result.findings.priority, /Your answers point/);
+});
+
 test("seven sections contain six questions each and unique IDs", () => {
   assert.equal(bank.sections.length, 7);
   assert.ok(bank.sections.every(section => section.questions.length === 6));
   const ids = bank.sections.flatMap(section => section.questions.map(question => question.id));
   assert.equal(new Set(ids).size, 42);
+});
+
+test("progress is visual without visible question or section counts", () => {
+  const controller = readFileSync(new URL("../assets/ai-assessment-v7.js", import.meta.url), "utf8");
+  assert.match(controller, /role="progressbar"/);
+  assert.match(controller, /aria-valuenow="\$\{done\}"/);
+  assert.doesNotMatch(controller, /\$\{done\} \/ \$\{total\} questions|of 06|of 07|of 3|ar-subdim-heading/);
+});
+
+test("Likert questions offer only the seven-point disagree-to-agree scale", () => {
+  const controller = readFileSync(new URL("../assets/ai-assessment-v7.js", import.meta.url), "utf8");
+  assert.match(controller, /<span>Disagree<\/span><span>Neutral<\/span><span>Agree<\/span>/);
+  assert.match(controller, /scaleNames\.map/);
+  assert.doesNotMatch(controller, /data-alternative|ar-answer-alternatives|ar-not-sure/);
+  assert.match(controller, /delete value\.answers\[question\.id\]/);
 });
 
 test("unknown and outside-role responses are not treated as low scores", () => {

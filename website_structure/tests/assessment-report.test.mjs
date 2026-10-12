@@ -7,7 +7,7 @@ const require = createRequire(import.meta.url);
 const handler = require("../api/assessment-report.js");
 const bank = JSON.parse(fs.readFileSync(new URL("../assets/ai-assessment-v7.json", import.meta.url),"utf8"));
 const answers = Object.fromEntries(bank.sections.flatMap(section => section.questions.map(question => [question.id,question.type === "likert" ? "5" : question.type === "single" ? "team" : ["copilot","plugin"]])));
-const context = {role:"leader",outcome:"scale",bottleneck:"evidence"};
+const context = {persona:"leader",outcome:"scale",bottleneck:"evidence"};
 function request(action,other={}) { return {method:"POST",headers:{"content-length":"1000"},body:{action,attemptId:"c4eec94f-363f-4ec1-9e70-38c5ce1bbdbd",version:bank.version,answers,context,...other}}; }
 function response() {
   const headers={};
@@ -58,6 +58,7 @@ test("completion sends full findings to Ignis without requiring contact details"
     assert.equal(res.statusCode,200); assert.equal(payload.to[0],"owner@example.com");
     assert.match(payload.text,/Report email status at completion: not requested yet/);
     assert.match(payload.text,/ALL ANSWERS/); assert.match(payload.text,/Build priority: Build a governed evidence base/);
+    assert.match(payload.text,/Reader perspective: Business leader/);
     assert.ok(!payload.text.includes("private@example.com"));
     assert.ok(!payload.text.includes("Private Co"));
     assert.match(Buffer.from(payload.attachments[0].content,"base64").toString("latin1"),/^%PDF-1\.4/);
