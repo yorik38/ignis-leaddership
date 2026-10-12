@@ -778,9 +778,14 @@
   .hero-actions .button{margin:0}
   .developer-audience .value-proposition-grid{grid-template-columns:auto minmax(0,1fr)}
   .developer-audience .brand-stamp{display:flex}
-  .developer-sectors{gap:clamp(.5rem,3vw,1rem)}
-  .developer-sectors>div{min-width:58px}
+  .developer-sectors{gap:.5rem}
+  .developer-sectors>div{min-width:58px;font-size:.7rem}
   .developer-sectors svg{width:40px;height:40px}
+}
+@media(max-width:350px){
+  .developer-sectors{gap:.35rem}
+  .developer-sectors>div{min-width:46px;font-size:.63rem}
+  .developer-sectors svg{width:36px;height:36px}
 }
 
 /* Homepage workflow outcomes sit between the proof strip and the delivery method. */
