@@ -24,7 +24,8 @@ test("landing stays concise while answer-sharing is disclosed before the questio
   assert.ok(landing);
   assert.match(landing, /Instant result · No sign-up required/);
   assert.match(landing, /Is AI built into the work that moves your projects forward\?/);
-  assert.match(landing, /See where your team uses AI today, what limits reliable use, and what to build next\./);
+  assert.match(landing, /Whether you develop and sell, build and operate, or do both/);
+  assert.match(landing, /see what your next project can reuse, what still depends on a few people, and what to fix first\./);
   assert.match(landing, /Governed AI capability/);
   assert.doesNotMatch(landing, /Indicative result, not a benchmark/);
   assert.match(landing, /Individual contributor/);
