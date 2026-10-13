@@ -13,7 +13,8 @@ const fix={
 function line(p,label,value,y){p.text(label.toUpperCase(),LEFT,y,8.2,true,GREEN);return p.paragraph(value,LEFT+120,y,WIDTH-120,9.4,13,DARK)-8;}
 function makeOne(result,answers,details,labels){
   const p=page();header(p,1,"Your project-reuse decision brief");
-  p.text("MORE PROJECTS. SAME TEAM.",LEFT,744,22,true,DARK);
+  const direction=result.growth_multiple_mid===null?"YOUR NEXT PROJECT.":result.growth_multiple_mid<=1?"AT YOUR CURRENT PACE.":answers.G1==="with_work"?"MORE PROJECTS. GROWING TEAM.":"MORE PROJECTS. SAME TEAM.";
+  p.text(direction,LEFT,744,22,true,DARK);
   p.text("What the next project can reuse",LEFT,720,12,false,GREY);
   p.text(`Prepared for ${clean(details.firstName)||"the respondent"}${details.company?` | ${clean(details.company)}`:""}`,LEFT,697,9.7,false,GREY);
   p.line(682);
@@ -49,6 +50,7 @@ function makeTwo(result,answers,details,labels){
   p.text(selected[0],LEFT,y,14,true,DARK);y-=20;
   y=p.paragraph(selected[1],LEFT,y,WIDTH,10,14,DARK)-12;
   for(let i=0;i<3;i++)y=line(p,`${[30,60,90][i]} days`,selected[i+2],y);
+  if(result.team_band==="Stretched"||["none","one"].includes(answers.G2))y=p.paragraph("Pair the fix with the team: two people learn the EPC-scale step on a live project, so it does not rest on one person.",LEFT,y,WIDTH,9.3,12.5,GREY)-11;
   if(["build_operate","services"].includes(answers.D3))y=p.paragraph("Because your remit extends beyond a sale, decide which knowledge the business must own or operate and design the record to last that long.",LEFT,y,WIDTH,9.3,12.5,GREY)-11;
   p.line(y);y-=30;
   p.text("05 / HOW AN AGENTIC WORKFLOW WOULD DIFFER",LEFT,y,9,true,GREEN);y-=22;
