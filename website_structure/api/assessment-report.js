@@ -2,6 +2,7 @@ const fs = require("node:fs");
 const path = require("node:path");
 const {createHash} = require("node:crypto");
 const buildPDF = require("./assessment-pdf.js");
+const handleV10 = require("./assessment-v10-report.js");
 
 const bank = JSON.parse(fs.readFileSync(path.join(__dirname,"..","assets","ai-assessment-v7.json"),"utf8"));
 const MAX_BODY = 20000;
@@ -69,6 +70,7 @@ module.exports = async function assessmentReport(req,res) {
   let body;
   try { body = typeof req.body === "string" ? JSON.parse(req.body) : req.body; }
   catch { return json(res,400,{error:"Invalid report request."}); }
+  if (body?.version === "v10") return handleV10(body,res);
   if (!body || JSON.stringify(body).length > MAX_BODY || body.version !== bank.version || !["complete","email"].includes(body.action) || !validAnswers(body.answers) || !validContext(body.context) || !/^[a-z0-9-]{12,100}$/i.test(body.attemptId || "")) return json(res,400,{error:"The assessment answers are incomplete or out of date. Please refresh and try again."});
   let result;
   try { const model = await import("../assets/ai-assessment-v7-model.mjs"); result = model.assess(bank,body.answers,body.context); }
