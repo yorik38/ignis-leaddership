@@ -88,7 +88,7 @@ const BUILD = {
   },
   visibility: {
     title: "Validate the organisation's starting point",
-    why: "Too many answers fall outside this respondent's view to recommend a specific build responsibly.",
+    why: "The available answers do not yet distinguish one build priority clearly enough.",
     first: "Compare this result with the people who own the workflow, data, technology and customer outcome.",
     owner: "Executive sponsor",
     pilot: "Review one live workflow with its owners and agree which facts still need checking."
@@ -124,6 +124,8 @@ function stageFor(answers, adoption) {
 
 function choosePriority(byId, context) {
   const scorable = id => byId[id]?.score != null;
+  const comparable = ["adoption", "workflow", "data", "governance", "win", "deliver"].map(id => byId[id]?.score);
+  if ((!context.bottleneck || context.bottleneck === "unclear") && comparable.every(score => score != null) && Math.max(...comparable) - Math.min(...comparable) <= 5 && comparable.every(score => score >= 45 && score <= 55)) return "visibility";
   const weakFoundations = ["workflow", "data", "governance"].filter(id => scorable(id) && byId[id].score < 55);
   if (scorable("governance") && scorable("adoption") && byId.adoption.score >= 45 && byId.governance.score < 45) return "governance";
   if (weakFoundations.length) {
@@ -178,7 +180,7 @@ function foundationNarrative(byId) {
   const foundations = [byId.workflow, byId.data, byId.governance].filter(item => item?.score != null).sort((a, b) => a.score - b.score);
   if (!foundations.length) return "You may need a clearer picture of the workflow, evidence and controls before deciding what to scale.";
   const lowest = foundations.filter(item => item.score === foundations[0].score);
-  if (lowest.length > 1) return `${lowest.map(item => item.label.toLowerCase()).join(" and ")} look equally in need of attention. Test them together in one live workflow so the next build tackles the real constraint.`;
+  if (lowest.length > 1) return `${lowest.length === 3 ? "Workflow, data and governance" : lowest.map(item => item.label.toLowerCase()).join(" and ")} received the same rating. No single constraint stands out yet. Test them together in one live workflow before choosing the next build.`;
   const label = lowest[0].label.toLowerCase();
   return lowest[0].score < 45
     ? `${label.charAt(0).toUpperCase() + label.slice(1)} looks like the clearest barrier to scaling AI reliably. Strengthening it will make shared use easier to trust and repeat.`
@@ -192,13 +194,14 @@ function workFinding(byId) {
   const comparison = win != null && deliver != null && Math.abs(win - deliver) >= 10
     ? `Your answers point to ${weaker} as the less developed area.`
     : "Winning and delivering work appear to be at a similar stage.";
-  const opportunityLine = opportunity == null ? "Your answers do not yet give a clear view of new AI-enabled opportunities." : opportunity < 50
-    ? "New AI-enabled offers look less developed, and that need not hold back improvements to current work."
-    : "You may also have a basis for testing a new AI-enabled offer, separately from improving current work.";
+  const opportunityLine = opportunity == null ? "Your answers do not yet give a clear view of new AI-enabled opportunities." : opportunity < 70
+    ? "These answers do not yet establish a case for a new AI-enabled offer. That is separate from improving current work."
+    : "Some conditions for exploring a new AI-enabled offer are reported, but customer demand and delivery obligations still need testing.";
   return `${comparison} ${opportunityLine}`;
 }
 
 function priorityFinding(priority) {
+  if (priority.id === "visibility") return "These answers do not yet justify one specific build. Compare this view with the people who own the work, evidence and controls, then choose a bounded test.";
   return `Your answers point to this as the next thing to build because ${priority.why.charAt(0).toLowerCase() + priority.why.slice(1)} Start small, then check the result with the people who own the work.`;
 }
 

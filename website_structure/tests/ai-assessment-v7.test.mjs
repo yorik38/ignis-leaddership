@@ -61,7 +61,7 @@ test("completed results can be reviewed, restarted and reframed without a score 
   assert.match(controller, /\.ar-adoption-copy"\)\.textContent = assess/);
   assert.match(controller, /ar-result-opening[\s\S]*executiveReportPanel\(\)[\s\S]*ar-result-findings/);
   assert.equal((controller.match(/data-email-form/g) || []).length, 2); // markup and delegated submit handler
-  assert.match(html, /ai-assessment-v7\.js\?v=16/);
+  assert.match(html, /ai-assessment-v7\.js\?v=18/);
   assert.match(controller, /class="ar-result-paper"/);
   assert.match(controller, /class="ar-report-thanks"[\s\S]*?hidden/);
   assert.match(controller, /form\.hidden = true/);
@@ -71,8 +71,18 @@ test("completed results can be reviewed, restarted and reframed without a score 
 test("shared AI practice receives a constructive finding", () => {
   const result = assess(bank, {...all,A1:["copilot","workflow"],A2:"team",A6:"6"}, {persona:"team",outcome:"scale",bottleneck:"unclear"});
   assert.match(result.findings.adoption, /moving beyond individual prompts/);
-  assert.match(result.findings.foundations, /foundation|attention/i);
+  assert.match(result.findings.foundations, /Workflow, data and governance/);
   assert.match(result.findings.priority, /Your answers point/);
+});
+
+test("undifferentiated midpoint answers do not imply a specific build or new offer", () => {
+  const middle = Object.fromEntries(Object.keys(all).map(id => [id, "4"]));
+  const result = assess(bank, {...middle, A1:["copilot"], A2:"team"}, {persona:"leader", outcome:"scale", bottleneck:"unclear", stages:"all"});
+  assert.equal(result.score, 50);
+  assert.equal(result.priority.id, "visibility");
+  assert.match(result.findings.foundations, /No single constraint stands out yet/);
+  assert.match(result.findings.work, /do not yet establish a case for a new AI-enabled offer/);
+  assert.match(result.findings.priority, /do not yet justify one specific build/);
 });
 
 test("seven sections contain six questions each and unique IDs", () => {
