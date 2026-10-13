@@ -3,16 +3,27 @@ export const VERSION = "2026-10-ceo-review-2";
 const STAGES = {
   development: "early development",
   route: "route to market",
-  procurement: "procurement and contracting",
+  procurement: "procurement",
   close: "financial close"
 };
 
 export function stageScope(stages) {
-  if (!Array.isArray(stages) || !stages.length) return "This result reflects the work you know; no project stages were selected.";
-  if (stages.includes("all")) return "This result reflects your view across the full project lifecycle.";
-  const selected = [...new Set(stages)].filter(stage => STAGES[stage]).slice(0, 2).map(stage => STAGES[stage]);
-  if (!selected.length) return "This result reflects the work you know; no project stages were selected.";
-  return `This result reflects your view of ${selected.join(" and ")}.`;
+  const stage = Array.isArray(stages) ? stages[0] : stages;
+  if (stage === "all") return "This result reflects your view across the full project lifecycle.";
+  if (!STAGES[stage]) return "This result reflects the work you know; no project stage was selected.";
+  return `This result reflects your view of ${STAGES[stage]}.`;
+}
+
+export function stageApplication(stages) {
+  const stage = Array.isArray(stages) ? stages[0] : stages;
+  if (stage === "all") return "Test this priority across one live project's stages and handovers before applying it across the pipeline.";
+  const examples = {
+    development: "a site, grid, planning or land decision",
+    route: "an auction, tender or offtake decision",
+    procurement: "a supplier return, interface issue or contract decision",
+    close: "a lender evidence request or financial-close decision"
+  };
+  return `Test this priority against ${examples[stage] || "one live activity"} before scaling it.`;
 }
 
 export const SECTION_LABELS = {
@@ -209,6 +220,7 @@ export function assess(bank, answers = {}, context = {}) {
     scoreExplanation: "The score combines reported AI adoption and AI use in live work, limited by governance. Workflow and data are shown separately.",
     stage: stageFor(answers, byId.adoption),
     scope: stageScope(context.stages),
+    stageApplication: stageApplication(context.stages),
     dimensions,
     priority,
     foundationFinding: foundationFinding(byId, context),

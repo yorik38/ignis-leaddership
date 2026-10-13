@@ -22,10 +22,7 @@ function validAnswers(answers) {
 function validContext(context) {
   return context && typeof context === "object" && (!context.persona || ["individual", "team", "leader"].includes(context.persona)) && bank.context.every(item => {
     const value = context[item.id];
-    if (item.type === "multi") {
-      if (value === undefined) return true; // Preserve reports for attempts saved before this context step existed.
-      return Array.isArray(value) && value.length > 0 && value.length <= item.max && new Set(value).size === value.length && value.every(choice => item.options.some(option => option.id === choice)) && !(value.includes("all") && value.length > 1);
-    }
+    if (item.id === "stages" && value === undefined) return true; // Preserve reports for attempts saved before this context step existed.
     return item.options.some(option => option.id === value);
   });
 }
@@ -48,6 +45,7 @@ function researchSummary(result,answers,context,attemptId) {
     `First move: ${result.priority.first}`,
     `Owner: ${result.priority.owner}`,
     `Pilot: ${result.priority.pilot}`,
+    `Where to test it: ${result.stageApplication}`,
     "",
     "CONTEXT",...contextLines,"",
     "DIMENSION SCORES",...scoreLines,"",
@@ -80,7 +78,7 @@ module.exports = async function assessmentReport(req,res) {
   const notifyTo=process.env.AI_ASSESSMENT_NOTIFY_EMAIL || DEFAULT_NOTIFY_TO;
   if (body.action === "complete") {
     if (!apiKey || !from || !notifyTo) return json(res,503,{error:"Assessment research delivery is not available yet."});
-    const pdf=buildPDF(result,body.answers,{});
+    const pdf=buildPDF(result,body.answers,{context:body.context});
     const message={from,to:[notifyTo],subject:`AI self-assessment completed | ${result.score ?? "unscored"}/100 | ${result.stage}`,
       text:`Report email status at completion: not requested yet. This response has no name or email address. If the participant later requests a report, a separate delivery update follows.\n\n${researchSummary(result,body.answers,body.context,body.attemptId)}`,
       attachments:[{filename:"ignis-ai-self-assessment.pdf",content:pdf.toString("base64")}]
@@ -92,7 +90,7 @@ module.exports = async function assessmentReport(req,res) {
   const firstName=clean(body.firstName,80), company=clean(body.company,120), email=clean(body.email,254).toLowerCase();
   if (!body.consent || !firstName || !company || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return json(res,400,{error:"Enter your name, company and a valid email, then confirm report delivery."});
   if (!apiKey || !from || !notifyTo) return json(res,503,{error:"Email delivery is not available yet."});
-  const pdf=buildPDF(result,body.answers,{firstName,company});
+  const pdf=buildPDF(result,body.answers,{firstName,company,context:body.context});
   const message={from,to:[email],subject:"Your Ignis AI self-assessment report",
     text:`Hi ${firstName},\n\nYour two-page AI self-assessment report is attached. Your result is also available in the browser where you completed the assessment.\n\nThis is a directional self-assessment based on your answers, not an independent audit or external benchmark.\n\nIgnis Leadership\nhttps://www.ignisleadership.com/contact`,
     attachments:[{filename:"ignis-ai-self-assessment.pdf",content:pdf.toString("base64")}]

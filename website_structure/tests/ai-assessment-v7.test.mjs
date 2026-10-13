@@ -1,7 +1,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import {readFileSync} from "node:fs";
-import {assess, scoreSection, stageScope} from "../assets/ai-assessment-v7-model.mjs";
+import {assess, scoreSection, stageScope, stageApplication} from "../assets/ai-assessment-v7-model.mjs";
 
 const bank = JSON.parse(readFileSync(new URL("../assets/ai-assessment-v7.json", import.meta.url)));
 const all = Object.fromEntries(bank.sections.flatMap(section => section.questions.filter(q => q.type === "likert").map(q => [q.id, "5"])));
@@ -76,24 +76,26 @@ test("Likert questions distinguish a genuine midpoint from outside my view", () 
   assert.match(controller, /delete value\.answers\[question\.id\]/);
 });
 
-test("project-stage context permits two stages or the full lifecycle", () => {
+test("project-stage context asks for one stage or the full lifecycle", () => {
   const stage = bank.context.find(item => item.id === "stages");
-  assert.equal(stage.type, "multi");
-  assert.equal(stage.max, 2);
+  assert.notEqual(stage.type, "multi");
   assert.deepEqual(stage.options.map(option => option.id), ["development", "route", "procurement", "close", "all"]);
-  assert.equal(stage.options.at(-1).exclusive, true);
-  assert.match(stageScope(["development", "procurement"]), /early development and procurement and contracting/);
-  assert.match(stageScope(["all"]), /full project lifecycle/);
+  assert.match(stageScope("development"), /early development/);
+  assert.match(stageScope("all"), /full project lifecycle/);
+  assert.match(stageApplication("development"), /site, grid, planning or land/);
+  assert.match(stageApplication("route"), /auction, tender or offtake/);
+  assert.match(stageApplication("all"), /stages and handovers/);
 });
 
 test("stage context changes scope, not the score or priority", () => {
   const answers = {...all,A1:["copilot"],A2:"team"};
-  const development = assess(bank, answers, {persona:"team",outcome:"scale",bottleneck:"evidence",stages:["development"]});
-  const close = assess(bank, answers, {persona:"team",outcome:"scale",bottleneck:"evidence",stages:["close"]});
+  const development = assess(bank, answers, {persona:"team",outcome:"scale",bottleneck:"evidence",stages:"development"});
+  const close = assess(bank, answers, {persona:"team",outcome:"scale",bottleneck:"evidence",stages:"close"});
   assert.equal(development.score, close.score);
   assert.equal(development.priority.id, close.priority.id);
   assert.match(development.scope, /early development/);
   assert.match(close.scope, /financial close/);
+  assert.notEqual(development.stageApplication, close.stageApplication);
 });
 
 test("unknown and outside-role responses are not treated as low scores", () => {

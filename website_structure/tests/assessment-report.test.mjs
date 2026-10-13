@@ -7,7 +7,7 @@ const require = createRequire(import.meta.url);
 const handler = require("../api/assessment-report.js");
 const bank = JSON.parse(fs.readFileSync(new URL("../assets/ai-assessment-v7.json", import.meta.url),"utf8"));
 const answers = Object.fromEntries(bank.sections.flatMap(section => section.questions.map(question => [question.id,question.type === "likert" ? "5" : question.type === "single" ? "team" : ["copilot","plugin"]])));
-const context = {persona:"leader",outcome:"scale",bottleneck:"evidence"};
+const context = {persona:"leader",outcome:"scale",bottleneck:"evidence",stages:"route"};
 function request(action,other={}) { return {method:"POST",headers:{"content-length":"1000"},body:{action,attemptId:"c4eec94f-363f-4ec1-9e70-38c5ce1bbdbd",version:bank.version,answers,context,...other}}; }
 function response() {
   const headers={};
@@ -22,6 +22,13 @@ test("the two-page report cannot be downloaded without the email route",async ()
 test("rejects incomplete answers and missing email consent",async () => {
   const bad=response(); await handler(request("complete",{answers:{}}),bad); assert.equal(bad.statusCode,400);
   const consent=response(); await handler(request("email",{firstName:"A",email:"a@example.com",company:"Test"}),consent); assert.equal(consent.statusCode,400);
+});
+
+test("rejects multiple stages, including an old multi-stage selection",async () => {
+  const many=response(); await handler(request("complete",{context:{...context,stages:["development","route"]}}),many);
+  assert.equal(many.statusCode,400);
+  const mixed=response(); await handler(request("complete",{context:{...context,stages:["all","route"]}}),mixed);
+  assert.equal(mixed.statusCode,400);
 });
 
 test("email never reports sent when provider is unconfigured",async () => {
@@ -43,6 +50,17 @@ test("email success requires provider success and includes the PDF attachment",a
     const pdf=Buffer.from(payloads[0].body.attachments[0].content,"base64").toString("latin1");
     assert.match(pdf,/^%PDF-1\.4/);
     assert.equal((pdf.match(/\/Type \/Page\b/g)||[]).length,2);
+    assert.match(pdf,/Prepared for A  \|  Test/);
+    assert.match(pdf,/Business leader/);
+    assert.match(pdf,/Route to market/);
+    assert.match(pdf,/Our working interpretation/);
+    assert.match(pdf,/Answer signals behind that reading/);
+    assert.match(pdf,/Two routes to examine/);
+    assert.match(pdf,/A bounded validation plan/);
+    assert.match(pdf,/Constraint signal|CONSTRAINT SIGNAL/i);
+    assert.match(pdf,/Which auction, tender or offtake decision would have changed/);
+    assert.match(pdf,/These answers do not prove a stage-level gap, financial cost or causal saving/);
+    assert.match(pdf,/\/Subtype \/Image/);
     assert.equal(payloads[1].body.to[0],"owner@example.com");
     assert.match(payloads[1].body.text,/Report email: accepted by the email service/);
   } finally { global.fetch=oldFetch; if(oldKey===undefined)delete process.env.RESEND_API_KEY;else process.env.RESEND_API_KEY=oldKey; if(oldFrom===undefined)delete process.env.AI_ASSESSMENT_FROM_EMAIL;else process.env.AI_ASSESSMENT_FROM_EMAIL=oldFrom; if(oldNotify===undefined)delete process.env.AI_ASSESSMENT_NOTIFY_EMAIL;else process.env.AI_ASSESSMENT_NOTIFY_EMAIL=oldNotify; }
@@ -59,6 +77,8 @@ test("completion sends full findings to Ignis without requiring contact details"
     assert.match(payload.text,/Report email status at completion: not requested yet/);
     assert.match(payload.text,/ALL ANSWERS/); assert.match(payload.text,/Build priority: Build a governed evidence base/);
     assert.match(payload.text,/Reader perspective: Business leader/);
+    assert.match(payload.text,/Which project stage gives you the clearest view\?: Route to market/);
+    assert.match(payload.text,/Where to test it: Test this priority against an auction, tender or offtake decision/);
     assert.ok(!payload.text.includes("private@example.com"));
     assert.ok(!payload.text.includes("Private Co"));
     assert.match(Buffer.from(payload.attachments[0].content,"base64").toString("latin1"),/^%PDF-1\.4/);

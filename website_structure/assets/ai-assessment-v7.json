@@ -1,7 +1,7 @@
 {
   "version": "2026-10-ceo-review-2",
   "status": "review candidate",
-  "reference": "Answer for the part of the business you know, thinking about the last six months. Rate each statement from strongly disagree to strongly agree, with neutral at the midpoint.",
+  "reference": "Answer for the part of the business you know, thinking about the last six months. Rate each statement from strongly disagree to strongly agree. The midpoint means neither agree nor disagree; use Outside my view when you cannot judge.",
   "context": [
     {
       "id": "outcome",
@@ -15,16 +15,14 @@
     },
     {
       "id": "stages",
-      "type": "multi",
-      "max": 2,
-      "title": "Which project stages do you know best?",
-      "help": "Choose up to two, or select the full lifecycle.",
+      "title": "Which project stage gives you the clearest view?",
+      "help": "Choose one stage, or the full lifecycle. This shapes your report, not your score.",
       "options": [
         {"id": "development", "label": "Early development"},
         {"id": "route", "label": "Route to market"},
         {"id": "procurement", "label": "Procurement and contracting"},
         {"id": "close", "label": "Financial close"},
-        {"id": "all", "label": "Across the full project lifecycle", "exclusive": true}
+        {"id": "all", "label": "Across the full project lifecycle"}
       ]
     },
     {
