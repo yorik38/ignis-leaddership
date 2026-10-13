@@ -60,6 +60,7 @@ function landingMode() {
   app.hidden = state.screen === "landing";
 }
 function topBar() {
+  if (state.screen === "result") return `<div class="ar-top-bar"><button class="ar-back" type="button" data-back>← Review answers</button><button class="ar-text-button" type="button" data-restart>Start again</button></div><div class="ar-restart-confirm" data-restart-confirm role="group" aria-label="Confirm restart" hidden><p>Starting again clears your answers and result from this browser. Request the executive report first if you want to keep it.</p><div><button class="ar-text-button" type="button" data-restart-cancel>Keep this result</button><button class="ar-button" type="button" data-restart-now>Restart now</button></div></div>`;
   return `<div class="ar-top-bar"><button class="ar-back" type="button" data-back>← Back</button><button class="ar-text-button" type="button" data-save>Save &amp; finish later</button></div>`;
 }
 function intro() {
@@ -97,17 +98,29 @@ function scoreRow(dimension) {
   const value = dimension.score;
   return `<div class="ar-lever-row"><span>${escapeHTML(dimension.label)}</span><span class="ar-lever-track"><span class="ar-lever-fill" data-level="${value == null ? "unknown" : value < 40 ? "low" : value < 65 ? "mid" : "high"}" style="width:${value ?? 0}%"></span></span><strong>${value == null ? "Not enough data" : `${value}/100`}</strong></div>`;
 }
+const perspectiveCopy = {
+  individual: "Use this view to raise the right questions with your team.",
+  team: "Use this view to scope a pilot with the people who own the work.",
+  leader: "Use this view to decide which capability to build across the business."
+};
+function resultPerspective() {
+  const selected = state.context.persona || "individual";
+  return `<fieldset class="ar-result-perspective" aria-describedby="ar-result-perspective-note"><legend>Read this result as</legend><div class="ar-result-perspective-options">${[["individual","Individual contributor"],["team","Team leader"],["leader","Business leader"]].map(([value,label]) => `<label><input type="radio" name="result-persona" value="${value}" ${selected === value ? "checked" : ""}><span>${label}</span></label>`).join("")}</div><p id="ar-result-perspective-note">Switch the explanation, not your score or build priority.</p><p class="ar-perspective-frame">${perspectiveCopy[selected]}</p></fieldset>`;
+}
+function executiveReportPanel() {
+  return `<aside class="ar-report-panel" id="ar-report-panel" aria-labelledby="ar-report-title"><p class="ar-category-kicker">Optional next step</p><h3 id="ar-report-title">Get your two-page executive report</h3><p>The brief brings together what you told us, what your answers suggest and the first build to test. We will email it to you.</p><form class="ar-report-form" data-email-form><label>First name<input name="firstName" autocomplete="given-name" maxlength="80" required></label><label>Work email<input name="email" type="email" autocomplete="email" maxlength="254" required></label><label>Company<input name="company" autocomplete="organization" maxlength="120" required></label><label class="ar-consent"><input name="consent" type="checkbox" required><span>Email me the two-page report using these details. This does not subscribe me to marketing emails.</span></label><button class="ar-button" type="submit">Email my executive report →</button><p class="ar-form-status" role="status" aria-live="polite"></p></form><a class="ar-report-skip" href="#ar-result-findings">Explore my instant result ↓</a></aside>`;
+}
 function resultScreen() {
   const report = assess(bank, state.answers, state.context);
   const byId = Object.fromEntries(report.dimensions.map(dimension => [dimension.id, dimension]));
   const work = [byId.win, byId.deliver, byId.opportunity];
   const score = report.score;
-  return `<section class="ar-result" aria-labelledby="ar-screen-title">${topBar()}<div class="ar-result-hero"><p class="ar-category-kicker">Your governed AI capability</p><h2 id="ar-screen-title">What to build next</h2><div class="ar-result-score" style="--score-angle:${score == null ? 0 : score * 3.6}deg" aria-label="${score == null ? "Not enough answers for a governed AI capability score" : `Governed AI capability score ${score} out of 100`}">${score == null ? "?" : score}<span>/100</span></div><p class="ar-score-key">${escapeHTML(score == null ? "Not enough AI-in-work or governance answers for a responsible overall score." : report.scoreExplanation)}</p><p class="ar-band">${escapeHTML(report.stage)}</p><p class="ar-result-line">${escapeHTML(report.scope)}</p></div>
-  <div class="ar-result-section"><p class="ar-category-kicker">01 · Where you stand</p><h3>AI today</h3><p>${escapeHTML(report.findings.adoption)}</p>${scoreRow(byId.adoption)}</div>
+  return `<section class="ar-result" aria-labelledby="ar-screen-title">${topBar()}<div class="ar-result-opening"><div class="ar-result-hero"><p class="ar-category-kicker">Your governed AI capability</p><h2 id="ar-screen-title">What to build next</h2><div class="ar-result-score" style="--score-angle:${score == null ? 0 : score * 3.6}deg" aria-label="${score == null ? "Not enough answers for a governed AI capability score" : `Governed AI capability score ${score} out of 100`}">${score == null ? "?" : score}<span>/100</span></div><p class="ar-score-key">${escapeHTML(score == null ? "Not enough AI-in-work or governance answers for a responsible overall score." : report.scoreExplanation)}</p><a class="ar-report-jump" href="#ar-report-panel">Get the two-page executive report ↓</a><p class="ar-band">${escapeHTML(report.stage)}</p><p class="ar-result-line">${escapeHTML(report.scope)}</p>${resultPerspective()}</div>${executiveReportPanel()}</div>
+  <div class="ar-result-section" id="ar-result-findings"><p class="ar-category-kicker">01 · Where you stand</p><h3>AI today</h3><p class="ar-adoption-copy">${escapeHTML(report.findings.adoption)}</p>${scoreRow(byId.adoption)}</div>
   <div class="ar-result-section"><p class="ar-category-kicker">02 · What blocks scale</p><h3>Workflow, data and governance</h3><p>${escapeHTML(report.findings.foundations)}</p>${[byId.workflow,byId.data,byId.governance].map(scoreRow).join("")}</div>
   <div class="ar-result-section"><p class="ar-category-kicker">03 · Where it matters</p><h3>Work and new value</h3><p>${escapeHTML(report.findings.work)}</p>${work.map(scoreRow).join("")}</div>
   <div class="ar-result-section ar-priority"><p class="ar-category-kicker">04 · What to build first</p><h3>${escapeHTML(report.priority.title)}</h3><p>${escapeHTML(report.findings.priority)}</p><dl><div><dt>First move</dt><dd>${escapeHTML(report.priority.first)}</dd></div><div><dt>Likely owner</dt><dd>${escapeHTML(report.priority.owner)}</dd></div><div><dt>Bounded pilot</dt><dd>${escapeHTML(report.priority.pilot)}</dd></div><div><dt>Where to test it</dt><dd>${escapeHTML(report.stageApplication)}</dd></div></dl></div>
-  <div class="ar-result-section ar-report-section"><h3>Get the executive report</h3><p>Your results are above. The two-page brief sets out what you told us, what your answers suggest and the first build to test. Enter your details and we will email it to you.</p><form class="ar-report-form" data-email-form><label>First name<input name="firstName" autocomplete="given-name" maxlength="80" required></label><label>Work email<input name="email" type="email" autocomplete="email" maxlength="254" required></label><label>Company<input name="company" autocomplete="organization" maxlength="120" required></label><label class="ar-consent"><input name="consent" type="checkbox" required><span>Email me the two-page report using these details. This does not subscribe me to marketing emails.</span></label><button class="ar-button" type="submit">Email my executive report →</button><p class="ar-form-status" role="status" aria-live="polite"></p></form><a class="ar-outline" href="/contact?source=ai-assessment">Discuss the next build ↗</a><p class="ar-caveat">Your progress is saved in this browser. When you finish, your answers and result are shared with Ignis for assessment research, whether or not you request the email report. We only receive your name, company and email if you submit this form. Do not enter confidential project information. See our <a href="/privacy">privacy policy</a>.</p></div></section>`;
+  <div class="ar-result-section ar-result-footer"><a class="ar-outline" href="/contact?source=ai-assessment">Discuss the next build ↗</a><p class="ar-caveat">Your progress is saved in this browser. When you finish, your answers and result are shared with Ignis for assessment research, whether or not you request the email report. We only receive your name, company and email if you submit the report form. Do not enter confidential project information. See our <a href="/privacy">privacy policy</a>.</p></div></section>`;
 }
 function render(scrollTop = false) {
   landingMode();
@@ -146,6 +159,17 @@ function back() {
   else if (state.screen === "intro") { if (state.section) { state.section -= 1; state.screen = "questions"; state.active = 5; } else state.screen = `context-${bank.context.length - 1}`; }
   else if (state.screen.startsWith("context-")) { const index = Number(state.screen.slice(-1)); state.screen = index ? `context-${index - 1}` : "landing"; }
   render(true);
+}
+function restart() {
+  clearTimeout(moveTimer);
+  clearTimeout(completionRetry);
+  try { localStorage.removeItem(KEY); } catch {}
+  saved = null;
+  state = fresh();
+  document.querySelectorAll('input[name="persona"]').forEach(input => { input.checked = false; });
+  personaError.hidden = true;
+  render();
+  scrollTo({top:0,behavior:reducedMotion ? "instant" : "smooth"});
 }
 async function reportRequest(action, payload = {}) {
   const response = await fetch("/api/assessment-report", {method:"POST", headers:{"Content-Type":"application/json"}, keepalive:action === "complete", body:JSON.stringify({action, version:VERSION, attemptId:state.attemptId, answers:state.answers, context:state.context, ...payload})});
@@ -227,6 +251,9 @@ start.addEventListener("click", () => {
 app.addEventListener("click", async event => {
   const target = event.target.closest("button, .ar-stack-item"); if (!target) return;
   if (target.matches("[data-back]")) return back();
+  if (target.matches("[data-restart]")) { app.querySelector("[data-restart-confirm]").hidden = false; app.querySelector("[data-restart-now]").focus(); return; }
+  if (target.matches("[data-restart-cancel]")) { app.querySelector("[data-restart-confirm]").hidden = true; app.querySelector("[data-restart]").focus(); return; }
+  if (target.matches("[data-restart-now]")) return restart();
   if (target.matches("[data-save]")) { persist(); saved = {...state}; state = fresh(); render(true); return; }
   if (target.matches("[data-context-choice]")) { const index = Number(state.screen.slice(-1)); const item = bank.context[index]; state.context[item.id] = target.dataset.contextChoice; state.screen = index === bank.context.length - 1 ? "intro" : `context-${index + 1}`; return render(true); }
   if (target.matches("[data-context-continue]")) { const index = Number(state.screen.slice(-1)); if (!(state.context[bank.context[index].id] || []).length) return; state.screen = index === bank.context.length - 1 ? "intro" : `context-${index + 1}`; render(true); return; }
@@ -237,7 +264,16 @@ app.addEventListener("click", async event => {
   if (target.matches("[data-next-section]")) { if (state.section < bank.sections.length - 1) { state.section += 1; state.screen = "intro"; } else state.screen = "result"; render(true); return; }
   if (target.matches(".ar-stack-item")) { const index = Number(target.dataset.questionIndex); if (index !== state.active) activate(index); }
 });
-app.addEventListener("change", event => { const input = event.target; if (input.matches('.ar-dot input[type="radio"]')) answer(input.name, input.value); });
+app.addEventListener("change", event => {
+  const input = event.target;
+  if (input.matches('.ar-dot input[type="radio"]')) return answer(input.name, input.value);
+  if (input.matches('input[name="result-persona"]')) {
+    state.context.persona = input.value;
+    persist();
+    app.querySelector(".ar-perspective-frame").textContent = perspectiveCopy[input.value];
+    app.querySelector(".ar-adoption-copy").textContent = assess(bank,state.answers,state.context).findings.adoption;
+  }
+});
 app.addEventListener("pointerover", event => { const dot = event.target.closest(".ar-dot"); if (!dot) return; const group = dot.closest(".ar-stack-item"); group.querySelectorAll(".ar-dot").forEach(item => item.classList.toggle("is-lit", Number(item.dataset.point) <= Number(dot.dataset.point))); });
 app.addEventListener("pointerout", event => { const dot = event.target.closest(".ar-dot"); if (!dot || dot.contains(event.relatedTarget)) return; const group = dot.closest(".ar-stack-item"); const value = Number(state.answers[group.dataset.questionId]); group.querySelectorAll(".ar-dot").forEach(item => item.classList.toggle("is-lit", Number(item.dataset.point) <= value)); });
 app.addEventListener("submit", async event => {

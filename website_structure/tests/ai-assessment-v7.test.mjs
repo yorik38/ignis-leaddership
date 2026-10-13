@@ -46,6 +46,24 @@ test("reader perspective changes wording, not the score or next build", () => {
   assert.match(leader.findings.adoption, /mostly through an assistant or copilot/);
 });
 
+test("completed results can be reviewed, restarted and reframed without a score change", () => {
+  const controller = readFileSync(new URL("../assets/ai-assessment-v7.js", import.meta.url), "utf8");
+  const html = readFileSync(new URL("../ai-score.html", import.meta.url), "utf8");
+  assert.match(controller, /data-back>← Review answers/);
+  assert.match(controller, /data-restart>Start again/);
+  assert.match(controller, /data-restart-confirm role="group" aria-label="Confirm restart" hidden/);
+  assert.match(controller, /data-restart-cancel>Keep this result/);
+  assert.match(controller, /data-restart-now>Restart now/);
+  assert.match(controller, /localStorage\.removeItem\(KEY\)/);
+  assert.match(controller, /name="result-persona"/);
+  assert.match(controller, /Switch the explanation, not your score or build priority/);
+  assert.match(controller, /state\.context\.persona = input\.value/);
+  assert.match(controller, /\.ar-adoption-copy"\)\.textContent = assess/);
+  assert.match(controller, /ar-result-opening[\s\S]*executiveReportPanel\(\)[\s\S]*ar-result-findings/);
+  assert.equal((controller.match(/data-email-form/g) || []).length, 2); // markup and delegated submit handler
+  assert.match(html, /ai-assessment-v7\.js\?v=14/);
+});
+
 test("shared AI practice receives a constructive finding", () => {
   const result = assess(bank, {...all,A1:["copilot","workflow"],A2:"team",A6:"6"}, {persona:"team",outcome:"scale",bottleneck:"unclear"});
   assert.match(result.findings.adoption, /moving beyond individual prompts/);
