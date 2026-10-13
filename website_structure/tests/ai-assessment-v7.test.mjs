@@ -61,7 +61,11 @@ test("completed results can be reviewed, restarted and reframed without a score 
   assert.match(controller, /\.ar-adoption-copy"\)\.textContent = assess/);
   assert.match(controller, /ar-result-opening[\s\S]*executiveReportPanel\(\)[\s\S]*ar-result-findings/);
   assert.equal((controller.match(/data-email-form/g) || []).length, 2); // markup and delegated submit handler
-  assert.match(html, /ai-assessment-v7\.js\?v=14/);
+  assert.match(html, /ai-assessment-v7\.js\?v=16/);
+  assert.match(controller, /class="ar-result-paper"/);
+  assert.match(controller, /class="ar-report-thanks"[\s\S]*?hidden/);
+  assert.match(controller, /form\.hidden = true/);
+  assert.match(controller, /\/contact\?source=ai-assessment-report/);
 });
 
 test("shared AI practice receives a constructive finding", () => {
@@ -85,12 +89,12 @@ test("progress is visual without visible question or section counts", () => {
   assert.doesNotMatch(controller, /\$\{done\} \/ \$\{total\} questions|of 06|of 07|of 3|ar-subdim-heading/);
 });
 
-test("Likert questions distinguish a genuine midpoint from outside my view", () => {
+test("Likert questions use an uncluttered seven-point scale", () => {
   const controller = readFileSync(new URL("../assets/ai-assessment-v7.js", import.meta.url), "utf8");
-  assert.match(controller, /<span>Disagree<\/span><span>Neither<\/span><span>Agree<\/span>/);
+  assert.match(controller, /<span>Disagree<\/span><span>Agree<\/span>/);
   assert.match(controller, /Neither agree nor disagree/);
   assert.match(controller, /scaleNames\.map/);
-  assert.match(controller, /data-outside/);
+  assert.doesNotMatch(controller, /data-outside|class="ar-scale-value"/);
   assert.match(controller, /delete value\.answers\[question\.id\]/);
 });
 

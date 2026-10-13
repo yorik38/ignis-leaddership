@@ -18,6 +18,7 @@ body.ar-page{margin:0;background:var(--ar-black);color:var(--ar-white);font-fami
 .ar-footer a{color:inherit}
 .ar-page.ar-focus-mode .site-header,.ar-page.ar-focus-mode .ar-footer{display:none}
 .ar-page.ar-focus-mode .ar-main{padding:clamp(1rem,3vw,2rem) 0 6rem}
+.ar-page.ar-is-result .ar-main{padding-bottom:0}
 .ar-page:not(.ar-is-landing):not(.ar-focus-mode) .ar-main{padding-top:clamp(1.5rem,4vw,3rem)}
 .ar-mark{display:none}
 .ar-page.ar-is-landing{background:var(--ignis-green-dark,#08756d);color:#fff}
@@ -132,8 +133,7 @@ body.ar-page{margin:0;background:var(--ar-black);color:var(--ar-white);font-fami
 .ar-question{width:100%;max-width:none;margin:0 0 1.9rem;color:#b8c0c0;font-size:clamp(1.55rem,2.45vw,2.15rem);font-weight:750;line-height:1.23;letter-spacing:-.03em;text-wrap:balance}
 .ar-stack-item.is-active .ar-question{color:#fff}
 .ar-question:focus{outline:none}
-.ar-dots-labels{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));margin-bottom:.8rem;color:#b9c2c2;font-size:.75rem;font-weight:800;letter-spacing:.15em;text-transform:uppercase}
-.ar-dots-labels span:nth-child(2){text-align:center}
+.ar-dots-labels{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));margin-bottom:.8rem;color:#b9c2c2;font-size:.75rem;font-weight:800;letter-spacing:.15em;text-transform:uppercase}
 .ar-dots-labels span:last-child{text-align:right}
 .ar-dots-labels span:last-child{color:var(--ar-green)}
 .ar-dots{display:flex;justify-content:space-between;gap:0;margin:0;padding:0;border:0}
@@ -144,12 +144,9 @@ body.ar-page{margin:0;background:var(--ar-black);color:var(--ar-white);font-fami
 .ar-dot:has(input:checked) span,.ar-dot:hover span,.ar-dot:focus-within span{box-shadow:0 0 0 3px #fff}
 .ar-dot input{position:absolute;inset:0;width:100%;height:100%;margin:0;opacity:0;cursor:pointer}
 .ar-dot input:focus-visible{outline:3px solid #fff;outline-offset:3px}
-.ar-scale-value{min-height:1.5em;margin:.75rem 0 0;color:#cbd5d2;font-size:.78rem;font-weight:750;letter-spacing:.12em;text-align:center;text-transform:uppercase}
-.ar-outside{align-self:center;margin:.5rem auto 0;color:#cbd5d2;font-size:.82rem}
-.ar-outside.is-selected{color:#fff;font-weight:750}
 .ar-flow-actions{display:flex;justify-content:center;margin:2rem 0 0}
 .ar-flow-actions .ar-button{min-width:280px}
-.ar-result{max-width:1080px;margin:0 auto;padding-bottom:5rem}
+.ar-result{max-width:100%;margin:0 auto}
 .ar-restart-confirm{max-width:48ch;margin:1rem 0 0;padding:1rem;border:1px solid #718184;background:#111719}
 .ar-restart-confirm[hidden]{display:none}
 .ar-restart-confirm p{margin:0;color:#e4eeeb;line-height:1.5}
@@ -157,7 +154,7 @@ body.ar-page{margin:0;background:var(--ar-black);color:var(--ar-white);font-fami
 .ar-restart-confirm .ar-button{min-height:44px;padding:.6rem 1rem}
 .ar-result-opening{display:grid;grid-template-columns:minmax(0,1fr) minmax(320px,.9fr);align-items:start;gap:clamp(2rem,4vw,4rem);margin-top:1.5rem}
 .ar-result-hero{text-align:center}
-.ar-result-hero h2{margin:1rem auto;font-family:var(--ar-display);font-size:clamp(3rem,6vw,6rem);font-weight:400;line-height:1;text-transform:uppercase}
+.ar-result-hero h2{margin:1rem auto;font-size:clamp(2.4rem,4.2vw,4rem);font-weight:520;line-height:1.08;letter-spacing:-.045em;text-wrap:balance}
 .ar-result-perspective{min-width:0;margin:1.75rem 0 0;padding:1.1rem 0 0;border:0;border-top:1px solid var(--ar-line)}
 .ar-result-perspective legend{padding:0;color:#d9e6e2;font-size:.78rem;font-weight:800;letter-spacing:.1em;text-align:left;text-transform:uppercase}
 .ar-result-perspective-options{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.45rem;margin-top:.6rem}
@@ -175,6 +172,9 @@ body.ar-page{margin:0;background:var(--ar-black);color:var(--ar-white);font-fami
 .ar-report-jump{display:none;color:#b6eee3;text-underline-offset:.25em}
 .ar-report-skip{display:inline-block;margin-top:1rem;color:#b6eee3;text-underline-offset:.25em}
 .ar-report-skip:focus-visible,.ar-report-jump:focus-visible{outline:3px solid #fff;outline-offset:4px}
+.ar-report-thanks{margin-top:1.5rem;padding-top:1.5rem;border-top:1px solid #506065}
+.ar-report-thanks h4{margin:0 0 .6rem;font-size:clamp(1.25rem,2vw,1.65rem)}
+.ar-report-thanks p{margin:0 0 1.25rem;color:#d3dfdc;line-height:1.5}
 .ar-result-line{max-width:52ch;margin:0 auto;color:#dae5e2;font-size:1.15rem}
 .ar-result-score{position:relative;isolation:isolate;display:flex;justify-content:center;align-items:center;width:190px;height:190px;margin:1.5rem auto .7rem;border-radius:50%;background:conic-gradient(var(--ar-green) 0 var(--score-angle,0deg),#39464a var(--score-angle,0deg) 360deg);color:var(--ar-white);font-family:var(--ar-display);font-size:5rem;line-height:1}
 .ar-result-score::before{content:"";position:absolute;inset:13px;z-index:-1;border-radius:50%;background:var(--ar-black)}
@@ -182,6 +182,16 @@ body.ar-page{margin:0;background:var(--ar-black);color:var(--ar-white);font-fami
 .ar-score-key{max-width:56ch;margin:0 auto .7rem;color:#aebcba;font-size:.875rem;font-weight:700;line-height:1.45;text-align:center}
 .ar-band{display:inline-block;margin:.5rem auto 1rem;padding:.45rem .8rem;border:1px solid var(--ar-green);color:#d9f5f0;font-size:.87rem}
 .ar-result-lead{max-width:60ch;margin:1rem auto 0;font-size:clamp(1.25rem,2vw,1.7rem);line-height:1.35}
+.ar-result-paper{margin-top:clamp(3rem,7vw,6rem);padding:clamp(2rem,5vw,4rem) 0 5rem;background:#fff;box-shadow:0 0 0 100vmax #fff;clip-path:inset(0 -100vmax);color:#111719}
+.ar-page.ar-is-result .ar-result-paper .ar-category-kicker{color:#252e30}
+.ar-result-paper .ar-result-section:first-child{margin-top:0}
+.ar-result-paper .ar-result-section{border-color:#d8dfde}
+.ar-result-paper .ar-lever-track{background:#d8dfde}
+.ar-result-paper .ar-priority dl>div{border-color:#d8dfde;background:#f2f6f5}
+.ar-result-paper .ar-priority dt{color:#08645b}
+.ar-result-paper .ar-outline{color:#111719;border-color:#08645b}
+.ar-result-paper .ar-caveat{color:#485456}
+.ar-result-paper .ar-caveat a{color:#08645b}
 .ar-result-section{margin-top:3rem;padding-top:2rem;border-top:1px solid var(--ar-line)}
 #ar-result-findings{scroll-margin-top:7rem}
 #ar-report-panel{scroll-margin-top:5rem}
