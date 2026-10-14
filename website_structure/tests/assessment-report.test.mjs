@@ -20,14 +20,14 @@ test("the two-page report cannot be downloaded without the email route",async ()
 });
 
 test("rejects incomplete answers and missing email consent",async () => {
-  const bad=response(); await handler(request("complete",{answers:{}}),bad); assert.equal(bad.statusCode,400);
+  const bad=response(); await handler(request("email",{answers:{}}),bad); assert.equal(bad.statusCode,400);
   const consent=response(); await handler(request("email",{firstName:"A",email:"a@example.com",company:"Test"}),consent); assert.equal(consent.statusCode,400);
 });
 
 test("rejects multiple stages, including an old multi-stage selection",async () => {
-  const many=response(); await handler(request("complete",{context:{...context,stages:["development","route"]}}),many);
+  const many=response(); await handler(request("email",{context:{...context,stages:["development","route"]}}),many);
   assert.equal(many.statusCode,400);
-  const mixed=response(); await handler(request("complete",{context:{...context,stages:["all","route"]}}),mixed);
+  const mixed=response(); await handler(request("email",{context:{...context,stages:["all","route"]}}),mixed);
   assert.equal(mixed.statusCode,400);
 });
 
@@ -66,24 +66,17 @@ test("email success requires provider success and includes the PDF attachment",a
   } finally { global.fetch=oldFetch; if(oldKey===undefined)delete process.env.RESEND_API_KEY;else process.env.RESEND_API_KEY=oldKey; if(oldFrom===undefined)delete process.env.AI_ASSESSMENT_FROM_EMAIL;else process.env.AI_ASSESSMENT_FROM_EMAIL=oldFrom; if(oldNotify===undefined)delete process.env.AI_ASSESSMENT_NOTIFY_EMAIL;else process.env.AI_ASSESSMENT_NOTIFY_EMAIL=oldNotify; }
 });
 
-test("completion sends full findings to Ignis without requiring contact details",async () => {
-  const oldFetch=global.fetch, oldKey=process.env.RESEND_API_KEY, oldFrom=process.env.AI_ASSESSMENT_FROM_EMAIL, oldNotify=process.env.AI_ASSESSMENT_NOTIFY_EMAIL;
-  process.env.RESEND_API_KEY="test-key"; process.env.AI_ASSESSMENT_FROM_EMAIL="reports@example.com"; process.env.AI_ASSESSMENT_NOTIFY_EMAIL="owner@example.com";
-  let payload,headers;
-  global.fetch=async (_url,options) => {payload=JSON.parse(options.body); headers=options.headers; return {ok:true};};
+test("completion without a report request is rejected without sending answers",async () => {
+  const oldFetch=global.fetch;
+  let sends=0;
+  global.fetch=async()=>{sends++;return {ok:true};};
   try {
-    const res=response(); await handler(request("complete",{firstName:"Private",company:"Private Co",email:"private@example.com"}),res);
-    assert.equal(res.statusCode,200); assert.equal(payload.to[0],"owner@example.com");
-    assert.match(payload.text,/Report email status at completion: not requested yet/);
-    assert.match(payload.text,/ALL ANSWERS/); assert.match(payload.text,/Build priority: Build a governed evidence base/);
-    assert.match(payload.text,/Reader perspective: Business leader/);
-    assert.match(payload.text,/Which project stage gives you the clearest view\?: Route to market/);
-    assert.match(payload.text,/Where to test it: Test this priority against an auction, tender or offtake decision/);
-    assert.ok(!payload.text.includes("private@example.com"));
-    assert.ok(!payload.text.includes("Private Co"));
-    assert.match(Buffer.from(payload.attachments[0].content,"base64").toString("latin1"),/^%PDF-1\.4/);
-    assert.match(headers["Idempotency-Key"],/^ai-assessment-complete-/);
-  } finally { global.fetch=oldFetch; if(oldKey===undefined)delete process.env.RESEND_API_KEY;else process.env.RESEND_API_KEY=oldKey; if(oldFrom===undefined)delete process.env.AI_ASSESSMENT_FROM_EMAIL;else process.env.AI_ASSESSMENT_FROM_EMAIL=oldFrom; if(oldNotify===undefined)delete process.env.AI_ASSESSMENT_NOTIFY_EMAIL;else process.env.AI_ASSESSMENT_NOTIFY_EMAIL=oldNotify; }
+    const res=response(); await handler(request("complete"),res);
+    assert.equal(res.statusCode,400);
+    assert.equal(sends,0);
+    const controller=fs.readFileSync(new URL("../assets/ai-assessment-v7.js",import.meta.url),"utf8");
+    assert.doesNotMatch(controller,/notifyCompletion|reportRequest\("complete"\)/);
+  } finally { global.fetch=oldFetch; }
 });
 
 test("confirmed Ignis sender and research inbox are used by default",async () => {
@@ -92,7 +85,7 @@ test("confirmed Ignis sender and research inbox are used by default",async () =>
   let payload;
   global.fetch=async (_url,options) => { payload=JSON.parse(options.body); return {ok:true}; };
   try {
-    const res=response(); await handler(request("complete"),res);
+    const res=response(); await handler(request("email",{firstName:"A",email:"a@example.com",company:"Test",consent:true}),res);
     assert.equal(res.statusCode,200);
     assert.equal(payload.from,"yorik@ignisleadership.com");
     assert.deepEqual(payload.to,["yorik@ignisleadership.com"]);

@@ -17,7 +17,7 @@ test("AI score uses the public URL and redirects the retired roulette path", () 
   assert.ok(vercel.redirects.some(route => route.source === "/ai-roulette.html" && route.destination === "/ai-score" && route.permanent));
 });
 
-test("v10 landing explains the outcome and answer-sharing without a sign-up gate", () => {
+test("v10 landing explains the outcome and optional report sharing without a sign-up gate", () => {
   const html = readFileSync(new URL("../ai-score.html", import.meta.url), "utf8");
   const landing = html.match(/<section class="as-hero"[\s\S]*?<\/section>/)?.[0];
   assert.ok(landing);
@@ -26,7 +26,7 @@ test("v10 landing explains the outcome and answer-sharing without a sign-up gate
   assert.match(landing, /Whether you develop and sell, build and operate, or do both/);
   assert.match(landing, /see what your next project can reuse, what still depends on a few people, and what to fix first\./);
   assert.doesNotMatch(landing, /When you finish, Ignis receives your answers/);
-  assert.match(html, /Ignis receives completed answers for research, without contact details/);
+  assert.match(html, /See your result on screen without sharing your answers with Ignis/);
 });
 
 test("reader perspective changes wording, not the score or next build", () => {
@@ -52,7 +52,7 @@ test("v10 results can be reviewed and restarted, with the report optional", () =
   assert.match(controller, /id="report"/);
   assert.match(controller, /data-report-form/);
   assert.match(controller, /\/contact\?source=ai-score-v10/);
-  assert.match(html, /ai-score-v10\.js\?v=2/);
+  assert.match(html, /ai-score-v10\.js\?v=4/);
 });
 
 test("shared AI practice receives a constructive finding", () => {

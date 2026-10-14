@@ -84,7 +84,7 @@ test("the decision brief does not call a flat or unknown target growth",()=>{
   }
 });
 test("v10 API rejects missing answers and email without consent",async()=>{
-  const bad=response();await handler(request("complete",{answers:{}}),bad);assert.equal(bad.statusCode,400);
+  const bad=response();await handler(request("email",{answers:{}}),bad);assert.equal(bad.statusCode,400);
   const noConsent=response();await handler(request("email",{firstName:"Sam",email:"sam@example.com",role:"ceo",aiUse:"none"}),noConsent);assert.equal(noConsent.statusCode,400);
 });
 test("v10 email sends a two-page brief and owner update",async()=>{
@@ -104,15 +104,25 @@ test("v10 email sends a two-page brief and owner update",async()=>{
     assert.match(pdf,/33\/100/);
   }finally{global.fetch=oldFetch;if(oldKey===undefined)delete process.env.RESEND_API_KEY;else process.env.RESEND_API_KEY=oldKey;}
 });
-test("anonymous completion does not disclose contact details",async()=>{
+test("completion alone never sends answers to Ignis",async()=>{
   const oldFetch=global.fetch,oldKey=process.env.RESEND_API_KEY;
   process.env.RESEND_API_KEY="test-key";const messages=[];
   global.fetch=async(_url,options)=>{messages.push(JSON.parse(options.body));return {ok:true};};
   try{
     const res=response();await handler(request("complete",{firstName:"Hidden",email:"hidden@example.com"}),res);
-    assert.equal(res.statusCode,200);
-    assert.equal(messages.length,1);
-    assert.equal(messages[0].to[0],"yorik@ignisleadership.com");
-    assert.doesNotMatch(messages[0].text,/hidden@example.com|Hidden/);
+    assert.equal(res.statusCode,400);
+    assert.equal(messages.length,0);
+    const controller=readFileSync(new URL("../assets/ai-score-v10.js",import.meta.url),"utf8");
+    assert.doesNotMatch(controller,/notifyCompletion|action:"complete"/);
+    assert.match(controller,/track\("ai_score_completed"\)/);
   }finally{global.fetch=oldFetch;if(oldKey===undefined)delete process.env.RESEND_API_KEY;else process.env.RESEND_API_KEY=oldKey;}
+});
+test("the result and privacy copy explain that sharing happens only with a report request",()=>{
+  const controller=readFileSync(new URL("../assets/ai-score-v10.js",import.meta.url),"utf8");
+  const page=readFileSync(new URL("../ai-score.html",import.meta.url),"utf8");
+  const privacy=readFileSync(new URL("../privacy.html",import.meta.url),"utf8");
+  assert.match(controller,/share my details and answers with Ignis for review/);
+  assert.match(page,/without sharing your answers with Ignis/);
+  assert.match(privacy,/Completing the assessment gives you an on-screen result without sending your answers to Ignis/);
+  assert.doesNotMatch(privacy,/even if you do not request the executive report|up to 24 months for assessment research/);
 });
