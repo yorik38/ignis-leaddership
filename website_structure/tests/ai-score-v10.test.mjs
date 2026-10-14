@@ -126,3 +126,10 @@ test("the result and privacy copy explain that sharing happens only with a repor
   assert.match(privacy,/Completing the assessment gives you an on-screen result without sending your answers to Ignis/);
   assert.doesNotMatch(privacy,/even if you do not request the executive report|up to 24 months for assessment research/);
 });
+test("the unverified email report offer is hidden for the public release",()=>{
+  const controller=readFileSync(new URL("../assets/ai-score-v10.js",import.meta.url),"utf8");
+  const home=readFileSync(new URL("../index.html",import.meta.url),"utf8");
+  assert.match(controller,/const REPORT_EMAIL_ENABLED=false/);
+  assert.match(controller,/\$\{REPORT_EMAIL_ENABLED\?email:""\}/);
+  assert.doesNotMatch(home,/you can request a two-page decision brief by email/i);
+});

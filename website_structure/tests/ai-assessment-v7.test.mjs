@@ -52,7 +52,7 @@ test("v10 results can be reviewed and restarted, with the report optional", () =
   assert.match(controller, /id="report"/);
   assert.match(controller, /data-report-form/);
   assert.match(controller, /\/contact\?source=ai-score-v10/);
-  assert.match(html, /ai-score-v10\.js\?v=4/);
+  assert.match(html, /ai-score-v10\.js\?v=6/);
 });
 
 test("shared AI practice receives a constructive finding", () => {
