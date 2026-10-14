@@ -20,14 +20,14 @@ function makeOne(result,answers,details,labels){
   p.line(682);
   let y=heading(p,"01","The reading from your answers",660);
   p.text(result.visibility_gap?"REUSE NOT VISIBLE":`${result.reuse_score_0_100}/100  |  ${result.reuse_band.toUpperCase()}`,LEFT,y,17,true,GREEN);y-=26;
-  y=p.paragraph(result.visibility_gap?"Three or more answers about handover were Not sure. You cannot yet see how the next project would reuse the last. That is the first finding.":`The weakest measured point is ${result.weak_point.toLowerCase()}. This is a reuse score, not an AI maturity or peer benchmark.`,LEFT,y,WIDTH,10.3,15,DARK)-12;
+  y=p.paragraph(result.visibility_gap?"Three or more answers about handover were Not sure. You cannot yet see how the next project would reuse the last. That is the first finding.":result.reuse_band==="Reusable"?"Your handover answers meet the reusable threshold. Test what an agent could prepare from the approved record, with your team checking sources and decisions. This is not an AI maturity or peer benchmark.":`The weakest measured point is ${result.weak_point.toLowerCase()}. This is a reuse score, not an AI maturity or peer benchmark.`,LEFT,y,WIDTH,10.3,15,DARK)-12;
   y=line(p,"Project direction",`${labels.D1} a year today; ${labels.D2} wanted in two years. ${labels.D3}.`,y);
   y=line(p,"Team",`${result.team_band||"Not known"}. Team growth: ${labels.G1}. EPC-scale experience: ${labels.G2}.`,y);
   y=line(p,"Current capacity",`${labels.C1} projects at once with today's team.`,y);
   y-=6;p.line(y);y-=30;
   p.text("02 / THE HANDOVER TEST",LEFT,y,9,true,GREEN);y-=21;
   for(const [id,name] of [["S1","Start"],["S2","Holder"],["S3","Cover"],["S4","Scope"]]){
-    p.text(`${name.toUpperCase()}  ${result.points[id]==null?"?":result.points[id]}/3`,LEFT,y,9.4,true,result.weak_question===id?GREEN:DARK);
+    p.text(`${name.toUpperCase()}  ${result.points[id]==null?"?":result.points[id]}/3`,LEFT,y,9.4,true,result.reuse_band!=="Reusable"&&result.weak_question===id?GREEN:DARK);
     y=p.paragraph(labels[id],LEFT+120,y,WIDTH-120,9.3,12.6,DARK)-8;
   }
   p.line(y);y-=30;

@@ -65,6 +65,17 @@ test("each weak handover point produces its own first-build recommendation",()=>
   }
   assert.equal(assess(strong).reuse_band,"Reusable");
 });
+test("a reusable handover is not presented as a knowledge leak",()=>{
+  const answers={...example,S1:"record",S2:"shared_owned",S3:"pickup_days",S4:"matrix_start"};
+  const result=assess(answers);
+  const labels=Object.fromEntries(IDS.map(id=>[id,LABELS[id][answers[id]]]));
+  const pdf=buildPDF(result,answers,{firstName:"Sam"},labels).toString("latin1");
+  assert.equal(result.reuse_score_0_100,100);
+  assert.match(pdf,/handover answers meet the reusable threshold/);
+  assert.doesNotMatch(pdf,/weakest measured point is holder/i);
+  const dashboard=readFileSync(new URL("../assets/ai-score-v10.js",import.meta.url),"utf8");
+  assert.match(dashboard,/report\.reuse_band!=="Reusable"/);
+});
 test("the decision brief does not call a flat or unknown target growth",()=>{
   for(const [target,claim] of [["2_3","AT YOUR CURRENT PACE."],["not_sure","YOUR NEXT PROJECT."]]){
     const answers={...example,D2:target},result=assess(answers);
