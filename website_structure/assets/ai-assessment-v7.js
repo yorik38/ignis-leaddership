@@ -11,12 +11,9 @@ let bank;
 let saved;
 let state;
 let moveTimer;
-let completionPending = false;
-let completionRetry;
-let retryDelay = 15000;
 
 function newAttemptId() { return globalThis.crypto?.randomUUID?.() || `a-${Date.now()}-${Math.random().toString(36).slice(2)}`; }
-function fresh() { return {version: VERSION, screen: "landing", context: {}, answers: {}, section: 0, active: 0, attemptId: newAttemptId(), completionSent: false}; }
+function fresh() { return {version: VERSION, screen: "landing", context: {}, answers: {}, section: 0, active: 0, attemptId: newAttemptId()}; }
 function restore() {
   try {
     const value = JSON.parse(localStorage.getItem(KEY));
@@ -32,7 +29,7 @@ function restore() {
       if (previousVersion && value.screen === "context-1" && !value.context.stages) value.screen = "context-2";
       if (Array.isArray(value.context.stages)) {
         if (value.context.stages.length === 1) value.context.stages = value.context.stages[0];
-        else { delete value.context.stages; value.screen = "context-1"; value.attemptId = newAttemptId(); value.completionSent = false; }
+        else { delete value.context.stages; value.screen = "context-1"; value.attemptId = newAttemptId(); }
       }
       value.version = VERSION;
       const legacyAnswer = bank.sections.flatMap((section, sectionIndex) => section.questions.map((question, questionIndex) => ({question, sectionIndex, questionIndex})))
@@ -45,9 +42,9 @@ function restore() {
         value.section = legacyAnswer.sectionIndex;
         value.active = legacyAnswer.questionIndex;
         value.attemptId = newAttemptId();
-        value.completionSent = false;
       }
-      return {...value, attemptId: value.attemptId || newAttemptId(), completionSent: value.completionSent === true};
+      delete value.completionSent;
+      return {...value, attemptId: value.attemptId || newAttemptId()};
     }
   } catch {}
   return null;
@@ -73,7 +70,7 @@ function contextScreen() {
   const item = bank.context[index];
   const selected = state.context[item.id];
   const multiple = item.type === "multi";
-  return `<section class="ar-flow ar-tap" aria-labelledby="ar-screen-title">${topBar()}<p class="ar-category-kicker">Before we begin</p><h2 id="ar-screen-title">${escapeHTML(item.title)}</h2><p class="ar-screen-help">${escapeHTML(item.help || "This helps us frame your result. It does not change your score.")}</p>${index === 0 ? '<p class="ar-caveat">When you finish, Ignis receives your answers and result for assessment research, even if you do not request the emailed report. Contact details are optional. <a href="/privacy">How we use your answers</a>.</p>' : ""}<div class="ar-choice-list">${item.options.map(option => { const picked = multiple ? Array.isArray(selected) && selected.includes(option.id) : selected === option.id; return `<button class="ar-choice ${picked ? "is-selected" : ""}" type="button" data-context-choice="${escapeHTML(option.id)}" aria-pressed="${picked}">${escapeHTML(option.label)}</button>`; }).join("")}</div>${multiple ? `<p class="ar-context-feedback" role="status" aria-live="polite"></p><button class="ar-button" type="button" data-context-continue ${Array.isArray(selected) && selected.length ? "" : "disabled"}>Continue →</button>` : ""}</section>`;
+  return `<section class="ar-flow ar-tap" aria-labelledby="ar-screen-title">${topBar()}<p class="ar-category-kicker">Before we begin</p><h2 id="ar-screen-title">${escapeHTML(item.title)}</h2><p class="ar-screen-help">${escapeHTML(item.help || "This helps us frame your result. It does not change your score.")}</p><div class="ar-choice-list">${item.options.map(option => { const picked = multiple ? Array.isArray(selected) && selected.includes(option.id) : selected === option.id; return `<button class="ar-choice ${picked ? "is-selected" : ""}" type="button" data-context-choice="${escapeHTML(option.id)}" aria-pressed="${picked}">${escapeHTML(option.label)}</button>`; }).join("")}</div>${multiple ? `<p class="ar-context-feedback" role="status" aria-live="polite"></p><button class="ar-button" type="button" data-context-continue ${Array.isArray(selected) && selected.length ? "" : "disabled"}>Continue →</button>` : ""}</section>`;
 }
 function progress() {
   const total = bank.sections.reduce((sum, section) => sum + section.questions.length, 0);
@@ -108,7 +105,7 @@ function resultPerspective() {
   return `<fieldset class="ar-result-perspective" aria-describedby="ar-result-perspective-note"><legend>Read this result as</legend><div class="ar-result-perspective-options">${[["individual","Individual contributor"],["team","Team leader"],["leader","Business leader"]].map(([value,label]) => `<label><input type="radio" name="result-persona" value="${value}" ${selected === value ? "checked" : ""}><span>${label}</span></label>`).join("")}</div><p id="ar-result-perspective-note">Switch the explanation, not your score or build priority.</p><p class="ar-perspective-frame">${perspectiveCopy[selected]}</p></fieldset>`;
 }
 function executiveReportPanel() {
-  return `<aside class="ar-report-panel" id="ar-report-panel" aria-labelledby="ar-report-title"><p class="ar-category-kicker">Optional next step</p><h3 id="ar-report-title">Get your two-page executive report</h3><p>The brief brings together what you told us, what your answers suggest and the first build to test. We will email it to you.</p><form class="ar-report-form" data-email-form><label>First name<input name="firstName" autocomplete="given-name" maxlength="80" required></label><label>Work email<input name="email" type="email" autocomplete="email" maxlength="254" required></label><label>Company<input name="company" autocomplete="organization" maxlength="120" required></label><label class="ar-consent"><input name="consent" type="checkbox" required><span>Email me the two-page report using these details. This does not subscribe me to marketing emails.</span></label><button class="ar-button" type="submit">Email my executive report →</button><p class="ar-form-status" role="status" aria-live="polite"></p></form><div class="ar-report-thanks" role="status" aria-live="polite" hidden><h4 tabindex="-1">Your report is on its way.</h4><p>Thank you. Check your inbox for the two-page brief. If you want to discuss what to build first, start a conversation with Ignis.</p><a class="ar-button" href="/contact?source=ai-assessment-report">Start a conversation ↗</a></div><a class="ar-report-skip" href="#ar-result-findings">Explore my instant result ↓</a></aside>`;
+  return `<aside class="ar-report-panel" id="ar-report-panel" aria-labelledby="ar-report-title"><p class="ar-category-kicker">Optional next step</p><h3 id="ar-report-title">Get your two-page executive report</h3><p>The brief brings together what you told us, what your answers suggest and the first build to test. We will email it to you.</p><form class="ar-report-form" data-email-form><label>First name<input name="firstName" autocomplete="given-name" maxlength="80" required></label><label>Work email<input name="email" type="email" autocomplete="email" maxlength="254" required></label><label>Company<input name="company" autocomplete="organization" maxlength="120" required></label><label class="ar-consent"><input name="consent" type="checkbox" required><span>Email me the two-page report and share my details and answers with Ignis for review. This does not subscribe me to marketing emails.</span></label><button class="ar-button" type="submit">Email my executive report →</button><p class="ar-form-status" role="status" aria-live="polite"></p></form><div class="ar-report-thanks" role="status" aria-live="polite" hidden><h4 tabindex="-1">Your report is on its way.</h4><p>Thank you. Check your inbox for the two-page brief. If you want to discuss what to build first, start a conversation with Ignis.</p><a class="ar-button" href="/contact?source=ai-assessment-report">Start a conversation ↗</a></div><a class="ar-report-skip" href="#ar-result-findings">Explore my instant result ↓</a></aside>`;
 }
 function resultScreen() {
   const report = assess(bank, state.answers, state.context);
@@ -120,14 +117,13 @@ function resultScreen() {
   <div class="ar-result-section"><p class="ar-category-kicker">02 · What blocks scale</p><h3>Workflow, data and governance</h3><p>${escapeHTML(report.findings.foundations)}</p>${[byId.workflow,byId.data,byId.governance].map(scoreRow).join("")}</div>
   <div class="ar-result-section"><p class="ar-category-kicker">03 · Where it matters</p><h3>Work and new value</h3><p>${escapeHTML(report.findings.work)}</p>${work.map(scoreRow).join("")}</div>
   <div class="ar-result-section ar-priority"><p class="ar-category-kicker">04 · What to build first</p><h3>${escapeHTML(report.priority.title)}</h3><p>${escapeHTML(report.findings.priority)}</p><dl><div><dt>First move</dt><dd>${escapeHTML(report.priority.first)}</dd></div><div><dt>Likely owner</dt><dd>${escapeHTML(report.priority.owner)}</dd></div><div><dt>Bounded pilot</dt><dd>${escapeHTML(report.priority.pilot)}</dd></div><div><dt>Where to test it</dt><dd>${escapeHTML(report.stageApplication)}</dd></div></dl></div>
-  <div class="ar-result-section ar-result-footer"><a class="ar-outline" href="/contact?source=ai-assessment">Discuss the next build ↗</a><p class="ar-caveat">Your progress is saved in this browser. When you finish, your answers and result are shared with Ignis for assessment research, whether or not you request the email report. We only receive your name, company and email if you submit the report form. Do not enter confidential project information. See our <a href="/privacy">privacy policy</a>.</p></div></div></section>`;
+  <div class="ar-result-section ar-result-footer"><a class="ar-outline" href="/contact?source=ai-assessment">Discuss the next build ↗</a><p class="ar-caveat">Your progress is saved in this browser. Ignis receives your details and answers only if you request the emailed report. Do not enter confidential project information. See our <a href="/privacy">privacy policy</a>.</p></div></div></section>`;
 }
 function render(scrollTop = false) {
   landingMode();
   if (state.screen === "landing") { start.textContent = saved ? "Resume the assessment →" : "Start the assessment →"; return; }
   app.innerHTML = state.screen.startsWith("context-") ? contextScreen() : state.screen === "intro" ? intro() : state.screen === "questions" ? questionScreen() : resultScreen();
   persist();
-  if (state.screen === "result") void notifyCompletion();
   if (scrollTop) {
     if (state.screen === "questions") requestAnimationFrame(() => activate(state.active,false));
     else scrollTo({top: 0, behavior: reducedMotion ? "instant" : "smooth"});
@@ -162,7 +158,6 @@ function back() {
 }
 function restart() {
   clearTimeout(moveTimer);
-  clearTimeout(completionRetry);
   try { localStorage.removeItem(KEY); } catch {}
   saved = null;
   state = fresh();
@@ -172,25 +167,9 @@ function restart() {
   scrollTo({top:0,behavior:reducedMotion ? "instant" : "smooth"});
 }
 async function reportRequest(action, payload = {}) {
-  const response = await fetch("/api/assessment-report", {method:"POST", headers:{"Content-Type":"application/json"}, keepalive:action === "complete", body:JSON.stringify({action, version:VERSION, attemptId:state.attemptId, answers:state.answers, context:state.context, ...payload})});
+  const response = await fetch("/api/assessment-report", {method:"POST", headers:{"Content-Type":"application/json"}, body:JSON.stringify({action, version:VERSION, attemptId:state.attemptId, answers:state.answers, context:state.context, ...payload})});
   if (!response.ok) { const data = await response.json().catch(() => ({})); throw new Error(data.error || "The report service is not available right now."); }
   return response;
-}
-async function notifyCompletion() {
-  if (state.screen !== "result" || state.completionSent || completionPending) return;
-  clearTimeout(completionRetry);
-  completionPending = true;
-  const attemptId = state.attemptId;
-  try {
-    await reportRequest("complete");
-    if (state.attemptId === attemptId) { state.completionSent = true; persist(); }
-    retryDelay = 15000;
-  } catch {
-    if (state.attemptId === attemptId) {
-      completionRetry = setTimeout(() => { if (state.screen === "result") void notifyCompletion(); }, retryDelay);
-      retryDelay = Math.min(retryDelay * 2, 300000);
-    }
-  } finally { completionPending = false; }
 }
 function updateGauge() {
   const score = document.querySelector("[data-sample-score]");
@@ -283,7 +262,6 @@ app.addEventListener("submit", async event => {
   catch(error) { status.textContent = `${error.message} Your on-screen result remains available above. Please try the email request again later.`; }
   finally { button.disabled = false; }
 });
-addEventListener("online", () => { if (state?.screen === "result") void notifyCompletion(); });
 
 try {
   const response = await fetch("/assets/ai-assessment-v7.json", {cache:"no-store"});

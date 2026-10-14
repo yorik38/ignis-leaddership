@@ -17,23 +17,16 @@ test("AI score uses the public URL and redirects the retired roulette path", () 
   assert.ok(vercel.redirects.some(route => route.source === "/ai-roulette.html" && route.destination === "/ai-score" && route.permanent));
 });
 
-test("landing stays concise while answer-sharing is disclosed before the questions", () => {
+test("v10 landing explains the outcome and optional report sharing without a sign-up gate", () => {
   const html = readFileSync(new URL("../ai-score.html", import.meta.url), "utf8");
-  const controller = readFileSync(new URL("../assets/ai-assessment-v7.js", import.meta.url), "utf8");
-  const landing = html.match(/<section class="ar-landing"[\s\S]*?<\/section>/)?.[0];
+  const landing = html.match(/<section class="as-hero"[\s\S]*?<\/section>/)?.[0];
   assert.ok(landing);
-  assert.match(landing, /Instant result · No sign-up required/);
-  assert.match(landing, /Is AI built into the work that moves your projects forward\?/);
+  assert.match(landing, /More projects/);
+  assert.match(landing, /Result on screen, no sign-up/);
   assert.match(landing, /Whether you develop and sell, build and operate, or do both/);
   assert.match(landing, /see what your next project can reuse, what still depends on a few people, and what to fix first\./);
-  assert.match(landing, /Governed AI capability/);
-  assert.doesNotMatch(landing, /Indicative result, not a benchmark/);
-  assert.match(landing, /Individual contributor/);
-  assert.match(landing, /Team leader/);
-  assert.match(landing, /Business leader/);
   assert.doesNotMatch(landing, /When you finish, Ignis receives your answers/);
-  assert.match(controller, /index === 0 \? '<p class="ar-caveat">When you finish, Ignis receives your answers/);
-  assert.match(controller, /When you finish, your answers and result are shared with Ignis/);
+  assert.match(html, /See your result on screen without sharing your answers with Ignis/);
 });
 
 test("reader perspective changes wording, not the score or next build", () => {
@@ -47,26 +40,19 @@ test("reader perspective changes wording, not the score or next build", () => {
   assert.match(leader.findings.adoption, /mostly through an assistant or copilot/);
 });
 
-test("completed results can be reviewed, restarted and reframed without a score change", () => {
-  const controller = readFileSync(new URL("../assets/ai-assessment-v7.js", import.meta.url), "utf8");
+test("v10 results can be reviewed and restarted, with the report optional", () => {
+  const controller = readFileSync(new URL("../assets/ai-score-v10.js", import.meta.url), "utf8");
   const html = readFileSync(new URL("../ai-score.html", import.meta.url), "utf8");
   assert.match(controller, /data-back>← Review answers/);
   assert.match(controller, /data-restart>Start again/);
-  assert.match(controller, /data-restart-confirm role="group" aria-label="Confirm restart" hidden/);
+  assert.match(controller, /data-restart-confirm hidden/);
   assert.match(controller, /data-restart-cancel>Keep this result/);
-  assert.match(controller, /data-restart-now>Restart now/);
+  assert.match(controller, /data-restart-now>Clear and restart/);
   assert.match(controller, /localStorage\.removeItem\(KEY\)/);
-  assert.match(controller, /name="result-persona"/);
-  assert.match(controller, /Switch the explanation, not your score or build priority/);
-  assert.match(controller, /state\.context\.persona = input\.value/);
-  assert.match(controller, /\.ar-adoption-copy"\)\.textContent = assess/);
-  assert.match(controller, /ar-result-opening[\s\S]*executiveReportPanel\(\)[\s\S]*ar-result-findings/);
-  assert.equal((controller.match(/data-email-form/g) || []).length, 2); // markup and delegated submit handler
-  assert.match(html, /ai-assessment-v7\.js\?v=18/);
-  assert.match(controller, /class="ar-result-paper"/);
-  assert.match(controller, /class="ar-report-thanks"[\s\S]*?hidden/);
-  assert.match(controller, /form\.hidden = true/);
-  assert.match(controller, /\/contact\?source=ai-assessment-report/);
+  assert.match(controller, /id="report"/);
+  assert.match(controller, /data-report-form/);
+  assert.match(controller, /\/contact\?source=ai-score-v10/);
+  assert.match(html, /ai-score-v10\.js\?v=6/);
 });
 
 test("shared AI practice receives a constructive finding", () => {

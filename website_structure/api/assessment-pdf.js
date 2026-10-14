@@ -222,3 +222,5 @@ module.exports = function buildAssessmentPDF(report,answers,details={}) {
     binaryStream(`/Type /XObject /Subtype /Image /Width ${LOGO.width} /Height ${LOGO.height} /ColorSpace /DeviceGray /BitsPerComponent 8 /Filter /FlateDecode`,LOGO.alpha)
   ]);
 };
+// Shared low-level PDF layout primitives for the separate v10 decision brief.
+module.exports.primitives={W,H,LEFT,RIGHT,WIDTH,GREEN,DARK,GREY,LIGHT,RULE,LOGO,page,header,heading,binaryStream,objectBuffer};

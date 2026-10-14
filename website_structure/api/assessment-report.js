@@ -2,6 +2,7 @@ const fs = require("node:fs");
 const path = require("node:path");
 const {createHash} = require("node:crypto");
 const buildPDF = require("./assessment-pdf.js");
+const handleV10 = require("./assessment-v10-report.js");
 
 const bank = JSON.parse(fs.readFileSync(path.join(__dirname,"..","assets","ai-assessment-v7.json"),"utf8"));
 const MAX_BODY = 20000;
@@ -69,24 +70,14 @@ module.exports = async function assessmentReport(req,res) {
   let body;
   try { body = typeof req.body === "string" ? JSON.parse(req.body) : req.body; }
   catch { return json(res,400,{error:"Invalid report request."}); }
-  if (!body || JSON.stringify(body).length > MAX_BODY || body.version !== bank.version || !["complete","email"].includes(body.action) || !validAnswers(body.answers) || !validContext(body.context) || !/^[a-z0-9-]{12,100}$/i.test(body.attemptId || "")) return json(res,400,{error:"The assessment answers are incomplete or out of date. Please refresh and try again."});
+  if (body?.version === "v10") return handleV10(body,res);
+  if (!body || JSON.stringify(body).length > MAX_BODY || body.version !== bank.version || body.action !== "email" || !validAnswers(body.answers) || !validContext(body.context) || !/^[a-z0-9-]{12,100}$/i.test(body.attemptId || "")) return json(res,400,{error:"The assessment answers are incomplete or out of date. Please refresh and try again."});
   let result;
   try { const model = await import("../assets/ai-assessment-v7-model.mjs"); result = model.assess(bank,body.answers,body.context); }
   catch { return json(res,500,{error:"The assessment could not be calculated. Please try again."}); }
   const apiKey=process.env.RESEND_API_KEY;
   const from=process.env.AI_ASSESSMENT_FROM_EMAIL || DEFAULT_FROM;
   const notifyTo=process.env.AI_ASSESSMENT_NOTIFY_EMAIL || DEFAULT_NOTIFY_TO;
-  if (body.action === "complete") {
-    if (!apiKey || !from || !notifyTo) return json(res,503,{error:"Assessment research delivery is not available yet."});
-    const pdf=buildPDF(result,body.answers,{context:body.context});
-    const message={from,to:[notifyTo],subject:`AI self-assessment completed | ${result.score ?? "unscored"}/100 | ${result.stage}`,
-      text:`Report email status at completion: not requested yet. This response has no name or email address. If the participant later requests a report, a separate delivery update follows.\n\n${researchSummary(result,body.answers,body.context,body.attemptId)}`,
-      attachments:[{filename:"ignis-ai-self-assessment.pdf",content:pdf.toString("base64")}]
-    };
-    if (process.env.AI_ASSESSMENT_REPLY_TO) message.reply_to=process.env.AI_ASSESSMENT_REPLY_TO;
-    try { await sendEmail(message,apiKey,`ai-assessment-complete-${body.attemptId}`); return json(res,200,{ok:true}); }
-    catch(error) { console.error("Assessment research delivery error",error.message); return json(res,502,{error:"Assessment research delivery could not be confirmed."}); }
-  }
   const firstName=clean(body.firstName,80), company=clean(body.company,120), email=clean(body.email,254).toLowerCase();
   if (!body.consent || !firstName || !company || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return json(res,400,{error:"Enter your name, company and a valid email, then confirm report delivery."});
   if (!apiKey || !from || !notifyTo) return json(res,503,{error:"Email delivery is not available yet."});
