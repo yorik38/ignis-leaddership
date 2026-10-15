@@ -41,7 +41,6 @@
 .value-proposition h2{max-width:1180px;margin:0;font-size:var(--h2);font-weight:400;line-height:1.04;letter-spacing:-.05em;text-wrap:balance}
 .value-proposition-path{max-width:900px;margin:2rem 0 0;color:var(--ink-muted);font-size:clamp(1.15rem,1.7vw,1.45rem);line-height:1.55}
 .value-proposition-path+.value-proposition-path{margin-top:1rem}
-.ai-roulette{background:#fff!important;border-bottom:1px solid var(--line)}
 .roulette-heading{display:grid;grid-template-columns:minmax(150px,.45fr) minmax(0,1.55fr);gap:clamp(2rem,7vw,8rem);align-items:start}
 .roulette-heading>.section-label,.adoption-gap-heading>.section-label,.engagement-heading>.section-label{margin:0;font-family:var(--font-serif);font-size:clamp(1.4rem,1.9vw,1.85rem);font-style:italic;font-weight:500;line-height:1.1;letter-spacing:0;text-transform:none}
 .roulette-heading h2{max-width:1000px;margin:0;font-size:var(--h2);font-weight:400;line-height:1.02;letter-spacing:-.05em;text-wrap:balance}
@@ -592,7 +591,7 @@
 @media(max-width:520px){
   body .site-footer .footer-top nav{flex-wrap:wrap;white-space:normal}
   body .site-footer .footer-top p{white-space:normal}
-  .value-proposition,.ai-roulette,.adoption-gap,.engagement-offer,.services,.case-preview,.about-preview,.closing-band,.home-community{padding-top:4rem;padding-bottom:4rem}
+  .value-proposition,.adoption-gap,.engagement-offer,.services,.case-preview,.about-preview,.closing-band,.home-community{padding-top:4rem;padding-bottom:4rem}
   .trust-band{padding:3.5rem 0}
   .faq-section{padding:4rem 0}
   .roulette-split,.adoption-gap-split,.engagement-grid{margin-top:2.5rem}

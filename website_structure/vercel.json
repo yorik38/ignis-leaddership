@@ -13,21 +13,27 @@
     "api/contact.js": {
       "memory": 128,
       "maxDuration": 10
-    },
-    "api/assessment-report.js": {
-      "memory": 128,
-      "maxDuration": 10
     }
   },
   "redirects": [
     {
+      "source": "/ai-score",
+      "destination": "/commercial-ai-adoption",
+      "permanent": true
+    },
+    {
+      "source": "/ai-score.html",
+      "destination": "/commercial-ai-adoption",
+      "permanent": true
+    },
+    {
       "source": "/ai-roulette",
-      "destination": "/ai-score",
+      "destination": "/commercial-ai-adoption",
       "permanent": true
     },
     {
       "source": "/ai-roulette.html",
-      "destination": "/ai-score",
+      "destination": "/commercial-ai-adoption",
       "permanent": true
     },
     {
