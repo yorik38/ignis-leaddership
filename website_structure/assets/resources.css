@@ -211,7 +211,7 @@
 }
 @media(max-width:740px){
   .resource-shell{width:calc(100% - 32px);}
-  .resources-library-hero{padding:62px 0;}
+  .resources-library-hero{padding:118px 0 62px;}
   .resources-library-hero-grid{gap:38px;}
   .resources-library-hero-copy h1{font-size:40px;}
   .resources-library-hero-copy p{font-size:16px;}

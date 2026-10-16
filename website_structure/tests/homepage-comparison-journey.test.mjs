@@ -9,8 +9,8 @@ const css=readFileSync(new URL("assets/capability.css",root),"utf8");
 test("the comparison follows the gates diagram and keeps each contrast aligned",()=>{
   const gates=homepage.indexOf('class="band band-paper commercial-gates"');
   const comparison=homepage.indexOf('class="band band-paper working-comparison"');
-  const trust=homepage.indexOf('class="trust-band band-paper"');
-  assert.ok(gates>=0 && gates<comparison && comparison<trust);
+  const sprint=homepage.indexOf('class="band band-paper engagement-offer sprint-journey"');
+  assert.ok(gates>=0 && gates<comparison && comparison<sprint);
   for(const copy of [
     "Built around your next gate","Work split into separate scopes",
     "One governed record","Evidence across files and inboxes",
@@ -49,8 +49,8 @@ test("the detailed build section is absent and the gates link still has a destin
 test("the What Ignis builds section is removed without losing the founder route",()=>{
   assert.doesNotMatch(homepage,/id="what-ignis-builds"|class="band builds-band"/);
   assert.doesNotMatch(css,/\.builds-band\{/);
-  assert.match(homepage,/class="trust-band band-paper"[\s\S]*?<\/section>\s*<section class="band band-paper engagement-offer sprint-journey"/);
-  assert.match(homepage,/class="band band-paper about-preview"/);
+  assert.match(homepage,/class="band band-paper working-comparison"[\s\S]*?<\/section>\s*<section class="band band-paper engagement-offer sprint-journey"/);
+  assert.match(homepage,/class="band band-paper about-preview founder-overview"/);
 });
 
 test("the homepage FAQ sets out a bounded consulting start in three questions",()=>{

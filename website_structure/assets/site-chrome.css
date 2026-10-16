@@ -472,6 +472,7 @@ label.skip-link {
 }
 
 @media (max-width: 520px) {
+  .menu-overlay .overlay-nav > a { font-size: clamp(1.45rem, 6.3vw, 1.85rem); white-space: normal; }
   .overlay-nav .overlay-resource-links a { font-size: 1.35rem; }
   .contact-symbol { display: none; }
   .menu-button { padding-inline: .85rem; }

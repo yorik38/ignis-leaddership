@@ -9,7 +9,7 @@ test("commercial gates comparison follows the rotating statement",()=>{
   const image="assets/img/commercial-gates-comparison-v1.png";
   assert.ok(existsSync(new URL(image,root)));
   assert.ok(homepage.indexOf('class="band band-paper commercial-gates"')>homepage.indexOf('class="band band-paper pipeline-statement"'));
-  assert.ok(homepage.indexOf('class="band band-paper commercial-gates"')<homepage.indexOf('class="trust-band band-paper"'));
+  assert.ok(homepage.indexOf('class="band band-paper commercial-gates"')<homepage.indexOf('class="band band-paper working-comparison"'));
   assert.match(homepage,/Conventional commercial development stalls between gates\./);
   assert.match(homepage,/Grid offer and consents remain the same in both paths\./);
   assert.doesNotMatch(homepage,/Illustrative process, not a measured project timeline\./);
