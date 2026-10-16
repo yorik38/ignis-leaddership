@@ -72,14 +72,6 @@
 .adoption-gap-split h3{margin:1.5rem 0 1rem;font-size:clamp(1.2rem,1.65vw,1.55rem);font-weight:400;line-height:1.08;letter-spacing:-.035em}
 .adoption-gap-split p{max-width:35ch;margin:0;color:var(--on-dark-muted);line-height:1.65}
 .adoption-gap-bridge{max-width:1050px;margin:0;padding-top:clamp(2.5rem,5vw,4rem);font-family:var(--font-serif);font-size:clamp(1.2rem,1.45vw,1.55rem);font-style:italic;line-height:1.35}
-.starting-moments{padding-block:clamp(2.5rem,4vw,4rem);border-bottom:1px solid var(--line)}
-.starting-moments>.wrap>.section-label{font-family:var(--font-serif);font-size:clamp(1.4rem,1.9vw,1.85rem);font-style:italic;font-weight:500;line-height:1.2;letter-spacing:0;text-transform:none}
-.starting-moments h2{max-width:1000px;margin:1rem 0 clamp(1.5rem,2.5vw,2rem);font-size:var(--h2);font-weight:400;line-height:1.02;letter-spacing:-.05em;text-wrap:balance}
-.starting-moment-list{margin:0;padding:0;border-top:1px solid var(--line);list-style:none}
-.starting-moment-list li{display:flex;align-items:center;gap:clamp(1rem,2vw,2rem);padding:clamp(.85rem,1.2vw,1.15rem) 0;border-bottom:1px solid var(--line)}
-.starting-moment-mark{flex:none;width:1.5rem;color:var(--chrome-teal);font-family:var(--font-serif);font-size:1.65rem;font-style:italic;line-height:1}
-.starting-moment-list h3{margin:0;font-size:clamp(1.25rem,2.2vw,2rem);font-weight:400;line-height:1.2;letter-spacing:-.035em}
-.starting-moments .text-link{margin-top:clamp(2rem,3vw,2.75rem)}
 .engagement-heading>div>p{max-width:760px;margin:1.5rem 0 0;color:var(--ink-muted);font-size:clamp(1.05rem,1.4vw,1.18rem)}
 .engagement-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));margin-top:clamp(3.5rem,7vw,6rem);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
 .engagement-grid article{display:flex;flex-direction:column;padding:clamp(2rem,4vw,3.5rem) clamp(1.5rem,3vw,3rem) clamp(2.5rem,5vw,4rem) 0}
@@ -833,9 +825,11 @@
 .builds-eyebrow,.builds-foundation h3{color:#fff}
 /* Keep older eyebrow, keyword and numbered-step accents in the Ignis palette. */
 :root{--navy-mid:var(--ignis-green-dark,#08756d)}
-/* Keep the hero's two deliberate lines while colouring only “more projects”. */
+/* Keep the highlighted phrase intact and balance the shorter closing line. */
 .hero h1 .hero-line{display:block}
-.hero h1 .hero-line .hero-serif{display:inline;padding-bottom:0}
+.hero h1 .hero-line .hero-serif{display:inline;padding-bottom:0;white-space:nowrap}
+.hero h1 .hero-line-end{padding-left:clamp(4rem,16vw,14rem)}
+@media(max-width:520px){.hero h1 .hero-line-end{padding-left:0}}
 .lifecycle-band .capability-item>span{color:var(--ignis-green-light,#75d9cc)}
 
 
