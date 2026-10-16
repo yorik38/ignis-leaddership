@@ -12,6 +12,6 @@ test("commercial gates comparison follows the rotating statement",()=>{
   assert.ok(homepage.indexOf('class="band band-paper commercial-gates"')<homepage.indexOf('class="trust-band band-paper"'));
   assert.match(homepage,/Traditional commercial development stalls between gates\./);
   assert.match(homepage,/Grid offer and consents remain the same in both paths\./);
-  assert.match(homepage,/Illustrative process, not a measured project timeline\./);
+  assert.doesNotMatch(homepage,/Illustrative process, not a measured project timeline\./);
   assert.match(homepage,/View full-size diagram/);
 });

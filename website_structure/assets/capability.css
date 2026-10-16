@@ -825,17 +825,11 @@
 .builds-eyebrow,.builds-foundation h3{color:#fff}
 /* Keep older eyebrow, keyword and numbered-step accents in the Ignis palette. */
 :root{--navy-mid:var(--ignis-green-dark,#08756d)}
-/* Keep the highlighted phrase intact with both desktop lines left-aligned. */
+/* Keep both headline lines left-aligned at every width. */
 .hero h1 .hero-line{display:block}
 .hero h1 .hero-line .hero-serif{display:inline;padding-bottom:0;white-space:nowrap}
-.hero h1 .hero-line-end{padding-left:0}
-.hero-mobile-break{display:none}
 @media(max-width:520px){
   .hero h1{display:block}
-  .hero h1 .hero-line{display:inline}
-  .hero h1 .hero-line .hero-serif{white-space:normal}
-  .hero h1 .hero-line-end{padding-left:0}
-  .hero-mobile-break{display:initial}
 }
 .lifecycle-band .capability-item>span{color:var(--ignis-green-light,#75d9cc)}
 
@@ -866,14 +860,13 @@
 /* Homepage: a bounded comparison of the commercial path to close. */
 .commercial-gates{padding-bottom:clamp(3rem,5vw,5rem);scroll-margin-top:80px;background:#fff}
 .commercial-gates+.trust-band{padding-top:clamp(2rem,4vw,4rem)}
-.commercial-gates h2{max-width:900px;margin:0 auto clamp(2rem,4vw,3.5rem);font-size:var(--h2);font-weight:400;line-height:1.06;letter-spacing:-.05em;text-align:center;text-wrap:balance}
+.commercial-gates h2{max-width:900px;margin:0 0 clamp(2rem,4vw,3.5rem);font-size:var(--h2);font-weight:400;line-height:1.06;letter-spacing:-.05em;text-align:left;text-wrap:balance}
 .commercial-gates-figure{margin:0;padding:clamp(.55rem,1.2vw,1rem);border:1px solid #dce1e5;border-radius:clamp(1rem,2vw,1.5rem);background:#f2f3f4}
 .commercial-gates-figure figcaption a:focus-visible{outline:3px solid var(--teal);outline-offset:4px}
 .commercial-gates-figure img{display:block;width:100%;height:auto;border-radius:.75rem}
-.commercial-gates-figure figcaption{display:flex;justify-content:space-between;gap:1rem;padding:.75rem .5rem .15rem;color:var(--ink-muted);font-size:.78rem;line-height:1.4}
+.commercial-gates-figure figcaption{padding:.75rem .5rem .15rem;color:var(--ink-muted);font-size:.78rem;line-height:1.4;text-align:left}
 .commercial-gates-figure figcaption a{color:var(--teal);font-weight:600;text-underline-offset:.2em;white-space:nowrap}
-.commercial-gates-support{max-width:940px;margin:clamp(2rem,4vw,3.5rem) auto 0;color:var(--ink-muted);font-size:clamp(1.05rem,1.55vw,1.28rem);line-height:1.55;text-align:center}
-@media(max-width:700px){.commercial-gates h2{text-align:left}.commercial-gates-figure figcaption{display:grid;gap:.4rem}.commercial-gates-support{text-align:left}}
+.commercial-gates-support{max-width:940px;margin:clamp(2rem,4vw,3.5rem) 0 0;color:var(--ink-muted);font-size:clamp(1.05rem,1.55vw,1.28rem);line-height:1.55;text-align:left}
 
 /* Homepage: the shared system beneath both commercial workstreams. */
 .system-build{padding-block:clamp(5rem,9vw,8rem);background:#080d0d}
