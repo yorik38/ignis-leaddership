@@ -41,6 +41,7 @@
 .value-proposition h2{max-width:1180px;margin:0;font-size:var(--h2);font-weight:400;line-height:1.04;letter-spacing:-.05em;text-wrap:balance}
 .value-proposition-path{max-width:900px;margin:2rem 0 0;color:var(--ink-muted);font-size:clamp(1.15rem,1.7vw,1.45rem);line-height:1.55}
 .value-proposition-path+.value-proposition-path{margin-top:1rem}
+.value-proposition-payoff{color:var(--ignis-green-dark,#08756d)}
 .roulette-heading{display:grid;grid-template-columns:minmax(150px,.45fr) minmax(0,1.55fr);gap:clamp(2rem,7vw,8rem);align-items:start}
 .roulette-heading>.section-label,.adoption-gap-heading>.section-label,.engagement-heading>.section-label{margin:0;font-family:var(--font-serif);font-size:clamp(1.4rem,1.9vw,1.85rem);font-style:italic;font-weight:500;line-height:1.1;letter-spacing:0;text-transform:none}
 .roulette-heading h2{max-width:1000px;margin:0;font-size:var(--h2);font-weight:400;line-height:1.02;letter-spacing:-.05em;text-wrap:balance}
@@ -862,10 +863,7 @@
 .commercial-gates+.trust-band{padding-top:clamp(2rem,4vw,4rem)}
 .commercial-gates h2{max-width:900px;margin:0 0 clamp(2rem,4vw,3.5rem);font-size:var(--h2);font-weight:400;line-height:1.06;letter-spacing:-.05em;text-align:left;text-wrap:balance}
 .commercial-gates-figure{margin:0;padding:clamp(.55rem,1.2vw,1rem);border:1px solid #dce1e5;border-radius:clamp(1rem,2vw,1.5rem);background:#f2f3f4}
-.commercial-gates-figure figcaption a:focus-visible{outline:3px solid var(--teal);outline-offset:4px}
 .commercial-gates-figure img{display:block;width:100%;height:auto;border-radius:.75rem}
-.commercial-gates-figure figcaption{padding:.75rem .5rem .15rem;color:var(--ink-muted);font-size:.78rem;line-height:1.4;text-align:left}
-.commercial-gates-figure figcaption a{color:var(--teal);font-weight:600;text-underline-offset:.2em;white-space:nowrap}
 .commercial-gates-support{max-width:940px;margin:clamp(2rem,4vw,3.5rem) 0 0;color:var(--ink-muted);font-size:clamp(1.05rem,1.55vw,1.28rem);line-height:1.55;text-align:left}
 
 /* Homepage: the shared system beneath both commercial workstreams. */
