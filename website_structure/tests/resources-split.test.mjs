@@ -30,7 +30,8 @@ test('Insights and Guides are distinct collections', () => {
 test('Resources navigation and canonical routes point to both pages', () => {
   const header = read('partials/site-header.html');
   const footer = read('partials/site-footer.html');
-  assert.match(header, /aria-label="Resources"/);
+  assert.match(header, /<details class="overlay-resource-group"><summary class="overlay-resource-toggle"><span class="overlay-nav-mark" aria-hidden="true">\/<\/span>Resources/);
+  assert.match(header, /class="overlay-resource-chevron" aria-hidden="true"/);
   for (const path of ['/insights', '/guides']) {
     assert.ok(header.includes(`href="${path}"`));
     assert.ok(footer.includes(`href="${path}"`));

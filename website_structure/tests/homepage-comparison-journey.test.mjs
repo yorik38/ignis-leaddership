@@ -41,7 +41,7 @@ test("the brochure section is absent from the homepage",()=>{
 test("the detailed build section is absent and the gates link still has a destination",()=>{
   assert.doesNotMatch(homepage,/class="band band-dark system-build"/);
   assert.doesNotMatch(homepage,/id="how-we-build"/);
-  assert.match(homepage,/class="commercial-gates-link" href="#services"/);
+  assert.match(homepage,/class="text-link commercial-gates-link" href="#services"/);
   assert.match(homepage,/class="band band-paper engagement-offer sprint-journey" id="services"/);
   assert.doesNotMatch(css,/\.system-build\{/);
 });
@@ -56,6 +56,9 @@ test("the What Ignis builds section is removed without losing the founder route"
 test("the homepage FAQ sets out a bounded consulting start in three questions",()=>{
   const section=homepage.match(/<section class="faq-section"[\s\S]*?<\/section>/)?.[0];
   assert.ok(section);
+  assert.doesNotMatch(section,/Questions leaders ask/);
+  assert.match(css,/\.faq-heading\{text-align:center;/);
+  assert.match(css,/\.faq-grid\{[^}]*margin-inline:auto;/);
   assert.deepEqual([...section.matchAll(/<summary>([^<]+)<\/summary>/g)].map(match=>match[1]),[
     "Where should we start?",
     "What does the first engagement deliver?",

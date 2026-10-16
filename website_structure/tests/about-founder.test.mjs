@@ -23,9 +23,14 @@ test('About introduces Yorik, his experience and the reason for Ignis', () => {
 
 test('Homepage holds only the concise founder overview, not the logos strip', () => {
   const home = read('index.html');
+  const style = read('assets/about-founder.css');
   assert.match(home, /class="band band-paper about-preview founder-overview"/);
-  assert.match(home, /<h2 id="founder-overview-title">Yorik Tisseau<\/h2>/);
-  assert.match(home, /qualified executive coach/);
+  assert.match(home, /<h2 id="founder-overview-title">Meet Yorik\.<\/h2>/);
+  assert.match(home, /class="founder-overview-photo"><img class="founder-overview-portrait" src="\/assets\/img\/yorik-green-portrait\.jpg" alt="Portrait of Yorik Tisseau"/);
+  assert.doesNotMatch(home, /<p class="section-label">Founder<\/p>/);
+  assert.match(style, /\.founder-overview-photo\{[^}]*border-radius:50%/);
+  assert.match(home, /17 years of commercial leadership/);
+  assert.doesNotMatch(home, /Commercial leadership first\. AI only with judgement/);
   assert.match(home, /href="\/about.html">About Yorik/);
   assert.doesNotMatch(home, /class="trust-band/);
   assert.doesNotMatch(home, /logo-bp-monochrome|logo-bouygues-es/);

@@ -294,6 +294,7 @@ label.skip-link {
   visibility: hidden;
   opacity: 0;
   transform: translateY(-1rem);
+  overflow-y: auto;
   transition: opacity .25s ease, transform .25s ease, visibility .25s;
 }
 
@@ -361,12 +362,19 @@ label.skip-link {
 }
 
 .overlay-nav a:hover { color: var(--chrome-sky); }
-.overlay-resource-group { display: grid; grid-template-columns: 3.75rem 1fr; gap: clamp(.75rem, 2vw, 1.5rem); align-items: center; padding: clamp(.65rem, 1.4vh, 1.1rem) 0; border-bottom: 1px solid var(--chrome-line); }
-.overlay-resource-label { grid-column: 2; color: var(--chrome-teal); font: 600 .8rem/1.2 "Inter", system-ui, sans-serif; letter-spacing: .12em; text-transform: uppercase; }
-.overlay-resource-links { grid-column: 2; display: flex; flex-wrap: wrap; gap: .4rem 2rem; }
+.overlay-resource-group { border-bottom: 1px solid var(--chrome-line); }
+.overlay-resource-toggle { display: flex; align-items: center; gap: clamp(.75rem, 2vw, 1.5rem); padding: clamp(.65rem, 1.4vh, 1.1rem) 0; color: inherit; font-size: clamp(2rem, 4.25vw, 3.8rem); font-weight: 400; line-height: 1.05; letter-spacing: -.04em; list-style: none; cursor: pointer; }
+.overlay-resource-toggle::-webkit-details-marker { display: none; }
+.overlay-resource-toggle:hover { color: var(--chrome-sky); }
+.overlay-nav .overlay-resource-chevron { width: .24em; height: .24em; margin-left: auto; margin-right: .2em; border-right: 2px solid var(--chrome-teal); border-bottom: 2px solid var(--chrome-teal); font-size: inherit; transform: rotate(45deg); transition: transform .2s ease; }
+.overlay-resource-group[open] .overlay-resource-chevron { transform: rotate(225deg); }
+.overlay-resource-links { display: flex; flex-wrap: wrap; gap: .5rem 2rem; padding: .1rem 0 1.25rem calc(3.75rem + clamp(.75rem, 2vw, 1.5rem)); }
 .overlay-nav .overlay-resource-links a { display: inline; padding: 0; border: 0; font-size: clamp(1.5rem, 3vw, 2.5rem); }
 .overlay-nav a:hover .overlay-nav-mark,
-.overlay-nav a:focus-visible .overlay-nav-mark { color: var(--chrome-teal); }
+.overlay-nav a:focus-visible .overlay-nav-mark,
+.overlay-resource-toggle:hover .overlay-nav-mark,
+.overlay-resource-toggle:focus-visible .overlay-nav-mark { color: var(--chrome-teal); }
+.overlay-resource-toggle:focus-visible { outline: 2px solid var(--chrome-teal); outline-offset: 4px; }
 
 @media (min-width: 851px) {
   /* Match the fixed site header's desktop content rail. */
@@ -381,18 +389,21 @@ label.skip-link {
     transform-origin: left center;
   }
 
-  .overlay-nav a { gap: .75rem; }
+  .overlay-nav a,
+  .overlay-resource-toggle { gap: .75rem; }
+  .overlay-resource-links { padding-left: 4.6rem; }
 }
 
 @media (max-width: 850px) {
-  .overlay-resource-group { grid-template-columns: 1.5rem 1fr; gap: .35rem; }
   .overlay-nav a:last-child { border-bottom: 0; }
   .overlay-nav-mark {
     flex-basis: 1.5rem;
     justify-content: flex-start;
     font-size: 2.25rem;
   }
-  .overlay-nav a { gap: .35rem; }
+  .overlay-nav a,
+  .overlay-resource-toggle { gap: .35rem; }
+  .overlay-resource-links { padding-left: 4rem; }
 }
 
 .site-footer {
@@ -472,7 +483,8 @@ label.skip-link {
 }
 
 @media (max-width: 520px) {
-  .menu-overlay .overlay-nav > a { font-size: clamp(1.45rem, 6.3vw, 1.85rem); white-space: normal; }
+  .menu-overlay .overlay-nav > a,
+  .overlay-resource-toggle { font-size: clamp(1.45rem, 6.3vw, 1.85rem); white-space: normal; }
   .overlay-nav .overlay-resource-links a { font-size: 1.35rem; }
   .contact-symbol { display: none; }
   .menu-button { padding-inline: .85rem; }
@@ -480,6 +492,7 @@ label.skip-link {
     font-size: clamp(1.1rem, 5.7vw, 1.55rem);
     white-space: nowrap;
   }
+  .overlay-resource-links { gap: .5rem 1.5rem; }
 
 }
 
@@ -488,7 +501,8 @@ label.skip-link {
   .wordmark,
   .brand-icon img,
   .brand-name,
-  .menu-overlay { transition-duration: .01ms !important; }
+  .menu-overlay,
+  .overlay-resource-chevron { transition-duration: .01ms !important; }
 }
 
 /* Shared FF-style insight signup */

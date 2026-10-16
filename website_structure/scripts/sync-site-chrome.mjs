@@ -169,7 +169,7 @@ for (const page of pages) {
     );
     html = html.replaceAll(
       'Practical notes on how agentic AI is changing the way teams bid, tender and make commercial decisions.',
-      'Practical notes on how agentic AI is changing commercial work, customer value and growth.',
+      'Practical notes on moving energy projects from last-mile development to financial close.',
     );
   }
 
