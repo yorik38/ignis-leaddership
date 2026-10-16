@@ -829,7 +829,14 @@
 .hero h1 .hero-line{display:block}
 .hero h1 .hero-line .hero-serif{display:inline;padding-bottom:0;white-space:nowrap}
 .hero h1 .hero-line-end{padding-left:clamp(4rem,16vw,14rem)}
-@media(max-width:520px){.hero h1 .hero-line-end{padding-left:0}}
+.hero-mobile-break{display:none}
+@media(max-width:520px){
+  .hero h1{display:block}
+  .hero h1 .hero-line{display:inline}
+  .hero h1 .hero-line .hero-serif{white-space:normal}
+  .hero h1 .hero-line-end{padding-left:0}
+  .hero-mobile-break{display:initial}
+}
 .lifecycle-band .capability-item>span{color:var(--ignis-green-light,#75d9cc)}
 
 
