@@ -833,6 +833,9 @@
 .builds-eyebrow,.builds-foundation h3{color:#fff}
 /* Keep older eyebrow, keyword and numbered-step accents in the Ignis palette. */
 :root{--navy-mid:var(--ignis-green-dark,#08756d)}
+/* Keep the hero's two deliberate lines while colouring only “more projects”. */
+.hero h1 .hero-line{display:block}
+.hero h1 .hero-line .hero-serif{display:inline;padding-bottom:0}
 .lifecycle-band .capability-item>span{color:var(--ignis-green-light,#75d9cc)}
 
 
