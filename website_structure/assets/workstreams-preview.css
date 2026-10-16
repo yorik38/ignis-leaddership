@@ -5,7 +5,7 @@
 .workstream-panel{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);gap:clamp(2rem,4vw,4.5rem);align-items:center;padding:clamp(2rem,4vw,4.5rem);border:1px solid #dce2e5;border-radius:30px;background:#fff}
 .workstream-panel>*{min-width:0}
 .workstream-panel-reverse .workstream-visual{order:-1}
-.workstream-copy h2{max-width:12ch;margin:0;font-size:clamp(2.6rem,4vw,4.7rem);font-weight:600;line-height:1.03;letter-spacing:-.055em}
+.workstream-copy h2{max-width:12ch;margin:0;font-size:var(--h2);font-weight:400;line-height:1.02;letter-spacing:-.05em}
 .workstream-copy>p{max-width:31ch;margin:1.9rem 0 2.4rem;color:var(--ink-muted);font-size:clamp(1.15rem,1.6vw,1.65rem);line-height:1.4}
 .workstream-benefits{list-style:none;margin:0;padding:0;border-top:1px solid #dce2e5}
 .workstream-benefits li{display:flex;gap:1rem;align-items:center;min-height:5.2rem;padding:1rem 0;border-bottom:1px solid #dce2e5;color:#343d44;font-size:clamp(1rem,1.35vw,1.32rem);line-height:1.3}
@@ -54,7 +54,6 @@
 @media(max-width:600px){
   .workstreams-preview{padding:2.5rem 0}
   .workstream-panel{padding:1.25rem;border-radius:22px;gap:1.65rem}
-  .workstream-copy h2{font-size:clamp(2.25rem,9vw,3.25rem)}
   .workstream-copy>p{margin:1.1rem 0 1.5rem;font-size:1.1rem}
   .workstream-benefits li{min-height:0;gap:.8rem;padding:.85rem 0;font-size:.96rem}
   .workstream-benefits li::before{flex-basis:2.2rem;width:2.2rem;height:2.2rem}

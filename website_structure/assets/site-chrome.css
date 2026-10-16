@@ -576,6 +576,10 @@ label.skip-link {
   letter-spacing: -.02em;
 }
 
+.home-community .community-promise h2 {
+  font-size: clamp(1.05rem, 1.45vw, 1.25rem);
+}
+
 .home-newsletter .home-newsletter-copy p,
 .newsletter-mid-signup .mid-signup-copy p {
   margin: 1rem 0 0;

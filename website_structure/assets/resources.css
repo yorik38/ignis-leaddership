@@ -1,5 +1,6 @@
 /* Ignis Leadership resource library and guide pages */
 .guides-page{background:#fff;}
+.guides-page .site-header:not(.is-scrolling) .brand-name{color:var(--chrome-ink);}
 .resources-library-hero{padding:88px 0;border-bottom:1px solid var(--line);background:#fff;}
 .resources-library-hero-grid{display:grid;grid-template-columns:minmax(0,.95fr) minmax(380px,1.05fr);gap:80px;align-items:center;}
 .resources-library-hero-grid--text-only{display:block;}
