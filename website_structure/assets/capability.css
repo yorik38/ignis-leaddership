@@ -850,6 +850,7 @@
 .pipeline-statement{display:flex;align-items:center;min-height:clamp(360px,42vw,560px);border-bottom:1px solid var(--line);padding-block:clamp(5rem,9vw,8rem)}
 .pipeline-statement-layout{display:block}
 .pipeline-statement h2{max-width:none;margin:0;color:#626d6b;font-size:var(--h2);font-weight:400;line-height:1.02;letter-spacing:-.05em;white-space:nowrap}
+.pipeline-statement-emphasis{display:inline-block;padding-right:.06em;line-height:1.1}
 .pipeline-statement-tail{white-space:nowrap}
 .pipeline-statement-word{display:inline-block;min-height:1.18em;vertical-align:baseline;color:var(--ink);font-size:1.18em;line-height:1;white-space:nowrap}
 .pipeline-statement-word>span{display:inline-block;max-width:100%;will-change:transform,opacity}
@@ -864,7 +865,11 @@
 .commercial-gates h2{max-width:900px;margin:0 0 clamp(2rem,4vw,3.5rem);font-size:var(--h2);font-weight:400;line-height:1.06;letter-spacing:-.05em;text-align:left;text-wrap:balance}
 .commercial-gates-figure{margin:0;padding:clamp(.55rem,1.2vw,1rem);border:1px solid #dce1e5;border-radius:clamp(1rem,2vw,1.5rem);background:#f2f3f4}
 .commercial-gates-figure img{display:block;width:100%;height:auto;border-radius:.75rem}
-.commercial-gates-support{max-width:940px;margin:clamp(2rem,4vw,3.5rem) 0 0;color:var(--ink-muted);font-size:clamp(1.05rem,1.55vw,1.28rem);line-height:1.55;text-align:left}
+.commercial-gates-followup{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:clamp(1.5rem,3vw,3rem);align-items:start;margin-top:clamp(2rem,4vw,3.5rem)}
+.commercial-gates-support{max-width:940px;margin:0;color:var(--ink-muted);font-size:clamp(1.05rem,1.55vw,1.28rem);line-height:1.55;text-align:left}
+.commercial-gates-link{justify-self:end;color:var(--ignis-green-dark,#08756d);font-size:clamp(1.05rem,1.55vw,1.28rem);font-weight:600;line-height:1.55;text-align:right;text-decoration:underline;text-underline-offset:.2em;white-space:nowrap}
+.commercial-gates-link:focus-visible{outline:3px solid var(--ignis-green-dark,#08756d);outline-offset:4px}
+@media(max-width:700px){.commercial-gates-followup{grid-template-columns:1fr;gap:1rem}}
 
 /* Homepage: the shared system beneath both commercial workstreams. */
 .system-build{padding-block:clamp(5rem,9vw,8rem);background:#080d0d}

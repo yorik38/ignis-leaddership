@@ -14,4 +14,6 @@ test("commercial gates comparison follows the rotating statement",()=>{
   assert.match(homepage,/Grid offer and consents remain the same in both paths\./);
   assert.doesNotMatch(homepage,/Illustrative process, not a measured project timeline\./);
   assert.doesNotMatch(homepage,/View full-size diagram/);
+  assert.match(homepage,/class="commercial-gates-link" href="#how-we-build">See how Ignis works/);
+  assert.match(homepage,/id="how-we-build"/);
 });
