@@ -828,7 +828,7 @@
 :root{--navy-mid:var(--ignis-green-dark,#08756d)}
 /* Keep both headline lines left-aligned at every width. */
 .hero h1 .hero-line{display:block}
-.hero h1 .hero-line .hero-serif{display:inline;padding-bottom:0;white-space:nowrap}
+.hero h1 .hero-line .hero-serif{display:inline;padding:0 .12em 0 0;white-space:nowrap}
 @media(max-width:520px){
   .hero h1{display:block}
 }
@@ -867,9 +867,60 @@
 .commercial-gates-figure img{display:block;width:100%;height:auto;border-radius:.75rem}
 .commercial-gates-followup{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:clamp(1.5rem,3vw,3rem);align-items:start;margin-top:clamp(2rem,4vw,3.5rem)}
 .commercial-gates-support{max-width:940px;margin:0;color:var(--ink-muted);font-size:clamp(1.05rem,1.55vw,1.28rem);line-height:1.55;text-align:left}
-.commercial-gates-link{justify-self:end;color:var(--ignis-green-dark,#08756d);font-size:clamp(1.05rem,1.55vw,1.28rem);font-weight:600;line-height:1.55;text-align:right;text-decoration:underline;text-underline-offset:.2em;white-space:nowrap}
+.commercial-gates-link{justify-self:end;color:var(--ignis-green-dark,#08756d);font-size:.95rem;font-weight:600;line-height:1.55;text-align:right;text-decoration:underline;text-underline-offset:.2em;white-space:nowrap}
 .commercial-gates-link:focus-visible{outline:3px solid var(--ignis-green-dark,#08756d);outline-offset:4px}
-@media(max-width:700px){.commercial-gates-followup{grid-template-columns:1fr;gap:1rem}}
+@media(max-width:700px){.commercial-gates-followup{grid-template-columns:1fr;gap:1rem}.commercial-gates-link{justify-self:start;text-align:left}}
+
+/* Homepage: compare ways of working without implying a measured time saving. */
+.working-comparison{padding-block:clamp(3rem,6vw,6rem);background:#fff}
+.working-comparison h2{margin:0 0 2rem;font-size:var(--h2);font-weight:400;line-height:1.08;letter-spacing:-.05em;text-wrap:balance}
+#working-comparison-title{scroll-margin-top:5rem}
+.working-comparison-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(1rem,2.5vw,2.5rem);padding:clamp(1rem,2.5vw,2.5rem);border:1px solid #dce1e5;border-radius:1.5rem;background:#fff}
+.working-comparison-panel{min-width:0;padding:clamp(1.25rem,2.5vw,2.5rem);border:1px solid #dce1e5;border-radius:1rem}
+.working-comparison-ignis{border-color:#cce6e2;background:#f0f8f6}
+.working-comparison-conventional{background:#f2f3f4}
+.working-comparison-panel h3{margin:0 0 clamp(1.5rem,2.5vw,2.5rem);font-size:clamp(1.75rem,3vw,2.75rem);font-weight:500;line-height:1.1;letter-spacing:-.045em}
+.working-comparison-ignis h3{color:var(--ignis-green-dark,#08756d)}
+.working-comparison-conventional h3{color:#68727d}
+.working-comparison-panel ul{display:grid;gap:.75rem;margin:0;padding:0;list-style:none}
+.working-comparison-panel li{display:flex;align-items:center;gap:1rem;min-height:3.5rem;padding:.8rem 1rem;border-radius:999px;font-size:clamp(.9rem,1.25vw,1.1rem);font-weight:500;line-height:1.25}
+.working-comparison-panel li::before{display:grid;flex:none;place-items:center;width:1.55rem;height:1.55rem;border-radius:50%;font-size:1rem;font-weight:700;line-height:1}
+.working-comparison-ignis li{color:#fff;background:var(--ignis-green-dark,#08756d)}
+.working-comparison-ignis li::before{content:'✓';color:#063d39;background:var(--ignis-green,#1cbdad)}
+.working-comparison-conventional li{border:1px solid #cbd2d9;color:#586575;background:#fff}
+.working-comparison-conventional li::before{content:'−';border:1px solid #b8c1cb;color:#7b8794}
+
+/* The Sprint is steps 1–3; live piloting and embedding are subsequent work. */
+.sprint-journey{padding-block:clamp(4rem,7vw,7rem)}
+.sprint-journey-scope{margin:1.5rem 0 0;color:var(--ink-muted);font-size:1rem;line-height:1.5}
+.sprint-journey-bar{position:relative;width:calc(60% - .8rem);height:2.5rem;margin-top:clamp(2rem,4vw,4rem);border-top:2px solid var(--ignis-green,#1cbdad);border-right:2px solid var(--ignis-green,#1cbdad);border-left:2px solid var(--ignis-green,#1cbdad);color:var(--ignis-green-dark,#08756d);text-align:center}
+.sprint-journey-bar span{position:relative;top:-.8em;padding:0 1rem;background:#fff;font-size:.8rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase}
+.sprint-journey-steps{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:.8rem;margin:0;padding:0;list-style:none}
+.sprint-step{display:flex;min-width:0;min-height:15rem;flex-direction:column;align-items:flex-start;padding:clamp(1rem,1.7vw,1.5rem);border:1px solid #b9ded8;border-radius:1rem;background:#e1f2ee}
+.sprint-step-2{background:#c9e9e3}
+.sprint-step-3{border-color:#1cbdad;background:#1cbdad}
+.sprint-step-4,.sprint-step-5{border-color:#08756d;color:#fff;background:#08756d}
+.sprint-step-number{display:grid;flex:none;place-items:center;width:2.25rem;height:2.25rem;border-radius:50%;color:#075b55;background:#fff;font-size:1.1rem;font-weight:700}
+.sprint-step-4 .sprint-step-number,.sprint-step-5 .sprint-step-number{background:#1cbdad;color:#063d39}
+.sprint-step h3{margin:auto 0 .8rem;font-size:clamp(1.1rem,1.65vw,1.5rem);font-weight:600;line-height:1.16;letter-spacing:-.025em}
+.sprint-step p{margin:0;font-size:clamp(.9rem,1.15vw,1.05rem);line-height:1.4}
+.sprint-step-1 p{color:#586575}
+.sprint-step-4 p,.sprint-step-5 p{color:#e1f1ee}
+@media(max-width:900px){
+  .working-comparison-panel li{border-radius:1rem}
+  .sprint-journey-bar{width:100%}
+  .sprint-journey-steps{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .sprint-step{min-height:13rem;padding:1rem}
+}
+@media(max-width:700px){
+  .working-comparison-grid{grid-template-columns:1fr}
+  .working-comparison-panel li{min-height:3rem}
+  .sprint-journey-bar{width:100%;height:2rem;margin-top:2rem}
+  .sprint-journey-steps{grid-template-columns:1fr;gap:.65rem}
+  .sprint-step{min-height:0;padding:1.25rem}
+  .sprint-step h3{margin:1rem 0 .4rem}
+  .sprint-step-3{margin-bottom:1rem}
+}
 
 /* Homepage: the shared system beneath both commercial workstreams. */
 .system-build{padding-block:clamp(5rem,9vw,8rem);background:#080d0d}
