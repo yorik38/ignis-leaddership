@@ -361,6 +361,10 @@ label.skip-link {
 }
 
 .overlay-nav a:hover { color: var(--chrome-sky); }
+.overlay-resource-group { display: grid; grid-template-columns: 3.75rem 1fr; gap: clamp(.75rem, 2vw, 1.5rem); align-items: center; padding: clamp(.65rem, 1.4vh, 1.1rem) 0; border-bottom: 1px solid var(--chrome-line); }
+.overlay-resource-label { grid-column: 2; color: var(--chrome-teal); font: 600 .8rem/1.2 "Inter", system-ui, sans-serif; letter-spacing: .12em; text-transform: uppercase; }
+.overlay-resource-links { grid-column: 2; display: flex; flex-wrap: wrap; gap: .4rem 2rem; }
+.overlay-nav .overlay-resource-links a { display: inline; padding: 0; border: 0; font-size: clamp(1.5rem, 3vw, 2.5rem); }
 .overlay-nav a:hover .overlay-nav-mark,
 .overlay-nav a:focus-visible .overlay-nav-mark { color: var(--chrome-teal); }
 
@@ -381,6 +385,7 @@ label.skip-link {
 }
 
 @media (max-width: 850px) {
+  .overlay-resource-group { grid-template-columns: 1.5rem 1fr; gap: .35rem; }
   .overlay-nav a:last-child { border-bottom: 0; }
   .overlay-nav-mark {
     flex-basis: 1.5rem;
@@ -467,6 +472,7 @@ label.skip-link {
 }
 
 @media (max-width: 520px) {
+  .overlay-nav .overlay-resource-links a { font-size: 1.35rem; }
   .contact-symbol { display: none; }
   .menu-button { padding-inline: .85rem; }
   .overlay-nav a {

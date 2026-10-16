@@ -37,3 +37,32 @@ test("the five-step journey places only the first three steps in the Sprint",()=
 test("the brochure section is absent from the homepage",()=>{
   assert.doesNotMatch(homepage,/class="band brochure-band"/);
 });
+
+test("the detailed build section is absent and the gates link still has a destination",()=>{
+  assert.doesNotMatch(homepage,/class="band band-dark system-build"/);
+  assert.doesNotMatch(homepage,/id="how-we-build"/);
+  assert.match(homepage,/class="commercial-gates-link" href="#services"/);
+  assert.match(homepage,/class="band band-paper engagement-offer sprint-journey" id="services"/);
+  assert.doesNotMatch(css,/\.system-build\{/);
+});
+
+test("the What Ignis builds section is removed without losing the founder route",()=>{
+  assert.doesNotMatch(homepage,/id="what-ignis-builds"|class="band builds-band"/);
+  assert.doesNotMatch(css,/\.builds-band\{/);
+  assert.match(homepage,/class="trust-band band-paper"[\s\S]*?<\/section>\s*<section class="band band-paper engagement-offer sprint-journey"/);
+  assert.match(homepage,/class="band band-paper about-preview"/);
+});
+
+test("the homepage FAQ sets out a bounded consulting start in three questions",()=>{
+  const section=homepage.match(/<section class="faq-section"[\s\S]*?<\/section>/)?.[0];
+  assert.ok(section);
+  assert.deepEqual([...section.matchAll(/<summary>([^<]+)<\/summary>/g)].map(match=>match[1]),[
+    "Where should we start?",
+    "What does the first engagement deliver?",
+    "Do we need a new platform?"
+  ]);
+  assert.match(section,/The Sprint reviews the gaps, maps how decisions move today and designs one governed workflow/);
+  assert.match(section,/A pilot and embedding are separate next steps/);
+  assert.match(section,/Your team keeps ownership of its knowledge, rules and commercial decisions/);
+  assert.doesNotMatch(section,/investor|co-founder|full enterprise platform/i);
+});

@@ -13,7 +13,7 @@ const pages = [
   "privacy.html",
   "terms.html",
   "archive.html",
-  "resources.html",
+  "guides.html",
   "discovery.html",
   "commercial-ai-readiness.html",
   "commercial-ai-adoption.html",

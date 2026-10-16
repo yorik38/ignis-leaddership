@@ -53,7 +53,7 @@
     },
     {
       "source": "/resources",
-      "destination": "/insights",
+      "destination": "/guides",
       "permanent": true
     },
     {
@@ -74,11 +74,6 @@
     {
       "source": "/how-it-works",
       "destination": "/#services",
-      "permanent": true
-    },
-    {
-      "source": "/guides",
-      "destination": "/insights",
       "permanent": true
     },
     {
