@@ -9,7 +9,7 @@
   var reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
   if (reducedMotion.matches) return;
 
-  var stages = ["process", "context", "data", "governance", "workflows"];
+  var stages = ["fewer surprises", "one source of truth", "faster gates", "stronger terms"];
   var generation = 0;
   var animation = null;
   var playing = false;
