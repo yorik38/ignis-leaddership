@@ -1022,8 +1022,9 @@
 .continue-reading h2{margin:0 0 clamp(1.25rem,2vw,1.75rem);font-family:var(--font-sans);font-size:clamp(1.75rem,2.4vw,2.25rem);font-weight:500;letter-spacing:-.03em}
 .continue-reading-grid{display:grid;grid-template-columns:repeat(3,minmax(0,420px));gap:clamp(1rem,2vw,1.75rem);justify-content:start}
 .continue-card{display:flex;width:100%;max-width:420px;flex-direction:column;color:inherit;text-decoration:none}
-.continue-card-media{display:block;aspect-ratio:16/10;overflow:hidden;border-radius:6px;background:#e7f3f0}
-.continue-card-media img{width:100%;height:100%;object-fit:cover}
+.continue-card-media{display:block;overflow:hidden;height:auto;aspect-ratio:auto;border-radius:6px;background:#e7f3f0}
+.continue-card-media picture{display:block}
+.continue-card-media img{display:block;width:100%;height:auto;object-fit:contain;background:#e7f3f0}
 .continue-card-copy{display:grid;gap:.4rem;padding:.95rem .05rem 0}
 .continue-card-kicker{color:#08756d;font-size:.75rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase}
 .continue-card-copy strong{color:var(--ink);font-size:1.2rem;font-weight:600;letter-spacing:-.02em;line-height:1.25}
@@ -1031,7 +1032,6 @@
 @media(hover:hover) and (pointer:fine){
   .continue-card,.continue-card-media img{transition:transform .2s ease}
   .continue-card:hover,.continue-card:focus-visible{transform:translateY(-4px)}
-  .continue-card:hover img,.continue-card:focus-visible img{transform:scale(1.03)}
 }
 .continue-card:focus-visible{outline:3px solid #08756d;outline-offset:4px}
 @media(max-width:1100px){
@@ -1063,6 +1063,7 @@
 .signal-index{padding:clamp(7.5rem,12vw,9.5rem) 0 clamp(2rem,4vw,3rem);background:#f3f6f5}
 .signal-index-header{max-width:44rem;margin-bottom:clamp(1.75rem,3vw,2.75rem)}
 .signal-index-header h1{margin:0;font-family:Inter,var(--font-sans);font-size:clamp(3.2rem,6vw,4.75rem);font-weight:500;letter-spacing:-.05em;line-height:.95}
+.signal-index-header h1 .signal-mark{color:#1cbdad}
 .signal-tagline{margin:.85rem 0 0;font-size:clamp(1.25rem,2vw,1.65rem);font-weight:500;letter-spacing:-.025em;line-height:1.25}
 .signal-description{max-width:42rem;margin:.9rem 0 0;color:var(--ink-muted);font-size:clamp(1.05rem,1.4vw,1.15rem);line-height:1.55}
 .signal-guides{display:inline-flex;margin-top:1.2rem}

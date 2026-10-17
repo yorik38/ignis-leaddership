@@ -14,6 +14,9 @@ test("the second white paper is published without a coming-soon state", () => {
   assert.match(paper, /Key findings/);
   assert.match(paper, /Figure 1/);
   assert.match(paper, /Figure 4/);
+  assert.doesNotMatch(paper, /Figure 4<\/span><span class="illus">/);
+  assert.match(paper, /class="layer-row s7"/);
+  assert.match(paper, /<section class="abs"[\s\S]*?<\/p><p>/);
   assert.match(paper, /id="tab-sens"/);
   assert.match(paper, /£65\.23/);
   assert.match(paper, /£27\.10/);
