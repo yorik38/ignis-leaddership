@@ -11,6 +11,8 @@ test('About introduces Yorik, his experience and the reason for Ignis', () => {
   const about = read('about.html');
   assert.match(about, /<h1 id="about-title">Built by someone who's/);
   assert.match(about, /17 years I've worked on the commercial side/);
+  assert.match(about, /class="about-founder-mark"><img src="\/assets\/img\/yorik-green-portrait\.jpg" alt="Yorik Tisseau, founder of Ignis Leadership"/);
+  assert.match(read('assets/about-founder.css'), /\.about-founder-mark\{[^}]*border-radius:50%/);
   assert.match(about, /alt="Yorik Tisseau, founder of Ignis"/);
   assert.match(about, /Experience from/);
   for (const name of ['bp', 'RWE', 'Bouygues Energies']) assert.ok(about.includes(name));
