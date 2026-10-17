@@ -68,11 +68,16 @@ test("the homepage FAQ sets out a bounded consulting start in three questions",(
   assert.match(css,/\.faq-heading\{text-align:center;/);
   assert.match(css,/\.faq-grid\{[^}]*margin-inline:auto;/);
   assert.deepEqual([...section.matchAll(/<summary>([^<]+)<\/summary>/g)].map(match=>match[1]),[
+    "What does Ignis do?",
+    "Who is Ignis for?",
+    "How is Ignis different from bid or RFP software?",
+    "Does Ignis work for onshore and offshore wind?",
+    "How long does it take to see results?",
     "Where should we start?",
     "What does the first engagement deliver?",
     "Do we need a new platform?"
   ]);
-  assert.match(section,/The Sprint reviews the gaps, maps how decisions move today and designs one governed workflow/);
+  assert.match(section,/The Ignis Sprint reviews the gaps, maps how decisions move today and designs one governed workflow/);
   assert.match(section,/A pilot and embedding are separate next steps/);
   assert.match(section,/Your team keeps ownership of its knowledge, rules and commercial decisions/);
   assert.doesNotMatch(section,/investor|co-founder|full enterprise platform/i);

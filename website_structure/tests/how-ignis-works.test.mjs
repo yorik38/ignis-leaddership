@@ -1,6 +1,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import {readFileSync} from "node:fs";
+import {readFileSync, readdirSync} from "node:fs";
+import {join} from "node:path";
 
 const root = new URL("../", import.meta.url);
 const page = readFileSync(new URL("how-ignis-works.html", root), "utf8");
@@ -47,4 +48,77 @@ test("the homepage states one offer, the audiences, and a quiet demo slot", () =
   assert.match(home, /Testimonials: add a quote band here/);
   assert.doesNotMatch(home, /href="\/commercial-ai-adoption"|href="\/commercial-transformation"/);
   assert.doesNotMatch(home, /FORGE|Forge/);
+  assert.match(home, /For fund-backed developers who need to move more projects to financial close, faster\./);
+  assert.doesNotMatch(home, /Fund-backed developers carrying a live project from the next gate to financial close/);
+});
+
+test("each audience card is one link with a motion-safe hover state", () => {
+  const css = readFileSync(new URL("assets/capability.css", root), "utf8");
+  const section = home.slice(home.indexOf('id="who-ignis"'), home.indexOf("product-demo"));
+  const cards = [...section.matchAll(/<a class="who-ignis-card" href="([^"]+)"[^>]*>([\s\S]*?)<\/a>/g)];
+  assert.deepEqual(cards.map((card) => card[1]), ["/how-ignis-works#onshore", "/how-ignis-works#offshore"]);
+  for (const [, , inner] of cards) {
+    assert.equal(inner.match(/<a\b/g), null);
+    assert.match(inner, /class="who-ignis-more"/);
+    assert.match(inner, /Learn more <span class="who-ignis-more-arrow" aria-hidden="true">↗<\/span>/);
+  }
+  assert.match(css, /\.who-ignis-media\{[^}]*overflow:hidden/);
+  assert.match(css, /\.who-ignis-card:hover,\.who-ignis-card:focus-visible\{transform:translateY\(-4px\);box-shadow:/);
+  assert.match(css, /\.who-ignis-card:hover img,\.who-ignis-card:focus-visible img\{transform:scale\(1\.03\)\}/);
+  assert.match(css, /\.who-ignis-card:hover \.who-ignis-more-arrow,\.who-ignis-card:focus-visible \.who-ignis-more-arrow\{transform:translate\(3px,-3px\)\}/);
+  assert.match(css, /\.who-ignis-card:focus-visible\{outline:3px solid #08756d;outline-offset:4px\}/);
+  assert.match(css, /@media \(prefers-reduced-motion: reduce\)\{[\s\S]*?\.who-ignis-card:hover,\.who-ignis-card:focus-visible[\s\S]*?transform:none/);
+});
+
+function htmlFiles(directory) {
+  return readdirSync(directory, {withFileTypes: true}).flatMap((entry) => {
+    const path = join(directory, entry.name);
+    if (entry.isDirectory()) return htmlFiles(path);
+    return entry.isFile() && entry.name.endsWith(".html") ? [path] : [];
+  });
+}
+
+function visibleFaq(html) {
+  const section = html.match(/<section class="faq-section"[\s\S]*?<\/section>/)?.[0];
+  if (!section) return [];
+  return [...section.matchAll(/<summary>([^<]+)<\/summary><div class="faq-answer"><p>([^<]*)<\/p><\/div><\/details>/g)].map((match) => [match[1], match[2]]);
+}
+
+function jsonFaq(html) {
+  const scripts = [...html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)];
+  for (const [, json] of scripts) {
+    const data = JSON.parse(json);
+    const faq = (data["@graph"] || [data]).find((node) => node["@type"] === "FAQPage");
+    if (!faq) continue;
+    return faq.mainEntity.map((question) => [question.name, question.acceptedAnswer.text]);
+  }
+  return null;
+}
+
+test("audience FAQs are answer-first and match their FAQPage data", () => {
+  const signup = "The weekly newsletter, our reports and new white papers on moving energy projects from last-mile development to financial close.";
+  const homeFaq = visibleFaq(home);
+  const pageFaq = visibleFaq(page);
+  assert.ok(homeFaq.length >= 6 && homeFaq.length <= 8);
+  assert.ok(pageFaq.length >= 6 && pageFaq.length <= 8);
+  assert.deepEqual(jsonFaq(home), homeFaq);
+  assert.deepEqual(jsonFaq(page), pageFaq);
+  const shared = homeFaq.filter(([question, answer]) => pageFaq.some(([otherQuestion, otherAnswer]) => otherQuestion === question || otherAnswer === answer));
+  assert.deepEqual(shared, []);
+  for (const [, answer] of [...homeFaq, ...pageFaq]) {
+    assert.doesNotMatch(answer, /FORGE|Forge/);
+    assert.match(answer, /Ignis/);
+    const sentences = answer.split(/(?<=[.!?])\s+/).filter(Boolean);
+    assert.ok(sentences.length >= 2 && sentences.length <= 4, answer);
+  }
+  for (const path of htmlFiles(root.pathname)) {
+    const html = readFileSync(path, "utf8");
+    if (!html.includes('id="wp-signup-title"')) continue;
+    assert.ok(html.includes(`<p>${signup}</p>`), path);
+    assert.doesNotMatch(html, /New white papers on taking energy projects/);
+  }
+  assert.match(home, /Got a project heading for financial close\?/);
+  assert.match(home, /Let’s map where your commercial flow slows down, and what Ignis would change\./);
+  assert.match(home, /class="button button-teal" href="\/contact">Book a call<\/a>/);
+  assert.doesNotMatch(home, /Turn AI ambition into|commercial advantage/);
 });

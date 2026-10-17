@@ -127,6 +127,14 @@
 @media(max-width:720px){.outcomes-preview{grid-template-columns:1fr}.outcome-preview-card{padding:2rem 0}.outcome-preview-card+.outcome-preview-card{border-top:1px solid var(--line);border-left:0;padding-left:0}.outcomes-preview-footer{align-items:flex-start;flex-direction:column}.outcome-shift>div{grid-template-columns:1fr;gap:.5rem}}
 .closing-band-light .close-grid p:not(.section-label){color:var(--ink-muted)}
 .closing-band-light .section-label{color:var(--navy-mid)}
+.close-call{margin-bottom:clamp(2.5rem,5vw,4rem);color:#fff;background:#000;font-family:var(--font-sans)}
+.close-call-inner{max-width:40rem}
+.close-call h2{max-width:16em;margin:0;font-family:var(--font-sans);font-size:var(--h2);font-weight:400;letter-spacing:-.045em;line-height:1.05;text-wrap:balance}
+.close-call p{max-width:38rem;margin:1.25rem 0 0;color:#d0d6de;font-size:clamp(1.05rem,1.4vw,1.22rem);line-height:1.5}
+.close-call .button{margin-top:2rem}
+.button-teal{color:#04221f;background:#1cbdad}
+.button-teal:hover{background:#75d9cc}
+.button-teal:focus-visible{outline:3px solid #75d9cc;outline-offset:4px}
 
 /* Homepage FAQ: clear buyer answers before the final conversion prompt. */
 .faq-section{padding:clamp(5rem,9vw,8rem) 0;background:#f2f3f4;border-top:1px solid var(--line);border-bottom:1px solid var(--line);scroll-margin-top:88px}
@@ -968,14 +976,23 @@
 .who-ignis-heading h2{margin:0;font-size:var(--h2);font-weight:400;letter-spacing:-.045em;line-height:1.05}
 .who-ignis-heading p{margin:0;color:var(--ink-muted);font-size:clamp(1rem,1.3vw,1.15rem);line-height:1.5}
 .who-ignis-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(1rem,2vw,1.5rem)}
-.who-ignis-card{display:flex;min-width:0;flex-direction:column;overflow:hidden;border-radius:1.25rem;background:#f3f5f4}
-.who-ignis-card img{display:block;width:100%;height:clamp(220px,28vw,340px);object-fit:cover}
-.who-ignis-card div{display:flex;flex:1;flex-direction:column;gap:.55rem;padding:1.35rem 1.4rem 1.5rem}
+.who-ignis-card{display:flex;min-width:0;flex-direction:column;border-radius:1.25rem;background:#f3f5f4;color:inherit;text-decoration:none;transition:transform .22s ease,box-shadow .22s ease}
+.who-ignis-media{display:block;overflow:hidden;border-radius:1.25rem 1.25rem 0 0}
+.who-ignis-card img{display:block;width:100%;height:clamp(220px,28vw,340px);object-fit:cover;transition:transform .35s ease}
+.who-ignis-body{display:flex;flex:1;flex-direction:column;gap:.55rem;padding:1.35rem 1.4rem 1.5rem}
 .who-ignis-card h3{margin:0;font-size:clamp(1.45rem,2vw,1.85rem);font-weight:600;letter-spacing:-.03em}
 .who-ignis-card .who-ignis-scope{margin:0;color:#24302c;font-weight:500}
 .who-ignis-card p{margin:0;color:var(--ink-muted);line-height:1.45}
-.who-ignis-card a{margin-top:auto;padding-top:.7rem;color:#08756d;font-weight:600;text-decoration:none}
-.who-ignis-card a:hover{text-decoration:underline}
+.who-ignis-more{display:inline-flex;align-items:center;gap:.35rem;margin-top:auto;padding-top:.7rem;color:#08756d;font-weight:600}
+.who-ignis-more-arrow{display:inline-block;transition:transform .22s ease}
+.who-ignis-card:hover,.who-ignis-card:focus-visible{transform:translateY(-4px);box-shadow:0 14px 32px rgba(15,20,25,.12)}
+.who-ignis-card:hover img,.who-ignis-card:focus-visible img{transform:scale(1.03)}
+.who-ignis-card:hover .who-ignis-more-arrow,.who-ignis-card:focus-visible .who-ignis-more-arrow{transform:translate(3px,-3px)}
+.who-ignis-card:focus-visible{outline:3px solid #08756d;outline-offset:4px}
+@media (prefers-reduced-motion: reduce){
+  .who-ignis-card,.who-ignis-card img,.who-ignis-more-arrow{transition:none}
+  .who-ignis-card:hover,.who-ignis-card:focus-visible,.who-ignis-card:hover img,.who-ignis-card:focus-visible img,.who-ignis-card:hover .who-ignis-more-arrow,.who-ignis-card:focus-visible .who-ignis-more-arrow{transform:none}
+}
 .product-demo-layout{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);gap:clamp(1.5rem,4vw,3.5rem);align-items:center}
 .product-demo-layout h2{margin:0;font-size:var(--h2);font-weight:400;letter-spacing:-.045em;line-height:1.05}
 .product-demo-frame{display:grid;min-height:16rem;place-items:center;border:1px solid #d5e0dc;border-radius:1.1rem;background:#f4f7f6;color:#6d7874;font-size:1rem;font-weight:500;letter-spacing:.01em}
