@@ -69,7 +69,9 @@ for (const page of pages) {
 
   const communityFormId = communityPages.get(page) ?? `page-${page.replace(/\.html$/, "").replaceAll("/", "-")}`;
   const community = communityTemplate.replaceAll("{{FORM_ID}}", communityFormId);
-  if (/<section class="band band-dark home-community">.*?<\/section>/s.test(html)) {
+  if (page === "contact.html") {
+    html = html.replace(/<section class="band band-dark home-community">.*?<\/section>\s*/s, "");
+  } else if (/<section class="band band-dark home-community">.*?<\/section>/s.test(html)) {
     html = html.replace(/<section class="band band-dark home-community">.*?<\/section>/s, community);
   } else {
     html = html.replace(/(?=<footer class="site-footer">)/, `${community}\n`);
@@ -383,7 +385,11 @@ for (const page of pages) {
     );
     html = html.replace(
       'Tell me where capacity, control or continuity breaks on the next bid or tender.',
+      'Tell me about the project, the next gate you need to reach, and where the commercial work is getting stuck.',
+    );
+    html = html.replace(
       'Tell me where commercial work is under pressure, or where AI could make a new customer offer viable.',
+      'Tell me about the project, the next gate you need to reach, and where the commercial work is getting stuck.',
     );
   }
 

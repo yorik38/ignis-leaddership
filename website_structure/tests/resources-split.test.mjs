@@ -42,3 +42,10 @@ test('Resources navigation and canonical routes point to both pages', () => {
   assert.equal(redirects.find(({ source }) => source === '/resources')?.destination, '/guides');
   assert.ok(!redirects.some(({ source }) => source === '/guides'));
 });
+
+test('Guides loads shared chrome after the legacy page styles', () => {
+  const guides = read('guides.html');
+  const legacy = guides.indexOf('/assets/capability.css');
+  const shared = guides.indexOf('/assets/site-chrome.css');
+  assert.ok(legacy !== -1 && shared > legacy, 'shared menu styles must win on Guides');
+});

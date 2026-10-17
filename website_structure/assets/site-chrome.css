@@ -272,6 +272,40 @@ label.skip-link {
   filter: none;
 }
 
+/* The form-first contact page starts on paper rather than beneath a dark hero. */
+.contact-page .site-header,
+.contact-page .site-header.is-scrolled,
+.contact-page .site-header.is-scrolling {
+  color: var(--chrome-ink);
+  background: var(--chrome-paper);
+  box-shadow: 0 1px 0 rgba(15, 20, 25, .12);
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+.contact-page .site-header .brand-icon img { filter: invert(1); }
+.contact-page .site-header .contact-symbol,
+.contact-page .site-header .menu-button {
+  color: var(--chrome-paper);
+  background: var(--chrome-ink);
+}
+
+.contact-page .contact-section {
+  padding-top: calc(96px + clamp(3rem, 6vw, 6rem));
+}
+
+.contact-page .contact-intro h1 {
+  margin: 0;
+  font-size: var(--h2);
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: -.05em;
+}
+
+@media (max-width: 850px) {
+  .contact-page .contact-section { padding-top: calc(78px + 3rem); }
+}
+
 /* Match boxed site CTAs to the header control radius. */
 .button,
 .service-view,
