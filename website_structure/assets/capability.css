@@ -796,13 +796,16 @@
 :root{--navy-mid:var(--ignis-green-dark,#08756d)}
 /* Keep both headline lines left-aligned at every width. */
 .hero h1 .hero-line{display:block}
-.hero h1 .hero-line .hero-serif{display:inline;padding:0 .12em 0 0;white-space:nowrap}
 .hero h1 .gradient-word{
   background:none;
   -webkit-background-clip:border-box;
   background-clip:border-box;
   color:#fff;
   -webkit-text-fill-color:#fff;
+  font-family:var(--font-sans);
+  font-style:normal;
+  font-weight:inherit;
+  white-space:nowrap;
 }
 /* Hero headline emphasis is white. The only teal in the hero is the CTA. */
 .hero .hero-actions .button.button-light{
