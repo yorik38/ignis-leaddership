@@ -18,22 +18,22 @@
   "redirects": [
     {
       "source": "/ai-score",
-      "destination": "/commercial-ai-adoption",
+      "destination": "/how-ignis-works",
       "permanent": true
     },
     {
       "source": "/ai-score.html",
-      "destination": "/commercial-ai-adoption",
+      "destination": "/how-ignis-works",
       "permanent": true
     },
     {
       "source": "/ai-roulette",
-      "destination": "/commercial-ai-adoption",
+      "destination": "/how-ignis-works",
       "permanent": true
     },
     {
       "source": "/ai-roulette.html",
-      "destination": "/commercial-ai-adoption",
+      "destination": "/how-ignis-works",
       "permanent": true
     },
     {
@@ -103,12 +103,32 @@
     },
     {
       "source": "/commercial-ai-readiness",
-      "destination": "/#services",
+      "destination": "/how-ignis-works",
       "permanent": true
     },
     {
       "source": "/privacy-policy",
       "destination": "/privacy",
+      "permanent": true
+    },
+    {
+      "source": "/commercial-ai-adoption",
+      "destination": "/how-ignis-works",
+      "permanent": true
+    },
+    {
+      "source": "/commercial-ai-adoption/:path*",
+      "destination": "/how-ignis-works",
+      "permanent": true
+    },
+    {
+      "source": "/commercial-transformation",
+      "destination": "/how-ignis-works",
+      "permanent": true
+    },
+    {
+      "source": "/commercial-transformation/:path*",
+      "destination": "/how-ignis-works",
       "permanent": true
     },
     {

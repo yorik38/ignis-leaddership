@@ -12,16 +12,14 @@ Commercial and transformation leaders who want to redesign existing work or deve
 
 ## Services
 
-- Commercial AI adoption: redesign commercial work as governed human-agent systems, from business development and bids to mobilisation and handover.
-- Commercial transformation: identify and test commercial innovations: services, offers and delivery models that AI can make commercially viable.
+- How Ignis works: a governed, client-owned system that improves commercial flow from last-mile development to financial close for onshore developers and offshore wind.
 - Engagement approach: map the operating reality, define the strategy and roadmap, then design or support the build of the first governed system.
 
 ## Core pages
 
 - [Home](https://www.ignisleadership.com/): Ignis positioning, approach, experience, services, illustrative outcomes and engagement model.
 - [About Yorik](https://www.ignisleadership.com/about): Yorik Tisseau's experience and approach to commercial leadership, executive coaching and adoption.
-- [Commercial AI adoption](https://www.ignisleadership.com/commercial-ai-adoption): governed human-agent systems for the commercial front end, including business development, bids, tenders, mobilisation and handover.
-- [Commercial transformation](https://www.ignisleadership.com/commercial-transformation): how to identify and test commercial innovations: the new services, offers and delivery models AI can make viable.
+- [How Ignis works](https://www.ignisleadership.com/how-ignis-works): how Ignis improves commercial flow from last-mile development to financial close for onshore developers and offshore wind.
 - [Insights](https://www.ignisleadership.com/insights): the "Bid more. Win more." newsletter on commercial AI adoption, transformation, commercial judgement and governed human-agent systems.
 - [Archive](https://www.ignisleadership.com/archive): index of past newsletter editions.
 - [Contact](https://www.ignisleadership.com/contact): start a conversation with Ignis Leadership.
