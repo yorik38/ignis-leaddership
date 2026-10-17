@@ -963,3 +963,24 @@
 @media(max-width:700px){
   .how-ignis-audiences{grid-template-columns:1fr}
 }
+
+.who-ignis-heading{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(16rem,.85fr);gap:1rem 3rem;align-items:end;margin-bottom:clamp(1.5rem,3vw,2.5rem)}
+.who-ignis-heading h2{margin:0;font-size:var(--h2);font-weight:400;letter-spacing:-.045em;line-height:1.05}
+.who-ignis-heading p{margin:0;color:var(--ink-muted);font-size:clamp(1rem,1.3vw,1.15rem);line-height:1.5}
+.who-ignis-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(1rem,2vw,1.5rem)}
+.who-ignis-card{display:flex;min-width:0;flex-direction:column;overflow:hidden;border-radius:1.25rem;background:#f3f5f4}
+.who-ignis-card img{display:block;width:100%;height:clamp(220px,28vw,340px);object-fit:cover}
+.who-ignis-card div{display:flex;flex:1;flex-direction:column;gap:.55rem;padding:1.35rem 1.4rem 1.5rem}
+.who-ignis-card h3{margin:0;font-size:clamp(1.45rem,2vw,1.85rem);font-weight:600;letter-spacing:-.03em}
+.who-ignis-card .who-ignis-scope{margin:0;color:#24302c;font-weight:500}
+.who-ignis-card p{margin:0;color:var(--ink-muted);line-height:1.45}
+.who-ignis-card a{margin-top:auto;padding-top:.7rem;color:#08756d;font-weight:600;text-decoration:none}
+.who-ignis-card a:hover{text-decoration:underline}
+.product-demo-layout{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);gap:clamp(1.5rem,4vw,3.5rem);align-items:center}
+.product-demo-layout h2{margin:0;font-size:var(--h2);font-weight:400;letter-spacing:-.045em;line-height:1.05}
+.product-demo-frame{display:grid;min-height:16rem;place-items:center;border:1px solid #d5e0dc;border-radius:1.1rem;background:#f4f7f6;color:#6d7874;font-size:1rem;font-weight:500;letter-spacing:.01em}
+@media(max-width:800px){
+  .who-ignis-heading,.who-ignis-grid,.product-demo-layout{grid-template-columns:1fr}
+  .who-ignis-card img{height:220px}
+  .product-demo-frame{min-height:12rem}
+}
