@@ -865,30 +865,23 @@
 .commercial-gates-figure{margin:0;min-width:0;max-width:100%;padding:clamp(.55rem,1.2vw,1rem);border:1px solid #dce1e5;border-radius:clamp(1rem,2vw,1.5rem);background:#f2f3f4}
 .commercial-gates-figure img,.how-ignis-figure img{display:block;width:100%;max-width:100%;height:auto}
 .commercial-gates-figure img{border-radius:.75rem}
-.gates-stack{display:none}
+.gates-stack,.gates-scroll-hint{display:none}
 .commercial-gates-followup{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:clamp(1.5rem,3vw,3rem);align-items:start;margin-top:clamp(2rem,4vw,3.5rem)}
 .commercial-gates-support{max-width:940px;margin:0;color:var(--ink-muted);font-size:clamp(1.05rem,1.55vw,1.28rem);line-height:1.55;text-align:left}
 .commercial-gates-link{justify-self:end;margin-top:0;color:var(--ink);white-space:nowrap}
 .commercial-gates-link:focus-visible{outline:3px solid var(--ignis-green-dark,#08756d);outline-offset:4px}
 @media(max-width:700px){.commercial-gates-followup{grid-template-columns:1fr;gap:1rem}.commercial-gates-link{justify-self:start;text-align:left;white-space:normal}}
 @media(max-width:800px){
-  .commercial-gates,.commercial-gates .wrap,.how-ignis-figure{min-width:0;max-width:100%}
+  .commercial-gates,.commercial-gates .wrap,.how-ignis-figure,section:has(.how-ignis-figure),section:has(.how-ignis-figure) .wrap{min-width:0;max-width:100%}
   .commercial-gates h2,.commercial-gates-support{max-width:100%;overflow-wrap:break-word}
-  .commercial-gates-figure,.how-ignis-figure{padding:0;border:0;border-radius:0;background:transparent;overflow:visible}
-  .commercial-gates-figure img,.how-ignis-figure img{display:none}
-  .gates-stack{display:block;max-width:100%}
-  .gates-stack-summary{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
-  .gates-stack-kicker{margin:0 0 .35rem;color:var(--ink-muted);font-size:.72rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase}
-  .gates-stack-block{margin-top:1.15rem}
-  .gates-stack-phase{display:flex;flex-wrap:wrap;gap:.35rem .7rem;align-items:baseline;margin:0 0 .7rem;color:#5a6472;font-size:.72rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase}
-  .gates-stack-phase span{color:var(--ink-muted);font-size:.68rem;font-weight:600;letter-spacing:.04em;text-transform:none}
-  .gates-stack-who{margin:0 0 .45rem;color:#68727d;font-size:.78rem;font-weight:700}
-  .gates-stack-who.is-ignis{margin-top:1rem;color:#08756d}
-  .gates-stack-rows{display:grid;gap:.4rem;margin:0;padding:0;list-style:none}
-  .gates-stack-rows li{display:grid;grid-template-columns:minmax(0,9.2rem) minmax(0,1fr);gap:.65rem;align-items:center;min-width:0}
-  .gates-stack-rows li>span:first-child{min-width:0;color:#24302c;font-size:.84rem;font-weight:600;line-height:1.25}
-  .gates-bar{display:block;width:var(--w);max-width:100%;height:.55rem;border-radius:99px;background:#c5ced6}
-  .is-ignis .gates-bar{background:#08756d}
+  .commercial-gates-figure,.how-ignis-figure{width:100%;max-width:100%;padding:0;border:0;border-radius:0;background:transparent;overflow-x:auto;overflow-y:hidden;overscroll-behavior-x:contain;-webkit-overflow-scrolling:touch;scroll-behavior:smooth;scrollbar-width:thin}
+  .commercial-gates-figure img,.how-ignis-figure img{display:block;width:960px;max-width:none;height:auto;border:0;border-radius:0}
+  .gates-stack{display:none}
+  .gates-scroll-hint{position:sticky;left:0;z-index:1;display:flex;justify-content:flex-end;width:100%;height:0;margin:0;overflow:visible;pointer-events:none}
+  .gates-scroll-hint span{display:inline-block;margin-top:.45rem;padding:.28rem .15rem .28rem 1.6rem;color:#4d5963;background:linear-gradient(90deg,rgba(255,255,255,0),#fff 46%);font-size:.75rem;font-weight:600;letter-spacing:.01em;line-height:1}
+}
+@media(max-width:800px) and (prefers-reduced-motion:reduce){
+  .commercial-gates-figure,.how-ignis-figure{scroll-behavior:auto}
 }
 
 /* Homepage: compare ways of working without implying a measured time saving. */
