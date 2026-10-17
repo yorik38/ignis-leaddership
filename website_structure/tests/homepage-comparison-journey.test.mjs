@@ -32,6 +32,12 @@ test("the five-step journey places only the first three steps in the Sprint",()=
   assert.doesNotMatch(section,/4 weeks/i);
   assert.match(css,/\.sprint-journey-steps\{display:grid;grid-template-columns:repeat\(5,minmax\(0,1fr\)\)/);
   assert.match(css,/@media\(max-width:700px\)\{[\s\S]*?\.sprint-journey-steps\{grid-template-columns:1fr/);
+  assert.match(section,/class="sprint-mobile-range"> · steps 1–3<\/span>/);
+  assert.match(css,/\.sprint-mobile-range\{display:none\}/);
+  assert.match(css,/\.sprint-journey-bar \.sprint-mobile-range\{display:inline\}/);
+  assert.match(css,/\.sprint-step-1,\.sprint-step-2,\.sprint-step-3\{border-left:4px solid/);
+  assert.match(css,/\.sprint-step-1::after,\.sprint-step-2::after\{/);
+  assert.doesNotMatch(css,/\.sprint-step-3::after|\.sprint-step-4::after/);
 });
 
 test("the brochure section is absent from the homepage",()=>{
