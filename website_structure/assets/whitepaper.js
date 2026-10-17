@@ -1,14 +1,18 @@
 (function () {
   "use strict";
 
-  var PDF_URL = "/assets/downloads/guide-01-bids-whitepaper.pdf";
-  var STORAGE_KEY = "ignis-whitepaper-bids-won-on-evidence";
+  function pageValue(name, fallback) {
+    var value = document.body.getAttribute(name);
+    return value === null ? fallback : value;
+  }
+  var PDF_URL = pageValue("data-whitepaper-pdf", "/assets/downloads/guide-01-bids-whitepaper.pdf");
+  var STORAGE_KEY = pageValue("data-whitepaper-key", "ignis-whitepaper-bids-won-on-evidence");
 
   function revealWhitepaperDownload() {
     var slot = document.getElementById("hubspot-whitepaper-form");
     var ready = document.getElementById("whitepaper-download");
     var link = document.getElementById("whitepaper-download-link");
-    if (!ready || !link) return;
+    if (!PDF_URL || !ready || !link) return;
     link.href = PDF_URL;
     ready.hidden = false;
     if (slot) slot.hidden = true;
@@ -42,7 +46,10 @@
       if (box.checked) ticked += 1;
     });
     count.textContent = String(ticked);
-    label.textContent = ticked >= 7 ? "Ready to scale" : ticked >= 4 ? "Fix the gaps first" : "Start with the bid or no-bid gate";
+    var low = card.getAttribute("data-band-low") || "Start with the bid or no-bid gate";
+    var mid = card.getAttribute("data-band-mid") || "Fix the gaps first";
+    var high = card.getAttribute("data-band-high") || "Ready to scale";
+    label.textContent = ticked >= 7 ? high : ticked >= 4 ? mid : low;
     card.dataset.band = ticked >= 7 ? "g" : ticked >= 4 ? "a" : "r";
   }
 

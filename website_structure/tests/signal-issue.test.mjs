@@ -19,7 +19,8 @@ function order(html, markers) {
 test("Signal Issue 1 ends with continue reading, the call, then the shared signup", () => {
   assert.match(issue, /Signal · Issue 1/);
   assert.match(issue, /18 October 2026/);
-  assert.match(issue, /signal-ao10-cover\.png" alt="Signal Issue 1 cover: AO10, France has put a price on proof, with the Channel, Brittany, South Atlantic and Mediterranean awards mapped on France\." width="1332" height="435"/);
+  assert.match(issue, /<h1>AO10 bids submitted: why proof, not price, will decide France's offshore wind round<\/h1>/);
+  assert.match(issue, /signal-ao10-cover\.png" alt="Signal Issue 1 cover: AO10 bids submitted: why proof, not price, will decide France's offshore wind round, with the Channel, Brittany, South Atlantic and Mediterranean awards mapped on France\." width="1920" height="1080"/);
   order(issue, [
     'id="ao10-sources"',
     'id="continue-reading-title">Continue reading',
@@ -42,7 +43,7 @@ test("the white paper page uses the same continue-reading cards without linking 
   const block = paper.slice(paper.indexOf('class="continue-reading"'), paper.indexOf("</main>"));
   assert.equal((block.match(/class="continue-card"/g) || []).length, 3);
   assert.match(block, /href="\/insights\/ao10-france-has-put-a-price-on-proof"/);
-  assert.match(block, /AO10: France has put a price on proof/);
+  assert.match(block, /AO10 bids submitted: why proof, not price, will decide France's offshore wind round/);
   assert.doesNotMatch(block, /href="\/resources\/bids-won-on-evidence"/);
   assert.doesNotMatch(block, /Coming soon|How to build a commercial system/);
   const css = readFileSync(new URL("assets/capability.css", root), "utf8");
