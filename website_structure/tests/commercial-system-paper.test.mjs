@@ -1,0 +1,35 @@
+import test from "node:test";
+import assert from "node:assert/strict";
+import {readFileSync} from "node:fs";
+
+const root = new URL("../", import.meta.url);
+const paper = readFileSync(new URL("resources/commercial-system-for-your-pipeline.html", root), "utf8");
+const listing = readFileSync(new URL("white-papers.html", root), "utf8");
+
+test("the second white paper is published without a coming-soon state", () => {
+  assert.match(paper, /<h1>How to build a commercial system for your pipeline<\/h1>/);
+  assert.match(paper, /data-header="light"/);
+  assert.match(paper, /<time datetime="2026-10">October 2026<\/time>/);
+  assert.match(paper, /id="abstract"|id="article"/);
+  assert.match(paper, /Key findings/);
+  assert.match(paper, /Figure 1/);
+  assert.match(paper, /Figure 4/);
+  assert.match(paper, /id="tab-sens"/);
+  assert.match(paper, /£65\.23/);
+  assert.match(paper, /£27\.10/);
+  assert.match(paper, /30 December 2025/);
+  assert.match(paper, /15–30%/);
+  assert.match(paper, /id="sources"/);
+  assert.match(paper, /data-whitepaper-pdf=""/);
+  assert.doesNotMatch(paper, /FORGE|Forge|Coming soon/);
+  assert.match(listing, /href="\/resources\/commercial-system-for-your-pipeline"/);
+  assert.match(listing, /whitepaper-commercial-system\.webp/);
+  assert.doesNotMatch(listing, /Coming soon|is-soon|whitepaper-commercial-system-coming-soon/);
+  const prose = paper
+    .slice(paper.indexOf('<div class="art">'), paper.indexOf('<section class="sources"'))
+    .replace(/<svg[\s\S]*?<\/svg>/g, " ")
+    .replace(/<[^>]+>/g, " ")
+    .replace(/&[a-z#0-9]+;/g, " ");
+  const words = prose.match(/[A-Za-z0-9£][A-Za-z0-9£'’/%.-]*/g) || [];
+  assert.ok(words.length >= 2500 && words.length <= 4000, `word count ${words.length}`);
+});

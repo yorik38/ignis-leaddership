@@ -57,11 +57,12 @@ test('white paper cards alternate a large figure and show the month and year', (
   const css = read('assets/whitepaper.css');
   const list = listing.slice(listing.indexOf('class="wp-index-list"'), listing.indexOf('close-call'));
   assert.match(list, /<a class="wp-report" href="\/resources\/bids-won-on-evidence">/);
-  assert.equal((list.match(/<a /g) || []).length, 1);
+  assert.match(list, /<a class="wp-report" href="\/resources\/commercial-system-for-your-pipeline">/);
+  assert.equal((list.match(/<a class="wp-report"/g) || []).length, 2);
   assert.match(list, /<time datetime="2026-10">October 2026<\/time>/);
   assert.doesNotMatch(list, /17 October 2026/);
   assert.match(list, /Read the paper/);
-  assert.match(list, /class="wp-report is-soon"/);
+  assert.doesNotMatch(list, /class="wp-report is-soon"|Coming soon/);
   assert.match(css, /\.whitepapers-page \.wp-report:nth-child\(even\) \.wp-report-media\{order:2\}/);
   assert.match(css, /@media\(max-width:800px\)\{[\s\S]*?\.wp-report:nth-child\(even\) \.wp-report-media\{order:0\}/);
   assert.match(css, /a\.wp-report:hover[\s\S]*?translateY\(-4px\)/);
