@@ -39,13 +39,13 @@ body{
   margin:0;
   background:var(--paper);
   color:var(--ink);
-  font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;
+  font-family:'Inter','Inter Fallback',-apple-system,BlinkMacSystemFont,sans-serif;
   font-size:16px;
   line-height:1.65;
   -webkit-font-smoothing:antialiased;
 }
 h1,h2,h3,h4{
-  font-family:'Inter',sans-serif;
+  font-family:'Inter','Inter Fallback',sans-serif;
   font-weight:600;
   letter-spacing:-0.015em;
   line-height:1.12;
@@ -152,7 +152,7 @@ body > header.header-hidden{transform:translateY(-100%);}
 .nav-services-menu .nav-resource-hub:last-child{border-bottom:0;}
 .nav a.cta-link{
   display:inline-flex;align-items:center;justify-content:center;white-space:nowrap;
-  font-family:'Inter',sans-serif;font-size:14px;font-weight:700;color:var(--white);background:var(--cta);
+  font-family:'Inter','Inter Fallback',sans-serif;font-size:14px;font-weight:700;color:var(--white);background:var(--cta);
   padding:11px 20px;text-decoration:none;border-radius:3px;
   transition:background 0.15s ease;cursor:pointer;
 }
@@ -349,7 +349,7 @@ body.menu-open > header{z-index:102;transform:translateY(0);}
 .bridge-heading{text-align:center;margin-bottom:48px;}
 .bridge-heading .eyebrow{display:block;margin-bottom:18px;}
 .bridge-heading h2{font-size:var(--type-section-h2);max-width:16ch;letter-spacing:-.035em;margin:0 auto;}
-.bridge-heading p{font-family:'Inter',Arial,sans-serif;font-style:normal;font-size:16.5px;line-height:1.6;color:var(--steel);max-width:65ch;margin:0 auto;padding-top:24px;}
+.bridge-heading p{font-family:'Inter','Inter Fallback',Arial,sans-serif;font-style:normal;font-size:16.5px;line-height:1.6;color:var(--steel);max-width:65ch;margin:0 auto;padding-top:24px;}
 .bridge-heading p+p{padding-top:12px;}
 .service-route-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;padding:1px;background:var(--line);}
 .service-delivery-note{max-width:76ch;margin:28px auto 0;text-align:center;color:var(--steel);font-size:15.5px;line-height:1.6;}
@@ -479,7 +479,7 @@ body.menu-open > header{z-index:102;transform:translateY(0);}
 .ai-reframe>p,.ai-reframe blockquote{background:var(--paper);margin:0;padding:30px;font-size:15px;}
 .ai-reframe>p{color:var(--steel);}
 .ai-reframe blockquote{font-family:'Source Serif 4',Georgia,serif;font-size:21px;line-height:1.35;}
-.ai-reframe blockquote span{display:block;font-family:'Inter',sans-serif;font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--steel-light);margin-bottom:12px;font-style:normal;font-weight:700;}
+.ai-reframe blockquote span{display:block;font-family:'Inter','Inter Fallback',sans-serif;font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--steel-light);margin-bottom:12px;font-style:normal;font-weight:700;}
 .ai-reframe .reframe-answer{background:#E8F2F1;color:#104F54;}
 .adoption-system{display:grid;grid-template-columns:.68fr 1.32fr;gap:70px;margin-top:90px;align-items:start;}
 .adoption-heading h3{font-size:32px;margin:16px 0;max-width:14ch;}
@@ -503,7 +503,7 @@ body.menu-open > header{z-index:102;transform:translateY(0);}
 .about-narrative .eyebrow{color:#98C9CD;}
 .about-narrative h2{color:var(--paper);font-size:clamp(34px,4vw,50px);max-width:15ch;margin:18px 0 25px;letter-spacing:-.035em;}
 .about-narrative>p{color:#C3CBD4;font-size:15.5px;max-width:62ch;}
-.about-narrative .about-lead{font-size:15.5px;color:#C3CBD4;font-family:'Inter',Arial,sans-serif;font-weight:400;}
+.about-narrative .about-lead{font-size:15.5px;color:#C3CBD4;font-family:'Inter','Inter Fallback',Arial,sans-serif;font-weight:400;}
 .about-linkedin{display:inline-flex;align-items:center;gap:8px;margin-top:13px;color:var(--accent);font-size:13.5px;font-weight:600;text-decoration:none;}
 .about-linkedin:hover{text-decoration:underline;text-underline-offset:4px;}
 .about-linkedin svg{width:17px;height:17px;flex:0 0 auto;}
@@ -1476,7 +1476,7 @@ blockquote.pull{
 .qform select,
 .qform textarea{
   width:100%;padding:12px 14px;border:1px solid var(--line);border-radius:3px;
-  font-family:'Inter',sans-serif;font-size:14.5px;color:var(--ink);background:var(--paper);
+  font-family:'Inter','Inter Fallback',sans-serif;font-size:14.5px;color:var(--ink);background:var(--paper);
   transition:border-color 0.15s ease;
 }
 .qform input:focus,.qform select:focus,.qform textarea:focus{border-color:var(--accent);}

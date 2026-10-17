@@ -30,7 +30,13 @@
 
   document.querySelectorAll(".wp-signup-form").forEach(function (form) {
     form.addEventListener("submit", function (event) {
+      if (form.classList.contains("wp-download-form") && !form.checkValidity()) return;
       event.preventDefault();
+      if (!form.classList.contains("wp-download-form")) return;
+      revealWhitepaperDownload();
+      if (!PDF_URL) return;
+      var link = document.getElementById("whitepaper-download-link");
+      if (link && link.getAttribute("href")) link.click();
     });
   });
 
