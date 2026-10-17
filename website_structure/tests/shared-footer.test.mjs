@@ -19,10 +19,10 @@ test("the shared footer is a concise, expandable sitemap with only available res
   assert.match(footer, /class="footer-brand"[^>]*><img src="\/assets\/img\/favicon-dark\.png"/);
   assert.match(footer, /Commercial AI for energy projects, from last-mile development to financial close\./);
   assert.deepEqual([...footer.matchAll(/<h2>([^<]+)<\/h2>/g)].map(match => match[1]), ["What we do", "Resources", "Company"]);
-  for (const path of ["/commercial-ai-adoption", "/commercial-transformation", "/insights", "/guides", "/about", "/contact", "/privacy", "/terms"]) {
+  for (const path of ["/commercial-ai-adoption", "/commercial-transformation", "/insights", "/guides", "/white-papers", "/about", "/contact", "/privacy", "/terms"]) {
     assert.ok(footer.includes(`href="${path}"`), `Missing footer route: ${path}`);
   }
-  assert.doesNotMatch(footer, /href="\/(?:blog|white-papers|reports)"/);
+  assert.doesNotMatch(footer, /href="\/(?:blog|reports)"/);
 });
 
 test("all rendered pages use the same footer and updated shared stylesheet", () => {

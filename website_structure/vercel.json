@@ -57,6 +57,11 @@
       "permanent": true
     },
     {
+      "source": "/resources/guide-01-bids",
+      "destination": "/resources/bids-won-on-evidence",
+      "permanent": true
+    },
+    {
       "source": "/win-or-buy",
       "destination": "/#capabilities",
       "permanent": true

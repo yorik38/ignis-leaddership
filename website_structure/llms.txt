@@ -27,6 +27,12 @@ Commercial and transformation leaders who want to redesign existing work or deve
 - [Contact](https://www.ignisleadership.com/contact): start a conversation with Ignis Leadership.
 - [Governed agentic system brochure](https://www.ignisleadership.com/assets/downloads/ignis-governed-agentic-system-brochure.pdf): a free, ungated overview of how people, agents, knowledge and controls work together across bids and tenders.
 
+
+## White papers
+
+- [White papers](https://www.ignisleadership.com/white-papers): analysis on taking energy projects from last-mile development to financial close.
+- [Bids are now won on evidence, not hours](https://www.ignisleadership.com/resources/bids-won-on-evidence): why the bid desk, not the pipeline, has become the constraint for UK solar and battery IPPs, and how an agent-supported workflow lets a senior team bid more rounds with the people it has.
+
 ## Practical insights
 
 - [RFP software or a bespoke agentic bid workflow?](https://www.ignisleadership.com/rfp-software-vs-agentic-bid-system): a buyer guide comparing established proposal-response software with a governed workflow designed around complex bid work, including when the right answer is both.
