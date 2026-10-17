@@ -12,23 +12,15 @@ const pages = [
   "contact.html",
   "privacy.html",
   "terms.html",
-  "archive.html",
   "guides.html",
   "discovery.html",
   "commercial-ai-readiness.html",
   "commercial-ai-adoption.html",
   "commercial-transformation.html",
   "rfp-software-vs-agentic-bid-system.html",
-  "insights/why-does-every-bid-feel-like-starting-again.html",
-  "insights/the-proposal-is-becoming-the-easy-part.html",
-  "insights/bids-are-lost-before-the-writing-starts.html",
-  "insights/why-do-tenders-inherit-decisions-without-their-history.html",
-  "insights/ai-will-expose-your-slowest-bid-decision.html",
   "insights/is-commercial-work-too-judgement-heavy-for-ai-agents.html",
   "insights/when-do-tender-clarifications-become-a-second-specification.html",
   "insights/why-do-unclear-tenders-produce-incomparable-bids.html",
-  "insights/why-is-your-tender-team-still-overloaded.html",
-  "insights/your-team-uses-ai-does-the-business.html",
   "resources/choose-first-ai-bid-use-case.html",
   "resources/bid-agent-maturity.html",
   "resources/ai-augmented-bid-practice.html",
@@ -72,9 +64,7 @@ for (const page of pages) {
   if (page === "contact.html") {
     html = html.replace(/<section class="band band-dark home-community">.*?<\/section>\s*/s, "");
   } else if (/<section class="band band-dark home-community">.*?<\/section>/s.test(html)) {
-    html = html.replace(/<section class="band band-dark home-community">.*?<\/section>/s, community);
-  } else {
-    html = html.replace(/(?=<footer class="site-footer">)/, `${community}\n`);
+    html = html.replace(/<section class="band band-dark home-community">.*?<\/section>\s*/s, "");
   }
 
   if (page === "index.html") {
