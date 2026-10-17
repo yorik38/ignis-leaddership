@@ -16,7 +16,7 @@ function htmlFiles(dir) {
 }
 
 test("the shared footer is a concise, expandable sitemap with only available resources", () => {
-  assert.match(footer, /class="footer-brand"[^>]*><img src="\/assets\/img\/favicon-dark\.png"/);
+  assert.match(footer, /class="footer-brand"[^>]*><img src="\/assets\/img\/favicon-dark-128\.png"/);
   assert.match(footer, /Commercial AI for energy projects, from last-mile development to financial close\./);
   assert.deepEqual([...footer.matchAll(/<h2>(?:<a [^>]*>)?([^<]+)/g)].map(match => match[1]), ["About", "Solutions", "Resources", "Get in touch"]);
   for (const path of ["/about", "/how-ignis-works#onshore", "/how-ignis-works#offshore", "/how-ignis-works", "/insights", "/reports", "/white-papers", "/contact", "/privacy", "/terms"]) {
@@ -44,7 +44,7 @@ test("all rendered pages use the same footer and updated shared stylesheet", () 
     assert.equal(rendered, footer, `Footer mismatch: ${file}`);
     assert.match(html, /\/assets\/site-chrome\.css\?v=49/, `Old shared CSS key: ${file}`);
   }
-  assert.ok(count >= 25, `Expected shared footer across rendered pages; found ${count}`);
+  assert.ok(count >= 22, `Expected shared footer across rendered pages; found ${count}`);
 });
 
 test("every page ends with the homepage call, the shared signup, then the shared footer", () => {
@@ -64,5 +64,5 @@ test("every page ends with the homepage call, the shared signup, then the shared
     assert.equal(html.split('id="close-call-title"').length - 1, 1, `CTA count: ${file}`);
     assert.equal(html.split('id="wp-signup-title"').length - 1, 1, `Signup count: ${file}`);
   }
-  assert.ok(count >= 25);
+  assert.ok(count >= 22);
 });

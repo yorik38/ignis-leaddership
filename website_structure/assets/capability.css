@@ -1123,3 +1123,5 @@
   .signal-hero,.earlier-card{transition:none}
   .signal-hero:hover,.signal-hero:focus-visible,.earlier-card:hover,.earlier-card:focus-visible{transform:none}
 }
+
+.commercial-gates-figure picture,.how-ignis-figure picture{display:contents}

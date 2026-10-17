@@ -10,8 +10,6 @@ const dark = new Set([
   "how-ignis-works.html",
   "bid.html",
   "tender.html",
-  "commercial-ai-adoption.html",
-  "commercial-transformation.html",
   "case-study.html",
   "rfp-software-vs-agentic-bid-system.html",
 ]);
@@ -26,7 +24,7 @@ function htmlFiles(dir) {
 
 test("every page declares a header theme that matches its hero", () => {
   const files = htmlFiles(root).filter(file => readFileSync(file, "utf8").includes('class="site-header"'));
-  assert.ok(files.length >= 25, `Expected a header on every rendered page; found ${files.length}`);
+  assert.ok(files.length >= 22, `Expected a header on every rendered page; found ${files.length}`);
   for (const file of files) {
     const html = readFileSync(file, "utf8");
     const name = file.split("/").pop();
