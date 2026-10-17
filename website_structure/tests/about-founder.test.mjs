@@ -13,7 +13,7 @@ test('About introduces Yorik, his experience and the reason for Ignis', () => {
   assert.match(about, /<h1 id="about-title">Yorik Tisseau<\/h1>/);
   assert.match(about, /class="about-portrait-mark"><img src="\/assets\/img\/yorik-green-portrait\.jpg" alt="Yorik Tisseau, founder of Ignis Leadership"/);
   assert.match(style, /\.about-portrait-mark\{[^}]*border-radius:50%/);
-  assert.doesNotMatch(about, /headshot\.jpg|about-portrait|logo-bp-monochrome|logo-bouygues-es|What I bring|Build with us|Experience from/);
+  assert.doesNotMatch(about, /headshot\.jpg|class="about-portrait"|logo-bp-monochrome|logo-bouygues-es|What I bring|Build with us|Experience from/);
   assert.equal((about.match(/<img /g) || []).filter((tag) => about.includes('yorik-green-portrait')).length > 0, true);
   const main = about.slice(about.indexOf('<main'), about.indexOf('</main>'));
   assert.equal((main.match(/<img /g) || []).length, 1);
