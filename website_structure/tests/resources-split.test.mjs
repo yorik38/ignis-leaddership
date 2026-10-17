@@ -12,6 +12,11 @@ test('Insights and Guides are distinct collections', () => {
   const guides = read('guides.html');
   assert.match(insights, /id="newsletter-editions"/);
   assert.match(insights, /href="\/guides"/);
+  assert.match(insights, /class="signal-hero"/);
+  assert.match(insights, /class="earlier-editions"[^>]*hidden/);
+  assert.match(insights, />Earlier editions</);
+  assert.doesNotMatch(insights, /class="earlier-card"/);
+  assert.equal((insights.match(/href="\/insights\/ao10-france-has-put-a-price-on-proof"/g) || []).length, 1);
   assert.doesNotMatch(insights, /class="insights-guides"/);
   assert.match(guides, /<h1 id="resources-title">Practical guides/);
   assert.doesNotMatch(guides, /class="home-latest"/);

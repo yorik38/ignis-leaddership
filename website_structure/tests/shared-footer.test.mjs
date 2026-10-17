@@ -41,7 +41,27 @@ test("all rendered pages use the same footer and updated shared stylesheet", () 
     if (!rendered) continue;
     count++;
     assert.equal(rendered, footer, `Footer mismatch: ${file}`);
-    assert.match(html, /\/assets\/site-chrome\.css\?v=48/, `Old shared CSS key: ${file}`);
+    assert.match(html, /\/assets\/site-chrome\.css\?v=49/, `Old shared CSS key: ${file}`);
   }
   assert.ok(count >= 25, `Expected shared footer across rendered pages; found ${count}`);
+});
+
+test("every page ends with the homepage call, the shared signup, then the shared footer", () => {
+  const files = htmlFiles(fileURLToPath(root));
+  const css = readFileSync(new URL("assets/capability.css", root), "utf8");
+  assert.doesNotMatch(css, /\.site-footer\{[^}]*background:#000/);
+  let count = 0;
+  for (const file of files) {
+    const html = readFileSync(file, "utf8");
+    if (!html.includes('<footer class="site-footer">')) continue;
+    count++;
+    const call = html.indexOf('id="close-call-title">Got a project heading for financial close?');
+    const book = html.indexOf('class="button button-teal" href="/contact">Book a call');
+    const signup = html.indexOf('id="wp-signup-title">Get the analysis');
+    const footer = html.indexOf('<footer class="site-footer">');
+    assert.ok(call !== -1 && call < book && book < signup && signup < footer, `Ending sequence: ${file}`);
+    assert.equal(html.split('id="close-call-title"').length - 1, 1, `CTA count: ${file}`);
+    assert.equal(html.split('id="wp-signup-title"').length - 1, 1, `Signup count: ${file}`);
+  }
+  assert.ok(count >= 25);
 });

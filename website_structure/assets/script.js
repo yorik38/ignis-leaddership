@@ -319,8 +319,7 @@ function initResourceNavigation(){
   var isArchive = currentPath === "/archive";
 
   var desktopMarkup = [
-    '<a class="nav-resource-hub" href="/insights"><strong>Insights</strong><span>Practical thinking for bid, tender and commercial leaders.</span></a>',
-    '<a class="nav-resource-hub" href="/archive"><strong>Archive</strong><span>Browse every Bid More. Win More. edition.</span></a>'
+    '<a class="nav-resource-hub" href="/insights"><strong>Insights</strong><span>Practical thinking for bid, tender and commercial leaders.</span></a>'
   ].join("");
 
   document.querySelectorAll('.nav-dropdown-menu:not([data-nav-menu="services"])').forEach(function(menu){
@@ -334,8 +333,7 @@ function initResourceNavigation(){
   });
 
   var mobileMarkup = [
-    '<a href="/insights"><strong>Insights</strong><span>Practical thinking for bid, tender and commercial leaders.</span></a>',
-    '<a href="/archive"><strong>Archive</strong><span>Browse every Bid More. Win More. edition.</span></a>'
+    '<a href="/insights"><strong>Insights</strong><span>Practical thinking for bid, tender and commercial leaders.</span></a>'
   ].join("");
 
   document.querySelectorAll(".mobile-resource-links:not(.mobile-service-links)").forEach(function(menu){

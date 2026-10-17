@@ -245,51 +245,6 @@ label.skip-link {
   background: var(--chrome-paper);
 }
 
-/* Article and practical-guide heroes use a light background. Keep the initial
-   header legible there, while preserving the white treatment over dark chrome. */
-.issue-page .site-header {
-  color: var(--chrome-ink);
-}
-
-.issue-page .site-header .brand-icon img {
-  filter: invert(1);
-}
-
-.issue-page .site-header.is-scrolling {
-  color: var(--chrome-paper);
-}
-
-.issue-page .site-header.is-scrolling .brand-icon img,
-.issue-page .menu-overlay .brand-icon img {
-  filter: none;
-}
-
-.issue-page.menu-open .site-header {
-  color: var(--chrome-paper);
-}
-
-.issue-page.menu-open .site-header .brand-icon img {
-  filter: none;
-}
-
-/* The form-first contact page starts on paper rather than beneath a dark hero. */
-.contact-page .site-header,
-.contact-page .site-header.is-scrolled,
-.contact-page .site-header.is-scrolling {
-  color: var(--chrome-ink);
-  background: var(--chrome-paper);
-  box-shadow: 0 1px 0 rgba(15, 20, 25, .12);
-  backdrop-filter: none;
-  -webkit-backdrop-filter: none;
-}
-
-.contact-page .site-header .brand-icon img { filter: invert(1); }
-.contact-page .site-header .contact-symbol,
-.contact-page .site-header .menu-button {
-  color: var(--chrome-paper);
-  background: var(--chrome-ink);
-}
-
 .contact-page .contact-section {
   padding-top: calc(96px + clamp(3rem, 6vw, 6rem));
 }
@@ -1072,4 +1027,88 @@ label.skip-link {
   .home-community .community-grid { grid-template-columns: 1fr; gap: 1.25rem; }
   .home-community .community-insights,
   .community-insights { justify-self: start; margin-top: .35rem; white-space: normal; }
+}
+
+/* Per-page header theme. data-header matches the hero behind the bar:
+   light heroes use the dark mark, dark and photo heroes use the white mark.
+   While the bar is moving, both themes use the dark bar and white marks.
+   After scrolling settles, the mark follows the surface under the bar. */
+body[data-header="light"] .site-header:not(.is-scrolling) {
+  color: var(--chrome-ink);
+  background: transparent;
+  box-shadow: none;
+}
+
+body[data-header="light"] .site-header:not(.is-scrolling) .brand-icon img {
+  filter: invert(1);
+}
+
+body[data-header="light"] .site-header:not(.is-scrolling) .contact-symbol,
+body[data-header="light"] .site-header:not(.is-scrolling) .menu-button {
+  color: var(--chrome-paper);
+  background: var(--chrome-ink);
+}
+
+body[data-header="dark"] .site-header:not(.is-scrolled):not(.is-scrolling) {
+  color: #fff;
+  background: transparent;
+  box-shadow: none;
+}
+
+body[data-header="dark"] .site-header:not(.is-scrolled):not(.is-scrolling) .brand-icon img {
+  filter: none;
+}
+
+body[data-header="dark"] .site-header:not(.is-scrolled):not(.is-scrolling) .contact-symbol,
+body[data-header="dark"] .site-header:not(.is-scrolled):not(.is-scrolling) .menu-button {
+  color: var(--chrome-ink);
+  background: var(--chrome-paper);
+}
+
+body[data-header="light"] .site-header.is-scrolling,
+body[data-header="dark"] .site-header.is-scrolling {
+  color: #fff;
+  background: rgba(0, 0, 0, .88);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, .08);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+body[data-header="light"] .site-header.is-scrolling .brand-icon img,
+body[data-header="dark"] .site-header.is-scrolling .brand-icon img {
+  filter: none;
+}
+
+body[data-header="light"] .site-header.is-scrolling .contact-symbol,
+body[data-header="light"] .site-header.is-scrolling .menu-button,
+body[data-header="dark"] .site-header.is-scrolling .contact-symbol,
+body[data-header="dark"] .site-header.is-scrolling .menu-button {
+  color: var(--chrome-ink);
+  background: var(--chrome-paper);
+}
+
+body[data-header="dark"] .site-header.is-scrolled:not(.is-scrolling) {
+  color: var(--chrome-ink);
+  background: transparent;
+  box-shadow: none;
+}
+
+body[data-header="dark"] .site-header.is-scrolled:not(.is-scrolling) .brand-icon img {
+  filter: invert(1);
+}
+
+body[data-header="dark"] .site-header.is-scrolled:not(.is-scrolling) .contact-symbol,
+body[data-header="dark"] .site-header.is-scrolled:not(.is-scrolling) .menu-button {
+  color: var(--chrome-paper);
+  background: var(--chrome-ink);
+}
+
+body[data-header].menu-open .site-header:not(.is-scrolling),
+body[data-header].menu-open .site-header.is-scrolling {
+  color: #fff;
+}
+
+body[data-header].menu-open .site-header .brand-icon img,
+body[data-header] .menu-overlay .brand-icon img {
+  filter: none;
 }

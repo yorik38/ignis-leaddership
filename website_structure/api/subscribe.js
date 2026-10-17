@@ -49,7 +49,7 @@ module.exports = async function subscribe(request, response) {
   if (lastname) fields.push({name: "lastname", value: lastname});
   const context = {
     pageUri: String(body.page_url || "https://www.ignisleadership.com/insights").slice(0, 500),
-    pageName: "Bid more. Win more. newsletter signup"
+    pageName: "Signal newsletter signup"
   };
   const hutk = cookieValue(request.headers.cookie, "hubspotutk");
   if (hutk) context.hutk = hutk;
@@ -57,13 +57,13 @@ module.exports = async function subscribe(request, response) {
   const subscriptionTypeId = Number(HUBSPOT_SUBSCRIPTION_TYPE_ID);
   const consent = {
     consentToProcess: true,
-    text: "Ignis Leadership may use these details to send the Bid more. Win more. newsletter. You can unsubscribe at any time."
+    text: "Ignis Leadership may use these details to send the Signal newsletter. You can unsubscribe at any time."
   };
   if (Number.isFinite(subscriptionTypeId)) {
     consent.communications = [{
       value: true,
       subscriptionTypeId,
-      text: "I want to receive the Bid more. Win more. newsletter from Ignis Leadership."
+      text: "I want to receive the Signal newsletter from Ignis Leadership."
     }];
   }
 
