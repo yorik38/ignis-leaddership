@@ -1,60 +1,35 @@
-/* About and homepage founder story: reuse the established Ignis editorial system. */
-.about-page .about-hero{min-height:0;padding:calc(96px + 4rem) 0 5rem;background:#080b0c}
-.about-page .about-hero::before,.about-page .about-hero::after{content:none}
-.about-hero-layout{position:relative;z-index:1;display:grid;grid-template-columns:minmax(0,1.2fr) minmax(260px,.8fr);gap:clamp(2rem,6vw,6rem);align-items:center}
-.about-page .about-hero h1{max-width:13ch;margin:0;font-size:clamp(3rem,5.4vw,5.8rem);line-height:1.02;text-wrap:balance}
-.about-page .about-hero .page-hero-copy>p{max-width:46ch;margin-top:2rem;line-height:1.55}
-.about-founder-line{display:flex;align-items:center;gap:1.25rem;max-width:46rem;margin-top:2rem}
-.about-founder-mark{display:block;flex:none;width:108px;height:108px;overflow:hidden;border-radius:50%;background:#2fb99a}
-.about-founder-mark img{display:block;width:100%;height:100%;object-fit:cover;transform:scale(1.28);transform-origin:50% 36%}
-.about-founder-line>p{max-width:40ch;margin:0;line-height:1.55}
-.about-portrait{margin:0;overflow:hidden;background:#1d2528}
-.about-portrait img{display:block;width:100%;aspect-ratio:4/5;object-fit:cover;object-position:55% center}
-.about-experience{padding:clamp(2rem,4vw,3.5rem) 0;border-bottom:1px solid var(--line)}
-.about-experience .trust-layout{grid-template-columns:minmax(190px,.5fr) minmax(0,1.5fr)}
-.about-experience .section-label{margin:0;align-self:center;font-family:var(--font-serif);font-size:clamp(1.4rem,1.9vw,1.85rem);font-style:italic;text-transform:none;letter-spacing:0}
-.about-experience .logos{max-width:760px;justify-self:end}
-.about-experience .logo-card{min-height:110px}
-.about-story{padding:clamp(5rem,8vw,8rem) 0 clamp(3rem,5vw,5rem)}
-.about-story .statement-grid,.about-build .statement-grid{align-items:start}
-.about-story h2,.about-build h2{max-width:16ch;margin:0;font-size:var(--h2);font-weight:400;line-height:1.05;letter-spacing:-.045em}
-.about-story .statement-grid>div>p,.about-build .statement-grid>div>p{max-width:700px;margin:1.5rem 0 0;color:var(--ink-muted);font-size:clamp(1.05rem,1.5vw,1.22rem);line-height:1.65}
-.about-strengths{padding:0 0 clamp(5rem,8vw,8rem)}
-.about-strengths h2{margin:0;font-size:clamp(2rem,3vw,3rem);font-weight:400;letter-spacing:-.04em}
-.about-strengths .credential-row{margin-top:2rem}
-.about-strengths .credential-row strong{min-height:0}
-.about-principle{padding:clamp(5rem,8vw,8rem) 0}
-.about-principle blockquote{max-width:1050px;margin:0;color:var(--paper);font-family:var(--font-serif);font-size:clamp(2rem,3.7vw,4rem);font-style:italic;line-height:1.17}
-.about-build{padding:clamp(5rem,8vw,8rem) 0}
-.about-build .button{margin-top:2rem}
-.founder-overview{padding:clamp(2.75rem,5vw,4.5rem) 0}
-.founder-overview-layout{display:grid;grid-template-columns:clamp(170px,18vw,220px) minmax(0,1fr);gap:clamp(1.5rem,4vw,4rem);align-items:center;max-width:1050px}
+/* About page and the homepage founder introduction. */
+.about-page{font-family:Inter,system-ui,-apple-system,sans-serif}
+.about-page .about-intro{padding:calc(96px + clamp(3rem,6vw,5.5rem)) 0 clamp(2.5rem,5vw,4rem)}
+.about-intro-layout{display:grid;grid-template-columns:clamp(132px,16vw,188px) minmax(0,1fr);gap:clamp(1.5rem,4vw,3.5rem);align-items:center}
+.about-portrait-mark{width:100%;aspect-ratio:1;overflow:hidden;border-radius:50%;background:#2fb99a}
+.about-portrait-mark img{display:block;width:100%;height:100%;object-fit:cover;transform:scale(1.28);transform-origin:50% 36%}
+.about-kicker{margin:0 0 .75rem;color:#08756d;font-size:.75rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase}
+.about-page .about-intro h1{max-width:none;margin:0;font-family:Inter,system-ui,-apple-system,sans-serif;font-size:clamp(2.5rem,4.2vw,3.75rem);font-weight:500;letter-spacing:-.045em;line-height:1.05}
+.about-lede{max-width:38rem;margin:1rem 0 0;color:var(--ink-muted);font-size:clamp(1.05rem,1.4vw,1.22rem);line-height:1.5}
+.about-points{padding-bottom:clamp(1.5rem,3vw,2.5rem)}
+.about-point-list{border-top:1px solid var(--line)}
+.about-point-list article{display:grid;grid-template-columns:minmax(8.5rem,13rem) minmax(0,1fr);gap:clamp(1rem,4vw,4rem);align-items:start;padding:clamp(1.45rem,2.6vw,2.15rem) 0;border-bottom:1px solid var(--line)}
+.about-point-list h2{margin:0;font-family:Inter,system-ui,-apple-system,sans-serif;font-size:clamp(1.35rem,2vw,1.7rem);font-weight:500;letter-spacing:-.03em;line-height:1.2}
+.about-point-list p{max-width:46rem;margin:0;color:var(--ink-muted);font-size:1.05rem;line-height:1.55}
+.about-close{padding:clamp(1.75rem,3vw,2.5rem) 0 clamp(4.5rem,8vw,7rem)}
+.about-close .button{margin-top:0}
+.founder-overview{padding:clamp(3.25rem,6vw,5.5rem) 0;border-top:1px solid var(--line)}
+.founder-overview-layout{display:grid;grid-template-columns:clamp(168px,18vw,220px) minmax(0,1fr);gap:clamp(1.75rem,4vw,4.5rem);align-items:center}
 .founder-overview-photo{width:100%;aspect-ratio:1;overflow:hidden;border-radius:50%;background:#2fb99a}
 .founder-overview-portrait{display:block;width:100%;height:100%;object-fit:cover;transform:scale(1.28);transform-origin:50% 36%}
-.founder-overview h2{margin:0;font-size:clamp(2rem,3vw,3.25rem);font-weight:400;line-height:1.08;letter-spacing:-.045em}
-.founder-overview-copy>p{max-width:690px;margin:.9rem 0 0;color:var(--ink-muted);font-size:clamp(1rem,1.2vw,1.12rem);line-height:1.55}
+.founder-overview-eyebrow{margin:0 0 .7rem;color:#08756d;font-family:Inter,system-ui,-apple-system,sans-serif;font-size:.75rem;font-weight:600;letter-spacing:.12em;line-height:1;text-transform:uppercase}
+.founder-overview h2{margin:0;font-family:Inter,system-ui,-apple-system,sans-serif;font-size:clamp(2rem,3vw,2.85rem);font-weight:500;line-height:1.05;letter-spacing:-.04em}
+.founder-overview-copy>p:not(.founder-overview-eyebrow){max-width:40rem;margin:.85rem 0 0;color:var(--ink-muted);font-size:clamp(1.02rem,1.25vw,1.15rem);line-height:1.55}
 .founder-overview .text-link{display:inline-block;margin-top:1.15rem}
-@media(max-width:850px){
-  .about-page .about-hero{padding:calc(78px + 3rem) 0 4rem}
-  .about-hero-layout{grid-template-columns:1fr;gap:2.5rem}
-  .about-page .about-hero h1{max-width:16ch}
-  .about-portrait{max-width:520px}
-  .about-portrait img{aspect-ratio:3/2;object-position:center}
-  .about-experience .trust-layout{grid-template-columns:1fr;gap:1.5rem;text-align:left}
-  .about-experience .logos{justify-self:stretch;max-width:none}
-}
-@media(max-width:520px){
-  .founder-overview{padding:2.5rem 0}
-  .founder-overview-layout{grid-template-columns:1fr;gap:1rem}
-  .founder-overview-photo{width:132px}
-  .founder-overview h2{font-size:1.8rem}
-  .founder-overview-copy>p{font-size:.95rem}
-  .about-page .about-hero h1{font-size:clamp(2.6rem,11vw,3.5rem)}
-  .about-page .about-hero .page-hero-copy>p{margin-top:1.5rem}
-  .about-founder-line{align-items:flex-start;gap:1rem;margin-top:1.5rem}
-  .about-founder-mark{width:96px;height:96px}
-  .about-experience .logos{gap:.5rem}
-  .about-experience .logo-card{min-height:0;padding:.6rem}
-  .about-experience .logo-card .logo-word{font-size:1.35rem}
-  .about-story h2,.about-build h2{max-width:none}
+@media(max-width:700px){
+  .about-page .about-intro{padding-top:calc(78px + 2.4rem)}
+  .about-intro-layout{grid-template-columns:104px minmax(0,1fr);gap:1.15rem}
+  .about-page .about-intro h1{font-size:2rem}
+  .about-lede{margin-top:.65rem;font-size:1rem}
+  .about-point-list article{grid-template-columns:1fr;gap:.4rem;padding:1.25rem 0}
+  .founder-overview{padding:2.75rem 0}
+  .founder-overview-layout{grid-template-columns:112px minmax(0,1fr);gap:1.15rem;align-items:start}
+  .founder-overview h2{font-size:1.7rem}
+  .founder-overview-copy>p:not(.founder-overview-eyebrow){font-size:.98rem}
 }

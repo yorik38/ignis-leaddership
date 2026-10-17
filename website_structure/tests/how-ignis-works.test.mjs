@@ -38,13 +38,14 @@ test("the homepage states one offer, the audiences, and a quiet demo slot", () =
   const gates = home.indexOf('id="commercial-gates"');
   const who = home.indexOf('id="who-ignis"');
   const routes = home.indexOf('id="routes"');
-  const demo = home.indexOf('id="product-demo"');
-  assert.ok(gates >= 0 && who > gates && routes > who && demo > routes);
+  const founder = home.indexOf("founder-overview");
+  assert.ok(gates >= 0 && who > gates && routes > who && founder > routes);
   assert.match(home, /Who Ignis works with/);
   assert.match(home, /href="\/how-ignis-works#onshore"/);
   assert.match(home, /href="\/how-ignis-works#offshore"/);
   assert.match(home, /One governed system, from grid offer to close\./);
-  assert.match(home, /Demo coming soon/);
+  assert.match(home, /Product demo: add a section here when a look at the work is ready/);
+  assert.doesNotMatch(home, /id="product-demo"|Demo coming soon|A look at the work, when the demo is ready/);
   assert.match(home, /Testimonials: add a quote band here/);
   assert.doesNotMatch(home, /href="\/commercial-ai-adoption"|href="\/commercial-transformation"/);
   assert.doesNotMatch(home, /FORGE|Forge/);
@@ -54,7 +55,7 @@ test("the homepage states one offer, the audiences, and a quiet demo slot", () =
 
 test("each audience card is one link with a motion-safe hover state", () => {
   const css = readFileSync(new URL("assets/capability.css", root), "utf8");
-  const section = home.slice(home.indexOf('id="who-ignis"'), home.indexOf("product-demo"));
+  const section = home.slice(home.indexOf('id="who-ignis"'), home.indexOf("founder-overview"));
   const cards = [...section.matchAll(/<a class="who-ignis-card" href="([^"]+)"[^>]*>([\s\S]*?)<\/a>/g)];
   assert.deepEqual(cards.map((card) => card[1]), ["/how-ignis-works#onshore", "/how-ignis-works#offshore"]);
   for (const [, , inner] of cards) {

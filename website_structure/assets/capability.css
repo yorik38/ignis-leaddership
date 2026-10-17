@@ -993,11 +993,51 @@
   .who-ignis-card,.who-ignis-card img,.who-ignis-more-arrow{transition:none}
   .who-ignis-card:hover,.who-ignis-card:focus-visible,.who-ignis-card:hover img,.who-ignis-card:focus-visible img,.who-ignis-card:hover .who-ignis-more-arrow,.who-ignis-card:focus-visible .who-ignis-more-arrow{transform:none}
 }
-.product-demo-layout{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);gap:clamp(1.5rem,4vw,3.5rem);align-items:center}
-.product-demo-layout h2{margin:0;font-size:var(--h2);font-weight:400;letter-spacing:-.045em;line-height:1.05}
-.product-demo-frame{display:grid;min-height:16rem;place-items:center;border:1px solid #d5e0dc;border-radius:1.1rem;background:#f4f7f6;color:#6d7874;font-size:1rem;font-weight:500;letter-spacing:.01em}
 @media(max-width:800px){
-  .who-ignis-heading,.who-ignis-grid,.product-demo-layout{grid-template-columns:1fr}
+  .who-ignis-heading,.who-ignis-grid{grid-template-columns:1fr}
   .who-ignis-card img{height:220px}
-  .product-demo-frame{min-height:12rem}
+}
+
+.wp-signup{width:min(100%,calc(var(--wrap) + var(--gutter)*2));margin:0 auto;padding:0 var(--gutter) clamp(3rem,6vw,5rem)}
+.wp-signup-card{position:relative;overflow:hidden;min-height:clamp(22rem,42vw,33.75rem);border-radius:6px}
+.wp-signup-media,.wp-signup-media img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.wp-signup-copy{position:absolute;inset:0;z-index:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:2rem 1.25rem;text-align:center;color:#fff;background:rgba(0,0,0,.62)}
+.wp-signup-copy h2{max-width:40rem;margin:0;color:#fff;font-family:Inter,Arial,sans-serif;font-size:clamp(2rem,4vw,3rem);font-weight:500;letter-spacing:-.03em;line-height:1.2}
+.wp-signup-copy p{max-width:46rem;margin:.75rem 0 0;color:#fff;font-size:1.05rem;font-weight:400;line-height:1.5}
+.hubspot-newsletter-form{width:min(100%,22rem);margin-top:1.35rem}
+.wp-signup-form,.hubspot-newsletter-form .hs-form{display:flex;align-items:center;gap:4px;width:100%;margin:0;padding:4px;border-radius:4px;background:#fff}
+.wp-signup-form input,.hubspot-newsletter-form .hs-input{flex:1;min-width:0;height:2.5rem;margin:0;padding:0 .75rem;border:0;background:transparent;color:#0f1419;font-size:16px;font-weight:600}
+.wp-signup-form input::placeholder{color:#1d3834;opacity:1}
+.wp-signup-form input:focus,.wp-signup-form button:focus-visible{outline:2px solid #08756d;outline-offset:2px}
+.wp-signup-form button{display:grid;place-items:center;flex:none;width:2.5rem;height:2.5rem;padding:0;border:0;border-radius:2px;background:#fff;color:#0f1419;cursor:pointer}
+.wp-signup-form button svg{width:20px;height:20px}
+.wp-signup noscript p{margin:.75rem 0 0;color:#fff;font-size:.95rem}
+@media(max-width:640px){
+  .wp-signup-copy{padding:1.5rem 1rem}
+  .wp-signup-copy p{font-size:1rem}
+}
+
+.issue-page .issue-body .issue-shell:not(:has(.issue-sidebar)){display:block;width:min(720px,calc(100% - 48px))}
+.continue-reading{padding:clamp(1rem,2vw,1.5rem) 0 clamp(4rem,7vw,6rem);background:#fff}
+.continue-reading h2{margin:0 0 clamp(1.25rem,2vw,1.75rem);font-family:var(--font-sans);font-size:clamp(1.75rem,2.4vw,2.25rem);font-weight:500;letter-spacing:-.03em}
+.continue-reading-grid{display:grid;grid-template-columns:repeat(3,minmax(0,420px));gap:clamp(1rem,2vw,1.75rem);justify-content:start}
+.continue-card{display:flex;width:100%;max-width:420px;flex-direction:column;color:inherit;text-decoration:none}
+.continue-card-media{display:block;aspect-ratio:16/10;overflow:hidden;border-radius:6px;background:#e7f3f0}
+.continue-card-media img{width:100%;height:100%;object-fit:cover}
+.continue-card-copy{display:grid;gap:.4rem;padding:.95rem .05rem 0}
+.continue-card-kicker{color:#08756d;font-size:.75rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase}
+.continue-card-copy strong{color:var(--ink);font-size:1.2rem;font-weight:600;letter-spacing:-.02em;line-height:1.25}
+.continue-card-text{color:var(--ink-muted);font-size:1rem;line-height:1.45}
+@media(hover:hover) and (pointer:fine){
+  .continue-card,.continue-card-media img{transition:transform .2s ease}
+  .continue-card:hover,.continue-card:focus-visible{transform:translateY(-4px)}
+  .continue-card:hover img,.continue-card:focus-visible img{transform:scale(1.03)}
+}
+.continue-card:focus-visible{outline:3px solid #08756d;outline-offset:4px}
+@media(max-width:1100px){
+  .continue-reading-grid{grid-template-columns:1fr;max-width:420px}
+}
+@media(prefers-reduced-motion:reduce){
+  .continue-card,.continue-card-media img{transition:none}
+  .continue-card:hover,.continue-card:focus-visible,.continue-card:hover img,.continue-card:focus-visible img{transform:none}
 }

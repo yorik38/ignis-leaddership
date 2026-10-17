@@ -7,8 +7,6 @@
   if (!section || !frame || !word || !window.IntersectionObserver || !word.animate) return;
 
   var reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
-  if (reducedMotion.matches) return;
-
   var stages = ["fewer surprises", "one source of truth", "faster gates", "stronger terms"];
   var generation = 0;
   var animation = null;
@@ -81,20 +79,65 @@
     showWord("Ignis");
   }
 
-  var observer = new IntersectionObserver(function (entries) {
-    entries.forEach(function (entry) {
-      if (entry.intersectionRatio >= 0.3) play();
-      else if (!entry.isIntersecting && !ready) reset();
-    });
-  }, { threshold: [0, 0.3] });
+  function viewportHeight() {
+    return window.innerHeight || document.documentElement.clientHeight || 1;
+  }
+
+  function metrics() {
+    var rect = section.getBoundingClientRect();
+    var vh = viewportHeight();
+    var visible = Math.min(rect.bottom, vh) - Math.max(rect.top, 0);
+    return {
+      rect: rect,
+      vh: vh,
+      ratio: Math.max(0, visible) / Math.max(rect.height, 1)
+    };
+  }
+
+  // Start only once the section is substantially on screen and its top
+  // has moved into the upper 40% of the viewport, so the block above
+  // is no longer what the reader is on. The first word stays put until then.
+  function canStart() {
+    var view = metrics();
+    return view.ratio >= 0.6 && view.rect.top <= view.vh * 0.4 && view.rect.bottom > view.vh * 0.45;
+  }
+
+  function isOutOfView() {
+    return metrics().ratio < 0.15;
+  }
+
+  function sync() {
+    if (reducedMotion.matches || document.hidden) {
+      if (playing || !ready) reset();
+      return;
+    }
+    if (canStart()) play();
+    else if (isOutOfView() && (playing || !ready)) reset();
+  }
+
+  var observer = new IntersectionObserver(function () {
+    sync();
+  }, { threshold: [0, 0.6] });
   observer.observe(section);
 
-  document.addEventListener("visibilitychange", function () {
-    if (document.hidden && playing) reset();
-  });
-  if (reducedMotion.addEventListener) {
-    reducedMotion.addEventListener("change", function () {
-      if (reducedMotion.matches) reset();
+  var scheduled = false;
+  function onScroll() {
+    if (scheduled) return;
+    scheduled = true;
+    window.requestAnimationFrame(function () {
+      scheduled = false;
+      sync();
     });
   }
+  window.addEventListener("scroll", onScroll, { passive: true });
+  window.addEventListener("resize", onScroll);
+
+  document.addEventListener("visibilitychange", function () {
+    if (document.hidden) reset();
+    else sync();
+  });
+  if (reducedMotion.addEventListener) {
+    reducedMotion.addEventListener("change", sync);
+  }
+  sync();
 }());
