@@ -16,7 +16,8 @@ test('About introduces Yorik, his experience and the reason for Ignis', () => {
   assert.doesNotMatch(about, /headshot\.jpg|class="about-portrait"|logo-bp-monochrome|logo-bouygues-es|What I bring|Build with us|Experience from/);
   assert.equal((about.match(/<img /g) || []).filter((tag) => about.includes('yorik-green-portrait')).length > 0, true);
   const main = about.slice(about.indexOf('<main'), about.indexOf('</main>'));
-  assert.equal((main.match(/<img /g) || []).length, 1);
+  const images = main.match(/<img [^>]*>/g) || [];
+  assert.deepEqual(images.map((tag) => tag.includes('yorik-green-portrait') ? 'portrait' : tag.includes('signup-band') ? 'signup' : tag), ['portrait', 'signup']);
   for (const heading of ['Mission', 'Vision', 'Experience']) assert.match(main, new RegExp(`<h2>${heading}</h2>`));
   assert.match(about, /Governed AI for commercial teams helps developers build more projects, faster, and accelerates the energy transition\./);
   assert.match(about, /Commercial work that learns from every project, owned by the developer, with people focused on judgement, relationships and negotiation\./);

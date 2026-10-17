@@ -132,6 +132,51 @@
       "permanent": true
     },
     {
+      "source": "/archive",
+      "destination": "/insights",
+      "permanent": true
+    },
+    {
+      "source": "/insights/the-proposal-is-becoming-the-easy-part",
+      "destination": "/insights",
+      "permanent": true
+    },
+    {
+      "source": "/insights/why-does-every-bid-feel-like-starting-again",
+      "destination": "/insights",
+      "permanent": true
+    },
+    {
+      "source": "/insights/bids-are-lost-before-the-writing-starts",
+      "destination": "/insights",
+      "permanent": true
+    },
+    {
+      "source": "/insights/ai-will-expose-your-slowest-bid-decision",
+      "destination": "/insights",
+      "permanent": true
+    },
+    {
+      "source": "/insights/why-do-tenders-inherit-decisions-without-their-history",
+      "destination": "/insights",
+      "permanent": true
+    },
+    {
+      "source": "/insights/why-is-your-tender-team-still-overloaded",
+      "destination": "/insights",
+      "permanent": true
+    },
+    {
+      "source": "/insights/your-team-uses-ai-does-the-business",
+      "destination": "/insights",
+      "permanent": true
+    },
+    {
+      "source": "/insights/the-commercial-question-behind-every-ai-pilot",
+      "destination": "/insights",
+      "permanent": true
+    },
+    {
       "source": "/:path*.html",
       "destination": "/:path*",
       "permanent": true

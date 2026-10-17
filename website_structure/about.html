@@ -27,7 +27,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Source+Serif+4:ital,wght@1,500&amp;display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/assets/capability.css?v=139">
+  <link rel="stylesheet" href="/assets/capability.css?v=186">
   <link rel="icon" href="/favicon.ico">
   <link rel="stylesheet" href="/assets/site-chrome.css?v=48">
   <link rel="stylesheet" href="/assets/about-founder.css?v=5">
@@ -44,9 +44,45 @@
       <article><h2>Experience</h2><p>Seventeen years of commercial leadership on energy and infrastructure projects, from project engineer to bid director, at bp, RWE and Bouygues Energies &amp; Services. Always driven by sustainability, collaboration and innovation: building first-of-a-kind projects and doing difficult things.</p></article>
     </div></section>
     <section class="about-close" aria-label="Get in touch"><div class="wrap"><a class="button button-teal" href="/contact">Get in touch</a></div></section>
-  </main>
+  <section class="wp-signup" aria-labelledby="wp-signup-title">
+<div class="wp-signup-card">
+<picture class="wp-signup-media">
+<source type="image/webp" srcset="/assets/img/signup-band.webp">
+<img src="/assets/img/signup-band.jpg" alt="" width="2400" height="900" decoding="async" loading="lazy">
+</picture>
+<div class="wp-signup-copy">
+<h2 id="wp-signup-title">Get the analysis</h2>
+<p>The weekly newsletter, our reports and new white papers on moving energy projects from last-mile development to financial close.</p>
+<div id="hubspot-newsletter-form" class="hubspot-newsletter-form">
+<!--
+  TODO: Create the HubSpot form, set portalId and formId, then uncomment this embed.
+  Remove the static form in this container when the embed is enabled.
+  Field: work email.
+  Tag submitted contacts with "newsletter signup".
+  Use region eu1. The site tracking script already uses portal 149324702.
+  <script charset="utf-8" type="text/javascript" src="https://js-eu1.hsforms.net/forms/embed/v2.js"></script>
+  <script>
+    hbspt.forms.create({
+      region: "eu1",
+      portalId: "TODO",
+      formId: "TODO",
+      target: "#hubspot-newsletter-form"
+    });
+  </script>
+-->
+<form class="wp-signup-form" method="post" action="#wp-signup-title" novalidate>
+<label class="skip-link" for="wp-signup-email">Work email</label>
+<input id="wp-signup-email" name="email" type="email" autocomplete="email" inputmode="email" placeholder="Work email">
+<button type="submit" aria-label="Subscribe"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path></svg></button>
+</form>
+<noscript><p>The signup form needs JavaScript.</p></noscript>
+</div>
+</div>
+</div>
+</section>
+</main>
 
-  <section class="band band-dark home-community"><div class="wrap community-grid"><div class="community-promise"><a class="community-brand" href="/" aria-label="Ignis Leadership home"><img src="/assets/img/favicon-light.png" alt="" width="51" height="51"><span><span class="brand-accent">I</span>gnis</span></a><h2>Practical notes on moving energy projects from last-mile development to financial close.</h2><a class="text-link light community-insights" href="/insights" data-route-type="insights_route" data-route-id="insights" data-route-placement="community">Read insights <span aria-hidden="true">↗</span></a></div><div><h3>Be part of the community</h3><p class="community-newsletter-sub">Get the <em>Bid more. Win more.</em> newsletter in your inbox.</p><form class="community-form community-form-double" action="/api/subscribe" method="post" data-community-form data-signup-placement="page-about_community"><label class="skip-link" for="page-about-name">Name</label><input id="page-about-name" name="name" autocomplete="name" placeholder="Name" required><label class="skip-link" for="page-about-email">Email address</label><input id="page-about-email" name="email" type="email" autocomplete="email" placeholder="Email" required><input type="hidden" name="source" value="website"><input type="hidden" name="page_url"><input type="text" name="company_website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px"><button type="submit">Subscribe now <span aria-hidden="true">↗</span></button><p class="form-status" data-form-status aria-live="polite"></p></form></div></div></section>
+  
 <footer class="site-footer">
   <div class="wrap footer-main">
     <div class="footer-identity">
@@ -63,5 +99,6 @@
   <div class="wrap footer-bottom"><span>© 2026 Ignis Leadership</span><div class="footer-legal"><a href="/privacy">Privacy</a><a href="/terms">Terms</a></div></div>
 </footer>
   <script src="/assets/capability.js?v=12"></script>
+<script src="/assets/whitepaper.js?v=2"></script>
 </body>
 </html>

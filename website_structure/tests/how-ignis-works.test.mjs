@@ -18,9 +18,12 @@ test("the How Ignis works page states the single offer without naming a product"
   for (const layer of ["Process", "Context", "Data", "Governance", "Workflows"]) {
     assert.match(page, new RegExp(`<h3>${layer}</h3>`));
   }
-  assert.match(page, /Map the opportunity/);
-  assert.match(page, /Design the model/);
-  assert.match(page, /Support delivery/);
+  assert.match(page, /Five steps, starting on live work\./);
+  for (const step of ["Gap review", "Map", "Design", "Pilot", "Embed and improve"]) {
+    assert.match(page, new RegExp(`<h3>${step}</h3>`));
+  }
+  assert.match(page, /The Sprint covers gap review, mapping and design\. Pilot and embedding follow\./);
+  assert.doesNotMatch(page, /Map the opportunity|Design the model/);
   assert.match(page, /commercial-gates-comparison-v1\.png/);
   assert.match(page, /"@type":"FAQPage"/);
   assert.doesNotMatch(page, /FORGE|Forge/);

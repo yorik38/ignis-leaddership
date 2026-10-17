@@ -97,12 +97,6 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.ignisleadership.com/archive</loc>
-    <lastmod>2026-10-08</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
     <loc>https://www.ignisleadership.com/privacy</loc>
     <lastmod>2026-09-08</lastmod>
     <changefreq>yearly</changefreq>
@@ -113,54 +107,6 @@
     <lastmod>2026-09-08</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
-  </url>
-  <url>
-    <loc>https://www.ignisleadership.com/insights/the-proposal-is-becoming-the-easy-part</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-    <lastmod>2026-09-13</lastmod>
-  </url>
-  <url>
-    <loc>https://www.ignisleadership.com/insights/why-does-every-bid-feel-like-starting-again</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-    <lastmod>2026-09-13</lastmod>
-  </url>
-  <url>
-    <loc>https://www.ignisleadership.com/insights/bids-are-lost-before-the-writing-starts</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-    <lastmod>2026-09-13</lastmod>
-  </url>
-  <url>
-    <loc>https://www.ignisleadership.com/insights/ai-will-expose-your-slowest-bid-decision</loc>
-    <lastmod>2026-09-13</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://www.ignisleadership.com/insights/why-do-tenders-inherit-decisions-without-their-history</loc>
-    <lastmod>2026-09-20</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://www.ignisleadership.com/insights/why-is-your-tender-team-still-overloaded</loc>
-    <lastmod>2026-09-27</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://www.ignisleadership.com/insights/your-team-uses-ai-does-the-business</loc>
-    <lastmod>2026-10-04</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://www.ignisleadership.com/insights/the-commercial-question-behind-every-ai-pilot</loc>
-    <lastmod>2026-10-11</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://www.ignisleadership.com/insights/why-do-unclear-tenders-produce-incomparable-bids</loc>
