@@ -50,7 +50,7 @@ for (const file of pages(site)) {
     assert.ok(tag(html, 'property', 'og:image:alt'));
     assert.ok(tag(html, 'name', 'twitter:image:alt'));
     assert.ok(image?.startsWith(origin));
-    assert.ok(existsSync(join(site, image.slice(origin.length))));
+    assert.ok(existsSync(join(site, image.slice(origin.length).split('?')[0])));
     const robots = tag(html, 'name', 'robots');
     assert.match(robots ?? '', /index/);
     assert.equal(sitemap.includes(`<loc>${canonical}</loc>`), !robots?.includes('noindex'));
