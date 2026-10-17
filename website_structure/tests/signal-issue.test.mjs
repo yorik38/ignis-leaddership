@@ -16,20 +16,22 @@ function order(html, markers) {
   }
 }
 
-test("Signal Issue 1 ends with the call, the shared signup, then three real cards", () => {
+test("Signal Issue 1 ends with continue reading, the call, then the shared signup", () => {
   assert.match(issue, /Signal · Issue 1/);
   assert.match(issue, /18 October 2026/);
+  assert.match(issue, /signal-ao10-cover\.png" alt="Signal Issue 1 cover: AO10, France has put a price on proof, with the Channel, Brittany, South Atlantic and Mediterranean awards mapped on France\." width="1332" height="435"/);
   order(issue, [
     'id="ao10-sources"',
+    'id="continue-reading-title">Continue reading',
+    'href="/resources/bids-won-on-evidence"',
+    'href="/insights/why-do-unclear-tenders-produce-incomparable-bids"',
+    'href="/insights/when-do-tender-clarifications-become-a-second-specification"',
     'id="close-call-title">Got a project heading for financial close?',
     'class="button button-teal" href="/contact">Book a call',
     'id="wp-signup-title">Get the analysis',
     `<p>${signup}</p>`,
     'id="hubspot-newsletter-form"',
-    'id="continue-reading-title">Continue reading',
-    'href="/resources/bids-won-on-evidence"',
-    'href="/insights/why-do-unclear-tenders-produce-incomparable-bids"',
-    'href="/insights/when-do-tender-clarifications-become-a-second-specification"'
+    '<footer class="site-footer">'
   ]);
   assert.equal((issue.match(/class="continue-card"/g) || []).length, 3);
   assert.doesNotMatch(issue, /class="home-newsletter"|class="issue-sidebar-form"|data-community-form|Coming soon/);

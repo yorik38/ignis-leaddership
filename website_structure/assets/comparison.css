@@ -1,6 +1,4 @@
 .comparison-page{background:#fff;color:var(--ink)}
-.comparison-page .site-header:not(.is-scrolled):not(.is-scrolling){color:#fff}
-.comparison-page .site-header:not(.is-scrolled):not(.is-scrolling) .brand-icon img{filter:none}
 .comparison-shell{width:min(1180px,calc(100% - 48px));margin:0 auto}
 .comparison-hero{padding:clamp(5rem,9vw,8rem) 0;background:#050709;color:#fff}
 .comparison-hero-grid{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(300px,.75fr);gap:clamp(3rem,7vw,7rem);align-items:center}

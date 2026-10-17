@@ -18,9 +18,16 @@ test('About introduces Yorik, his experience and the reason for Ignis', () => {
   const main = about.slice(about.indexOf('<main'), about.indexOf('</main>'));
   const images = main.match(/<img [^>]*>/g) || [];
   assert.deepEqual(images.map((tag) => tag.includes('yorik-green-portrait') ? 'portrait' : tag.includes('signup-band') ? 'signup' : tag), ['portrait', 'signup']);
-  for (const heading of ['Mission', 'Vision', 'Experience']) assert.match(main, new RegExp(`<h2>${heading}</h2>`));
+  for (const heading of ['Mission', "Founder's view: build faster, together", 'Experience']) assert.match(main, new RegExp(`<h2>${heading}</h2>`));
+  assert.ok(main.indexOf('<h2>Mission</h2>') < main.indexOf("<h2>Founder's view: build faster, together</h2>") && main.indexOf("<h2>Founder's view: build faster, together</h2>") < main.indexOf('<h2>Experience</h2>'));
   assert.match(about, /Governed AI for commercial teams helps developers build more projects, faster, and accelerates the energy transition\./);
-  assert.match(about, /Commercial work that learns from every project, owned by the developer, with people focused on judgement, relationships and negotiation\./);
+  assert.match(about, /The energy transition will be won or lost on how fast good projects reach financial close\./);
+  assert.match(about, /People make the decisions\. Governed AI agents do the heavy lifting\. The client owns the system\./);
+  assert.match(about, /<h3>What we believe<\/h3>\s*<ul class="about-beliefs">/);
+  assert.match(about, /<strong>Sustainability is the point\.<\/strong> Everything we do should bring more clean energy online, sooner\./);
+  assert.match(about, /class="about-manifesto-signoff">— Yorik Tisseau, Founder, Ignis Leadership<\/p>/);
+  assert.match(style, /\.about-manifesto-body\{[^}]*max-width:42\.5rem/);
+  assert.doesNotMatch(about, /What we borrowed|What I borrowed|Points to check|unlimitedindustries/);
   assert.match(about, /from project engineer to bid director, at bp, RWE and Bouygues Energies &amp; Services/);
   assert.match(about, /building first-of-a-kind projects and doing difficult things/);
   assert.match(about, /class="button button-teal" href="\/contact">Get in touch<\/a>/);
@@ -48,7 +55,7 @@ test('white paper cards alternate a large figure and show the month and year', (
   const listing = read('white-papers.html');
   const article = read('resources/bids-won-on-evidence.html');
   const css = read('assets/whitepaper.css');
-  const list = listing.slice(listing.indexOf('class="wp-index-list"'), listing.indexOf('wp-signup'));
+  const list = listing.slice(listing.indexOf('class="wp-index-list"'), listing.indexOf('close-call'));
   assert.match(list, /<a class="wp-report" href="\/resources\/bids-won-on-evidence">/);
   assert.equal((list.match(/<a /g) || []).length, 1);
   assert.match(list, /<time datetime="2026-10">October 2026<\/time>/);

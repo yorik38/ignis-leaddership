@@ -9,7 +9,7 @@ const read = (path) => readFileSync(join(site, path), 'utf8');
 
 test('Contact page leads with one introduction and the existing form', () => {
   const contact = read('contact.html');
-  assert.match(contact, /<body class="contact-page">/);
+  assert.match(contact, /<body class="contact-page" data-header="light">/);
   assert.match(contact, /<main id="main">\s*<section class="band band-paper contact-section">/);
   assert.match(contact, /<h1>Start the conversation\.<\/h1>/);
   assert.match(contact, /the next gate you need to reach/);
