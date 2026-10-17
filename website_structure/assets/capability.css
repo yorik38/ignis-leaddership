@@ -863,6 +863,7 @@
 .sprint-journey-scope{margin:1.5rem 0 0;color:var(--ink-muted);font-size:1rem;line-height:1.5}
 .sprint-journey-bar{position:relative;width:calc(60% - .8rem);height:2.5rem;margin-top:clamp(2rem,4vw,4rem);border-top:2px solid var(--ignis-green,#1cbdad);border-right:2px solid var(--ignis-green,#1cbdad);border-left:2px solid var(--ignis-green,#1cbdad);color:var(--ignis-green-dark,#08756d);text-align:center}
 .sprint-journey-bar span{position:relative;top:-.8em;padding:0 1rem;background:#fff;font-size:.8rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase}
+.sprint-mobile-range{display:none}
 .sprint-journey-steps{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:.8rem;margin:0;padding:0;list-style:none}
 .sprint-step{display:flex;min-width:0;min-height:15rem;flex-direction:column;align-items:flex-start;padding:clamp(1rem,1.7vw,1.5rem);border:1px solid #b9ded8;border-radius:1rem;background:#e1f2ee}
 .sprint-step-2{background:#c9e9e3}
@@ -883,11 +884,15 @@
 @media(max-width:700px){
   .working-comparison-grid{grid-template-columns:1fr}
   .working-comparison-panel li{min-height:3rem}
-  .sprint-journey-bar{width:100%;height:2rem;margin-top:2rem}
+  .sprint-journey-bar{width:auto;height:auto;margin:2rem 0 .85rem 1.25rem;border:0;text-align:left}
+  .sprint-journey-bar span{top:0;padding:0;background:transparent}
+  .sprint-journey-bar .sprint-mobile-range{display:inline}
   .sprint-journey-steps{grid-template-columns:1fr;gap:.65rem}
-  .sprint-step{min-height:0;padding:1.25rem}
+  .sprint-step{position:relative;min-height:0;padding:1.25rem}
+  .sprint-step-1,.sprint-step-2,.sprint-step-3{border-left:4px solid var(--ignis-green-dark,#08756d)}
+  .sprint-step-1::after,.sprint-step-2::after{position:absolute;z-index:1;bottom:calc(-.65rem - 2px);left:-4px;width:4px;height:calc(.65rem + 4px);background:var(--ignis-green-dark,#08756d);content:''}
   .sprint-step h3{margin:1rem 0 .4rem}
-  .sprint-step-3{margin-bottom:1rem}
+  .sprint-step-3{margin-bottom:1.25rem}
 }
 
 @media(max-width:700px){
