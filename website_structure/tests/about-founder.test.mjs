@@ -25,7 +25,8 @@ test('About introduces Yorik, his experience and the reason for Ignis', () => {
   assert.match(about, /People make the decisions\. Governed AI agents do the heavy lifting\. The client owns the system\./);
   assert.match(about, /<h3>What we believe<\/h3>\s*<ul class="about-beliefs">/);
   assert.match(about, /<strong>Sustainability is the point\.<\/strong> Everything we do should bring more clean energy online, sooner\./);
-  assert.match(about, /class="about-manifesto-signoff">— Yorik Tisseau, Founder, Ignis Leadership<\/p>/);
+  assert.match(about, /class="about-manifesto-signoff">Yorik Tisseau, Founder, Ignis<\/p>/);
+  assert.match(read("assets/about-founder.css"), /\.about-manifesto-body p\.about-manifesto-signoff\{[^}]*color:#08756d[^}]*font-weight:700/);
   assert.match(style, /\.about-manifesto-body\{[^}]*max-width:42\.5rem/);
   assert.doesNotMatch(about, /What we borrowed|What I borrowed|Points to check|unlimitedindustries/);
   assert.match(about, /from project engineer to bid director, at bp, RWE and Bouygues Energies &amp; Services/);

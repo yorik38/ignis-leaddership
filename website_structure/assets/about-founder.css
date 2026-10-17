@@ -21,7 +21,7 @@
 .about-manifesto-body li{margin:0 0 .7rem;padding-left:1.1rem;color:#24302c;line-height:1.65}
 .about-manifesto-body li::before{content:"";display:inline-block;width:.35rem;height:.35rem;margin-left:-1.1rem;margin-right:.75rem;border-radius:50%;background:#08756d;vertical-align:0.15em}
 .about-manifesto-body strong{color:#111820;font-weight:700}
-.about-manifesto-signoff{margin-top:1.5rem;color:#111820;font-weight:600}
+.about-manifesto-body p.about-manifesto-signoff{margin-top:1.5rem;color:#08756d;font-weight:700}
 .about-close{padding:clamp(1.75rem,3vw,2.5rem) 0 clamp(4.5rem,8vw,7rem)}
 .about-close .button{margin-top:0}
 .founder-overview{padding:clamp(3.25rem,6vw,5.5rem) 0;border-top:1px solid var(--line)}

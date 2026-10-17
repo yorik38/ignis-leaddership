@@ -17,6 +17,11 @@ test("commercial gates comparison follows the rotating statement",()=>{
   assert.match(homepage,/class="text-link commercial-gates-link" href="#services">See how Ignis works <span aria-hidden="true">↗<\/span>/);
   const css=readFileSync(new URL("assets/capability.css",root),"utf8");
   assert.match(css,/\.commercial-gates-link\{[^}]*margin-top:0;color:var\(--ink\)/);
+  assert.match(homepage,/class="gates-stack"/);
+  assert.match(css,/@media\(max-width:800px\)\{[\s\S]*\.commercial-gates-figure,\.how-ignis-figure\{[^}]*background:transparent/);
+  assert.match(css,/@media\(max-width:800px\)\{[\s\S]*\.commercial-gates-figure img,\.how-ignis-figure img\{display:none\}/);
+  const how=readFileSync(new URL("how-ignis-works.html",root),"utf8");
+  assert.match(how,/class="gates-stack"/);
   assert.match(homepage,/id="services"/);
   assert.doesNotMatch(homepage,/id="how-we-build"/);
 });
