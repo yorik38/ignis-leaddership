@@ -25,8 +25,7 @@ test("Signal Issue 1 ends with continue reading, the call, then the shared signu
     'id="ao10-sources"',
     'id="continue-reading-title">Continue reading',
     'href="/resources/bids-won-on-evidence"',
-    'href="/insights/why-do-unclear-tenders-produce-incomparable-bids"',
-    'href="/insights/when-do-tender-clarifications-become-a-second-specification"',
+    'href="/resources/commercial-system-for-your-pipeline"',
     'id="close-call-title">Got a project heading for financial close?',
     'class="button button-teal" href="/contact">Book a call',
     'id="wp-signup-title">Get the analysis',
@@ -34,7 +33,11 @@ test("Signal Issue 1 ends with continue reading, the call, then the shared signu
     'id="hubspot-newsletter-form"',
     '<footer class="site-footer">'
   ]);
-  assert.equal((issue.match(/class="continue-card"/g) || []).length, 3);
+  assert.equal((issue.match(/class="continue-card"/g) || []).length, 2);
+  assert.match(issue, /I'm especially glad to start Signal with AO10\./);
+  assert.doesNotMatch(issue, /issue-signal-tagline|issue-signal-description/);
+  const reading = issue.slice(issue.indexOf('continue-reading'), issue.indexOf('close-call'));
+  assert.doesNotMatch(reading, /why-do-unclear-tenders|tender-clarifications/);
   assert.doesNotMatch(issue, /class="home-newsletter"|class="issue-sidebar-form"|data-community-form|Coming soon/);
   assert.match(issue, /aspect-ratio|continue-card/);
 });

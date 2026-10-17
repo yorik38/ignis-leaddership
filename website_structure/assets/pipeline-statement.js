@@ -8,7 +8,7 @@
   if (!section || !frame || !word || !heading || !window.IntersectionObserver || !word.animate) return;
 
   var reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
-  var stages = ["Process", "Context", "Data", "Governance", "Workflows"];
+  var stages = ["fewer surprises", "one source of truth", "faster gates", "stronger terms"];
   var HOLD_MS = 1100;
   var generation = 0;
   var animation = null;

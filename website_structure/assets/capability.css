@@ -1039,6 +1039,16 @@
 }
 
 .issue-page .issue-body .issue-shell:not(:has(.issue-sidebar)){display:block;width:min(720px,calc(100% - 48px))}
+.ao10-issue.issue-page .issue-body .issue-shell:not(:has(.issue-sidebar)){width:min(1120px,calc(100% - 48px))}
+.ao10-issue .issue-article-content{width:calc((100% + min(100%,720px)) / 2);max-width:none;margin-right:auto}
+.ao10-issue .issue-article-content>p,.ao10-issue .issue-article-content>.issue-pullquote,.ao10-issue .issue-article-content>.issue-closing,.ao10-issue .issue-article-content>.issue-author-note,.ao10-issue .issue-article-content>.issue-author-bio,.ao10-issue .issue-article-content>.issue-sources,.ao10-issue .issue-article-content>h2,.ao10-issue .issue-article-content>ul,.ao10-issue .issue-article-content>ol{max-width:none}
+.ao10-issue .issue-hero h1{max-width:16em;text-wrap:balance}
+.ao10-issue .issue-feature,.ao10-issue .issue-feature.issue-feature-signal,.ao10-issue .issue-feature img,.ao10-issue .issue-feature.issue-feature-signal img{background:#fff}
+@media(max-width:720px){
+  .ao10-issue.issue-page .issue-hero .issue-shell,
+  .ao10-issue.issue-page .issue-body .issue-shell:not(:has(.issue-sidebar)){width:min(100% - 32px,720px)}
+  .ao10-issue .issue-hero h1{text-wrap:balance}
+}
 .continue-reading{padding:clamp(1rem,2vw,1.5rem) 0 clamp(4rem,7vw,6rem);background:#fff}
 .continue-reading h2{margin:0 0 clamp(1.25rem,2vw,1.75rem);font-family:var(--font-sans);font-size:clamp(1.75rem,2.4vw,2.25rem);font-weight:500;letter-spacing:-.03em}
 .continue-reading-grid{display:grid;grid-template-columns:repeat(3,minmax(0,420px));gap:clamp(1rem,2vw,1.75rem);justify-content:start}
@@ -1055,8 +1065,11 @@
   .continue-card:hover,.continue-card:focus-visible{transform:translateY(-4px)}
 }
 .continue-card:focus-visible{outline:3px solid #08756d;outline-offset:4px}
+.continue-reading-grid.continue-reading-pair{grid-template-columns:repeat(2,minmax(0,1fr));max-width:none}
+.continue-reading-pair .continue-card{max-width:none}
 @media(max-width:1100px){
   .continue-reading-grid{grid-template-columns:1fr;max-width:420px}
+  .continue-reading-grid.continue-reading-pair{grid-template-columns:1fr;max-width:none}
 }
 @media(prefers-reduced-motion:reduce){
   .continue-card,.continue-card-media img{transition:none}
