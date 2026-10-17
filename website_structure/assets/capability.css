@@ -225,13 +225,13 @@
   width:100%;
   height:100%;
   object-fit:cover;
-  object-position:center;
+  object-position:35% 50%;
   filter:none;
 }
 .hero::after{
   inset:0;
   z-index:1;
-  background:linear-gradient(90deg,rgba(0,0,0,.96) 0%,rgba(0,0,0,.82) 34%,rgba(0,0,0,.16) 64%,rgba(0,0,0,.02) 100%);
+  background:linear-gradient(90deg,rgba(6,28,30,.78) 0,rgba(6,28,30,.72) 700px,rgba(6,28,30,.25) 62%,rgba(6,28,30,.10) 100%);
 }
 .hero-inner{
   position:relative;
@@ -296,8 +296,8 @@
 }
 .page-hero .button-row{margin-top:2rem}
 @media(max-width:850px){
-  .hero-media img{object-position:64% center}
-  .hero::after{background:linear-gradient(90deg,rgba(0,0,0,.97) 0%,rgba(0,0,0,.78) 52%,rgba(0,0,0,.3) 100%)}
+  .hero-media img{object-position:30% center}
+  .hero::after{background:linear-gradient(90deg,rgba(6,28,30,.78) 0,rgba(6,28,30,.72) 700px,rgba(6,28,30,.25) 72%,rgba(6,28,30,.10) 100%)}
   .page-hero::before{background-position:68% center}
   .page-hero::after{background:linear-gradient(90deg,rgba(0,0,0,.98) 0%,rgba(0,0,0,.9) 58%,rgba(0,0,0,.5) 100%)}
   .page-hero{min-height:100svh;padding-top:78px}
@@ -891,7 +891,7 @@
 }
 
 @media(max-width:700px){
-  .hero::after{background:linear-gradient(180deg,rgba(0,0,0,.58),rgba(0,0,0,.72))}
+  .hero::after{background:linear-gradient(180deg,rgba(6,28,30,.86),rgba(6,28,30,.74))}
   .pipeline-statement{padding-block:4.5rem}
   .pipeline-statement h2{font-size:var(--h2)}
 }
