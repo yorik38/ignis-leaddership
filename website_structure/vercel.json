@@ -53,7 +53,12 @@
     },
     {
       "source": "/resources",
-      "destination": "/guides",
+      "destination": "/reports",
+      "permanent": true
+    },
+    {
+      "source": "/guides",
+      "destination": "/reports",
       "permanent": true
     },
     {

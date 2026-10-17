@@ -15,8 +15,16 @@ test("the How Ignis works page states the single offer without naming a product"
   assert.match(page, /id="offshore"/);
   assert.match(page, /solar, onshore wind, battery storage and long-duration storage/i);
   assert.match(page, /fixed and floating/i);
-  for (const layer of ["Process", "Context", "Data", "Governance", "Workflows"]) {
-    assert.match(page, new RegExp(`<h3>${layer}</h3>`));
+  const layers = [
+    ["Process", "How each project moves from grid offer to close."],
+    ["Context", "Your past projects, plus market, policy and commercial knowledge."],
+    ["Data", "One trusted set of numbers across the pipeline."],
+    ["Governance", "Approvals, controls and a full audit trail."],
+    ["Workflows", "Repeatable commercial work, run by agents."],
+  ];
+  for (const [layer, description] of layers) {
+    assert.match(page, new RegExp(`<h3>${layer}</h3><p>${description}</p>`));
+    assert.match(home, new RegExp(`<span>${layer}</span><p>${description}</p>`));
   }
   assert.match(page, /Five steps, starting on live work\./);
   for (const step of ["Gap review", "Map", "Design", "Pilot", "Embed and improve"]) {

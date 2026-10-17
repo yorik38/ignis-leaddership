@@ -945,7 +945,12 @@ label.skip-link {
 .site-footer .footer-sitemap {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  justify-content: stretch;
+  justify-content: start;
+  justify-items: start;
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  text-align: left;
   gap: clamp(1.5rem, 3vw, 3rem);
 }
 
@@ -1002,11 +1007,29 @@ label.skip-link {
 @media (max-width: 900px) {
   .site-footer .footer-main { grid-template-columns: 1fr; gap: 2.5rem; }
   .footer-identity { max-width: 34rem; }
-  .site-footer .footer-sitemap { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .site-footer .footer-sitemap {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    width: 100%;
+    max-width: none;
+    margin: 0;
+    justify-content: start;
+    justify-items: start;
+    text-align: left;
+  }
 }
 
 @media (max-width: 600px) {
-  .site-footer .footer-sitemap { grid-template-columns: 1fr; gap: 1.75rem; }
+  .site-footer .footer-sitemap {
+    grid-template-columns: 1fr;
+    gap: 1.75rem;
+    width: 100%;
+    max-width: none;
+    margin: 0;
+    justify-content: start;
+    justify-items: start;
+    text-align: left;
+  }
+  .site-footer .footer-sitemap-group { align-items: flex-start; text-align: left; }
   .site-footer .footer-identity p { margin-top: 1rem; }
   .site-footer .footer-bottom { margin-top: 3rem; }
 }
@@ -1033,10 +1056,17 @@ label.skip-link {
    light heroes use the dark mark, dark and photo heroes use the white mark.
    While the bar is moving, both themes use the dark bar and white marks.
    After scrolling settles, the mark follows the surface under the bar. */
+body[data-header] .site-header {
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
 body[data-header="light"] .site-header:not(.is-scrolling) {
   color: var(--chrome-ink);
-  background: transparent;
+  background: #fff;
   box-shadow: none;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
 }
 
 body[data-header="light"] .site-header:not(.is-scrolling) .brand-icon img {
@@ -1068,10 +1098,10 @@ body[data-header="dark"] .site-header:not(.is-scrolled):not(.is-scrolling) .menu
 body[data-header="light"] .site-header.is-scrolling,
 body[data-header="dark"] .site-header.is-scrolling {
   color: #fff;
-  background: rgba(0, 0, 0, .88);
+  background: #111820;
   box-shadow: 0 1px 0 rgba(255, 255, 255, .08);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
 }
 
 body[data-header="light"] .site-header.is-scrolling .brand-icon img,
@@ -1111,4 +1141,10 @@ body[data-header].menu-open .site-header.is-scrolling {
 body[data-header].menu-open .site-header .brand-icon img,
 body[data-header] .menu-overlay .brand-icon img {
   filter: none;
+}
+
+/* Light page styles set a dark colour on every h2. The close band stays white. */
+body[data-header] .close-call,
+body[data-header] .close-call h2 {
+  color: #fff;
 }

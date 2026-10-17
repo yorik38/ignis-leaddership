@@ -7,18 +7,18 @@ import { fileURLToPath } from 'node:url';
 const site = join(dirname(fileURLToPath(import.meta.url)), '..');
 const read = (path) => readFileSync(join(site, path), 'utf8');
 
-test('Insights and Guides are distinct collections', () => {
+test('Insights and Reports are distinct collections', () => {
   const insights = read('insights.html');
-  const guides = read('guides.html');
+  const guides = read('reports.html');
   assert.match(insights, /id="newsletter-editions"/);
-  assert.match(insights, /href="\/guides"/);
+  assert.match(insights, /href="\/reports"/);
   assert.match(insights, /class="signal-hero"/);
   assert.match(insights, /class="earlier-editions"[^>]*hidden/);
   assert.match(insights, />Earlier editions</);
   assert.doesNotMatch(insights, /class="earlier-card"/);
   assert.equal((insights.match(/href="\/insights\/ao10-france-has-put-a-price-on-proof"/g) || []).length, 1);
   assert.doesNotMatch(insights, /class="insights-guides"/);
-  assert.match(guides, /<h1 id="resources-title">Practical guides/);
+  assert.match(guides, /<h1 id="resources-title">Reports</);
   assert.doesNotMatch(guides, /class="home-latest"/);
   assert.doesNotMatch(guides, /class="home-newsletter"/);
   for (const path of [
@@ -41,19 +41,21 @@ test('Resources navigation and canonical routes point to both pages', () => {
   assert.match(header, /<details class="overlay-resource-group"><summary class="overlay-resource-toggle">Resources/);
   assert.doesNotMatch(header, /overlay-nav-mark/);
   assert.match(header, /class="overlay-resource-chevron" aria-hidden="true"/);
-  for (const path of ['/insights', '/guides']) {
+  for (const path of ['/insights', '/reports']) {
     assert.ok(header.includes(`href="${path}"`));
     assert.ok(footer.includes(`href="${path}"`));
   }
-  assert.match(read('guides.html'), /rel="canonical" href="https:\/\/www\.ignisleadership\.com\/guides"/);
-  assert.match(read('sitemap.xml'), /<loc>https:\/\/www\.ignisleadership\.com\/guides<\/loc>/);
+  assert.doesNotMatch(header, /href="\/guides"/);
+  assert.doesNotMatch(footer, /href="\/guides"/);
+  assert.match(read('reports.html'), /rel="canonical" href="https:\/\/www\.ignisleadership\.com\/reports"/);
+  assert.match(read('sitemap.xml'), /<loc>https:\/\/www\.ignisleadership\.com\/reports<\/loc>/);
   const redirects = JSON.parse(read('vercel.json')).redirects;
-  assert.equal(redirects.find(({ source }) => source === '/resources')?.destination, '/guides');
-  assert.ok(!redirects.some(({ source }) => source === '/guides'));
+  assert.equal(redirects.find(({ source }) => source === '/resources')?.destination, '/reports');
+  assert.equal(redirects.find(({ source }) => source === '/guides')?.destination, '/reports');
 });
 
-test('Guides loads shared chrome after the legacy page styles', () => {
-  const guides = read('guides.html');
+test('Reports loads shared chrome after the legacy page styles', () => {
+  const guides = read('reports.html');
   const legacy = guides.indexOf('/assets/capability.css');
   const shared = guides.indexOf('/assets/site-chrome.css');
   assert.ok(legacy !== -1 && shared > legacy, 'shared menu styles must win on Guides');
