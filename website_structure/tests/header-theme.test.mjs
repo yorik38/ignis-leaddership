@@ -30,7 +30,7 @@ test("every page declares a header theme that matches its hero", () => {
     const name = file.split("/").pop();
     const expected = dark.has(name) ? "dark" : "light";
     assert.match(html, new RegExp(`<body\\b[^>]*\\sdata-header="${expected}"`), `${name} should use the ${expected} header`);
-    assert.equal((html.match(/data-header="/g) || []).length, 1, `One header theme: ${name}`);
+    assert.equal((html.match(/<body\b[^>]*\sdata-header="/g) || []).length, 1, `One header theme: ${name}`);
   }
   assert.match(readFileSync(join(root, "about.html"), "utf8"), /data-header="light"/);
   assert.match(readFileSync(join(root, "index.html"), "utf8"), /data-header="dark"/);

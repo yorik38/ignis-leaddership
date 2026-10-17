@@ -105,7 +105,7 @@ label.skip-link {
   color: #fff;
   background: transparent;
   box-shadow: none;
-  font-family: "Inter", system-ui, -apple-system, sans-serif;
+  font-family: "Inter", "Inter Fallback", system-ui, -apple-system, sans-serif;
   transition: height .25s, background .25s, color .25s, box-shadow .25s, backdrop-filter .25s;
 }
 
@@ -181,7 +181,7 @@ label.skip-link {
 .contact-symbol,
 .menu-close {
   border: 0;
-  font-family: "Inter", system-ui, -apple-system, sans-serif;
+  font-family: "Inter", "Inter Fallback", system-ui, -apple-system, sans-serif;
   font-size: .88rem;
   font-weight: 600;
   letter-spacing: .08em;
@@ -279,7 +279,7 @@ label.skip-link {
   padding: 0 var(--gutter) 2rem;
   color: #fff;
   background: #000;
-  font-family: "Inter", system-ui, -apple-system, sans-serif;
+  font-family: "Inter", "Inter Fallback", system-ui, -apple-system, sans-serif;
   visibility: hidden;
   opacity: 0;
   transform: translateY(-1rem);
@@ -371,7 +371,7 @@ label.skip-link {
   border-top: 1px solid var(--chrome-line);
   color: var(--chrome-muted);
   background: #000;
-  font-family: "Inter", system-ui, -apple-system, sans-serif;
+  font-family: "Inter", "Inter Fallback", system-ui, -apple-system, sans-serif;
 }
 
 .site-footer .footer-grid {
@@ -528,7 +528,7 @@ label.skip-link {
   max-width: 30ch;
   margin: 0;
   color: #fff;
-  font-family: "Inter", system-ui, -apple-system, sans-serif;
+  font-family: "Inter", "Inter Fallback", system-ui, -apple-system, sans-serif;
   font-size: clamp(1.2rem, 1.8vw, 1.55rem);
   font-style: normal;
   font-weight: 600;
@@ -544,7 +544,7 @@ label.skip-link {
 .newsletter-mid-signup .mid-signup-copy p {
   margin: 1rem 0 0;
   color: #aeb5bf;
-  font-family: "Inter", system-ui, -apple-system, sans-serif;
+  font-family: "Inter", "Inter Fallback", system-ui, -apple-system, sans-serif;
   font-size: .95rem;
   line-height: 1.55;
 }
@@ -555,7 +555,7 @@ label.skip-link {
   display: block;
   margin: 0 0 1.8rem;
   color: #fff;
-  font-family: "Inter", system-ui, -apple-system, sans-serif;
+  font-family: "Inter", "Inter Fallback", system-ui, -apple-system, sans-serif;
   font-size: clamp(1.35rem, 2vw, 1.8rem);
   font-style: normal;
   font-weight: 600;

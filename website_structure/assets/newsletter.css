@@ -1,4 +1,4 @@
-.newsletter-page{--newsletter-sans:'Inter',Arial,sans-serif;--newsletter-editorial:'Source Serif 4',Georgia,serif;--newsletter-page-title:clamp(40px,5.2vw,58px);--newsletter-standfirst:clamp(19px,2.2vw,22px);font-family:var(--newsletter-sans);}.newsletter-page,.newsletter-page main{background:#fff;color:var(--ink);}
+.newsletter-page{--newsletter-sans:'Inter','Inter Fallback',Arial,sans-serif;--newsletter-editorial:'Source Serif 4',Georgia,serif;--newsletter-page-title:clamp(40px,5.2vw,58px);--newsletter-standfirst:clamp(19px,2.2vw,22px);font-family:var(--newsletter-sans);}.newsletter-page,.newsletter-page main{background:#fff;color:var(--ink);}
 .newsletter-nav{height:76px;display:flex;align-items:center;justify-content:space-between;}
 .newsletter-nav-cta{border:1px solid var(--ink);padding:11px 18px;text-decoration:none;font-size:14px;font-weight:600;}
 .newsletter-nav-cta:hover{background:var(--ink);color:#fff;}

@@ -9,7 +9,10 @@
 .whitepaper .wp-gate-card h2{margin:0 0 8px;font-size:28px}
 .whitepaper .wp-gate-card p{margin:0;color:var(--ink2)}
 .hubspot-whitepaper-form{min-height:148px;padding:8px;border:1px dashed var(--tl);border-radius:12px;background:#fff}
-.hubspot-whitepaper-form:not(:has(form,iframe,.hbspt-form))::before{content:"Name, work email, company and role";display:block;padding:28px 16px;color:var(--mid);font-size:15px;text-align:center}
+.hubspot-whitepaper-form:not(:has(form,iframe,.hbspt-form))::before{content:"Work email";display:block;padding:28px 16px;color:var(--mid);font-size:15px;text-align:center}
+.hubspot-whitepaper-form:has(form){min-height:0;padding:0;border:0;background:transparent}
+.hubspot-whitepaper-form .wp-download-form{width:min(100%,22rem)}
+.wp-download-form input[type="hidden"]{display:none}
 .wp-gate-ready{display:grid;gap:12px;align-content:center;min-height:148px;padding:8px}
 .wp-gate-ready[hidden],.hubspot-whitepaper-form[hidden]{display:none}
 .wp-gate-ready p{margin:0;color:var(--ink);font-weight:600}
