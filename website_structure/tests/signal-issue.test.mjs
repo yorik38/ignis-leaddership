@@ -48,7 +48,7 @@ test("the white paper page uses the same continue-reading cards without linking 
   assert.doesNotMatch(block, /Coming soon|How to build a commercial system/);
   const css = readFileSync(new URL("assets/capability.css", root), "utf8");
   assert.match(css, /\.continue-reading-grid\{[^}]*minmax\(0,420px\)/);
-  assert.match(css, /\.continue-card-media\{[^}]*aspect-ratio:auto/);
+  assert.match(css, /\.continue-card-media\{[^}]*aspect-ratio:16\/9/);
   assert.match(css, /\.continue-card-media img\{[^}]*object-fit:contain/);
   assert.match(css, /@media\(max-width:1100px\)\{\s*\.continue-reading-grid\{grid-template-columns:1fr/);
   assert.match(css, /prefers-reduced-motion:reduce/);
