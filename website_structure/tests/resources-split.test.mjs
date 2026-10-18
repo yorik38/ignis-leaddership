@@ -37,7 +37,9 @@ test('Insights and Reports are distinct collections', () => {
   ]) assert.equal(guides.includes(`href="${path}"`), false, `${path} still listed`);
   assert.match(guides, /href="\/reports\/market-monitor-2026-10"/);
   assert.match(guides, /<time datetime="2026-10">October 2026<\/time>/);
-  assert.match(guides, /card-market-monitor-2026-10\.png/);
+  assert.match(guides, /card-market-monitor-2026-10-b3ff6b4e\.png/);
+  assert.match(guides, /GB power at £145\/MWh on the back of gas and the Iran conflict, Gate 2 offers due by 31 October, and the AR8 budget on 19 November: three decisions for your board this month\./);
+  assert.doesNotMatch(guides, /What moved in auctions, prices, grid and deals/);
   const report = read('reports/market-monitor-2026-10.html');
   assert.match(report, /<h1>Ignis Market Monitor: October 2026<\/h1>/);
   assert.match(report, /What moved in auctions, prices, grid and deals this month, and the three things a CEO should act on\./);
