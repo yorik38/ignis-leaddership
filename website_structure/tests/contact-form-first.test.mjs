@@ -43,8 +43,8 @@ test('Contact page leads with one introduction and the existing form', () => {
   assert.match(contact, /We'll use your details only to reply to this enquiry\. See our <a href="\/privacy">Privacy Policy<\/a>/);
   assert.match(contact, /Also send me Signal, the weekly Ignis newsletter\. Unsubscribe any time\./);
   assert.doesNotMatch(contact, /id="newsletter-opt-in"[^>]*checked/);
-  assert.match(contact, /Thanks, <span data-contact-first-name><\/span>\. Your message is with Yorik\. He'll reply by email within 2 working days\. Can't wait\? <a href="https:\/\/calendly\.com\/yorik-tisseau-tmff\/bid-capability-diagnostic" data-calendly-link>Book a call now<\/a>/);
-  assert.match(contact, /class="button button-teal" href="https:\/\/calendly\.com\/yorik-tisseau-tmff\/bid-capability-diagnostic" data-calendly-link>Book a call<\/a>/);
+  assert.match(contact, /Thanks, <span data-contact-first-name><\/span>\. Your message is with Yorik\. He'll reply by email within 2 working days\. Can't wait\? <a href="https:\/\/calendly\.com\/yorik-tisseau-tmff\/commercial-decision-call" data-calendly-link>Book a call now<\/a>/);
+  assert.match(contact, /class="button button-teal" href="https:\/\/calendly\.com\/yorik-tisseau-tmff\/commercial-decision-call" data-calendly-link>Book a call<\/a>/);
   assert.match(read('api/contact.js'), /name: "topic", value: topic/);
   assert.match(read('api/contact.js'), /name: "company", value: company/);
   assert.match(read('api/contact.js'), /name: "role", value: role/);
