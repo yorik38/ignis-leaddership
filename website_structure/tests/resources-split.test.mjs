@@ -19,7 +19,10 @@ test('Insights and Reports are distinct collections', () => {
   assert.doesNotMatch(insights, /class="earlier-card"/);
   assert.equal((insights.match(/href="\/insights\/ao10-france-has-put-a-price-on-proof"/g) || []).length, 1);
   assert.doesNotMatch(insights, /class="insights-guides"/);
-  assert.match(guides, /<h1 id="reports-title">Reports</);
+  assert.match(guides, /<h1 id="reports-title">Reports<span class="signal-mark">\.<\/span><\/h1>/);
+  assert.match(read('white-papers.html'), /<h1 id="white-papers-title">White papers<span class="signal-mark">\.<\/span><\/h1>/);
+  assert.doesNotMatch(read('reports/market-monitor-2026-10.html'), /signal-mark/);
+  assert.doesNotMatch(read('resources/bids-won-on-evidence.html'), /signal-mark/);
   assert.match(guides, /class="issue-page whitepapers-page"/);
   assert.match(guides, /class="wp-index"/);
   assert.doesNotMatch(guides, /class="home-latest"/);
