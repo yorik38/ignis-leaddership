@@ -128,3 +128,7 @@
   .whitepaper .layer-row .sy{grid-area:hold}
 }
 .whitepaper .abs p+p{margin-top:.85rem}
+.whitepaper .fig img{width:100%;height:auto;display:block}
+.hubspot-whitepaper-form.is-placeholder::before{content:none}
+.hubspot-whitepaper-form .wp-form-placeholder{margin:0;padding:22px 18px;color:#3a3f45;font-size:15px;line-height:1.45}
+.hubspot-whitepaper-form .wp-form-placeholder strong{color:#08756d}
