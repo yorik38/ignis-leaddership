@@ -74,9 +74,15 @@
   </url>
   <url>
     <loc>https://www.ignisleadership.com/reports</loc>
-    <lastmod>2026-10-11</lastmod>
+    <lastmod>2026-10-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.ignisleadership.com/reports/market-monitor-2026-10</loc>
+    <lastmod>2026-10-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.ignisleadership.com/resources/choose-first-ai-bid-use-case</loc>
