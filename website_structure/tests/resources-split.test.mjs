@@ -43,6 +43,10 @@ test('Insights and Reports are distinct collections', () => {
   assert.match(report, /ignisRevealWhitepaperDownload/);
   assert.doesNotMatch(report, /FORGE|\/api\/whitepaper|data-whitepaper-form/);
   assert.equal((report.match(/<figure /g) || []).length, 5);
+  assert.match(report, /id="prices-up">What is driving GB power prices up/);
+  assert.match(report, /fig3-gb-power-vs-gas\.png/);
+  assert.match(report, /id="s59"/);
+  assert.doesNotMatch(report, /fig3-gb-wholesale/);
 });
 
 test('Resources navigation and canonical routes point to both pages', () => {
