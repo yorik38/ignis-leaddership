@@ -19,18 +19,22 @@ test('Insights and Reports are distinct collections', () => {
   assert.doesNotMatch(insights, /class="earlier-card"/);
   assert.equal((insights.match(/href="\/insights\/ao10-france-has-put-a-price-on-proof"/g) || []).length, 1);
   assert.doesNotMatch(insights, /class="insights-guides"/);
-  assert.match(guides, /<h1 id="resources-title">Reports</);
+  assert.match(guides, /<h1 id="reports-title">Reports</);
+  assert.match(guides, /class="issue-page whitepapers-page"/);
+  assert.match(guides, /class="wp-index"/);
   assert.doesNotMatch(guides, /class="home-latest"/);
   assert.doesNotMatch(guides, /class="home-newsletter"/);
+  assert.doesNotMatch(guides, /class="resources-catalogue"/);
+  assert.equal((guides.match(/<a class="wp-report"/g) || []).length, 1);
   for (const path of [
     '/resources/ai-augmented-bid-practice',
     '/resources/bid-agent-maturity',
     '/resources/choose-first-ai-bid-use-case',
+    '/rfp-software-vs-agentic-bid-system',
     '/insights/why-do-unclear-tenders-produce-incomparable-bids',
     '/insights/when-do-tender-clarifications-become-a-second-specification',
     '/insights/is-commercial-work-too-judgement-heavy-for-ai-agents',
-    '/rfp-software-vs-agentic-bid-system',
-  ]) assert.ok(guides.includes(`href="${path}"`), `${path} missing from Guides`);
+  ]) assert.equal(guides.includes(`href="${path}"`), false, `${path} still listed`);
   assert.match(guides, /href="\/reports\/market-monitor-2026-10"/);
   assert.match(guides, /<time datetime="2026-10">October 2026<\/time>/);
   assert.match(guides, /card-market-monitor-2026-10\.png/);
@@ -69,6 +73,13 @@ test('Resources navigation and canonical routes point to both pages', () => {
   const redirects = JSON.parse(read('vercel.json')).redirects;
   assert.equal(redirects.find(({ source }) => source === '/resources')?.destination, '/reports');
   assert.equal(redirects.find(({ source }) => source === '/guides')?.destination, '/reports');
+  assert.equal(redirects.find(({ source }) => source === '/guides/:path*')?.destination, '/reports');
+  for (const source of [
+    '/resources/ai-augmented-bid-practice',
+    '/resources/bid-agent-maturity',
+    '/resources/choose-first-ai-bid-use-case',
+    '/rfp-software-vs-agentic-bid-system',
+  ]) assert.equal(redirects.find((rule) => rule.source === source)?.destination, '/reports', source);
 });
 
 test('Reports loads shared chrome after the legacy page styles', () => {

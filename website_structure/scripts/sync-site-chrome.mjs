@@ -13,13 +13,9 @@ const pages = [
   "privacy.html",
   "terms.html",
   "guides.html",
-  "rfp-software-vs-agentic-bid-system.html",
   "insights/is-commercial-work-too-judgement-heavy-for-ai-agents.html",
   "insights/when-do-tender-clarifications-become-a-second-specification.html",
   "insights/why-do-unclear-tenders-produce-incomparable-bids.html",
-  "resources/choose-first-ai-bid-use-case.html",
-  "resources/bid-agent-maturity.html",
-  "resources/ai-augmented-bid-practice.html",
 ];
 
 const communityPages = new Map([
@@ -346,13 +342,6 @@ for (const page of pages) {
   if (page.startsWith("insights/") || page.startsWith("resources/")) {
     html = html.replaceAll('the <a href="/#services">Audit step</a>', 'the <a href="/commercial-ai-adoption">Map stage</a>');
     html = html.replaceAll('the <a href="/#services">engagement audit</a>', 'the <a href="/commercial-ai-adoption">mapping stage</a>');
-  }
-
-  if (page === "rfp-software-vs-agentic-bid-system.html") {
-    html = html.replace(
-      '<article><span>01</span><h3>Audit</h3><p>Map the process, decisions, evidence and controls. Identify whether the gap needs software, a bespoke workflow or both.</p></article><article><span>02</span><h3>Pilot</h3><p>Build and test one bounded human-agent workflow around approved evidence and named decision gates.</p></article><article><span>03</span><h3>Scale</h3><p>Measure the outcome and review burden. Keep what works, strengthen the controls and connect the next part of the work.</p></article>',
-      '<article><span>01</span><h3>Map</h3><p>Map the process, decisions, evidence and controls. Identify whether the gap needs software, a bespoke workflow or both.</p></article><article><span>02</span><h3>Design</h3><p>Define one bounded human-agent workflow around approved evidence and named decision gates.</p></article><article><span>03</span><h3>Support delivery</h3><p>Support the build and test, measure the review burden and decide the next move from evidence.</p></article>',
-    );
   }
 
   if (page === "contact.html") {

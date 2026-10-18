@@ -44,7 +44,7 @@ test("all rendered pages use the same footer and updated shared stylesheet", () 
     assert.equal(rendered, footer, `Footer mismatch: ${file}`);
     assert.match(html, /\/assets\/site-chrome\.css\?v=50/, `Old shared CSS key: ${file}`);
   }
-  assert.ok(count >= 22, `Expected shared footer across rendered pages; found ${count}`);
+  assert.ok(count >= 19, `Expected shared footer across rendered pages; found ${count}`);
 });
 
 test("every page ends with the homepage call, the shared signup, then the shared footer", () => {
@@ -64,5 +64,5 @@ test("every page ends with the homepage call, the shared signup, then the shared
     assert.equal(html.split('id="close-call-title"').length - 1, 1, `CTA count: ${file}`);
     assert.equal(html.split('id="wp-signup-title"').length - 1, 1, `Signup count: ${file}`);
   }
-  assert.ok(count >= 22);
+  assert.ok(count >= 19);
 });
