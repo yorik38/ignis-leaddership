@@ -24,7 +24,7 @@
   <meta name="twitter:image:alt" content="Ignis Leadership logo">
   <meta name="author" content="Yorik Tisseau">
   <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"AboutPage","@id":"https://www.ignisleadership.com/about#webpage","url":"https://www.ignisleadership.com/about","name":"About Yorik Tisseau, founder of Ignis | Ignis Leadership","isPartOf":{"@id":"https://www.ignisleadership.com/#website"},"mainEntity":{"@id":"https://www.ignisleadership.com/#yorik-tisseau"},"inLanguage":"en-GB"},{"@type":"Person","@id":"https://www.ignisleadership.com/#yorik-tisseau","name":"Yorik Tisseau","url":"https://www.ignisleadership.com/about","jobTitle":"Commercial AI and transformation consultant","worksFor":{"@id":"https://www.ignisleadership.com/#organization"},"sameAs":["https://www.linkedin.com/in/yorik-tisseau/"]}]}</script>
-  <link rel="stylesheet" href="/assets/capability.css?v=194">
+  <link rel="stylesheet" href="/assets/capability.css?v=195">
   <link rel="stylesheet" href="/assets/site-chrome.css?v=50">
   <link rel="stylesheet" href="/assets/about-founder.css?v=9">
 <link rel="preload" href="/assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin><link rel="preload" href="/assets/fonts/source-serif-4-italic-latin.woff2" as="font" type="font/woff2" crossorigin><link rel="icon" href="/favicon.ico" sizes="any"><link rel="icon" href="/assets/img/favicon-32.png" type="image/png" sizes="32x32"><link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png"><link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml"></head>
@@ -90,7 +90,7 @@
 </picture>
 <div class="wp-signup-copy">
 <h2 id="wp-signup-title">Get the analysis</h2>
-<p>The weekly newsletter, our reports and new white papers on moving energy projects from last-mile development to financial close.</p>
+<p>Signal: practical notes on moving energy projects from last-mile development to financial close.</p>
 <div id="hubspot-newsletter-form" class="hubspot-newsletter-form">
 <!--
   TODO: Create the HubSpot form, set portalId and formId, then uncomment this embed.
@@ -108,10 +108,15 @@
     });
   </script>
 -->
-<form class="wp-signup-form" method="post" action="#wp-signup-title" novalidate>
+<form class="signal-signup-form" method="post" action="/api/subscribe" data-community-form>
 <label class="skip-link" for="wp-signup-email">Work email</label>
-<input id="wp-signup-email" name="email" type="email" autocomplete="email" inputmode="email" placeholder="Work email">
+<div class="signal-signup-fields">
+<input id="wp-signup-email" name="email" type="email" autocomplete="email" inputmode="email" placeholder="Work email" required>
 <button type="submit" aria-label="Subscribe"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path></svg></button>
+</div>
+<label class="signal-signup-consent"><input type="checkbox" name="signal_consent" value="true" required> Yes, email me Signal from Ignis Leadership. Unsubscribe anytime.</label>
+<p class="signal-signup-privacy">See our <a href="/privacy">Privacy Policy</a>.</p>
+<p class="subscribe-status" data-form-status role="status" aria-live="polite"></p>
 </form>
 <noscript><p>The signup form needs JavaScript.</p></noscript>
 </div>
@@ -137,6 +142,6 @@
   <div class="wrap footer-bottom"><span>© 2026 Ignis Leadership</span><div class="footer-legal"><a href="/privacy">Privacy</a><a href="/terms">Terms</a></div></div>
 </footer>
   <script src="/assets/capability.js?v=12" defer></script>
-<script src="/assets/whitepaper.js?v=2" defer></script>
+<script src="/assets/whitepaper.js?v=5" defer></script>
 </body>
 </html>

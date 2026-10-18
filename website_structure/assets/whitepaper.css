@@ -13,6 +13,18 @@
 .hubspot-whitepaper-form:has(form){min-height:0;padding:0;border:0;background:transparent}
 .hubspot-whitepaper-form .wp-download-form{width:min(100%,22rem)}
 .wp-download-form input[type="hidden"]{display:none}
+.hubspot-whitepaper-form .wp-paper-form{width:min(100%,28rem)}
+.wp-paper-fields{display:flex;align-items:center;gap:4px;width:min(100%,22rem);padding:4px;border:1px solid var(--tl);border-radius:4px;background:#fff}
+.wp-paper-fields input[type="email"]{flex:1;min-width:0;height:2.5rem;margin:0;padding:0 .75rem;border:0;background:transparent;color:#0f1419;font-size:16px;font-weight:600}
+.wp-paper-fields input[type="email"]::placeholder{color:#1d3834;opacity:1}
+.wp-paper-fields button{display:grid;place-items:center;flex:none;width:2.5rem;height:2.5rem;padding:0;border:0;background:#fff;color:#0f1419;cursor:pointer}
+.wp-paper-fields button svg{width:20px;height:20px}
+.wp-paper-form input:focus-visible,.wp-paper-form button:focus-visible{outline:2px solid var(--teal);outline-offset:2px}
+.wp-paper-consent{display:flex;align-items:flex-start;gap:.55rem;margin-top:.7rem;color:var(--ink2);font-size:.82rem;line-height:1.45;cursor:pointer}
+.wp-paper-consent input{flex:none;width:1rem;height:1rem;margin:.12rem 0 0;accent-color:var(--teal)}
+.hubspot-whitepaper-form .wp-paper-privacy,.hubspot-whitepaper-form .wp-paper-status{margin:.4rem 0 0;color:var(--mid);font-size:.8rem;line-height:1.4}
+.wp-paper-status:empty{display:none}
+.wp-paper-form button:disabled{opacity:.6;cursor:wait}
 .wp-gate-ready{display:grid;gap:12px;align-content:center;min-height:148px;padding:8px}
 .wp-gate-ready[hidden],.hubspot-whitepaper-form[hidden]{display:none}
 .wp-gate-ready p{margin:0;color:var(--ink);font-weight:600}
@@ -69,6 +81,18 @@
 .wp-signup-form input:focus,.wp-signup-form button:focus-visible{outline:2px solid #08756d;outline-offset:2px}
 .wp-signup-form button{display:grid;place-items:center;flex:none;width:2.5rem;height:2.5rem;padding:0;border:0;border-radius:2px;background:#fff;color:#0f1419;cursor:pointer}
 .wp-signup-form button svg{width:20px;height:20px}
+.signal-signup-form{width:100%}
+.signal-signup-fields{display:flex;align-items:center;gap:4px;padding:4px;border-radius:4px;background:#fff}
+.signal-signup-fields input[type="email"]{flex:1;min-width:0;height:2.5rem;margin:0;padding:0 .75rem;border:0;background:transparent;color:#0f1419;font-size:16px;font-weight:600}
+.signal-signup-fields input[type="email"]::placeholder{color:#1d3834;opacity:1}
+.signal-signup-fields button{display:grid;place-items:center;flex:none;width:2.5rem;height:2.5rem;padding:0;border:0;border-radius:2px;background:#fff;color:#0f1419;cursor:pointer}
+.signal-signup-fields button svg{width:20px;height:20px}
+.signal-signup-form input:focus-visible,.signal-signup-form button:focus-visible{outline:2px solid #1cbdad;outline-offset:2px}
+.signal-signup-consent{display:flex;align-items:flex-start;gap:.55rem;margin-top:.75rem;color:#fff;font-size:.85rem;line-height:1.45;cursor:pointer}
+.signal-signup-consent input{flex:none;width:1rem;height:1rem;margin:.15rem 0 0;accent-color:#1cbdad}
+.wp-signup-copy .signal-signup-privacy,.wp-signup-copy .subscribe-status{margin:.35rem 0 0;color:#fff;font-size:.82rem;line-height:1.4}
+.signal-signup-privacy a{color:inherit;text-underline-offset:2px}
+.signal-signup-form button:disabled{opacity:.6;cursor:wait}
 .wp-signup noscript p{margin:.75rem 0 0;color:#fff;font-size:.95rem}
 .hubspot-newsletter-form .hs-form fieldset{min-width:0;margin:0;padding:0;border:0}
 @media(max-width:640px){

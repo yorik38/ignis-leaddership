@@ -5,7 +5,7 @@ import {readFileSync} from "node:fs";
 const root = new URL("../", import.meta.url);
 const issue = readFileSync(new URL("insights/ao10-france-has-put-a-price-on-proof.html", root), "utf8");
 const paper = readFileSync(new URL("resources/bids-won-on-evidence.html", root), "utf8");
-const signup = "The weekly newsletter, our reports and new white papers on moving energy projects from last-mile development to financial close.";
+const signup = "Signal: practical notes on moving energy projects from last-mile development to financial close.";
 
 function order(html, markers) {
   let cursor = 0;
@@ -38,7 +38,8 @@ test("Signal Issue 1 ends with continue reading, the call, then the shared signu
   assert.doesNotMatch(issue, /issue-signal-tagline|issue-signal-description/);
   const reading = issue.slice(issue.indexOf('continue-reading'), issue.indexOf('close-call'));
   assert.doesNotMatch(reading, /why-do-unclear-tenders|tender-clarifications/);
-  assert.doesNotMatch(issue, /class="home-newsletter"|class="issue-sidebar-form"|data-community-form|Coming soon/);
+  assert.match(issue, /class="signal-signup-form"[^>]*data-community-form/);
+  assert.doesNotMatch(issue, /class="home-newsletter"|class="issue-sidebar-form"|Coming soon/);
   assert.match(issue, /aspect-ratio|continue-card/);
 });
 

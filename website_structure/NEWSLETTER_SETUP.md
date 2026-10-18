@@ -1,40 +1,28 @@
-# Newsletter launch checklist
+# Signal and white-paper forms
 
-The website newsletter forms now submit to HubSpot through the server-side `/api/subscribe` endpoint.
+The site submits Signal signups through `/api/subscribe` and the two white-paper gates through `/api/whitepaper`. Both endpoints use HubSpot Forms API in the EU portal. The paper must not be revealed until HubSpot accepts the request. A paper request does not imply Signal consent.
 
-## HubSpot form
+## HubSpot IDs
 
-1. Use the published HubSpot form named `Website Newsletter Subscription`.
-2. Include `Email`, `First name`, `Last name`, `Acquisition source` and `Conversion asset` in the form definition.
-3. Keep the newsletter subscription type enabled and confirm that its ID is `3723081039`.
-4. Set the form follow-up workflow for `Bid more. Win more.`
-5. Test the form, consent record and unsubscribe flow before launch.
+| Purpose | ID |
+| --- | --- |
+| EU portal | `149324702` |
+| Signal form | `9ee4b5ce-211f-4be1-a8d1-69809052e8b2` |
+| Signal subscription type | `3918046194` |
+| Bids paper form | `9b783156-b16d-443a-bc80-51bab3411670` |
+| Pipeline paper form | `5b3bb573-2ca5-47cc-8bc0-3e8b0f4023d5` |
+| Requested white papers subscription type | `3918058120` |
 
-The newsletter endpoint uses the dedicated published HubSpot form `Website Newsletter Subscription`. The contact form uses the separate `Website Enquiry` form. When the optional newsletter checkbox is selected on the contact page, the server records the enquiry first and then sends a second, explicit-consent submission to the newsletter form.
+The Signal form has Email and required Signal consent. Each paper form has Email, hidden `resource`, required consent for the requested paper, and a separate, optional Signal choice. Each paper form has a live follow-up workflow that emails its own PDF link. The site also shows the PDF link after accepted submission.
 
 ## Vercel environment variables
 
+The defaults in the endpoints match the IDs above. To override them, set:
+
 ```text
 HUBSPOT_PORTAL_ID=149324702
-HUBSPOT_NEWSLETTER_FORM_ID=9694ec84-e70c-4134-b426-383c2e458f22
-HUBSPOT_NEWSLETTER_SUBSCRIPTION_TYPE_ID=3723081039
+HUBSPOT_SIGNAL_FORM_ID=9ee4b5ce-211f-4be1-a8d1-69809052e8b2
+HUBSPOT_SIGNAL_SUBSCRIPTION_TYPE_ID=3918046194
 ```
 
-The form IDs and consent details stay on the server and are never exposed in the page.
-
-## LinkedIn funnel link
-
-Use this link in the LinkedIn newsletter and profile:
-
-```text
-https://www.ignisleadership.com/newsletter?source=linkedin&utm_source=linkedin&utm_medium=newsletter&utm_campaign=the_bid_advantage
-```
-
-## Edition display rule
-
-Whenever a new issue is published:
-
-1. Make the new issue the single featured **Latest edition** on `insights.html`.
-2. Move the previous latest issue into **Past editions** and retain no more than the three most recent past issues there.
-3. Show the three most recent published issues in total on the homepage.
-4. Keep every published issue in the full archive.
+The old `HUBSPOT_NEWSLETTER_*` variables are no longer read. Keep the old “Bid More. Win More.” form active until a live Signal signup and both paper deliveries have been verified, then retire it. HubSpot account-wide double opt-in is intentionally off: on this plan it would apply to contact and paper forms as well as Signal. Each form still records affirmative, purpose-specific consent.

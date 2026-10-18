@@ -2,6 +2,7 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import {readFileSync, readdirSync} from "node:fs";
 import {join} from "node:path";
+import {fileURLToPath} from "node:url";
 
 const root = new URL("../", import.meta.url);
 const page = readFileSync(new URL("how-ignis-works.html", root), "utf8");
@@ -108,7 +109,7 @@ function jsonFaq(html) {
 }
 
 test("audience FAQs are answer-first and match their FAQPage data", () => {
-  const signup = "The weekly newsletter, our reports and new white papers on moving energy projects from last-mile development to financial close.";
+  const signup = "Signal: practical notes on moving energy projects from last-mile development to financial close.";
   const homeFaq = visibleFaq(home);
   const pageFaq = visibleFaq(page);
   assert.ok(homeFaq.length >= 6 && homeFaq.length <= 8);
@@ -123,7 +124,7 @@ test("audience FAQs are answer-first and match their FAQPage data", () => {
     const sentences = answer.split(/(?<=[.!?])\s+/).filter(Boolean);
     assert.ok(sentences.length >= 2 && sentences.length <= 4, answer);
   }
-  for (const path of htmlFiles(root.pathname)) {
+  for (const path of htmlFiles(fileURLToPath(root))) {
     const html = readFileSync(path, "utf8");
     if (!html.includes('id="wp-signup-title"')) continue;
     assert.ok(html.includes(`<p>${signup}</p>`), path);

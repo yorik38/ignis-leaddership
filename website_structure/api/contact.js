@@ -1,7 +1,7 @@
 const HUBSPOT_PORTAL_ID = process.env.HUBSPOT_PORTAL_ID || "149324702";
 const HUBSPOT_FORM_ID = process.env.HUBSPOT_CONTACT_FORM_ID || "c4133ecb-5cca-4779-bb4e-9f85bf3d8bc3";
-const HUBSPOT_NEWSLETTER_FORM_ID = process.env.HUBSPOT_NEWSLETTER_FORM_ID || "9694ec84-e70c-4134-b426-383c2e458f22";
-const HUBSPOT_NEWSLETTER_SUBSCRIPTION_TYPE_ID = process.env.HUBSPOT_NEWSLETTER_SUBSCRIPTION_TYPE_ID || "3723081039";
+const HUBSPOT_NEWSLETTER_FORM_ID = process.env.HUBSPOT_SIGNAL_FORM_ID || "9ee4b5ce-211f-4be1-a8d1-69809052e8b2";
+const HUBSPOT_NEWSLETTER_SUBSCRIPTION_TYPE_ID = process.env.HUBSPOT_SIGNAL_SUBSCRIPTION_TYPE_ID || "3918046194";
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 function send(res, status, payload) {
@@ -124,13 +124,7 @@ module.exports = async function contactHandler(req, res) {
     }];
   }
 
-  const newsletterFields = [
-    {name: "email", value: email},
-    {name: "firstname", value: firstname},
-    {name: "lastname", value: lastname},
-    {name: "acquisition_source", value: String(body.source || "website").trim().slice(0, 180)},
-    {name: "conversion_asset", value: "website_newsletter"}
-  ];
+  const newsletterFields = [{name: "email", value: email}];
 
   try {
     await submitHubspotForm(HUBSPOT_NEWSLETTER_FORM_ID, {

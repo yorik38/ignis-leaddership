@@ -28,15 +28,34 @@
     if (sessionStorage.getItem(STORAGE_KEY) === "1") revealWhitepaperDownload();
   } catch (error) {}
 
-  document.querySelectorAll(".wp-signup-form").forEach(function (form) {
+  document.querySelectorAll("[data-whitepaper-form]").forEach(function (form) {
     form.addEventListener("submit", function (event) {
-      if (form.classList.contains("wp-download-form") && !form.checkValidity()) return;
       event.preventDefault();
-      if (!form.classList.contains("wp-download-form")) return;
-      revealWhitepaperDownload();
-      if (!PDF_URL) return;
-      var link = document.getElementById("whitepaper-download-link");
-      if (link && link.getAttribute("href")) link.click();
+      if (!form.reportValidity()) return;
+      var button = form.querySelector("button[type=submit]");
+      var status = form.querySelector("[data-form-status]");
+      var payload = Object.fromEntries(new FormData(form).entries());
+      payload.page_url = window.location.href;
+      if (button) button.disabled = true;
+      if (status) status.textContent = "Sending your request…";
+      fetch(form.action, {
+        method: "POST",
+        headers: {"Content-Type": "application/json", "Accept": "application/json"},
+        body: JSON.stringify(payload)
+      }).then(function (response) {
+        return response.json().catch(function () { return {}; }).then(function (data) {
+          if (!response.ok || !data.ok) throw new Error(data.error || "We could not send your paper just now.");
+          return data;
+        });
+      }).then(function (data) {
+        if (data.pdf !== PDF_URL) throw new Error("The paper link did not match this page.");
+        revealWhitepaperDownload();
+        var link = document.getElementById("whitepaper-download-link");
+        if (link) link.click();
+      }).catch(function (error) {
+        if (status) status.textContent = error.message + " Please try again.";
+        if (button) button.disabled = false;
+      });
     });
   });
 

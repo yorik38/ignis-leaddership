@@ -1,6 +1,6 @@
 const HUBSPOT_PORTAL_ID = process.env.HUBSPOT_PORTAL_ID || "149324702";
-const HUBSPOT_FORM_ID = process.env.HUBSPOT_NEWSLETTER_FORM_ID || "9694ec84-e70c-4134-b426-383c2e458f22";
-const HUBSPOT_SUBSCRIPTION_TYPE_ID = process.env.HUBSPOT_NEWSLETTER_SUBSCRIPTION_TYPE_ID || "3723081039";
+const HUBSPOT_FORM_ID = process.env.HUBSPOT_SIGNAL_FORM_ID || "9ee4b5ce-211f-4be1-a8d1-69809052e8b2";
+const HUBSPOT_SUBSCRIPTION_TYPE_ID = process.env.HUBSPOT_SIGNAL_SUBSCRIPTION_TYPE_ID || "3918046194";
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 function send(response, status, payload) {
@@ -35,16 +35,14 @@ module.exports = async function subscribe(request, response) {
   const lastname = parts.join(" ");
   const email = String(body.email || "").trim().toLowerCase();
   const source = String(body.source || "website").trim().slice(0, 180);
+  const signalConsent = body.signal_consent === true || body.signal_consent === "true" || body.signal_consent === "on";
 
   if (!EMAIL_PATTERN.test(email)) {
     return send(response, 422, {ok: false, error: "Enter a valid email address."});
   }
+  if (!signalConsent) return send(response, 422, {ok: false, error: "Please confirm that you want to receive Signal."});
 
-  const fields = [
-    {name: "email", value: email},
-    {name: "acquisition_source", value: source},
-    {name: "conversion_asset", value: "website_newsletter"}
-  ];
+  const fields = [{name: "email", value: email}];
   if (firstname) fields.push({name: "firstname", value: firstname});
   if (lastname) fields.push({name: "lastname", value: lastname});
   const context = {
@@ -57,13 +55,13 @@ module.exports = async function subscribe(request, response) {
   const subscriptionTypeId = Number(HUBSPOT_SUBSCRIPTION_TYPE_ID);
   const consent = {
     consentToProcess: true,
-    text: "Ignis Leadership may use these details to send the Signal newsletter. You can unsubscribe at any time."
+    text: "Ignis Leadership may use your email address to send Signal. You can unsubscribe at any time."
   };
   if (Number.isFinite(subscriptionTypeId)) {
     consent.communications = [{
       value: true,
       subscriptionTypeId,
-      text: "I want to receive the Signal newsletter from Ignis Leadership."
+      text: "Yes, email me Signal from Ignis Leadership."
     }];
   }
 
