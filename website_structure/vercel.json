@@ -66,6 +66,31 @@
       "permanent": true
     },
     {
+      "source": "/guides/:path*",
+      "destination": "/reports",
+      "permanent": true
+    },
+    {
+      "source": "/resources/ai-augmented-bid-practice",
+      "destination": "/reports",
+      "permanent": true
+    },
+    {
+      "source": "/resources/bid-agent-maturity",
+      "destination": "/reports",
+      "permanent": true
+    },
+    {
+      "source": "/resources/choose-first-ai-bid-use-case",
+      "destination": "/reports",
+      "permanent": true
+    },
+    {
+      "source": "/rfp-software-vs-agentic-bid-system",
+      "destination": "/reports",
+      "permanent": true
+    },
+    {
       "source": "/resources/guide-01-bids",
       "destination": "/resources/bids-won-on-evidence",
       "permanent": true
