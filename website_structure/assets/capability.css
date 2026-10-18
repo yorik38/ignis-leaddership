@@ -1149,6 +1149,26 @@ h1 .signal-mark{color:#1cbdad}
 }
 
 .commercial-gates-figure picture,.how-ignis-figure picture{display:contents}
+.contact-panel{display:grid;align-content:start;gap:1.15rem;min-width:0}
+.contact-required-note{margin:0;color:var(--ink-muted);font-size:.95rem;line-height:1.45}
+.contact-form[hidden],.contact-success[hidden]{display:none}
+.field .field-label{margin:0;font-size:.82rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase}
+.topic-pills{display:flex;flex-wrap:wrap;gap:.5rem}
+.topic-pills[hidden],.topic-field select[hidden]{display:none}
+.field .topic-pill{display:inline-flex;align-items:center;gap:.45rem;max-width:100%;margin:0;padding:.55rem .9rem;border:1px solid #d5dbe0;border-radius:999px;background:#f2f3f4;color:var(--ink);font-size:.95rem;font-weight:500;letter-spacing:0;line-height:1.3;text-transform:none;cursor:pointer}
+.topic-pill span{min-width:0}
+.field .topic-pill input{flex:0 0 auto;width:1.05rem;height:1.05rem;margin:0;padding:0;border:0;background:transparent;accent-color:#08756d}
+.field .topic-pill input:hover,.field .topic-pill input:focus{border:0;background:transparent;box-shadow:none}
+.topic-pill:has(:checked){border-color:#08756d;background:#e7f6f4;color:#08756d}
+.topic-pill:focus-within{outline:3px solid #08756d;outline-offset:2px}
+.contact-promise,.contact-book,.contact-privacy,.contact-form .button,.contact-form .form-status{grid-column:1/-1}
+.contact-promise,.contact-book,.contact-privacy,.contact-success{margin:0;line-height:1.5}
+.contact-promise,.contact-privacy{color:var(--ink-muted)}
+.contact-promise{font-size:1rem}
+.contact-book a{color:var(--ink);font-weight:600}
+.contact-privacy,.contact-success{font-size:.95rem}
+.contact-privacy a,.contact-success a{color:#08756d}
+.contact-success{font-size:1.15rem;color:var(--ink)}
 .gates-chart{display:grid;width:100%;min-width:0;container-type:inline-size}
 .gates-chart img,.gates-lane-labels{grid-area:1/1}
 .gates-lane-labels{position:sticky;left:0;z-index:2;justify-self:start;align-self:stretch;width:11cqi;pointer-events:none}

@@ -53,6 +53,10 @@ module.exports = async function contactHandler(req, res) {
   const lastname = parts.join(" ");
   const email = String(body.email || "").trim().toLowerCase();
   const phone = String(body.phone || "").trim().slice(0, 80);
+  const company = String(body.company || "").trim().replace(/\s+/g, " ").slice(0, 200);
+  const role = String(body.role || "").trim().replace(/\s+/g, " ").slice(0, 160);
+  const topic = String(body.topic || "").trim();
+  const allowedTopics = new Set(["gate2", "ar8", "bid_tender", "new_offers", "other"]);
   const message = String(body.message || "").trim().slice(0, 5000);
   const discoverySource = String(body.discovery_source || "").trim().slice(0, 80);
   const allowedDiscoverySources = new Set([
@@ -71,19 +75,37 @@ module.exports = async function contactHandler(req, res) {
     : String(body.source || "website").trim().slice(0, 180);
   const newsletterOptIn = body.newsletter_opt_in === true || body.newsletter_opt_in === "true" || body.newsletter_opt_in === "on";
 
-  if (!fullName || !EMAIL_PATTERN.test(email)) {
+  if (!fullName || !EMAIL_PATTERN.test(email) || !company || !allowedTopics.has(topic)) {
     return send(res, 422, {ok: false, error: "invalid_details"});
   }
+
+  const topicLabels = {
+    gate2: "Gate 2: keep-or-kill decisions",
+    ar8: "AR8 bid",
+    bid_tender: "Bid and tender work",
+    new_offers: "New AI-enabled offers",
+    other: "Something else"
+  };
+  const enquiryLines = [
+    message,
+    `Topic: ${topicLabels[topic]}`,
+    `Company: ${company}`,
+    role ? `Role: ${role}` : ""
+  ].filter(Boolean);
+  const enquiryMessage = enquiryLines.join("\n\n").slice(0, 5000);
 
   const fields = [
     {name: "email", value: email},
     {name: "firstname", value: firstname},
     {name: "lastname", value: lastname},
+    {name: "company", value: company},
+    {name: "topic", value: topic},
     {name: "acquisition_source", value: acquisitionSource},
-    {name: "conversion_asset", value: "website_enquiry"}
+    {name: "conversion_asset", value: "website_enquiry"},
+    {name: "message", value: enquiryMessage}
   ];
   if (phone) fields.push({name: "phone", value: phone});
-  if (message) fields.push({name: "message", value: message});
+  if (role) fields.push({name: "role", value: role});
 
   const context = {
     pageUri: String(body.page_url || "https://www.ignisleadership.com/#contact").slice(0, 500),
@@ -92,18 +114,27 @@ module.exports = async function contactHandler(req, res) {
   const hutk = cookieValue(req.headers.cookie, "hubspotutk");
   if (hutk) context.hutk = hutk;
 
-  try {
-    await submitHubspotForm(HUBSPOT_FORM_ID, {
-      submittedAt: Date.now(),
-      fields,
-      context,
-      legalConsentOptions: {
-        consent: {
-          consentToProcess: true,
-          text: "I agree that Ignis Leadership may use these details to respond to my enquiry."
-        }
+  const hubspotPayload = {
+    submittedAt: Date.now(),
+    fields,
+    context,
+    legalConsentOptions: {
+      consent: {
+        consentToProcess: true,
+        text: "I agree that Ignis Leadership may use these details to respond to my enquiry."
       }
-    });
+    }
+  };
+
+  try {
+    try {
+      await submitHubspotForm(HUBSPOT_FORM_ID, hubspotPayload);
+    } catch (error) {
+      const fallbackFields = fields.filter((field) => !["company", "topic", "role"].includes(field.name));
+      if (fallbackFields.length === fields.length) throw error;
+      console.error("HubSpot enquiry rejected the extra fields; retrying with the message", error && error.message);
+      await submitHubspotForm(HUBSPOT_FORM_ID, {...hubspotPayload, fields: fallbackFields});
+    }
   } catch (error) {
     console.error("HubSpot enquiry submission error", error && error.message, error && error.detail);
     return send(res, 502, {ok: false, error: "submission_failed"});

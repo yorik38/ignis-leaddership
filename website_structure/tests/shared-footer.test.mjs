@@ -57,7 +57,10 @@ test("every page ends with the homepage call, the shared signup, then the shared
     if (!html.includes('<footer class="site-footer">')) continue;
     count++;
     const call = html.indexOf('id="close-call-title">Got a project heading for financial close?');
-    const book = html.indexOf('class="button button-teal" href="/contact">Book a call');
+    const bookLabel = file.endsWith("/contact.html")
+      ? 'class="button button-teal" href="https://calendly.com/yorik-tisseau-tmff/bid-capability-diagnostic" data-calendly-link>Book a call'
+      : 'class="button button-teal" href="/contact">Book a call';
+    const book = html.indexOf(bookLabel);
     const signup = html.indexOf('id="wp-signup-title">Get the analysis');
     const footer = html.indexOf('<footer class="site-footer">');
     assert.ok(call !== -1 && call < book && book < signup && signup < footer, `Ending sequence: ${file}`);
