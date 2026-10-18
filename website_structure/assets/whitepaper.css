@@ -38,6 +38,7 @@
 .whitepapers-page .wp-report:nth-child(even){grid-template-columns:minmax(0,1.08fr) minmax(0,.92fr)}
 .whitepapers-page .wp-report:nth-child(even) .wp-report-media{order:0}
 .whitepapers-page .wp-report-media{display:block;overflow:hidden;height:auto;aspect-ratio:4/3;max-height:none;border-radius:10px;background:#f4f8f7;padding:0}
+.whitepapers-page .wp-report-media.is-wide{aspect-ratio:1200/630}
 .whitepapers-page .wp-report-media picture{display:block;height:100%}
 .whitepapers-page .wp-report-media img{display:block;width:100%;height:100%;max-height:none;object-fit:contain;object-position:center;background:#f4f8f7}
 .whitepapers-page .wp-report-copy{display:flex;min-width:0;flex-direction:column;justify-content:center;max-width:38rem;padding:0}
