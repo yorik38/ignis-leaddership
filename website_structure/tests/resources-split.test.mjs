@@ -11,7 +11,8 @@ test('Insights and Reports are distinct collections', () => {
   const insights = read('insights.html');
   const guides = read('reports.html');
   assert.match(insights, /id="newsletter-editions"/);
-  assert.match(insights, /href="\/reports"/);
+  assert.doesNotMatch(insights, /class="signal-guides"|signal-index-header[\s\S]{0,800}href="\/reports"/);
+  assert.match(insights, /class="site-footer"[\s\S]*href="\/reports">Reports</);
   assert.match(insights, /class="signal-hero"/);
   assert.match(insights, /class="earlier-editions"[^>]*hidden/);
   assert.match(insights, />Earlier editions</);
