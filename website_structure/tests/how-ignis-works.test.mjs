@@ -33,7 +33,8 @@ test("the How Ignis works page states the single offer without naming a product"
   }
   assert.match(page, /The Sprint covers gap review, mapping and design\. Pilot and embedding follow\./);
   assert.doesNotMatch(page, /Map the opportunity|Design the model/);
-  assert.match(page, /commercial-gates-comparison-v1\.png/);
+  assert.match(page, /commercial-gates-comparison-v2\.png/);
+  assert.match(page, /class="gates-lane-labels"/);
   assert.match(page, /"@type":"FAQPage"/);
   assert.doesNotMatch(page, /FORGE|Forge/);
 });

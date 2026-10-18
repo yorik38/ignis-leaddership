@@ -1149,3 +1149,13 @@ h1 .signal-mark{color:#1cbdad}
 }
 
 .commercial-gates-figure picture,.how-ignis-figure picture{display:contents}
+.gates-chart{display:grid;width:100%;min-width:0;container-type:inline-size}
+.gates-chart img,.gates-lane-labels{grid-area:1/1}
+.gates-lane-labels{position:sticky;left:0;z-index:2;justify-self:start;align-self:stretch;width:11cqi;pointer-events:none}
+.gates-lane-label{position:absolute;left:3.33cqi;font-size:.92cqi;font-weight:600;line-height:1;letter-spacing:-.02em;white-space:nowrap;background:transparent}
+.gates-lane-label.is-conventional{top:39.3%;color:#5a626a;transform:translateY(-50%)}
+.gates-lane-label.is-ignis{top:75.4%;color:#08756d;transform:translateY(-50%)}
+@media(max-width:800px){
+  .gates-chart{width:960px;max-width:none}
+  .gates-lane-label{background:#fff;padding:.08em .28em .08em 0}
+}
