@@ -1118,7 +1118,6 @@
 .signal-index-header h1 .signal-mark{color:#1cbdad}
 .signal-tagline{margin:.85rem 0 0;font-size:clamp(1.25rem,2vw,1.65rem);font-weight:500;letter-spacing:-.025em;line-height:1.25}
 .signal-description{max-width:42rem;margin:.9rem 0 0;color:var(--ink-muted);font-size:clamp(1.05rem,1.4vw,1.15rem);line-height:1.55}
-.signal-guides{display:inline-flex;margin-top:1.2rem}
 .signal-hero{display:block;overflow:hidden;color:inherit;text-decoration:none;background:#fff;border-radius:8px}
 .signal-hero-media{display:block;background:#f4f8f6}
 .signal-hero-media img{display:block;width:100%;height:auto;object-fit:contain}
