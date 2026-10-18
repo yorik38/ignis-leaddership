@@ -6,8 +6,9 @@ const root=new URL("../",import.meta.url);
 
 test("commercial gates comparison follows the rotating statement",()=>{
   const homepage=readFileSync(new URL("index.html",root),"utf8");
-  const image="assets/img/commercial-gates-comparison-v1.png";
+  const image="assets/img/commercial-gates-comparison-v2.png";
   assert.ok(existsSync(new URL(image,root)));
+  assert.match(homepage,/commercial-gates-comparison-v2\.png/);
   assert.ok(homepage.indexOf('class="band band-paper commercial-gates"')>homepage.indexOf('class="band band-paper pipeline-statement"'));
   assert.ok(homepage.indexOf('class="band band-paper commercial-gates"')<homepage.indexOf('class="band band-paper working-comparison"'));
   assert.match(homepage,/Conventional commercial development stalls between gates\./);
@@ -22,6 +23,9 @@ test("commercial gates comparison follows the rotating statement",()=>{
   assert.match(css,/@media\(max-width:800px\)\{[\s\S]*\.commercial-gates-figure img,\.how-ignis-figure img\{[^}]*width:960px[^}]*max-width:none/);
   assert.match(css,/@media\(max-width:800px\)\{[\s\S]*\.gates-stack\{display:none\}/);
   assert.match(homepage,/class="gates-scroll-hint" aria-hidden="true"><span>Scroll →<\/span>/);
+  assert.match(homepage,/class="gates-lane-labels"><span class="gates-lane-label is-conventional">Conventional<\/span><span class="gates-lane-label is-ignis">With Ignis<\/span>/);
+  assert.match(css,/\.gates-lane-labels\{[^}]*position:sticky[^}]*width:11cqi/);
+  assert.match(css,/@media\(max-width:800px\)\{[\s\S]*\.gates-lane-label\{[^}]*background:#fff/);
   const how=readFileSync(new URL("how-ignis-works.html",root),"utf8");
   assert.match(how,/class="gates-stack"/);
   assert.match(how,/class="gates-scroll-hint" aria-hidden="true"><span>Scroll →<\/span>/);
