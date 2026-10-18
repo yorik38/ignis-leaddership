@@ -61,7 +61,7 @@ module.exports = async function subscribe(request, response) {
     consent.communications = [{
       value: true,
       subscriptionTypeId,
-      text: "Yes, email me Signal from Ignis Leadership."
+      text: "Email me Signal, the weekly Ignis newsletter. Unsubscribe anytime."
     }];
   }
 
