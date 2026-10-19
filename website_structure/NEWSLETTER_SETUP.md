@@ -2,7 +2,9 @@
 
 The site submits Signal signups through `/api/subscribe` and the two white-paper gates through `/api/whitepaper`. The October Market Monitor uses the same white-paper endpoint. All three use HubSpot Forms API in the EU portal. Environment variables, Turnstile, rate limiting and the Market Monitor form id are listed in [FORMS_SETUP.md](FORMS_SETUP.md).
 
-A white paper is not revealed until HubSpot accepts the request. The Market Monitor PDF is the exception when `HUBSPOT_MARKET_MONITOR_FORM_ID` is unset: the file is still delivered and the server logs a warning. A paper or report request does not imply Signal consent. When the optional Signal box is ticked, the handler also submits the Signal form so the welcome email can send. Company and enquiry topic are optional on Signal and download forms. The topic uses the existing `enquiry_topic` values (`gate2`, `ar8`, `bid_tender`, `new_offers`, `other`). If HubSpot rejects those extra fields, the handler retries without them. Submissions include `context.hutk` only when the visitor’s `hubspotutk` cookie, or a posted token, is present. The old `/api/contact` handler is retired; `/contact` uses the HubSpot embed.
+A white paper is not revealed until HubSpot accepts the request. The Market Monitor PDF is the exception when `HUBSPOT_MARKET_MONITOR_FORM_ID` is unset: the file is still delivered and the server logs a warning. A paper or report request does not imply Signal consent. The gate is a work email plus one unticked checkbox. That checkbox enrols the existing Signal subscription `3918046194` by a second submit to the Signal form, and it does not send company, topic, role, or first name. Company and enquiry topic stay optional on the footer Signal form only. The topic uses the existing `enquiry_topic` values (`gate2`, `ar8`, `bid_tender`, `new_offers`, `other`). If HubSpot rejects those extra fields, the handler retries without them. Submissions include `context.hutk` only when the visitor’s `hubspotutk` cookie, or a posted token, is present. The old `/api/contact` handler is retired; `/contact` uses the HubSpot embed.
+
+The footer checkbox and the text stored with subscription `3918046194` both say: “Email me Signal, the weekly newsletter, and occasional marketing updates. We won't fill your inbox.” The gate checkbox says the same thing, with “Also email me” at the start, and it is not required. There is no separate marketing subscription. Turn off reCAPTCHA on the Signal form and both paper forms, or `/api/subscribe` and the paper API keep returning 502. See [FORMS_SETUP.md](FORMS_SETUP.md).
 
 ## HubSpot IDs
 
@@ -15,7 +17,7 @@ A white paper is not revealed until HubSpot accepts the request. The Market Moni
 | Pipeline paper form | `5b3bb573-2ca5-47cc-8bc0-3e8b0f4023d5` |
 | Requested white papers subscription type | `3918058120` |
 
-The Signal form has Email and required Signal consent. Each paper form has Email, hidden `resource`, required consent for the requested paper, and a separate, optional Signal choice. Each paper form has a live follow-up workflow that emails its own PDF link. The site also shows the PDF link after accepted submission.
+The Signal form has Email and required Signal consent on subscription `3918046194`. Each paper form has Email, hidden `resource`, and records delivery consent `3918058120` from the email submit itself. Signal is not a checkbox on the HubSpot paper form from the site’s point of view: the optional tick is a second submit to the Signal form. Each paper form’s follow-up workflow must email that paper’s PDF, not the Market Monitor. The site shows “The PDF is on its way.” after an accepted submission and does not open the file automatically.
 
 ## Vercel environment variables
 

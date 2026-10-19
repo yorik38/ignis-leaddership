@@ -8,25 +8,45 @@
   var PDF_URL = pageValue("data-whitepaper-pdf", "/assets/downloads/guide-01-bids-whitepaper.pdf");
   var STORAGE_KEY = pageValue("data-whitepaper-key", "ignis-whitepaper-bids-won-on-evidence");
 
-  function revealWhitepaperDownload(pdfUrl) {
+  function revealWhitepaperDownload(pdfUrl, options) {
     var url = pdfUrl || PDF_URL;
     var slot = document.getElementById("hubspot-whitepaper-form");
     var ready = document.getElementById("whitepaper-download");
     var link = document.getElementById("whitepaper-download-link");
     if (!url || !ready || !link) return;
+    var signal = ready.querySelector("[data-thanks-signal]");
+    var card = ready.closest(".wp-gate-card");
+    var intro = card && card.querySelector(".wp-gate-intro");
     link.href = url;
+    if (signal) {
+      signal.hidden = true;
+      signal.textContent = "";
+      if (options && options.newsletterSubscribed) {
+        signal.hidden = false;
+        signal.textContent = "You're on Signal too: the weekly newsletter and an occasional update. We won't fill your inbox.";
+      } else if (options && options.warning === "newsletter_submission_failed") {
+        signal.hidden = false;
+        signal.textContent = "We could not add you to Signal just now. The PDF is still on its way.";
+      }
+    }
+    if (intro) intro.hidden = true;
+    if (card) card.classList.add("is-thanks");
     ready.hidden = false;
     if (slot) slot.hidden = true;
     try {
-      sessionStorage.setItem(STORAGE_KEY, "1");
+      sessionStorage.setItem(STORAGE_KEY, options && options.newsletterSubscribed ? "signal" : "1");
     } catch (error) {}
+    if (ready.focus) ready.focus();
   }
 
   // Called from the HubSpot embed onFormSubmitted callback once portalId and formId are set.
   window.ignisRevealWhitepaperDownload = revealWhitepaperDownload;
 
   try {
-    if (sessionStorage.getItem(STORAGE_KEY) === "1") revealWhitepaperDownload();
+    var stored = sessionStorage.getItem(STORAGE_KEY);
+    if (stored === "1" || stored === "signal") {
+      revealWhitepaperDownload(PDF_URL, {newsletterSubscribed: stored === "signal"});
+    }
   } catch (error) {}
 
   function pdfFor(form) {
@@ -66,9 +86,10 @@
         });
       }).then(function (data) {
         if (data.pdf !== expectedPdf) throw new Error("The paper link did not match this page.");
-        revealWhitepaperDownload(expectedPdf);
-        var link = document.getElementById("whitepaper-download-link");
-        if (link) link.click();
+        revealWhitepaperDownload(expectedPdf, {
+          newsletterSubscribed: !!data.newsletterSubscribed,
+          warning: data.warning
+        });
       }).catch(function (error) {
         var message = error && error.message ? error.message : "We could not send your paper just now.";
         if (status) status.textContent = /try again|wait a few minutes|security check/i.test(message) ? message : message + " Please try again.";

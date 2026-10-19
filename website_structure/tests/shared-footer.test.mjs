@@ -42,7 +42,7 @@ test("all rendered pages use the same footer and updated shared stylesheet", () 
     if (!rendered) continue;
     count++;
     assert.equal(rendered, footer, `Footer mismatch: ${file}`);
-    assert.match(html, /\/assets\/site-chrome\.css\?v=50/, `Old shared CSS key: ${file}`);
+    assert.match(html, /\/assets\/site-chrome\.css\?v=51/, `Old shared CSS key: ${file}`);
   }
   assert.ok(count >= 19, `Expected shared footer across rendered pages; found ${count}`);
 });

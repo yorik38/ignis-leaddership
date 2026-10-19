@@ -26,7 +26,12 @@
 .wp-paper-status:empty{display:none}
 .wp-paper-form button:disabled{opacity:.6;cursor:wait}
 .wp-gate-ready{display:grid;gap:12px;align-content:center;min-height:148px;padding:8px}
-.wp-gate-ready[hidden],.hubspot-whitepaper-form[hidden]{display:none}
+.wp-gate-ready[hidden],.hubspot-whitepaper-form[hidden],.wp-gate-intro[hidden]{display:none}
+.whitepaper .wp-gate-card.is-thanks{grid-template-columns:minmax(0,1fr)}
+.whitepaper .wp-gate-ready h2{margin:0;font-size:clamp(1.8rem,3vw,2.4rem)}
+.whitepaper .wp-gate-ready [data-thanks-lead]{margin:0;color:var(--ink);font-size:1.05rem;font-weight:500}
+.whitepaper .wp-gate-ready [data-thanks-signal]{margin:0;color:var(--ink2);font-weight:500}
+.whitepaper .wp-gate-ready [data-thanks-signal][hidden]{display:none}
 .wp-gate-ready p{margin:0;color:var(--ink);font-weight:600}
 .wp-download-link{display:inline-flex;align-items:center;gap:8px;width:fit-content;padding:12px 18px;border-radius:4px;background:#0f1419;color:#fff !important;font-size:13px;font-weight:600;letter-spacing:.04em;text-decoration:none;text-transform:uppercase}
 .whitepapers-page .wp-index{padding:calc(96px + clamp(2.5rem,6vw,4.5rem)) 0 clamp(4rem,8vw,6rem)}
@@ -89,12 +94,12 @@
 .signal-signup-fields button{flex:none;height:2.75rem;margin:0;padding:0 1.15rem;border:0;border-radius:2px;background:#08756d;color:#fff;font-size:.95rem;font-weight:600;line-height:1;white-space:nowrap;cursor:pointer}
 .signal-signup-fields button:hover{background:#065d57}
 .signal-signup-form input:focus-visible,.signal-signup-form button:focus-visible{outline:2px solid #1cbdad;outline-offset:2px}
-.signal-signup-consent{display:flex;align-items:center;gap:.75rem;min-height:2.75rem;margin:.85rem 0 0;color:#fff;font-size:.95rem;font-weight:500;line-height:1.35;text-align:left;cursor:pointer}
-.signal-signup-consent input{flex:none;width:1.5rem;height:1.5rem;margin:0;accent-color:#1cbdad}
+.signal-signup-consent{display:flex;align-items:flex-start;gap:.75rem;min-height:2.75rem;margin:.85rem 0 0;color:#fff;font-size:.95rem;font-weight:500;line-height:1.35;text-align:left;cursor:pointer}
+.signal-signup-consent input{flex:none;width:1.5rem;height:1.5rem;margin:.15rem 0 0;accent-color:#1cbdad}
 .signal-signup-consent span{text-align:left}
 .wp-signup-copy .signal-signup-privacy{margin:.2rem 0 0;padding-left:calc(1.5rem + .75rem);color:rgba(255,255,255,.72);font-size:.75rem;font-weight:400;line-height:1.4;text-align:left}
 .signal-signup-privacy a{color:inherit;text-underline-offset:2px}
-.wp-signup-copy .signal-signup-success,.wp-signup-copy .signal-signup-error{display:flex;align-items:center;justify-content:flex-start;gap:.7rem;margin:.85rem 0 0;color:#fff;font-size:1.05rem;font-weight:600;line-height:1.4;text-align:left}
+.wp-signup-copy .signal-signup-success,.wp-signup-copy .signal-signup-error{display:flex;align-items:flex-start;justify-content:flex-start;gap:.7rem;margin:.85rem 0 0;color:#fff;font-size:1.05rem;font-weight:600;line-height:1.4;text-align:left}
 .signal-signup-success[hidden],.signal-signup-error[hidden]{display:none}
 .signal-signup-tick{display:grid;place-items:center;flex:none;width:1.75rem;height:1.75rem;border-radius:50%;background:#1cbdad;color:#04221f}
 .signal-signup-tick::before{content:"";width:.42rem;height:.75rem;border-right:2.5px solid currentColor;border-bottom:2.5px solid currentColor;transform:translateY(-1px) rotate(40deg)}
