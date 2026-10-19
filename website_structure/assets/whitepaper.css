@@ -24,6 +24,8 @@
 .wp-paper-consent input{flex:none;width:1rem;height:1rem;margin:.12rem 0 0;accent-color:var(--teal)}
 .wp-paper-consent span{min-width:0}
 .wp-paper-consent a{display:inline}
+.wp-gate-ready,.signal-signup-success{scroll-margin-top:112px}
+@media(max-width:850px){.wp-gate-ready,.signal-signup-success{scroll-margin-top:96px}}
 .hubspot-whitepaper-form .wp-paper-privacy,.hubspot-whitepaper-form .wp-paper-status{margin:.4rem 0 0;color:var(--mid);font-size:.8rem;line-height:1.4}
 .wp-paper-status:empty{display:none}
 .wp-paper-form button:disabled{opacity:.6;cursor:wait}

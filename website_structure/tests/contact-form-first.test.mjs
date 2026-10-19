@@ -28,8 +28,15 @@ test('Contact page embeds the published EU1 HubSpot enquiry form', () => {
   assert.match(contact, /class="button button-teal" href="https:\/\/calendly\.com\/yorik-tisseau-tmff\/commercial-decision-call" data-calendly-link>Book a call<\/a>/);
   assert.match(contact, /id="hubspot-newsletter-form"/);
   assert.match(contact, /data-community-form/);
-  assert.match(contact, /name="company"/);
-  assert.match(contact, /name="enquiry_topic"/);
+  assert.match(contact, /focus\(\{preventScroll:true\}\);thanks\.scrollIntoView\(\{behavior:"smooth",block:"start"\}\)/);
+  assert.match(read('assets/whitepaper.js'), /ready\.focus\(\{preventScroll: true\}\);\n    ready\.scrollIntoView\(\{behavior: "smooth", block: "start"\}\)/);
+  assert.match(read('assets/capability.js'), /status\.focus\(\{preventScroll:true\}\);status\.scrollIntoView\(\{behavior:"smooth",block:"start"\}\)/);
+  assert.match(read('assets/capability.css'), /\.contact-page \.contact-thanks,\.wp-gate-ready,\.signal-signup-success\{scroll-margin-top:112px\}/);
+  assert.match(contact, /id="contact-thanks" hidden tabindex="-1"/);
+  const signal = contact.slice(contact.indexOf('class="signal-signup-form"'), contact.indexOf('signal-signup-success'));
+  assert.match(signal, /placeholder="Work email"/);
+  assert.match(signal, />Subscribe</);
+  assert.doesNotMatch(signal, /name="company"(?!_)|name="enquiry_topic"|Company \(optional\)|Topic \(optional\)/);
   assert.match(contact, /name="form_started_at"/);
   assert.match(contact, /name="company_website"/);
   assert.match(contact, /data-cookie-settings/);

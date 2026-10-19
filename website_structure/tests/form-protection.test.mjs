@@ -242,6 +242,22 @@ describe("form protection", {concurrency: 1}, () => {
     assert.equal(Number(fields.signal_subscribed_date), Date.UTC(today.getUTCFullYear(), today.getUTCMonth(), today.getUTCDate()));
   });
 
+  test("Signal signup works without company or topic", async () => {
+    resetProtectionForTests();
+    const result = await post(subscribe, started({
+      email: "ada@example.com",
+      signal_consent: "true",
+      page_url: "https://www.ignisleadership.com/contact"
+    }), {headers: {"x-forwarded-for": "203.0.113.61"}});
+    assert.equal(result.res.statusCode, 200);
+    assert.equal(result.res.body.ok, true);
+    const names = JSON.parse(result.calls[0].body).fields.map((field) => field.name);
+    assert.equal(names.includes("email"), true);
+    assert.equal(names.includes("company"), false);
+    assert.equal(names.includes("enquiry_topic"), false);
+    assert.equal(names.includes("content_source"), true);
+  });
+
   test("Market Monitor delivers the PDF with and without a HubSpot form id", async () => {
     resetProtectionForTests();
     const previous = process.env.HUBSPOT_MARKET_MONITOR_FORM_ID;
