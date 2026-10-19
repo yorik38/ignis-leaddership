@@ -98,8 +98,8 @@
 .signal-signup-fields button{flex:none;height:2.75rem;margin:0;padding:0 1.15rem;border:0;border-radius:2px;background:#08756d;color:#fff;font-size:.95rem;font-weight:600;line-height:1;white-space:nowrap;cursor:pointer}
 .signal-signup-fields button:hover{background:#065d57}
 .signal-signup-form input:focus-visible,.signal-signup-form button:focus-visible{outline:2px solid #1cbdad;outline-offset:2px}
-.signal-signup-consent{display:flex;align-items:flex-start;gap:.75rem;min-height:2.75rem;margin:.85rem 0 0;color:#fff;font-size:.95rem;font-weight:500;line-height:1.35;text-align:left;cursor:pointer}
-.signal-signup-consent input{flex:none;width:1.5rem;height:1.5rem;margin:.15rem 0 0;accent-color:#1cbdad}
+.signal-signup-consent{display:flex;align-items:flex-start;gap:.4rem;min-height:24px;margin:.7rem 0 0;padding:4px 0;color:rgba(255,255,255,.85);font-size:13px;font-weight:400;line-height:1.45;text-align:left;cursor:pointer}
+.signal-signup-consent input{flex:none;width:17px;height:17px;margin:calc((1.45em - 17px) / 2) 0 0;accent-color:#1cbdad}
 .signal-signup-consent span{min-width:0;text-align:left}
 .wp-signup-copy .signal-signup-consent a{display:inline;color:inherit;text-decoration:underline;text-underline-offset:2px}
 .wp-signup-copy .signal-signup-privacy{margin:.2rem 0 0;padding-left:calc(1.5rem + .75rem);color:rgba(255,255,255,.72);font-size:.75rem;font-weight:400;line-height:1.4;text-align:left}
@@ -120,6 +120,7 @@
   .signal-signup-fields{flex-direction:column;align-items:stretch;gap:.55rem;padding:0;background:transparent}
   .signal-signup-fields input[type="email"]{flex:none;width:100%;min-height:2.85rem;height:2.85rem;padding:0 .9rem;border-radius:4px;background:#fff}
   .signal-signup-fields button{width:100%;height:2.85rem}
+  .signal-signup-consent{font-size:12.5px}
   .wp-signup-copy .signal-signup-privacy{font-size:.75rem}
 }
 .whitepaper .layer-rows{display:flex;flex-direction:column;gap:8px}
