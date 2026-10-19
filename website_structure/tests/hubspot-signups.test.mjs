@@ -153,5 +153,15 @@ test("paper forms and visible Signal signups are connected", () => {
     assert.match(form, /name="signal_consent"/, path);
     assert.doesNotMatch(form, /name="company"(?!_)|name="enquiry_topic"|Company \(optional\)|Topic \(optional\)|signal-signup-optional/, path);
     assert.match(html, /class="signal-signup-success"[^>]*tabindex="-1"/, path);
+    assert.match(html, /capability\.css\?v=204/);
+  }
+  const consentRule = /\.signal-signup-consent\{display:flex;align-items:flex-start;gap:\.4rem;min-height:24px;[^}]*color:rgba\(255,255,255,\.85\);font-size:13px;font-weight:400;line-height:1\.45/;
+  const checkboxRule = /\.signal-signup-consent input\{flex:none;width:17px;height:17px;/;
+  for (const file of ["assets/capability.css", "assets/whitepaper.css"]) {
+    const css = readFileSync(join(root, file), "utf8");
+    assert.match(css, consentRule, file);
+    assert.match(css, checkboxRule, file);
+    assert.match(css, /@media\(max-width:640px\)\{[\s\S]*\.signal-signup-consent\{font-size:12\.5px\}/, file);
+    assert.match(css, /\.wp-signup-copy \.signal-signup-consent a\{[^}]*text-decoration:underline/, file);
   }
 });
