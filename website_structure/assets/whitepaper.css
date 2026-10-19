@@ -22,6 +22,8 @@
 .wp-paper-form input:focus-visible,.wp-paper-form button:focus-visible{outline:2px solid var(--teal);outline-offset:2px}
 .wp-paper-consent{display:flex;align-items:flex-start;gap:.55rem;margin-top:.7rem;color:var(--ink2);font-size:.82rem;line-height:1.45;cursor:pointer}
 .wp-paper-consent input{flex:none;width:1rem;height:1rem;margin:.12rem 0 0;accent-color:var(--teal)}
+.wp-paper-consent span{min-width:0}
+.wp-paper-consent a{display:inline}
 .hubspot-whitepaper-form .wp-paper-privacy,.hubspot-whitepaper-form .wp-paper-status{margin:.4rem 0 0;color:var(--mid);font-size:.8rem;line-height:1.4}
 .wp-paper-status:empty{display:none}
 .wp-paper-form button:disabled{opacity:.6;cursor:wait}
@@ -96,7 +98,8 @@
 .signal-signup-form input:focus-visible,.signal-signup-form button:focus-visible{outline:2px solid #1cbdad;outline-offset:2px}
 .signal-signup-consent{display:flex;align-items:flex-start;gap:.75rem;min-height:2.75rem;margin:.85rem 0 0;color:#fff;font-size:.95rem;font-weight:500;line-height:1.35;text-align:left;cursor:pointer}
 .signal-signup-consent input{flex:none;width:1.5rem;height:1.5rem;margin:.15rem 0 0;accent-color:#1cbdad}
-.signal-signup-consent span{text-align:left}
+.signal-signup-consent span{min-width:0;text-align:left}
+.wp-signup-copy .signal-signup-consent a{display:inline;color:inherit;text-decoration:underline;text-underline-offset:2px}
 .wp-signup-copy .signal-signup-privacy{margin:.2rem 0 0;padding-left:calc(1.5rem + .75rem);color:rgba(255,255,255,.72);font-size:.75rem;font-weight:400;line-height:1.4;text-align:left}
 .signal-signup-privacy a{color:inherit;text-underline-offset:2px}
 .wp-signup-copy .signal-signup-success,.wp-signup-copy .signal-signup-error{display:flex;align-items:flex-start;justify-content:flex-start;gap:.7rem;margin:.85rem 0 0;color:#fff;font-size:1.05rem;font-weight:600;line-height:1.4;text-align:left}

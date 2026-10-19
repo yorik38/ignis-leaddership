@@ -118,11 +118,20 @@ test("paper forms and visible Signal signups are connected", () => {
     assert.doesNotMatch(gate, /name="company"|name="enquiry_topic"|name="firstname"|name="signal_role"/);
     assert.match(gate, /name="signal_opt_in"/);
     assert.doesNotMatch(gate, /name="signal_opt_in"[^>]*checked/);
-    assert.match(gate, /Also email me Signal, the weekly newsletter, and occasional marketing updates\. We won't fill your inbox\./);
+    assert.match(gate, /Also email me Signal, the weekly newsletter, and occasional marketing updates\. We won't fill your inbox\. See our <a href="\/privacy">Privacy Policy<\/a>\./);
+    assert.doesNotMatch(gate, /class="wp-paper-privacy"/);
+    const consent = gate.match(/<label class="wp-paper-consent">[\s\S]*?<\/label>/)?.[0] ?? "";
+    assert.match(consent, /href="\/privacy"/);
+    assert.doesNotMatch(consent, /checked/);
     assert.match(html, /The PDF is on its way\./);
     assert.match(html, /class="signal-signup-form"[^>]*data-community-form/);
-    assert.match(html, /Email me Signal, the weekly newsletter, and occasional marketing updates\. We won't fill your inbox\./);
+    const signup = html.match(/<label class="signal-signup-consent">[\s\S]*?<\/label>/)?.[0] ?? "";
+    assert.match(signup, /Email me Signal, the weekly newsletter, and occasional marketing updates\. We won't fill your inbox\. See our <a href="\/privacy">Privacy Policy<\/a>\./);
+    assert.doesNotMatch(html, /class="signal-signup-privacy"/);
   }
-  assert.match(readFileSync(join(root, "index.html"), "utf8"), /class="signal-signup-form"[^>]*data-community-form/);
-  assert.match(readFileSync(join(root, "index.html"), "utf8"), /Email me Signal, the weekly newsletter, and occasional marketing updates\. We won't fill your inbox\./);
+  const home = readFileSync(join(root, "index.html"), "utf8");
+  assert.match(home, /class="signal-signup-form"[^>]*data-community-form/);
+  const homeConsent = home.match(/<label class="signal-signup-consent">[\s\S]*?<\/label>/)?.[0] ?? "";
+  assert.match(homeConsent, /Email me Signal, the weekly newsletter, and occasional marketing updates\. We won't fill your inbox\. See our <a href="\/privacy">Privacy Policy<\/a>\./);
+  assert.doesNotMatch(homeConsent, /checked/);
 });
