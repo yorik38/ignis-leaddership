@@ -1,3 +1,5 @@
+const {protectForm} = require("./_lib/protect");
+
 const HUBSPOT_PORTAL_ID = process.env.HUBSPOT_PORTAL_ID || "149324702";
 const HUBSPOT_FORM_ID = process.env.HUBSPOT_CONTACT_FORM_ID || "c4133ecb-5cca-4779-bb4e-9f85bf3d8bc3";
 const HUBSPOT_NEWSLETTER_FORM_ID = process.env.HUBSPOT_SIGNAL_FORM_ID || "9ee4b5ce-211f-4be1-a8d1-69809052e8b2";
@@ -45,7 +47,8 @@ module.exports = async function contactHandler(req, res) {
   } catch (_error) {
     return send(res, 400, {ok: false, error: "invalid_json"});
   }
-  if (body.company_website) return send(res, 200, {ok: true});
+  const gate = await protectForm(req, body, "contact");
+  if (gate) return send(res, gate.status, gate.payload);
 
   const fullName = String(body.name || "").trim().replace(/\s+/g, " ").slice(0, 160);
   const parts = fullName.split(" ");

@@ -27,7 +27,10 @@ test("the second white paper is published without a coming-soon state", () => {
   assert.doesNotMatch(paper, /not in the download folder|not in the site download folder|broken file/);
   assert.match(paper, /name="email"/);
   assert.match(paper, /name="resource" value="commercial-system-pipeline"/);
-  assert.doesNotMatch(paper, /name="company"|name="role"|name, work email, company/);
+  assert.match(paper, /name="company"/);
+  assert.match(paper, /name="enquiry_topic"/);
+  assert.match(paper, /name="content_source" value="whitepaper-commercial-system-pipeline"/);
+  assert.doesNotMatch(paper, /name, work email, company/);
   assert.doesNotMatch(paper, /FORGE|Forge|Coming soon/);
   assert.match(listing, /href="\/resources\/commercial-system-for-your-pipeline"/);
   assert.match(listing, /whitepaper-commercial-system\.webp/);

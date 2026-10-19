@@ -8,12 +8,13 @@
   var PDF_URL = pageValue("data-whitepaper-pdf", "/assets/downloads/guide-01-bids-whitepaper.pdf");
   var STORAGE_KEY = pageValue("data-whitepaper-key", "ignis-whitepaper-bids-won-on-evidence");
 
-  function revealWhitepaperDownload() {
+  function revealWhitepaperDownload(pdfUrl) {
+    var url = pdfUrl || PDF_URL;
     var slot = document.getElementById("hubspot-whitepaper-form");
     var ready = document.getElementById("whitepaper-download");
     var link = document.getElementById("whitepaper-download-link");
-    if (!PDF_URL || !ready || !link) return;
-    link.href = PDF_URL;
+    if (!url || !ready || !link) return;
+    link.href = url;
     ready.hidden = false;
     if (slot) slot.hidden = true;
     try {
@@ -28,32 +29,48 @@
     if (sessionStorage.getItem(STORAGE_KEY) === "1") revealWhitepaperDownload();
   } catch (error) {}
 
+  function pdfFor(form) {
+    return form.getAttribute("data-pdf") || PDF_URL;
+  }
+
+  function ensureStarted(form) {
+    var field = form.querySelector("[name=form_started_at]");
+    if (field && !field.value) field.value = String(Date.now());
+  }
+
   document.querySelectorAll("[data-whitepaper-form]").forEach(function (form) {
+    ensureStarted(form);
     form.addEventListener("submit", function (event) {
       event.preventDefault();
       if (!form.reportValidity()) return;
       var button = form.querySelector("button[type=submit]");
       var status = form.querySelector("[data-form-status]");
+      var expectedPdf = pdfFor(form);
       var payload = Object.fromEntries(new FormData(form).entries());
       payload.page_url = window.location.href;
       if (button) button.disabled = true;
       if (status) status.textContent = "Sending your request…";
-      fetch(form.action, {
-        method: "POST",
-        headers: {"Content-Type": "application/json", "Accept": "application/json"},
-        body: JSON.stringify(payload)
+      var delay = window.ignisFormDelay ? window.ignisFormDelay(form) : Promise.resolve();
+      delay.then(function () {
+        return fetch(form.action, {
+          method: "POST",
+          headers: {"Content-Type": "application/json", "Accept": "application/json"},
+          body: JSON.stringify(payload)
+        });
       }).then(function (response) {
         return response.json().catch(function () { return {}; }).then(function (data) {
           if (!response.ok || !data.ok) throw new Error(data.error || "We could not send your paper just now.");
           return data;
         });
       }).then(function (data) {
-        if (data.pdf !== PDF_URL) throw new Error("The paper link did not match this page.");
-        revealWhitepaperDownload();
+        if (data.pdf !== expectedPdf) throw new Error("The paper link did not match this page.");
+        revealWhitepaperDownload(expectedPdf);
         var link = document.getElementById("whitepaper-download-link");
         if (link) link.click();
       }).catch(function (error) {
-        if (status) status.textContent = error.message + " Please try again.";
+        var message = error && error.message ? error.message : "We could not send your paper just now.";
+        if (status) status.textContent = /try again|wait a few minutes|security check/i.test(message) ? message : message + " Please try again.";
+        if (window.ignisResetTurnstile) window.ignisResetTurnstile(form);
         if (button) button.disabled = false;
       });
     });

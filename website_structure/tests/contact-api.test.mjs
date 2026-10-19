@@ -11,7 +11,8 @@ function invoke(body, fetchImpl) {
   const original = global.fetch;
   global.fetch = fetchImpl;
   const res = {statusCode: 0, headers: {}, setHeader() {}, end(raw) { this.body = JSON.parse(raw); }};
-  return handler({method: "POST", body, headers: {}}, res).then(() => {
+  const payload = {form_started_at: Date.now() - 10000, ...body};
+  return handler({method: "POST", body: payload, headers: {}}, res).then(() => {
     global.fetch = original;
     return res;
   }, (error) => {

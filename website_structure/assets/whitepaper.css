@@ -133,3 +133,31 @@
 .hubspot-whitepaper-form.is-placeholder::before{content:none}
 .hubspot-whitepaper-form .wp-form-placeholder{margin:0;padding:22px 18px;color:#3a3f45;font-size:15px;line-height:1.45}
 .hubspot-whitepaper-form .wp-form-placeholder strong{color:#08756d}
+
+.form-honeypot{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0,0,0,0);clip-path:inset(50%);white-space:nowrap;border:0}
+.signal-signup-form,.wp-paper-form,.contact-form{position:relative}
+.turnstile-slot{margin-top:.75rem}
+.turnstile-slot:empty{display:none;margin:0}
+.signal-signup-optional{display:grid;grid-template-columns:1fr 1fr;gap:.5rem;margin-top:.55rem}
+.signal-signup-optional-field{display:block;min-width:0}
+.signal-signup-optional input,.signal-signup-optional select{width:100%;height:2.5rem;margin:0;padding:0 .75rem;border:0;border-radius:4px;background:#fff;color:#0f1419;font-size:15px;font-weight:600}
+.signal-signup-form select:focus-visible{outline:2px solid #1cbdad;outline-offset:2px}
+.signal-signup-form.is-complete .signal-signup-optional,.signal-signup-form.is-complete .turnstile-slot{display:none}
+.contact-form .turnstile-slot{grid-column:1/-1}
+@media(max-width:640px){
+  .signal-signup-optional{grid-template-columns:1fr}
+}
+
+.wp-paper-optional{display:grid;gap:.55rem;width:min(100%,22rem);margin-top:.7rem}
+.wp-paper-optional label{display:grid;gap:.25rem;color:var(--mid);font-size:.78rem;font-weight:600}
+.wp-paper-optional input,.wp-paper-optional select{width:100%;height:2.5rem;padding:0 .75rem;border:1px solid var(--tl);border-radius:4px;background:#fff;color:#0f1419;font-size:15px;font-weight:600}
+.wp-report-form{width:min(100%,32rem)}
+.wp-report-fields{display:grid;gap:.7rem}
+.wp-report-fields label{display:grid;gap:.3rem;color:var(--ink);font-size:.82rem;font-weight:600}
+.wp-report-fields input,.wp-report-fields select{width:100%;height:2.75rem;padding:0 .8rem;border:1px solid var(--tl);border-radius:4px;background:#fff;color:#0f1419;font-size:16px;font-weight:600}
+.wp-optional{color:var(--mid);font-weight:500}
+.wp-report-form button[type=submit]{display:inline-flex;align-items:center;justify-content:center;width:fit-content;min-height:2.75rem;margin-top:.9rem;padding:.75rem 1.15rem;border:0;border-radius:4px;background:#0f1419;color:#fff;font-size:.95rem;font-weight:600;letter-spacing:.01em;cursor:pointer}
+.wp-report-form button[type=submit]:hover{background:#08756d}
+@media(max-width:640px){
+  .wp-report-form button[type=submit]{width:100%}
+}

@@ -1181,3 +1181,17 @@ h1 .signal-mark{color:#1cbdad}
   .gates-chart{width:960px;max-width:none}
   .gates-lane-label{background:#fff;padding:.08em .28em .08em 0}
 }
+
+.form-honeypot{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0,0,0,0);clip-path:inset(50%);white-space:nowrap;border:0}
+.signal-signup-form,.wp-paper-form,.contact-form{position:relative}
+.turnstile-slot{margin-top:.75rem}
+.turnstile-slot:empty{display:none;margin:0}
+.signal-signup-optional{display:grid;grid-template-columns:1fr 1fr;gap:.5rem;margin-top:.55rem}
+.signal-signup-optional-field{display:block;min-width:0}
+.signal-signup-optional input,.signal-signup-optional select{width:100%;height:2.5rem;margin:0;padding:0 .75rem;border:0;border-radius:4px;background:#fff;color:#0f1419;font-size:15px;font-weight:600}
+.signal-signup-form select:focus-visible{outline:2px solid #1cbdad;outline-offset:2px}
+.signal-signup-form.is-complete .signal-signup-optional,.signal-signup-form.is-complete .turnstile-slot{display:none}
+.contact-form .turnstile-slot{grid-column:1/-1}
+@media(max-width:640px){
+  .signal-signup-optional{grid-template-columns:1fr}
+}

@@ -17,6 +17,10 @@
     "api/contact.js": {
       "memory": 128,
       "maxDuration": 10
+    },
+    "api/form-config.js": {
+      "memory": 128,
+      "maxDuration": 10
     }
   },
   "redirects": [
