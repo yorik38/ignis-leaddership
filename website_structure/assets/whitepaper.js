@@ -36,7 +36,8 @@
     try {
       sessionStorage.setItem(STORAGE_KEY, options && options.newsletterSubscribed ? "signal" : "1");
     } catch (error) {}
-    if (ready.focus) ready.focus();
+    if (ready.focus) ready.focus({preventScroll: true});
+    ready.scrollIntoView({behavior: "smooth", block: "start"});
   }
 
   // Called from the HubSpot embed onFormSubmitted callback once portalId and formId are set.

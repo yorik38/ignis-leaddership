@@ -1,7 +1,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import {createRequire} from "node:module";
-import {readFileSync} from "node:fs";
+import {readFileSync, readdirSync, statSync} from "node:fs";
 import {fileURLToPath} from "node:url";
 import {join} from "node:path";
 
@@ -134,4 +134,24 @@ test("paper forms and visible Signal signups are connected", () => {
   const homeConsent = home.match(/<label class="signal-signup-consent">[\s\S]*?<\/label>/)?.[0] ?? "";
   assert.match(homeConsent, /Email me Signal, the weekly newsletter, and occasional marketing updates\. We won't fill your inbox\. See our <a href="\/privacy">Privacy Policy<\/a>\./);
   assert.doesNotMatch(homeConsent, /checked/);
+  const pages = [];
+  function walk(dir) {
+    for (const entry of readdirSync(dir)) {
+      const path = join(dir, entry);
+      if (entry === "backups" || entry === "tests" || entry === "node_modules") continue;
+      if (statSync(path).isDirectory()) walk(path);
+      else if (entry.endsWith(".html")) pages.push(path);
+    }
+  }
+  walk(root);
+  const signups = pages.map((path) => [path, readFileSync(path, "utf8")]).filter(([, html]) => html.includes("signal-signup-form"));
+  assert.ok(signups.length >= 19);
+  for (const [path, html] of signups) {
+    const form = html.slice(html.indexOf('class="signal-signup-form"'), html.indexOf("signal-signup-success"));
+    assert.match(form, /placeholder="Work email"/, path);
+    assert.match(form, />Subscribe</, path);
+    assert.match(form, /name="signal_consent"/, path);
+    assert.doesNotMatch(form, /name="company"(?!_)|name="enquiry_topic"|Company \(optional\)|Topic \(optional\)|signal-signup-optional/, path);
+    assert.match(html, /class="signal-signup-success"[^>]*tabindex="-1"/, path);
+  }
 });

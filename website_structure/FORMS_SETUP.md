@@ -54,7 +54,7 @@ Contact properties, with these internal values:
 
 | Form | Fields the site sends |
 | --- | --- |
-| Signal (footer and page signup) | `email`, and, only when the visitor filled them in, `firstname`, `lastname`, `company`, `enquiry_topic`. Always `content_source` = `signal-signup`, `signal_source`, `signal_subscribed_date`. Consent is the existing Signal subscription `3918046194` |
+| Signal (footer and page signup) | `email` only. The signup block does not ask for company or topic. The API still accepts a request that omits them, and still forwards `firstname`, `lastname`, `company` and `enquiry_topic` if a client posts them. Always `content_source` = `signal-signup`, `signal_source`, `signal_subscribed_date`. Consent is the existing Signal subscription `3918046194` |
 | Bids white paper | `email`, `resource` = `bids-won-on-evidence`, `content_source` = `whitepaper-bids-won-on-evidence`, `acquisition_source`. Form `9b783156-b16d-443a-bc80-51bab3411670`. PDF `/assets/downloads/guide-01-bids-whitepaper.pdf` |
 | Commercial system white paper | `email`, `resource` = `commercial-system-pipeline`, `content_source` = `whitepaper-commercial-system-pipeline`, `acquisition_source`. Form `5b3bb573-2ca5-47cc-8bc0-3e8b0f4023d5`. PDF `/assets/downloads/ignis-white-paper-commercial-system-pipeline.pdf` |
 | Market Monitor download | `email`, `content_source` = `market-monitor-2026-10`, `resource` = `market-monitor-2026-10`, `acquisition_source`. Delivery consent uses subscription type `3918058120`. PDF `/assets/downloads/ignis-market-monitor-2026-10.pdf`. Form id is `HUBSPOT_MARKET_MONITOR_FORM_ID` |
