@@ -123,12 +123,18 @@ async function submitWithFallback(formId, payload, extraNames) {
   }
 }
 
+function visitorHutk(request, body) {
+  const fromCookie = cookieValue(request && request.headers && request.headers.cookie, "hubspotutk");
+  const posted = body && (body.hutk || body.hubspotutk);
+  return String(fromCookie || posted || "").trim();
+}
+
 function contextFor(request, body, pageName, fallbackUrl) {
   const context = {
     pageUri: String((body && body.page_url) || fallbackUrl).slice(0, 500),
     pageName
   };
-  const hutk = cookieValue(request && request.headers && request.headers.cookie, "hubspotutk");
+  const hutk = visitorHutk(request, body);
   if (hutk) context.hutk = hutk;
   return context;
 }
@@ -184,6 +190,7 @@ module.exports = {
   pushField,
   submitHubspotForm,
   submitWithFallback,
+  visitorHutk,
   contextFor,
   signalConsent,
   buildSignalFields

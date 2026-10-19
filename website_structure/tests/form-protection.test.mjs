@@ -7,7 +7,6 @@ import {fileURLToPath} from "node:url";
 
 const require = createRequire(import.meta.url);
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
-const contact = require(join(root, "api/contact.js"));
 const subscribe = require(join(root, "api/subscribe.js"));
 const whitepaper = require(join(root, "api/whitepaper.js"));
 const formConfig = require(join(root, "api/form-config.js"));
@@ -50,15 +49,6 @@ async function post(handler, body, {headers = {}, fetchImpl} = {}) {
   }
   return {res, calls};
 }
-
-const enquiry = {
-  name: "Ada Lovelace",
-  email: "ada@example.com",
-  company: "North Sea Power",
-  role: "Commercial Director",
-  topic: "gate2",
-  message: "Two sites approaching Gate 2."
-};
 
 describe("form protection", {concurrency: 1}, () => {
   test("honeypot, time trap and bot Gmail addresses do not call HubSpot", async () => {
@@ -159,23 +149,24 @@ describe("form protection", {concurrency: 1}, () => {
     const previousSecret = process.env.TURNSTILE_SECRET_KEY;
     delete process.env.TURNSTILE_SITE_KEY;
     delete process.env.TURNSTILE_SECRET_KEY;
+    const signup = (email) => started({email, signal_consent: "true"});
     try {
-      const off = await post(contact, started(enquiry), {headers: {"x-forwarded-for": "203.0.113.40"}});
+      const off = await post(subscribe, signup("off@example.com"), {headers: {"x-forwarded-for": "203.0.113.40"}});
       assert.equal(off.res.statusCode, 200);
       assert.equal(off.calls.some((call) => call.url.includes("siteverify")), false);
 
       process.env.TURNSTILE_SITE_KEY = "site-key";
-      const half = await post(contact, started({...enquiry, email: "half@example.com"}), {headers: {"x-forwarded-for": "203.0.113.41"}});
+      const half = await post(subscribe, signup("half@example.com"), {headers: {"x-forwarded-for": "203.0.113.41"}});
       assert.equal(half.res.statusCode, 200);
       assert.equal(half.calls.some((call) => call.url.includes("siteverify")), false);
 
       process.env.TURNSTILE_SECRET_KEY = "secret";
-      const missing = await post(contact, started({...enquiry, email: "missing@example.com"}), {headers: {"x-forwarded-for": "203.0.113.42"}});
+      const missing = await post(subscribe, signup("missing@example.com"), {headers: {"x-forwarded-for": "203.0.113.42"}});
       assert.equal(missing.res.statusCode, 422);
       assert.match(missing.res.body.error, /security check/);
       assert.equal(missing.calls.length, 0);
 
-      const failed = await post(contact, started({...enquiry, email: "failed@example.com", "cf-turnstile-response": "bad"}), {
+      const failed = await post(subscribe, started({email: "failed@example.com", signal_consent: "true", "cf-turnstile-response": "bad"}), {
         headers: {"x-forwarded-for": "203.0.113.43"},
         fetchImpl: async (url) => {
           if (String(url).includes("siteverify")) return {ok: true, json: async () => ({success: false}), text: async () => ""};
@@ -184,7 +175,7 @@ describe("form protection", {concurrency: 1}, () => {
       });
       assert.equal(failed.res.statusCode, 422);
 
-      const passed = await post(contact, started({...enquiry, email: "passed@example.com", "cf-turnstile-response": "good"}), {
+      const passed = await post(subscribe, started({email: "passed@example.com", signal_consent: "true", "cf-turnstile-response": "good"}), {
         headers: {"x-forwarded-for": "203.0.113.44"},
         fetchImpl: async (url, init) => {
           if (String(url).includes("siteverify")) {
@@ -227,18 +218,6 @@ describe("form protection", {concurrency: 1}, () => {
       if (previousSecret === undefined) delete process.env.TURNSTILE_SECRET_KEY;
       else process.env.TURNSTILE_SECRET_KEY = previousSecret;
     }
-  });
-
-  test("contact keeps the existing topic and role fields", async () => {
-    resetProtectionForTests();
-    const legacy = await post(contact, started({...enquiry, topic: "ar8", email: "legacy@example.com", role: "Bid lead"}), {headers: {"x-forwarded-for": "203.0.113.50"}});
-    assert.equal(legacy.res.statusCode, 200);
-    const fields = Object.fromEntries(JSON.parse(legacy.calls[0].body).fields.map((field) => [field.name, field.value]));
-    assert.equal(fields.topic, "ar8");
-    assert.equal(fields.role, "Bid lead");
-    assert.equal(fields.enquiry_topic, undefined);
-    assert.equal(fields.signal_role, undefined);
-    assert.equal(fields.content_source, undefined);
   });
 
   test("Signal signup sends company, enquiry topic, source and the subscription date", async () => {
@@ -388,6 +367,69 @@ describe("form protection", {concurrency: 1}, () => {
       assert.equal(result.res.statusCode, 200);
       assert.equal(result.res.body.pdf, "/assets/downloads/ignis-market-monitor-2026-10.pdf");
       assert.equal(attempt, 2);
+    } finally {
+      if (previous === undefined) delete process.env.HUBSPOT_MARKET_MONITOR_FORM_ID;
+      else process.env.HUBSPOT_MARKET_MONITOR_FORM_ID = previous;
+    }
+  });
+
+  test("subscribe, white paper and Market Monitor send hutk only when it is present", async () => {
+    resetProtectionForTests();
+    const previous = process.env.HUBSPOT_MARKET_MONITOR_FORM_ID;
+    process.env.HUBSPOT_MARKET_MONITOR_FORM_ID = "monitor-form-id";
+    try {
+      const withCookie = await post(subscribe, started({
+        email: "hutk@example.com",
+        signal_consent: "true",
+        page_url: "https://www.ignisleadership.com/insights"
+      }), {headers: {cookie: "session=1; hubspotutk=visitor-token", "x-forwarded-for": "203.0.113.110"}});
+      const subscribed = JSON.parse(withCookie.calls[0].body);
+      assert.equal(subscribed.context.hutk, "visitor-token");
+      assert.equal(subscribed.context.pageUri, "https://www.ignisleadership.com/insights");
+      assert.equal(subscribed.context.pageName, "Signal newsletter signup");
+
+      const missing = await post(subscribe, started({
+        email: "no-hutk@example.com",
+        signal_consent: "true",
+        page_url: "https://www.ignisleadership.com/"
+      }), {headers: {"x-forwarded-for": "203.0.113.111"}});
+      assert.equal("hutk" in JSON.parse(missing.calls[0].body).context, false);
+
+      const posted = await post(whitepaper, started({
+        email: "paper-hutk@example.com",
+        resource: "bids-won-on-evidence",
+        paper_email_consent: "true",
+        hutk: "posted-token",
+        page_url: "https://www.ignisleadership.com/resources/bids-won-on-evidence"
+      }), {headers: {"x-forwarded-for": "203.0.113.112"}});
+      const paper = JSON.parse(posted.calls[0].body);
+      assert.equal(paper.context.hutk, "posted-token");
+      assert.equal(paper.context.pageUri, "https://www.ignisleadership.com/resources/bids-won-on-evidence");
+      assert.equal(paper.context.pageName, "Ignis white paper: bids-won-on-evidence");
+
+      const cookieWins = await post(whitepaper, started({
+        email: "both-hutk@example.com",
+        resource: "commercial-system-pipeline",
+        paper_email_consent: "true",
+        hutk: "posted-token"
+      }), {headers: {cookie: "hubspotutk=cookie-token", "x-forwarded-for": "203.0.113.113"}});
+      assert.equal(JSON.parse(cookieWins.calls[0].body).context.hutk, "cookie-token");
+
+      const monitor = await post(whitepaper, started({
+        email: "monitor-hutk@example.com",
+        resource: "market-monitor-2026-10",
+        paper_email_consent: "true",
+        signal_opt_in: "true",
+        page_url: "https://www.ignisleadership.com/reports/market-monitor-2026-10"
+      }), {headers: {cookie: "hubspotutk=monitor-cookie", "x-forwarded-for": "203.0.113.114"}});
+      assert.equal(monitor.res.body.pdf, "/assets/downloads/ignis-market-monitor-2026-10.pdf");
+      assert.equal(monitor.calls.length, 2);
+      for (const call of monitor.calls) {
+        const context = JSON.parse(call.body).context;
+        assert.equal(context.hutk, "monitor-cookie");
+        assert.equal(context.pageUri, "https://www.ignisleadership.com/reports/market-monitor-2026-10");
+        assert.ok(context.pageName);
+      }
     } finally {
       if (previous === undefined) delete process.env.HUBSPOT_MARKET_MONITOR_FORM_ID;
       else process.env.HUBSPOT_MARKET_MONITOR_FORM_ID = previous;

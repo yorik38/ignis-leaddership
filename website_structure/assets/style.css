@@ -1616,10 +1616,8 @@ footer{background:var(--cta);border-top:1px solid var(--line-onink);padding:60px
   min-height:44px;font-size:13.5px;font-weight:600;padding:11px 20px;border-radius:3px;cursor:pointer;border:1px solid var(--line-onink);
   transition:background 0.15s ease,border-color 0.15s ease;
 }
-.cookie-btn.accept{background:var(--paper);color:var(--ink);border-color:var(--paper);}
-.cookie-btn.accept:hover{background:#E7E5E0;}
-.cookie-btn.decline{background:transparent;color:var(--paper);}
-.cookie-btn.decline:hover{border-color:var(--paper);}
+.cookie-btn.accept,.cookie-btn.decline{background:var(--paper);color:var(--ink);border-color:var(--paper);}
+.cookie-btn.accept:hover,.cookie-btn.decline:hover{background:#E7E5E0;}
 
 @media (max-width:1024px){
   .nav-links{display:none;}

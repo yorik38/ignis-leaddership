@@ -117,7 +117,7 @@ module.exports = async function whitepaper(request, response) {
   const fields = downloadFields(body, resource, paper.contentSource, context.pageUri);
 
   async function submitSignalOptIn() {
-    if (!signalOptIn || !paper.separateSignalOptIn) return true;
+    if (!signalOptIn) return true;
     try {
       await submitWithFallback(signalFormId(), {
         submittedAt: Date.now(),

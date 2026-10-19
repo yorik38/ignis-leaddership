@@ -208,8 +208,12 @@
 .cookie-text a{color:var(--paper);text-underline-offset:2px}
 .cookie-actions{display:flex;gap:.75rem;flex-wrap:wrap}
 .cookie-btn{min-height:44px;padding:.7rem 1.25rem;border:1px solid var(--line-dark);border-radius:3px;font-size:.85rem;font-weight:600;cursor:pointer}
-.cookie-btn.accept{color:var(--ink);background:var(--paper);border-color:var(--paper)}
-.cookie-btn.decline{color:var(--paper);background:transparent}
+.cookie-btn.accept,.cookie-btn.decline{color:var(--ink);background:var(--paper);border-color:var(--paper)}
+.cookie-btn.accept:hover,.cookie-btn.decline:hover{background:#e7e5e0}
+.cookie-table-wrap{overflow-x:auto;margin:1rem 0 1.25rem}
+.cookie-table{width:100%;border-collapse:collapse;font-size:.95rem;line-height:1.45}
+.cookie-table th,.cookie-table td{text-align:left;vertical-align:top;padding:.65rem .7rem;border-bottom:1px solid rgba(15,20,25,.14)}
+.cookie-table th{font-size:.75rem;letter-spacing:.04em;text-transform:uppercase}
 
 /* Shared homepage-led hero system. */
 .hero{

@@ -73,12 +73,27 @@ test("both paper gates route by resource and never infer Signal consent", async 
       assert.deepEqual(request.payload.legalConsentOptions.consent.communications.map(item => item.subscriptionTypeId), [3918058120]);
     }
     const optedIn = response();
-    await whitepaper({method: "POST", body: {email: "test@example.com", resource: "bids-won-on-evidence", paper_email_consent: "true", signal_opt_in: "true", form_started_at: Date.now() - 10000}, headers: {}}, optedIn);
-    assert.deepEqual(requests.at(-1).payload.legalConsentOptions.consent.communications.map(item => item.subscriptionTypeId), [3918058120, 3918046194]);
+    await whitepaper({method: "POST", body: {email: "test@example.com", resource: "bids-won-on-evidence", paper_email_consent: "true", signal_opt_in: "true", company: "North Sea Power", enquiry_topic: "ar8", page_url: "https://www.ignisleadership.com/resources/bids-won-on-evidence?utm_source=linkedin", form_started_at: Date.now() - 10000}, headers: {}}, optedIn);
+    assert.equal(optedIn.statusCode, 200);
+    assert.equal(optedIn.body.pdf, "/assets/downloads/guide-01-bids-whitepaper.pdf");
+    const paperCall = requests.at(-2);
+    const signalCall = requests.at(-1);
+    assert.match(paperCall.url, /9b783156-b16d-443a-bc80-51bab3411670$/);
+    assert.deepEqual(paperCall.payload.legalConsentOptions.consent.communications.map(item => item.subscriptionTypeId), [3918058120, 3918046194]);
+    assert.match(signalCall.url, /9ee4b5ce-211f-4be1-a8d1-69809052e8b2$/);
+    assert.deepEqual(signalCall.payload.legalConsentOptions.consent.communications.map(item => item.subscriptionTypeId), [3918046194]);
+    const signalFields = Object.fromEntries(signalCall.payload.fields.map((field) => [field.name, field.value]));
+    assert.equal(signalFields.email, "test@example.com");
+    assert.equal(signalFields.company, "North Sea Power");
+    assert.equal(signalFields.enquiry_topic, "ar8");
+    assert.equal(signalFields.signal_source, "linkedin");
+    assert.equal(signalFields.content_source, "whitepaper-bids-won-on-evidence");
+    const today = new Date();
+    assert.equal(Number(signalFields.signal_subscribed_date), Date.UTC(today.getUTCFullYear(), today.getUTCMonth(), today.getUTCDate()));
     const rejected = response();
     await whitepaper({method: "POST", body: {email: "test@example.com", resource: "bad-resource", paper_email_consent: "true", form_started_at: Date.now() - 10000}, headers: {}}, rejected);
     assert.equal(rejected.statusCode, 422);
-    assert.equal(requests.length, 3);
+    assert.equal(requests.length, 4);
   } finally {
     global.fetch = originalFetch;
   }

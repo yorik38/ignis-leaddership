@@ -48,6 +48,8 @@
       var expectedPdf = pdfFor(form);
       var payload = Object.fromEntries(new FormData(form).entries());
       payload.page_url = window.location.href;
+      var hutk = document.cookie.match(/(?:^|; )hubspotutk=([^;]*)/);
+      if (hutk && hutk[1]) payload.hutk = decodeURIComponent(hutk[1]);
       if (button) button.disabled = true;
       if (status) status.textContent = "Sending your request…";
       var delay = window.ignisFormDelay ? window.ignisFormDelay(form) : Promise.resolve();
