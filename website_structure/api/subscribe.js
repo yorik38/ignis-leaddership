@@ -1,6 +1,14 @@
-const HUBSPOT_PORTAL_ID = process.env.HUBSPOT_PORTAL_ID || "149324702";
-const HUBSPOT_FORM_ID = process.env.HUBSPOT_SIGNAL_FORM_ID || "9ee4b5ce-211f-4be1-a8d1-69809052e8b2";
-const HUBSPOT_SUBSCRIPTION_TYPE_ID = process.env.HUBSPOT_SIGNAL_SUBSCRIPTION_TYPE_ID || "3918046194";
+const {protectForm} = require("./_lib/protect");
+const {
+  clip,
+  submitWithFallback,
+  contextFor,
+  signalConsent,
+  buildSignalFields,
+  signalFormId,
+  SIGNAL_EXTRA_FIELDS
+} = require("./_lib/hubspot");
+
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 function send(response, status, payload) {
@@ -10,9 +18,8 @@ function send(response, status, payload) {
   response.end(JSON.stringify(payload));
 }
 
-function cookieValue(header, name) {
-  const match = String(header || "").match(new RegExp("(?:^|;\\s*)" + name + "=([^;]+)"));
-  return match ? decodeURIComponent(match[1]) : undefined;
+function checked(value) {
+  return value === true || value === "true" || value === "on";
 }
 
 module.exports = async function subscribe(request, response) {
@@ -27,62 +34,43 @@ module.exports = async function subscribe(request, response) {
   } catch (_error) {
     return send(response, 400, {ok: false, error: "invalid_json"});
   }
-  if (body.company_website) return send(response, 200, {ok: true});
 
-  const fullName = String(body.name || body.first_name || "").trim().replace(/\s+/g, " ").slice(0, 160);
+  const gate = await protectForm(request, body, "subscribe");
+  if (gate) return send(response, gate.status, gate.payload);
+
+  const fullName = clip(body.name || body.first_name || body.firstname, 160);
   const parts = fullName.split(" ");
   const firstname = parts.shift() || "";
   const lastname = parts.join(" ");
   const email = String(body.email || "").trim().toLowerCase();
-  const source = String(body.source || "website").trim().slice(0, 180);
-  const signalConsent = body.signal_consent === true || body.signal_consent === "true" || body.signal_consent === "on";
+  const signalConsentGiven = checked(body.signal_consent);
 
   if (!EMAIL_PATTERN.test(email)) {
     return send(response, 422, {ok: false, error: "Enter a valid email address."});
   }
-  if (!signalConsent) return send(response, 422, {ok: false, error: "Please confirm that you want to receive Signal."});
+  if (!signalConsentGiven) return send(response, 422, {ok: false, error: "Please confirm that you want to receive Signal."});
 
-  const fields = [{name: "email", value: email}];
-  if (firstname) fields.push({name: "firstname", value: firstname});
-  if (lastname) fields.push({name: "lastname", value: lastname});
-  const context = {
-    pageUri: String(body.page_url || "https://www.ignisleadership.com/insights").slice(0, 500),
-    pageName: "Signal newsletter signup"
-  };
-  const hutk = cookieValue(request.headers.cookie, "hubspotutk");
-  if (hutk) context.hutk = hutk;
-
-  const subscriptionTypeId = Number(HUBSPOT_SUBSCRIPTION_TYPE_ID);
-  const consent = {
-    consentToProcess: true,
-    text: "Ignis Leadership may use your email address to send Signal. You can unsubscribe at any time."
-  };
-  if (Number.isFinite(subscriptionTypeId)) {
-    consent.communications = [{
-      value: true,
-      subscriptionTypeId,
-      text: "Email me Signal, the weekly Ignis newsletter. Unsubscribe anytime."
-    }];
-  }
+  const context = contextFor(request, body, "Signal newsletter signup", "https://www.ignisleadership.com/insights");
+  const fields = buildSignalFields({
+    email,
+    firstname,
+    lastname,
+    company: body.company,
+    enquiryTopic: body.enquiry_topic || body.topic,
+    contentSource: "signal-signup",
+    pageUrl: context.pageUri
+  });
 
   try {
-    const hubspotResponse = await fetch(
-      `https://api.hsforms.com/submissions/v3/integration/submit/${encodeURIComponent(HUBSPOT_PORTAL_ID)}/${encodeURIComponent(HUBSPOT_FORM_ID)}`,
-      {
-        method: "POST",
-        headers: {"Content-Type": "application/json"},
-        body: JSON.stringify({submittedAt: Date.now(), fields, context, legalConsentOptions: {consent}})
-      }
-    );
-
-    if (!hubspotResponse.ok) {
-      const detail = (await hubspotResponse.text()).slice(0, 800);
-      console.error("HubSpot newsletter submission failed", hubspotResponse.status, detail);
-      return send(response, 502, {ok: false, error: "We could not add you just now."});
-    }
+    await submitWithFallback(signalFormId(), {
+      submittedAt: Date.now(),
+      fields,
+      context,
+      legalConsentOptions: {consent: signalConsent()}
+    }, SIGNAL_EXTRA_FIELDS);
     return send(response, 200, {ok: true});
   } catch (error) {
-    console.error("HubSpot newsletter submission error", error && error.message);
+    console.error("HubSpot newsletter submission error", error && error.message, error && error.detail);
     return send(response, 502, {ok: false, error: "We could not add you just now."});
   }
 };

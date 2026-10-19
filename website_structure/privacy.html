@@ -22,9 +22,9 @@
 <meta name="twitter:description" content="How Ignis collects, uses and protects personal data when you visit the site, subscribe to Signal, or contact Ignis about commercial work on energy projects.">
 <meta name="twitter:image" content="https://www.ignisleadership.com/assets/img/og-social-card-v8.png">
 <meta name="twitter:image:alt" content="Ignis Leadership logo">
-<link rel="stylesheet" href="/assets/style.css?v=137">
+<link rel="stylesheet" href="/assets/style.css?v=138">
 <link rel="stylesheet" href="/assets/site-chrome.css?v=50">
-<link rel="stylesheet" href="/assets/capability.css?v=196">
+<link rel="stylesheet" href="/assets/capability.css?v=200">
 <link rel="preload" href="/assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin><link rel="preload" href="/assets/fonts/source-serif-4-italic-latin.woff2" as="font" type="font/woff2" crossorigin><link rel="icon" href="/favicon.ico" sizes="any"><link rel="icon" href="/assets/img/favicon-32.png" type="image/png" sizes="32x32"><link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png"><link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml"></head>
 <body data-header="light">
 
@@ -36,7 +36,7 @@
   <div class="wrap">
     <span class="eyebrow">Legal</span>
     <h1>Privacy Policy</h1>
-    <p class="legal-updated">Last updated: 15 October 2026</p>
+    <p class="legal-updated">Last updated: 19 October 2026</p>
 
     <div class="legal-toc">
       <p>On this page</p>
@@ -96,12 +96,27 @@
       </ul>
 
       <h2 id="cookies">5. Cookies and analytics</h2>
-      <p>This site uses a small number of cookies:</p>
-      <ul>
-        <li><strong>Essential cookies:</strong> used to remember your cookie preference itself. These are always active and cannot be switched off, as the site cannot function correctly without them.</li>
-        <li><strong>Analytics cookies (Google Analytics 4 and HubSpot):</strong> used to understand how visitors use the site (pages viewed, time on site, general location, device and referral source). These only load after you click "Accept" on the cookie banner. If you click "Decline", or take no action, these cookies are never set.</li>
-      </ul>
-      <p>You can change your mind at any time by clearing your browser's cookies for this site, which will show the banner again on your next visit.</p>
+      <p>This site uses a small number of cookies. Analytics cookies are set only after you choose Accept. Reject non-essential, or taking no action, leaves them unset.</p>
+      <div class="cookie-table-wrap">
+      <table class="cookie-table">
+        <caption class="skip-link">Cookies used on this site</caption>
+        <thead>
+          <tr><th>Cookie</th><th>Who sets it</th><th>Purpose</th><th>Duration</th><th>When</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><code>ignis_cookie_consent</code></td><td>Ignis</td><td>Essential. Stores your cookie choice.</td><td>180 days</td><td>Always, once you choose</td></tr>
+          <tr><td><code>__hstc</code></td><td>HubSpot</td><td>Analytics. Main visitor-tracking cookie: domain, first, last and current visit timestamps, and session count.</td><td>6 months</td><td>Only after Accept</td></tr>
+          <tr><td><code>hubspotutk</code></td><td>HubSpot</td><td>Analytics. Visitor identity. Links form submissions to the visitor and de-duplicates contacts.</td><td>6 months</td><td>Only after Accept</td></tr>
+          <tr><td><code>__hssc</code></td><td>HubSpot</td><td>Analytics. Session tracking and the page-view count in the session.</td><td>30 minutes</td><td>Only after Accept</td></tr>
+          <tr><td><code>__hssrc</code></td><td>HubSpot</td><td>Analytics. Detects browser restarts and new sessions.</td><td>Session</td><td>Only after Accept</td></tr>
+          <tr><td><code>_ga</code></td><td>Google Analytics 4</td><td>Analytics. Distinguishes users.</td><td>2 years</td><td>Only after Accept</td></tr>
+          <tr><td><code>_ga_F5LV9CKKTS</code></td><td>Google Analytics 4</td><td>Analytics. Stores session state.</td><td>2 years</td><td>Only after Accept</td></tr>
+          <tr><td><code>__cf_bm</code></td><td>Cloudflare</td><td>Strictly necessary security. Bot management on the HubSpot contact form, Calendly and Google reCAPTCHA.</td><td>30 minutes</td><td>When those services load</td></tr>
+        </tbody>
+      </table>
+      </div>
+      <p>The contact page loads the HubSpot enquiry form, and Google reCAPTCHA with it, when the page opens. That is for security on the form, not for analytics. It can set <code>__cf_bm</code>. Calendly’s scheduling script loads only after you click a booking button, and it can then set the same security cookie on Calendly’s domain.</p>
+      <p>You can change your mind at any time. Use <a href="#cookies" data-cookie-settings>Cookie settings</a> in this section, or the Cookie settings link in the footer of every page, to open the banner again and accept or reject non-essential cookies. Rejecting sets your choice to declined, stops analytics cookies and deletes the HubSpot and Google Analytics cookies already stored.</p>
 
       <h2 id="third-parties">6. Third parties we use</h2>
       <p>We use a small number of trusted third-party services to run this site and our enquiry process:</p>
@@ -170,6 +185,13 @@
 <input id="wp-signup-email" name="email" type="email" autocomplete="email" inputmode="email" placeholder="Work email" required>
 <button type="submit">Subscribe</button>
 </div>
+<div class="signal-signup-optional">
+<label class="signal-signup-optional-field"><span class="skip-link">Company (optional)</span><input id="signal-company" name="company" type="text" autocomplete="organization" maxlength="200" placeholder="Company (optional)"></label>
+<label class="signal-signup-optional-field"><span class="skip-link">Topic (optional)</span><select id="signal-topic" name="enquiry_topic"><option value="">Topic (optional)</option><option value="gate2">Gate 2: keep-or-kill decisions</option><option value="ar8">AR8 bid</option><option value="bid_tender">Bid and tender work</option><option value="new_offers">New AI-enabled offers</option><option value="other">Something else</option></select></label>
+</div>
+<input type="hidden" name="content_source" value="signal-signup">
+<input type="hidden" name="form_started_at" value="">
+<div class="form-honeypot" aria-hidden="true"><label>Company website<input type="text" name="company_website" tabindex="-1" autocomplete="off" aria-hidden="true"></label></div><div class="turnstile-slot" data-turnstile></div>
 <label class="signal-signup-consent"><input type="checkbox" name="signal_consent" value="true" required><span>Email me Signal, the weekly Ignis newsletter. Unsubscribe anytime.</span></label>
 <p class="signal-signup-privacy">See our <a href="/privacy">Privacy Policy</a>.</p>
 <p class="signal-signup-success" data-form-status role="status" aria-live="polite" hidden><span class="signal-signup-tick" aria-hidden="true"></span><span>Thanks. You are on the list.</span></p>
@@ -195,11 +217,11 @@
       <div class="footer-sitemap-group"><h2><a href="/contact">Get in touch</a></h2></div>
     </nav>
   </div>
-  <div class="wrap footer-bottom"><span>© 2026 Ignis Leadership</span><div class="footer-legal"><a href="/privacy">Privacy</a><a href="/terms">Terms</a></div></div>
+  <div class="wrap footer-bottom"><span>© 2026 Ignis Leadership</span><div class="footer-legal"><a href="/privacy">Privacy</a><a href="/privacy#cookies" data-cookie-settings>Cookie settings</a><a href="/terms">Terms</a></div></div>
 </footer>
 
-<script src="/assets/script.js?v=65" defer></script>
-<script src="/assets/capability.js?v=13" defer></script>
-<script src="/assets/whitepaper.js?v=5" defer></script>
+<script src="/assets/cookie-consent.js?v=1" defer></script><script src="/assets/script.js?v=66" defer></script>
+<script src="/assets/capability.js?v=17" defer></script>
+<script src="/assets/whitepaper.js?v=7" defer></script>
 </body>
 </html>

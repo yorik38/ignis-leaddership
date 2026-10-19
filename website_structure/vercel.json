@@ -14,7 +14,7 @@
       "memory": 128,
       "maxDuration": 10
     },
-    "api/contact.js": {
+    "api/form-config.js": {
       "memory": 128,
       "maxDuration": 10
     }

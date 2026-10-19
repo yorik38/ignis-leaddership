@@ -30,7 +30,10 @@ function loadGA4(){
    HubSpot portal 149324702 loads alongside GA4 after analytics consent.
    --------------------------------------------------------------------- */
 function loadHubSpotTracking(){
-  if (window.__hubSpotTrackingLoaded) return;
+  if (window.__hubSpotTrackingLoaded || document.getElementById("hs-script-loader")) {
+    window.__hubSpotTrackingLoaded = true;
+    return;
+  }
   window.__hubSpotTrackingLoaded = true;
   var s = document.createElement("script");
   s.type = "text/javascript";
@@ -61,6 +64,7 @@ function setCookie(name, value, days){
 }
 
 function initCookieBanner(){
+  if (window.ignisCookieConsent) return;
   var consent = getCookie(COOKIE_NAME);
   var banner = document.getElementById("cookie-banner");
 
@@ -74,7 +78,7 @@ function initCookieBanner(){
   if (!banner && consent !== "accepted" && consent !== "declined") {
     banner = document.createElement("div");
     banner.id = "cookie-banner";
-    banner.innerHTML = '<div class="cookie-inner"><p class="cookie-text">We use a small number of cookies to understand how this site is used. Essential cookies are always on; analytics cookies only run if you accept. See our <a href="/privacy">Privacy Policy</a> for details.</p><div class="cookie-actions"><button class="cookie-btn decline" id="cookie-decline">Decline</button><button class="cookie-btn accept" id="cookie-accept">Accept</button></div></div>';
+    banner.innerHTML = '<div class="cookie-inner"><p class="cookie-text">We use a small number of cookies to understand how this site is used. Essential cookies are always on; analytics cookies only run if you accept. See our <a href="/privacy">Privacy Policy</a> for details.</p><div class="cookie-actions"><button class="cookie-btn decline" id="cookie-decline" type="button">Reject non-essential</button><button class="cookie-btn accept" id="cookie-accept" type="button">Accept</button></div></div>';
     document.body.appendChild(banner);
   }
 
@@ -98,7 +102,21 @@ function initCookieBanner(){
   }
   if (declineBtn) {
     declineBtn.addEventListener("click", function(){
-      setCookie(COOKIE_NAME, "declined", 180);
+      if (window.ignisCookieConsent) {
+        window.ignisCookieConsent.withdraw({
+          hostname: window.location.hostname,
+          now: Date.now(),
+          setCookie: function(value){ document.cookie = value; },
+          hsq: window._hsq,
+          gtag: window.gtag
+        });
+      } else {
+        setCookie(COOKIE_NAME, "declined", 180);
+        if (window._hsq && window._hsq.push) window._hsq.push(["revokeCookieConsent"]);
+        if (typeof window.gtag === "function") {
+          window.gtag("consent", "update", {analytics_storage: "denied", ad_storage: "denied", ad_user_data: "denied", ad_personalization: "denied"});
+        }
+      }
       banner.classList.remove("visible");
     });
   }
@@ -140,10 +158,6 @@ function openCalendlyPopup(){
 }
 
 function initCalendly(){
-  // Preload the popup assets as soon as the page is ready, so the first
-  // click opens instantly instead of waiting on the network.
-  loadCalendlyAssets();
-
   document.querySelectorAll("[data-calendly-link]").forEach(function(el){
     el.setAttribute("href", CALENDLY_URL);
     el.addEventListener("click", function(e){
@@ -224,58 +238,7 @@ function initServiceRouteSelection(){
   if (requestedService) selectService(requestedService);
 }
 
-function initForm(){
-  var form = document.getElementById("qualify-form");
-  if (!form) return;
-
-  form.setAttribute("action", "/api/contact");
-
-  var statusEl = document.getElementById("form-status");
-  var successPanel = document.getElementById("form-success");
-  var submitBtn = form.querySelector("button[type=submit]");
-
-  form.addEventListener("submit", function(e){
-    e.preventDefault();
-    submitBtn.disabled = true;
-    submitBtn.textContent = "Sending...";
-
-    var formData = new FormData(form);
-    var payload = {};
-    formData.forEach(function(value, key){ payload[key] = value; });
-    payload.source = "website";
-    payload.page_url = window.location.href;
-
-    fetch("/api/contact", {
-      method: "POST",
-      body: JSON.stringify(payload),
-      headers: {
-        "Accept": "application/json",
-        "Content-Type": "application/json"
-      }
-    }).then(function(response){
-      if (response.ok) {
-        form.reset();
-        // Reveal the confirmation panel (with its own embedded Calendly
-        // scheduler) in place of the form, so the lead can book their
-        // diagnosis straight away rather than landing on a dead end.
-        form.hidden = true;
-        if (successPanel) successPanel.hidden = false;
-        initCalendlyInlineEmbed();
-      } else {
-        statusEl.textContent = "Something went wrong sending this. Please try again, or email us directly.";
-        statusEl.className = "form-status error";
-        statusEl.style.display = "block";
-      }
-    }).catch(function(){
-      statusEl.textContent = "Something went wrong sending this. Please try again, or email us directly.";
-      statusEl.className = "form-status error";
-      statusEl.style.display = "block";
-    }).finally(function(){
-      submitBtn.disabled = false;
-      submitBtn.textContent = "Send your enquiry →";
-    });
-  });
-}
+/* The contact enquiry is the HubSpot embed on /contact. This file does not post to /api/contact. */
 
 /* ---------------------------------------------------------------------
    6) SERVICES NAVIGATION
@@ -626,7 +589,6 @@ function initFaqAccordion(){
 document.addEventListener("DOMContentLoaded", function(){
   initCookieBanner();
   initCalendly();
-  initForm();
   initServiceRouteSelection();
   initServicesNavigation();
   initResourceNavigation();

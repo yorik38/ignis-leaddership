@@ -46,11 +46,13 @@ test('Insights and Reports are distinct collections', () => {
   const report = read('reports/market-monitor-2026-10.html');
   assert.match(report, /<h1>Ignis Market Monitor: October 2026<\/h1>/);
   assert.match(report, /What moved in auctions, prices, grid and deals this month, and the three things a CEO should act on\./);
-  assert.match(report, /HubSpot form placeholder/);
-  assert.match(report, /YORIK — HUBSPOT FORM PLACEHOLDER/);
+  assert.match(report, /data-whitepaper-form/);
+  assert.match(report, /action="\/api\/whitepaper"/);
+  assert.match(report, /data-edition="market-monitor-2026-10"/);
+  assert.doesNotMatch(report, /HubSpot form placeholder|YORIK — HUBSPOT FORM PLACEHOLDER/);
   assert.match(report, /data-whitepaper-pdf="\/assets\/downloads\/ignis-market-monitor-2026-10\.pdf"/);
-  assert.match(report, /ignisRevealWhitepaperDownload/);
-  assert.doesNotMatch(report, /FORGE|\/api\/whitepaper|data-whitepaper-form/);
+  assert.match(report, /whitepaper\.js/);
+  assert.doesNotMatch(report, /FORGE/);
   assert.equal((report.match(/<figure /g) || []).length, 5);
   assert.match(report, /id="prices-up">What is driving GB power prices up/);
   assert.match(report, /fig3-gb-power-vs-gas\.png/);

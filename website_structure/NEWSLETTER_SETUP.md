@@ -1,6 +1,8 @@
 # Signal and white-paper forms
 
-The site submits Signal signups through `/api/subscribe` and the two white-paper gates through `/api/whitepaper`. Both endpoints use HubSpot Forms API in the EU portal. The paper must not be revealed until HubSpot accepts the request. A paper request does not imply Signal consent.
+The site submits Signal signups through `/api/subscribe` and the two white-paper gates through `/api/whitepaper`. The October Market Monitor uses the same white-paper endpoint. All three use HubSpot Forms API in the EU portal. Environment variables, Turnstile, rate limiting and the Market Monitor form id are listed in [FORMS_SETUP.md](FORMS_SETUP.md).
+
+A white paper is not revealed until HubSpot accepts the request. The Market Monitor PDF is the exception when `HUBSPOT_MARKET_MONITOR_FORM_ID` is unset: the file is still delivered and the server logs a warning. A paper or report request does not imply Signal consent. When the optional Signal box is ticked, the handler also submits the Signal form so the welcome email can send. Company and enquiry topic are optional on Signal and download forms. The topic uses the existing `enquiry_topic` values (`gate2`, `ar8`, `bid_tender`, `new_offers`, `other`). If HubSpot rejects those extra fields, the handler retries without them. Submissions include `context.hutk` only when the visitor’s `hubspotutk` cookie, or a posted token, is present. The old `/api/contact` handler is retired; `/contact` uses the HubSpot embed.
 
 ## HubSpot IDs
 

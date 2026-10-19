@@ -1,17 +1,45 @@
-const HUBSPOT_PORTAL_ID = process.env.HUBSPOT_PORTAL_ID || "149324702";
-const PAPER_SUBSCRIPTION_TYPE_ID = 3918058120;
-const SIGNAL_SUBSCRIPTION_TYPE_ID = 3918046194;
+const {protectForm} = require("./_lib/protect");
+const {
+  PAPER_SUBSCRIPTION_TYPE_ID,
+  normaliseEnquiryTopic,
+  normaliseRole,
+  clip,
+  submitWithFallback,
+  contextFor,
+  signalConsent,
+  buildSignalFields,
+  signalFormId,
+  SIGNAL_EXTRA_FIELDS,
+  DOWNLOAD_EXTRA_FIELDS,
+  acquisitionSourceFromPage
+} = require("./_lib/hubspot");
+
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-const PAPERS = {
-  "bids-won-on-evidence": {
-    formId: "9b783156-b16d-443a-bc80-51bab3411670",
-    pdf: "/assets/downloads/guide-01-bids-whitepaper.pdf"
-  },
-  "commercial-system-pipeline": {
-    formId: "5b3bb573-2ca5-47cc-8bc0-3e8b0f4023d5",
-    pdf: "/assets/downloads/ignis-white-paper-commercial-system-pipeline.pdf"
-  }
-};
+
+function papers() {
+  return {
+    "bids-won-on-evidence": {
+      formId: "9b783156-b16d-443a-bc80-51bab3411670",
+      pdf: "/assets/downloads/guide-01-bids-whitepaper.pdf",
+      contentSource: "whitepaper-bids-won-on-evidence",
+      pageName: "Ignis white paper: bids-won-on-evidence"
+    },
+    "commercial-system-pipeline": {
+      formId: "5b3bb573-2ca5-47cc-8bc0-3e8b0f4023d5",
+      pdf: "/assets/downloads/ignis-white-paper-commercial-system-pipeline.pdf",
+      contentSource: "whitepaper-commercial-system-pipeline",
+      pageName: "Ignis white paper: commercial-system-pipeline"
+    },
+    "market-monitor-2026-10": {
+      formId: String(process.env.HUBSPOT_MARKET_MONITOR_FORM_ID || "").trim(),
+      pdf: "/assets/downloads/ignis-market-monitor-2026-10.pdf",
+      contentSource: "market-monitor-2026-10",
+      pageName: "Ignis Market Monitor: October 2026",
+      deliverWithoutForm: true,
+      separateSignalOptIn: true
+    }
+  };
+}
 
 function send(response, status, payload) {
   response.statusCode = status;
@@ -20,13 +48,26 @@ function send(response, status, payload) {
   response.end(JSON.stringify(payload));
 }
 
-function cookieValue(header, name) {
-  const match = String(header || "").match(new RegExp("(?:^|;\\s*)" + name + "=([^;]+)"));
-  return match ? decodeURIComponent(match[1]) : undefined;
-}
-
 function checked(value) {
   return value === true || value === "true" || value === "on";
+}
+
+function downloadFields(body, resource, contentSource, pageUrl) {
+  const fields = [
+    {name: "email", value: String(body.email || "").trim().toLowerCase()},
+    {name: "resource", value: resource},
+    {name: "content_source", value: contentSource},
+    {name: "acquisition_source", value: acquisitionSourceFromPage(pageUrl, body.acquisition_source || body.source)}
+  ];
+  const firstname = clip(body.firstname || body.first_name, 80);
+  const company = clip(body.company, 200);
+  const signalRole = normaliseRole(body.signal_role);
+  const enquiryTopic = normaliseEnquiryTopic(body.enquiry_topic || body.topic);
+  if (firstname) fields.push({name: "firstname", value: firstname});
+  if (company) fields.push({name: "company", value: company});
+  if (signalRole) fields.push({name: "signal_role", value: signalRole});
+  if (enquiryTopic) fields.push({name: "enquiry_topic", value: enquiryTopic});
+  return fields;
 }
 
 module.exports = async function whitepaper(request, response) {
@@ -41,62 +82,102 @@ module.exports = async function whitepaper(request, response) {
   } catch (_error) {
     return send(response, 400, {ok: false, error: "invalid_json"});
   }
-  if (body.company_website) return send(response, 200, {ok: true});
+
+  const gate = await protectForm(request, body, "whitepaper");
+  if (gate) return send(response, gate.status, gate.payload);
 
   const email = String(body.email || "").trim().toLowerCase();
   const resource = String(body.resource || "").trim();
-  const paper = Object.hasOwn(PAPERS, resource) ? PAPERS[resource] : undefined;
+  const catalogue = papers();
+  const paper = Object.prototype.hasOwnProperty.call(catalogue, resource) ? catalogue[resource] : undefined;
   if (!EMAIL_PATTERN.test(email) || !paper || !checked(body.paper_email_consent)) {
     return send(response, 422, {ok: false, error: "Enter your email and confirm that we may send the paper."});
   }
 
+  const signalOptIn = checked(body.signal_opt_in);
   const communications = [{
     value: true,
     subscriptionTypeId: PAPER_SUBSCRIPTION_TYPE_ID,
     text: "Email me the white paper I requested. This is only for this paper, not the Signal newsletter."
   }];
-  if (checked(body.signal_opt_in)) {
+  if (signalOptIn && !paper.separateSignalOptIn) {
     communications.push({
       value: true,
-      subscriptionTypeId: SIGNAL_SUBSCRIPTION_TYPE_ID,
+      subscriptionTypeId: Number(process.env.HUBSPOT_SIGNAL_SUBSCRIPTION_TYPE_ID || "3918046194"),
       text: "Yes, email me Signal from Ignis Leadership."
     });
   }
-  const context = {
-    pageUri: String(body.page_url || `https://www.ignisleadership.com/resources/${resource}`).slice(0, 500),
-    pageName: `Ignis white paper: ${resource}`
-  };
-  const hutk = cookieValue(request.headers.cookie, "hubspotutk");
-  if (hutk) context.hutk = hutk;
+
+  const context = contextFor(
+    request,
+    body,
+    paper.pageName,
+    `https://www.ignisleadership.com/resources/${resource}`
+  );
+  const fields = downloadFields(body, resource, paper.contentSource, context.pageUri);
+
+  async function submitSignalOptIn() {
+    if (!signalOptIn) return true;
+    try {
+      await submitWithFallback(signalFormId(), {
+        submittedAt: Date.now(),
+        fields: buildSignalFields({
+          email,
+          firstname: body.firstname || body.first_name,
+          company: body.company,
+          enquiryTopic: body.enquiry_topic || body.topic,
+          contentSource: paper.contentSource,
+          pageUrl: context.pageUri
+        }),
+        context: {...context, pageName: `Signal signup from ${resource}`},
+        legalConsentOptions: {
+          consent: signalConsent("Ignis Leadership may use these details to send the Signal newsletter. You can unsubscribe at any time.")
+        }
+      }, SIGNAL_EXTRA_FIELDS);
+      return true;
+    } catch (error) {
+      console.error("HubSpot Signal opt-in submission error", error && error.message, error && error.detail);
+      return false;
+    }
+  }
+
+  if (!paper.formId) {
+    if (!paper.deliverWithoutForm) {
+      return send(response, 422, {ok: false, error: "Enter your email and confirm that we may send the paper."});
+    }
+    console.warn(`HUBSPOT_MARKET_MONITOR_FORM_ID is not set; delivering ${resource} without a HubSpot form submission.`);
+    const signalSaved = await submitSignalOptIn();
+    return send(response, 200, {
+      ok: true,
+      pdf: paper.pdf,
+      newsletterSubscribed: signalOptIn ? signalSaved : false,
+      ...(signalOptIn && !signalSaved ? {warning: "newsletter_submission_failed"} : {})
+    });
+  }
 
   try {
-    const hubspotResponse = await fetch(
-      `https://api.hsforms.com/submissions/v3/integration/submit/${encodeURIComponent(HUBSPOT_PORTAL_ID)}/${encodeURIComponent(paper.formId)}`,
-      {
-        method: "POST",
-        headers: {"Content-Type": "application/json"},
-        body: JSON.stringify({
-          submittedAt: Date.now(),
-          fields: [{name: "email", value: email}, {name: "resource", value: resource}],
-          context,
-          legalConsentOptions: {
-            consent: {
-              consentToProcess: true,
-              text: "Ignis Leadership may use my email address to deliver the requested white paper.",
-              communications
-            }
-          }
-        })
+    await submitWithFallback(paper.formId, {
+      submittedAt: Date.now(),
+      fields,
+      context,
+      legalConsentOptions: {
+        consent: {
+          consentToProcess: true,
+          text: "Ignis Leadership may use my email address to deliver the requested white paper.",
+          communications
+        }
       }
-    );
-    if (!hubspotResponse.ok) {
-      const detail = (await hubspotResponse.text()).slice(0, 800);
-      console.error("HubSpot white paper submission failed", hubspotResponse.status, detail);
-      return send(response, 502, {ok: false, error: "We could not send your paper just now. Please try again."});
-    }
-    return send(response, 200, {ok: true, pdf: paper.pdf});
+    }, DOWNLOAD_EXTRA_FIELDS);
   } catch (error) {
-    console.error("HubSpot white paper submission error", error && error.message);
+    console.error("HubSpot white paper submission error", error && error.message, error && error.detail);
     return send(response, 502, {ok: false, error: "We could not send your paper just now. Please try again."});
   }
+
+  const signalSaved = await submitSignalOptIn();
+  return send(response, 200, {
+    ok: true,
+    pdf: paper.pdf,
+    ...(paper.separateSignalOptIn ? {newsletterSubscribed: signalOptIn ? signalSaved : false} : {}),
+    ...(paper.separateSignalOptIn && signalOptIn && !signalSaved ? {warning: "newsletter_submission_failed"} : {})
+  });
 };

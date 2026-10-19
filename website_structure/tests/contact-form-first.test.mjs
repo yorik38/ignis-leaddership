@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { readFileSync } from 'node:fs';
+import { existsSync, readFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -25,5 +25,13 @@ test('Contact page embeds the published EU1 HubSpot enquiry form', () => {
   assert.match(contact, /class="button button-teal" href="https:\/\/calendly\.com\/yorik-tisseau-tmff\/commercial-decision-call" data-calendly-link>Book a call<\/a>/);
   assert.match(contact, /id="hubspot-newsletter-form"/);
   assert.match(contact, /data-community-form/);
+  assert.match(contact, /name="company"/);
+  assert.match(contact, /name="enquiry_topic"/);
+  assert.match(contact, /name="form_started_at"/);
+  assert.match(contact, /name="company_website"/);
+  assert.match(contact, /data-cookie-settings/);
+  assert.equal(existsSync(join(site, 'api/contact.js')), false);
+  assert.doesNotMatch(read('vercel.json'), /api\/contact\.js/);
+  assert.doesNotMatch(read('assets/script.js'), /fetch\("\/api\/contact"/);
   assert.match(read('scripts/sync-site-chrome.mjs'), /"contact\.html"/);
 });
