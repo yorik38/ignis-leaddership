@@ -257,6 +257,43 @@ label.skip-link {
   letter-spacing: -.05em;
 }
 
+.contact-page .contact-thanks[hidden] {
+  display: none;
+}
+
+.contact-page .contact-thanks {
+  max-width: 42rem;
+  padding-bottom: clamp(3rem, 6vw, 5rem);
+}
+
+.contact-page .contact-thanks-kicker {
+  margin: 0 0 .85rem;
+  color: #08756d;
+  font-size: .82rem;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.contact-page .contact-thanks h2 {
+  margin: 0;
+  font-size: var(--h2);
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: -.05em;
+}
+
+.contact-page .contact-thanks-lead {
+  margin: 1.35rem 0 .6rem;
+  color: var(--ink);
+  font-size: clamp(1.2rem, 2vw, 1.45rem);
+  line-height: 1.35;
+}
+
+.contact-page .contact-section.is-thanks .contact-layout {
+  display: none;
+}
+
 @media (max-width: 850px) {
   .contact-page .contact-section { padding-top: calc(78px + 3rem); }
 }

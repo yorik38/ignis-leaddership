@@ -17,7 +17,10 @@ test('Contact page embeds the published EU1 HubSpot enquiry form', () => {
   assert.equal((contact.match(/<h1\b/g) || []).length, 1);
   assert.match(contact, /id="hubspot-contact-form" class="hubspot-contact-form"/);
   assert.match(contact, /src="https:\/\/js-eu1\.hsforms\.net\/forms\/embed\/v2\.js"/);
-  assert.match(contact, /hbspt\.forms\.create\(\{region:"eu1",portalId:"149324702",formId:"3c83d1fd-334f-4bf6-9068-47e7f2044ad8",target:"#hubspot-contact-form"\}\)/);
+  assert.match(contact, /hbspt\.forms\.create\(\{region:"eu1",portalId:"149324702",formId:"3c83d1fd-334f-4bf6-9068-47e7f2044ad8",target:"#hubspot-contact-form",onFormSubmitted:function\(\)\{/);
+  assert.match(contact, /id="contact-thanks"/);
+  assert.match(contact, /Glad you're in\./);
+  assert.equal((contact.match(/<h1\b/g) || []).length, 1);
   assert.doesNotMatch(contact, /data-contact-form|action="\/api\/contact"|contact-required-note/);
   assert.match(contact, /Yorik reads every message personally and replies within 2 working days/);
   assert.match(contact, /Prefer to talk now\? Book a 30-minute call/);

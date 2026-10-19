@@ -108,6 +108,7 @@ async function submitHubspotForm(formId, payload) {
     const error = new Error(`HubSpot form submission failed: ${response.status}`);
     error.detail = detail;
     error.status = response.status;
+    error.captcha = detail.includes("FORM_HAS_RECAPTCHA_ENABLED");
     throw error;
   }
 }
@@ -116,6 +117,15 @@ async function submitWithFallback(formId, payload, extraNames) {
   try {
     await submitHubspotForm(formId, payload);
   } catch (error) {
+    if (error && error.captcha) {
+      console.error(
+        "HubSpot rejected the submission because reCAPTCHA is enabled on form",
+        formId,
+        "Turn off CAPTCHA on forms submitted through the site API. The public Forms API cannot post to them.",
+        error.detail
+      );
+      throw error;
+    }
     const fallbackFields = payload.fields.filter((field) => !extraNames.has(field.name));
     if (fallbackFields.length === payload.fields.length) throw error;
     console.error("HubSpot rejected the extra fields; retrying without them", error && error.message);
@@ -142,14 +152,14 @@ function contextFor(request, body, pageName, fallbackUrl) {
 function signalConsent(text) {
   const consent = {
     consentToProcess: true,
-    text: text || "Ignis Leadership may use your email address to send Signal. You can unsubscribe at any time."
+    text: text || "Ignis Leadership may use your email address to send Signal, the weekly newsletter, and occasional marketing updates. We won't fill your inbox. You can unsubscribe at any time."
   };
   const subscriptionTypeId = Number(signalSubscriptionTypeId());
   if (Number.isFinite(subscriptionTypeId)) {
     consent.communications = [{
       value: true,
       subscriptionTypeId,
-      text: "Email me Signal, the weekly Ignis newsletter. Unsubscribe anytime."
+      text: "Email me Signal, the weekly newsletter, and occasional marketing updates. We won't fill your inbox."
     }];
   }
   return consent;

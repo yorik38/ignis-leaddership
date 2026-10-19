@@ -274,10 +274,10 @@ describe("form protection", {concurrency: 1}, () => {
       assert.match(saved.calls[0].url, /monitor-form-id$/);
       const fields = Object.fromEntries(JSON.parse(saved.calls[0].body).fields.map((field) => [field.name, field.value]));
       assert.equal(fields.email, "saved@example.com");
-      assert.equal(fields.firstname, "Ada");
-      assert.equal(fields.company, "North Sea Power");
-      assert.equal(fields.signal_role, "ceo_md");
-      assert.equal(fields.enquiry_topic, "ar8");
+      assert.equal(fields.firstname, undefined);
+      assert.equal(fields.company, undefined);
+      assert.equal(fields.signal_role, undefined);
+      assert.equal(fields.enquiry_topic, undefined);
       assert.equal(fields.topic, undefined);
       assert.equal(fields.content_source, "market-monitor-2026-10");
       assert.equal(fields.resource, "market-monitor-2026-10");
@@ -320,9 +320,11 @@ describe("form protection", {concurrency: 1}, () => {
       assert.deepEqual(signalConsent, [3918046194]);
       const signalFields = Object.fromEntries(JSON.parse(both.calls[1].body).fields.map((field) => [field.name, field.value]));
       assert.equal(signalFields.signal_source, "linkedin");
-      assert.equal(signalFields.enquiry_topic, "gate2");
+      assert.equal(signalFields.enquiry_topic, undefined);
+      assert.equal(signalFields.firstname, undefined);
       assert.equal(signalFields.content_source, "market-monitor-2026-10");
-      assert.equal(signalFields.company, "North Sea Power");
+      assert.equal(signalFields.company, undefined);
+      assert.match(JSON.parse(both.calls[1].body).legalConsentOptions.consent.communications[0].text, /won't fill your inbox/);
       assert.ok(signalFields.signal_subscribed_date);
 
       delete process.env.HUBSPOT_MARKET_MONITOR_FORM_ID;
@@ -338,7 +340,7 @@ describe("form protection", {concurrency: 1}, () => {
     }
   });
 
-  test("Market Monitor still returns the PDF when HubSpot rejects the new fields", async () => {
+  test("Market Monitor still returns the PDF when HubSpot rejects the extra fields", async () => {
     resetProtectionForTests();
     const previous = process.env.HUBSPOT_MARKET_MONITOR_FORM_ID;
     process.env.HUBSPOT_MARKET_MONITOR_FORM_ID = "monitor-form-id";
@@ -347,7 +349,6 @@ describe("form protection", {concurrency: 1}, () => {
       const result = await post(whitepaper, started({
         email: "ada@example.com",
         resource: "market-monitor-2026-10",
-        paper_email_consent: "true",
         company: "North Sea Power",
         enquiry_topic: "other"
       }), {
@@ -355,12 +356,13 @@ describe("form protection", {concurrency: 1}, () => {
         fetchImpl: async (url, init) => {
           attempt += 1;
           const payload = JSON.parse(init.body);
-          if (attempt === 1) {
-            assert.equal(payload.fields.some((field) => field.name === "company"), true);
-            return {ok: false, status: 400, text: async () => "unknown field company", json: async () => ({})};
-          }
           assert.equal(payload.fields.some((field) => field.name === "company"), false);
           assert.equal(payload.fields.some((field) => field.name === "enquiry_topic"), false);
+          if (attempt === 1) {
+            assert.equal(payload.fields.some((field) => field.name === "content_source"), true);
+            return {ok: false, status: 400, text: async () => "unknown field content_source", json: async () => ({})};
+          }
+          assert.equal(payload.fields.some((field) => field.name === "content_source"), false);
           return {ok: true, status: 200, text: async () => "", json: async () => ({})};
         }
       });
@@ -468,12 +470,9 @@ test("every signup and download form renders the shared protection fields", () =
   assert.match(download, /data-pdf="\/assets\/downloads\/ignis-market-monitor-2026-10\.pdf"/);
   assert.match(download, /name="resource" value="market-monitor-2026-10"/);
   assert.match(download, /name="content_source" value="market-monitor-2026-10"/);
-  assert.match(download, /name="signal_role"/);
-  assert.match(download, /name="enquiry_topic"/);
-  assert.match(download, /value="gate2">Gate 2: keep-or-kill decisions/);
+  assert.doesNotMatch(download, /name="signal_role"|name="enquiry_topic"|name="company"|name="firstname"|name="paper_email_consent"/);
   assert.doesNotMatch(download, /name="topic"|bid_and_tender|gate2_grid/);
-  assert.match(download, /name="paper_email_consent"[^>]*required/);
-  assert.match(download, /Email me this report/);
+  assert.match(download, /Also email me Signal, the weekly newsletter, and occasional marketing updates\. We won't fill your inbox\./);
   assert.match(download, /name="signal_opt_in"/);
   assert.doesNotMatch(download, /name="signal_opt_in"[^>]*checked/);
   assert.doesNotMatch(download, /HubSpot form placeholder|portalId:\s*"TODO"/);

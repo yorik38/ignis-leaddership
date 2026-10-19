@@ -1,9 +1,6 @@
 const {protectForm} = require("./_lib/protect");
 const {
   PAPER_SUBSCRIPTION_TYPE_ID,
-  normaliseEnquiryTopic,
-  normaliseRole,
-  clip,
   submitWithFallback,
   contextFor,
   signalConsent,
@@ -53,21 +50,19 @@ function checked(value) {
 }
 
 function downloadFields(body, resource, contentSource, pageUrl) {
-  const fields = [
+  return [
     {name: "email", value: String(body.email || "").trim().toLowerCase()},
     {name: "resource", value: resource},
     {name: "content_source", value: contentSource},
     {name: "acquisition_source", value: acquisitionSourceFromPage(pageUrl, body.acquisition_source || body.source)}
   ];
-  const firstname = clip(body.firstname || body.first_name, 80);
-  const company = clip(body.company, 200);
-  const signalRole = normaliseRole(body.signal_role);
-  const enquiryTopic = normaliseEnquiryTopic(body.enquiry_topic || body.topic);
-  if (firstname) fields.push({name: "firstname", value: firstname});
-  if (company) fields.push({name: "company", value: company});
-  if (signalRole) fields.push({name: "signal_role", value: signalRole});
-  if (enquiryTopic) fields.push({name: "enquiry_topic", value: enquiryTopic});
-  return fields;
+}
+
+function deliveryConsentText(resource) {
+  if (String(resource).startsWith("market-monitor")) {
+    return "Email me the report I requested. This is only for this report, not the Signal newsletter.";
+  }
+  return "Email me the white paper I requested. This is only for this paper, not the Signal newsletter.";
 }
 
 module.exports = async function whitepaper(request, response) {
@@ -90,23 +85,16 @@ module.exports = async function whitepaper(request, response) {
   const resource = String(body.resource || "").trim();
   const catalogue = papers();
   const paper = Object.prototype.hasOwnProperty.call(catalogue, resource) ? catalogue[resource] : undefined;
-  if (!EMAIL_PATTERN.test(email) || !paper || !checked(body.paper_email_consent)) {
-    return send(response, 422, {ok: false, error: "Enter your email and confirm that we may send the paper."});
+  if (!EMAIL_PATTERN.test(email) || !paper) {
+    return send(response, 422, {ok: false, error: "Enter a valid work email."});
   }
 
   const signalOptIn = checked(body.signal_opt_in);
   const communications = [{
     value: true,
     subscriptionTypeId: PAPER_SUBSCRIPTION_TYPE_ID,
-    text: "Email me the white paper I requested. This is only for this paper, not the Signal newsletter."
+    text: deliveryConsentText(resource)
   }];
-  if (signalOptIn && !paper.separateSignalOptIn) {
-    communications.push({
-      value: true,
-      subscriptionTypeId: Number(process.env.HUBSPOT_SIGNAL_SUBSCRIPTION_TYPE_ID || "3918046194"),
-      text: "Yes, email me Signal from Ignis Leadership."
-    });
-  }
 
   const context = contextFor(
     request,
@@ -123,15 +111,12 @@ module.exports = async function whitepaper(request, response) {
         submittedAt: Date.now(),
         fields: buildSignalFields({
           email,
-          firstname: body.firstname || body.first_name,
-          company: body.company,
-          enquiryTopic: body.enquiry_topic || body.topic,
           contentSource: paper.contentSource,
           pageUrl: context.pageUri
         }),
         context: {...context, pageName: `Signal signup from ${resource}`},
         legalConsentOptions: {
-          consent: signalConsent("Ignis Leadership may use these details to send the Signal newsletter. You can unsubscribe at any time.")
+          consent: signalConsent()
         }
       }, SIGNAL_EXTRA_FIELDS);
       return true;
@@ -163,7 +148,9 @@ module.exports = async function whitepaper(request, response) {
       legalConsentOptions: {
         consent: {
           consentToProcess: true,
-          text: "Ignis Leadership may use my email address to deliver the requested white paper.",
+          text: resource.startsWith("market-monitor")
+            ? "Ignis Leadership may use my email address to send the report I requested."
+            : "Ignis Leadership may use my email address to deliver the requested white paper.",
           communications
         }
       }
@@ -177,7 +164,7 @@ module.exports = async function whitepaper(request, response) {
   return send(response, 200, {
     ok: true,
     pdf: paper.pdf,
-    ...(paper.separateSignalOptIn ? {newsletterSubscribed: signalOptIn ? signalSaved : false} : {}),
-    ...(paper.separateSignalOptIn && signalOptIn && !signalSaved ? {warning: "newsletter_submission_failed"} : {})
+    newsletterSubscribed: signalOptIn ? signalSaved : false,
+    ...(signalOptIn && !signalSaved ? {warning: "newsletter_submission_failed"} : {})
   });
 };
