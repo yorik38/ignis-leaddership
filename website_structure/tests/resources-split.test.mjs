@@ -64,8 +64,8 @@ test('Resources navigation and canonical routes point to both pages', () => {
   const header = read('partials/site-header.html');
   const footer = read('partials/site-footer.html');
   assert.match(header, /<summary class="overlay-resource-toggle">Solutions/);
-  assert.match(header, /href="\/how-ignis-works#onshore"/);
-  assert.match(header, /href="\/how-ignis-works#offshore"/);
+  assert.match(header, /href="\/services#onshore"/);
+  assert.match(header, /href="\/services#offshore"/);
   assert.match(header, /<details class="overlay-resource-group"><summary class="overlay-resource-toggle">Resources/);
   assert.doesNotMatch(header, /overlay-nav-mark/);
   assert.match(header, /class="overlay-resource-chevron" aria-hidden="true"/);

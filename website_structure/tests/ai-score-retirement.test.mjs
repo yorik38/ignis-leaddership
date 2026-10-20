@@ -15,7 +15,7 @@ test("AI Score is retired from the public website",()=>{
 test("retired assessment routes lead to the closest active service page",()=>{
   const config=JSON.parse(readFileSync(new URL("vercel.json",root),"utf8"));
   for(const source of ["/ai-score","/ai-score.html","/ai-roulette","/ai-roulette.html"]){
-    assert.ok(config.redirects.some(route=>route.source===source&&route.destination==="/how-ignis-works"&&route.permanent));
+    assert.ok(config.redirects.some(route=>route.source===source&&route.destination==="/services"&&route.permanent));
   }
   assert.equal(Object.hasOwn(config.functions,"api/assessment-report.js"),false);
 });

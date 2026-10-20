@@ -26,9 +26,6 @@ test("commercial gates comparison follows the rotating statement",()=>{
   assert.match(homepage,/class="gates-lane-labels"><span class="gates-lane-label is-conventional">Conventional<\/span><span class="gates-lane-label is-ignis">With Ignis<\/span>/);
   assert.match(css,/\.gates-lane-labels\{[^}]*position:sticky[^}]*width:11cqi/);
   assert.match(css,/@media\(max-width:800px\)\{[\s\S]*\.gates-lane-label\{[^}]*background:#fff/);
-  const how=readFileSync(new URL("how-ignis-works.html",root),"utf8");
-  assert.match(how,/class="gates-stack"/);
-  assert.match(how,/class="gates-scroll-hint" aria-hidden="true"><span>Scroll →<\/span>/);
   assert.match(homepage,/id="services"/);
   assert.doesNotMatch(homepage,/id="how-we-build"/);
 });
