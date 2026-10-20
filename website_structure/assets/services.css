@@ -7,6 +7,17 @@
 .services-page .services-hero .button-light{color:#04221f;background:#fff}
 .services-page .services-hero .button-light:hover{background:#e8f7f5}
 .services-page .services-hero .button-light:focus-visible{outline:3px solid #1cbdad;outline-offset:4px}
+.services-page .services-hero{isolation:isolate;overflow:hidden;background:#061c1e}
+.services-hero-media{position:absolute;inset:0;z-index:0;display:block;margin:0}
+.services-hero-media img{width:100%;height:100%;object-fit:cover;object-position:62% center}
+.services-page .services-hero::after{background:linear-gradient(90deg,rgba(6,28,30,.82) 0%,rgba(6,28,30,.78) 20%,rgba(6,28,30,.74) 40%,rgba(6,28,30,.64) 55%,rgba(6,28,30,.48) 70%,rgba(6,28,30,.30) 82%,rgba(6,28,30,.14) 91%,rgba(6,28,30,.05) 97%,rgba(6,28,30,0) 100%)}
+@media(max-width:1200px){
+  .services-page .services-hero::after{background:linear-gradient(90deg,rgba(6,28,30,.84) 0%,rgba(6,28,30,.80) 24%,rgba(6,28,30,.76) 46%,rgba(6,28,30,.72) 68%,rgba(6,28,30,.60) 80%,rgba(6,28,30,.40) 88%,rgba(6,28,30,.20) 94%,rgba(6,28,30,.06) 98%,rgba(6,28,30,0) 100%)}
+}
+@media(max-width:700px){
+  .services-hero-media img{object-position:center}
+  .services-page .services-hero::after{background:linear-gradient(180deg,rgba(6,28,30,.86),rgba(6,28,30,.74))}
+}
 .services-page #offshore,.services-page #onshore,.services-page #how-we-work{scroll-margin-top:112px}
 .service-offer .section-label{color:#08756d}
 .service-offer h2,.service-how h2{max-width:14em;margin:.55rem 0 0;font-size:var(--h2);font-weight:400;letter-spacing:-.045em;line-height:1.02;text-wrap:balance}

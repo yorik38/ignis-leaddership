@@ -126,13 +126,13 @@ test("paper forms and visible Signal signups are connected", () => {
     assert.match(html, /The PDF is on its way\./);
     assert.match(html, /class="signal-signup-form"[^>]*data-community-form/);
     const signup = html.match(/<label class="signal-signup-consent">[\s\S]*?<\/label>/)?.[0] ?? "";
-    assert.match(signup, /Email me Signal, the weekly newsletter, and occasional marketing updates\. We won't fill your inbox\. See our <a href="\/privacy">Privacy Policy<\/a>\./);
+    assert.match(signup, /Yes, I want to receive Signal, the weekly newsletter, the monthly report and occasional marketing updates\./);
     assert.doesNotMatch(html, /class="signal-signup-privacy"/);
   }
   const home = readFileSync(join(root, "index.html"), "utf8");
   assert.match(home, /class="signal-signup-form"[^>]*data-community-form/);
   const homeConsent = home.match(/<label class="signal-signup-consent">[\s\S]*?<\/label>/)?.[0] ?? "";
-  assert.match(homeConsent, /Email me Signal, the weekly newsletter, and occasional marketing updates\. We won't fill your inbox\. See our <a href="\/privacy">Privacy Policy<\/a>\./);
+  assert.match(homeConsent, /Yes, I want to receive Signal, the weekly newsletter, the monthly report and occasional marketing updates\./);
   assert.doesNotMatch(homeConsent, /checked/);
   const pages = [];
   function walk(dir) {
@@ -149,11 +149,12 @@ test("paper forms and visible Signal signups are connected", () => {
   for (const [path, html] of signups) {
     const form = html.slice(html.indexOf('class="signal-signup-form"'), html.indexOf("signal-signup-success"));
     assert.match(form, /placeholder="Work email"/, path);
-    assert.match(form, />Subscribe</, path);
+    assert.match(form, /aria-label="Subscribe"/, path);
+    assert.doesNotMatch(form, />Subscribe</, path);
     assert.match(form, /name="signal_consent"/, path);
     assert.doesNotMatch(form, /name="company"(?!_)|name="enquiry_topic"|Company \(optional\)|Topic \(optional\)|signal-signup-optional/, path);
     assert.match(html, /class="signal-signup-success"[^>]*tabindex="-1"/, path);
-    assert.match(html, /capability\.css\?v=205/);
+    assert.match(html, /capability\.css\?v=206/);
   }
   const consentRule = /\.signal-signup-consent\{display:flex;align-items:flex-start;gap:\.4rem;min-height:24px;[^}]*color:rgba\(255,255,255,\.85\);font-size:13px;font-weight:400;line-height:1\.45/;
   const checkboxRule = /\.signal-signup-consent input\{flex:none;width:17px;height:17px;/;

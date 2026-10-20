@@ -131,7 +131,6 @@ function jsonFaq(html) {
 }
 
 test("audience FAQs are answer-first and match their FAQPage data", () => {
-  const signup = "Signal: practical notes on moving energy projects from last-mile development to financial close.";
   const homeFaq = visibleFaq(home);
   assert.equal(visibleFaq(page).length, 0);
   assert.ok(homeFaq.length >= 6 && homeFaq.length <= 8);
@@ -146,7 +145,8 @@ test("audience FAQs are answer-first and match their FAQPage data", () => {
   for (const path of htmlFiles(fileURLToPath(root))) {
     const html = readFileSync(path, "utf8");
     if (!html.includes('id="wp-signup-title"')) continue;
-    assert.ok(html.includes(`<p>${signup}</p>`), path);
+    assert.ok(html.includes("Yes, I want to receive Signal, the weekly newsletter, the monthly report and occasional marketing updates."), path);
+    assert.doesNotMatch(html, /Signal: practical notes on moving energy projects/);
     assert.doesNotMatch(html, /New white papers on taking energy projects/);
   }
   assert.match(home, /Got a project heading for financial close\?/);

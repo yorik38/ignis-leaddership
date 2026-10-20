@@ -30,6 +30,13 @@ test('working examples replace the stacked workstream panels', () => {
   assert.match(home, /href="\/services">See our services /);
   assert.match(css, /max-width:800px\)\{[\s\S]*\.wx-tabs\{[^}]*overflow-x:auto/);
   assert.match(home, /Win the right to develop\./);
+  const grow = home.slice(home.indexOf('id="wx-panel-grow"'), home.indexOf('id="wx-panel-steer"'));
+  assert.match(grow, /<b>300 MW<\/b>/);
+  assert.match(grow, /<b>2035<\/b>/);
+  assert.match(grow, /Supply chain and European content/);
+  assert.match(grow, /Bid robustness/);
+  assert.match(grow, /Financial robustness/);
+  assert.doesNotMatch(grow, /900 MW|Grid and connection evidence|Local benefit commitments|Delivery plan/);
   assert.equal((home.match(/ILLUSTRATIVE · <span>example data<\/span>/g) || []).length, 5);
   assert.match(home, /Secure your route to market\./);
   assert.match(home, /Choose the bid you can deliver\./);
