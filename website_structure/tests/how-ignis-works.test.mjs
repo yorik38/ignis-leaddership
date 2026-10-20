@@ -12,9 +12,11 @@ const vercel = JSON.parse(readFileSync(new URL("vercel.json", root), "utf8"));
 
 test("the Services page states the two offers without inventing proof", () => {
   assert.match(page, /rel="canonical" href="https:\/\/www\.ignisleadership\.com\/services"/);
-  assert.match(page, /<p class="section-label">Services<\/p><h1>Two ways we move your projects faster<\/h1>/);
+  assert.match(page, /<p class="section-label">Services<\/p><h1>We move offshore wind and onshore renewables projects to financial close<\/h1>/);
   assert.match(page, /href="#offshore">Offshore wind<\/a>/);
-  assert.match(page, /href="#onshore">Onshore wind<\/a>/);
+  assert.match(page, /href="#onshore">Onshore renewables<\/a>/);
+  assert.match(page, /<p class="section-label">Onshore renewables<\/p>/);
+  assert.match(page, /<title>We move offshore wind and onshore renewables projects to financial close \| Ignis<\/title>/);
   assert.match(page, /id="offshore"/);
   assert.match(page, /id="onshore"/);
   assert.match(page, /From seabed to financial close\./);
