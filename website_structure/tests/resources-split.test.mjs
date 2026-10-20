@@ -41,11 +41,11 @@ test('Insights and Reports are distinct collections', () => {
   assert.match(guides, /href="\/reports\/market-monitor-2026-10"/);
   assert.match(guides, /<time datetime="2026-10">October 2026<\/time>/);
   assert.match(guides, /card-market-monitor-2026-10-b3ff6b4e\.png/);
-  assert.match(guides, /GB power at £145\/MWh on the back of gas and the Iran conflict, Gate 2 offers due by 31 October, and the AR8 budget on 19 November: three decisions for your board this month\./);
+  assert.match(guides, /GB power averaged £145\/MWh, about double a year earlier\. AO10 bids are in, the AR8 budget notice is due on 19 November, and Gate 2 acceptance deadlines start on 26 October\./);
   assert.doesNotMatch(guides, /What moved in auctions, prices, grid and deals/);
   const report = read('reports/market-monitor-2026-10.html');
   assert.match(report, /<h1>Ignis Market Monitor: October 2026<\/h1>/);
-  assert.match(report, /What moved in auctions, prices, grid and deals this month, and the three things a CEO should act on\./);
+  assert.match(report, /GB power, European offshore wind and the UK onshore last mile: what moved this month, and what is due next\./);
   assert.match(report, /data-whitepaper-form/);
   assert.match(report, /action="\/api\/whitepaper"/);
   assert.match(report, /data-edition="market-monitor-2026-10"/);
@@ -53,10 +53,19 @@ test('Insights and Reports are distinct collections', () => {
   assert.match(report, /data-whitepaper-pdf="\/assets\/downloads\/ignis-market-monitor-2026-10\.pdf"/);
   assert.match(report, /whitepaper\.js/);
   assert.doesNotMatch(report, /FORGE/);
-  assert.equal((report.match(/<figure /g) || []).length, 5);
-  assert.match(report, /id="prices-up">What is driving GB power prices up/);
+  assert.doesNotMatch(report, /\bNDA\b/);
+  assert.equal((report.match(/<figure /g) || []).length, 3);
+  assert.match(report, /The broader market: why power doubled/);
   assert.match(report, /fig3-gb-power-vs-gas\.png/);
-  assert.match(report, /id="s59"/);
+  assert.match(report, /id="s13"/);
+  assert.match(report, /id="s78"/);
+  assert.match(report, /let's have a conversation/);
+  assert.match(report, />Book a 30-minute call</);
+  assert.match(report, />contact page</);
+  assert.match(report, />Subscribe to Signal</);
+  assert.match(report, />read it on ignisleadership.com</);
+  assert.match(report, /first 90 days after award/);
+  assert.match(report, /mailto:yorik@ignisleadership.com/);
   assert.doesNotMatch(report, /fig3-gb-wholesale/);
 });
 
