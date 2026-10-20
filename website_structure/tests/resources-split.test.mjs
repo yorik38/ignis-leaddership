@@ -40,10 +40,13 @@ test('Insights and Reports are distinct collections', () => {
   ]) assert.equal(guides.includes(`href="${path}"`), false, `${path} still listed`);
   assert.match(guides, /href="\/reports\/market-monitor-2026-10"/);
   assert.match(guides, /<time datetime="2026-10">October 2026<\/time>/);
-  assert.match(guides, /card-market-monitor-2026-10-b3ff6b4e\.png/);
+  assert.match(guides, /market-monitor-2026-10-card\.webp 1200w/);
+  assert.match(guides, /market-monitor-2026-10-card\.jpg/);
   assert.match(guides, /GB power averaged £145\/MWh, about double a year earlier\. AO10 bids are in, the AR8 budget notice is due on 19 November, and Gate 2 acceptance deadlines start on 26 October\./);
   assert.doesNotMatch(guides, /What moved in auctions, prices, grid and deals/);
   const report = read('reports/market-monitor-2026-10.html');
+  assert.match(report, /og:image" content="https:\/\/www\.ignisleadership\.com\/assets\/img\/market-monitor-2026-10-card\.jpg"/);
+  assert.doesNotMatch(report, /<img[^>]+market-monitor-2026-10-card/);
   assert.match(report, /<h1>Ignis Market Monitor: October 2026<\/h1>/);
   assert.match(report, /GB power, European offshore wind and the UK onshore last mile: what moved this month, and what is due next\./);
   assert.match(report, /data-whitepaper-form/);
