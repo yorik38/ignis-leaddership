@@ -7,6 +7,7 @@ import { fileURLToPath } from 'node:url';
 const site = join(dirname(fileURLToPath(import.meta.url)), '..');
 const home = readFileSync(join(site, 'index.html'), 'utf8');
 const css = readFileSync(join(site, 'assets/workstreams-preview.css'), 'utf8');
+const timeGoes = readFileSync(join(site, 'assets/time-goes.css'), 'utf8');
 const js = readFileSync(join(site, 'assets/working-examples.js'), 'utf8');
 
 test('working examples replace the stacked workstream panels', () => {
@@ -29,11 +30,14 @@ test('working examples replace the stacked workstream panels', () => {
   const value = home.slice(home.indexOf('Every project starts by rebuilding the last one.'), home.indexOf('id="adoption-gap"'));
   assert.match(value, /Most developers still run bids, tenders and route-to-market decisions on spreadsheets, inboxes and memory/);
   assert.match(value, /class="time-goes"/);
-  assert.match(home, /time-goes\.css\?v=1/);
+  assert.match(home, /time-goes\.css\?v=2/);
+  assert.match(timeGoes, /@media\(max-width:600px\)\{[\s\S]*\.developer-audience \.brand-stamp\{display:none\}/);
   assert.match(value, /Agents do it, people check/);
   assert.match(value, /More time on judgement/);
-  assert.match(value, /Illustrative, not measured/);
+  assert.doesNotMatch(value, /Illustrative, not measured/);
+  assert.match(value, /Ignis helps you find the processes, workflows and use cases where agents add the most/);
   assert.match(value, /Agents take on the research, analysis and first drafts/);
+  assert.match(value, /You build a real commercial memory that improves with every project/);
   assert.ok(value.indexOf('Agents take on the research') < value.indexOf('class="developer-sectors"'));
   assert.match(value, />Wind</);
   assert.doesNotMatch(value, /Each new site starts from scratch|FORGE|Forge/);
