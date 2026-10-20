@@ -1,0 +1,30 @@
+/* Four-stage journey rail under the homepage hero. A line, not cards. */
+.project-journey{padding:clamp(2.25rem,5vw,3.75rem) 0;background:#fff;border-bottom:1px solid rgba(15,20,25,.12);color:#0f1419}
+.project-journey .visually-hidden{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.project-journey-rail{position:relative;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(1rem,2vw,2rem);margin:0;padding:0;list-style:none}
+.project-journey-rail::before{position:absolute;top:1.15rem;left:1.15rem;right:12%;height:1px;background:#d3d7db;content:""}
+.project-journey-step{position:relative;z-index:1;display:flex;flex-direction:column;align-items:flex-start;gap:.9rem;color:inherit;text-decoration:none}
+.project-journey-step:focus-visible{outline:3px solid #08756d;outline-offset:6px}
+.project-journey-num{display:grid;place-items:center;width:2.3rem;height:2.3rem;border:1px solid #c9ced3;border-radius:50%;background:#fff;color:#08756d;font-size:.78rem;font-weight:600;letter-spacing:.04em}
+.project-journey-step:hover .project-journey-num,.project-journey-step:focus-visible .project-journey-num{border-color:#1cbdad;background:#1cbdad;color:#04221f}
+.project-journey-copy strong{display:block;margin:0 0 .35rem;font-size:1.05rem;font-weight:600;letter-spacing:-.02em;line-height:1.2}
+.project-journey-copy span{display:block;color:#5a6472;font-size:.95rem;font-weight:400;line-height:1.45}
+.project-journey-quiet{max-width:46rem;margin:1.6rem 0 0;color:#5a6472;font-size:.95rem;line-height:1.45}
+.project-journey-more{margin:.9rem 0 0}
+.project-journey-more .text-link{margin-top:0;color:#08756d;font-weight:600}
+#workstreams,#working-examples-title{scroll-margin-top:112px}
+@media(max-width:850px){
+  #workstreams,#working-examples-title{scroll-margin-top:96px}
+}
+@media(max-width:800px){
+  .project-journey{padding:2rem 0 1.5rem}
+  .project-journey-rail{display:flex;flex-direction:column;gap:0}
+  .project-journey-rail::before{top:.2rem;bottom:.2rem;left:1.15rem;right:auto;width:1px;height:auto}
+  .project-journey-step{flex-direction:row;gap:1rem;padding:0 0 1.35rem}
+  .project-journey-num{flex:none}
+  .project-journey-copy{padding-top:.25rem}
+  .project-journey-quiet{margin-top:.35rem}
+}
+@media(prefers-reduced-motion:reduce){
+  .project-journey-step{scroll-behavior:auto}
+}

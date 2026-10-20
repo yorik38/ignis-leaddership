@@ -19,7 +19,7 @@ test("the shared footer is a concise, expandable sitemap with only available res
   assert.match(footer, /class="footer-brand"[^>]*><img src="\/assets\/img\/favicon-dark-128\.png"/);
   assert.match(footer, /Commercial AI for energy projects, from last-mile development to financial close\./);
   assert.deepEqual([...footer.matchAll(/<h2>(?:<a [^>]*>)?([^<]+)/g)].map(match => match[1]), ["About", "Solutions", "Resources", "Get in touch"]);
-  for (const path of ["/about", "/how-ignis-works#onshore", "/how-ignis-works#offshore", "/how-ignis-works", "/insights", "/reports", "/white-papers", "/contact", "/privacy", "/terms"]) {
+  for (const path of ["/about", "/services#onshore", "/services#offshore", "/services", "/insights", "/reports", "/white-papers", "/contact", "/privacy", "/terms"]) {
     assert.ok(footer.includes(`href="${path}"`), `Missing footer route: ${path}`);
   }
   const sitemap = footer.match(/<nav class="footer-sitemap"[\s\S]*?<\/nav>/)?.[0] ?? "";

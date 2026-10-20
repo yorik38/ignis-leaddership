@@ -5,17 +5,38 @@ import {join} from "node:path";
 import {fileURLToPath} from "node:url";
 
 const root = new URL("../", import.meta.url);
-const page = readFileSync(new URL("how-ignis-works.html", root), "utf8");
+const page = readFileSync(new URL("services.html", root), "utf8");
 const home = readFileSync(new URL("index.html", root), "utf8");
 const sitemap = readFileSync(new URL("sitemap.xml", root), "utf8");
 const vercel = JSON.parse(readFileSync(new URL("vercel.json", root), "utf8"));
 
-test("the How Ignis works page states the single offer without naming a product", () => {
-  assert.match(page, /rel="canonical" href="https:\/\/www\.ignisleadership\.com\/how-ignis-works"/);
-  assert.match(page, /id="onshore"/);
+test("the Services page states the two offers without naming a product or inventing proof", () => {
+  assert.match(page, /rel="canonical" href="https:\/\/www\.ignisleadership\.com\/services"/);
+  assert.match(page, /<p class="section-label">Services<\/p><h1>Two ways we move your projects faster<\/h1>/);
+  assert.match(page, /href="#offshore">Offshore wind<\/a>/);
+  assert.match(page, /href="#onshore">Onshore wind<\/a>/);
   assert.match(page, /id="offshore"/);
-  assert.match(page, /solar, onshore wind, battery storage and long-duration storage/i);
-  assert.match(page, /fixed and floating/i);
+  assert.match(page, /id="onshore"/);
+  assert.match(page, /Win it, then develop it fast\./);
+  assert.match(page, /offshore and floating wind developers bidding seabed leasing rounds and tenders, for example France AO10/);
+  assert.match(page, /experienced offshore development lead and Ignis's AI system behind him/);
+  assert.match(page, /Same team, more projects to close\./);
+  assert.match(page, /GB onshore wind, solar and BESS developers becoming IPPs/);
+  assert.match(page, /AI bid and tender\/procurement managers do the drafting, comparing and tracking, and the team makes the calls/);
+  assert.match(page, /id="how-we-work-title">How we work<\/h2>/);
+  assert.match(page, /Queues, CfD results and tender rules, so we come to the first meeting with a view\./);
+  assert.match(page, /2–3 weeks at a fixed fee, on one project's data room shared securely/);
+  assert.match(page, /Bid &amp; Tender Desk<\/h3><p>Then your own system, which you keep and run in-house\./);
+  assert.match(page, /A named person still approves price, risk and commitments\./);
+  assert.match(page, /Fixed and floating offshore wind developers bidding seabed leasing rounds/);
+  assert.match(page, /Fund-backed GB developers of onshore wind, solar, BESS and long-duration storage/);
+  assert.match(page, /class="service-rows"/);
+  assert.equal((page.match(/<dt>Who it's for<\/dt>/g) || []).length, 2);
+  assert.equal((page.match(/<dt>What you get<\/dt>/g) || []).length, 2);
+  assert.equal((page.match(/<dt>How it runs<\/dt>/g) || []).length, 2);
+  assert.match(page, /id="close-call-title">Got a project heading for financial close\?/);
+  assert.doesNotMatch(page, /Five steps, starting on live work|commercial-gates-comparison|class="faq-section"/);
+  assert.doesNotMatch(page, /FORGE|Forge/);
   const layers = [
     ["Process", "How each project moves from grid offer to close."],
     ["Context", "Your past projects, plus market, policy and commercial knowledge."],
@@ -24,26 +45,18 @@ test("the How Ignis works page states the single offer without naming a product"
     ["Workflows", "Repeatable commercial work, run by agents."],
   ];
   for (const [layer, description] of layers) {
-    assert.match(page, new RegExp(`<h3>${layer}</h3><p>${description}</p>`));
     assert.match(home, new RegExp(`<span>${layer}</span><p>${description}</p>`));
   }
-  assert.match(page, /Five steps, starting on live work\./);
-  for (const step of ["Gap review", "Map", "Design", "Pilot", "Embed and improve"]) {
-    assert.match(page, new RegExp(`<h3>${step}</h3>`));
-  }
-  assert.match(page, /The Sprint covers gap review, mapping and design\. Pilot and embedding follow\./);
-  assert.doesNotMatch(page, /Map the opportunity|Design the model/);
-  assert.match(page, /commercial-gates-comparison-v2\.png/);
-  assert.match(page, /class="gates-lane-labels"/);
-  assert.match(page, /"@type":"FAQPage"/);
-  assert.doesNotMatch(page, /FORGE|Forge/);
 });
 
 test("retired offer pages redirect and leave the sitemap", () => {
   for (const source of ["/commercial-ai-adoption", "/commercial-transformation", "/commercial-ai-readiness"]) {
-    assert.ok(vercel.redirects.some(route => route.source === source && route.destination === "/how-ignis-works" && route.permanent));
+    assert.ok(vercel.redirects.some(route => route.source === source && route.destination === "/services" && route.permanent));
   }
-  assert.match(sitemap, /<loc>https:\/\/www\.ignisleadership\.com\/how-ignis-works<\/loc>/);
+  assert.ok(vercel.redirects.some(route => route.source === "/how-ignis-works" && route.destination === "/services" && route.permanent));
+  assert.equal(vercel.redirects.some(route => route.source === "/services"), false);
+  assert.match(sitemap, /<loc>https:\/\/www\.ignisleadership\.com\/services<\/loc>/);
+  assert.doesNotMatch(sitemap, /how-ignis-works/);
   assert.doesNotMatch(sitemap, /commercial-ai-adoption|commercial-transformation|commercial-ai-readiness/);
 });
 
@@ -54,8 +67,8 @@ test("the homepage states one offer, the audiences, and a quiet demo slot", () =
   const founder = home.indexOf("founder-overview");
   assert.ok(gates >= 0 && who > gates && routes > who && founder > routes);
   assert.match(home, /Who Ignis works with/);
-  assert.match(home, /href="\/how-ignis-works#onshore"/);
-  assert.match(home, /href="\/how-ignis-works#offshore"/);
+  assert.match(home, /href="\/services#onshore"/);
+  assert.match(home, /href="\/services#offshore"/);
   assert.match(home, /One governed system, from grid offer to close\./);
   assert.match(home, /Product demo: add a section here when a look at the work is ready/);
   assert.doesNotMatch(home, /id="product-demo"|Demo coming soon|A look at the work, when the demo is ready/);
@@ -73,7 +86,7 @@ test("each audience card is one link with a motion-safe hover state", () => {
   const css = readFileSync(new URL("assets/capability.css", root), "utf8");
   const section = home.slice(home.indexOf('id="who-ignis"'), home.indexOf("founder-overview"));
   const cards = [...section.matchAll(/<a class="who-ignis-card" href="([^"]+)"[^>]*>([\s\S]*?)<\/a>/g)];
-  assert.deepEqual(cards.map((card) => card[1]), ["/how-ignis-works#onshore", "/how-ignis-works#offshore"]);
+  assert.deepEqual(cards.map((card) => card[1]), ["/services#onshore", "/services#offshore"]);
   for (const [, , inner] of cards) {
     assert.equal(inner.match(/<a\b/g), null);
     assert.match(inner, /class="who-ignis-more"/);
@@ -115,14 +128,11 @@ function jsonFaq(html) {
 test("audience FAQs are answer-first and match their FAQPage data", () => {
   const signup = "Signal: practical notes on moving energy projects from last-mile development to financial close.";
   const homeFaq = visibleFaq(home);
-  const pageFaq = visibleFaq(page);
+  assert.equal(visibleFaq(page).length, 0);
   assert.ok(homeFaq.length >= 6 && homeFaq.length <= 8);
-  assert.ok(pageFaq.length >= 6 && pageFaq.length <= 8);
   assert.deepEqual(jsonFaq(home), homeFaq);
-  assert.deepEqual(jsonFaq(page), pageFaq);
-  const shared = homeFaq.filter(([question, answer]) => pageFaq.some(([otherQuestion, otherAnswer]) => otherQuestion === question || otherAnswer === answer));
-  assert.deepEqual(shared, []);
-  for (const [, answer] of [...homeFaq, ...pageFaq]) {
+  assert.equal(jsonFaq(page), null);
+  for (const [, answer] of homeFaq) {
     assert.doesNotMatch(answer, /FORGE|Forge/);
     assert.match(answer, /Ignis/);
     const sentences = answer.split(/(?<=[.!?])\s+/).filter(Boolean);

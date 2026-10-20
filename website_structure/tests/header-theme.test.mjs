@@ -7,7 +7,7 @@ import {fileURLToPath} from "node:url";
 const root = fileURLToPath(new URL("../", import.meta.url));
 const dark = new Set([
   "index.html",
-  "how-ignis-works.html",
+  "services.html",
   "bid.html",
   "tender.html",
   "case-study.html",

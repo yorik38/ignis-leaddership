@@ -2,6 +2,7 @@
   const root = document.querySelector("[data-working-examples]");
   if (!root) return;
   const tabs = [...root.querySelectorAll('[role="tab"]')];
+  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   function select(tab, focus) {
     for (const item of tabs) {
@@ -28,6 +29,17 @@
       if (!next) return;
       event.preventDefault();
       select(next, true);
+    });
+  });
+
+  document.querySelectorAll("[data-journey-tab]").forEach((link) => {
+    link.addEventListener("click", (event) => {
+      const tab = document.getElementById(link.getAttribute("data-journey-tab"));
+      if (!tab) return;
+      event.preventDefault();
+      select(tab, false);
+      const heading = document.getElementById("working-examples-title");
+      if (heading) heading.scrollIntoView({behavior: reduce ? "auto" : "smooth", block: "start"});
     });
   });
 })();

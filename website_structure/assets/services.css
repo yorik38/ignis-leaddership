@@ -1,0 +1,41 @@
+/* Services page. White, black and grey, with teal only as the accent. */
+.services-page .page-hero{min-height:0}
+.services-page .page-hero-grid{min-height:0;padding-top:clamp(2.5rem,7vh,4.5rem);padding-bottom:clamp(3rem,8vh,5rem)}
+.services-page .page-hero h1{max-width:11em;font-size:clamp(2.6rem,4.6vw,4.4rem);line-height:.98}
+.services-page .services-jumps{flex-wrap:wrap;margin-top:clamp(2rem,5vh,3rem)}
+.services-page .services-jumps .button{margin-top:0}
+.services-page .services-hero .button-light{color:#04221f;background:#fff}
+.services-page .services-hero .button-light:hover{background:#e8f7f5}
+.services-page .services-hero .button-light:focus-visible{outline:3px solid #1cbdad;outline-offset:4px}
+.services-page #offshore,.services-page #onshore,.services-page #how-we-work{scroll-margin-top:112px}
+.service-offer .section-label{color:#08756d}
+.service-offer h2,.service-how h2{max-width:16ch;margin:.55rem 0 0;font-size:var(--h2);font-weight:400;letter-spacing:-.045em;line-height:1.02}
+.service-for{max-width:42rem;margin:1.35rem 0 0;color:#5a6472;font-size:clamp(1.05rem,1.5vw,1.25rem);line-height:1.5}
+.service-split{display:grid;grid-template-columns:1fr 1fr;gap:clamp(1.5rem,4vw,4rem);margin-top:clamp(2rem,4vw,3rem);padding-top:1.5rem;border-top:1px solid rgba(15,20,25,.12)}
+.service-split h3{margin:0 0 .65rem;color:#08756d;font-size:.78rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase}
+.service-split p{max-width:38rem;margin:0;font-size:1.12rem;line-height:1.55}
+.service-offer-alt{background:#f2f3f4}
+.service-how h2{max-width:none}
+.how-steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));margin:clamp(1.75rem,4vw,2.75rem) 0 0;padding:0;list-style:none;border-top:1px solid rgba(15,20,25,.12)}
+.how-steps li{min-width:0;padding:1.5rem 1.75rem 0 0}
+.how-steps li+li{padding-left:1.75rem;border-left:1px solid rgba(15,20,25,.12)}
+.how-steps span{color:#08756d;font-size:.82rem;font-weight:600;letter-spacing:.08em}
+.how-steps h3{margin:1.1rem 0 .65rem;font-size:clamp(1.3rem,1.8vw,1.65rem);font-weight:500;letter-spacing:-.02em;line-height:1.2}
+.how-steps p{margin:0;color:#5a6472;font-size:1.02rem;line-height:1.55}
+.service-quiet{max-width:46rem;margin:2rem 0 0;color:#5a6472;font-size:1rem;line-height:1.5}
+.service-rows{margin:clamp(1.5rem,3vw,2.25rem) 0 0}
+.service-rows div{display:grid;grid-template-columns:8.5rem minmax(0,1fr);gap:.35rem 1.5rem;padding:.95rem 0;border-top:1px solid rgba(15,20,25,.12)}
+.service-rows dt{margin:0;color:#08756d;font-size:.75rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase}
+.service-rows dd{margin:0;max-width:46rem;font-size:1.05rem;line-height:1.5}
+@media(max-width:850px){
+  .services-page #offshore,.services-page #onshore,.services-page #how-we-work{scroll-margin-top:96px}
+}
+@media(max-width:800px){
+  .service-split,.how-steps,.service-rows div{grid-template-columns:1fr}
+  .how-steps li+li{margin-top:1.35rem;padding:1.35rem 0 0;border-top:1px solid rgba(15,20,25,.12);border-left:0}
+  .service-offer h2{max-width:none}
+}
+@media(max-width:640px){
+  .services-page .services-jumps{flex-direction:column;align-items:stretch}
+  .services-page .services-jumps .button{justify-content:center}
+}
