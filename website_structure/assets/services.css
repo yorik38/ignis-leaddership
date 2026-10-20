@@ -23,11 +23,15 @@
 .how-steps h3{margin:1.1rem 0 .65rem;font-size:clamp(1.3rem,1.8vw,1.65rem);font-weight:500;letter-spacing:-.02em;line-height:1.2}
 .how-steps p{margin:0;color:#5a6472;font-size:1.02rem;line-height:1.55}
 .service-quiet{max-width:46rem;margin:2rem 0 0;color:#5a6472;font-size:1rem;line-height:1.5}
+.service-rows{margin:clamp(1.5rem,3vw,2.25rem) 0 0}
+.service-rows div{display:grid;grid-template-columns:8.5rem minmax(0,1fr);gap:.35rem 1.5rem;padding:.95rem 0;border-top:1px solid rgba(15,20,25,.12)}
+.service-rows dt{margin:0;color:#08756d;font-size:.75rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase}
+.service-rows dd{margin:0;max-width:46rem;font-size:1.05rem;line-height:1.5}
 @media(max-width:850px){
   .services-page #offshore,.services-page #onshore,.services-page #how-we-work{scroll-margin-top:96px}
 }
 @media(max-width:800px){
-  .service-split,.how-steps{grid-template-columns:1fr}
+  .service-split,.how-steps,.service-rows div{grid-template-columns:1fr}
   .how-steps li+li{margin-top:1.35rem;padding:1.35rem 0 0;border-top:1px solid rgba(15,20,25,.12);border-left:0}
   .service-offer h2{max-width:none}
 }

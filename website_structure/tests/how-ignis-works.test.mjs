@@ -28,6 +28,12 @@ test("the Services page states the two offers without naming a product or invent
   assert.match(page, /2–3 weeks at a fixed fee, on one project's data room shared securely/);
   assert.match(page, /Bid &amp; Tender Desk<\/h3><p>Then your own system, which you keep and run in-house\./);
   assert.match(page, /A named person still approves price, risk and commitments\./);
+  assert.match(page, /Fixed and floating offshore wind developers bidding seabed leasing rounds/);
+  assert.match(page, /Fund-backed GB developers of onshore wind, solar, BESS and long-duration storage/);
+  assert.match(page, /class="service-rows"/);
+  assert.equal((page.match(/<dt>Who it's for<\/dt>/g) || []).length, 2);
+  assert.equal((page.match(/<dt>What you get<\/dt>/g) || []).length, 2);
+  assert.equal((page.match(/<dt>How it runs<\/dt>/g) || []).length, 2);
   assert.match(page, /id="close-call-title">Got a project heading for financial close\?/);
   assert.doesNotMatch(page, /Five steps, starting on live work|commercial-gates-comparison|class="faq-section"/);
   assert.doesNotMatch(page, /FORGE|Forge/);

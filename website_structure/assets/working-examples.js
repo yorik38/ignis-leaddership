@@ -3,26 +3,6 @@
   if (!root) return;
   const tabs = [...root.querySelectorAll('[role="tab"]')];
   const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  const host = root.querySelector("[data-wx-accordion]");
-
-  if (host) {
-    root.querySelectorAll(".wx-panel").forEach((panel, index) => {
-      const details = document.createElement("details");
-      if (index === 0) details.open = true;
-      const summary = document.createElement("summary");
-      const tab = document.getElementById(panel.getAttribute("aria-labelledby"));
-      summary.textContent = tab ? tab.textContent : "Example";
-      const clone = panel.cloneNode(true);
-      clone.querySelectorAll("[id]").forEach((node) => node.removeAttribute("id"));
-      clone.removeAttribute("id");
-      clone.removeAttribute("role");
-      clone.removeAttribute("aria-labelledby");
-      clone.hidden = false;
-      details.append(summary, clone);
-      host.append(details);
-    });
-    host.hidden = false;
-  }
 
   function select(tab, focus) {
     for (const item of tabs) {
@@ -31,12 +11,6 @@
       item.tabIndex = on ? 0 : -1;
       const panel = document.getElementById(item.getAttribute("aria-controls"));
       if (panel) panel.hidden = !on;
-    }
-    if (host) {
-      const index = tabs.indexOf(tab);
-      host.querySelectorAll("details").forEach((item, itemIndex) => {
-        item.open = itemIndex === index;
-      });
     }
     if (focus) {
       tab.focus();

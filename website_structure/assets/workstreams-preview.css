@@ -14,8 +14,6 @@
 .wx-example{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.4fr);gap:clamp(1.5rem,3vw,2.5rem);align-items:start;min-width:0}
 .wx-example+.wx-example{padding-top:clamp(1.5rem,3vw,2.25rem);border-top:1px solid #e3e6e8}
 .wx-panel>*{min-width:0}
-.wx-option{display:none}
-.wx-accordion{display:none}
 .wx-copy h3{margin:0 0 .6rem;font-size:clamp(1.35rem,2vw,1.65rem);font-weight:600;letter-spacing:-.02em;line-height:1.2}
 .wx-copy p{margin:0 0 1.1rem;color:#5a6472;font-size:1.05rem;line-height:1.55}
 .wx-checks{list-style:none;margin:0;padding:0;border-top:1px solid #e3e6e8}
@@ -48,13 +46,6 @@
   .workstreams-preview{padding:1.5rem 0}
   .wx-shell{padding:1.5rem 1.1rem;border-radius:20px}
   .wx-lede{margin-bottom:1.25rem;font-size:1rem}
-  .wx-option{display:block;margin:0 0 .55rem;color:#8a929c;font-size:.72rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase}
-  .wx-option-accordion{margin-top:1.75rem}
-  .wx-accordion{display:block}
-  .wx-accordion details{border-top:1px solid #e3e6e8}
-  .wx-accordion details:last-child{border-bottom:1px solid #e3e6e8}
-  .wx-accordion summary{padding:.85rem 0;font-weight:600;cursor:pointer}
-  .wx-accordion .wx-panel{padding-bottom:1.15rem}
   .wx-example{grid-template-columns:1fr;gap:1.35rem}
   .wx-tabs{gap:.4rem;margin-bottom:1.25rem;padding-bottom:.15rem;overflow-x:auto;border:0;scrollbar-width:none}
   .wx-tabs::-webkit-scrollbar{display:none}
