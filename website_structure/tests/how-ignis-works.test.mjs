@@ -62,6 +62,9 @@ test("the homepage states one offer, the audiences, and a quiet demo slot", () =
   assert.match(home, /Testimonials: add a quote band here/);
   assert.doesNotMatch(home, /href="\/commercial-ai-adoption"|href="\/commercial-transformation"/);
   assert.doesNotMatch(home, /FORGE|Forge/);
+  assert.match(home, /<h1><span class="hero-line">Close <span class="gradient-word">more<\/span><\/span> <span class="hero-line"><span class="gradient-word">projects<\/span>, faster\.<\/span><\/h1>/);
+  assert.match(home, /<p class="hero-support">Ignis helps energy developers win the right to develop and move projects to financial close, with fewer delays, fewer surprises and stronger terms\.<\/p>/);
+  assert.doesNotMatch(home, /move their pipeline from last-mile development to financial close/);
   assert.match(home, /For fund-backed developers who need to move more projects to financial close, faster\./);
   assert.doesNotMatch(home, /Fund-backed developers carrying a live project from the next gate to financial close/);
 });
