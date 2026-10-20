@@ -8,6 +8,7 @@ const site = join(dirname(fileURLToPath(import.meta.url)), '..');
 const home = readFileSync(join(site, 'index.html'), 'utf8');
 const css = readFileSync(join(site, 'assets/workstreams-preview.css'), 'utf8');
 const timeGoes = readFileSync(join(site, 'assets/time-goes.css'), 'utf8');
+const journey = readFileSync(join(site, 'assets/project-journey.css'), 'utf8');
 const js = readFileSync(join(site, 'assets/working-examples.js'), 'utf8');
 
 test('working examples replace the stacked workstream panels', () => {
@@ -30,7 +31,14 @@ test('working examples replace the stacked workstream panels', () => {
   const value = home.slice(home.indexOf('Every project starts by rebuilding the last one.'), home.indexOf('id="adoption-gap"'));
   assert.match(value, /Most developers still run bids, tenders and route-to-market decisions on spreadsheets, inboxes and memory/);
   assert.match(value, /class="time-goes"/);
-  assert.match(home, /time-goes\.css\?v=2/);
+  assert.match(home, /time-goes\.css\?v=3/);
+  assert.match(timeGoes, /\.seg-decisions,\.seg-client\{background:#08756d/);
+  assert.doesNotMatch(timeGoes, /#043f3b/);
+  assert.match(value, /<strong class="teal">agentic workflows built into your team<\/strong>/);
+  assert.match(value, /<strong class="teal">better margins, lower risk and stronger terms<\/strong>/);
+  assert.match(journey, />li:not\(:last-child\)::after/);
+  assert.doesNotMatch(journey, /project-journey-rail::before|bottom:\.2rem/);
+  assert.match(home, /project-journey\.css\?v=3/);
   assert.match(timeGoes, /@media\(max-width:600px\)\{[\s\S]*\.developer-audience \.brand-stamp\{display:none\}/);
   assert.match(value, /Agents do it, people check/);
   assert.match(value, /More time on judgement/);
@@ -60,7 +68,7 @@ test('working examples replace the stacked workstream panels', () => {
   assert.match(home, /Your team decides awards, risk and FID/);
   assert.match(home, /Your team owns strategy, pricing and commitments/);
   assert.match(home, /workstreams-preview\.css\?v=6/);
-  assert.match(home, /project-journey\.css\?v=2/);
+  assert.match(home, /project-journey\.css\?v=3/);
   assert.match(css, /\.wx-win\+\.wx-win\{width:auto;margin:14px 0 0 12%\}/);
   assert.match(css, /max-width:800px\)\{[\s\S]*\.wx-win\+\.wx-win\{width:100%;margin:14px 0 0\}/);
   assert.match(css, /\.wx-stack thead\{display:none\}/);
