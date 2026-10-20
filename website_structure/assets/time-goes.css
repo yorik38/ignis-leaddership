@@ -1,0 +1,36 @@
+/* Where the time goes: two stacked bars in the homepage value section. */
+.time-goes{max-width:900px;margin:2rem 0 0;color:#0f1419}
+.time-goes-caption{margin:0 0 .85rem;color:#5a6472;font-size:.72rem;font-weight:650;letter-spacing:.08em;line-height:1.3;text-align:right;text-transform:uppercase}
+.time-goes-row{display:grid;grid-template-columns:9.75rem minmax(0,1fr);gap:.7rem 1rem;align-items:center;margin-top:.85rem}
+.time-goes-name{margin:0;font-size:.98rem;font-weight:650;letter-spacing:-.02em;line-height:1.2}
+.time-goes-name small{display:block;margin-top:.2rem;color:#5a6472;font-size:.68rem;font-weight:650;letter-spacing:.06em;line-height:1.25;text-transform:uppercase}
+.time-goes-bar{display:flex;min-height:3.55rem;overflow:hidden;border-radius:10px}
+.time-goes-seg{display:flex;align-items:center;justify-content:center;min-width:0;padding:.45rem .4rem;border-right:2px solid #fff;color:#04221f;font-size:.78rem;font-weight:650;letter-spacing:-.015em;line-height:1.15;text-align:center}
+.time-goes-seg:last-child{border-right:0}
+.seg-inputs{background:#e5f6f3}
+.seg-analysis{background:#8fd9cf}
+.seg-draft{background:#1cbdad;color:#04221f}
+.seg-decisions{background:#08756d;color:#fff}
+.seg-client{background:#043f3b;color:#fff}
+.time-goes-seg.is-hatch{background-image:repeating-linear-gradient(135deg,transparent 0 5px,rgba(4,34,31,.16) 5px 7px)}
+.time-goes-sr{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.time-goes-brackets{display:flex;margin:.15rem 0 0}
+.time-goes-brackets span{position:relative;min-width:0;padding:.55rem .25rem 0;color:#08756d;font-size:.75rem;font-weight:650;letter-spacing:-.01em;line-height:1.25;text-align:center}
+.time-goes-brackets span::before{position:absolute;top:0;right:.35rem;left:.35rem;height:7px;border:1px solid #08756d;border-bottom:0;content:""}
+.time-goes-legend{display:flex;flex-wrap:wrap;gap:.45rem 1rem;margin:1rem 0 0;padding:0;list-style:none;color:#5a6472;font-size:.78rem;line-height:1.3}
+.time-goes-legend li{display:flex;align-items:center;gap:.4rem}
+.time-goes-legend i{display:block;flex:none;width:.85rem;height:.85rem;border-radius:2px}
+.time-goes-legend i.is-hatch{background-color:#8fd9cf;background-image:repeating-linear-gradient(135deg,transparent 0 3px,rgba(4,34,31,.2) 3px 4px)}
+@media(max-width:700px){
+  .time-goes-row{grid-template-columns:1fr;gap:.4rem}
+  .time-goes-bar{min-height:4.35rem}
+  .time-goes-seg{padding:.4rem .2rem;font-size:.7rem}
+  .seg-analysis,.seg-draft,.seg-decisions{padding-inline:.08rem;white-space:nowrap}
+  .seg-decisions{font-size:.64rem;letter-spacing:-.03em}
+  .time-goes-brackets span{padding:.5rem .15rem 0;font-size:.7rem}
+  .time-goes-caption{text-align:left}
+}
+@media(max-width:600px){
+  .developer-audience .value-proposition-grid{grid-template-columns:minmax(0,1fr)}
+  .developer-audience .brand-stamp{display:none}
+}
