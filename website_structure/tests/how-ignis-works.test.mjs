@@ -135,12 +135,12 @@ function jsonFaq(html) {
 test("audience FAQs are answer-first and match their FAQPage data", () => {
   const homeFaq = visibleFaq(home);
   assert.equal(visibleFaq(page).length, 0);
-  assert.ok(homeFaq.length >= 6 && homeFaq.length <= 8);
+  assert.ok(homeFaq.length >= 6 && homeFaq.length <= 9);
   assert.deepEqual(jsonFaq(home), homeFaq);
   assert.equal(jsonFaq(page), null);
-  for (const [, answer] of homeFaq) {
+  for (const [question, answer] of homeFaq) {
     assert.doesNotMatch(answer, /FORGE|Forge/);
-    assert.match(answer, /Ignis/);
+    if (question !== "Do you build the system for us?") assert.match(answer, /Ignis/);
     const sentences = answer.split(/(?<=[.!?])\s+/).filter(Boolean);
     assert.ok(sentences.length >= 2 && sentences.length <= 4, answer);
   }

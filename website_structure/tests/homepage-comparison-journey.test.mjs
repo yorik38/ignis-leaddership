@@ -75,7 +75,8 @@ test("the homepage FAQ sets out a bounded consulting start in three questions",(
     "How long does it take to see results?",
     "Where should we start?",
     "What does the first engagement deliver?",
-    "Do we need a new platform?"
+    "Do we need a new platform?",
+    "Do you build the system for us?"
   ]);
   assert.match(section,/The Ignis Sprint reviews the gaps, maps how decisions move today and designs one governed workflow/);
   assert.match(section,/A pilot and embedding are separate next steps/);
