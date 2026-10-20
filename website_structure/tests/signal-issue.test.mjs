@@ -5,8 +5,6 @@ import {readFileSync} from "node:fs";
 const root = new URL("../", import.meta.url);
 const issue = readFileSync(new URL("insights/ao10-france-has-put-a-price-on-proof.html", root), "utf8");
 const paper = readFileSync(new URL("resources/bids-won-on-evidence.html", root), "utf8");
-const signup = "Signal: practical notes on moving energy projects from last-mile development to financial close.";
-
 function order(html, markers) {
   let cursor = 0;
   for (const marker of markers) {
@@ -29,7 +27,6 @@ test("Signal Issue 1 ends with continue reading, the call, then the shared signu
     'id="close-call-title">Got a project heading for financial close?',
     'class="button button-teal" href="/contact">Book a call',
     'id="wp-signup-title">Get the analysis',
-    `<p>${signup}</p>`,
     'id="hubspot-newsletter-form"',
     '<footer class="site-footer">'
   ]);
@@ -39,6 +36,7 @@ test("Signal Issue 1 ends with continue reading, the call, then the shared signu
   const reading = issue.slice(issue.indexOf('continue-reading'), issue.indexOf('close-call'));
   assert.doesNotMatch(reading, /why-do-unclear-tenders|tender-clarifications/);
   assert.match(issue, /class="signal-signup-form"[^>]*data-community-form/);
+  assert.doesNotMatch(issue, /Signal: practical notes on moving energy projects/);
   assert.doesNotMatch(issue, /class="home-newsletter"|class="issue-sidebar-form"|Coming soon/);
   assert.match(issue, /aspect-ratio|continue-card/);
 });
