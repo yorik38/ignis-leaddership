@@ -1,0 +1,30 @@
+/* Phones: show the whole gates diagram at once, scaled to the column. */
+@media(max-width:800px){
+  .commercial-gates-figure{
+    position:relative;
+    display:block;
+    width:100%;
+    max-width:100%;
+    height:auto;
+    aspect-ratio:2400/778;
+    margin:0;
+    padding:0;
+    overflow:hidden;
+    border:0;
+    border-radius:0;
+    background:transparent;
+    container-type:inline-size;
+    scrollbar-width:none;
+    touch-action:pinch-zoom;
+  }
+  .commercial-gates-figure .gates-chart{
+    position:absolute;
+    top:0;
+    left:0;
+    width:960px;
+    max-width:none;
+    transform:scale(calc(100cqw / 960px));
+    transform-origin:top left;
+  }
+  .commercial-gates-figure .gates-scroll-hint{display:none}
+}

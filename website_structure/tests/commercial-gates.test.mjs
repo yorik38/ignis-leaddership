@@ -23,6 +23,14 @@ test("commercial gates comparison follows the rotating statement",()=>{
   assert.match(css,/@media\(max-width:800px\)\{[\s\S]*\.commercial-gates-figure img,\.how-ignis-figure img\{[^}]*width:960px[^}]*max-width:none/);
   assert.match(css,/@media\(max-width:800px\)\{[\s\S]*\.gates-stack\{display:none\}/);
   assert.match(homepage,/class="gates-scroll-hint" aria-hidden="true"><span>Scroll →<\/span>/);
+  assert.match(homepage,/name="viewport" content="width=device-width, initial-scale=1"/);
+  assert.doesNotMatch(homepage,/user-scalable\s*=\s*no|maximum-scale\s*=\s*1/);
+  assert.match(homepage,/commercial-gates-fit\.css\?v=1/);
+  assert.ok(homepage.indexOf("capability.css?v=206")<homepage.indexOf("commercial-gates-fit.css?v=1"));
+  const fit=readFileSync(new URL("assets/commercial-gates-fit.css",root),"utf8");
+  assert.match(fit,/@media\(max-width:800px\)\{[\s\S]*aspect-ratio:2400\/778[\s\S]*overflow:hidden/);
+  assert.match(fit,/\.commercial-gates-figure \.gates-chart\{[^}]*width:960px[^}]*transform:scale\(calc\(100cqw \/ 960px\)\)/);
+  assert.match(fit,/\.commercial-gates-figure \.gates-scroll-hint\{display:none\}/);
   assert.match(homepage,/class="gates-lane-labels"><span class="gates-lane-label is-conventional">Conventional<\/span><span class="gates-lane-label is-ignis">With Ignis<\/span>/);
   assert.match(css,/\.gates-lane-labels\{[^}]*position:sticky[^}]*width:11cqi/);
   assert.match(css,/@media\(max-width:800px\)\{[\s\S]*\.gates-lane-label\{[^}]*background:#fff/);
