@@ -10,16 +10,24 @@ const home = readFileSync(new URL("index.html", root), "utf8");
 const sitemap = readFileSync(new URL("sitemap.xml", root), "utf8");
 const vercel = JSON.parse(readFileSync(new URL("vercel.json", root), "utf8"));
 
-test("the Services page states the two offers without naming a product or inventing proof", () => {
+test("the Services page states the two offers without inventing proof", () => {
   assert.match(page, /rel="canonical" href="https:\/\/www\.ignisleadership\.com\/services"/);
   assert.match(page, /<p class="section-label">Services<\/p><h1>Two ways we move your projects faster<\/h1>/);
   assert.match(page, /href="#offshore">Offshore wind<\/a>/);
   assert.match(page, /href="#onshore">Onshore wind<\/a>/);
   assert.match(page, /id="offshore"/);
   assert.match(page, /id="onshore"/);
-  assert.match(page, /Win it, then develop it fast\./);
-  assert.match(page, /offshore and floating wind developers bidding seabed leasing rounds and tenders, for example France AO10/);
-  assert.match(page, /experienced offshore development lead and Ignis's AI system behind him/);
+  assert.match(page, /From seabed to financial close\./);
+  assert.match(page, /We help offshore wind developers across the end-to-end lifecycle: put the strategy in place \(bid strategy\), then deliver and execute\./);
+  assert.match(page, /Secure the seabed/);
+  assert.match(page, /Leasing rounds and tenders, for example France AO10\./);
+  assert.match(page, /Build the procurement strategy and go out to market: supply chain and EPC tenders\./);
+  assert.match(page, /Secure the route to market \(CfD\/offtake\), and on to financial close\./);
+  assert.match(page, /Offshore has big gaps between stages, but it's the same process\./);
+  assert.match(page, /Experienced offshore development leadership, with a layer of AI agentic workflows behind it\./);
+  assert.match(page, /Consulting today, built on our own AI system, which is becoming a product\./);
+  assert.equal((page.match(/class="service-flow"/g) || []).length, 2);
+  assert.doesNotMatch(page, /class="service-rows"|class="service-card"/);
   assert.match(page, /Same team, more projects to close\./);
   assert.match(page, /GB onshore wind, solar and BESS developers becoming IPPs/);
   assert.match(page, /AI bid and tender\/procurement managers do the drafting, comparing and tracking, and the team makes the calls/);
@@ -28,12 +36,9 @@ test("the Services page states the two offers without naming a product or invent
   assert.match(page, /2–3 weeks at a fixed fee, on one project's data room shared securely/);
   assert.match(page, /Bid &amp; Tender Desk<\/h3><p>Then your own system, which you keep and run in-house\./);
   assert.match(page, /A named person still approves price, risk and commitments\./);
-  assert.match(page, /Fixed and floating offshore wind developers bidding seabed leasing rounds/);
   assert.match(page, /Fund-backed GB developers of onshore wind, solar, BESS and long-duration storage/);
-  assert.match(page, /class="service-rows"/);
-  assert.equal((page.match(/<dt>Who it's for<\/dt>/g) || []).length, 2);
-  assert.equal((page.match(/<dt>What you get<\/dt>/g) || []).length, 2);
-  assert.equal((page.match(/<dt>How it runs<\/dt>/g) || []).length, 2);
+  assert.match(page, /Drafting, comparing and tracking across the last mile: grid offer and consents, route to market \(CfD\/PPA\), and EPC and supply tenders\./);
+  assert.match(page, /Public queues and CfD results first\. Then a 2–3 week sprint on one project's data room, shared securely/);
   assert.match(page, /id="close-call-title">Got a project heading for financial close\?/);
   assert.doesNotMatch(page, /Five steps, starting on live work|commercial-gates-comparison|class="faq-section"/);
   assert.doesNotMatch(page, /FORGE|Forge/);
