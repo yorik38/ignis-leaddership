@@ -19,12 +19,12 @@ test("the shared footer is a concise, expandable sitemap with only available res
   assert.match(footer, /class="footer-brand"[^>]*><img src="\/assets\/img\/favicon-dark-128\.png"/);
   assert.match(footer, /Commercial AI for energy projects, from last-mile development to financial close\./);
   assert.deepEqual([...footer.matchAll(/<h2>(?:<a [^>]*>)?([^<]+)/g)].map(match => match[1]), ["About", "Solutions", "Resources", "Get in touch"]);
-  for (const path of ["/about", "/services#onshore", "/services#offshore", "/services", "/insights", "/reports", "/white-papers", "/contact", "/privacy", "/terms"]) {
+  for (const path of ["/about", "/services#onshore", "/services#offshore", "/insights", "/reports", "/white-papers", "/contact", "/privacy", "/terms"]) {
     assert.ok(footer.includes(`href="${path}"`), `Missing footer route: ${path}`);
   }
   const sitemap = footer.match(/<nav class="footer-sitemap"[\s\S]*?<\/nav>/)?.[0] ?? "";
-  assert.match(sitemap, /Onshore developers/);
-  assert.match(sitemap, /Offshore wind developers/);
+  assert.match(sitemap, /<h2>Solutions<\/h2><a href="\/services#offshore">Offshore wind<\/a><a href="\/services#onshore">Onshore renewables<\/a>/);
+  assert.doesNotMatch(sitemap, /Onshore developers|Offshore wind developers|>Services</);
   assert.doesNotMatch(sitemap, /commercial-ai-adoption|commercial-transformation|\/privacy|\/terms|\/insights\//);
   const bottom = footer.match(/<div class="wrap footer-bottom">[\s\S]*$/)?.[0] ?? "";
   assert.match(bottom, /href="\/privacy"/);

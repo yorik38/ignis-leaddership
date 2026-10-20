@@ -42,9 +42,12 @@ test('Insights and Reports are distinct collections', () => {
   assert.match(guides, /<time datetime="2026-10">October 2026<\/time>/);
   assert.match(guides, /market-monitor-2026-10-card\.webp 1200w/);
   assert.match(guides, /market-monitor-2026-10-card\.jpg/);
-  assert.match(guides, /GB power averaged £145\/MWh, about double a year earlier\. AO10 bids are in, the AR8 budget notice is due on 19 November, and Gate 2 acceptance deadlines start on 26 October\./);
+  assert.match(guides, /Ignis Market Monitor is a free monthly research briefing on European offshore wind, UK onshore renewables \(wind, solar and BESS\) and the wider GB power market\./);
+  assert.match(guides, /<h2>October 2026: power doubles, France bids 10 GW, grid decisions bunch up<\/h2>/);
+  assert.match(guides, /Spot power averaged £145\/MWh over 1 to 17 October, against £73 a year earlier, and gas explains nearly all of it\./);
   assert.doesNotMatch(guides, /What moved in auctions, prices, grid and deals/);
   const report = read('reports/market-monitor-2026-10.html');
+  assert.match(report, /<meta name="description" content="Spot power averaged £145\/MWh over 1 to 17 October, against £73 a year earlier/);
   assert.match(report, /og:image" content="https:\/\/www\.ignisleadership\.com\/assets\/img\/market-monitor-2026-10-card\.jpg"/);
   assert.doesNotMatch(report, /<img[^>]+market-monitor-2026-10-card/);
   assert.match(report, /<h1>Ignis Market Monitor: October 2026<\/h1>/);
@@ -75,9 +78,9 @@ test('Insights and Reports are distinct collections', () => {
 test('Resources navigation and canonical routes point to both pages', () => {
   const header = read('partials/site-header.html');
   const footer = read('partials/site-footer.html');
-  assert.match(header, /<summary class="overlay-resource-toggle">Solutions/);
-  assert.match(header, /href="\/services#onshore"/);
-  assert.match(header, /href="\/services#offshore"/);
+  assert.match(header, /<a href="\/services">Solutions<\/a>/);
+  assert.doesNotMatch(header, /overlay-resource-toggle">Solutions/);
+  assert.doesNotMatch(header, /services#onshore|services#offshore|Onshore developers|Offshore wind developers/);
   assert.match(header, /<details class="overlay-resource-group"><summary class="overlay-resource-toggle">Resources/);
   assert.doesNotMatch(header, /overlay-nav-mark/);
   assert.match(header, /class="overlay-resource-chevron" aria-hidden="true"/);
