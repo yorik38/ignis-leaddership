@@ -12,7 +12,8 @@ const vercel = JSON.parse(readFileSync(new URL("vercel.json", root), "utf8"));
 
 test("the Services page states the two offers without inventing proof", () => {
   assert.match(page, /rel="canonical" href="https:\/\/www\.ignisleadership\.com\/services"/);
-  assert.match(page, /<p class="section-label">Services<\/p><h1>Ignis moves offshore wind and onshore renewables projects to financial close<\/h1>/);
+  assert.match(page, /<div class="page-hero-copy"><h1>Ignis moves offshore wind and onshore renewables projects to financial close<\/h1>/);
+  assert.doesNotMatch(page, /<p class="section-label">Services<\/p>/);
   assert.match(page, /href="#offshore">Offshore wind<\/a>/);
   assert.match(page, /href="#onshore">Onshore renewables<\/a>/);
   assert.match(page, /<p class="section-label">Onshore renewables<\/p>/);
