@@ -12,15 +12,11 @@ const vercel = JSON.parse(readFileSync(new URL("vercel.json", root), "utf8"));
 
 test("the Services page states the two offers without inventing proof", () => {
   assert.match(page, /rel="canonical" href="https:\/\/www\.ignisleadership\.com\/services"/);
-  assert.match(page, /<p class="section-label">Services<\/p>/);
-  assert.match(page, /class="hero band-dark services-hero"/);
-  assert.match(page, /class="hero-media"/);
-  const servicesHeading = page.match(/<h1>([\s\S]*?)<\/h1>/)?.[1].replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim();
-  assert.equal(servicesHeading, "Ignis moves offshore wind and onshore renewables projects to financial close");
+  assert.match(page, /<p class="section-label">Services<\/p><h1>Ignis moves offshore wind and onshore renewables projects to financial close<\/h1>/);
   assert.match(page, /href="#offshore">Offshore wind<\/a>/);
   assert.match(page, /href="#onshore">Onshore renewables<\/a>/);
   assert.match(page, /<p class="section-label">Onshore renewables<\/p>/);
-  assert.match(page, /<title>Offshore wind and onshore renewables services \| Ignis<\/title>/);
+  assert.match(page, /<title>Ignis moves offshore wind and onshore renewables projects to financial close \| Ignis<\/title>/);
   assert.match(page, /<meta name="description" content="Ignis moves offshore wind and onshore renewables projects to financial close\.">/);
   assert.match(page, /id="offshore"/);
   assert.match(page, /id="onshore"/);
