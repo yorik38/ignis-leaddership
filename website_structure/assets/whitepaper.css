@@ -173,3 +173,13 @@
 @media(max-width:640px){
   .wp-report-form button[type=submit]{width:100%}
 }
+
+/* Line the contents sidebar up with the nav logo. The article column keeps its width. */
+@media screen and (min-width:1061px){
+  .whitepaper .wp-layout{
+    width:100%;
+    max-width:none;
+    margin:0;
+    padding-inline:max(var(--gutter), calc((100vw - var(--wrap)) / 2));
+  }
+}

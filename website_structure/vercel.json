@@ -132,7 +132,7 @@
     },
     {
       "source": "/discovery",
-      "destination": "/#services",
+      "destination": "/services",
       "permanent": true
     },
     {

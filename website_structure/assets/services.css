@@ -1,22 +1,14 @@
-/* Services page. White, black and grey, with teal only as the accent. */
-.services-page .page-hero{min-height:0}
-.services-page .page-hero-grid{min-height:0;padding-top:clamp(2.5rem,7vh,4.5rem);padding-bottom:clamp(3rem,8vh,5rem)}
-.services-page .page-hero h1{max-width:18em;font-size:clamp(1.7rem,3.05vw,2.85rem);line-height:1.08;text-wrap:balance}
-.services-page .services-jumps{flex-wrap:wrap;margin-top:clamp(2rem,5vh,3rem)}
-.services-page .services-jumps .button{margin-top:0}
-.services-page .services-hero .button-light{color:#04221f;background:#fff}
-.services-page .services-hero .button-light:hover{background:#e8f7f5}
-.services-page .services-hero .button-light:focus-visible{outline:3px solid #1cbdad;outline-offset:4px}
-.services-page .services-hero{isolation:isolate;overflow:hidden;background:#061c1e}
-.services-hero-media{position:absolute;inset:0;z-index:0;display:block;margin:0}
-.services-hero-media img{width:100%;height:100%;object-fit:cover;object-position:62% center}
-.services-page .services-hero::after{background:linear-gradient(90deg,rgba(6,28,30,.82) 0%,rgba(6,28,30,.78) 20%,rgba(6,28,30,.74) 40%,rgba(6,28,30,.64) 55%,rgba(6,28,30,.48) 70%,rgba(6,28,30,.30) 82%,rgba(6,28,30,.14) 91%,rgba(6,28,30,.05) 97%,rgba(6,28,30,0) 100%)}
-@media(max-width:1200px){
-  .services-page .services-hero::after{background:linear-gradient(90deg,rgba(6,28,30,.84) 0%,rgba(6,28,30,.80) 24%,rgba(6,28,30,.76) 46%,rgba(6,28,30,.72) 68%,rgba(6,28,30,.60) 80%,rgba(6,28,30,.40) 88%,rgba(6,28,30,.20) 94%,rgba(6,28,30,.06) 98%,rgba(6,28,30,0) 100%)}
+/* Services page. The hero uses the shared homepage hero; these rules only keep the photograph and the second button distinct. */
+.services-hero .section-label{margin:0 0 clamp(1.25rem,3vh,2.25rem)}
+.services-hero .hero-media img{object-position:68% center}
+.services-hero .hero-actions .button.button-light{color:#04221f;background:#fff}
+.services-hero .hero-actions .button.button-light:hover{color:#04221f;background:#e8f7f5}
+.services-hero .hero-actions .button.button-light:focus-visible{outline:3px solid #1cbdad;outline-offset:4px}
+@media(max-width:850px){
+  .services-hero .hero-media img{object-position:58% center}
 }
 @media(max-width:700px){
-  .services-hero-media img{object-position:center}
-  .services-page .services-hero::after{background:linear-gradient(180deg,rgba(6,28,30,.86),rgba(6,28,30,.74))}
+  .services-hero .hero-media img{object-position:center 42%}
 }
 .services-page #offshore,.services-page #onshore,.services-page #how-we-work{scroll-margin-top:112px}
 .service-offer .section-label{color:#08756d}
@@ -61,8 +53,4 @@
   .service-flow-copy{padding-top:.3rem}
   .service-method{gap:.65rem}
   .service-method-label{margin:0}
-}
-@media(max-width:640px){
-  .services-page .services-jumps{flex-direction:column;align-items:stretch}
-  .services-page .services-jumps .button{justify-content:center}
 }
