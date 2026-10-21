@@ -47,7 +47,7 @@ test('Insights and Reports are distinct collections', () => {
   assert.match(guides, /Spot power averaged £145\/MWh over 1 to 17 October, against £73 a year earlier, and gas explains nearly all of it\./);
   assert.doesNotMatch(guides, /What moved in auctions, prices, grid and deals/);
   const report = read('reports/market-monitor-2026-10.html');
-  assert.match(report, /<meta name="description" content="Spot power averaged £145\/MWh over 1 to 17 October, against £73 a year earlier/);
+  assert.match(report, /<meta name="description" content="Ignis Market Monitor, October 2026\. GB power, European offshore wind and the UK onshore last mile: what moved this month, and what is due next\.">/);
   assert.match(report, /og:image" content="https:\/\/www\.ignisleadership\.com\/assets\/img\/market-monitor-2026-10-card\.jpg"/);
   assert.doesNotMatch(report, /<img[^>]+market-monitor-2026-10-card/);
   assert.match(report, /<h1>Ignis Market Monitor: October 2026<\/h1>/);

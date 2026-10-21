@@ -17,6 +17,7 @@ test("the Services page states the two offers without inventing proof", () => {
   assert.match(page, /href="#onshore">Onshore renewables<\/a>/);
   assert.match(page, /<p class="section-label">Onshore renewables<\/p>/);
   assert.match(page, /<title>Ignis moves offshore wind and onshore renewables projects to financial close \| Ignis<\/title>/);
+  assert.match(page, /<meta name="description" content="Ignis moves offshore wind and onshore renewables projects to financial close\.">/);
   assert.match(page, /id="offshore"/);
   assert.match(page, /id="onshore"/);
   assert.match(page, /From seabed to financial close\./);
@@ -61,6 +62,7 @@ test("retired offer pages redirect and leave the sitemap", () => {
     assert.ok(vercel.redirects.some(route => route.source === source && route.destination === "/services" && route.permanent));
   }
   assert.ok(vercel.redirects.some(route => route.source === "/how-ignis-works" && route.destination === "/services" && route.permanent));
+  assert.ok(vercel.redirects.some(route => route.source === "/discovery" && route.destination === "/services" && route.permanent));
   assert.equal(vercel.redirects.some(route => route.source === "/services"), false);
   assert.match(sitemap, /<loc>https:\/\/www\.ignisleadership\.com\/services<\/loc>/);
   assert.doesNotMatch(sitemap, /how-ignis-works/);
