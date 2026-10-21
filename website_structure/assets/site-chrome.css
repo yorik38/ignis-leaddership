@@ -967,7 +967,7 @@ label.skip-link {
 }
 
 .footer-brand img { width: 48px; height: 48px; border-radius: 4px; }
-.footer-brand .brand-accent { color: var(--ignis-green-dark); }
+.footer-brand .brand-accent { color: var(--chrome-teal); }
 
 .site-footer .footer-identity p {
   max-width: 22rem;

@@ -6,6 +6,7 @@ import {fileURLToPath} from "node:url";
 
 const root = new URL("../", import.meta.url);
 const footer = readFileSync(new URL("partials/site-footer.html", root), "utf8").trim();
+const chrome = readFileSync(new URL("assets/site-chrome.css", root), "utf8");
 
 function htmlFiles(dir) {
   return readdirSync(dir, {withFileTypes: true}).flatMap(entry => {
@@ -31,6 +32,8 @@ test("the shared footer is a concise, expandable sitemap with only available res
   assert.match(bottom, /href="\/terms"/);
   assert.doesNotMatch(footer, /href="\/blog"/);
   assert.match(footer, /href="\/reports">Reports</);
+  assert.match(chrome, /\.brand-accent \{ color: var\(--chrome-teal\); \}/);
+  assert.match(chrome, /\.footer-brand \.brand-accent \{ color: var\(--chrome-teal\); \}/);
 });
 
 test("all rendered pages use the same footer and updated shared stylesheet", () => {
@@ -42,7 +45,7 @@ test("all rendered pages use the same footer and updated shared stylesheet", () 
     if (!rendered) continue;
     count++;
     assert.equal(rendered, footer, `Footer mismatch: ${file}`);
-    assert.match(html, /\/assets\/site-chrome\.css\?v=51/, `Old shared CSS key: ${file}`);
+    assert.match(html, /\/assets\/site-chrome\.css\?v=52/, `Old shared CSS key: ${file}`);
   }
   assert.ok(count >= 19, `Expected shared footer across rendered pages; found ${count}`);
 });
