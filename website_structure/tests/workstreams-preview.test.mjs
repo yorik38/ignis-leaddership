@@ -38,7 +38,7 @@ test('working examples replace the stacked workstream panels', () => {
   assert.match(value, /<strong class="teal">better margins, lower risk and stronger terms<\/strong>/);
   assert.match(journey, />li:not\(:last-child\)::after/);
   assert.doesNotMatch(journey, /project-journey-rail::before|bottom:\.2rem/);
-  assert.match(home, /project-journey\.css\?v=3/);
+  assert.match(home, /project-journey\.css\?v=4/);
   assert.match(timeGoes, /@media\(max-width:600px\)\{[\s\S]*\.developer-audience \.brand-stamp\{display:none\}/);
   assert.match(value, /Agents do it, people check/);
   assert.match(value, /More time on judgement/);
@@ -68,7 +68,7 @@ test('working examples replace the stacked workstream panels', () => {
   assert.match(home, /Your team decides awards, risk and FID/);
   assert.match(home, /Your team owns strategy, pricing and commitments/);
   assert.match(home, /workstreams-preview\.css\?v=6/);
-  assert.match(home, /project-journey\.css\?v=3/);
+  assert.match(home, /project-journey\.css\?v=4/);
   assert.match(css, /\.wx-win\+\.wx-win\{width:auto;margin:14px 0 0 12%\}/);
   assert.match(css, /max-width:800px\)\{[\s\S]*\.wx-win\+\.wx-win\{width:100%;margin:14px 0 0\}/);
   assert.match(css, /\.wx-stack thead\{display:none\}/);

@@ -12,7 +12,7 @@ const vercel = JSON.parse(readFileSync(new URL("vercel.json", root), "utf8"));
 
 test("the Services page states the two offers without inventing proof", () => {
   assert.match(page, /rel="canonical" href="https:\/\/www\.ignisleadership\.com\/services"/);
-  assert.match(page, /<div class="page-hero-copy"><h1>Ignis moves offshore wind and onshore renewables projects to financial close<\/h1>/);
+  assert.match(page, /<div class="page-hero-copy"><h1>Ignis moves offshore wind and onshore renewables projects to financial close<\/h1><p class="services-hero-support">Agents will do more of the work every month\. We help you build the system behind them: your process, decisions and know-how, held in one place you own\.<\/p>/);
   assert.doesNotMatch(page, /<p class="section-label">Services<\/p>/);
   assert.match(page, /href="#offshore">Offshore wind<\/a>/);
   assert.match(page, /href="#onshore">Onshore renewables<\/a>/);
@@ -40,6 +40,8 @@ test("the Services page states the two offers without inventing proof", () => {
   assert.match(page, /2–3 weeks at a fixed fee, on one project's data room shared securely/);
   assert.match(page, /Bid &amp; Tender Desk<\/h3><p>Then your own system, which you keep and run in-house\./);
   assert.match(page, /A named person still approves price, risk and commitments\./);
+  assert.match(page, /For UK onshore and offshore developers, the system you keep tracks milestones across many projects, from grid offers and Gate 2 to consents, land, CfD or AR rounds and financing, so each project moves at the right pace\./);
+  assert.match(page, /It captures why decisions were made, and the lessons from each bid and site, so the next project starts where the last one finished\. Your team keeps the judgement while agents prepare the work\./);
   assert.match(page, /Fund-backed GB developers of onshore wind, solar, BESS and long-duration storage/);
   assert.match(page, /Drafting, comparing and tracking across the last mile: grid offer and consents, route to market \(CfD\/PPA\), and EPC and supply tenders\./);
   assert.match(page, /Public queues and CfD results first\. Then a 2–3 week sprint on one project's data room, shared securely/);
@@ -87,6 +89,7 @@ test("the homepage states one offer, the audiences, and a quiet demo slot", () =
   assert.doesNotMatch(home, /FORGE|Forge/);
   assert.match(home, /<h1><span class="hero-line">Close <span class="gradient-word">more<\/span><\/span> <span class="hero-line"><span class="gradient-word">projects<\/span>, faster\.<\/span><\/h1>/);
   assert.match(home, /<p class="hero-support">Ignis helps energy developers win the right to develop and move projects to financial close, with fewer delays, fewer surprises and stronger terms\.<\/p>/);
+  assert.match(home, /<p class="project-journey-quiet">Ignis helps energy developers redesign their commercial function for the agentic era: clearer decisions, faster bids and tenders, and fewer surprises on the way to financial close\.<\/p><p class="project-journey-quiet">AI agents can already do the research, analysis and production\. The real gain is freeing your team to move projects, and that needs a commercial system that holds your memory, context and IP\. That's what we help you build\.<\/p>/);
   assert.doesNotMatch(home, /move their pipeline from last-mile development to financial close/);
   assert.match(home, /For fund-backed developers who need to move more projects to financial close, faster\./);
   assert.doesNotMatch(home, /Fund-backed developers carrying a live project from the next gate to financial close/);
