@@ -7,12 +7,20 @@ import {fileURLToPath} from "node:url";
 const root = new URL("../", import.meta.url);
 const page = readFileSync(new URL("services.html", root), "utf8");
 const home = readFileSync(new URL("index.html", root), "utf8");
+const capability = readFileSync(new URL("assets/capability.css", root), "utf8");
+const servicesCss = readFileSync(new URL("assets/services.css", root), "utf8");
 const sitemap = readFileSync(new URL("sitemap.xml", root), "utf8");
 const vercel = JSON.parse(readFileSync(new URL("vercel.json", root), "utf8"));
 
 test("the Services page states the two offers without inventing proof", () => {
   assert.match(page, /rel="canonical" href="https:\/\/www\.ignisleadership\.com\/services"/);
-  assert.match(page, /<div class="page-hero-copy"><h1>Ignis moves offshore wind and onshore renewables projects to financial close<\/h1><p class="services-hero-support">Agents will do more of the work every month\. We help you build the system behind them: your process, decisions and know-how, held in one place you own\.<\/p>/);
+  assert.match(page, /<div class="page-hero-copy"><h1>Ignis moves offshore wind and onshore renewables projects to financial close<\/h1><p class="hero-support services-hero-support">Agents will do more of the work every month\. We help you build the system behind them: your process, decisions and know-how, held in one place you own\.<\/p>/);
+  assert.match(page, /capability\.css\?v=207/);
+  assert.match(page, /services\.css\?v=9/);
+  assert.match(capability, /\.hero h1,\.services-hero h1\{[^}]*font-size:clamp\(3\.2rem,5\.15vw,5\.8rem\)/);
+  assert.match(capability, /\.hero-support,\.services-hero \.hero-support\{[^}]*font-size:clamp\(1\.05rem,1\.6vw,1\.35rem\)/);
+  assert.doesNotMatch(servicesCss, /\.services-hero-support\{[^}]*font-size/);
+  assert.doesNotMatch(servicesCss, /\.page-hero h1\{[^}]*font-size/);
   assert.doesNotMatch(page, /<p class="section-label">Services<\/p>/);
   assert.match(page, /href="#offshore">Offshore wind<\/a>/);
   assert.match(page, /href="#onshore">Onshore renewables<\/a>/);
