@@ -69,8 +69,8 @@ test('white paper cards alternate a large figure and show the month and year', (
   assert.match(css, /\.whitepapers-page \.wp-report:nth-child\(odd\) \.wp-report-media\{order:2\}/);
   assert.match(css, /\.whitepapers-page \.wp-report-media\{[^}]*aspect-ratio:4\/3/);
   assert.match(css, /--wp-rail-gap:clamp\(1rem,2vw,2rem\);--wp-rail-pad:clamp\(2\.25rem,5vw,3\.75rem\)/);
-  assert.match(css, /#white-papers-title\) \.wp-report\{[^}]*grid-template-columns:minmax\(0,1fr\) calc\(\(100% - 3 \* var\(--wp-rail-gap\)\) \/ 4\)/);
-  assert.match(css, /#white-papers-title\) \.wp-report:nth-child\(even\)\{grid-template-columns:calc\(\(100% - 3 \* var\(--wp-rail-gap\)\) \/ 4\) minmax\(0,1fr\)\}/);
+  assert.match(css, /#white-papers-title\) \.wp-report\{[^}]*grid-template-columns:minmax\(0,1\.1fr\) minmax\(0,\.9fr\)/);
+  assert.match(css, /#white-papers-title\) \.wp-report:nth-child\(even\)\{grid-template-columns:minmax\(0,\.9fr\) minmax\(0,1\.1fr\)\}/);
   assert.match(css, /#white-papers-title\) \.wp-report-media img\{[^}]*object-fit:contain/);
   assert.doesNotMatch(css, /\.whitepapers-page \.wp-report\{[^}]*background:#f3f5f4/);
   assert.match(css, /@media\(max-width:800px\)\{[\s\S]*?\.wp-report:nth-child\(odd\) \.wp-report-media,\.whitepapers-page \.wp-report:nth-child\(even\) \.wp-report-media\{order:0\}/);
