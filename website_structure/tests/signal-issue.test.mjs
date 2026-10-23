@@ -18,7 +18,7 @@ test("Signal Issue 1 ends with continue reading, the call, then the shared signu
   assert.match(issue, /Signal · Issue 1/);
   assert.match(issue, /18 October 2026/);
   assert.match(issue, /<h1>AO10 bids submitted: why proof, not price, will decide France's offshore wind round<\/h1>/);
-  assert.match(issue, /signal-ao10-cover\.png" alt="Signal Issue 1 cover: AO10 bids submitted: why proof, not price, will decide France's offshore wind round, with the Channel, Brittany, South Atlantic and Mediterranean awards mapped on France\." width="1920" height="1080"/);
+  assert.match(issue, /signal-ao10-cover\.png(?:\?v=\d+)?" alt="Signal Issue 1 cover: AO10 bids submitted: why proof, not price, will decide France's offshore wind round, with the Channel, Brittany, South Atlantic and Mediterranean awards mapped on France\." width="1920" height="1080"/);
   order(issue, [
     'id="ao10-sources"',
     'id="continue-reading-title">Continue reading',
