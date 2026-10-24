@@ -14,7 +14,7 @@ test('Insights and Reports are distinct collections', () => {
   assert.doesNotMatch(insights, /class="signal-guides"|signal-index-header[\s\S]{0,800}href="\/reports"/);
   assert.match(insights, /class="site-footer"[\s\S]*href="\/reports">Reports</);
   assert.match(insights, /class="signal-hero" href="\/insights\/what-gate-2-is-really-about"/);
-  assert.match(insights, /What Gate 2 is really about, and what it means for your projects/);
+  assert.match(insights, /First come, first served is over\. What the new grid offers mean for developers/);
   assert.match(insights, /class="earlier-editions"/);
   assert.doesNotMatch(insights, /class="earlier-editions"[^>]*hidden/);
   assert.match(insights, />Earlier editions</);

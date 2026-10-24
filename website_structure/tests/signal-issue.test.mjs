@@ -43,12 +43,13 @@ test("Signal Issue 1 ends with continue reading, the call, then the shared signu
 
 test("Signal Issue 2 publishes the approved Gate 2 article", () => {
   const gate = readFileSync(new URL("insights/what-gate-2-is-really-about.html", root), "utf8");
-  assert.match(gate, /<title>What Gate 2 is really about, and what it means for your projects \| Ignis<\/title>/);
-  assert.match(gate, /<h1>What Gate 2 is really about, and what it means for your projects<\/h1>/);
+  assert.match(gate, /<title>First come, first served is over\. What the new grid offers mean for developers \| Ignis<\/title>/);
+  assert.match(gate, /<h1>First come, first served is over\. What the new grid offers mean for developers<\/h1>/);
   assert.match(gate, /Signal · Issue 2/);
   assert.match(gate, /Sunday 25 October 2026/);
-  assert.match(gate, /There is a lot of noise about Gate 2\. Under it is something simpler: a deadline this week, a second phase in January, and years of milestones written into every signed offer\./);
-  assert.match(gate, /What Gate 2 means for GB developers: the noise about delayed dates, the deadlines to March 2027, milestones M1 to M8, and the risks of signing or declining\./);
+  assert.match(gate, /<p>UK grid reform is still under way\. For years, grid connections ran on first come, first served: apply early and you kept your place in the queue, ready or not\. That is ending\.<\/p>/);
+  assert.match(gate, /For years, grid connections ran on first come, first served: apply early and you kept your place in the queue, ready or not\./);
+  assert.doesNotMatch(gate, /There is a lot of noise about Gate 2\. Under it is something simpler/);
   assert.match(gate, /signal-gate2-cover\.png(?:\?v=\d+)?" alt="Signal Issue 2 cover: What Gate 2 is really about, and what it means for your projects, over a photo of an electricity pylon at dusk\." width="1920" height="1080"/);
   assert.match(gate, /signal-gate2-cover\.avif/);
   assert.match(gate, /signal-gate2-cover\.webp/);
