@@ -66,7 +66,7 @@ test("Signal Issue 2 publishes the approved Gate 2 article", () => {
   order(gate, [
     'id="gate2-sources"',
     'id="continue-reading-title">Continue reading',
-    'href="/resources/bids-won-on-evidence"',
+    'href="/insights/ao10-france-has-put-a-price-on-proof"',
     'href="/resources/commercial-system-for-your-pipeline"',
     'id="close-call-title">Got a project heading for financial close?',
     'class="button button-teal" href="/contact">Book a call',
@@ -74,6 +74,16 @@ test("Signal Issue 2 publishes the approved Gate 2 article", () => {
     'id="hubspot-newsletter-form"',
     '<footer class="site-footer">'
   ]);
+  const reading = gate.slice(gate.indexOf('class="continue-reading"'), gate.indexOf('class="band band-dark close-call"'));
+  assert.equal((reading.match(/class="continue-card"/g) || []).length, 2);
+  assert.match(reading, /href="\/insights\/ao10-france-has-put-a-price-on-proof"/);
+  assert.match(reading, /signal-ao10-cover\.avif\?v=2/);
+  assert.match(reading, /signal-ao10-cover\.webp\?v=2/);
+  assert.match(reading, /signal-ao10-cover\.png\?v=2" alt="Signal Issue 1 cover: AO10 bids submitted: why proof, not price, will decide France's offshore wind round, with the Channel, Brittany, South Atlantic and Mediterranean awards mapped on France\."/);
+  assert.match(reading, /<span class="continue-card-kicker">Signal · Issue 1<\/span><strong>AO10 bids submitted: why proof, not price, will decide France's offshore wind round<\/strong>/);
+  assert.match(reading, /AO10 turns the credibility of a French offshore wind bid into points, and those points translate almost one for one into euros per MWh for developers\./);
+  assert.match(reading, /<span class="continue-card-kicker">White paper<\/span><strong>How to build a commercial system for your pipeline<\/strong>/);
+  assert.doesNotMatch(reading, /bids-won-on-evidence|Bids are now won on evidence/);
   assert.equal((gate.match(/class="continue-card"/g) || []).length, 2);
   assert.match(gate, /class="signal-signup-form"[^>]*data-community-form/);
   for (const file of [
