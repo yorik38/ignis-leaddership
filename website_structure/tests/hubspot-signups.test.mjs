@@ -149,12 +149,21 @@ test("paper forms and visible Signal signups are connected", () => {
   for (const [path, html] of signups) {
     const form = html.slice(html.indexOf('class="signal-signup-form"'), html.indexOf("signal-signup-success"));
     assert.match(form, /placeholder="Work email"/, path);
-    assert.match(form, /aria-label="Subscribe"/, path);
-    assert.doesNotMatch(form, />Subscribe</, path);
     assert.match(form, /name="signal_consent"/, path);
     assert.doesNotMatch(form, /name="company"(?!_)|name="enquiry_topic"|Company \(optional\)|Topic \(optional\)|signal-signup-optional/, path);
     assert.match(html, /class="signal-signup-success"[^>]*tabindex="-1"/, path);
-    assert.match(html, /capability\.css\?v=207/);
+    assert.match(html, /capability\.css\?v=208/);
+    if (html.includes('class="signal-inbox')) {
+      assert.match(form, /aria-label="Sign up">Sign up</, path);
+      assert.doesNotMatch(form, /aria-label="Subscribe"|>Subscribe</, path);
+      assert.match(html, /id="signal-inbox-title">Get Signal in your inbox</, path);
+      assert.match(html, /Weekly UK and European energy market insight\. If you like it, sign up and get it straight into your mailbox every week\./, path);
+      assert.equal(html.split('class="signal-signup-form"').length - 1, 1, path);
+      assert.equal(html.split('id="wp-signup-title"').length - 1, 0, path);
+    } else {
+      assert.match(form, /aria-label="Subscribe"/, path);
+      assert.doesNotMatch(form, />Subscribe</, path);
+    }
   }
   const consentRule = /\.signal-signup-consent\{display:flex;align-items:flex-start;gap:\.4rem;min-height:24px;[^}]*color:rgba\(255,255,255,\.85\);font-size:13px;font-weight:400;line-height:1\.45/;
   const checkboxRule = /\.signal-signup-consent input\{flex:none;width:17px;height:17px;/;

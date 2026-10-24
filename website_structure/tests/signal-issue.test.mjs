@@ -1,6 +1,8 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import {existsSync, readFileSync} from "node:fs";
+import {existsSync, readFileSync, readdirSync} from "node:fs";
+import {join} from "node:path";
+import {fileURLToPath} from "node:url";
 
 const root = new URL("../", import.meta.url);
 const issue = readFileSync(new URL("insights/ao10-france-has-put-a-price-on-proof.html", root), "utf8");
@@ -21,13 +23,15 @@ test("Signal Issue 1 ends with continue reading, the call, then the shared signu
   assert.match(issue, /signal-ao10-cover\.png(?:\?v=\d+)?" alt="Signal Issue 1 cover: AO10 bids submitted: why proof, not price, will decide France's offshore wind round, with the Channel, Brittany, South Atlantic and Mediterranean awards mapped on France\." width="1920" height="1080"/);
   order(issue, [
     'id="ao10-sources"',
+    '</article>',
+    'id="signal-inbox-title">Get Signal in your inbox',
+    'Weekly UK and European energy market insight. If you like it, sign up and get it straight into your mailbox every week.',
+    'action="/api/subscribe"',
     'id="continue-reading-title">Continue reading',
     'href="/resources/bids-won-on-evidence"',
     'href="/resources/commercial-system-for-your-pipeline"',
     'id="close-call-title">Got a project heading for financial close?',
     'class="button button-teal" href="/contact">Book a call',
-    'id="wp-signup-title">Get the analysis',
-    'id="hubspot-newsletter-form"',
     '<footer class="site-footer">'
   ]);
   assert.equal((issue.match(/class="continue-card"/g) || []).length, 2);
@@ -64,15 +68,19 @@ test("Signal Issue 2 publishes the approved Gate 2 article", () => {
   assert.doesNotMatch(gate, /v3 for review|Notes for Yorik|not for publication|Reply in the comments/);
   const visible = gate.replace(/<[^>]+>/g, " ");
   assert.doesNotMatch(visible, /signal-2-gate2-status-article|fig-monitor-tec-queue-gate|signal-2-gate2-milestones-article/);
+  assert.doesNotMatch(gate, /<p>\s*(?:---|___|\*\*\*)\s*<\/p>/);
+  assert.match(gate, /<p><em>Yorik<\/em><\/p>\s*<section class="issue-sources"/);
   order(gate, [
     'id="gate2-sources"',
+    '</article>',
+    'id="signal-inbox-title">Get Signal in your inbox',
+    'Weekly UK and European energy market insight. If you like it, sign up and get it straight into your mailbox every week.',
+    'action="/api/subscribe"',
     'id="continue-reading-title">Continue reading',
     'href="/insights/ao10-france-has-put-a-price-on-proof"',
     'href="/resources/commercial-system-for-your-pipeline"',
     'id="close-call-title">Got a project heading for financial close?',
     'class="button button-teal" href="/contact">Book a call',
-    'id="wp-signup-title">Get the analysis',
-    'id="hubspot-newsletter-form"',
     '<footer class="site-footer">'
   ]);
   const reading = gate.slice(gate.indexOf('class="continue-reading"'), gate.indexOf('class="band band-dark close-call"'));
@@ -113,4 +121,17 @@ test("the white paper page uses the same continue-reading cards without linking 
   assert.match(css, /\.continue-card-media img\{[^}]*object-fit:contain/);
   assert.match(css, /@media\(max-width:1100px\)\{\s*\.continue-reading-grid\{grid-template-columns:1fr/);
   assert.match(css, /prefers-reduced-motion:reduce/);
+});
+
+test("no insight renders a markdown rule as its own paragraph", () => {
+  function files(dir) {
+    return readdirSync(dir, {withFileTypes: true}).flatMap((entry) => {
+      const path = join(dir, entry.name);
+      if (entry.isDirectory()) return entry.name === "tests" ? [] : files(path);
+      return entry.name.endsWith(".html") ? [path] : [];
+    });
+  }
+  for (const file of files(fileURLToPath(root))) {
+    assert.doesNotMatch(readFileSync(file, "utf8"), /<p>\s*(?:---|___|\*\*\*)\s*<\/p>/, file);
+  }
 });

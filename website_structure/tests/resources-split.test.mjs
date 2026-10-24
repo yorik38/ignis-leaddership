@@ -20,8 +20,12 @@ test('Insights and Reports are distinct collections', () => {
   assert.match(insights, />Earlier editions</);
   assert.match(insights, /class="earlier-card" href="\/insights\/ao10-france-has-put-a-price-on-proof"/);
   const heroAt = insights.indexOf('class="signal-hero" href="/insights/what-gate-2-is-really-about"');
+  const inboxAt = insights.indexOf('id="signal-inbox-title">Get Signal in your inbox');
   const earlierAt = insights.indexOf('class="earlier-card" href="/insights/ao10-france-has-put-a-price-on-proof"');
-  assert.ok(heroAt > -1 && earlierAt > heroAt, 'Issue 2 is listed above Issue 1');
+  assert.ok(heroAt > -1 && inboxAt > heroAt && earlierAt > inboxAt, 'Issue 2 is listed above Issue 1, with signup between them');
+  assert.match(insights, /Weekly UK and European energy market insight\. If you like it, sign up and get it straight into your mailbox every week\./);
+  assert.match(read('assets/capability.css'), /\.signal-index\{[^}]*background:#fff\}/);
+  assert.doesNotMatch(read('assets/capability.css'), /#f3f6f5/);
   assert.equal((insights.match(/href="\/insights\/ao10-france-has-put-a-price-on-proof"/g) || []).length, 1);
   assert.equal((insights.match(/href="\/insights\/what-gate-2-is-really-about"/g) || []).length, 1);
   assert.doesNotMatch(insights, /class="insights-guides"/);

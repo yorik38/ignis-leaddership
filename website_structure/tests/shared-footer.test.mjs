@@ -64,10 +64,28 @@ test("every page ends with the homepage call, the shared signup, then the shared
       ? 'class="button button-teal" href="https://calendly.com/yorik-tisseau-tmff/commercial-decision-call" data-calendly-link>Book a call'
       : 'class="button button-teal" href="/contact">Book a call';
     const book = html.indexOf(bookLabel);
-    const signup = html.indexOf('id="wp-signup-title">Get the analysis');
     const footer = html.indexOf('<footer class="site-footer">');
-    assert.ok(call !== -1 && call < book && book < signup && signup < footer, `Ending sequence: ${file}`);
     assert.equal(html.split('id="close-call-title"').length - 1, 1, `CTA count: ${file}`);
+    assert.equal(html.split('class="signal-signup-form"').length - 1, 1, `Signup count: ${file}`);
+    if (html.includes('class="signal-inbox')) {
+      const inbox = html.indexOf('id="signal-inbox-title">Get Signal in your inbox');
+      assert.equal(html.split('id="signal-inbox-title"').length - 1, 1, `Inbox count: ${file}`);
+      assert.equal(html.split('id="wp-signup-title"').length - 1, 0, `Old signup remains: ${file}`);
+      assert.ok(call !== -1 && call < footer, `Ending sequence: ${file}`);
+      if (file.endsWith("/insights.html")) {
+        const hero = html.indexOf('class="signal-hero"');
+        const earlier = html.indexOf('class="earlier-editions"');
+        assert.ok(hero !== -1 && hero < inbox && inbox < earlier, `Listing signup: ${file}`);
+      } else if (html.includes('class="continue-reading"')) {
+        const reading = html.indexOf('class="continue-reading"');
+        assert.ok(inbox !== -1 && inbox < reading && reading < call, `Article signup: ${file}`);
+      } else {
+        assert.ok(inbox !== -1 && inbox < call, `Article signup: ${file}`);
+      }
+      continue;
+    }
+    const signup = html.indexOf('id="wp-signup-title">Get the analysis');
+    assert.ok(call !== -1 && call < book && book < signup && signup < footer, `Ending sequence: ${file}`);
     assert.equal(html.split('id="wp-signup-title"').length - 1, 1, `Signup count: ${file}`);
   }
   assert.ok(count >= 19);
