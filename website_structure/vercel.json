@@ -46,11 +46,6 @@
       "permanent": true
     },
     {
-      "source": "/newsletter",
-      "destination": "/insights",
-      "permanent": true
-    },
-    {
       "source": "/newsletter/:slug",
       "destination": "/insights/:slug",
       "permanent": true
