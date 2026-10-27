@@ -32,6 +32,19 @@ const CONTENT_SOURCES = new Set([
   "other"
 ]);
 
+// Extra content_source values can be switched on without a code change once the
+// matching option exists in HubSpot: set HUBSPOT_EXTRA_CONTENT_SOURCES to a comma separated list.
+function knownContentSource(value) {
+  const key = String(value || "").trim();
+  if (!key) return false;
+  if (CONTENT_SOURCES.has(key)) return true;
+  return String(process.env.HUBSPOT_EXTRA_CONTENT_SOURCES || "")
+    .split(",")
+    .map((item) => item.trim())
+    .filter(Boolean)
+    .includes(key);
+}
+
 function portalId() {
   return String(process.env.HUBSPOT_PORTAL_ID || DEFAULT_PORTAL_ID).trim() || DEFAULT_PORTAL_ID;
 }
@@ -172,7 +185,7 @@ function buildSignalFields({email, firstname, lastname, company, enquiryTopic, c
   pushField(fields, "company", clip(company, 200));
   const enquiry = normaliseEnquiryTopic(enquiryTopic);
   if (enquiry) fields.push({name: "enquiry_topic", value: enquiry});
-  if (contentSource && CONTENT_SOURCES.has(contentSource)) fields.push({name: "content_source", value: contentSource});
+  if (knownContentSource(contentSource)) fields.push({name: "content_source", value: contentSource});
   fields.push({name: "signal_source", value: signalSourceFromPage(pageUrl)});
   fields.push({name: "signal_subscribed_date", value: String(midnightUtc())});
   return fields;
@@ -186,6 +199,7 @@ module.exports = {
   ENQUIRY_TOPICS,
   ROLES,
   CONTENT_SOURCES,
+  knownContentSource,
   SIGNAL_EXTRA_FIELDS,
   DOWNLOAD_EXTRA_FIELDS,
   portalId,

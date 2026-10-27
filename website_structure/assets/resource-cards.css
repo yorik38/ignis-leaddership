@@ -30,3 +30,78 @@
   body.insights-page .earlier-card em.signal-hero-meta{font-style:normal}
   body.insights-page .earlier-card strong{font-size:.98rem;line-height:1.3}
 }
+
+/* Research hub (/resources): one featured guide, then a quiet grid.
+   Each card: cover, type tag, title, one line on what it is about, one call to action. */
+body.resources-page .res-hub{padding:calc(96px + clamp(2.5rem,6vw,4.5rem)) 0 clamp(3.5rem,7vw,5.5rem);background:#fff;color:#0f1419;font-family:Inter,"Inter Fallback",var(--font-sans)}
+body.resources-page .res-hub h1{margin:0;font-family:Inter,var(--font-sans);font-size:clamp(3rem,6vw,4.5rem);font-weight:500;letter-spacing:-.05em;line-height:.95}
+body.resources-page .res-intro{max-width:36rem;margin:1rem 0 0;color:#5a6472;font-size:1.15rem;line-height:1.5}
+body.resources-page .res-featured,body.resources-page .res-card{color:inherit;text-decoration:none;background:#fff;border:1px solid #e3e6ea;border-radius:12px;overflow:hidden;transition:border-color .2s ease}
+body.resources-page .res-featured{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);align-items:center;margin-top:clamp(2.5rem,5vw,3.5rem)}
+body.resources-page .res-featured-media,body.resources-page .res-card-media{display:block;aspect-ratio:4/3;background:#F3F5F6;line-height:0}
+body.resources-page .res-featured-media picture,body.resources-page .res-card-media picture{display:block;height:100%}
+body.resources-page .res-featured-media img,body.resources-page .res-card-media img{display:block;width:100%;height:100%;object-fit:cover}
+body.resources-page .res-featured-copy{display:flex;flex-direction:column;align-items:flex-start;padding:clamp(1.75rem,4vw,3.5rem)}
+body.resources-page .res-type{display:inline-block;margin:0 0 .85rem;padding:.32rem .6rem;border-radius:4px;background:#E6F3F4;color:#08756d;font-size:.72rem;font-weight:700;letter-spacing:.08em;line-height:1;text-transform:uppercase}
+body.resources-page .res-featured h2{margin:0;font-size:clamp(1.9rem,3vw,2.5rem);font-weight:500;letter-spacing:-.035em;line-height:1.1}
+body.resources-page .res-featured p{margin:.9rem 0 0;max-width:28rem;color:#5a6472;font-size:1.1rem;line-height:1.5}
+body.resources-page .res-card-read{display:inline-flex;align-items:center;gap:.4rem;margin-top:1.5rem;color:#08756d;font-size:.98rem;font-weight:600}
+body.resources-page .res-card-read span{display:inline-block;transition:transform .2s ease}
+body.resources-page .res-grid-title{margin:clamp(3.5rem,7vw,5rem) 0 1.5rem;font-size:clamp(1.4rem,2vw,1.7rem);font-weight:500;letter-spacing:-.025em}
+body.resources-page .res-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(1.25rem,2.5vw,2rem)}
+body.resources-page .res-card{display:flex;flex-direction:column}
+body.resources-page .res-card-copy{display:flex;flex:1;flex-direction:column;align-items:flex-start;padding:1.35rem 1.4rem 1.5rem}
+body.resources-page .res-card h3{margin:0;color:#0f1419;font-size:1.25rem;font-weight:600;letter-spacing:-.02em;line-height:1.25}
+body.resources-page .res-card p{margin:.55rem 0 1.25rem;color:#5a6472;font-size:.98rem;line-height:1.5}
+body.resources-page .res-card .res-card-read{margin-top:auto}
+body.resources-page a.res-featured:hover,body.resources-page a.res-card:hover{border-color:#66B7BE}
+body.resources-page a.res-featured:hover .res-card-read span,body.resources-page a.res-card:hover .res-card-read span{transform:translateX(3px)}
+body.resources-page a.res-featured:focus-visible,body.resources-page a.res-card:focus-visible{outline:3px solid #08756d;outline-offset:4px}
+@media(prefers-reduced-motion:reduce){body.resources-page .res-featured,body.resources-page .res-card-read span{transition:none}}
+@media(max-width:1060px){body.resources-page .res-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:800px){
+  body.resources-page .res-hub{padding-top:calc(78px + 2.25rem)}
+  body.resources-page .res-intro{font-size:1.02rem}
+  body.resources-page .res-featured{grid-template-columns:1fr;margin-top:2rem;border-color:#ACD8DC}
+  body.resources-page .res-card{border-color:#ACD8DC}
+  body.resources-page .res-featured-copy{padding:1.15rem 1.15rem 1.3rem}
+  body.resources-page .res-featured h2{font-size:1.5rem;letter-spacing:-.025em;line-height:1.18}
+  body.resources-page .res-featured p{font-size:1rem}
+  body.resources-page .res-card-read{margin-top:1.1rem}
+  body.resources-page .res-grid-title{margin:2.75rem 0 1rem;font-size:1.3rem}
+  body.resources-page .res-grid{grid-template-columns:1fr;gap:1.5rem}
+  body.resources-page .res-card-copy{padding:1.1rem 1.15rem 1.25rem}
+  body.resources-page .res-card h3{font-size:1.2rem}
+  body.resources-page .res-card p{font-size:.95rem;margin-bottom:1rem}
+}
+
+/* Guide landing page: book beside the title, then what you'll learn. */
+body.guide-page .guide-hero .hero-in{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:clamp(1.5rem,4vw,3rem);align-items:center;max-width:1180px}
+body.guide-page .guide-name{margin:20px 0 0;color:#08756d;font-size:15px;font-weight:600;letter-spacing:.01em}
+body.guide-page .guide-hero h1{margin:10px 0 14px;font-size:clamp(2.4rem,4.6vw,3.5rem)}
+body.guide-page .guide-hero-book{margin:0;border-radius:14px;overflow:hidden;box-shadow:0 1px 2px rgba(15,20,25,.04),0 12px 32px rgba(15,20,25,.08);line-height:0}
+body.guide-page .guide-hero-book img{display:block;width:100%;height:auto}
+body.guide-page .guide-teaser{max-width:1180px;margin:0 auto;padding:clamp(2.25rem,4vw,3.25rem) 32px 20px}
+body.guide-page .guide-teaser-in{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,.65fr);gap:clamp(1.5rem,4vw,3.5rem);align-items:start}
+body.guide-page .guide-learn h2{margin:0 0 18px;font-size:clamp(1.7rem,3vw,2.2rem)}
+body.guide-page .guide-points{display:grid;gap:12px;margin:0;padding:0;list-style:none;counter-reset:pt}
+body.guide-page .guide-points li{position:relative;padding:14px 18px 14px 58px;border:1px solid #ACD8DC;border-radius:12px;background:#fff;color:#3a3f45;font-size:16px;line-height:1.55;counter-increment:pt}
+body.guide-page .guide-points li:before{content:counter(pt);position:absolute;left:16px;top:14px;display:grid;place-items:center;width:28px;height:28px;border-radius:50%;background:#E6F3F4;color:#08756d;font-size:14px;font-weight:700}
+body.guide-page .guide-points b{display:block;color:#0f1419}
+body.guide-page .guide-aside{padding:22px 24px;border-left:3px solid #14919B;border-radius:0 12px 12px 0;background:#F3F5F6}
+body.guide-page .guide-aside p{margin:0 0 12px;font-size:15px;line-height:1.55}
+body.guide-page .guide-aside p:last-child{margin-bottom:0}
+body.guide-page .guide-quote{color:#0f1419;font-size:20px!important;font-weight:600;letter-spacing:-.01em;line-height:1.3!important}
+body.guide-page .continue-card-media img{aspect-ratio:4/3;object-fit:cover}
+@media(max-width:900px){
+  body.guide-page .guide-hero .hero-in,body.guide-page .guide-teaser-in{grid-template-columns:1fr}
+  body.guide-page .guide-hero-book{max-width:520px}
+}
+@media(max-width:760px){
+  body.guide-page .guide-hero h1{font-size:2.1rem;line-height:1.1}
+  body.guide-page .guide-hero .sub{font-size:1.05rem;margin-bottom:20px}
+  body.guide-page .guide-teaser{padding:2rem 18px 12px}
+  body.guide-page .guide-learn h2{font-size:1.6rem}
+  body.guide-page .guide-points li{padding:12px 14px 12px 52px;font-size:15px}
+  body.guide-page .guide-points li:before{left:13px;top:12px}
+}

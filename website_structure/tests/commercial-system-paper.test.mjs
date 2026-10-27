@@ -4,7 +4,7 @@ import {readFileSync} from "node:fs";
 
 const root = new URL("../", import.meta.url);
 const paper = readFileSync(new URL("resources/commercial-system-for-your-pipeline.html", root), "utf8");
-const listing = readFileSync(new URL("white-papers.html", root), "utf8");
+const listing = readFileSync(new URL("resources.html", root), "utf8");
 
 test("the second white paper is published without a coming-soon state", () => {
   assert.match(paper, /<h1>How to build a commercial system for your pipeline<\/h1>/);
@@ -34,7 +34,7 @@ test("the second white paper is published without a coming-soon state", () => {
   assert.doesNotMatch(paper, /name, work email, company/);
   assert.doesNotMatch(paper, /FORGE|Forge|Coming soon/);
   assert.match(listing, /href="\/resources\/commercial-system-for-your-pipeline"/);
-  assert.match(listing, /whitepaper-commercial-system\.webp/);
+  assert.match(listing, /resource-book-commercial-system\.webp/);
   assert.doesNotMatch(listing, /Coming soon|is-soon|whitepaper-commercial-system-coming-soon/);
   const prose = paper
     .slice(paper.indexOf('<div class="art">'), paper.indexOf('<section class="sources"'))

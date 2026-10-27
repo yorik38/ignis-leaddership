@@ -51,38 +51,53 @@
       "permanent": true
     },
     {
-      "source": "/resources",
-      "destination": "/reports",
+      "source": "/reports",
+      "destination": "/resources",
+      "permanent": true
+    },
+    {
+      "source": "/reports.html",
+      "destination": "/resources",
+      "permanent": true
+    },
+    {
+      "source": "/white-papers",
+      "destination": "/resources",
+      "permanent": true
+    },
+    {
+      "source": "/white-papers.html",
+      "destination": "/resources",
       "permanent": true
     },
     {
       "source": "/guides",
-      "destination": "/reports",
+      "destination": "/resources",
       "permanent": true
     },
     {
       "source": "/guides/:path*",
-      "destination": "/reports",
+      "destination": "/resources",
       "permanent": true
     },
     {
       "source": "/resources/ai-augmented-bid-practice",
-      "destination": "/reports",
+      "destination": "/resources",
       "permanent": true
     },
     {
       "source": "/resources/bid-agent-maturity",
-      "destination": "/reports",
+      "destination": "/resources",
       "permanent": true
     },
     {
       "source": "/resources/choose-first-ai-bid-use-case",
-      "destination": "/reports",
+      "destination": "/resources",
       "permanent": true
     },
     {
       "source": "/rfp-software-vs-agentic-bid-system",
-      "destination": "/reports",
+      "destination": "/resources",
       "permanent": true
     },
     {

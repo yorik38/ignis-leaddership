@@ -20,7 +20,7 @@ test("the shared footer is a concise, expandable sitemap with only available res
   assert.match(footer, /class="footer-brand"[^>]*><img src="\/assets\/img\/favicon-dark-128\.png"/);
   assert.match(footer, /Commercial AI for energy projects, from last-mile development to financial close\./);
   assert.deepEqual([...footer.matchAll(/<h2>(?:<a [^>]*>)?([^<]+)/g)].map(match => match[1]), ["About", "Solutions", "Resources", "Get in touch"]);
-  for (const path of ["/about", "/services#onshore", "/services#offshore", "/insights", "/reports", "/white-papers", "/contact", "/privacy", "/terms"]) {
+  for (const path of ["/about", "/services#onshore", "/services#offshore", "/insights", "/resources", "/contact", "/privacy", "/terms"]) {
     assert.ok(footer.includes(`href="${path}"`), `Missing footer route: ${path}`);
   }
   const sitemap = footer.match(/<nav class="footer-sitemap"[\s\S]*?<\/nav>/)?.[0] ?? "";
@@ -31,7 +31,8 @@ test("the shared footer is a concise, expandable sitemap with only available res
   assert.match(bottom, /href="\/privacy"/);
   assert.match(bottom, /href="\/terms"/);
   assert.doesNotMatch(footer, /href="\/blog"/);
-  assert.match(footer, /href="\/reports">Reports</);
+  assert.match(footer, /href="\/resources">Research</);
+  assert.doesNotMatch(footer, /href="\/(reports|white-papers)"/);
   assert.match(chrome, /\.brand-accent \{ color: var\(--chrome-teal\); \}/);
   assert.match(chrome, /\.footer-brand \.brand-accent \{ color: var\(--chrome-teal\); \}/);
 });

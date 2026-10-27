@@ -306,6 +306,133 @@ describe("form protection", {concurrency: 1}, () => {
     }
   });
 
+  test("the agentic transformation guide delivers its PDF, with Signal only when ticked", async () => {
+    resetProtectionForTests();
+    const previous = process.env.HUBSPOT_AGENTIC_GUIDE_FORM_ID;
+    const warnings = [];
+    const originalWarn = console.warn;
+    console.warn = (...args) => warnings.push(args.join(" "));
+    const pdf = "/assets/downloads/ignis-guide-agentic-transformation-for-energy-developers.pdf";
+    const body = started({
+      email: "ada@example.com",
+      resource: "agentic-transformation-for-energy-developers",
+      content_source: "guide-agentic-transformation",
+      page_url: "https://www.ignisleadership.com/resources/agentic-transformation-for-energy-developers"
+    });
+    try {
+      delete process.env.HUBSPOT_AGENTIC_GUIDE_FORM_ID;
+      const plain = await post(whitepaper, body, {headers: {"x-forwarded-for": "203.0.113.90"}});
+      assert.equal(plain.res.statusCode, 200);
+      assert.equal(plain.res.body.pdf, pdf);
+      assert.equal(plain.res.body.newsletterSubscribed, false);
+      assert.equal(plain.calls.length, 0, "an unticked Signal box sends nothing to Signal");
+      assert.match(warnings.join("\n"), /HUBSPOT_AGENTIC_GUIDE_FORM_ID is not set/);
+
+      const ticked = await post(whitepaper, {...body, email: "ticked@example.com", signal_opt_in: "true"}, {headers: {"x-forwarded-for": "203.0.113.91"}});
+      assert.equal(ticked.res.statusCode, 200);
+      assert.equal(ticked.res.body.pdf, pdf);
+      assert.equal(ticked.res.body.newsletterSubscribed, true);
+      assert.equal(ticked.calls.length, 1);
+      assert.match(ticked.calls[0].url, /9ee4b5ce-211f-4be1-a8d1-69809052e8b2$/);
+      const tickedFields = Object.fromEntries(JSON.parse(ticked.calls[0].body).fields.map((field) => [field.name, field.value]));
+      assert.equal(tickedFields.resource, "agentic-transformation-for-energy-developers", "Signal-only capture still names the resource");
+
+      process.env.HUBSPOT_AGENTIC_GUIDE_FORM_ID = "guide-form-id";
+      const saved = await post(whitepaper, {...body, email: "saved@example.com"}, {headers: {"x-forwarded-for": "203.0.113.92"}});
+      assert.equal(saved.res.statusCode, 200);
+      assert.equal(saved.res.body.pdf, pdf);
+      assert.equal(saved.calls.length, 1);
+      assert.match(saved.calls[0].url, /guide-form-id$/);
+      const sent = JSON.parse(saved.calls[0].body);
+      const fields = Object.fromEntries(sent.fields.map((field) => [field.name, field.value]));
+      assert.equal(fields.resource, "agentic-transformation-for-energy-developers");
+      assert.equal(fields.content_source, undefined, "no unknown dropdown value is sent to HubSpot");
+      assert.equal(fields.acquisition_source, "website");
+      assert.match(sent.legalConsentOptions.consent.text, /requested guide/);
+      assert.match(sent.legalConsentOptions.consent.communications[0].text, /only for this guide/);
+    } finally {
+      console.warn = originalWarn;
+      if (previous === undefined) delete process.env.HUBSPOT_AGENTIC_GUIDE_FORM_ID;
+      else process.env.HUBSPOT_AGENTIC_GUIDE_FORM_ID = previous;
+    }
+  });
+
+  test("every resource without its own form uses the shared download form, tagged with the resource", async () => {
+    resetProtectionForTests();
+    const saved = {
+      shared: process.env.HUBSPOT_RESOURCE_DOWNLOAD_FORM_ID,
+      guide: process.env.HUBSPOT_AGENTIC_GUIDE_FORM_ID,
+      monitor: process.env.HUBSPOT_MARKET_MONITOR_FORM_ID,
+      extra: process.env.HUBSPOT_EXTRA_CONTENT_SOURCES
+    };
+    const restore = (name, value) => { if (value === undefined) delete process.env[name]; else process.env[name] = value; };
+    try {
+      delete process.env.HUBSPOT_AGENTIC_GUIDE_FORM_ID;
+      delete process.env.HUBSPOT_MARKET_MONITOR_FORM_ID;
+      process.env.HUBSPOT_RESOURCE_DOWNLOAD_FORM_ID = "shared-download-form";
+      process.env.HUBSPOT_EXTRA_CONTENT_SOURCES = "guide-agentic-transformation";
+      let ip = 100;
+      for (const [resource, contentSource] of [
+        ["agentic-transformation-for-energy-developers", "guide-agentic-transformation"],
+        ["market-monitor-2026-10", "market-monitor-2026-10"]
+      ]) {
+        const result = await post(whitepaper, started({email: `${resource}@example.com`, resource, content_source: contentSource}), {headers: {"x-forwarded-for": `203.0.113.${ip++}`}});
+        assert.equal(result.res.statusCode, 200);
+        assert.equal(result.calls.length, 1);
+        assert.match(result.calls[0].url, /shared-download-form$/);
+        const fields = Object.fromEntries(JSON.parse(result.calls[0].body).fields.map((field) => [field.name, field.value]));
+        assert.equal(fields.resource, resource);
+        assert.equal(fields.content_source, contentSource);
+      }
+      for (const [resource, formId] of [
+        ["bids-won-on-evidence", "9b783156-b16d-443a-bc80-51bab3411670"],
+        ["commercial-system-pipeline", "5b3bb573-2ca5-47cc-8bc0-3e8b0f4023d5"]
+      ]) {
+        const result = await post(whitepaper, started({email: `${resource}@example.com`, resource}), {headers: {"x-forwarded-for": `203.0.113.${ip++}`}});
+        assert.equal(result.res.statusCode, 200);
+        assert.match(result.calls[0].url, new RegExp(`${formId}$`), "papers keep their own forms");
+        const fields = Object.fromEntries(JSON.parse(result.calls[0].body).fields.map((field) => [field.name, field.value]));
+        assert.equal(fields.resource, resource);
+      }
+    } finally {
+      restore("HUBSPOT_RESOURCE_DOWNLOAD_FORM_ID", saved.shared);
+      restore("HUBSPOT_AGENTIC_GUIDE_FORM_ID", saved.guide);
+      restore("HUBSPOT_MARKET_MONITOR_FORM_ID", saved.monitor);
+      restore("HUBSPOT_EXTRA_CONTENT_SOURCES", saved.extra);
+    }
+  });
+
+  test("a Signal form that refuses the resource field still records the opt-in", async () => {
+    resetProtectionForTests();
+    const previous = process.env.HUBSPOT_AGENTIC_GUIDE_FORM_ID;
+    const originalWarn = console.warn;
+    const originalError = console.error;
+    console.warn = () => {};
+    console.error = () => {};
+    try {
+      delete process.env.HUBSPOT_AGENTIC_GUIDE_FORM_ID;
+      const result = await post(whitepaper, started({email: "strict@example.com", resource: "agentic-transformation-for-energy-developers", signal_opt_in: "true"}), {
+        headers: {"x-forwarded-for": "203.0.113.120"},
+        fetchImpl: async (url, init) => {
+          const names = JSON.parse(init.body).fields.map((field) => field.name);
+          if (names.includes("resource")) return {ok: false, status: 400, text: async () => "FIELD_NOT_IN_FORM_DEFINITION"};
+          return {ok: true, status: 200, json: async () => ({}), text: async () => ""};
+        }
+      });
+      assert.equal(result.res.statusCode, 200);
+      assert.equal(result.res.body.newsletterSubscribed, true);
+      assert.equal(result.calls.length, 2);
+      const retried = JSON.parse(result.calls[1].body).fields.map((field) => field.name);
+      assert.ok(!retried.includes("resource"));
+      assert.ok(retried.includes("signal_source"), "the usual Signal fields are kept");
+    } finally {
+      console.warn = originalWarn;
+      console.error = originalError;
+      if (previous === undefined) delete process.env.HUBSPOT_AGENTIC_GUIDE_FORM_ID;
+      else process.env.HUBSPOT_AGENTIC_GUIDE_FORM_ID = previous;
+    }
+  });
+
   test("Market Monitor Signal opt-in submits the Signal form, including when the report form id is unset", async () => {
     resetProtectionForTests();
     const previous = process.env.HUBSPOT_MARKET_MONITOR_FORM_ID;
