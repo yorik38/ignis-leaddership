@@ -12,8 +12,8 @@ const insights = readFileSync(join(site, 'insights.html'), 'utf8');
 const vercel = JSON.parse(readFileSync(join(site, 'vercel.json'), 'utf8'));
 const { signupPlacement } = extractPlacement();
 
-const title = 'Signal: the weekly energy newsletter from Ignis';
-const description = "What's moving in energy this week, and the commercial take, for renewable developers, IPPs and offshore wind teams.";
+const title = "Signal: What's moving in energy this week, and the commercial take.";
+const description = 'A weekly read on auctions, policy, deals and supply chains, seen through a commercial lens, for renewable developers, IPPs and offshore wind teams.';
 const url = 'https://www.ignisleadership.com/newsletter';
 const image = 'https://www.ignisleadership.com/assets/img/signal-share-card-1200x630.png';
 const alt = "Signal. Newsletter. What's moving in energy this week, and the commercial take.";
@@ -53,6 +53,8 @@ test('newsletter share tags describe Signal and point at this URL', () => {
   assert.equal(tag(head, 'name', 'twitter:description'), description);
   assert.equal(tag(head, 'name', 'twitter:image'), image);
   assert.equal(tag(head, 'name', 'twitter:image:alt'), alt);
+  assert.equal(tag(head, 'name', 'author'), 'Yorik Tisseau');
+  assert.equal(tag(head, 'property', 'article:author'), 'https://www.linkedin.com/in/yorik-tisseau/');
   assert.equal(head.split(url).length - 1 >= 3, true);
   assert.doesNotMatch(head, /signal-gate2-cover|\/insights"|og-social-card/);
 });
