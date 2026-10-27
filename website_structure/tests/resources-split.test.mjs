@@ -151,6 +151,15 @@ test('the flagship guide page has a teaser, an email gate and an unticked Signal
   assert.match(page, /name="resource" value="agentic-transformation-for-energy-developers"/);
   assert.match(page, /<input type="checkbox" name="signal_opt_in" value="true">/);
   assert.doesNotMatch(page, /name="signal_opt_in"[^>]*checked/);
+  assert.match(page, /name="content_source" value="guide-agentic-transformation"/);
+  assert.match(page, /<a href="#download">Get the guide \(PDF\)<\/a>/);
+  assert.match(page, /<a class="guide-hero-book" href="#download" aria-label="Get the guide \(PDF\)">/);
+  assert.match(page, /scrollIntoView\(\{ behavior: reduce \? "auto" : "smooth", block: "start" \}\)/);
+  assert.match(page, /email\.focus\(\{ preventScroll: true \}\)/);
+  assert.match(read('assets/resource-cards.css'), /body\.guide-page #download\{scroll-margin-top:calc\(76px \+ 1\.25rem\)\}/);
+  assert.match(read('assets/resource-cards.css'), /@media\(max-width:850px\)\{body\.guide-page #download\{scroll-margin-top:calc\(70px \+ 1\.25rem\)\}/);
+  assert.match(page, /resource-cards\.css\?v=3/);
+  assert.doesNotMatch(page, /id="signal-inbox-title"|class="signal-inbox"|Get Signal in your inbox/);
   assert.match(page, /whitepaper\.js/);
   assert.match(page, />Talk it through</);
   assert.doesNotMatch(page, /[\u2013\u2014]|FORGE|Forge|Book a call|book a call|£|\$\d/);

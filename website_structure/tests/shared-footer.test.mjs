@@ -67,6 +67,13 @@ test("every page ends with the homepage call, the shared signup, then the shared
     const book = html.indexOf(bookLabel);
     const footer = html.indexOf('<footer class="site-footer">');
     assert.equal(html.split('id="close-call-title"').length - 1, 1, `CTA count: ${file}`);
+    if (file.endsWith("resources/agentic-transformation-for-energy-developers.html")) {
+      assert.equal(html.split('class="signal-signup-form"').length - 1, 0, `Guide keeps only the gate opt-in: ${file}`);
+      assert.equal(html.split('id="signal-inbox-title"').length - 1, 0, `Guide has no inbox card: ${file}`);
+      const reading = html.indexOf('class="continue-reading"');
+      assert.ok(reading !== -1 && reading < call && call < footer, `Guide ending: ${file}`);
+      continue;
+    }
     assert.equal(html.split('class="signal-signup-form"').length - 1, 1, `Signup count: ${file}`);
     if (html.includes('class="signal-inbox')) {
       const inbox = html.indexOf('id="signal-inbox-title">Get Signal in your inbox');
