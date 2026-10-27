@@ -31,11 +31,11 @@ test('Insights and Reports are distinct collections', () => {
   assert.doesNotMatch(read('reports/market-monitor-2026-10.html'), /signal-mark/);
   assert.doesNotMatch(read('resources/bids-won-on-evidence.html'), /signal-mark/);
   const report = read('reports/market-monitor-2026-10.html');
-  assert.match(report, /<meta name="description" content="Ignis Market Monitor, October 2026\. GB power, European offshore wind and the UK onshore last mile: what moved this month, and what is due next\.">/);
-  assert.match(report, /og:image" content="https:\/\/www\.ignisleadership\.com\/assets\/img\/market-monitor-2026-10-card\.jpg"/);
+  assert.match(report, /<meta name="description" content="Market Monitor, October 2026\. What moved in power, offshore wind and onshore renewables this month, and what is due next\.">/);
+  assert.match(report, /og:image" content="https:\/\/www\.ignisleadership\.com\/assets\/img\/market-monitor-2026-10-og\.png\?v=2"/);
   assert.doesNotMatch(report, /<img[^>]+market-monitor-2026-10-card/);
-  assert.match(report, /<h1>Ignis Market Monitor: October 2026<\/h1>/);
-  assert.match(report, /GB power, European offshore wind and the UK onshore last mile: what moved this month, and what is due next\./);
+  assert.match(report, /<h1>Market Monitor, October 2026<\/h1>/);
+  assert.match(report, /What moved in power, offshore wind and onshore renewables this month, and what is due next\./);
   assert.match(report, /data-whitepaper-form/);
   assert.match(report, /action="\/api\/whitepaper"/);
   assert.match(report, /data-edition="market-monitor-2026-10"/);
@@ -73,9 +73,9 @@ test('Research is one hub at /resources, with a type tag on every card', () => {
   const grid = hub.slice(hub.indexOf('class="res-grid"'), hub.indexOf('class="signal-inbox'));
   const cards = [...grid.matchAll(/<a class="res-card" href="([^"]+)">[\s\S]*?<span class="res-type">([^<]+)<\/span>\s*<h3>([^<]+)<\/h3>\s*<p>([^<]+)<\/p>\s*<span class="res-card-read">/g)];
   assert.deepEqual(cards.map((card) => [card[1], card[2], card[3]]), [
-    ['/reports/market-monitor-2026-10', 'Report', 'Ignis Market Monitor: October 2026'],
-    ['/resources/commercial-system-for-your-pipeline', 'White paper', 'One commercial record, from supplier choice to financial close'],
-    ['/resources/bids-won-on-evidence', 'White paper', 'Bids are now won on evidence, not hours'],
+    ['/reports/market-monitor-2026-10', 'Report', 'Market Monitor, October 2026'],
+    ['/resources/commercial-system-for-your-pipeline', 'White paper', 'One commercial record from grid offer to close'],
+    ['/resources/bids-won-on-evidence', 'White paper', 'Enter more bid rounds without hiring'],
   ]);
   for (const card of cards) assert.ok(card[4].length <= 110, `one line promise: ${card[4]}`);
   assert.equal((hub.match(/class="res-card-media"/g) || []).length, 3);
