@@ -39,7 +39,7 @@ function papers() {
       formId: String(process.env.HUBSPOT_MARKET_MONITOR_FORM_ID || "").trim(),
       pdf: "/assets/downloads/ignis-market-monitor-2026-10.pdf",
       contentSource: "market-monitor-2026-10",
-      pageName: "Ignis Market Monitor: October 2026",
+      pageName: "Market Monitor, October 2026",
       formEnv: "HUBSPOT_MARKET_MONITOR_FORM_ID",
       deliverWithoutForm: true,
       separateSignalOptIn: true

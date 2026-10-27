@@ -59,7 +59,7 @@ test("Signal Issue 2 publishes the approved Gate 2 article", () => {
   assert.match(gate, /signal-gate2-cover\.webp/);
   assert.match(gate, /<figcaption><strong>Figure 1\.<\/strong> <em>Where the Gate 2 process stands on 21 October 2026: Phase 1 offers are being issued, Phase 2 comes next, and the next application window has no date\.<\/em><\/figcaption>/);
   assert.match(gate, /signal-2-gate2-status-article-1600x900\.png 1600w, \/assets\/img\/signal-2-gate2-status-article-1600x900@2x\.png 3200w/);
-  assert.match(gate, /<figcaption><strong>Figure 2\.<\/strong> <em>Only 20\.8 GW of the 604 GW transmission queue carried a Gate 2 label on 16 October, partly because the label only appears once an agreement is countersigned\. From this month's <a href="https:\/\/www\.ignisleadership\.com\/reports\/market-monitor-2026-10">Ignis Market Monitor<\/a>, which covers the queue in more depth\.<\/em><\/figcaption>/);
+  assert.match(gate, /<figcaption><strong>Figure 2\.<\/strong> <em>Only 20\.8 GW of the 604 GW transmission queue carried a Gate 2 label on 16 October, partly because the label only appears once an agreement is countersigned\. From this month's <a href="https:\/\/www\.ignisleadership\.com\/reports\/market-monitor-2026-10">Market Monitor, October 2026<\/a>, which covers the queue in more depth\.<\/em><\/figcaption>/);
   assert.match(gate, /fig-monitor-tec-queue-gate\.png/);
   assert.match(gate, /<figcaption><strong>Figure 3\.<\/strong> <em>Gate 2 milestones M1 to M8 in plain words\. M1 to M3 carry termination risk\.<\/em><\/figcaption>/);
   assert.match(gate, /signal-2-gate2-milestones-article-1600x900@2x\.png/);
@@ -91,7 +91,7 @@ test("Signal Issue 2 publishes the approved Gate 2 article", () => {
   assert.match(reading, /signal-ao10-cover\.png\?v=2" alt="Signal Issue 1 cover: AO10 bids submitted: why proof, not price, will decide France's offshore wind round, with the Channel, Brittany, South Atlantic and Mediterranean awards mapped on France\."/);
   assert.match(reading, /<span class="continue-card-kicker">Signal · Issue 1<\/span><strong>AO10 bids submitted: why proof, not price, will decide France's offshore wind round<\/strong>/);
   assert.match(reading, /AO10 turns the credibility of a French offshore wind bid into points, and those points translate almost one for one into euros per MWh for developers\./);
-  assert.match(reading, /<span class="continue-card-kicker">White paper<\/span><strong>One commercial record, from supplier choice to financial close<\/strong>/);
+  assert.match(reading, /<span class="continue-card-kicker">White paper<\/span><strong>One commercial record from grid offer to close<\/strong>/);
   assert.doesNotMatch(reading, /bids-won-on-evidence|Bids are now won on evidence/);
   assert.equal((gate.match(/class="continue-card"/g) || []).length, 2);
   assert.match(gate, /class="signal-signup-form"[^>]*data-community-form/);
@@ -113,7 +113,7 @@ test("the white paper page uses the same continue-reading cards without linking 
   assert.match(block, /href="\/insights\/ao10-france-has-put-a-price-on-proof"/);
   assert.match(block, /AO10 bids submitted: why proof, not price, will decide France's offshore wind round/);
   assert.doesNotMatch(block, /href="\/resources\/bids-won-on-evidence"/);
-  assert.doesNotMatch(block, /Coming soon|One commercial record, from supplier choice to financial close/);
+  assert.doesNotMatch(block, /Coming soon|One commercial record from grid offer to close/);
   const css = readFileSync(new URL("assets/capability.css", root), "utf8");
   assert.match(css, /\.continue-reading-grid\{[^}]*minmax\(0,420px\)/);
   assert.doesNotMatch(css, /\.continue-card-media\{[^}]*aspect-ratio:16\/9/);
