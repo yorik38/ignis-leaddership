@@ -1,0 +1,32 @@
+/* Resource and Signal cards on phones and small tablets.
+   Each paper, report and edition reads as one bordered white card, with a calmer type scale.
+   Desktop layouts are unchanged. Teal text stays at #08756d for contrast; #14919B and its tints are used for lines only. */
+
+/* Signal sign-up: keep the success line hidden until the form succeeds (all widths). */
+.signal-inbox .signal-signup-success[hidden],.signal-inbox .signal-signup-error[hidden]{display:none}
+
+@media(max-width:800px){
+  body.whitepapers-page .wp-index-list{gap:1.25rem;margin-top:2rem}
+  body.whitepapers-page .wp-report,body.whitepapers-page .wp-report:nth-child(even){gap:0;overflow:hidden;border:1px solid #ACD8DC;border-top:3px solid #14919B;border-radius:12px;background:#fff;box-shadow:0 1px 2px rgba(15,20,25,.04),0 6px 18px rgba(15,20,25,.06)}
+  body.whitepapers-page .wp-report-media,body.whitepapers-page .wp-report-media.is-wide{border-radius:0;border-bottom:1px solid #e3e6ea}
+  body.whitepapers-page .wp-report-copy{padding:1rem 1.1rem 1.1rem}
+  body.whitepapers-page .wp-report time{margin:0 0 .45rem;color:#08756d;font-size:.75rem;font-weight:600;letter-spacing:.07em;text-transform:uppercase}
+  body.whitepapers-page .wp-report h2{font-size:1.35rem;letter-spacing:-.02em;line-height:1.22}
+  body.whitepapers-page .wp-report p{margin-top:.55rem;font-size:.95rem;line-height:1.5}
+  body.whitepapers-page .wp-report-read{margin-top:.9rem;padding-top:.8rem;border-top:1px solid #e3e6ea;font-size:.95rem}
+}
+
+@media(max-width:640px){
+  body.insights-page .signal-hero,body.insights-page .earlier-card{border:1px solid #ACD8DC;border-radius:12px;box-shadow:0 1px 2px rgba(15,20,25,.04),0 6px 18px rgba(15,20,25,.06)}
+  body.insights-page .signal-hero{border-top:3px solid #14919B}
+  body.insights-page .signal-hero-media,body.insights-page .earlier-card picture{border-bottom:1px solid #e3e6ea}
+  body.insights-page .signal-hero-copy{gap:.45rem;padding:1rem 1.1rem 1.15rem}
+  body.insights-page .signal-hero-meta,body.insights-page .signal-hero time{font-size:.72rem}
+  body.insights-page .signal-hero h2{font-size:1.45rem;letter-spacing:-.025em;line-height:1.18}
+  body.insights-page .signal-hero p{font-size:.95rem}
+  body.insights-page .signal-inbox{margin-top:1.5rem}
+  body.insights-page .earlier-editions-grid{gap:1rem}
+  body.insights-page .earlier-card span{padding:.9rem 1rem 1rem}
+  body.insights-page .earlier-card em.signal-hero-meta{font-style:normal}
+  body.insights-page .earlier-card strong{font-size:.98rem;line-height:1.3}
+}
