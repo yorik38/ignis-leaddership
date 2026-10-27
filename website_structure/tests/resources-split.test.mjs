@@ -72,10 +72,10 @@ test('Research is one hub at /resources, with a type tag on every card', () => {
   assert.match(featured, /resource-book-agentic-transformation/);
   const grid = hub.slice(hub.indexOf('class="res-grid"'), hub.indexOf('class="signal-inbox'));
   const cards = [...grid.matchAll(/<a class="res-card" href="([^"]+)">[\s\S]*?<span class="res-type">([^<]+)<\/span>\s*<h3>([^<]+)<\/h3>\s*<p>([^<]+)<\/p>\s*<span class="res-card-read">/g)];
-  assert.deepEqual(cards.map((card) => [card[1], card[2]]), [
-    ['/reports/market-monitor-2026-10', 'Report'],
-    ['/resources/commercial-system-for-your-pipeline', 'White paper'],
-    ['/resources/bids-won-on-evidence', 'White paper'],
+  assert.deepEqual(cards.map((card) => [card[1], card[2], card[3]]), [
+    ['/reports/market-monitor-2026-10', 'Report', 'Ignis Market Monitor: October 2026'],
+    ['/resources/commercial-system-for-your-pipeline', 'White paper', 'One commercial record, from supplier choice to financial close'],
+    ['/resources/bids-won-on-evidence', 'White paper', 'Bids are now won on evidence, not hours'],
   ]);
   for (const card of cards) assert.ok(card[4].length <= 110, `one line promise: ${card[4]}`);
   assert.equal((hub.match(/class="res-card-media"/g) || []).length, 3);

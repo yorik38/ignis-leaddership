@@ -7,7 +7,11 @@ const paper = readFileSync(new URL("resources/commercial-system-for-your-pipelin
 const listing = readFileSync(new URL("resources.html", root), "utf8");
 
 test("the second white paper is published without a coming-soon state", () => {
-  assert.match(paper, /<h1>How to build a commercial system for your pipeline<\/h1>/);
+  assert.match(paper, /<title>One commercial record, from supplier choice to financial close \| Ignis<\/title>/);
+  assert.match(paper, /property="og:title" content="One commercial record, from supplier choice to financial close \| Ignis"/);
+  assert.match(paper, /"headline":"One commercial record, from supplier choice to financial close"/);
+  assert.match(paper, /<h1>One commercial record, from supplier choice to financial close<\/h1>/);
+  assert.match(paper, /rel="canonical" href="https:\/\/www\.ignisleadership\.com\/resources\/commercial-system-for-your-pipeline"/);
   assert.match(paper, /data-header="light"/);
   assert.match(paper, /<time datetime="2026-10">October 2026<\/time>/);
   assert.match(paper, /id="abstract"|id="article"/);
