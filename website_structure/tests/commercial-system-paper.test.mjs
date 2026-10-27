@@ -4,10 +4,14 @@ import {readFileSync} from "node:fs";
 
 const root = new URL("../", import.meta.url);
 const paper = readFileSync(new URL("resources/commercial-system-for-your-pipeline.html", root), "utf8");
-const listing = readFileSync(new URL("white-papers.html", root), "utf8");
+const listing = readFileSync(new URL("resources.html", root), "utf8");
 
 test("the second white paper is published without a coming-soon state", () => {
-  assert.match(paper, /<h1>How to build a commercial system for your pipeline<\/h1>/);
+  assert.match(paper, /<title>One commercial record, from supplier choice to financial close \| Ignis<\/title>/);
+  assert.match(paper, /property="og:title" content="One commercial record, from supplier choice to financial close \| Ignis"/);
+  assert.match(paper, /"headline":"One commercial record, from supplier choice to financial close"/);
+  assert.match(paper, /<h1>One commercial record, from supplier choice to financial close<\/h1>/);
+  assert.match(paper, /rel="canonical" href="https:\/\/www\.ignisleadership\.com\/resources\/commercial-system-for-your-pipeline"/);
   assert.match(paper, /data-header="light"/);
   assert.match(paper, /<time datetime="2026-10">October 2026<\/time>/);
   assert.match(paper, /id="abstract"|id="article"/);
@@ -34,7 +38,7 @@ test("the second white paper is published without a coming-soon state", () => {
   assert.doesNotMatch(paper, /name, work email, company/);
   assert.doesNotMatch(paper, /FORGE|Forge|Coming soon/);
   assert.match(listing, /href="\/resources\/commercial-system-for-your-pipeline"/);
-  assert.match(listing, /whitepaper-commercial-system\.webp/);
+  assert.match(listing, /resource-book-commercial-system\.webp/);
   assert.doesNotMatch(listing, /Coming soon|is-soon|whitepaper-commercial-system-coming-soon/);
   const prose = paper
     .slice(paper.indexOf('<div class="art">'), paper.indexOf('<section class="sources"'))

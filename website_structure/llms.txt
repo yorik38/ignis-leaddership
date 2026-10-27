@@ -26,10 +26,13 @@ Commercial and transformation leaders who want to redesign existing work or deve
 - [Governed agentic system brochure](https://www.ignisleadership.com/assets/downloads/ignis-governed-agentic-system-brochure.pdf): a free, ungated overview of how people, agents, knowledge and controls work together across bids and tenders.
 
 
-## White papers
+## Research
 
-- [White papers](https://www.ignisleadership.com/white-papers): analysis on taking energy projects from last-mile development to financial close.
+- [Research](https://www.ignisleadership.com/resources): guides, white papers and monthly reports on taking energy projects from early stage development to financial close.
+- [Agentic transformation for energy developers](https://www.ignisleadership.com/resources/agentic-transformation-for-energy-developers): a practical guide to introducing agents at onshore and offshore developers in the UK and Europe, from early stage development to financial close. Free PDF with an email.
 - [Bids are now won on evidence, not hours](https://www.ignisleadership.com/resources/bids-won-on-evidence): why the bid desk, not the pipeline, has become the constraint for UK solar and battery IPPs, and how an agent-supported workflow lets a senior team bid more rounds with the people it has.
+- [One commercial record, from supplier choice to financial close](https://www.ignisleadership.com/resources/commercial-system-for-your-pipeline): why supplier comparison, contract terms and the close file have to be one record, so the next project starts where the last one finished.
+- [Ignis Market Monitor: October 2026](https://www.ignisleadership.com/reports/market-monitor-2026-10): GB power, European offshore wind and the UK onshore last mile, what moved this month and what is due next.
 
 ## Practical insights
 

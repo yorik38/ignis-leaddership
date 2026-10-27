@@ -2,16 +2,24 @@ const {protectForm} = require("./_lib/protect");
 const {
   PAPER_SUBSCRIPTION_TYPE_ID,
   submitWithFallback,
+  submitHubspotForm,
   contextFor,
   signalConsent,
   buildSignalFields,
   signalFormId,
   SIGNAL_EXTRA_FIELDS,
   DOWNLOAD_EXTRA_FIELDS,
-  acquisitionSourceFromPage
+  acquisitionSourceFromPage,
+  knownContentSource
 } = require("./_lib/hubspot");
 
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+// One shared HubSpot download form can record any resource that has no form of its own.
+// Its hidden fields should be email, resource, content_source and acquisition_source.
+function sharedDownloadFormId() {
+  return String(process.env.HUBSPOT_RESOURCE_DOWNLOAD_FORM_ID || "").trim();
+}
 
 function papers() {
   return {
@@ -32,8 +40,19 @@ function papers() {
       pdf: "/assets/downloads/ignis-market-monitor-2026-10.pdf",
       contentSource: "market-monitor-2026-10",
       pageName: "Ignis Market Monitor: October 2026",
+      formEnv: "HUBSPOT_MARKET_MONITOR_FORM_ID",
       deliverWithoutForm: true,
       separateSignalOptIn: true
+    },
+    "agentic-transformation-for-energy-developers": {
+      formId: String(process.env.HUBSPOT_AGENTIC_GUIDE_FORM_ID || "").trim(),
+      pdf: "/assets/downloads/ignis-guide-agentic-transformation-for-energy-developers.pdf",
+      contentSource: "guide-agentic-transformation",
+      pageName: "Ignis guide: Agentic transformation for energy developers",
+      formEnv: "HUBSPOT_AGENTIC_GUIDE_FORM_ID",
+      deliverWithoutForm: true,
+      separateSignalOptIn: true,
+      kind: "guide"
     }
   };
 }
@@ -50,15 +69,21 @@ function checked(value) {
 }
 
 function downloadFields(body, resource, contentSource, pageUrl) {
-  return [
+  const fields = [
     {name: "email", value: String(body.email || "").trim().toLowerCase()},
-    {name: "resource", value: resource},
-    {name: "content_source", value: contentSource},
-    {name: "acquisition_source", value: acquisitionSourceFromPage(pageUrl, body.acquisition_source || body.source)}
+    {name: "resource", value: resource}
   ];
+  // content_source is a HubSpot dropdown: only send values that exist there, so an unknown
+  // value never costs us the other fields. The free text resource field always names the paper.
+  if (knownContentSource(contentSource)) fields.push({name: "content_source", value: contentSource});
+  fields.push({name: "acquisition_source", value: acquisitionSourceFromPage(pageUrl, body.acquisition_source || body.source)});
+  return fields;
 }
 
-function deliveryConsentText(resource) {
+function deliveryConsentText(resource, paper) {
+  if (paper && paper.kind === "guide") {
+    return "Email me the guide I requested. This is only for this guide, not the Signal newsletter.";
+  }
   if (String(resource).startsWith("market-monitor")) {
     return "Email me the report I requested. This is only for this report, not the Signal newsletter.";
   }
@@ -84,7 +109,10 @@ module.exports = async function whitepaper(request, response) {
   const email = String(body.email || "").trim().toLowerCase();
   const resource = String(body.resource || "").trim();
   const catalogue = papers();
-  const paper = Object.prototype.hasOwnProperty.call(catalogue, resource) ? catalogue[resource] : undefined;
+  const listed = Object.prototype.hasOwnProperty.call(catalogue, resource) ? catalogue[resource] : undefined;
+  const paper = listed && !listed.formId && sharedDownloadFormId()
+    ? {...listed, formId: sharedDownloadFormId()}
+    : listed;
   if (!EMAIL_PATTERN.test(email) || !paper) {
     return send(response, 422, {ok: false, error: "Enter a valid work email."});
   }
@@ -93,7 +121,7 @@ module.exports = async function whitepaper(request, response) {
   const communications = [{
     value: true,
     subscriptionTypeId: PAPER_SUBSCRIPTION_TYPE_ID,
-    text: deliveryConsentText(resource)
+    text: deliveryConsentText(resource, paper)
   }];
 
   const context = contextFor(
@@ -104,21 +132,33 @@ module.exports = async function whitepaper(request, response) {
   );
   const fields = downloadFields(body, resource, paper.contentSource, context.pageUri);
 
-  async function submitSignalOptIn() {
+  async function submitSignalOptIn(tagResource) {
     if (!signalOptIn) return true;
+    const payload = {
+      submittedAt: Date.now(),
+      fields: buildSignalFields({
+        email,
+        contentSource: paper.contentSource,
+        pageUrl: context.pageUri
+      }),
+      context: {...context, pageName: `Signal signup from ${resource}`},
+      legalConsentOptions: {
+        consent: signalConsent()
+      }
+    };
     try {
-      await submitWithFallback(signalFormId(), {
-        submittedAt: Date.now(),
-        fields: buildSignalFields({
-          email,
-          contentSource: paper.contentSource,
-          pageUrl: context.pageUri
-        }),
-        context: {...context, pageName: `Signal signup from ${resource}`},
-        legalConsentOptions: {
-          consent: signalConsent()
+      if (tagResource) {
+        // With no download form, this is the only record of the request, so name the resource.
+        // If HubSpot refuses the extra field, fall back to the usual Signal submission.
+        try {
+          await submitHubspotForm(signalFormId(), {...payload, fields: [...payload.fields, {name: "resource", value: resource}]});
+          return true;
+        } catch (error) {
+          if (error && error.captcha) throw error;
+          console.error("HubSpot rejected the resource field on the Signal form; retrying without it", error && error.message);
         }
-      }, SIGNAL_EXTRA_FIELDS);
+      }
+      await submitWithFallback(signalFormId(), payload, SIGNAL_EXTRA_FIELDS);
       return true;
     } catch (error) {
       console.error("HubSpot Signal opt-in submission error", error && error.message, error && error.detail);
@@ -130,8 +170,8 @@ module.exports = async function whitepaper(request, response) {
     if (!paper.deliverWithoutForm) {
       return send(response, 422, {ok: false, error: "Enter your email and confirm that we may send the paper."});
     }
-    console.warn(`HUBSPOT_MARKET_MONITOR_FORM_ID is not set; delivering ${resource} without a HubSpot form submission.`);
-    const signalSaved = await submitSignalOptIn();
+    console.warn(`${paper.formEnv || "The HubSpot download form ID"} is not set (nor HUBSPOT_RESOURCE_DOWNLOAD_FORM_ID); delivering ${resource} without a HubSpot form submission.`);
+    const signalSaved = await submitSignalOptIn(true);
     return send(response, 200, {
       ok: true,
       pdf: paper.pdf,
@@ -148,9 +188,11 @@ module.exports = async function whitepaper(request, response) {
       legalConsentOptions: {
         consent: {
           consentToProcess: true,
-          text: resource.startsWith("market-monitor")
-            ? "Ignis Leadership may use my email address to send the report I requested."
-            : "Ignis Leadership may use my email address to deliver the requested white paper.",
+          text: paper.kind === "guide"
+            ? "Ignis Leadership may use my email address to deliver the requested guide."
+            : resource.startsWith("market-monitor")
+              ? "Ignis Leadership may use my email address to send the report I requested."
+              : "Ignis Leadership may use my email address to deliver the requested white paper.",
           communications
         }
       }

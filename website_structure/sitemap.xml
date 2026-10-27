@@ -67,10 +67,16 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.ignisleadership.com/white-papers</loc>
-    <lastmod>2026-10-17</lastmod>
+    <loc>https://www.ignisleadership.com/resources</loc>
+    <lastmod>2026-10-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.ignisleadership.com/resources/agentic-transformation-for-energy-developers</loc>
+    <lastmod>2026-10-27</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.9</priority>
   </url>
   <url>
     <loc>https://www.ignisleadership.com/resources/bids-won-on-evidence</loc>
@@ -83,12 +89,6 @@
     <lastmod>2026-10-17</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://www.ignisleadership.com/reports</loc>
-    <lastmod>2026-10-21</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
   </url>
   <url>
     <loc>https://www.ignisleadership.com/reports/market-monitor-2026-10</loc>

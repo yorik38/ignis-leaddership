@@ -54,26 +54,20 @@ test('Homepage holds only the concise founder overview, not the logos strip', ()
   assert.match(home, /Product demo: add a section here when a look at the work is ready/);
 });
 
-test('white paper cards alternate a large figure and show the month and year', () => {
-  const listing = read('white-papers.html');
+test('white paper cards on the Research hub show a type tag, a cover and one call to action', () => {
+  const listing = read('resources.html');
   const article = read('resources/bids-won-on-evidence.html');
-  const css = read('assets/whitepaper.css');
-  const list = listing.slice(listing.indexOf('class="wp-index-list"'), listing.indexOf('close-call'));
-  assert.match(list, /<a class="wp-report" href="\/resources\/bids-won-on-evidence">/);
-  assert.match(list, /<a class="wp-report" href="\/resources\/commercial-system-for-your-pipeline">/);
-  assert.equal((list.match(/<a class="wp-report"/g) || []).length, 2);
-  assert.match(list, /<time datetime="2026-10">October 2026<\/time>/);
-  assert.doesNotMatch(list, /17 October 2026/);
+  const css = read('assets/resource-cards.css');
+  const list = listing.slice(listing.indexOf('class="res-grid"'), listing.indexOf('close-call'));
+  assert.match(list, /<a class="res-card" href="\/resources\/bids-won-on-evidence">/);
+  assert.match(list, /<a class="res-card" href="\/resources\/commercial-system-for-your-pipeline">/);
+  assert.equal((list.match(/<span class="res-type">White paper<\/span>/g) || []).length, 2);
+  assert.equal((list.match(/class="res-card-read"/g) || []).length, 3);
   assert.match(list, /Read the paper/);
-  assert.doesNotMatch(list, /class="wp-report is-soon"|Coming soon/);
-  assert.match(css, /\.whitepapers-page \.wp-report:nth-child\(odd\) \.wp-report-media\{order:2\}/);
-  assert.match(css, /\.whitepapers-page \.wp-report-media\{[^}]*aspect-ratio:4\/3/);
-  assert.match(css, /--wp-rail-gap:clamp\(1rem,2vw,2rem\);--wp-rail-pad:clamp\(2\.25rem,5vw,3\.75rem\)/);
-  assert.match(css, /#white-papers-title\) \.wp-report\{[^}]*grid-template-columns:minmax\(0,1\.1fr\) minmax\(0,\.9fr\)/);
-  assert.match(css, /#white-papers-title\) \.wp-report:nth-child\(even\)\{grid-template-columns:minmax\(0,\.9fr\) minmax\(0,1\.1fr\)\}/);
-  assert.match(css, /#white-papers-title\) \.wp-report-media img\{[^}]*object-fit:contain/);
-  assert.doesNotMatch(css, /\.whitepapers-page \.wp-report\{[^}]*background:#f3f5f4/);
-  assert.match(css, /@media\(max-width:800px\)\{[\s\S]*?\.wp-report:nth-child\(odd\) \.wp-report-media,\.whitepapers-page \.wp-report:nth-child\(even\) \.wp-report-media\{order:0\}/);
+  assert.doesNotMatch(list, /is-soon|Coming soon/);
+  assert.match(css, /\.res-card-media\{[^}]*aspect-ratio:4\/3/);
+  assert.match(css, /\.res-grid\{display:grid;grid-template-columns:repeat\(3,minmax\(0,1fr\)\)/);
+  assert.match(css, /@media\(max-width:800px\)\{[\s\S]*?\.res-grid\{grid-template-columns:1fr/);
   assert.match(article, /<time datetime="2026-10">October 2026<\/time>/);
   assert.doesNotMatch(article, /17 October 2026/);
 });
