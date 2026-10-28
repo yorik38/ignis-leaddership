@@ -115,8 +115,10 @@
     var low = card.getAttribute("data-band-low") || "Start with the bid or no-bid gate";
     var mid = card.getAttribute("data-band-mid") || "Fix the gaps first";
     var high = card.getAttribute("data-band-high") || "Ready to scale";
-    label.textContent = ticked >= 7 ? high : ticked >= 4 ? mid : low;
-    card.dataset.band = ticked >= 7 ? "g" : ticked >= 4 ? "a" : "r";
+    var highAt = Number(card.getAttribute("data-high-at") || 7);
+    var midAt = Number(card.getAttribute("data-mid-at") || 4);
+    label.textContent = ticked >= highAt ? high : ticked >= midAt ? mid : low;
+    card.dataset.band = ticked >= highAt ? "g" : ticked >= midAt ? "a" : "r";
   }
 
   boxes.forEach(function (box) {

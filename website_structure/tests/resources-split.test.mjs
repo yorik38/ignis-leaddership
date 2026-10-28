@@ -74,10 +74,10 @@ test('Research is one hub at /resources, with a type tag on every card', () => {
   const cards = [...grid.matchAll(/<a class="res-card" href="([^"]+)">[\s\S]*?<span class="res-type">([^<]+)<\/span>\s*<h3>([^<]+)<\/h3>\s*<p>([^<]+)<\/p>\s*<span class="res-card-read">/g)];
   assert.deepEqual(cards.map((card) => [card[1], card[2], card[3]]), [
     ['/reports/market-monitor-2026-10', 'Report', 'Market Monitor, October 2026'],
-    ['/resources/commercial-system-for-your-pipeline', 'White paper', 'One commercial record from grid offer to close'],
-    ['/resources/bids-won-on-evidence', 'White paper', 'Enter more bid rounds without hiring'],
+    ['/resources/procurement', 'White paper', 'Procurement without the pauses'],
+    ['/resources/route-to-market', 'White paper', 'Choose your route to market, then win it'],
   ]);
-  for (const card of cards) assert.ok(card[4].length <= 110, `one line promise: ${card[4]}`);
+  for (const card of cards) assert.ok(card[4].length <= 120, `one line promise: ${card[4]}`);
   assert.equal((hub.match(/class="res-card-media"/g) || []).length, 3);
   assert.doesNotMatch(hub, /[\u2013\u2014]|FORGE|Book a call|£/);
   assert.match(hub, />Talk it through</);
@@ -117,12 +117,14 @@ test('Resources navigation and canonical routes point to the Research hub', () =
   for (const source of ['/reports', '/reports.html', '/white-papers', '/white-papers.html', '/guides', '/guides/:path*',
     '/resources/ai-augmented-bid-practice', '/resources/bid-agent-maturity', '/resources/choose-first-ai-bid-use-case',
     '/rfp-software-vs-agentic-bid-system']) assert.equal(to(source), '/resources', source);
-  assert.equal(to('/resources/guide-01-bids'), '/resources/bids-won-on-evidence');
+  assert.equal(to('/resources/guide-01-bids'), '/resources/route-to-market');
+  assert.equal(to('/resources/bids-won-on-evidence'), '/resources/route-to-market');
+  assert.equal(to('/resources/commercial-system-for-your-pipeline'), '/resources/procurement');
   const catchAll = redirects.findIndex((rule) => rule.source === '/:path*.html');
   for (const source of ['/reports.html', '/white-papers.html']) {
     assert.ok(redirects.findIndex((rule) => rule.source === source) < catchAll, `${source} must win over the .html catch-all`);
   }
-  assert.ok(!redirects.some((rule) => /^\/reports\/|^\/resources\/(bids-won|commercial-system|agentic)/.test(rule.source)), 'item URLs keep working');
+  assert.ok(!redirects.some((rule) => /^\/reports\/|^\/resources\/agentic/.test(rule.source)), 'live item URLs keep working');
 });
 
 test('Research hub loads shared chrome after the legacy page styles', () => {
@@ -170,6 +172,8 @@ test('every paper and report download is gated by email with an unticked Signal 
     ['resources/agentic-transformation-for-energy-developers.html', 'agentic-transformation-for-energy-developers'],
     ['resources/bids-won-on-evidence.html', 'bids-won-on-evidence'],
     ['resources/commercial-system-for-your-pipeline.html', 'commercial-system-pipeline'],
+    ['resources/route-to-market.html', 'route-to-market'],
+    ['resources/procurement.html', 'procurement'],
     ['reports/market-monitor-2026-10.html', 'market-monitor-2026-10'],
   ]) {
     const page = read(path);
@@ -180,4 +184,14 @@ test('every paper and report download is gated by email with an unticked Signal 
     assert.match(page, /name="email"[^>]*required/);
     assert.match(page, /<input type="checkbox" name="signal_opt_in" value="true">/);
   }
+  for (const file of [
+    'resources.html',
+    'resources/agentic-transformation-for-energy-developers.html',
+    'resources/route-to-market.html',
+    'resources/procurement.html',
+  ]) {
+    assert.doesNotMatch(read(file), /Illustrative|a few thousand pounds|id="sources"|FORGE/, file);
+  }
+  assert.match(read('resources/route-to-market.html'), /discovery and gap review/);
+  assert.match(read('resources/procurement.html'), /The price stays open until we have seen the work/);
 });

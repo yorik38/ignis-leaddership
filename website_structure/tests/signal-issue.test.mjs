@@ -28,8 +28,8 @@ test("Signal Issue 1 ends with continue reading, the call, then the shared signu
     'Weekly UK and European energy market insight. If you like it, sign up and get it straight into your mailbox every week.',
     'action="/api/subscribe"',
     'id="continue-reading-title">Continue reading',
-    'href="/resources/bids-won-on-evidence"',
-    'href="/resources/commercial-system-for-your-pipeline"',
+    'href="/resources/route-to-market"',
+    'href="/resources/procurement"',
     'id="close-call-title">Got a project heading for financial close?',
     'class="button button-teal" href="/contact">Book a call',
     '<footer class="site-footer">'
@@ -78,7 +78,7 @@ test("Signal Issue 2 publishes the approved Gate 2 article", () => {
     'action="/api/subscribe"',
     'id="continue-reading-title">Continue reading',
     'href="/insights/ao10-france-has-put-a-price-on-proof"',
-    'href="/resources/commercial-system-for-your-pipeline"',
+    'href="/resources/procurement"',
     'id="close-call-title">Got a project heading for financial close?',
     'class="button button-teal" href="/contact">Book a call',
     '<footer class="site-footer">'
@@ -91,7 +91,7 @@ test("Signal Issue 2 publishes the approved Gate 2 article", () => {
   assert.match(reading, /signal-ao10-cover\.png\?v=2" alt="Signal Issue 1 cover: AO10 bids submitted: why proof, not price, will decide France's offshore wind round, with the Channel, Brittany, South Atlantic and Mediterranean awards mapped on France\."/);
   assert.match(reading, /<span class="continue-card-kicker">Signal · Issue 1<\/span><strong>AO10 bids submitted: why proof, not price, will decide France's offshore wind round<\/strong>/);
   assert.match(reading, /AO10 turns the credibility of a French offshore wind bid into points, and those points translate almost one for one into euros per MWh for developers\./);
-  assert.match(reading, /<span class="continue-card-kicker">White paper<\/span><strong>One commercial record from grid offer to close<\/strong>/);
+  assert.match(reading, /<span class="continue-card-kicker">White paper<\/span><strong>Procurement without the pauses<\/strong>/);
   assert.doesNotMatch(reading, /bids-won-on-evidence|Bids are now won on evidence/);
   assert.equal((gate.match(/class="continue-card"/g) || []).length, 2);
   assert.match(gate, /class="signal-signup-form"[^>]*data-community-form/);

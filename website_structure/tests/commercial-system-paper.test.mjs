@@ -37,8 +37,9 @@ test("the second white paper is published without a coming-soon state", () => {
   assert.match(paper, /name="content_source" value="whitepaper-commercial-system-pipeline"/);
   assert.doesNotMatch(paper, /name, work email, company/);
   assert.doesNotMatch(paper, /FORGE|Forge|Coming soon/);
-  assert.match(listing, /href="\/resources\/commercial-system-for-your-pipeline"/);
-  assert.match(listing, /resource-book-commercial-system\.webp/);
+  assert.match(listing, /href="\/resources\/procurement"/);
+  assert.match(listing, /resource-book-procurement\.webp/);
+  assert.doesNotMatch(listing, /href="\/resources\/commercial-system-for-your-pipeline"/);
   assert.doesNotMatch(listing, /Coming soon|is-soon|whitepaper-commercial-system-coming-soon/);
   const prose = paper
     .slice(paper.indexOf('<div class="art">'), paper.indexOf('<section class="sources"'))
