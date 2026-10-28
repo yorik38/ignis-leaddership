@@ -185,6 +185,10 @@
 }
 
 /* Line the contents sidebar up with the nav logo. The article column keeps its width. */
+.whitepaper .pair-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.whitepaper .pair-grid .kf-c:last-child{grid-column:auto;background:#fff;border-color:var(--line)}
+@media screen and (max-width:760px){.whitepaper .pair-grid{grid-template-columns:1fr}}
+
 @media screen and (min-width:1061px){
   .whitepaper .wp-layout{
     width:100%;

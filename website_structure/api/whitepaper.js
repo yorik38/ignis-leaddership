@@ -35,6 +35,19 @@ function papers() {
       contentSource: "whitepaper-commercial-system-pipeline",
       pageName: "Ignis white paper: commercial-system-pipeline"
     },
+    // Replacements keep the existing HubSpot forms and content_source values.
+    "route-to-market": {
+      formId: "9b783156-b16d-443a-bc80-51bab3411670",
+      pdf: "/assets/downloads/ignis-route-to-market.pdf",
+      contentSource: "whitepaper-bids-won-on-evidence",
+      pageName: "Ignis white paper: route-to-market"
+    },
+    "procurement": {
+      formId: "5b3bb573-2ca5-47cc-8bc0-3e8b0f4023d5",
+      pdf: "/assets/downloads/ignis-procurement.pdf",
+      contentSource: "whitepaper-commercial-system-pipeline",
+      pageName: "Ignis white paper: procurement"
+    },
     "market-monitor-2026-10": {
       formId: String(process.env.HUBSPOT_MARKET_MONITOR_FORM_ID || "").trim(),
       pdf: "/assets/downloads/ignis-market-monitor-2026-10.pdf",

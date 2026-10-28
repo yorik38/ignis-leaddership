@@ -57,9 +57,9 @@ test("both paper gates route by resource and never infer Signal consent", async 
     return {ok: true};
   };
   try {
-    for (const [resource, formId, pdf] of [
-      ["bids-won-on-evidence", "9b783156-b16d-443a-bc80-51bab3411670", "/assets/downloads/guide-01-bids-whitepaper.pdf"],
-      ["commercial-system-pipeline", "5b3bb573-2ca5-47cc-8bc0-3e8b0f4023d5", "/assets/downloads/ignis-white-paper-commercial-system-pipeline.pdf"]
+    for (const [resource, formId, pdf, contentSource] of [
+      ["bids-won-on-evidence", "9b783156-b16d-443a-bc80-51bab3411670", "/assets/downloads/guide-01-bids-whitepaper.pdf", "whitepaper-bids-won-on-evidence"],
+      ["commercial-system-pipeline", "5b3bb573-2ca5-47cc-8bc0-3e8b0f4023d5", "/assets/downloads/ignis-white-paper-commercial-system-pipeline.pdf", "whitepaper-commercial-system-pipeline"]
     ]) {
       const result = response();
       await whitepaper({method: "POST", body: {email: "test@example.com", resource, paper_email_consent: "true", form_started_at: Date.now() - 10000}, headers: {}}, result);
@@ -71,7 +71,7 @@ test("both paper gates route by resource and never infer Signal consent", async 
       const fields = Object.fromEntries(request.payload.fields.map((field) => [field.name, field.value]));
       assert.equal(fields.email, "test@example.com");
       assert.equal(fields.resource, resource);
-      assert.equal(fields.content_source, resource === "bids-won-on-evidence" ? "whitepaper-bids-won-on-evidence" : "whitepaper-commercial-system-pipeline");
+      assert.equal(fields.content_source, contentSource);
       assert.equal(fields.acquisition_source, "website");
       assert.deepEqual(request.payload.legalConsentOptions.consent.communications.map(item => item.subscriptionTypeId), [3918058120]);
     }
@@ -108,10 +108,30 @@ test("both paper gates route by resource and never infer Signal consent", async 
   }
 });
 
+test("the replacement papers use the existing download forms and new PDFs", async () => {
+  const originalFetch = global.fetch;
+  global.fetch = async () => ({ok: true});
+  try {
+    for (const [resource, pdf] of [
+      ["route-to-market", "/assets/downloads/ignis-route-to-market.pdf"],
+      ["procurement", "/assets/downloads/ignis-procurement.pdf"]
+    ]) {
+      const result = response();
+      await whitepaper({method: "POST", body: {email: "test@example.com", resource, form_started_at: Date.now() - 10000}, headers: {"x-forwarded-for": "203.0.113.44"}}, result);
+      assert.equal(result.statusCode, 200);
+      assert.equal(result.body.pdf, pdf);
+    }
+  } finally {
+    global.fetch = originalFetch;
+  }
+});
+
 test("paper forms and visible Signal signups are connected", () => {
   const bids = readFileSync(join(root, "resources/bids-won-on-evidence.html"), "utf8");
   const pipeline = readFileSync(join(root, "resources/commercial-system-for-your-pipeline.html"), "utf8");
-  for (const html of [bids, pipeline]) {
+  const route = readFileSync(join(root, "resources/route-to-market.html"), "utf8");
+  const procurement = readFileSync(join(root, "resources/procurement.html"), "utf8");
+  for (const html of [bids, pipeline, route, procurement]) {
     const gate = html.slice(html.indexOf('id="hubspot-whitepaper-form"'), html.indexOf('id="whitepaper-download"'));
     assert.match(html, /data-whitepaper-form/);
     assert.doesNotMatch(gate, /name="paper_email_consent"/);

@@ -59,8 +59,8 @@ test('white paper cards on the Research hub show a type tag, a cover and one cal
   const article = read('resources/bids-won-on-evidence.html');
   const css = read('assets/resource-cards.css');
   const list = listing.slice(listing.indexOf('class="res-grid"'), listing.indexOf('close-call'));
-  assert.match(list, /<a class="res-card" href="\/resources\/bids-won-on-evidence">/);
-  assert.match(list, /<a class="res-card" href="\/resources\/commercial-system-for-your-pipeline">/);
+  assert.match(list, /<a class="res-card" href="\/resources\/route-to-market">/);
+  assert.match(list, /<a class="res-card" href="\/resources\/procurement">/);
   assert.equal((list.match(/<span class="res-type">White paper<\/span>/g) || []).length, 2);
   assert.equal((list.match(/class="res-card-read"/g) || []).length, 3);
   assert.match(list, /Read the paper/);

@@ -102,7 +102,17 @@
     },
     {
       "source": "/resources/guide-01-bids",
-      "destination": "/resources/bids-won-on-evidence",
+      "destination": "/resources/route-to-market",
+      "permanent": true
+    },
+    {
+      "source": "/resources/bids-won-on-evidence",
+      "destination": "/resources/route-to-market",
+      "permanent": true
+    },
+    {
+      "source": "/resources/commercial-system-for-your-pipeline",
+      "destination": "/resources/procurement",
       "permanent": true
     },
     {
