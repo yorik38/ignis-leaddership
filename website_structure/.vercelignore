@@ -1,0 +1,40 @@
+# Internal working files stay in the repository for editing and tests.
+# Vercel does not upload matching paths, so they are not served on the
+# public site. Patterns follow .gitignore rules and are relative to
+# website_structure/, which is the deployment root.
+
+# Notes, setup docs and strategy briefs
+*.md
+
+# Backups
+_backup/
+*.bak
+
+# Strategy and audit documents, including Word lock files
+*.docx
+seo-audit/
+
+# Scratch design export
+Claude outputs/
+
+# Chrome sync script and the partials it copies into pages.
+# Live HTML already contains the synced header, footer and signup markup.
+scripts/
+partials/
+
+# Test suite
+tests/
+
+# Local editor config and Finder metadata
+.claude/
+.DS_Store
+
+# Old root stylesheet. Pages load /assets/style.css.
+/style.css
+
+# Logo and picture masters that no page references
+assets/Ignis logo (Logo)-3/
+assets/BYES_logo_rvb-1.png
+assets/bouygues_uk-colour-logo-a0-p-e1717078325841.png
+assets/bp-helios-card-2x1.webp.avif
+assets/images.jpeg
