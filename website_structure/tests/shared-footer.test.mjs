@@ -62,9 +62,9 @@ test("every page ends with the homepage call, the shared signup, then the shared
     count++;
     const call = html.indexOf('id="close-call-title">Got a project heading for financial close?');
     const bookLabel = file.endsWith("/contact.html")
-      ? 'class="button button-teal" href="https://calendly.com/yorik-tisseau-tmff/commercial-decision-call" data-calendly-link>Book a call'
-      : 'class="button button-teal" href="/contact">Book a call';
-    const book = html.indexOf(bookLabel);
+      ? 'class="button button-teal" href="https://calendly.com/yorik-tisseau-tmff/commercial-decision-call" data-calendly-link>Get in touch'
+      : 'class="button button-teal" href="/contact">Get in touch';
+    const book = html.indexOf(bookLabel, call);
     const footer = html.indexOf('<footer class="site-footer">');
     assert.equal(html.split('id="close-call-title"').length - 1, 1, `CTA count: ${file}`);
     if (file.endsWith("resources/agentic-transformation-for-energy-developers.html")) {

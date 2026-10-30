@@ -81,20 +81,20 @@ test("the homepage states one offer, the audiences, and a quiet demo slot", () =
   const routes = home.indexOf('id="routes"');
   const founder = home.indexOf("founder-overview");
   assert.ok(gates >= 0 && who > gates && routes > who && founder > routes);
-  assert.match(home, /Who Ignis works with/);
+  assert.match(home, /Who Ignis Leadership works with/);
   assert.match(home, /href="\/services#onshore"/);
   assert.match(home, /href="\/services#offshore"/);
-  assert.match(home, /One governed system, from grid offer to close\./);
+  assert.match(home, /One governed system, from grid offer to financial close\./);
   assert.match(home, /Product demo: add a section here when a look at the work is ready/);
   assert.doesNotMatch(home, /id="product-demo"|Demo coming soon|A look at the work, when the demo is ready/);
   assert.match(home, /Testimonials: add a quote band here/);
   assert.doesNotMatch(home, /href="\/commercial-ai-adoption"|href="\/commercial-transformation"/);
   assert.doesNotMatch(home, /FORGE|Forge/);
   assert.match(home, /<h1><span class="hero-line">Close <span class="gradient-word">more<\/span><\/span> <span class="hero-line"><span class="gradient-word">projects<\/span>, faster\.<\/span><\/h1>/);
-  assert.match(home, /<p class="hero-support">Ignis helps energy developers win the right to develop and move projects to financial close, with fewer delays, fewer surprises and stronger terms\.<\/p>/);
-  assert.match(home, /<p class="project-journey-quiet value-proposition-path">Ignis helps energy developers redesign their commercial function for the agentic era: clearer decisions, faster bids and tenders, and fewer surprises on the way to financial close\.<\/p><p class="project-journey-quiet value-proposition-path">AI agents can already do the research, analysis and production\. The real gain is freeing your team to move projects, and that needs a commercial system that holds your memory, context and IP\. That's what we help you build\.<\/p>/);
+  assert.match(home, /<p class="hero-support">Ignis Leadership helps renewable energy developers win the right to develop and move projects through tenders and procurement to financial close, with fewer delays, fewer surprises and stronger terms\.<\/p>/);
+  assert.match(home, /<p class="project-journey-quiet value-proposition-path">Ignis helps renewable energy developers redesign their commercial function for agentic AI: clearer decisions, faster bids and tenders, and fewer surprises on the way to financial close\.<\/p><p class="project-journey-quiet value-proposition-path">AI agents can already do the research, analysis and production\. The real gain is freeing your team to move projects, and that needs a commercial system that holds your memory, context and IP\. That's what we help you build\.<\/p>/);
   assert.doesNotMatch(home, /move their pipeline from last-mile development to financial close/);
-  assert.match(home, /For fund-backed developers who need to move more projects to financial close, faster\./);
+  assert.match(home, /For fund-backed renewable energy developers who need to move more projects to financial close, faster\./);
   assert.doesNotMatch(home, /Fund-backed developers carrying a live project from the next gate to financial close/);
 });
 
@@ -162,6 +162,6 @@ test("audience FAQs are answer-first and match their FAQPage data", () => {
   }
   assert.match(home, /Got a project heading for financial close\?/);
   assert.match(home, /Let’s map where your commercial flow slows down, and what Ignis would change\./);
-  assert.match(home, /class="button button-teal" href="\/contact">Book a call<\/a>/);
+  assert.match(home, /class="button button-teal" href="\/contact">Get in touch<\/a>/);
   assert.doesNotMatch(home, /Turn AI ambition into|commercial advantage/);
 });

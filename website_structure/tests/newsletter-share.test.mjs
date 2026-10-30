@@ -13,7 +13,7 @@ const vercel = JSON.parse(readFileSync(join(site, 'vercel.json'), 'utf8'));
 const { signupPlacement } = extractPlacement();
 
 const title = "Signal: What's moving in energy this week, and the commercial take.";
-const description = 'A weekly read on auctions, policy, deals and supply chains, seen through a commercial lens, for renewable developers, IPPs and offshore wind teams.';
+const description = 'A weekly read on auctions, policy, deals and supply chains, seen through a commercial lens, for renewable energy developers and offshore wind teams.';
 const url = 'https://www.ignisleadership.com/newsletter';
 const image = 'https://www.ignisleadership.com/assets/img/signal-share-card-1200x630.png';
 const alt = "Signal. Newsletter. What's moving in energy this week, and the commercial take.";

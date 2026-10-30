@@ -16,7 +16,7 @@ test('working examples replace the stacked workstream panels', () => {
   const examples = home.indexOf('id="working-examples-title"');
   const sprint = home.indexOf('class="band band-paper engagement-offer sprint-journey"');
   assert.ok(comparison >= 0 && examples > comparison && sprint > examples);
-  assert.match(home, /<h2 id="working-examples-title">Across the project life<\/h2>/);
+  assert.match(home, /<h2 id="working-examples-title">Across the project life, from tender to financial close<\/h2>/);
   assert.doesNotMatch(home, /<h2 id="working-examples-title">Working examples<\/h2>/);
   assert.doesNotMatch(home, /class="workstream-panel"|Illustrative workflow/);
   assert.doesNotMatch(home, /FORGE/);
