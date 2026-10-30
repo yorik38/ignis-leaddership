@@ -34,7 +34,7 @@ test("the five-step journey places only the first three steps in the Sprint",()=
   assert.match(css,/\.sprint-journey-steps\{grid-column:1 \/ -1;grid-row:2;display:grid;grid-template-columns:repeat\(5,minmax\(0,1fr\)\)/);
   assert.match(css,/\.sprint-journey-bar\{[^}]*width:calc\(100% \+ var\(--sprint-gap\) \/ 2\)/);
   assert.match(css,/@media\(max-width:700px\)\{[\s\S]*?\.sprint-journey-steps\{display:grid;grid-template-columns:1fr/);
-  assert.match(section,/class="sprint-mobile-range"> · steps 1–3<\/span>/);
+  assert.match(section,/class="sprint-mobile-range"> · steps 1 to 3<\/span>/);
   assert.match(css,/\.sprint-mobile-range\{display:none\}/);
   assert.match(css,/\.sprint-journey-bar \.sprint-mobile-range\{display:inline\}/);
   assert.match(css,/@media\(max-width:700px\)\{[\s\S]*?\.sprint-phase::before\{content:"";[^}]*width:2px/);
