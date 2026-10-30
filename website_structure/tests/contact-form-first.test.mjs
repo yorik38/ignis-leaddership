@@ -25,7 +25,7 @@ test('Contact page embeds the published EU1 HubSpot enquiry form', () => {
   assert.match(contact, /Yorik reads every message personally and replies within 2 working days/);
   assert.match(contact, /Prefer to talk now\? Book a 30-minute call/);
   assert.doesNotMatch(contact, /We’ll use your details only to reply to this enquiry|class="contact-privacy"/);
-  assert.match(contact, /class="button button-teal" href="https:\/\/calendly\.com\/yorik-tisseau-tmff\/commercial-decision-call" data-calendly-link>Book a call<\/a>/);
+  assert.match(contact, /class="button button-teal" href="https:\/\/calendly\.com\/yorik-tisseau-tmff\/commercial-decision-call" data-calendly-link>Get in touch<\/a>/);
   assert.match(contact, /id="hubspot-newsletter-form"/);
   assert.match(contact, /data-community-form/);
   assert.match(contact, /focus\(\{preventScroll:true\}\);thanks\.scrollIntoView\(\{behavior:"smooth",block:"start"\}\)/);

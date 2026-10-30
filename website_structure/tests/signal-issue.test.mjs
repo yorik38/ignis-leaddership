@@ -31,7 +31,7 @@ test("Signal Issue 1 ends with continue reading, the call, then the shared signu
     'href="/resources/route-to-market"',
     'href="/resources/procurement"',
     'id="close-call-title">Got a project heading for financial close?',
-    'class="button button-teal" href="/contact">Book a call',
+    'class="button button-teal" href="/contact">Get in touch',
     '<footer class="site-footer">'
   ]);
   assert.equal((issue.match(/class="continue-card"/g) || []).length, 2);
@@ -80,7 +80,7 @@ test("Signal Issue 2 publishes the approved Gate 2 article", () => {
     'href="/insights/ao10-france-has-put-a-price-on-proof"',
     'href="/resources/procurement"',
     'id="close-call-title">Got a project heading for financial close?',
-    'class="button button-teal" href="/contact">Book a call',
+    'class="button button-teal" href="/contact">Get in touch',
     '<footer class="site-footer">'
   ]);
   const reading = gate.slice(gate.indexOf('class="continue-reading"'), gate.indexOf('class="band band-dark close-call"'));
