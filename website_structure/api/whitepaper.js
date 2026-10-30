@@ -2,7 +2,6 @@ const {protectForm} = require("./_lib/protect");
 const {
   PAPER_SUBSCRIPTION_TYPE_ID,
   submitWithFallback,
-  submitHubspotForm,
   contextFor,
   signalConsent,
   buildSignalFields,
@@ -147,30 +146,25 @@ module.exports = async function whitepaper(request, response) {
 
   async function submitSignalOptIn(tagResource) {
     if (!signalOptIn) return true;
+    const fields = buildSignalFields({
+      email,
+      contentSource: paper.contentSource,
+      pageUrl: context.pageUri,
+      referrer: body.referrer || body.referer,
+      utmSource: body.utm_source
+    });
+    // With no download form, this is the only record of the request, so name the resource.
+    // submitWithFallback drops it only when HubSpot names that field as invalid.
+    if (tagResource) fields.push({name: "resource", value: resource});
     const payload = {
       submittedAt: Date.now(),
-      fields: buildSignalFields({
-        email,
-        contentSource: paper.contentSource,
-        pageUrl: context.pageUri
-      }),
+      fields,
       context: {...context, pageName: `Signal signup from ${resource}`},
       legalConsentOptions: {
         consent: signalConsent()
       }
     };
     try {
-      if (tagResource) {
-        // With no download form, this is the only record of the request, so name the resource.
-        // If HubSpot refuses the extra field, fall back to the usual Signal submission.
-        try {
-          await submitHubspotForm(signalFormId(), {...payload, fields: [...payload.fields, {name: "resource", value: resource}]});
-          return true;
-        } catch (error) {
-          if (error && error.captcha) throw error;
-          console.error("HubSpot rejected the resource field on the Signal form; retrying without it", error && error.message);
-        }
-      }
       await submitWithFallback(signalFormId(), payload, SIGNAL_EXTRA_FIELDS);
       return true;
     } catch (error) {
@@ -211,6 +205,15 @@ module.exports = async function whitepaper(request, response) {
       }
     }, DOWNLOAD_EXTRA_FIELDS);
   } catch (error) {
+    if (error && error.emailRejected) {
+      const blocked = /\b(BLOCKED_EMAIL|INVALID_DOMAIN)\b/.test(String(error.detail || ""));
+      return send(response, 422, {
+        ok: false,
+        error: blocked
+          ? "That email address cannot be used. Try a different one."
+          : "Enter a valid work email."
+      });
+    }
     console.error("HubSpot white paper submission error", error && error.message, error && error.detail);
     return send(response, 502, {ok: false, error: "We could not send your paper just now. Please try again."});
   }

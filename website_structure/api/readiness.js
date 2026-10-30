@@ -1,4 +1,5 @@
-const HUBSPOT_PORTAL_ID = process.env.HUBSPOT_PORTAL_ID || "149324702";
+const {submitHubspotForm} = require("./_lib/hubspot");
+
 const HUBSPOT_FORM_ID = process.env.HUBSPOT_READINESS_FORM_ID || "ed1c58a7-3ca9-498e-aa49-0b70bf1f3c1e";
 const HUBSPOT_SUBSCRIPTION_TYPE_ID = process.env.HUBSPOT_READINESS_SUBSCRIPTION_TYPE_ID || "3723081039";
 
@@ -78,18 +79,14 @@ module.exports = async function readinessHandler(req, res) {
   };
 
   try {
-    const response = await fetch(
-      `https://api.hsforms.com/submissions/v3/integration/submit/${encodeURIComponent(HUBSPOT_PORTAL_ID)}/${encodeURIComponent(HUBSPOT_FORM_ID)}`,
-      { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(submission) }
-    );
-    if (!response.ok) {
-      const detail = (await response.text()).slice(0, 800);
-      console.error("HubSpot readiness submission failed", response.status, detail);
-      return send(res, 502, { ok: false, error: "submission_failed" });
-    }
+    await submitHubspotForm(HUBSPOT_FORM_ID, submission);
     return send(res, 200, { ok: true });
   } catch (error) {
-    console.error("HubSpot readiness submission error", error && error.message);
+    if (error && error.emailRejected) {
+      console.error("HubSpot rejected the readiness email", HUBSPOT_FORM_ID, error.detail);
+      return send(res, 422, { ok: false, error: "invalid_details" });
+    }
+    console.error("HubSpot readiness submission failed", error && error.status, error && error.detail || (error && error.message));
     return send(res, 502, { ok: false, error: "submission_failed" });
   }
 };
