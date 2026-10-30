@@ -242,6 +242,40 @@ describe("form protection", {concurrency: 1}, () => {
     assert.equal(Number(fields.signal_subscribed_date), Date.UTC(today.getUTCFullYear(), today.getUTCMonth(), today.getUTCDate()));
   });
 
+  test("Signal signup keeps LinkedIn campaign parameters on the page URI", async () => {
+    resetProtectionForTests();
+    const result = await post(subscribe, started({
+      email: "ada@example.com",
+      signal_consent: "true",
+      page_url: "https://www.ignisleadership.com/newsletter",
+      utm_source: "linkedin",
+      utm_medium: "social",
+      utm_campaign: "signal-oct"
+    }), {headers: {"x-forwarded-for": "203.0.113.120"}});
+    assert.equal(result.res.statusCode, 200);
+    const payload = JSON.parse(result.calls[0].body);
+    const uri = new URL(payload.context.pageUri);
+    assert.equal(uri.searchParams.get("utm_source"), "linkedin");
+    assert.equal(uri.searchParams.get("utm_medium"), "social");
+    assert.equal(uri.searchParams.get("utm_campaign"), "signal-oct");
+    const fields = Object.fromEntries(payload.fields.map((field) => [field.name, field.value]));
+    assert.equal(fields.signal_source, "linkedin");
+    assert.equal(fields.utm_source, undefined);
+
+    const already = await post(subscribe, started({
+      email: "ada@example.com",
+      signal_consent: "true",
+      page_url: "https://www.ignisleadership.com/newsletter?utm_source=linkedin&utm_medium=social&utm_campaign=signal-oct",
+      utm_source: "email",
+      utm_medium: "newsletter",
+      utm_campaign: "other"
+    }), {headers: {"x-forwarded-for": "203.0.113.121"}});
+    const kept = new URL(JSON.parse(already.calls[0].body).context.pageUri);
+    assert.equal(kept.searchParams.get("utm_source"), "linkedin");
+    assert.equal(kept.searchParams.get("utm_medium"), "social");
+    assert.equal(kept.searchParams.get("utm_campaign"), "signal-oct");
+  });
+
   test("Signal signup works without company or topic", async () => {
     resetProtectionForTests();
     const result = await post(subscribe, started({

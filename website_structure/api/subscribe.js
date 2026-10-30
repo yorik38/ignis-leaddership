@@ -22,6 +22,22 @@ function checked(value) {
   return value === true || value === "true" || value === "on";
 }
 
+function withCampaignPage(body) {
+  const rawPage = String((body && body.page_url) || "").trim();
+  if (!rawPage) return body;
+  let url;
+  try {
+    url = new URL(rawPage, "https://www.ignisleadership.com");
+  } catch (_error) {
+    return body;
+  }
+  for (const name of ["utm_source", "utm_medium", "utm_campaign"]) {
+    const value = clip(body && body[name], 180);
+    if (value && !url.searchParams.get(name)) url.searchParams.set(name, value);
+  }
+  return {...body, page_url: url.toString().slice(0, 500)};
+}
+
 module.exports = async function subscribe(request, response) {
   if (request.method !== "POST") {
     response.setHeader("Allow", "POST");
@@ -50,7 +66,7 @@ module.exports = async function subscribe(request, response) {
   }
   if (!signalConsentGiven) return send(response, 422, {ok: false, error: "Please confirm that you want to receive Signal."});
 
-  const context = contextFor(request, body, "Signal newsletter signup", "https://www.ignisleadership.com/insights");
+  const context = contextFor(request, withCampaignPage(body), "Signal newsletter signup", "https://www.ignisleadership.com/insights");
   const fields = buildSignalFields({
     email,
     firstname,

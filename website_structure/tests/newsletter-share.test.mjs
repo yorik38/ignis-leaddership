@@ -80,8 +80,17 @@ test('Insights and issue covers keep their own share images', () => {
 });
 
 test('a signup on /newsletter is recorded as the newsletter page', () => {
+  const hero = page.indexOf('id="signal-hero-signup-title"');
+  const edition = page.indexOf('class="signal-hero"');
+  const end = page.indexOf('data-signup-placement="newsletter_end"');
+  assert.ok(hero !== -1 && hero < edition && edition < end);
+  assert.match(page, /Weekly insight on agentic AI for energy developers/);
+  assert.match(page, /onshore renewables, offshore wind, the grid and data centres/);
+  assert.doesNotMatch(page, /IPP|FORGE|Book a call|[\u2013\u2014]/);
   const form = page.slice(page.indexOf('class="signal-signup-form"'), page.indexOf('signal-signup-success'));
   assert.match(form, /data-signup-placement="newsletter"/);
+  assert.match(form, /action="\/api\/subscribe"/);
+  assert.match(form, /name="signal_consent"/);
   const element = { dataset: {}, classList: { contains: () => false }, closest: () => null };
   globalThis.window = { location: { pathname: '/newsletter' } };
   assert.equal(signupPlacement(element), 'newsletter');
