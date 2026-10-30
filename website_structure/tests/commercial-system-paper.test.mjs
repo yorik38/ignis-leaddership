@@ -25,7 +25,7 @@ test("the second white paper is published without a coming-soon state", () => {
   assert.match(paper, /£65\.23/);
   assert.match(paper, /£27\.10/);
   assert.match(paper, /30 December 2025/);
-  assert.match(paper, /15–30%/);
+  assert.match(paper, /15 to 30%/);
   assert.match(paper, /id="sources"/);
   assert.match(paper, /data-whitepaper-pdf="\/assets\/downloads\/ignis-white-paper-commercial-system-pipeline\.pdf"/);
   assert.doesNotMatch(paper, /not in the download folder|not in the site download folder|broken file/);

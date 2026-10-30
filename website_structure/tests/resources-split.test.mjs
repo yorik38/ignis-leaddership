@@ -50,7 +50,9 @@ test('Insights and Reports are distinct collections', () => {
   assert.match(report, /id="s13"/);
   assert.match(report, /id="s78"/);
   assert.match(report, /let's have a conversation/);
-  assert.match(report, />Book a 30-minute call</);
+  assert.match(report, /Rather speak now\? Talk it through with Yorik in 30 minutes\./);
+  assert.match(report, /commercial-decision-call">Get in touch</);
+  assert.doesNotMatch(report, /Book a 30-minute call|Talk it through: 30 minutes/);
   assert.match(report, />contact page</);
   assert.match(report, />Subscribe to Signal</);
   assert.match(report, />read it on ignisleadership.com</);
