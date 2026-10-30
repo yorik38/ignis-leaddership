@@ -67,6 +67,17 @@ test("every page ends with the homepage call, the shared signup, then the shared
     const book = html.indexOf(bookLabel, call);
     const footer = html.indexOf('<footer class="site-footer">');
     assert.equal(html.split('id="close-call-title"').length - 1, 1, `CTA count: ${file}`);
+    if (file.endsWith("/newsletter.html")) {
+      assert.equal(html.split('class="signal-signup-form"').length - 1, 2, `Signup count: ${file}`);
+      const heroSignup = html.indexOf('id="signal-hero-signup-title"');
+      const edition = html.indexOf('class="signal-hero"');
+      const earlier = html.indexOf('id="earlier-editions-title"');
+      const endSignup = html.indexOf('id="signal-end-signup-title"');
+      assert.ok(heroSignup !== -1 && edition !== -1 && earlier !== -1 && endSignup !== -1, `Newsletter markers: ${file}`);
+      assert.ok(heroSignup < edition && edition < earlier && earlier < endSignup && endSignup < call && call < footer, `Newsletter signup order: ${file}`);
+      assert.equal(html.split('action="/api/subscribe"').length - 1, 2, `Subscribe actions: ${file}`);
+      continue;
+    }
     if (file.endsWith("resources/agentic-transformation-for-energy-developers.html")) {
       assert.equal(html.split('class="signal-signup-form"').length - 1, 0, `Guide keeps only the gate opt-in: ${file}`);
       assert.equal(html.split('id="signal-inbox-title"').length - 1, 0, `Guide has no inbox card: ${file}`);

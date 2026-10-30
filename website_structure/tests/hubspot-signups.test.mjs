@@ -173,6 +173,18 @@ test("paper forms and visible Signal signups are connected", () => {
     assert.doesNotMatch(form, /name="company"(?!_)|name="enquiry_topic"|Company \(optional\)|Topic \(optional\)|signal-signup-optional/, path);
     assert.match(html, /class="signal-signup-success"[^>]*tabindex="-1"/, path);
     assert.match(html, /capability\.css\?v=208/);
+    if (path.endsWith("newsletter.html")) {
+      assert.equal(html.split('class="signal-signup-form"').length - 1, 2, path);
+      assert.equal(html.split(">Subscribe<").length - 1, 2, path);
+      assert.equal(html.split('name="signal_consent"').length - 1, 2, path);
+      assert.doesNotMatch(html, /name="signal_consent"[^>]*checked/);
+      assert.match(html, /name="utm_source"/);
+      assert.match(html, /name="utm_medium"/);
+      assert.match(html, /name="utm_campaign"/);
+      assert.match(html, /data-form-error/);
+      assert.match(html, /Privacy Policy/);
+      continue;
+    }
     if (html.includes('class="signal-inbox')) {
       assert.match(form, /aria-label="Sign up">Sign up</, path);
       assert.doesNotMatch(form, /aria-label="Subscribe"|>Subscribe</, path);
