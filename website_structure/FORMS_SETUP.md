@@ -47,7 +47,7 @@ Contact properties, with these internal values:
 
 - `enquiry_topic`: `gate2`, `ar8`, `bid_tender`, `new_offers`, `other`. Labels: “Gate 2: keep-or-kill decisions”, “AR8 bid”, “Bid and tender work”, “New AI-enabled offers”, “Something else”. This is the property every new dropdown uses. The site does not send the separate `topic` property.
 - `signal_role`: `ceo_md`, `commercial_lead`, `bid_tender_lead`, `development`, `finance`, `other`. The site no longer sends this on downloads.
-- `content_source`: `signal-signup`, `whitepaper-bids-won-on-evidence`, `whitepaper-commercial-system-pipeline`, `market-monitor-2026-10`, `contact-form`, `linkedin`, `forward-referral`, `event`, `other`
+- `content_source`: `signal-signup`, `whitepaper-bids-won-on-evidence`, `whitepaper-commercial-system-pipeline`, `whitepaper-route-to-market`, `whitepaper-procurement`, `market-monitor-2026-10`, `contact-form`, `linkedin`, `forward-referral`, `event`, `other`
 - `signal_source`: `linkedin`, `website`, `forward_referral`, `event`, `other`
 - `signal_subscribed_date`: date, midnight UTC in epoch milliseconds
 - Existing text properties: `resource`, `acquisition_source`, `conversion_asset`, plus standard `email`, `firstname`, `lastname`, `company`
@@ -57,8 +57,8 @@ Contact properties, with these internal values:
 | Signal (footer and page signup) | `email` only. The signup block does not ask for company or topic. The API still accepts a request that omits them, and still forwards `firstname`, `lastname`, `company` and `enquiry_topic` if a client posts them. Always `content_source` = `signal-signup`, `signal_source`, `signal_subscribed_date`. Consent is the existing Signal subscription `3918046194` |
 | Bids white paper | `email`, `resource` = `bids-won-on-evidence`, `content_source` = `whitepaper-bids-won-on-evidence`, `acquisition_source`. Form `9b783156-b16d-443a-bc80-51bab3411670`. PDF `/assets/downloads/guide-01-bids-whitepaper.pdf` |
 | Commercial system white paper | `email`, `resource` = `commercial-system-pipeline`, `content_source` = `whitepaper-commercial-system-pipeline`, `acquisition_source`. Form `5b3bb573-2ca5-47cc-8bc0-3e8b0f4023d5`. PDF `/assets/downloads/ignis-white-paper-commercial-system-pipeline.pdf` |
-| Route to market white paper | `email`, `resource` = `route-to-market`, `content_source` = `whitepaper-route-to-market` (sent once that option exists in HubSpot and is listed in `HUBSPOT_EXTRA_CONTENT_SOURCES`; left out until then), `acquisition_source`. Same form as the bids paper. PDF `/assets/downloads/ignis-route-to-market.pdf` |
-| Procurement white paper | `email`, `resource` = `procurement`, `content_source` = `whitepaper-procurement` (sent once that option exists in HubSpot and is listed in `HUBSPOT_EXTRA_CONTENT_SOURCES`; left out until then), `acquisition_source`. Same form as the commercial system paper. PDF `/assets/downloads/ignis-procurement.pdf` |
+| Route to market white paper | `email`, `resource` = `route-to-market`, `content_source` = `whitepaper-route-to-market`, `acquisition_source`. Form `92f54ac1-4205-4a4e-9e75-4303c2b5173b`, or `HUBSPOT_ROUTE_TO_MARKET_FORM_ID` when that variable is set. PDF `/assets/downloads/ignis-route-to-market.pdf` |
+| Procurement white paper | `email`, `resource` = `procurement`, `content_source` = `whitepaper-procurement`, `acquisition_source`. Form `eb4c59d4-1f1d-4104-8df3-6a249154867c`, or `HUBSPOT_PROCUREMENT_FORM_ID` when that variable is set. PDF `/assets/downloads/ignis-procurement.pdf` |
 | Market Monitor download | `email`, `content_source` = `market-monitor-2026-10`, `resource` = `market-monitor-2026-10`, `acquisition_source`. Delivery consent uses subscription type `3918058120`. PDF `/assets/downloads/ignis-market-monitor-2026-10.pdf`. Form id is `HUBSPOT_MARKET_MONITOR_FORM_ID` |
 | Contact | Not submitted by the site. The page embeds HubSpot form `3c83d1fd-334f-4bf6-9068-47e7f2044ad8` |
 
