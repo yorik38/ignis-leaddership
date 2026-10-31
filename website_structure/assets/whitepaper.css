@@ -197,3 +197,6 @@
     padding-inline:max(var(--gutter), calc((100vw - var(--wrap)) / 2));
   }
 }
+
+#whitepaper-direct-link{margin:0 0 14px}
+#whitepaper-direct-link[hidden]{display:none}

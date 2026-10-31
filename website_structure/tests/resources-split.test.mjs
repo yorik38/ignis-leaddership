@@ -40,7 +40,8 @@ test('Insights and Reports are distinct collections', () => {
   assert.match(report, /action="\/api\/whitepaper"/);
   assert.match(report, /data-edition="market-monitor-2026-10"/);
   assert.doesNotMatch(report, /HubSpot form placeholder|YORIK — HUBSPOT FORM PLACEHOLDER/);
-  assert.match(report, /data-whitepaper-pdf="\/assets\/downloads\/ignis-market-monitor-2026-10\.pdf"/);
+  assert.doesNotMatch(report, /\/assets\/downloads\//);
+  assert.match(report, /data-whitepaper-key="ignis-market-monitor-2026-10"/);
   assert.match(report, /whitepaper\.js/);
   assert.doesNotMatch(report, /FORGE/);
   assert.doesNotMatch(report, /\bNDA\b/);
@@ -149,7 +150,8 @@ test('the flagship guide page has a teaser, an email gate and an unticked Signal
   assert.ok(count >= 4 && count <= 5, `${count} bullets`);
   assert.match(page, /og:image" content="https:\/\/www\.ignisleadership\.com\/assets\/img\/og-agentic-transformation-guide\.png"/);
   assert.ok(existsSync(join(site, 'assets/img/og-agentic-transformation-guide.png')));
-  assert.match(page, /data-whitepaper-pdf="\/assets\/downloads\/ignis-guide-agentic-transformation-for-energy-developers\.pdf"/);
+  assert.doesNotMatch(page, /\/assets\/downloads\//);
+  assert.match(page, /data-whitepaper-key="ignis-guide-agentic-transformation"/);
   assert.ok(existsSync(join(site, 'assets/downloads/ignis-guide-agentic-transformation-for-energy-developers.pdf')));
   assert.match(page, /action="\/api\/whitepaper" data-whitepaper-form/);
   assert.match(page, /name="resource" value="agentic-transformation-for-energy-developers"/);
@@ -172,11 +174,20 @@ test('the flagship guide page has a teaser, an email gate and an unticked Signal
 test('every paper and report download is gated by email with an unticked Signal opt-in', () => {
   for (const [path, resource] of [
     ['resources/agentic-transformation-for-energy-developers.html', 'agentic-transformation-for-energy-developers'],
-    ['resources/bids-won-on-evidence.html', 'bids-won-on-evidence'],
-    ['resources/commercial-system-for-your-pipeline.html', 'commercial-system-pipeline'],
     ['resources/route-to-market.html', 'route-to-market'],
     ['resources/procurement.html', 'procurement'],
     ['reports/market-monitor-2026-10.html', 'market-monitor-2026-10'],
+  ]) {
+    const page = read(path);
+    assert.doesNotMatch(page, /\/assets\/downloads\//, `${path} does not expose a PDF URL`);
+    assert.match(page, /data-whitepaper-key="/);
+    assert.match(page, new RegExp(`name="resource" value="${resource}"`));
+    assert.match(page, /name="email"[^>]*required/);
+    assert.match(page, /<input type="checkbox" name="signal_opt_in" value="true">/);
+  }
+  for (const [path, resource] of [
+    ['resources/bids-won-on-evidence.html', 'bids-won-on-evidence'],
+    ['resources/commercial-system-for-your-pipeline.html', 'commercial-system-pipeline'],
   ]) {
     const page = read(path);
     const pdf = page.match(/data-whitepaper-pdf="([^"]+)"/)?.[1];

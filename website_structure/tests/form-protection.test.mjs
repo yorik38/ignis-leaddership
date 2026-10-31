@@ -21,6 +21,11 @@ function response() {
   };
 }
 
+function assertVersionedPdf(actual, filePath) {
+  assert.equal(String(actual).split("?")[0], filePath);
+  assert.match(String(actual), /\?v=[0-9a-f]{8}$/);
+}
+
 function started(body = {}) {
   return {form_started_at: Date.now() - 10000, ...body};
 }
@@ -278,14 +283,14 @@ describe("form protection", {concurrency: 1}, () => {
       delete process.env.HUBSPOT_MARKET_MONITOR_FORM_ID;
       const missing = await post(whitepaper, download, {headers: {"x-forwarded-for": "203.0.113.70"}});
       assert.equal(missing.res.statusCode, 200);
-      assert.equal(missing.res.body.pdf, "/assets/downloads/ignis-market-monitor-2026-10.pdf");
+      assertVersionedPdf(missing.res.body.pdf, "/assets/downloads/ignis-market-monitor-2026-10.pdf");
       assert.equal(missing.calls.length, 0);
       assert.match(warnings.join("\n"), /HUBSPOT_MARKET_MONITOR_FORM_ID is not set/);
 
       process.env.HUBSPOT_MARKET_MONITOR_FORM_ID = "monitor-form-id";
       const saved = await post(whitepaper, {...download, email: "saved@example.com"}, {headers: {"x-forwarded-for": "203.0.113.71"}});
       assert.equal(saved.res.statusCode, 200);
-      assert.equal(saved.res.body.pdf, "/assets/downloads/ignis-market-monitor-2026-10.pdf");
+      assertVersionedPdf(saved.res.body.pdf, "/assets/downloads/ignis-market-monitor-2026-10.pdf");
       assert.equal(saved.calls.length, 1);
       assert.match(saved.calls[0].url, /monitor-form-id$/);
       const fields = Object.fromEntries(JSON.parse(saved.calls[0].body).fields.map((field) => [field.name, field.value]));
@@ -323,14 +328,14 @@ describe("form protection", {concurrency: 1}, () => {
       delete process.env.HUBSPOT_AGENTIC_GUIDE_FORM_ID;
       const plain = await post(whitepaper, body, {headers: {"x-forwarded-for": "203.0.113.90"}});
       assert.equal(plain.res.statusCode, 200);
-      assert.equal(plain.res.body.pdf, pdf);
+      assertVersionedPdf(plain.res.body.pdf, pdf);
       assert.equal(plain.res.body.newsletterSubscribed, false);
       assert.equal(plain.calls.length, 0, "an unticked Signal box sends nothing to Signal");
       assert.match(warnings.join("\n"), /HUBSPOT_AGENTIC_GUIDE_FORM_ID is not set/);
 
       const ticked = await post(whitepaper, {...body, email: "ticked@example.com", signal_opt_in: "true"}, {headers: {"x-forwarded-for": "203.0.113.91"}});
       assert.equal(ticked.res.statusCode, 200);
-      assert.equal(ticked.res.body.pdf, pdf);
+      assertVersionedPdf(ticked.res.body.pdf, pdf);
       assert.equal(ticked.res.body.newsletterSubscribed, true);
       assert.equal(ticked.calls.length, 1);
       assert.match(ticked.calls[0].url, /9ee4b5ce-211f-4be1-a8d1-69809052e8b2$/);
@@ -342,7 +347,7 @@ describe("form protection", {concurrency: 1}, () => {
       process.env.HUBSPOT_AGENTIC_GUIDE_FORM_ID = "guide-form-id";
       const saved = await post(whitepaper, {...body, email: "saved@example.com"}, {headers: {"x-forwarded-for": "203.0.113.92"}});
       assert.equal(saved.res.statusCode, 200);
-      assert.equal(saved.res.body.pdf, pdf);
+      assertVersionedPdf(saved.res.body.pdf, pdf);
       assert.equal(saved.calls.length, 1);
       assert.match(saved.calls[0].url, /guide-form-id$/);
       const sent = JSON.parse(saved.calls[0].body);
@@ -470,7 +475,7 @@ describe("form protection", {concurrency: 1}, () => {
       process.env.HUBSPOT_MARKET_MONITOR_FORM_ID = "monitor-form-id";
       const both = await post(whitepaper, body, {headers: {"x-forwarded-for": "203.0.113.80"}});
       assert.equal(both.res.statusCode, 200);
-      assert.equal(both.res.body.pdf, "/assets/downloads/ignis-market-monitor-2026-10.pdf");
+      assertVersionedPdf(both.res.body.pdf, "/assets/downloads/ignis-market-monitor-2026-10.pdf");
       assert.equal(both.res.body.newsletterSubscribed, true);
       assert.equal(both.calls.length, 2);
       assert.match(both.calls[0].url, /monitor-form-id$/);
@@ -491,7 +496,7 @@ describe("form protection", {concurrency: 1}, () => {
       delete process.env.HUBSPOT_MARKET_MONITOR_FORM_ID;
       const signalOnly = await post(whitepaper, {...body, email: "signal-only@example.com"}, {headers: {"x-forwarded-for": "203.0.113.81"}});
       assert.equal(signalOnly.res.statusCode, 200);
-      assert.equal(signalOnly.res.body.pdf, "/assets/downloads/ignis-market-monitor-2026-10.pdf");
+      assertVersionedPdf(signalOnly.res.body.pdf, "/assets/downloads/ignis-market-monitor-2026-10.pdf");
       assert.equal(signalOnly.calls.length, 1);
       assert.match(signalOnly.calls[0].url, /9ee4b5ce-211f-4be1-a8d1-69809052e8b2$/);
     } finally {
@@ -528,7 +533,7 @@ describe("form protection", {concurrency: 1}, () => {
         }
       });
       assert.equal(result.res.statusCode, 200);
-      assert.equal(result.res.body.pdf, "/assets/downloads/ignis-market-monitor-2026-10.pdf");
+      assertVersionedPdf(result.res.body.pdf, "/assets/downloads/ignis-market-monitor-2026-10.pdf");
       assert.equal(attempt, 2);
     } finally {
       if (previous === undefined) delete process.env.HUBSPOT_MARKET_MONITOR_FORM_ID;
@@ -585,7 +590,7 @@ describe("form protection", {concurrency: 1}, () => {
         signal_opt_in: "true",
         page_url: "https://www.ignisleadership.com/reports/market-monitor-2026-10"
       }), {headers: {cookie: "hubspotutk=monitor-cookie", "x-forwarded-for": "203.0.113.114"}});
-      assert.equal(monitor.res.body.pdf, "/assets/downloads/ignis-market-monitor-2026-10.pdf");
+      assertVersionedPdf(monitor.res.body.pdf, "/assets/downloads/ignis-market-monitor-2026-10.pdf");
       assert.equal(monitor.calls.length, 2);
       for (const call of monitor.calls) {
         const context = JSON.parse(call.body).context;
@@ -896,7 +901,7 @@ test("every signup and download form renders the shared protection fields", () =
   const monitor = readFileSync(join(root, "reports/market-monitor-2026-10.html"), "utf8");
   const download = monitor.slice(monitor.indexOf('id="hubspot-whitepaper-form"'), monitor.indexOf('id="whitepaper-download"'));
   assert.match(download, /data-edition="market-monitor-2026-10"/);
-  assert.match(download, /data-pdf="\/assets\/downloads\/ignis-market-monitor-2026-10\.pdf"/);
+  assert.doesNotMatch(download, /\/assets\/downloads\//);
   assert.match(download, /name="resource" value="market-monitor-2026-10"/);
   assert.match(download, /name="content_source" value="market-monitor-2026-10"/);
   assert.doesNotMatch(download, /name="signal_role"|name="enquiry_topic"|name="company"|name="firstname"|name="paper_email_consent"/);

@@ -19,6 +19,11 @@ function response() {
   };
 }
 
+function assertVersionedPdf(actual, filePath) {
+  assert.equal(String(actual).split("?")[0], filePath);
+  assert.match(String(actual), /\?v=[0-9a-f]{8}$/);
+}
+
 test("Signal signup needs affirmative consent and uses the Signal form", async () => {
   const originalFetch = global.fetch;
   const requests = [];
@@ -64,7 +69,7 @@ test("both paper gates route by resource and never infer Signal consent", async 
       const result = response();
       await whitepaper({method: "POST", body: {email: "test@example.com", resource, paper_email_consent: "true", form_started_at: Date.now() - 10000}, headers: {}}, result);
       assert.equal(result.statusCode, 200);
-      assert.equal(result.body.pdf, pdf);
+      assertVersionedPdf(result.body.pdf, pdf);
       assert.equal(result.body.newsletterSubscribed, false);
       const request = requests.at(-1);
       assert.match(request.url, new RegExp(formId + "$"));
@@ -78,7 +83,7 @@ test("both paper gates route by resource and never infer Signal consent", async 
     const optedIn = response();
     await whitepaper({method: "POST", body: {email: "test@example.com", resource: "bids-won-on-evidence", paper_email_consent: "true", signal_opt_in: "true", company: "North Sea Power", enquiry_topic: "ar8", page_url: "https://www.ignisleadership.com/resources/bids-won-on-evidence?utm_source=linkedin", form_started_at: Date.now() - 10000}, headers: {}}, optedIn);
     assert.equal(optedIn.statusCode, 200);
-    assert.equal(optedIn.body.pdf, "/assets/downloads/guide-01-bids-whitepaper.pdf");
+    assertVersionedPdf(optedIn.body.pdf, "/assets/downloads/guide-01-bids-whitepaper.pdf");
     assert.equal(optedIn.body.newsletterSubscribed, true);
     const paperCall = requests.at(-2);
     const signalCall = requests.at(-1);
@@ -131,7 +136,7 @@ test("route to market and procurement submit to their own HubSpot forms", async 
       const result = response();
       await whitepaper({method: "POST", body: {email: "test@example.com", resource, form_started_at: Date.now() - 10000}, headers: {"x-forwarded-for": `203.0.113.${ip++}`}}, result);
       assert.equal(result.statusCode, 200);
-      assert.equal(result.body.pdf, pdf);
+      assertVersionedPdf(result.body.pdf, pdf);
       assert.match(requests[0].url, new RegExp(`${formId}$`));
       const fields = fieldsOf(requests[0]);
       assert.equal(fields.resource, resource);

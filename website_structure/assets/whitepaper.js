@@ -1,18 +1,12 @@
 (function () {
   "use strict";
 
-  function pageValue(name, fallback) {
-    var value = document.body.getAttribute(name);
-    return value === null ? fallback : value;
-  }
-  var PDF_URL = pageValue("data-whitepaper-pdf", "/assets/downloads/guide-01-bids-whitepaper.pdf");
-  var STORAGE_KEY = pageValue("data-whitepaper-key", "ignis-whitepaper-bids-won-on-evidence");
-
   function revealWhitepaperDownload(pdfUrl, options) {
-    var url = pdfUrl || PDF_URL;
+    var url = pdfUrl;
     var slot = document.getElementById("hubspot-whitepaper-form");
     var ready = document.getElementById("whitepaper-download");
     var link = document.getElementById("whitepaper-download-link");
+    var direct = document.getElementById("whitepaper-direct-link");
     if (!url || !ready || !link) return;
     var signal = ready.querySelector("[data-thanks-signal]");
     var card = ready.closest(".wp-gate-card");
@@ -31,11 +25,9 @@
     }
     if (intro) intro.hidden = true;
     if (card) card.classList.add("is-thanks");
+    if (direct) direct.hidden = true;
     ready.hidden = false;
     if (slot) slot.hidden = true;
-    try {
-      sessionStorage.setItem(STORAGE_KEY, options && options.newsletterSubscribed ? "signal" : "1");
-    } catch (error) {}
     if (ready.focus) ready.focus({preventScroll: true});
     ready.scrollIntoView({behavior: "smooth", block: "start"});
   }
@@ -43,30 +35,52 @@
   // Called from the HubSpot embed onFormSubmitted callback once portalId and formId are set.
   window.ignisRevealWhitepaperDownload = revealWhitepaperDownload;
 
-  try {
-    var stored = sessionStorage.getItem(STORAGE_KEY);
-    if (stored === "1" || stored === "signal") {
-      revealWhitepaperDownload(PDF_URL, {newsletterSubscribed: stored === "signal"});
-    }
-  } catch (error) {}
-
-  function pdfFor(form) {
-    return form.getAttribute("data-pdf") || PDF_URL;
-  }
-
   function ensureStarted(form) {
     var field = form.querySelector("[name=form_started_at]");
     if (field && !field.value) field.value = String(Date.now());
   }
 
+  function resourceOf(form) {
+    var field = form.querySelector('[name="resource"]');
+    return field && field.value ? String(field.value).trim() : "";
+  }
+
+  function showDirectDownload(pdfUrl) {
+    if (!pdfUrl) return;
+    var slot = document.getElementById("hubspot-whitepaper-form");
+    if (!slot || !slot.parentNode) return;
+    var link = document.getElementById("whitepaper-direct-link");
+    if (!link) {
+      link = document.createElement("a");
+      link.id = "whitepaper-direct-link";
+      link.className = "wp-download-link";
+      link.target = "_blank";
+      link.rel = "noopener";
+      var label = document.getElementById("whitepaper-download-link");
+      link.textContent = label && label.textContent ? label.textContent : "Download the PDF";
+      slot.parentNode.insertBefore(link, slot);
+    }
+    link.hidden = false;
+    link.href = pdfUrl;
+  }
+
   document.querySelectorAll("[data-whitepaper-form]").forEach(function (form) {
     ensureStarted(form);
+    var resource = resourceOf(form);
+    if (resource) {
+      fetch("/api/whitepaper?resource=" + encodeURIComponent(resource), {
+        headers: {Accept: "application/json"}
+      }).then(function (response) {
+        return response.json().catch(function () { return {}; });
+      }).then(function (data) {
+        if (data && data.gated === false && data.pdf) showDirectDownload(data.pdf);
+      }).catch(function () {});
+    }
     form.addEventListener("submit", function (event) {
       event.preventDefault();
       if (!form.reportValidity()) return;
       var button = form.querySelector("button[type=submit]");
       var status = form.querySelector("[data-form-status]");
-      var expectedPdf = pdfFor(form);
       var payload = Object.fromEntries(new FormData(form).entries());
       payload.page_url = window.location.href;
       if (document.referrer) payload.referrer = document.referrer;
@@ -87,8 +101,8 @@
           return data;
         });
       }).then(function (data) {
-        if (data.pdf !== expectedPdf) throw new Error("The paper link did not match this page.");
-        revealWhitepaperDownload(expectedPdf, {
+        if (!data.pdf) throw new Error("We could not send your paper just now.");
+        revealWhitepaperDownload(data.pdf, {
           newsletterSubscribed: !!data.newsletterSubscribed,
           warning: data.warning
         });

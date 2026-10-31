@@ -96,6 +96,20 @@ Every signup and download form includes:
 
 Honeypot, time trap and that Gmail pattern return a quiet success and do not call HubSpot. The rate limit returns HTTP 429. A failed Turnstile check asks the visitor to complete the security check.
 
+## Gated and ungated papers
+
+Each entry in `papers()` in `api/whitepaper.js` has a `gated` boolean. `paperIsGated` is the only function that reads it. To switch one paper, change that entry's `gated` line from `true` to `false`, or back again. Every paper ships as `gated: true`, which is today's behaviour: the PDF URL is returned only after a valid form submit.
+
+`HUBSPOT_UNGATED_RESOURCES` is optional. It is a comma-separated list of resource keys, for example `route-to-market, procurement`. A key in that list is ungated even when its `gated` flag is still `true`. Leave the variable unset and nothing changes.
+
+Gated: `GET /api/whitepaper?resource=<key>` returns `{"gated":true}` and does not include the PDF URL. `POST /api/whitepaper` returns the URL only after a valid submit.
+
+Ungated: the page still shows the email form, so someone can leave an address and get the PDF plus follow-up. The same GET returns `{"gated":false,"pdf":"/assets/downloads/<file>.pdf?v=<hash>"}`, and the page adds a direct download link next to the form. The hash is the first eight characters of the file's SHA-256. Replacing the PDF changes the query, and the path stays the same.
+
+Do not put the PDF path in the page HTML. The browser uses the URL from the API.
+
+Files under `/assets/downloads/*.pdf` send `Cache-Control: public, max-age=0, must-revalidate`. That rule comes after the one-year immutable rule for `/assets/*`, so it wins for those PDFs. Other assets keep the one-year rule. Links already sent in HubSpot emails use the path without `?v=`. A browser that stored that file under the old immutable rule can keep showing it until that copy expires. New visitors, and browsers that revalidate, get the current file.
+
 ## A later Market Monitor edition
 
-Copy the October report page and point the form at the new edition. Set `data-edition`, `data-pdf`, the hidden `resource` and `content_source`, and the body `data-whitepaper-pdf` and `data-whitepaper-key` to the new slug and PDF path. Add that slug to the `papers()` map in `api/whitepaper.js` with its PDF path and `HUBSPOT_` form id. Add the slug to the HubSpot `content_source` property before relying on it. The October PDF path and report copy stay as they are.
+Copy the October report page and point the form at the new edition. Set `data-edition`, the hidden `resource` and `content_source`, and the body `data-whitepaper-key` to the new slug. Do not put the PDF path in the page. Add that slug to the `papers()` map in `api/whitepaper.js` with `gated`, its PDF path and `HUBSPOT_` form id. Add the slug to the HubSpot `content_source` property before relying on it. The October PDF path and report copy stay as they are.
