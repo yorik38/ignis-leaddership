@@ -58,7 +58,9 @@ module.exports = async function subscribe(request, response) {
     company: body.company,
     enquiryTopic: body.enquiry_topic || body.topic,
     contentSource: "signal-signup",
-    pageUrl: context.pageUri
+    pageUrl: context.pageUri,
+    referrer: body.referrer || body.referer,
+    utmSource: body.utm_source
   });
 
   try {
@@ -70,6 +72,15 @@ module.exports = async function subscribe(request, response) {
     }, SIGNAL_EXTRA_FIELDS);
     return send(response, 200, {ok: true});
   } catch (error) {
+    if (error && error.emailRejected) {
+      const blocked = /\b(BLOCKED_EMAIL|INVALID_DOMAIN)\b/.test(String(error.detail || ""));
+      return send(response, 422, {
+        ok: false,
+        error: blocked
+          ? "That email address cannot be used. Try a different one."
+          : "Enter a valid email address."
+      });
+    }
     console.error("HubSpot newsletter submission error", error && error.message, error && error.detail);
     return send(response, 502, {ok: false, error: "We could not add you just now."});
   }

@@ -336,6 +336,8 @@ describe("form protection", {concurrency: 1}, () => {
       assert.match(ticked.calls[0].url, /9ee4b5ce-211f-4be1-a8d1-69809052e8b2$/);
       const tickedFields = Object.fromEntries(JSON.parse(ticked.calls[0].body).fields.map((field) => [field.name, field.value]));
       assert.equal(tickedFields.resource, "agentic-transformation-for-energy-developers", "Signal-only capture still names the resource");
+      assert.equal(tickedFields.content_source, "guide-agentic-transformation");
+      assert.equal(tickedFields.signal_source, "website");
 
       process.env.HUBSPOT_AGENTIC_GUIDE_FORM_ID = "guide-form-id";
       const saved = await post(whitepaper, {...body, email: "saved@example.com"}, {headers: {"x-forwarded-for": "203.0.113.92"}});
@@ -346,7 +348,7 @@ describe("form protection", {concurrency: 1}, () => {
       const sent = JSON.parse(saved.calls[0].body);
       const fields = Object.fromEntries(sent.fields.map((field) => [field.name, field.value]));
       assert.equal(fields.resource, "agentic-transformation-for-energy-developers");
-      assert.equal(fields.content_source, undefined, "no unknown dropdown value is sent to HubSpot");
+      assert.equal(fields.content_source, "guide-agentic-transformation");
       assert.equal(fields.acquisition_source, "website");
       assert.match(sent.legalConsentOptions.consent.text, /requested guide/);
       assert.match(sent.legalConsentOptions.consent.communications[0].text, /only for this guide/);
@@ -415,16 +417,32 @@ describe("form protection", {concurrency: 1}, () => {
         headers: {"x-forwarded-for": "203.0.113.120"},
         fetchImpl: async (url, init) => {
           const names = JSON.parse(init.body).fields.map((field) => field.name);
-          if (names.includes("resource")) return {ok: false, status: 400, text: async () => "FIELD_NOT_IN_FORM_DEFINITION"};
+          if (names.includes("resource")) {
+            return {
+              ok: false,
+              status: 400,
+              text: async () => JSON.stringify({
+                status: "error",
+                message: "The request is not valid",
+                errors: [{
+                  message: "Error in 'fields.resource'. Field 'resource' isn't in the form definition",
+                  errorType: "FIELD_NOT_IN_FORM_DEFINITION"
+                }]
+              }),
+              json: async () => ({})
+            };
+          }
           return {ok: true, status: 200, json: async () => ({}), text: async () => ""};
         }
       });
       assert.equal(result.res.statusCode, 200);
       assert.equal(result.res.body.newsletterSubscribed, true);
       assert.equal(result.calls.length, 2);
-      const retried = JSON.parse(result.calls[1].body).fields.map((field) => field.name);
-      assert.ok(!retried.includes("resource"));
-      assert.ok(retried.includes("signal_source"), "the usual Signal fields are kept");
+      const retriedFields = Object.fromEntries(JSON.parse(result.calls[1].body).fields.map((field) => [field.name, field.value]));
+      assert.equal(retriedFields.resource, undefined);
+      assert.equal(retriedFields.signal_source, "website");
+      assert.equal(retriedFields.content_source, "guide-agentic-transformation");
+      assert.ok(retriedFields.signal_subscribed_date);
     } finally {
       console.warn = originalWarn;
       console.error = originalError;
@@ -578,6 +596,274 @@ describe("form protection", {concurrency: 1}, () => {
     } finally {
       if (previous === undefined) delete process.env.HUBSPOT_MARKET_MONITOR_FORM_ID;
       else process.env.HUBSPOT_MARKET_MONITOR_FORM_ID = previous;
+    }
+  });
+
+  test("Signal values match the HubSpot options exactly", async () => {
+    resetProtectionForTests();
+    const today = new Date();
+    const midnight = Date.UTC(today.getUTCFullYear(), today.getUTCMonth(), today.getUTCDate());
+    const cases = [
+      ["https://www.ignisleadership.com/newsletter", "", "", "website"],
+      ["https://www.ignisleadership.com/newsletter?utm_source=linkedin", "https://news.google.com/", "facebook", "linkedin"],
+      ["https://www.ignisleadership.com/newsletter?utm_source=FORWARD", "", "", "forward_referral"],
+      ["https://www.ignisleadership.com/newsletter?utm_source=forward-referral", "", "", "forward_referral"],
+      ["https://www.ignisleadership.com/newsletter?utm_source=forward_referral", "", "", "forward_referral"],
+      ["https://www.ignisleadership.com/newsletter?utm_source=event", "", "", "event"],
+      ["https://www.ignisleadership.com/newsletter?utm_source=website", "", "", "website"],
+      ["https://www.ignisleadership.com/newsletter?utm_source=other", "", "", "other"],
+      ["https://www.ignisleadership.com/newsletter?utm_source=facebook", "https://www.linkedin.com/feed", "", "other"],
+      ["https://www.ignisleadership.com/newsletter", "https://www.linkedin.com/feed", "", "linkedin"],
+      ["https://www.ignisleadership.com/newsletter", "https://lnkd.in/abc", "", "linkedin"],
+      ["https://www.ignisleadership.com/newsletter", "https://www.ignisleadership.com/insights", "", "website"],
+      ["https://www.ignisleadership.com/newsletter", "https://news.ycombinator.com/", "", "other"],
+      ["https://www.ignisleadership.com/newsletter", "", "event", "event"]
+    ];
+    let ip = 150;
+    for (const [pageUrl, referrer, utmSource, expected] of cases) {
+      const result = await post(subscribe, started({
+        email: `source-${ip}@example.com`,
+        signal_consent: "true",
+        company: ip === 150 ? "  " : "North Sea Power",
+        enquiry_topic: ip === 150 ? "Something else" : "other",
+        page_url: pageUrl,
+        referrer,
+        utm_source: utmSource
+      }), {headers: {"x-forwarded-for": `203.0.113.${ip}`}});
+      assert.equal(result.res.statusCode, 200, pageUrl);
+      const fields = Object.fromEntries(JSON.parse(result.calls[0].body).fields.map((field) => [field.name, field.value]));
+      assert.equal(fields.signal_source, expected, `${pageUrl} ${referrer} ${utmSource}`);
+      assert.equal(fields.content_source, "signal-signup");
+      assert.equal(Number(fields.signal_subscribed_date), midnight);
+      assert.equal(Number(fields.signal_subscribed_date) % 86400000, 0);
+      if (ip === 150) {
+        assert.equal(fields.company, undefined);
+        assert.equal(fields.enquiry_topic, undefined);
+      } else {
+        assert.equal(fields.company, "North Sea Power");
+        assert.equal(fields.enquiry_topic, "other");
+      }
+      ip += 1;
+    }
+
+    const paper = await post(whitepaper, started({
+      email: "forward-paper@example.com",
+      resource: "bids-won-on-evidence",
+      signal_opt_in: "true",
+      page_url: "https://www.ignisleadership.com/resources/bids-won-on-evidence?utm_source=forward-referral"
+    }), {headers: {"x-forwarded-for": "203.0.113.180"}});
+    assert.equal(paper.res.statusCode, 200);
+    const download = Object.fromEntries(JSON.parse(paper.calls[0].body).fields.map((field) => [field.name, field.value]));
+    const opted = Object.fromEntries(JSON.parse(paper.calls[1].body).fields.map((field) => [field.name, field.value]));
+    assert.equal(download.content_source, "whitepaper-bids-won-on-evidence");
+    assert.equal(download.acquisition_source, "forward-referral");
+    assert.equal(opted.content_source, "whitepaper-bids-won-on-evidence");
+    assert.equal(opted.signal_source, "forward_referral");
+    assert.equal(opted.company, undefined);
+
+    assert.match(readFileSync(join(root, "assets/capability.js"), "utf8"), /payload\.referrer=document\.referrer/);
+    assert.match(readFileSync(join(root, "assets/whitepaper.js"), "utf8"), /payload\.referrer = document\.referrer/);
+  });
+
+  test("a HubSpot field error strips only the named field and logs the response", async () => {
+    resetProtectionForTests();
+    const logs = [];
+    const originalError = console.error;
+    console.error = (...args) => logs.push(args.map(String).join(" "));
+    const hubspotBody = JSON.stringify({
+      status: "error",
+      message: "The request is not valid",
+      errors: [{
+        message: "Error in 'fields.company'. Field 'company' isn't in the form definition",
+        errorType: "FIELD_NOT_IN_FORM_DEFINITION"
+      }]
+    });
+    try {
+      let attempt = 0;
+      const result = await post(subscribe, started({
+        email: "named-field@example.com",
+        signal_consent: "true",
+        company: "North Sea Power",
+        page_url: "https://www.ignisleadership.com/newsletter?utm_source=linkedin"
+      }), {
+        headers: {"x-forwarded-for": "203.0.113.181"},
+        fetchImpl: async (url, init) => {
+          attempt += 1;
+          const fields = Object.fromEntries(JSON.parse(init.body).fields.map((field) => [field.name, field.value]));
+          if (attempt === 1) {
+            assert.equal(fields.company, "North Sea Power");
+            assert.equal(fields.signal_source, "linkedin");
+            assert.equal(fields.content_source, "signal-signup");
+            return {ok: false, status: 400, text: async () => hubspotBody, json: async () => ({})};
+          }
+          assert.equal(fields.company, undefined);
+          assert.equal(fields.signal_source, "linkedin");
+          assert.equal(fields.content_source, "signal-signup");
+          assert.ok(fields.signal_subscribed_date);
+          return {ok: true, status: 200, text: async () => "", json: async () => ({})};
+        }
+      });
+      assert.equal(result.res.statusCode, 200);
+      assert.equal(attempt, 2);
+      assert.match(logs.join("\n"), /retrying without them: company/);
+      assert.match(logs.join("\n"), /FIELD_NOT_IN_FORM_DEFINITION/);
+      assert.match(logs.join("\n"), /fields\.company/);
+    } finally {
+      console.error = originalError;
+    }
+  });
+
+  test("an unnamed HubSpot error does not drop attribution fields", async () => {
+    resetProtectionForTests();
+    const originalError = console.error;
+    console.error = () => {};
+    try {
+      const result = await post(subscribe, started({
+        email: "unnamed@example.com",
+        signal_consent: "true",
+        page_url: "https://www.ignisleadership.com/newsletter?utm_source=event"
+      }), {
+        headers: {"x-forwarded-for": "203.0.113.182"},
+        fetchImpl: async (url, init) => {
+          const fields = Object.fromEntries(JSON.parse(init.body).fields.map((field) => [field.name, field.value]));
+          assert.equal(fields.signal_source, "event");
+          assert.equal(fields.content_source, "signal-signup");
+          return {ok: false, status: 500, text: async () => "temporary HubSpot failure", json: async () => ({})};
+        }
+      });
+      assert.equal(result.res.statusCode, 502);
+      assert.equal(result.calls.length, 1);
+    } finally {
+      console.error = originalError;
+    }
+  });
+
+  test("a rejected email is 422 and CAPTCHA stays 502", async () => {
+    resetProtectionForTests();
+    const logs = [];
+    const originalError = console.error;
+    console.error = (...args) => logs.push(args.map(String).join(" "));
+    const rejection = (errorType, message) => ({
+      ok: false,
+      status: 400,
+      text: async () => JSON.stringify({
+        status: "error",
+        message: "The request is not valid",
+        errors: [{message, errorType}]
+      }),
+      json: async () => ({})
+    });
+    try {
+      const invalid = await post(subscribe, started({
+        email: "invalid@example.com",
+        signal_consent: "true"
+      }), {
+        headers: {"x-forwarded-for": "203.0.113.183"},
+        fetchImpl: async () => rejection("INVALID_EMAIL", "Error in 'fields.email'. Invalid email address")
+      });
+      assert.equal(invalid.res.statusCode, 422);
+      assert.equal(invalid.res.body.error, "Enter a valid email address.");
+      assert.equal(invalid.calls.length, 1);
+
+      const blocked = await post(subscribe, started({
+        email: "blocked@example.com",
+        signal_consent: "true"
+      }), {
+        headers: {"x-forwarded-for": "203.0.113.184"},
+        fetchImpl: async () => rejection("BLOCKED_EMAIL", "Error in 'fields.email'. Blocked email address")
+      });
+      assert.equal(blocked.res.statusCode, 422);
+      assert.equal(blocked.res.body.error, "That email address cannot be used. Try a different one.");
+      assert.equal(blocked.calls.length, 1);
+
+      const paper = await post(whitepaper, started({
+        email: "paper-invalid@example.com",
+        resource: "procurement"
+      }), {
+        headers: {"x-forwarded-for": "203.0.113.185"},
+        fetchImpl: async () => rejection("INVALID_EMAIL", "Error in 'fields.email'. Invalid email address")
+      });
+      assert.equal(paper.res.statusCode, 422);
+      assert.equal(paper.res.body.error, "Enter a valid work email.");
+      assert.equal(paper.calls.length, 1);
+
+      const captcha = await post(subscribe, started({
+        email: "captcha@example.com",
+        signal_consent: "true",
+        page_url: "https://www.ignisleadership.com/newsletter?utm_source=linkedin"
+      }), {
+        headers: {"x-forwarded-for": "203.0.113.186"},
+        fetchImpl: async (url, init) => {
+          const fields = Object.fromEntries(JSON.parse(init.body).fields.map((field) => [field.name, field.value]));
+          assert.equal(fields.signal_source, "linkedin");
+          return {
+            ok: false,
+            status: 400,
+            text: async () => JSON.stringify({
+              status: "error",
+              message: "The request is not valid",
+              errors: [{message: "Form has reCAPTCHA enabled", errorType: "FORM_HAS_RECAPTCHA_ENABLED"}]
+            }),
+            json: async () => ({})
+          };
+        }
+      });
+      assert.equal(captcha.res.statusCode, 502);
+      assert.equal(captcha.calls.length, 1);
+      assert.match(logs.join("\n"), /reCAPTCHA is enabled/);
+      assert.match(logs.join("\n"), /FORM_HAS_RECAPTCHA_ENABLED/);
+      assert.doesNotMatch(logs.join("\n"), /retrying without them/);
+    } finally {
+      console.error = originalError;
+    }
+  });
+
+  test("readiness does not send Signal attribution fields and a rejected email is 422", async () => {
+    resetProtectionForTests();
+    const readiness = require(join(root, "api/readiness.js"));
+    const originalError = console.error;
+    console.error = () => {};
+    try {
+      const saved = await post(readiness, {
+        full_name: "Ada Lovelace",
+        email: "ada@example.com",
+        route: "bid",
+        readiness_band: "pilot",
+        weakest_dimension: "evidence",
+        recommended_workflow: "Test a bid gate",
+        constraint_answer: "Evidence",
+        workflow_interest: "Bid gate"
+      }, {headers: {"x-forwarded-for": "203.0.113.187"}});
+      assert.equal(saved.res.statusCode, 200);
+      const fields = Object.fromEntries(JSON.parse(saved.calls[0].body).fields.map((field) => [field.name, field.value]));
+      assert.equal(fields.readiness_source, "commercial_ai_readiness_check");
+      assert.equal(fields.readiness_route, "bid");
+      assert.equal(fields.readiness_band, "pilot");
+      assert.equal(fields.content_source, undefined);
+      assert.equal(fields.signal_source, undefined);
+      assert.equal(fields.enquiry_topic, undefined);
+
+      const rejected = await post(readiness, {
+        full_name: "Ada Lovelace",
+        email: "ada@example.com"
+      }, {
+        headers: {"x-forwarded-for": "203.0.113.188"},
+        fetchImpl: async () => ({
+          ok: false,
+          status: 400,
+          text: async () => JSON.stringify({
+            status: "error",
+            message: "The request is not valid",
+            errors: [{message: "Error in 'fields.email'. Invalid email address", errorType: "INVALID_EMAIL"}]
+          }),
+          json: async () => ({})
+        })
+      });
+      assert.equal(rejected.res.statusCode, 422);
+      assert.equal(rejected.res.body.error, "invalid_details");
+      assert.equal(rejected.calls.length, 1);
+    } finally {
+      console.error = originalError;
     }
   });
 });

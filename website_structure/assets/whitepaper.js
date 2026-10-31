@@ -69,6 +69,7 @@
       var expectedPdf = pdfFor(form);
       var payload = Object.fromEntries(new FormData(form).entries());
       payload.page_url = window.location.href;
+      if (document.referrer) payload.referrer = document.referrer;
       var hutk = document.cookie.match(/(?:^|; )hubspotutk=([^;]*)/);
       if (hutk && hutk[1]) payload.hutk = decodeURIComponent(hutk[1]);
       if (button) button.disabled = true;
