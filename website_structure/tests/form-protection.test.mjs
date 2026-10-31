@@ -311,9 +311,10 @@ describe("form protection", {concurrency: 1}, () => {
     }
   });
 
-  test("the agentic transformation guide delivers its PDF, with Signal only when ticked", async () => {
+  test("the agentic transformation guide delivers its PDF only when a form id resolves", async () => {
     resetProtectionForTests();
     const previous = process.env.HUBSPOT_AGENTIC_GUIDE_FORM_ID;
+    const previousShared = process.env.HUBSPOT_RESOURCE_DOWNLOAD_FORM_ID;
     const warnings = [];
     const originalWarn = console.warn;
     console.warn = (...args) => warnings.push(args.join(" "));
@@ -326,29 +327,27 @@ describe("form protection", {concurrency: 1}, () => {
     });
     try {
       delete process.env.HUBSPOT_AGENTIC_GUIDE_FORM_ID;
+      delete process.env.HUBSPOT_RESOURCE_DOWNLOAD_FORM_ID;
       const plain = await post(whitepaper, body, {headers: {"x-forwarded-for": "203.0.113.90"}});
-      assert.equal(plain.res.statusCode, 200);
-      assertVersionedPdf(plain.res.body.pdf, pdf);
-      assert.equal(plain.res.body.newsletterSubscribed, false);
-      assert.equal(plain.calls.length, 0, "an unticked Signal box sends nothing to Signal");
+      assert.equal(plain.res.statusCode, 503);
+      assert.equal(plain.res.body.ok, false);
+      assert.equal(plain.res.body.error, "We could not send your paper just now. Please try again.");
+      assert.equal(plain.res.body.pdf, undefined);
+      assert.equal(plain.calls.length, 0);
       assert.match(warnings.join("\n"), /HUBSPOT_AGENTIC_GUIDE_FORM_ID is not set/);
+      assert.match(warnings.join("\n"), /not delivering agentic-transformation-for-energy-developers/);
 
       const ticked = await post(whitepaper, {...body, email: "ticked@example.com", signal_opt_in: "true"}, {headers: {"x-forwarded-for": "203.0.113.91"}});
-      assert.equal(ticked.res.statusCode, 200);
-      assertVersionedPdf(ticked.res.body.pdf, pdf);
-      assert.equal(ticked.res.body.newsletterSubscribed, true);
-      assert.equal(ticked.calls.length, 1);
-      assert.match(ticked.calls[0].url, /9ee4b5ce-211f-4be1-a8d1-69809052e8b2$/);
-      const tickedFields = Object.fromEntries(JSON.parse(ticked.calls[0].body).fields.map((field) => [field.name, field.value]));
-      assert.equal(tickedFields.resource, "agentic-transformation-for-energy-developers", "Signal-only capture still names the resource");
-      assert.equal(tickedFields.content_source, "guide-agentic-transformation");
-      assert.equal(tickedFields.signal_source, "website");
+      assert.equal(ticked.res.statusCode, 503);
+      assert.equal(ticked.res.body.pdf, undefined);
+      assert.equal(ticked.calls.length, 0, "a missing form does not submit Signal or deliver the PDF");
 
       process.env.HUBSPOT_AGENTIC_GUIDE_FORM_ID = "guide-form-id";
       const saved = await post(whitepaper, {...body, email: "saved@example.com"}, {headers: {"x-forwarded-for": "203.0.113.92"}});
       assert.equal(saved.res.statusCode, 200);
       assertVersionedPdf(saved.res.body.pdf, pdf);
-      assert.equal(saved.calls.length, 1);
+      assert.equal(saved.res.body.newsletterSubscribed, false);
+      assert.equal(saved.calls.length, 1, "an unticked Signal box sends nothing to Signal");
       assert.match(saved.calls[0].url, /guide-form-id$/);
       const sent = JSON.parse(saved.calls[0].body);
       const fields = Object.fromEntries(sent.fields.map((field) => [field.name, field.value]));
@@ -357,10 +356,19 @@ describe("form protection", {concurrency: 1}, () => {
       assert.equal(fields.acquisition_source, "website");
       assert.match(sent.legalConsentOptions.consent.text, /requested guide/);
       assert.match(sent.legalConsentOptions.consent.communications[0].text, /only for this guide/);
+
+      const optedIn = await post(whitepaper, {...body, email: "ticked@example.com", signal_opt_in: "true"}, {headers: {"x-forwarded-for": "203.0.113.93"}});
+      assert.equal(optedIn.res.statusCode, 200);
+      assertVersionedPdf(optedIn.res.body.pdf, pdf);
+      assert.equal(optedIn.res.body.newsletterSubscribed, true);
+      assert.equal(optedIn.calls.length, 2);
+      assert.match(optedIn.calls[1].url, /9ee4b5ce-211f-4be1-a8d1-69809052e8b2$/);
     } finally {
       console.warn = originalWarn;
       if (previous === undefined) delete process.env.HUBSPOT_AGENTIC_GUIDE_FORM_ID;
       else process.env.HUBSPOT_AGENTIC_GUIDE_FORM_ID = previous;
+      if (previousShared === undefined) delete process.env.HUBSPOT_RESOURCE_DOWNLOAD_FORM_ID;
+      else process.env.HUBSPOT_RESOURCE_DOWNLOAD_FORM_ID = previousShared;
     }
   });
 
@@ -411,14 +419,16 @@ describe("form protection", {concurrency: 1}, () => {
 
   test("a Signal form that refuses the resource field still records the opt-in", async () => {
     resetProtectionForTests();
-    const previous = process.env.HUBSPOT_AGENTIC_GUIDE_FORM_ID;
+    const previous = process.env.HUBSPOT_MARKET_MONITOR_FORM_ID;
+    const previousShared = process.env.HUBSPOT_RESOURCE_DOWNLOAD_FORM_ID;
     const originalWarn = console.warn;
     const originalError = console.error;
     console.warn = () => {};
     console.error = () => {};
     try {
-      delete process.env.HUBSPOT_AGENTIC_GUIDE_FORM_ID;
-      const result = await post(whitepaper, started({email: "strict@example.com", resource: "agentic-transformation-for-energy-developers", signal_opt_in: "true"}), {
+      delete process.env.HUBSPOT_MARKET_MONITOR_FORM_ID;
+      delete process.env.HUBSPOT_RESOURCE_DOWNLOAD_FORM_ID;
+      const result = await post(whitepaper, started({email: "strict@example.com", resource: "market-monitor-2026-10", signal_opt_in: "true"}), {
         headers: {"x-forwarded-for": "203.0.113.120"},
         fetchImpl: async (url, init) => {
           const names = JSON.parse(init.body).fields.map((field) => field.name);
@@ -446,13 +456,15 @@ describe("form protection", {concurrency: 1}, () => {
       const retriedFields = Object.fromEntries(JSON.parse(result.calls[1].body).fields.map((field) => [field.name, field.value]));
       assert.equal(retriedFields.resource, undefined);
       assert.equal(retriedFields.signal_source, "website");
-      assert.equal(retriedFields.content_source, "guide-agentic-transformation");
+      assert.equal(retriedFields.content_source, "market-monitor-2026-10");
       assert.ok(retriedFields.signal_subscribed_date);
     } finally {
       console.warn = originalWarn;
       console.error = originalError;
-      if (previous === undefined) delete process.env.HUBSPOT_AGENTIC_GUIDE_FORM_ID;
-      else process.env.HUBSPOT_AGENTIC_GUIDE_FORM_ID = previous;
+      if (previous === undefined) delete process.env.HUBSPOT_MARKET_MONITOR_FORM_ID;
+      else process.env.HUBSPOT_MARKET_MONITOR_FORM_ID = previous;
+      if (previousShared === undefined) delete process.env.HUBSPOT_RESOURCE_DOWNLOAD_FORM_ID;
+      else process.env.HUBSPOT_RESOURCE_DOWNLOAD_FORM_ID = previousShared;
     }
   });
 

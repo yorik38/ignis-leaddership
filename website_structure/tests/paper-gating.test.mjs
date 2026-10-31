@@ -47,12 +47,14 @@ test("only the agentic guide stays gated, and the override can open it", async (
   const originalUngated = process.env.HUBSPOT_UNGATED_RESOURCES;
   const originalSite = process.env.TURNSTILE_SITE_KEY;
   const originalSecret = process.env.TURNSTILE_SECRET_KEY;
+  const originalGuide = process.env.HUBSPOT_AGENTIC_GUIDE_FORM_ID;
   global.fetch = async () => ({ok: true, status: 200, json: async () => ({success: true}), text: async () => ""});
   let ip = 80;
   try {
     delete process.env.HUBSPOT_UNGATED_RESOURCES;
     delete process.env.TURNSTILE_SITE_KEY;
     delete process.env.TURNSTILE_SECRET_KEY;
+    process.env.HUBSPOT_AGENTIC_GUIDE_FORM_ID = "guide-form-for-gating-test";
 
     assert.equal(whitepaper.paperIsGated("agentic-transformation-for-energy-developers", {gated: true}), true);
     assert.equal(whitepaper.paperIsGated("route-to-market", {gated: false}), false);
@@ -122,6 +124,71 @@ test("only the agentic guide stays gated, and the override can open it", async (
     else process.env.TURNSTILE_SITE_KEY = originalSite;
     if (originalSecret === undefined) delete process.env.TURNSTILE_SECRET_KEY;
     else process.env.TURNSTILE_SECRET_KEY = originalSecret;
+    if (originalGuide === undefined) delete process.env.HUBSPOT_AGENTIC_GUIDE_FORM_ID;
+    else process.env.HUBSPOT_AGENTIC_GUIDE_FORM_ID = originalGuide;
+  }
+});
+
+test("a gated paper with no resolvable form id does not deliver the PDF", async () => {
+  const originalFetch = global.fetch;
+  const originalGuide = process.env.HUBSPOT_AGENTIC_GUIDE_FORM_ID;
+  const originalShared = process.env.HUBSPOT_RESOURCE_DOWNLOAD_FORM_ID;
+  const originalMonitor = process.env.HUBSPOT_MARKET_MONITOR_FORM_ID;
+  const warnings = [];
+  const originalWarn = console.warn;
+  console.warn = (...args) => warnings.push(args.join(" "));
+  const calls = [];
+  global.fetch = async (url) => {
+    calls.push(String(url));
+    return {ok: true, status: 200, json: async () => ({success: true}), text: async () => ""};
+  };
+  const restore = (name, value) => {
+    if (value === undefined) delete process.env[name];
+    else process.env[name] = value;
+  };
+  try {
+    delete process.env.HUBSPOT_AGENTIC_GUIDE_FORM_ID;
+    delete process.env.HUBSPOT_RESOURCE_DOWNLOAD_FORM_ID;
+    delete process.env.HUBSPOT_MARKET_MONITOR_FORM_ID;
+    const blocked = response();
+    await whitepaper({
+      method: "POST",
+      body: {email: "ada@example.com", resource: "agentic-transformation-for-energy-developers", signal_opt_in: "true", form_started_at: Date.now() - 10000},
+      headers: {"x-forwarded-for": "198.51.100.210"}
+    }, blocked);
+    assert.equal(blocked.statusCode, 503);
+    assert.deepEqual(blocked.body, {ok: false, error: "We could not send your paper just now. Please try again."});
+    assert.equal(calls.length, 0);
+    assert.match(warnings.join("\n"), /HUBSPOT_AGENTIC_GUIDE_FORM_ID is not set \(nor HUBSPOT_RESOURCE_DOWNLOAD_FORM_ID\); not delivering agentic-transformation-for-energy-developers without a HubSpot form submission\./);
+
+    warnings.length = 0;
+    const free = response();
+    await whitepaper({
+      method: "POST",
+      body: {email: "ada@example.com", resource: "market-monitor-2026-10", form_started_at: Date.now() - 10000},
+      headers: {"x-forwarded-for": "198.51.100.211"}
+    }, free);
+    assert.equal(free.statusCode, 200);
+    assert.equal(free.body.pdf, `/assets/downloads/ignis-market-monitor-2026-10.pdf?v=${versionFor("/assets/downloads/ignis-market-monitor-2026-10.pdf")}`);
+    assert.match(warnings.join("\n"), /delivering market-monitor-2026-10 without a HubSpot form submission/);
+
+    process.env.HUBSPOT_RESOURCE_DOWNLOAD_FORM_ID = "shared-download-form";
+    calls.length = 0;
+    const shared = response();
+    await whitepaper({
+      method: "POST",
+      body: {email: "ada@example.com", resource: "agentic-transformation-for-energy-developers", form_started_at: Date.now() - 10000},
+      headers: {"x-forwarded-for": "198.51.100.212"}
+    }, shared);
+    assert.equal(shared.statusCode, 200);
+    assert.match(shared.body.pdf, /^\/assets\/downloads\/ignis-guide-agentic-transformation-for-energy-developers\.pdf\?v=/);
+    assert.match(calls[0], /shared-download-form$/);
+  } finally {
+    console.warn = originalWarn;
+    global.fetch = originalFetch;
+    restore("HUBSPOT_AGENTIC_GUIDE_FORM_ID", originalGuide);
+    restore("HUBSPOT_RESOURCE_DOWNLOAD_FORM_ID", originalShared);
+    restore("HUBSPOT_MARKET_MONITOR_FORM_ID", originalMonitor);
   }
 });
 

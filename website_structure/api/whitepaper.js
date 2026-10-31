@@ -73,6 +73,8 @@ function papers() {
     },
     "agentic-transformation-for-energy-developers": {
       gated: true,
+      // TODO: hard-code the dedicated guide form GUID as the default here once it exists.
+      // Until then this reads HUBSPOT_AGENTIC_GUIDE_FORM_ID and falls back to HUBSPOT_RESOURCE_DOWNLOAD_FORM_ID.
       formId: String(process.env.HUBSPOT_AGENTIC_GUIDE_FORM_ID || "").trim(),
       pdf: "/assets/downloads/ignis-guide-agentic-transformation-for-energy-developers.pdf",
       contentSource: "guide-agentic-transformation",
@@ -241,10 +243,15 @@ async function whitepaper(request, response) {
   }
 
   if (!paper.formId) {
+    const missingForm = `${paper.formEnv || "The HubSpot download form ID"} is not set (nor HUBSPOT_RESOURCE_DOWNLOAD_FORM_ID)`;
+    if (paperIsGated(resource, paper)) {
+      console.warn(`${missingForm}; not delivering ${resource} without a HubSpot form submission.`);
+      return send(response, 503, {ok: false, error: "We could not send your paper just now. Please try again."});
+    }
     if (!paper.deliverWithoutForm) {
       return send(response, 422, {ok: false, error: "Enter your email and confirm that we may send the paper."});
     }
-    console.warn(`${paper.formEnv || "The HubSpot download form ID"} is not set (nor HUBSPOT_RESOURCE_DOWNLOAD_FORM_ID); delivering ${resource} without a HubSpot form submission.`);
+    console.warn(`${missingForm}; delivering ${resource} without a HubSpot form submission.`);
     const signalSaved = await submitSignalOptIn(true);
     return send(response, 200, {
       ok: true,
