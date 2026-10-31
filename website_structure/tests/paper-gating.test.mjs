@@ -230,6 +230,7 @@ test("popup pages have no PDF URL and the guide keeps its on-page form", () => {
     assert.doesNotMatch(html, /\/assets\/downloads\//, file);
     assert.match(html, /Free resource\. Read it below, or <button type="button" class="wp-inline-download" data-download-open[^>]*>download the PDF<\/button>\./, file);
     assert.match(html, /<button type="button" class="wp-download-open"[^>]*>Download the PDF<\/button>/, file);
+    assert.doesNotMatch(html, /wp-download-jump/, file);
     assert.match(html, new RegExp(`data-paper="${resource}"`), file);
     assert.match(html, /<dialog class="wp-download-dialog"/, file);
     assert.match(html, /data-whitepaper-popup/, file);
