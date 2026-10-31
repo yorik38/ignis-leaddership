@@ -126,6 +126,50 @@ test("the replacement papers use the existing download forms and new PDFs", asyn
   }
 });
 
+test("the replacement papers carry their own content_source and still submit before HubSpot has the option", async () => {
+  const originalFetch = global.fetch;
+  const originalExtra = process.env.HUBSPOT_EXTRA_CONTENT_SOURCES;
+  const requests = [];
+  global.fetch = async (url, init) => {
+    requests.push({url, payload: JSON.parse(init.body)});
+    return {ok: true};
+  };
+  const fieldsOf = (request) => Object.fromEntries(request.payload.fields.map((field) => [field.name, field.value]));
+  const papers = [
+    ["route-to-market", "whitepaper-route-to-market", "resources/route-to-market.html"],
+    ["procurement", "whitepaper-procurement", "resources/procurement.html"]
+  ];
+  try {
+    delete process.env.HUBSPOT_EXTRA_CONTENT_SOURCES;
+    let ip = 60;
+    for (const [resource, contentSource, page] of papers) {
+      const html = readFileSync(join(root, page), "utf8");
+      assert.match(html, new RegExp(`name="content_source" value="${contentSource}"`));
+      assert.doesNotMatch(html, /whitepaper-bids-won-on-evidence|whitepaper-commercial-system-pipeline/);
+
+      requests.length = 0;
+      const unknown = response();
+      await whitepaper({method: "POST", body: {email: "test@example.com", resource, content_source: contentSource, signal_consent: "true", form_started_at: Date.now() - 10000}, headers: {"x-forwarded-for": `203.0.113.${ip++}`}}, unknown);
+      assert.equal(unknown.statusCode, 200);
+      assert.ok(requests.length >= 1);
+      for (const request of requests) assert.equal(fieldsOf(request).content_source, undefined);
+      assert.equal(fieldsOf(requests[0]).resource, resource);
+
+      process.env.HUBSPOT_EXTRA_CONTENT_SOURCES = "whitepaper-route-to-market,whitepaper-procurement";
+      requests.length = 0;
+      const known = response();
+      await whitepaper({method: "POST", body: {email: "test@example.com", resource, form_started_at: Date.now() - 10000}, headers: {"x-forwarded-for": `203.0.113.${ip++}`}}, known);
+      assert.equal(known.statusCode, 200);
+      assert.equal(fieldsOf(requests[0]).content_source, contentSource);
+      delete process.env.HUBSPOT_EXTRA_CONTENT_SOURCES;
+    }
+  } finally {
+    global.fetch = originalFetch;
+    if (originalExtra === undefined) delete process.env.HUBSPOT_EXTRA_CONTENT_SOURCES;
+    else process.env.HUBSPOT_EXTRA_CONTENT_SOURCES = originalExtra;
+  }
+});
+
 test("paper forms and visible Signal signups are connected", () => {
   const bids = readFileSync(join(root, "resources/bids-won-on-evidence.html"), "utf8");
   const pipeline = readFileSync(join(root, "resources/commercial-system-for-your-pipeline.html"), "utf8");
