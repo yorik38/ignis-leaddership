@@ -1,8 +1,8 @@
-import test from "node:test";
+import test, {mock} from "node:test";
 import assert from "node:assert/strict";
 import {createHash} from "node:crypto";
 import {createRequire} from "node:module";
-import {existsSync, readFileSync} from "node:fs";
+import fs, {existsSync, readFileSync} from "node:fs";
 import {fileURLToPath} from "node:url";
 import {join} from "node:path";
 
@@ -228,8 +228,11 @@ test("popup pages have no PDF URL and the guide keeps its on-page form", () => {
   for (const [resource, , file] of FREE) {
     const html = readFileSync(join(root, file), "utf8");
     assert.doesNotMatch(html, /\/assets\/downloads\//, file);
-    assert.match(html, /Free resource\. Read it below, or <button type="button" class="wp-inline-download" data-download-open[^>]*>download the PDF<\/button>\./, file);
-    assert.match(html, /<button type="button" class="wp-download-open"[^>]*>Download the PDF<\/button>/, file);
+    assert.match(html, /<p class="wp-free-label">Free resource\.<\/p>/, file);
+    assert.doesNotMatch(html, /wp-inline-download|wp-download-open|wp-gate-card|Download the white paper|download the PDF/, file);
+    assert.equal((html.match(/class="wp-get-pdf"[^>]*>Get the PDF</g) || []).length, 2, file);
+    assert.equal((html.match(/data-download-open/g) || []).length, 2, file);
+    assert.doesNotMatch(html, /<button[^>]*data-download-open/, file);
     assert.doesNotMatch(html, /wp-download-jump/, file);
     assert.match(html, new RegExp(`data-paper="${resource}"`), file);
     assert.match(html, /<dialog class="wp-download-dialog"/, file);
@@ -268,6 +271,18 @@ test("the client uses the API pdf, hides an ungated form, and drops the old bypa
   assert.match(script, /data-whitepaper-popup/);
   assert.match(script, /showModal/);
   assert.match(script, /startDownload\(data\.pdf\)/);
+  assert.match(script, /function formErrorText\(value, fallback\)/);
+  assert.match(script, /value\.message/);
+  assert.doesNotMatch(script, /new Error\(data\.error \|\|/);
+  assert.match(script, /formErrorText\(data\.error, "We could not send your paper just now\."\)/);
+  const signup = readFileSync(join(root, "assets/capability.js"), "utf8");
+  assert.match(signup, /function formErrorText\(value,fallback\)/);
+  assert.doesNotMatch(signup, /new Error\(data\.error\|\|/);
+  assert.match(signup, /formErrorText\(data\.error,"We could not send this just now\."\)/);
+  assert.match(signup, /formErrorText\(data\.error,"We could not add you just now\."\)/);
+  const readiness = readFileSync(join(root, "assets/readiness.js"), "utf8");
+  assert.doesNotMatch(readiness, /data\.error/);
+  assert.match(readiness, /We could not save your details\. Please try again, or email admin@ignisleadership\.com\./);
 });
 
 test("download PDFs revalidate, and only the guide PDF is noindex", () => {
@@ -280,6 +295,7 @@ test("download PDFs revalidate, and only the guide PDF is noindex", () => {
   const pdfCache = headers[pdfAt].headers.find((item) => item.key === "Cache-Control");
   assert.equal(assetsCache.value, "public, max-age=31536000, immutable");
   assert.equal(pdfCache.value, "public, max-age=0, must-revalidate");
+  assert.equal(vercel.functions["api/whitepaper.js"].includeFiles, "assets/downloads/**");
   const robots = headers.filter((rule) => (rule.headers || []).some((item) => item.key === "X-Robots-Tag"));
   const noindex = new Set([
     "/assets/downloads/ignis-route-to-market.pdf",
@@ -336,4 +352,66 @@ test("llms.txt points at the paper pages and not their PDFs", () => {
   assert.match(setup, /presentation: "popup"/);
   assert.match(setup, /2282b746-28f8-4e9f-a783-6d471c01fffd/);
   assert.match(setup, /X-Robots-Tag: noindex/);
+  assert.match(setup, /includeFiles/);
+  assert.match(setup, /Get the PDF/);
+});
+
+test("a missing PDF file does not crash the download", async () => {
+  const originalFetch = global.fetch;
+  const originalWarn = console.error;
+  const originalUngated = process.env.HUBSPOT_UNGATED_RESOURCES;
+  const originalMonitor = process.env.HUBSPOT_MARKET_MONITOR_FORM_ID;
+  const originalShared = process.env.HUBSPOT_RESOURCE_DOWNLOAD_FORM_ID;
+  const originalSite = process.env.TURNSTILE_SITE_KEY;
+  const originalSecret = process.env.TURNSTILE_SECRET_KEY;
+  const originalUpstashUrl = process.env.UPSTASH_REDIS_REST_URL;
+  const originalUpstashToken = process.env.UPSTASH_REDIS_REST_TOKEN;
+  const errors = [];
+  console.error = (...args) => { errors.push(args.map(String).join(" ")); };
+  const read = mock.method(fs, "readFileSync", () => {
+    const error = new Error("ENOENT: missing pdf");
+    error.code = "ENOENT";
+    throw error;
+  });
+  whitepaper.resetPdfVersionsForTests();
+  try {
+    delete process.env.HUBSPOT_MARKET_MONITOR_FORM_ID;
+    delete process.env.HUBSPOT_RESOURCE_DOWNLOAD_FORM_ID;
+    delete process.env.TURNSTILE_SITE_KEY;
+    delete process.env.TURNSTILE_SECRET_KEY;
+    delete process.env.UPSTASH_REDIS_REST_URL;
+    delete process.env.UPSTASH_REDIS_REST_TOKEN;
+    process.env.HUBSPOT_UNGATED_RESOURCES = "market-monitor-2026-10";
+    global.fetch = async () => { throw new Error("fetch should not run"); };
+    const delivered = response();
+    await whitepaper({
+      method: "POST",
+      body: {email: "ada@example.com", resource: "market-monitor-2026-10", form_started_at: Date.now() - 10000},
+      headers: {"x-forwarded-for": "198.51.100.214"}
+    }, delivered);
+    assert.equal(delivered.statusCode, 200);
+    assert.equal(delivered.body.ok, true);
+    assert.equal(delivered.body.pdf, "/assets/downloads/ignis-market-monitor-2026-10.pdf");
+    assert.match(errors.join("\n"), /Could not read .*ignis-market-monitor-2026-10\.pdf/);
+    assert.match(errors.join("\n"), /include assets\/downloads/);
+  } finally {
+    read.mock.restore();
+    whitepaper.resetPdfVersionsForTests();
+    console.error = originalWarn;
+    global.fetch = originalFetch;
+    if (originalUngated === undefined) delete process.env.HUBSPOT_UNGATED_RESOURCES;
+    else process.env.HUBSPOT_UNGATED_RESOURCES = originalUngated;
+    if (originalMonitor === undefined) delete process.env.HUBSPOT_MARKET_MONITOR_FORM_ID;
+    else process.env.HUBSPOT_MARKET_MONITOR_FORM_ID = originalMonitor;
+    if (originalShared === undefined) delete process.env.HUBSPOT_RESOURCE_DOWNLOAD_FORM_ID;
+    else process.env.HUBSPOT_RESOURCE_DOWNLOAD_FORM_ID = originalShared;
+    if (originalSite === undefined) delete process.env.TURNSTILE_SITE_KEY;
+    else process.env.TURNSTILE_SITE_KEY = originalSite;
+    if (originalSecret === undefined) delete process.env.TURNSTILE_SECRET_KEY;
+    else process.env.TURNSTILE_SECRET_KEY = originalSecret;
+    if (originalUpstashUrl === undefined) delete process.env.UPSTASH_REDIS_REST_URL;
+    else process.env.UPSTASH_REDIS_REST_URL = originalUpstashUrl;
+    if (originalUpstashToken === undefined) delete process.env.UPSTASH_REDIS_REST_TOKEN;
+    else process.env.UPSTASH_REDIS_REST_TOKEN = originalUpstashToken;
+  }
 });

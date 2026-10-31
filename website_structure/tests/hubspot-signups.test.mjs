@@ -239,8 +239,9 @@ test("paper forms and visible Signal signups are connected", () => {
   }
   for (const html of [route, procurement]) {
     assert.match(html, /data-whitepaper-popup/);
-    assert.match(html, /Free resource\. Read it below, or /);
-    assert.match(html, /class="wp-inline-download"[^>]*data-download-open[^>]*>download the PDF</);
+    assert.match(html, /<p class="wp-free-label">Free resource\.<\/p>/);
+    assert.match(html, /class="wp-get-pdf"[^>]*data-download-open[^>]*>Get the PDF</);
+    assert.doesNotMatch(html, /wp-inline-download|wp-download-open|wp-gate-card/);
     assert.doesNotMatch(html, /\/assets\/downloads\//);
     assert.match(html, /name="signal_opt_in"/);
     assert.doesNotMatch(html, /name="signal_opt_in"[^>]*checked/);

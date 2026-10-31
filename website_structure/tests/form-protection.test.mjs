@@ -931,9 +931,9 @@ test("every signup and download form renders the shared protection fields", () =
   const monitor = readFileSync(join(root, "reports/market-monitor-2026-10.html"), "utf8");
   assert.match(monitor, /data-whitepaper-popup/);
   assert.match(monitor, /action="\/api\/whitepaper"/);
-  assert.match(monitor, /Free resource\. Read it below, or /);
+  assert.match(monitor, /<p class="wp-free-label">Free resource\.<\/p>/);
   assert.match(monitor, /data-paper="market-monitor-2026-10"/);
-  assert.match(monitor, /download the PDF<\/button>/);
+  assert.match(monitor, /class="wp-get-pdf"[^>]*>Get the PDF</);
   assert.doesNotMatch(monitor, /\/assets\/downloads\//);
   assert.match(monitor, /<button type="submit">Send me the PDF<\/button>/);
   assert.doesNotMatch(monitor, /name="firstname"/);

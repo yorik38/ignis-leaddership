@@ -119,13 +119,26 @@ function pdfVersion(pdfPath) {
   const cached = pdfVersions.get(pdfPath);
   if (cached) return cached;
   const filePath = path.join(__dirname, "..", String(pdfPath || "").replace(/^\//, ""));
-  const version = crypto.createHash("sha256").update(fs.readFileSync(filePath)).digest("hex").slice(0, 8);
-  pdfVersions.set(pdfPath, version);
-  return version;
+  try {
+    const version = crypto.createHash("sha256").update(fs.readFileSync(filePath)).digest("hex").slice(0, 8);
+    pdfVersions.set(pdfPath, version);
+    return version;
+  } catch (error) {
+    console.error(
+      `Could not read ${filePath} to add a version query to ${pdfPath}. Returning the path without ?v=. The whitepaper function must include assets/downloads.`,
+      error && error.message
+    );
+    return "";
+  }
 }
 
 function publicPdfUrl(pdfPath) {
-  return `${pdfPath}?v=${pdfVersion(pdfPath)}`;
+  const version = pdfVersion(pdfPath);
+  return version ? `${pdfPath}?v=${version}` : pdfPath;
+}
+
+function resetPdfVersionsForTests() {
+  pdfVersions.clear();
 }
 
 function resourceFrom(request) {
@@ -316,3 +329,4 @@ async function whitepaper(request, response) {
 
 module.exports = whitepaper;
 module.exports.paperIsGated = paperIsGated;
+module.exports.resetPdfVersionsForTests = resetPdfVersionsForTests;
