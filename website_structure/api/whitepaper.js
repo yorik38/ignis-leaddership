@@ -24,13 +24,15 @@ function sharedDownloadFormId() {
 }
 
 // Flip one paper by changing its `gated` line.
-// true: the PDF URL is returned only after a valid submit, and the page keeps the form.
-// false: the page has no form. It shows a free download link instead.
+// true: the PDF URL is returned only after a valid submit.
+// false: GET may return the PDF URL.
 // HUBSPOT_UNGATED_RESOURCES (comma-separated keys) forces those papers ungated.
+// presentation is "popup" or "form": how the page asks for the email.
 function papers() {
   return {
     "bids-won-on-evidence": {
       gated: true,
+      presentation: "form",
       formId: "9b783156-b16d-443a-bc80-51bab3411670",
       pdf: "/assets/downloads/guide-01-bids-whitepaper.pdf",
       contentSource: "whitepaper-bids-won-on-evidence",
@@ -38,6 +40,7 @@ function papers() {
     },
     "commercial-system-pipeline": {
       gated: true,
+      presentation: "form",
       formId: "5b3bb573-2ca5-47cc-8bc0-3e8b0f4023d5",
       pdf: "/assets/downloads/ignis-white-paper-commercial-system-pipeline.pdf",
       contentSource: "whitepaper-commercial-system-pipeline",
@@ -46,7 +49,8 @@ function papers() {
     // Each paper submits to its own HubSpot form. The form id below is the default
     // and can be overridden with the named environment variable.
     "route-to-market": {
-      gated: false,
+      gated: true,
+      presentation: "popup",
       formId: String(process.env.HUBSPOT_ROUTE_TO_MARKET_FORM_ID || "92f54ac1-4205-4a4e-9e75-4303c2b5173b").trim(),
       pdf: "/assets/downloads/ignis-route-to-market.pdf",
       contentSource: "whitepaper-route-to-market",
@@ -54,7 +58,8 @@ function papers() {
       formEnv: "HUBSPOT_ROUTE_TO_MARKET_FORM_ID"
     },
     "procurement": {
-      gated: false,
+      gated: true,
+      presentation: "popup",
       formId: String(process.env.HUBSPOT_PROCUREMENT_FORM_ID || "eb4c59d4-1f1d-4104-8df3-6a249154867c").trim(),
       pdf: "/assets/downloads/ignis-procurement.pdf",
       contentSource: "whitepaper-procurement",
@@ -62,7 +67,8 @@ function papers() {
       formEnv: "HUBSPOT_PROCUREMENT_FORM_ID"
     },
     "market-monitor-2026-10": {
-      gated: false,
+      gated: true,
+      presentation: "popup",
       formId: String(process.env.HUBSPOT_MARKET_MONITOR_FORM_ID || "").trim(),
       pdf: "/assets/downloads/ignis-market-monitor-2026-10.pdf",
       contentSource: "market-monitor-2026-10",
@@ -74,6 +80,7 @@ function papers() {
     // Dedicated guide form. HUBSPOT_AGENTIC_GUIDE_FORM_ID overrides the default.
     "agentic-transformation-for-energy-developers": {
       gated: true,
+      presentation: "form",
       formId: String(process.env.HUBSPOT_AGENTIC_GUIDE_FORM_ID || "2282b746-28f8-4e9f-a783-6d471c01fffd").trim(),
       pdf: "/assets/downloads/ignis-guide-agentic-transformation-for-energy-developers.pdf",
       contentSource: "guide-agentic-transformation",
@@ -100,6 +107,10 @@ function ungatedResourceKeys() {
 function paperIsGated(resource, paper) {
   if (ungatedResourceKeys().has(resource)) return false;
   return !paper || paper.gated !== false;
+}
+
+function paperPresentation(paper) {
+  return paper && paper.presentation === "popup" ? "popup" : "form";
 }
 
 const pdfVersions = new Map();
@@ -168,8 +179,10 @@ async function whitepaper(request, response) {
     const catalogue = papers();
     const paper = Object.prototype.hasOwnProperty.call(catalogue, resource) ? catalogue[resource] : undefined;
     if (!paper) return send(response, 404, {ok: false, error: "unknown_resource"});
-    if (paperIsGated(resource, paper)) return send(response, 200, {gated: true});
-    return send(response, 200, {gated: false, pdf: publicPdfUrl(paper.pdf)});
+    const gated = paperIsGated(resource, paper);
+    const payload = {gated, presentation: paperPresentation(paper)};
+    if (!gated) payload.pdf = publicPdfUrl(paper.pdf);
+    return send(response, 200, payload);
   }
 
   if (request.method !== "POST") {

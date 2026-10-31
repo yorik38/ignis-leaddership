@@ -316,6 +316,33 @@
       ]
     },
     {
+      "source": "/assets/downloads/ignis-route-to-market.pdf",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex"
+        }
+      ]
+    },
+    {
+      "source": "/assets/downloads/ignis-procurement.pdf",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex"
+        }
+      ]
+    },
+    {
+      "source": "/assets/downloads/ignis-market-monitor-2026-10.pdf",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex"
+        }
+      ]
+    },
+    {
       "source": "/assets/downloads/ignis-guide-agentic-transformation-for-energy-developers.pdf",
       "headers": [
         {

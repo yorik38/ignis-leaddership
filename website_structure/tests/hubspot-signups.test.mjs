@@ -188,7 +188,9 @@ test("route to market and procurement send their own content_source without an e
     let ip = 60;
     for (const [resource, contentSource, formId, page] of papers) {
       const html = readFileSync(join(root, page), "utf8");
-      assert.doesNotMatch(html, /data-whitepaper-form/);
+      assert.match(html, /data-whitepaper-popup/);
+      assert.match(html, new RegExp(`name="content_source" value="${contentSource}"`));
+      assert.doesNotMatch(html, /\/assets\/downloads\//);
       assert.doesNotMatch(html, /whitepaper-bids-won-on-evidence|whitepaper-commercial-system-pipeline/);
 
       requests.length = 0;
@@ -199,6 +201,7 @@ test("route to market and procurement send their own content_source without an e
       assert.match(requests[0].url, new RegExp(`${formId}$`));
       assert.equal(fieldsOf(requests[0]).resource, resource);
       assert.equal(fieldsOf(requests[0]).content_source, contentSource);
+      assert.equal(fieldsOf(requests[0]).firstname, undefined);
     }
   } finally {
     global.fetch = originalFetch;
@@ -235,8 +238,12 @@ test("paper forms and visible Signal signups are connected", () => {
     assert.doesNotMatch(html, /class="signal-signup-privacy"/);
   }
   for (const html of [route, procurement]) {
-    assert.doesNotMatch(html, /data-whitepaper-form/);
-    assert.match(html, /Free resource/);
+    assert.match(html, /data-whitepaper-popup/);
+    assert.match(html, /Free to read/);
+    assert.doesNotMatch(html, /\/assets\/downloads\//);
+    assert.match(html, /name="signal_opt_in"/);
+    assert.doesNotMatch(html, /name="signal_opt_in"[^>]*checked/);
+    assert.doesNotMatch(html, /name="firstname"/);
     assert.match(html, /class="signal-signup-form"[^>]*data-community-form/);
     const signup = html.match(/<label class="signal-signup-consent">[\s\S]*?<\/label>/)?.[0] ?? "";
     assert.match(signup, /Yes, I want to receive Signal, the weekly newsletter, the monthly report and occasional marketing updates\./);

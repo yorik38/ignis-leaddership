@@ -36,10 +36,11 @@ test('Insights and Reports are distinct collections', () => {
   assert.doesNotMatch(report, /<img[^>]+market-monitor-2026-10-card/);
   assert.match(report, /<h1>Market Monitor, October 2026<\/h1>/);
   assert.match(report, /What moved in power, offshore wind and onshore renewables this month, and what is due next\./);
-  assert.doesNotMatch(report, /data-whitepaper-form/);
-  assert.doesNotMatch(report, /action="\/api\/whitepaper"/);
-  assert.match(report, /class="wp-free-label">Free resource</);
-  assert.match(report, /href="\/assets\/downloads\/ignis-market-monitor-2026-10\.pdf\?v=[0-9a-f]{8}"/);
+  assert.match(report, /data-whitepaper-popup/);
+  assert.match(report, /action="\/api\/whitepaper"/);
+  assert.match(report, /class="wp-free-label">Free to read</);
+  assert.doesNotMatch(report, /\/assets\/downloads\//);
+  assert.match(report, /<button type="button" class="wp-download-open"/);
   assert.doesNotMatch(report, /HubSpot form placeholder|YORIK — HUBSPOT FORM PLACEHOLDER/);
   assert.match(report, /data-whitepaper-key="ignis-market-monitor-2026-10"/);
   assert.match(report, /whitepaper\.js/);
@@ -171,22 +172,23 @@ test('the flagship guide page has a teaser, an email gate and an unticked Signal
   assert.doesNotMatch(page, /[\u2013\u2014]|FORGE|Forge|Book a call|book a call|£|\$\d/);
 });
 
-test('the guide stays behind an email form and the three free papers do not', () => {
+test('the guide stays on an email form and the three papers use a download pop-up', () => {
   const guide = read('resources/agentic-transformation-for-energy-developers.html');
   assert.doesNotMatch(guide, /\/assets\/downloads\//);
   assert.match(guide, /name="resource" value="agentic-transformation-for-energy-developers"/);
   assert.match(guide, /name="email"[^>]*required/);
   assert.match(guide, /<input type="checkbox" name="signal_opt_in" value="true">/);
   assert.doesNotMatch(guide, /name="signal_opt_in"[^>]*checked/);
-  for (const [path, pdf] of [
-    ['resources/route-to-market.html', '/assets/downloads/ignis-route-to-market.pdf'],
-    ['resources/procurement.html', '/assets/downloads/ignis-procurement.pdf'],
-    ['reports/market-monitor-2026-10.html', '/assets/downloads/ignis-market-monitor-2026-10.pdf'],
+  for (const path of [
+    'resources/route-to-market.html',
+    'resources/procurement.html',
+    'reports/market-monitor-2026-10.html',
   ]) {
     const page = read(path);
-    assert.doesNotMatch(page, /data-whitepaper-form/, path);
-    assert.match(page, /Free resource/, path);
-    assert.match(page, new RegExp(`href="${pdf.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\?v=[0-9a-f]{8}"`), path);
+    assert.doesNotMatch(page, /\/assets\/downloads\//, path);
+    assert.match(page, /Free to read/, path);
+    assert.match(page, /data-whitepaper-popup/, path);
+    assert.match(page, /<button type="submit">Send me the PDF<\/button>/, path);
     assert.match(page, /class="signal-signup-form"/, path);
   }
   for (const [path, resource] of [

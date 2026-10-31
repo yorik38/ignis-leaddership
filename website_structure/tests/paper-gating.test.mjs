@@ -22,7 +22,7 @@ const FREE = [
   ["market-monitor-2026-10", "/assets/downloads/ignis-market-monitor-2026-10.pdf", "reports/market-monitor-2026-10.html"]
 ];
 
-const FREE_PDFS = new Set(FREE.map(([, pdfPath]) => pdfPath));
+  const FREE_PDFS = new Set();
 
 function response() {
   return {
@@ -48,6 +48,7 @@ test("only the agentic guide stays gated, and the override can open it", async (
   const originalSite = process.env.TURNSTILE_SITE_KEY;
   const originalSecret = process.env.TURNSTILE_SECRET_KEY;
   const originalGuide = process.env.HUBSPOT_AGENTIC_GUIDE_FORM_ID;
+  const originalMonitor = process.env.HUBSPOT_MARKET_MONITOR_FORM_ID;
   global.fetch = async () => ({ok: true, status: 200, json: async () => ({success: true}), text: async () => ""});
   let ip = 80;
   try {
@@ -60,12 +61,15 @@ test("only the agentic guide stays gated, and the override can open it", async (
     assert.equal(whitepaper.paperIsGated("route-to-market", {gated: false}), false);
     assert.equal(whitepaper.paperIsGated("route-to-market", {}), true);
 
+    process.env.HUBSPOT_MARKET_MONITOR_FORM_ID = "monitor-form-for-gating";
     for (const [resource, pdfPath] of FREE) {
       const lookedUp = response();
       await whitepaper({method: "GET", url: `/api/whitepaper?resource=${encodeURIComponent(resource)}`, headers: {}}, lookedUp);
       assert.equal(lookedUp.statusCode, 200, resource);
-      assert.equal(lookedUp.body.gated, false, resource);
-      assert.equal(lookedUp.body.pdf, `${pdfPath}?v=${versionFor(pdfPath)}`, resource);
+      assert.equal(lookedUp.body.gated, true, resource);
+      assert.equal(lookedUp.body.presentation, "popup", resource);
+      assert.equal(hasPdf(lookedUp.body), false, resource);
+      assert.doesNotMatch(JSON.stringify(lookedUp.body), /\/assets\/downloads\//, resource);
 
       const posted = response();
       await whitepaper({
@@ -82,6 +86,7 @@ test("only the agentic guide stays gated, and the override can open it", async (
       await whitepaper({method: "GET", url: `/api/whitepaper?resource=${encodeURIComponent(resource)}`, headers: {}}, lookedUp);
       assert.equal(lookedUp.statusCode, 200, resource);
       assert.equal(lookedUp.body.gated, true, resource);
+      assert.equal(lookedUp.body.presentation, resource.startsWith("agentic") ? "form" : "form", resource);
       assert.equal(hasPdf(lookedUp.body), false, resource);
       assert.doesNotMatch(JSON.stringify(lookedUp.body), /\/assets\/downloads\//, resource);
 
@@ -112,10 +117,11 @@ test("only the agentic guide stays gated, and the override can open it", async (
     await whitepaper({method: "GET", url: "/api/whitepaper?resource=agentic-transformation-for-energy-developers", headers: {}}, opened);
     assert.equal(opened.body.gated, false);
     assert.equal(opened.body.pdf, `/assets/downloads/ignis-guide-agentic-transformation-for-energy-developers.pdf?v=${versionFor("/assets/downloads/ignis-guide-agentic-transformation-for-energy-developers.pdf")}`);
-    const stillFree = response();
-    await whitepaper({method: "GET", url: "/api/whitepaper?resource=route-to-market", headers: {}}, stillFree);
-    assert.equal(stillFree.body.gated, false);
-    assert.match(stillFree.body.pdf, /^\/assets\/downloads\/ignis-route-to-market\.pdf\?v=/);
+    const stillGated = response();
+    await whitepaper({method: "GET", url: "/api/whitepaper?resource=route-to-market", headers: {}}, stillGated);
+    assert.equal(stillGated.body.gated, true);
+    assert.equal(stillGated.body.presentation, "popup");
+    assert.equal(hasPdf(stillGated.body), false);
   } finally {
     global.fetch = originalFetch;
     if (originalUngated === undefined) delete process.env.HUBSPOT_UNGATED_RESOURCES;
@@ -126,6 +132,8 @@ test("only the agentic guide stays gated, and the override can open it", async (
     else process.env.TURNSTILE_SECRET_KEY = originalSecret;
     if (originalGuide === undefined) delete process.env.HUBSPOT_AGENTIC_GUIDE_FORM_ID;
     else process.env.HUBSPOT_AGENTIC_GUIDE_FORM_ID = originalGuide;
+    if (originalMonitor === undefined) delete process.env.HUBSPOT_MARKET_MONITOR_FORM_ID;
+    else process.env.HUBSPOT_MARKET_MONITOR_FORM_ID = originalMonitor;
   }
 });
 
@@ -174,15 +182,27 @@ test("a gated paper with no resolvable form id does not deliver the PDF", async 
     assert.match(warnings.join("\n"), /not delivering agentic-transformation-for-energy-developers without a HubSpot form submission/);
 
     warnings.length = 0;
-    const free = response();
+    const closed = response();
     await whitepaper({
       method: "POST",
       body: {email: "ada@example.com", resource: "market-monitor-2026-10", form_started_at: Date.now() - 10000},
       headers: {"x-forwarded-for": "198.51.100.211"}
+    }, closed);
+    assert.equal(closed.statusCode, 503);
+    assert.equal(hasPdf(closed.body), false);
+    assert.match(warnings.join("\n"), /not delivering market-monitor-2026-10/);
+
+    warnings.length = 0;
+    process.env.HUBSPOT_UNGATED_RESOURCES = "market-monitor-2026-10";
+    const free = response();
+    await whitepaper({
+      method: "POST",
+      body: {email: "ada@example.com", resource: "market-monitor-2026-10", form_started_at: Date.now() - 10000},
+      headers: {"x-forwarded-for": "198.51.100.213"}
     }, free);
     assert.equal(free.statusCode, 200);
     assert.equal(free.body.pdf, `/assets/downloads/ignis-market-monitor-2026-10.pdf?v=${versionFor("/assets/downloads/ignis-market-monitor-2026-10.pdf")}`);
-    assert.match(warnings.join("\n"), /delivering market-monitor-2026-10 without a HubSpot form submission/);
+    delete process.env.HUBSPOT_UNGATED_RESOURCES;
 
     process.env.HUBSPOT_RESOURCE_DOWNLOAD_FORM_ID = "shared-download-form";
     calls.length = 0;
@@ -204,23 +224,34 @@ test("a gated paper with no resolvable form id does not deliver the PDF", async 
   }
 });
 
-test("the three free papers have no form and a real download link, and the guide stays closed", () => {
-  for (const [, pdfPath, file] of FREE) {
+test("popup pages have no PDF URL and the guide keeps its on-page form", () => {
+  for (const [, , file] of FREE) {
     const html = readFileSync(join(root, file), "utf8");
-    assert.doesNotMatch(html, /data-whitepaper-form/, file);
-    assert.doesNotMatch(html, /action="\/api\/whitepaper"/, file);
-    assert.match(html, /class="wp-free-label">Free resource</, file);
-    assert.match(html, />Download the PDF</, file);
-    assert.match(html, new RegExp(`href="${pdfPath.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}\\?v=${versionFor(pdfPath)}"`), file);
+    assert.doesNotMatch(html, /\/assets\/downloads\//, file);
+    assert.match(html, /class="wp-free-label">Free to read</, file);
+    assert.match(html, /<button type="button" class="wp-download-open"[^>]*>Download the PDF<\/button>/, file);
+    assert.match(html, /<dialog class="wp-download-dialog"/, file);
+    assert.match(html, /data-whitepaper-popup/, file);
+    assert.match(html, /Enter your email\. The PDF downloads now and a copy goes to your inbox\./, file);
+    assert.match(html, /<button type="submit">Send me the PDF<\/button>/, file);
+    assert.match(html, /Your download has started\./, file);
+    assert.match(html, /Download not started\? <a href="#" data-download-fallback>Use this link<\/a>/, file);
+    assert.match(html, /name="email"[^>]*required/, file);
+    assert.doesNotMatch(html, /name="firstname"|name="lastname"/, file);
+    assert.match(html, /name="signal_opt_in" value="true">/, file);
+    assert.doesNotMatch(html, /name="signal_opt_in"[^>]*checked/, file);
+    assert.match(html, /data-turnstile/, file);
     assert.match(html, /class="signal-signup-form"[^>]*data-community-form/, file);
   }
   const guide = readFileSync(join(root, "resources/agentic-transformation-for-energy-developers.html"), "utf8");
   assert.doesNotMatch(guide, /\/assets\/downloads\//);
+  assert.doesNotMatch(guide, /data-whitepaper-popup/);
   assert.match(guide, /data-whitepaper-form/);
   assert.match(guide, /name="resource" value="agentic-transformation-for-energy-developers"/);
+  assert.match(guide, /name="content_source" value="guide-agentic-transformation"/);
   assert.match(guide, /name="signal_opt_in"/);
   assert.doesNotMatch(guide, /name="signal_opt_in"[^>]*checked/);
-  assert.doesNotMatch(guide, /Free resource/);
+  assert.doesNotMatch(guide, /Free to read/);
 });
 
 test("the client uses the API pdf, hides an ungated form, and drops the old bypasses", () => {
@@ -231,8 +262,9 @@ test("the client uses the API pdf, hides an ungated form, and drops the old bypa
   assert.match(script, /\/api\/whitepaper\?resource=/);
   assert.match(script, /data\.gated === false && data\.pdf/);
   assert.match(script, /revealWhitepaperDownload\(data\.pdf/);
-  assert.match(script, /Free resource/);
-  assert.match(script, /slot\.hidden = true/);
+  assert.match(script, /data-whitepaper-popup/);
+  assert.match(script, /showModal/);
+  assert.match(script, /startDownload\(data\.pdf\)/);
 });
 
 test("download PDFs revalidate, and only the guide PDF is noindex", () => {
@@ -246,27 +278,40 @@ test("download PDFs revalidate, and only the guide PDF is noindex", () => {
   assert.equal(assetsCache.value, "public, max-age=31536000, immutable");
   assert.equal(pdfCache.value, "public, max-age=0, must-revalidate");
   const robots = headers.filter((rule) => (rule.headers || []).some((item) => item.key === "X-Robots-Tag"));
-  assert.equal(robots.length, 1);
-  assert.equal(robots[0].source, "/assets/downloads/ignis-guide-agentic-transformation-for-energy-developers.pdf");
-  assert.equal(robots[0].headers.find((item) => item.key === "X-Robots-Tag").value, "noindex");
-  for (const [, pdfPath] of FREE) {
-    assert.equal(headers.some((rule) => rule.source === pdfPath), false, pdfPath);
+  const noindex = new Set([
+    "/assets/downloads/ignis-route-to-market.pdf",
+    "/assets/downloads/ignis-procurement.pdf",
+    "/assets/downloads/ignis-market-monitor-2026-10.pdf",
+    "/assets/downloads/ignis-guide-agentic-transformation-for-energy-developers.pdf"
+  ]);
+  assert.equal(robots.length, noindex.size);
+  for (const rule of robots) {
+    assert.equal(noindex.has(rule.source), true, rule.source);
+    assert.equal(rule.headers.find((item) => item.key === "X-Robots-Tag").value, "noindex");
   }
+  assert.equal(headers.some((rule) => rule.source === "/assets/downloads/guide-01-bids-whitepaper.pdf"), false);
+  assert.equal(headers.some((rule) => rule.source === "/assets/downloads/ignis-white-paper-commercial-system-pipeline.pdf"), false);
   assert.ok(vercel.redirects.some((rule) => rule.source === "/how-ignis-works" && rule.destination === "/services"));
 });
 
-test("llms.txt lists the three free PDFs and not the guide PDF", () => {
+test("llms.txt points at the paper pages and not their PDFs", () => {
   const llms = readFileSync(join(root, "llms.txt"), "utf8");
   const brochure = "- [Governed agentic system brochure](https://www.ignisleadership.com/assets/downloads/ignis-governed-agentic-system-brochure.pdf): a free, ungated overview of how people, agents, knowledge and controls work together across bids and tenders.";
   assert.ok(llms.includes(brochure));
-  assert.equal(llms.includes("ignis-guide-agentic-transformation-for-energy-developers.pdf"), false);
-  assert.equal(llms.includes("guide-01-bids-whitepaper.pdf"), false);
-  assert.equal(llms.includes("ignis-white-paper-commercial-system-pipeline.pdf"), false);
-  for (const [, pdfPath] of FREE) {
-    const line = llms.split("\n").find((entry) => entry.includes(pdfPath));
-    assert.ok(line, pdfPath);
-    assert.match(line, /free/i);
+  for (const name of [
+    "ignis-guide-agentic-transformation-for-energy-developers.pdf",
+    "guide-01-bids-whitepaper.pdf",
+    "ignis-white-paper-commercial-system-pipeline.pdf",
+    "ignis-route-to-market.pdf",
+    "ignis-procurement.pdf",
+    "ignis-market-monitor-2026-10.pdf"
+  ]) {
+    assert.equal(llms.includes(name), false, name);
   }
+  assert.match(llms, /\/resources\/route-to-market\)/);
+  assert.match(llms, /\/resources\/procurement\)/);
+  assert.match(llms, /\/reports\/market-monitor-2026-10\)/);
+  assert.match(llms, /\/resources\/agentic-transformation-for-energy-developers\)/);
   const vercel = JSON.parse(readFileSync(join(root, "vercel.json"), "utf8"));
   const redirectSources = new Set(vercel.redirects.map((rule) => rule.source));
   const urls = [...llms.matchAll(/https:\/\/www\.ignisleadership\.com[^)\s]*/g)].map((match) => match[0]);
@@ -285,6 +330,7 @@ test("llms.txt lists the three free PDFs and not the guide PDF", () => {
   const setup = readFileSync(join(root, "FORMS_SETUP.md"), "utf8");
   assert.match(setup, /HUBSPOT_UNGATED_RESOURCES/);
   assert.match(setup, /paperIsGated/);
-  assert.match(setup, /gated: false/);
+  assert.match(setup, /presentation: "popup"/);
+  assert.match(setup, /2282b746-28f8-4e9f-a783-6d471c01fffd/);
   assert.match(setup, /X-Robots-Tag: noindex/);
 });

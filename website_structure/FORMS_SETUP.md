@@ -99,20 +99,26 @@ Honeypot, time trap and that Gmail pattern return a quiet success and do not cal
 
 ## Gated and ungated papers
 
-Each entry in `papers()` in `api/whitepaper.js` has a `gated` boolean. `paperIsGated` is the only function that reads it. To switch one paper, change that entry's `gated` line from `true` to `false`, or back again, and match the page to that choice.
+Each entry in `papers()` in `api/whitepaper.js` has a `gated` boolean and a `presentation` of `popup` or `form`. `paperIsGated` is the only function that reads `gated`. To switch one paper, change that entry's `gated` line. `presentation` says how the page asks for the email.
 
-Current flags: `route-to-market`, `procurement` and `market-monitor-2026-10` are `gated: false`. The agentic transformation guide is `gated: true`. The older bids and commercial system entries stay `gated: true`.
+All four current papers are `gated: true`. Route to market, procurement and the October Market Monitor use `presentation: "popup"`. The agentic guide uses `presentation: "form"`. The older bids and commercial system entries stay `gated: true` and `presentation: "form"`.
 
 `HUBSPOT_UNGATED_RESOURCES` is optional. It is a comma-separated list of resource keys. A key in that list is ungated even when its `gated` flag is still `true`. Leave the variable unset and the flags above apply. The variable cannot force a paper back to gated.
 
-Gated: the page keeps the email form and does not include the PDF path. `GET /api/whitepaper?resource=<key>` returns `{"gated":true}` and does not include the URL. `POST /api/whitepaper` returns the URL only after a valid submit. If the resolved form id is empty and `HUBSPOT_RESOURCE_DOWNLOAD_FORM_ID` is unset, the POST returns 503, `{"ok":false,"error":"We could not send your paper just now. Please try again."}`, and does not include the PDF. The guide form defaults to `2282b746-28f8-4e9f-a783-6d471c01fffd`. `HUBSPOT_AGENTIC_GUIDE_FORM_ID` overrides that default when it is set. Its HubSpot fields are `resource` = `guide-agentic-transformation` and `content_source` = `guide-agentic-transformation`. The guide PDF also sends `X-Robots-Tag: noindex`. The three free PDFs do not. Ungated papers still download when no form id is set.
+`GET /api/whitepaper?resource=<key>` returns `{gated, presentation}` and includes `pdf` only when the paper is ungated. A gated POST returns the PDF URL only after a valid submit. The submit accepts an email with no first name. `content_source` is the paper's own value. The Signal checkbox subscribes only when it is ticked.
 
-Ungated: the page has no download form. It shows a small "Free resource" label and a real download link, `href="/assets/downloads/<file>.pdf?v=<hash>"`. The hash is the first eight characters of the file's SHA-256. Crawlers and readers without JavaScript can follow that link. `GET /api/whitepaper?resource=<key>` returns `{"gated":false,"pdf":"...?v=<hash>"}`. Replacing the PDF changes the hash, so update the `?v=` in the page as well. The path stays the same.
+If a gated paper's resolved form id is empty and `HUBSPOT_RESOURCE_DOWNLOAD_FORM_ID` is unset, the POST returns 503, `{"ok":false,"error":"We could not send your paper just now. Please try again."}`, and does not include the PDF. Ungated papers can still download when no form id is set.
 
-If you only set `HUBSPOT_UNGATED_RESOURCES` and leave the form in the HTML, the page script hides that form and shows the same free download once the GET returns the URL.
+Popup pages (route to market, procurement, Market Monitor) keep the article on the page. They show a "Free to read" label and a "Download the PDF" button. The button opens a dialog. The dialog asks for an email, runs Turnstile, and has an unticked Signal box. The page source does not include the PDF URL. On success the browser starts the download from the API URL, which ends with `?v=` and the first eight characters of the file's SHA-256.
+
+The guide form stays on the page. It defaults to `2282b746-28f8-4e9f-a783-6d471c01fffd`. `HUBSPOT_AGENTIC_GUIDE_FORM_ID` overrides that default when it is set. Its HubSpot fields are `resource` = `guide-agentic-transformation` and `content_source` = `guide-agentic-transformation`. The guide page does not include the PDF path.
+
+Route to market uses form `92f54ac1-4205-4a4e-9e75-4303c2b5173b`, or `HUBSPOT_ROUTE_TO_MARKET_FORM_ID` when that variable is set. Procurement uses `eb4c59d4-1f1d-4104-8df3-6a249154867c`, or `HUBSPOT_PROCUREMENT_FORM_ID`. The Market Monitor uses `HUBSPOT_MARKET_MONITOR_FORM_ID`, then the shared download form if that is unset.
+
+These four PDFs send `X-Robots-Tag: noindex`. The bids and commercial system PDFs do not.
 
 Files under `/assets/downloads/*.pdf` send `Cache-Control: public, max-age=0, must-revalidate`. That rule comes after the one-year immutable rule for `/assets/*`, so it wins for those PDFs. Other assets keep the one-year rule. Links already sent in HubSpot emails use the path without `?v=`. A browser that stored that file under the old immutable rule can keep showing it until that copy expires. New visitors, and browsers that revalidate, get the current file.
 
 ## A later Market Monitor edition
 
-The October edition is a free download, with the hashed PDF link in the page and no email form. Copy that block for another free edition: set the link `href` to the new PDF plus `?v=` (the first eight characters of the file's SHA-256), and set `gated: false` on the new slug in `papers()`. Add the slug to the HubSpot `content_source` property only if a form will submit it. A gated edition keeps the email form and does not put the PDF path in the page. The October PDF path and report copy stay as they are.
+Copy the October report page, including the download button and dialog. Point the hidden `resource` and `content_source` at the new slug. Do not put the PDF path in the page. Add that slug to `papers()` with `gated: true`, `presentation: "popup"`, its PDF path and its form id. Add the slug to the HubSpot `content_source` property before relying on it. The October PDF path and report copy stay as they are.

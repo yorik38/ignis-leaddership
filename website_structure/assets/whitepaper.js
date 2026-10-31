@@ -56,7 +56,7 @@
       block.className = "wp-free-download";
       var label = document.createElement("p");
       label.className = "wp-free-label";
-      label.textContent = "Free resource";
+      label.textContent = "Free to read";
       var link = document.createElement("a");
       link.id = "whitepaper-direct-link";
       link.className = "wp-download-link";
@@ -71,10 +71,63 @@
     slot.hidden = true;
   }
 
+  function startDownload(url) {
+    var link = document.createElement("a");
+    link.href = url;
+    link.target = "_blank";
+    link.rel = "noopener";
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+  }
+
+  function showPopupSuccess(form, data) {
+    var dialog = form.closest("dialog");
+    var success = dialog && dialog.querySelector("[data-download-success]");
+    var fallback = dialog && dialog.querySelector("[data-download-fallback]");
+    if (fallback) {
+      fallback.href = data.pdf;
+      fallback.target = "_blank";
+      fallback.rel = "noopener";
+    }
+    form.hidden = true;
+    if (success) success.hidden = false;
+    if (dialog) dialog.setAttribute("aria-labelledby", "wp-download-success-title");
+    startDownload(data.pdf);
+    if (success && success.focus) success.focus();
+  }
+
+  function openDownloadDialog(button) {
+    var dialog = document.getElementById(button.getAttribute("aria-controls"));
+    if (!dialog || typeof dialog.showModal !== "function" || dialog.open) return;
+    var form = dialog.querySelector("[data-whitepaper-form]");
+    var success = dialog.querySelector("[data-download-success]");
+    if (form) form.hidden = false;
+    if (success) success.hidden = true;
+    dialog.setAttribute("aria-labelledby", "wp-download-dialog-title");
+    dialog.showModal();
+    var email = dialog.querySelector('input[type="email"]');
+    if (email) email.focus();
+  }
+
+  document.querySelectorAll("[data-download-open]").forEach(function (button) {
+    var dialog = document.getElementById(button.getAttribute("aria-controls"));
+    if (!dialog) return;
+    button.addEventListener("click", function () { openDownloadDialog(button); });
+    dialog.querySelectorAll("[data-dialog-close]").forEach(function (close) {
+      close.addEventListener("click", function () { dialog.close(); });
+    });
+    dialog.addEventListener("close", function () { button.focus(); });
+    dialog.addEventListener("click", function (event) {
+      if (event.target === dialog) dialog.close();
+    });
+  });
+
   document.querySelectorAll("[data-whitepaper-form]").forEach(function (form) {
     ensureStarted(form);
     var resource = resourceOf(form);
-    if (resource) {
+    var popup = form.hasAttribute("data-whitepaper-popup");
+    if (resource && !popup) {
       fetch("/api/whitepaper?resource=" + encodeURIComponent(resource), {
         headers: {Accept: "application/json"}
       }).then(function (response) {
@@ -109,6 +162,10 @@
         });
       }).then(function (data) {
         if (!data.pdf) throw new Error("We could not send your paper just now.");
+        if (form.hasAttribute("data-whitepaper-popup")) {
+          showPopupSuccess(form, data);
+          return;
+        }
         revealWhitepaperDownload(data.pdf, {
           newsletterSubscribed: !!data.newsletterSubscribed,
           warning: data.warning
