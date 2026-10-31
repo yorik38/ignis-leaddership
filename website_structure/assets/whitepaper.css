@@ -201,7 +201,10 @@
 #whitepaper-direct-link{margin:0 0 14px}
 #whitepaper-direct-link[hidden]{display:none}
 .wp-free-download{display:flex;flex-direction:column;align-items:flex-start;gap:10px}
-.whitepaper .wp-free-label{margin:18px 0 0;color:#14919B;font-family:Inter,Arial,sans-serif;font-size:12px;font-weight:700;letter-spacing:.08em;line-height:1.2;text-transform:uppercase}
+.whitepaper .wp-free-label{margin:18px 0 0;color:#0f1419;font-family:Inter,Arial,sans-serif;font-size:15px;font-weight:500;letter-spacing:0;line-height:1.45;text-transform:none}
+button.wp-inline-download{display:inline;padding:0;border:0;background:none;color:#14919B;font:inherit;font-weight:600;text-decoration:underline;text-underline-offset:2px;cursor:pointer}
+button.wp-inline-download:hover{color:#08756d}
+button.wp-inline-download:focus-visible{outline:2px solid #14919B;outline-offset:2px}
 button.wp-download-open, .wp-download-dialog button[type=submit]{display:inline-flex;align-items:center;justify-content:center;width:fit-content;min-height:2.75rem;padding:.75rem 1.15rem;border:0;border-radius:4px;background:#14919B;color:#fff;font-family:Inter,Arial,sans-serif;font-size:.95rem;font-weight:600;letter-spacing:.01em;cursor:pointer}
 button.wp-download-open:hover, .wp-download-dialog button[type=submit]:hover{background:#08756d}
 button.wp-download-open:focus-visible, .wp-download-dialog button:focus-visible, .wp-download-dialog input:focus-visible, .wp-download-dialog a:focus-visible{outline:2px solid #14919B;outline-offset:2px}

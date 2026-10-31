@@ -225,11 +225,12 @@ test("a gated paper with no resolvable form id does not deliver the PDF", async 
 });
 
 test("popup pages have no PDF URL and the guide keeps its on-page form", () => {
-  for (const [, , file] of FREE) {
+  for (const [resource, , file] of FREE) {
     const html = readFileSync(join(root, file), "utf8");
     assert.doesNotMatch(html, /\/assets\/downloads\//, file);
-    assert.match(html, /class="wp-free-label">Free to read</, file);
+    assert.match(html, /Free resource\. Read it below, or <button type="button" class="wp-inline-download" data-download-open[^>]*>download the PDF<\/button>\./, file);
     assert.match(html, /<button type="button" class="wp-download-open"[^>]*>Download the PDF<\/button>/, file);
+    assert.match(html, new RegExp(`data-paper="${resource}"`), file);
     assert.match(html, /<dialog class="wp-download-dialog"/, file);
     assert.match(html, /data-whitepaper-popup/, file);
     assert.match(html, /Enter your email\. The PDF downloads now and a copy goes to your inbox\./, file);
@@ -251,7 +252,7 @@ test("popup pages have no PDF URL and the guide keeps its on-page form", () => {
   assert.match(guide, /name="content_source" value="guide-agentic-transformation"/);
   assert.match(guide, /name="signal_opt_in"/);
   assert.doesNotMatch(guide, /name="signal_opt_in"[^>]*checked/);
-  assert.doesNotMatch(guide, /Free to read/);
+  assert.doesNotMatch(guide, /Free resource\. Read it below/);
 });
 
 test("the client uses the API pdf, hides an ungated form, and drops the old bypasses", () => {
@@ -262,6 +263,7 @@ test("the client uses the API pdf, hides an ungated form, and drops the old bypa
   assert.match(script, /\/api\/whitepaper\?resource=/);
   assert.match(script, /data\.gated === false && data\.pdf/);
   assert.match(script, /revealWhitepaperDownload\(data\.pdf/);
+  assert.match(script, /dialog\[data-paper\]/);
   assert.match(script, /data-whitepaper-popup/);
   assert.match(script, /showModal/);
   assert.match(script, /startDownload\(data\.pdf\)/);

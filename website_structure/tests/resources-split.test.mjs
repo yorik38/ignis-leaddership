@@ -38,7 +38,8 @@ test('Insights and Reports are distinct collections', () => {
   assert.match(report, /What moved in power, offshore wind and onshore renewables this month, and what is due next\./);
   assert.match(report, /data-whitepaper-popup/);
   assert.match(report, /action="\/api\/whitepaper"/);
-  assert.match(report, /class="wp-free-label">Free to read</);
+  assert.match(report, /Free resource\. Read it below, or /);
+  assert.match(report, /data-paper="market-monitor-2026-10"/);
   assert.doesNotMatch(report, /\/assets\/downloads\//);
   assert.match(report, /<button type="button" class="wp-download-open"/);
   assert.doesNotMatch(report, /HubSpot form placeholder|YORIK — HUBSPOT FORM PLACEHOLDER/);
@@ -186,7 +187,8 @@ test('the guide stays on an email form and the three papers use a download pop-u
   ]) {
     const page = read(path);
     assert.doesNotMatch(page, /\/assets\/downloads\//, path);
-    assert.match(page, /Free to read/, path);
+    assert.match(page, /Free resource\. Read it below, or /, path);
+    assert.match(page, /class="wp-inline-download"/, path);
     assert.match(page, /data-whitepaper-popup/, path);
     assert.match(page, /<button type="submit">Send me the PDF<\/button>/, path);
     assert.match(page, /class="signal-signup-form"/, path);

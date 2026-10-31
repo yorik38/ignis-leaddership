@@ -97,30 +97,42 @@
     if (success && success.focus) success.focus();
   }
 
+  function paperDialog(button) {
+    var id = button.getAttribute("aria-controls");
+    return (id && document.getElementById(id)) || document.querySelector("dialog[data-paper]");
+  }
+
   function openDownloadDialog(button) {
-    var dialog = document.getElementById(button.getAttribute("aria-controls"));
+    var dialog = paperDialog(button);
     if (!dialog || typeof dialog.showModal !== "function" || dialog.open) return;
     var form = dialog.querySelector("[data-whitepaper-form]");
     var success = dialog.querySelector("[data-download-success]");
     if (form) form.hidden = false;
     if (success) success.hidden = true;
+    dialog._opener = button;
     dialog.setAttribute("aria-labelledby", "wp-download-dialog-title");
     dialog.showModal();
     var email = dialog.querySelector('input[type="email"]');
     if (email) email.focus();
   }
 
-  document.querySelectorAll("[data-download-open]").forEach(function (button) {
-    var dialog = document.getElementById(button.getAttribute("aria-controls"));
-    if (!dialog) return;
-    button.addEventListener("click", function () { openDownloadDialog(button); });
+  document.querySelectorAll("dialog[data-paper]").forEach(function (dialog) {
+    var key = dialog.getAttribute("data-paper");
+    var field = dialog.querySelector('[name="resource"]');
+    if (field && key) field.value = key;
     dialog.querySelectorAll("[data-dialog-close]").forEach(function (close) {
       close.addEventListener("click", function () { dialog.close(); });
     });
-    dialog.addEventListener("close", function () { button.focus(); });
+    dialog.addEventListener("close", function () {
+      if (dialog._opener && dialog._opener.focus) dialog._opener.focus();
+    });
     dialog.addEventListener("click", function (event) {
       if (event.target === dialog) dialog.close();
     });
+  });
+
+  document.querySelectorAll("[data-download-open]").forEach(function (button) {
+    button.addEventListener("click", function () { openDownloadDialog(button); });
   });
 
   document.querySelectorAll("[data-whitepaper-form]").forEach(function (form) {

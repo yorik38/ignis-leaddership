@@ -189,7 +189,7 @@ test("route to market and procurement send their own content_source without an e
     for (const [resource, contentSource, formId, page] of papers) {
       const html = readFileSync(join(root, page), "utf8");
       assert.match(html, /data-whitepaper-popup/);
-      assert.match(html, new RegExp(`name="content_source" value="${contentSource}"`));
+      assert.match(html, new RegExp(`data-paper="${resource}"`));
       assert.doesNotMatch(html, /\/assets\/downloads\//);
       assert.doesNotMatch(html, /whitepaper-bids-won-on-evidence|whitepaper-commercial-system-pipeline/);
 
@@ -239,7 +239,8 @@ test("paper forms and visible Signal signups are connected", () => {
   }
   for (const html of [route, procurement]) {
     assert.match(html, /data-whitepaper-popup/);
-    assert.match(html, /Free to read/);
+    assert.match(html, /Free resource\. Read it below, or /);
+    assert.match(html, /class="wp-inline-download"[^>]*data-download-open[^>]*>download the PDF</);
     assert.doesNotMatch(html, /\/assets\/downloads\//);
     assert.match(html, /name="signal_opt_in"/);
     assert.doesNotMatch(html, /name="signal_opt_in"[^>]*checked/);
