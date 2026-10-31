@@ -8,7 +8,8 @@
     },
     "api/whitepaper.js": {
       "memory": 128,
-      "maxDuration": 10
+      "maxDuration": 10,
+      "includeFiles": "assets/downloads/**"
     },
     "api/readiness.js": {
       "memory": 128,

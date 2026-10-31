@@ -97,6 +97,16 @@
     if (success && success.focus) success.focus();
   }
 
+  function formErrorText(value, fallback) {
+    var message = value;
+    if (value && typeof value === "object") message = value.message;
+    if (typeof message === "string") {
+      var trimmed = message.trim();
+      if (trimmed && trimmed !== "[object Object]") return trimmed;
+    }
+    return fallback;
+  }
+
   function paperDialog(button) {
     var id = button.getAttribute("aria-controls");
     return (id && document.getElementById(id)) || document.querySelector("dialog[data-paper]");
@@ -132,7 +142,10 @@
   });
 
   document.querySelectorAll("[data-download-open]").forEach(function (button) {
-    button.addEventListener("click", function () { openDownloadDialog(button); });
+    button.addEventListener("click", function (event) {
+      event.preventDefault();
+      openDownloadDialog(button);
+    });
   });
 
   document.querySelectorAll("[data-whitepaper-form]").forEach(function (form) {
@@ -169,7 +182,7 @@
         });
       }).then(function (response) {
         return response.json().catch(function () { return {}; }).then(function (data) {
-          if (!response.ok || !data.ok) throw new Error(data.error || "We could not send your paper just now.");
+          if (!response.ok || !data.ok) throw new Error(formErrorText(data.error, "We could not send your paper just now."));
           return data;
         });
       }).then(function (data) {

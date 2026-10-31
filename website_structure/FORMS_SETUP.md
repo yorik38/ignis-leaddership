@@ -109,13 +109,13 @@ All four current papers are `gated: true`. Route to market, procurement and the 
 
 If a gated paper's resolved form id is empty and `HUBSPOT_RESOURCE_DOWNLOAD_FORM_ID` is unset, the POST returns 503, `{"ok":false,"error":"We could not send your paper just now. Please try again."}`, and does not include the PDF. Ungated papers can still download when no form id is set.
 
-Popup pages (route to market, procurement, Market Monitor) keep the article on the page. Near the top they say "Free resource. Read it below, or download the PDF." The words "download the PDF" are a button, and a second "Download the PDF" button sits in the download block. Both open the same dialog. The dialog asks for an email, runs Turnstile, and has an unticked Signal box. The page source does not include the PDF URL. On success the browser starts the download from the API URL, which ends with `?v=` and the first eight characters of the file's SHA-256.
+Popup pages (route to market, procurement, Market Monitor) keep the article on the page. The hero says "Free resource." and has no download control. A text link, "Get the PDF", sits straight after the briefing and again at the end of the article, before the Signal sign-up. The link opens the dialog. The dialog asks for an email, runs Turnstile, and has an unticked Signal box. The page source does not include the PDF URL. On success the browser starts the download from the API URL. When the function can read the file, that URL ends with `?v=` and the first eight characters of the file's SHA-256. If the read fails, the function logs the path and returns the PDF path without `?v=`, so the visitor still gets the file. `api/whitepaper.js` sets `includeFiles` to `assets/downloads/**` so the read works on Vercel.
 
 The pop-up is one script, `/assets/whitepaper.js`, plus the markup below. The only paper specific part is `data-paper`. Set it to the resource key in `papers()`. The script copies that key into the form before submit. The API chooses `content_source`, the form id and the PDF from that key. Do not put the PDF path in the page.
 
 ```html
-<p class="wp-free-label">Free resource. Read it below, or <button type="button" class="wp-inline-download" data-download-open aria-haspopup="dialog" aria-controls="wp-download-dialog">download the PDF</button>.</p>
-<button type="button" class="wp-download-open" data-download-open aria-haspopup="dialog" aria-controls="wp-download-dialog">Download the PDF</button>
+<p class="wp-free-label">Free resource.</p>
+<p class="wp-get-pdf-row"><a class="wp-get-pdf" href="#wp-download-dialog" data-download-open aria-haspopup="dialog" aria-controls="wp-download-dialog">Get the PDF</a></p>
 <dialog class="wp-download-dialog" id="wp-download-dialog" data-paper="your-resource-key" aria-labelledby="wp-download-dialog-title">
 <form method="post" action="/api/whitepaper" data-whitepaper-form data-whitepaper-popup>
 <input type="hidden" name="resource" value="">
@@ -137,4 +137,4 @@ Files under `/assets/downloads/*.pdf` send `Cache-Control: public, max-age=0, mu
 
 ## A later Market Monitor edition
 
-Copy the October report page. On the dialog, change `data-paper` to the new slug and leave the rest of the pop-up markup as it is. Do not put the PDF path in the page. Add that slug to `papers()` with `gated: true`, `presentation: "popup"`, its PDF path and its form id. Add the slug to the HubSpot `content_source` property before relying on it. The October PDF path and report copy stay as they are.
+Copy the October report page, including both "Get the PDF" links. On the dialog, change `data-paper` to the new slug and leave the rest of the pop-up markup as it is. Do not put the PDF path in the page. Add that slug to `papers()` with `gated: true`, `presentation: "popup"`, its PDF path and its form id. Add the slug to the HubSpot `content_source` property before relying on it. The October PDF path and report copy stay as they are.

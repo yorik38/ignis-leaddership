@@ -38,10 +38,11 @@ test('Insights and Reports are distinct collections', () => {
   assert.match(report, /What moved in power, offshore wind and onshore renewables this month, and what is due next\./);
   assert.match(report, /data-whitepaper-popup/);
   assert.match(report, /action="\/api\/whitepaper"/);
-  assert.match(report, /Free resource\. Read it below, or /);
+  assert.match(report, /<p class="wp-free-label">Free resource\.<\/p>/);
   assert.match(report, /data-paper="market-monitor-2026-10"/);
   assert.doesNotMatch(report, /\/assets\/downloads\//);
-  assert.match(report, /<button type="button" class="wp-download-open"/);
+  assert.doesNotMatch(report, /wp-download-open|wp-gate-card|Download the white paper/);
+  assert.equal((report.match(/>Get the PDF</g) || []).length, 2);
   assert.doesNotMatch(report, /HubSpot form placeholder|YORIK — HUBSPOT FORM PLACEHOLDER/);
   assert.match(report, /data-whitepaper-key="ignis-market-monitor-2026-10"/);
   assert.match(report, /whitepaper\.js/);
@@ -187,8 +188,9 @@ test('the guide stays on an email form and the three papers use a download pop-u
   ]) {
     const page = read(path);
     assert.doesNotMatch(page, /\/assets\/downloads\//, path);
-    assert.match(page, /Free resource\. Read it below, or /, path);
-    assert.match(page, /class="wp-inline-download"/, path);
+    assert.match(page, /<p class="wp-free-label">Free resource\.<\/p>/, path);
+    assert.doesNotMatch(page, /wp-inline-download|wp-download-open|wp-gate-card/, path);
+    assert.equal((page.match(/>Get the PDF</g) || []).length, 2, path);
     assert.match(page, /data-whitepaper-popup/, path);
     assert.match(page, /<button type="submit">Send me the PDF<\/button>/, path);
     assert.match(page, /class="signal-signup-form"/, path);
