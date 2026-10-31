@@ -188,7 +188,7 @@ test("route to market and procurement send their own content_source without an e
     let ip = 60;
     for (const [resource, contentSource, formId, page] of papers) {
       const html = readFileSync(join(root, page), "utf8");
-      assert.match(html, new RegExp(`name="content_source" value="${contentSource}"`));
+      assert.doesNotMatch(html, /data-whitepaper-form/);
       assert.doesNotMatch(html, /whitepaper-bids-won-on-evidence|whitepaper-commercial-system-pipeline/);
 
       requests.length = 0;
@@ -216,7 +216,7 @@ test("paper forms and visible Signal signups are connected", () => {
   const pipeline = readFileSync(join(root, "resources/commercial-system-for-your-pipeline.html"), "utf8");
   const route = readFileSync(join(root, "resources/route-to-market.html"), "utf8");
   const procurement = readFileSync(join(root, "resources/procurement.html"), "utf8");
-  for (const html of [bids, pipeline, route, procurement]) {
+  for (const html of [bids, pipeline]) {
     const gate = html.slice(html.indexOf('id="hubspot-whitepaper-form"'), html.indexOf('id="whitepaper-download"'));
     assert.match(html, /data-whitepaper-form/);
     assert.doesNotMatch(gate, /name="paper_email_consent"/);
@@ -233,6 +233,13 @@ test("paper forms and visible Signal signups are connected", () => {
     const signup = html.match(/<label class="signal-signup-consent">[\s\S]*?<\/label>/)?.[0] ?? "";
     assert.match(signup, /Yes, I want to receive Signal, the weekly newsletter, the monthly report and occasional marketing updates\./);
     assert.doesNotMatch(html, /class="signal-signup-privacy"/);
+  }
+  for (const html of [route, procurement]) {
+    assert.doesNotMatch(html, /data-whitepaper-form/);
+    assert.match(html, /Free resource/);
+    assert.match(html, /class="signal-signup-form"[^>]*data-community-form/);
+    const signup = html.match(/<label class="signal-signup-consent">[\s\S]*?<\/label>/)?.[0] ?? "";
+    assert.match(signup, /Yes, I want to receive Signal, the weekly newsletter, the monthly report and occasional marketing updates\./);
   }
   const home = readFileSync(join(root, "index.html"), "utf8");
   assert.match(home, /class="signal-signup-form"[^>]*data-community-form/);

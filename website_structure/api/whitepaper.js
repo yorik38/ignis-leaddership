@@ -23,8 +23,9 @@ function sharedDownloadFormId() {
   return String(process.env.HUBSPOT_RESOURCE_DOWNLOAD_FORM_ID || "").trim();
 }
 
-// Flip one paper by changing its `gated` line. true: the PDF URL is returned only
-// after a valid submit. false: the form stays, and a direct download is offered too.
+// Flip one paper by changing its `gated` line.
+// true: the PDF URL is returned only after a valid submit, and the page keeps the form.
+// false: the page has no form. It shows a free download link instead.
 // HUBSPOT_UNGATED_RESOURCES (comma-separated keys) forces those papers ungated.
 function papers() {
   return {
@@ -45,7 +46,7 @@ function papers() {
     // Each paper submits to its own HubSpot form. The form id below is the default
     // and can be overridden with the named environment variable.
     "route-to-market": {
-      gated: true,
+      gated: false,
       formId: String(process.env.HUBSPOT_ROUTE_TO_MARKET_FORM_ID || "92f54ac1-4205-4a4e-9e75-4303c2b5173b").trim(),
       pdf: "/assets/downloads/ignis-route-to-market.pdf",
       contentSource: "whitepaper-route-to-market",
@@ -53,7 +54,7 @@ function papers() {
       formEnv: "HUBSPOT_ROUTE_TO_MARKET_FORM_ID"
     },
     "procurement": {
-      gated: true,
+      gated: false,
       formId: String(process.env.HUBSPOT_PROCUREMENT_FORM_ID || "eb4c59d4-1f1d-4104-8df3-6a249154867c").trim(),
       pdf: "/assets/downloads/ignis-procurement.pdf",
       contentSource: "whitepaper-procurement",
@@ -61,7 +62,7 @@ function papers() {
       formEnv: "HUBSPOT_PROCUREMENT_FORM_ID"
     },
     "market-monitor-2026-10": {
-      gated: true,
+      gated: false,
       formId: String(process.env.HUBSPOT_MARKET_MONITOR_FORM_ID || "").trim(),
       pdf: "/assets/downloads/ignis-market-monitor-2026-10.pdf",
       contentSource: "market-monitor-2026-10",

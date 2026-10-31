@@ -49,19 +49,26 @@
     if (!pdfUrl) return;
     var slot = document.getElementById("hubspot-whitepaper-form");
     if (!slot || !slot.parentNode) return;
-    var link = document.getElementById("whitepaper-direct-link");
-    if (!link) {
-      link = document.createElement("a");
+    var block = document.getElementById("whitepaper-free-download");
+    if (!block) {
+      block = document.createElement("div");
+      block.id = "whitepaper-free-download";
+      block.className = "wp-free-download";
+      var label = document.createElement("p");
+      label.className = "wp-free-label";
+      label.textContent = "Free resource";
+      var link = document.createElement("a");
       link.id = "whitepaper-direct-link";
       link.className = "wp-download-link";
       link.target = "_blank";
       link.rel = "noopener";
-      var label = document.getElementById("whitepaper-download-link");
-      link.textContent = label && label.textContent ? label.textContent : "Download the PDF";
-      slot.parentNode.insertBefore(link, slot);
+      link.textContent = "Download the PDF";
+      block.appendChild(label);
+      block.appendChild(link);
+      slot.parentNode.insertBefore(block, slot);
     }
-    link.hidden = false;
-    link.href = pdfUrl;
+    document.getElementById("whitepaper-direct-link").href = pdfUrl;
+    slot.hidden = true;
   }
 
   document.querySelectorAll("[data-whitepaper-form]").forEach(function (form) {

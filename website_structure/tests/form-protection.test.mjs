@@ -899,17 +899,13 @@ test("every signup and download form renders the shared protection fields", () =
     }
   }
   const monitor = readFileSync(join(root, "reports/market-monitor-2026-10.html"), "utf8");
-  const download = monitor.slice(monitor.indexOf('id="hubspot-whitepaper-form"'), monitor.indexOf('id="whitepaper-download"'));
-  assert.match(download, /data-edition="market-monitor-2026-10"/);
-  assert.doesNotMatch(download, /\/assets\/downloads\//);
-  assert.match(download, /name="resource" value="market-monitor-2026-10"/);
-  assert.match(download, /name="content_source" value="market-monitor-2026-10"/);
-  assert.doesNotMatch(download, /name="signal_role"|name="enquiry_topic"|name="company"|name="firstname"|name="paper_email_consent"/);
-  assert.doesNotMatch(download, /name="topic"|bid_and_tender|gate2_grid/);
-  assert.match(download, /Also email me Signal, the weekly newsletter, and occasional marketing updates\. We won't fill your inbox\./);
-  assert.match(download, /name="signal_opt_in"/);
-  assert.doesNotMatch(download, /name="signal_opt_in"[^>]*checked/);
-  assert.doesNotMatch(download, /HubSpot form placeholder|portalId:\s*"TODO"/);
+  assert.doesNotMatch(monitor, /data-whitepaper-form|action="\/api\/whitepaper"/);
+  assert.match(monitor, /Free resource/);
+  assert.match(monitor, /href="\/assets\/downloads\/ignis-market-monitor-2026-10\.pdf\?v=[0-9a-f]{8}"/);
+  assert.doesNotMatch(monitor, /HubSpot form placeholder|portalId:\s*"TODO"/);
+  const signup = monitor.slice(monitor.indexOf('class="signal-signup-form"'), monitor.indexOf("signal-signup-success"));
+  assert.match(signup, /name="signal_consent"/);
+  assert.doesNotMatch(signup, /name="signal_role"|name="enquiry_topic"|name="company"|name="firstname"|name="paper_email_consent"/);
   assert.match(readFileSync(join(root, "FORMS_SETUP.md"), "utf8"), /HUBSPOT_MARKET_MONITOR_FORM_ID/);
   assert.match(readFileSync(join(root, "FORMS_SETUP.md"), "utf8"), /TURNSTILE_SITE_KEY/);
   assert.match(readFileSync(join(root, "FORMS_SETUP.md"), "utf8"), /UPSTASH_REDIS_REST_URL/);

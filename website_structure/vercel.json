@@ -316,6 +316,15 @@
       ]
     },
     {
+      "source": "/assets/downloads/ignis-guide-agentic-transformation-for-energy-developers.pdf",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex"
+        }
+      ]
+    },
+    {
       "source": "/favicon.ico",
       "headers": [
         {
