@@ -34,21 +34,21 @@ function papers() {
       contentSource: "whitepaper-commercial-system-pipeline",
       pageName: "Ignis white paper: commercial-system-pipeline"
     },
-    // Replacements keep the existing HubSpot forms but carry their own content_source.
-    // Until the matching dropdown option exists in HubSpot (and is listed in
-    // HUBSPOT_EXTRA_CONTENT_SOURCES or CONTENT_SOURCES), downloadFields leaves content_source
-    // out, so the submission still goes through and the resource field names the paper.
+    // Each paper submits to its own HubSpot form. The form id below is the default
+    // and can be overridden with the named environment variable.
     "route-to-market": {
-      formId: "9b783156-b16d-443a-bc80-51bab3411670",
+      formId: String(process.env.HUBSPOT_ROUTE_TO_MARKET_FORM_ID || "92f54ac1-4205-4a4e-9e75-4303c2b5173b").trim(),
       pdf: "/assets/downloads/ignis-route-to-market.pdf",
       contentSource: "whitepaper-route-to-market",
-      pageName: "Ignis white paper: route-to-market"
+      pageName: "Ignis white paper: route-to-market",
+      formEnv: "HUBSPOT_ROUTE_TO_MARKET_FORM_ID"
     },
     "procurement": {
-      formId: "5b3bb573-2ca5-47cc-8bc0-3e8b0f4023d5",
+      formId: String(process.env.HUBSPOT_PROCUREMENT_FORM_ID || "eb4c59d4-1f1d-4104-8df3-6a249154867c").trim(),
       pdf: "/assets/downloads/ignis-procurement.pdf",
       contentSource: "whitepaper-procurement",
-      pageName: "Ignis white paper: procurement"
+      pageName: "Ignis white paper: procurement",
+      formEnv: "HUBSPOT_PROCUREMENT_FORM_ID"
     },
     "market-monitor-2026-10": {
       formId: String(process.env.HUBSPOT_MARKET_MONITOR_FORM_ID || "").trim(),

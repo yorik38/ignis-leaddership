@@ -24,6 +24,8 @@ const CONTENT_SOURCES = new Set([
   "signal-signup",
   "whitepaper-bids-won-on-evidence",
   "whitepaper-commercial-system-pipeline",
+  "whitepaper-route-to-market",
+  "whitepaper-procurement",
   "market-monitor-2026-10",
   "contact-form",
   "linkedin",
