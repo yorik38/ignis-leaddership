@@ -311,7 +311,7 @@ describe("form protection", {concurrency: 1}, () => {
     }
   });
 
-  test("the agentic transformation guide delivers its PDF only when a form id resolves", async () => {
+  test("the agentic transformation guide uses its dedicated HubSpot form", async () => {
     resetProtectionForTests();
     const previous = process.env.HUBSPOT_AGENTIC_GUIDE_FORM_ID;
     const previousShared = process.env.HUBSPOT_RESOURCE_DOWNLOAD_FORM_ID;
@@ -325,37 +325,30 @@ describe("form protection", {concurrency: 1}, () => {
       content_source: "guide-agentic-transformation",
       page_url: "https://www.ignisleadership.com/resources/agentic-transformation-for-energy-developers"
     });
+    const fieldsOf = (call) => Object.fromEntries(JSON.parse(call.body).fields.map((field) => [field.name, field.value]));
     try {
       delete process.env.HUBSPOT_AGENTIC_GUIDE_FORM_ID;
       delete process.env.HUBSPOT_RESOURCE_DOWNLOAD_FORM_ID;
       const plain = await post(whitepaper, body, {headers: {"x-forwarded-for": "203.0.113.90"}});
-      assert.equal(plain.res.statusCode, 503);
-      assert.equal(plain.res.body.ok, false);
-      assert.equal(plain.res.body.error, "We could not send your paper just now. Please try again.");
-      assert.equal(plain.res.body.pdf, undefined);
-      assert.equal(plain.calls.length, 0);
-      assert.match(warnings.join("\n"), /HUBSPOT_AGENTIC_GUIDE_FORM_ID is not set/);
-      assert.match(warnings.join("\n"), /not delivering agentic-transformation-for-energy-developers/);
+      assert.equal(plain.res.statusCode, 200);
+      assertVersionedPdf(plain.res.body.pdf, pdf);
+      assert.equal(plain.res.body.newsletterSubscribed, false);
+      assert.equal(plain.calls.length, 1, "an unticked Signal box sends nothing to Signal");
+      assert.match(plain.calls[0].url, /2282b746-28f8-4e9f-a783-6d471c01fffd$/);
+      const plainFields = fieldsOf(plain.calls[0]);
+      assert.equal(plainFields.resource, "guide-agentic-transformation");
+      assert.equal(plainFields.content_source, "guide-agentic-transformation");
+      assert.equal(plainFields.acquisition_source, "website");
+      assert.match(JSON.parse(plain.calls[0].body).legalConsentOptions.consent.text, /requested guide/);
+      assert.match(JSON.parse(plain.calls[0].body).legalConsentOptions.consent.communications[0].text, /only for this guide/);
 
-      const ticked = await post(whitepaper, {...body, email: "ticked@example.com", signal_opt_in: "true"}, {headers: {"x-forwarded-for": "203.0.113.91"}});
-      assert.equal(ticked.res.statusCode, 503);
-      assert.equal(ticked.res.body.pdf, undefined);
-      assert.equal(ticked.calls.length, 0, "a missing form does not submit Signal or deliver the PDF");
-
-      process.env.HUBSPOT_AGENTIC_GUIDE_FORM_ID = "guide-form-id";
+      process.env.HUBSPOT_AGENTIC_GUIDE_FORM_ID = "  guide-form-id  ";
       const saved = await post(whitepaper, {...body, email: "saved@example.com"}, {headers: {"x-forwarded-for": "203.0.113.92"}});
       assert.equal(saved.res.statusCode, 200);
       assertVersionedPdf(saved.res.body.pdf, pdf);
-      assert.equal(saved.res.body.newsletterSubscribed, false);
-      assert.equal(saved.calls.length, 1, "an unticked Signal box sends nothing to Signal");
       assert.match(saved.calls[0].url, /guide-form-id$/);
-      const sent = JSON.parse(saved.calls[0].body);
-      const fields = Object.fromEntries(sent.fields.map((field) => [field.name, field.value]));
-      assert.equal(fields.resource, "agentic-transformation-for-energy-developers");
-      assert.equal(fields.content_source, "guide-agentic-transformation");
-      assert.equal(fields.acquisition_source, "website");
-      assert.match(sent.legalConsentOptions.consent.text, /requested guide/);
-      assert.match(sent.legalConsentOptions.consent.communications[0].text, /only for this guide/);
+      assert.equal(fieldsOf(saved.calls[0]).resource, "guide-agentic-transformation");
+      assert.equal(fieldsOf(saved.calls[0]).content_source, "guide-agentic-transformation");
 
       const optedIn = await post(whitepaper, {...body, email: "ticked@example.com", signal_opt_in: "true"}, {headers: {"x-forwarded-for": "203.0.113.93"}});
       assert.equal(optedIn.res.statusCode, 200);
@@ -363,6 +356,15 @@ describe("form protection", {concurrency: 1}, () => {
       assert.equal(optedIn.res.body.newsletterSubscribed, true);
       assert.equal(optedIn.calls.length, 2);
       assert.match(optedIn.calls[1].url, /9ee4b5ce-211f-4be1-a8d1-69809052e8b2$/);
+
+      process.env.HUBSPOT_AGENTIC_GUIDE_FORM_ID = "   ";
+      const blocked = await post(whitepaper, {...body, email: "blocked@example.com"}, {headers: {"x-forwarded-for": "203.0.113.94"}});
+      assert.equal(blocked.res.statusCode, 503);
+      assert.equal(blocked.res.body.ok, false);
+      assert.equal(blocked.res.body.error, "We could not send your paper just now. Please try again.");
+      assert.equal(blocked.res.body.pdf, undefined);
+      assert.equal(blocked.calls.length, 0);
+      assert.match(warnings.join("\n"), /not delivering agentic-transformation-for-energy-developers without a HubSpot form submission/);
     } finally {
       console.warn = originalWarn;
       if (previous === undefined) delete process.env.HUBSPOT_AGENTIC_GUIDE_FORM_ID;
@@ -387,8 +389,13 @@ describe("form protection", {concurrency: 1}, () => {
       process.env.HUBSPOT_RESOURCE_DOWNLOAD_FORM_ID = "shared-download-form";
       process.env.HUBSPOT_EXTRA_CONTENT_SOURCES = "guide-agentic-transformation";
       let ip = 100;
+      const guide = await post(whitepaper, started({email: "guide@example.com", resource: "agentic-transformation-for-energy-developers"}), {headers: {"x-forwarded-for": `203.0.113.${ip++}`}});
+      assert.equal(guide.res.statusCode, 200);
+      assert.match(guide.calls[0].url, /2282b746-28f8-4e9f-a783-6d471c01fffd$/, "the guide keeps its own form when the env override is unset");
+      const guideFields = Object.fromEntries(JSON.parse(guide.calls[0].body).fields.map((field) => [field.name, field.value]));
+      assert.equal(guideFields.resource, "guide-agentic-transformation");
+      assert.equal(guideFields.content_source, "guide-agentic-transformation");
       for (const [resource, contentSource] of [
-        ["agentic-transformation-for-energy-developers", "guide-agentic-transformation"],
         ["market-monitor-2026-10", "market-monitor-2026-10"]
       ]) {
         const result = await post(whitepaper, started({email: `${resource}@example.com`, resource, content_source: contentSource}), {headers: {"x-forwarded-for": `203.0.113.${ip++}`}});

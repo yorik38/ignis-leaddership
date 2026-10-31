@@ -150,6 +150,18 @@ test("a gated paper with no resolvable form id does not deliver the PDF", async 
     delete process.env.HUBSPOT_AGENTIC_GUIDE_FORM_ID;
     delete process.env.HUBSPOT_RESOURCE_DOWNLOAD_FORM_ID;
     delete process.env.HUBSPOT_MARKET_MONITOR_FORM_ID;
+    const defaults = response();
+    await whitepaper({
+      method: "POST",
+      body: {email: "ada@example.com", resource: "agentic-transformation-for-energy-developers", form_started_at: Date.now() - 10000},
+      headers: {"x-forwarded-for": "198.51.100.209"}
+    }, defaults);
+    assert.equal(defaults.statusCode, 200);
+    assert.match(calls[0], /2282b746-28f8-4e9f-a783-6d471c01fffd$/);
+
+    process.env.HUBSPOT_AGENTIC_GUIDE_FORM_ID = "   ";
+    calls.length = 0;
+    warnings.length = 0;
     const blocked = response();
     await whitepaper({
       method: "POST",
@@ -159,7 +171,7 @@ test("a gated paper with no resolvable form id does not deliver the PDF", async 
     assert.equal(blocked.statusCode, 503);
     assert.deepEqual(blocked.body, {ok: false, error: "We could not send your paper just now. Please try again."});
     assert.equal(calls.length, 0);
-    assert.match(warnings.join("\n"), /HUBSPOT_AGENTIC_GUIDE_FORM_ID is not set \(nor HUBSPOT_RESOURCE_DOWNLOAD_FORM_ID\); not delivering agentic-transformation-for-energy-developers without a HubSpot form submission\./);
+    assert.match(warnings.join("\n"), /not delivering agentic-transformation-for-energy-developers without a HubSpot form submission/);
 
     warnings.length = 0;
     const free = response();

@@ -71,13 +71,13 @@ function papers() {
       deliverWithoutForm: true,
       separateSignalOptIn: true
     },
+    // Dedicated guide form. HUBSPOT_AGENTIC_GUIDE_FORM_ID overrides the default.
     "agentic-transformation-for-energy-developers": {
       gated: true,
-      // TODO: hard-code the dedicated guide form GUID as the default here once it exists.
-      // Until then this reads HUBSPOT_AGENTIC_GUIDE_FORM_ID and falls back to HUBSPOT_RESOURCE_DOWNLOAD_FORM_ID.
-      formId: String(process.env.HUBSPOT_AGENTIC_GUIDE_FORM_ID || "").trim(),
+      formId: String(process.env.HUBSPOT_AGENTIC_GUIDE_FORM_ID || "2282b746-28f8-4e9f-a783-6d471c01fffd").trim(),
       pdf: "/assets/downloads/ignis-guide-agentic-transformation-for-energy-developers.pdf",
       contentSource: "guide-agentic-transformation",
+      submissionResource: "guide-agentic-transformation",
       pageName: "Ignis guide: Agentic transformation for energy developers",
       formEnv: "HUBSPOT_AGENTIC_GUIDE_FORM_ID",
       deliverWithoutForm: true,
@@ -211,7 +211,7 @@ async function whitepaper(request, response) {
     paper.pageName,
     `https://www.ignisleadership.com/resources/${resource}`
   );
-  const fields = downloadFields(body, resource, paper.contentSource, context.pageUri);
+  const fields = downloadFields(body, paper.submissionResource || resource, paper.contentSource, context.pageUri);
 
   async function submitSignalOptIn(tagResource) {
     if (!signalOptIn) return true;
@@ -224,7 +224,7 @@ async function whitepaper(request, response) {
     });
     // With no download form, this is the only record of the request, so name the resource.
     // submitWithFallback drops it only when HubSpot names that field as invalid.
-    if (tagResource) fields.push({name: "resource", value: resource});
+    if (tagResource) fields.push({name: "resource", value: paper.submissionResource || resource});
     const payload = {
       submittedAt: Date.now(),
       fields,
