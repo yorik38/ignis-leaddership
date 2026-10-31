@@ -19,9 +19,9 @@ Commercial and transformation leaders who want to redesign existing work or deve
 
 - [Home](https://www.ignisleadership.com/): Ignis positioning, approach, experience, services, illustrative outcomes and engagement model.
 - [About Yorik](https://www.ignisleadership.com/about): Yorik Tisseau's experience and approach to commercial leadership, executive coaching and adoption.
-- [How Ignis works](https://www.ignisleadership.com/how-ignis-works): how Ignis improves commercial flow from last-mile development to financial close for onshore developers and offshore wind.
+- [How Ignis works](https://www.ignisleadership.com/services): how Ignis improves commercial flow from last-mile development to financial close for onshore developers and offshore wind.
 - [Insights](https://www.ignisleadership.com/insights): the "Bid more. Win more." newsletter on commercial AI adoption, transformation, commercial judgement and governed human-agent systems.
-- [Archive](https://www.ignisleadership.com/archive): index of past newsletter editions.
+- [Archive](https://www.ignisleadership.com/insights): index of past newsletter editions.
 - [Contact](https://www.ignisleadership.com/contact): start a conversation with Ignis Leadership.
 - [Governed agentic system brochure](https://www.ignisleadership.com/assets/downloads/ignis-governed-agentic-system-brochure.pdf): a free, ungated overview of how people, agents, knowledge and controls work together across bids and tenders.
 
@@ -36,20 +36,15 @@ Commercial and transformation leaders who want to redesign existing work or deve
 
 ## Practical insights
 
-- [RFP software or a bespoke agentic bid workflow?](https://www.ignisleadership.com/rfp-software-vs-agentic-bid-system): a buyer guide comparing established proposal-response software with a governed workflow designed around complex bid work, including when the right answer is both.
+- [RFP software or a bespoke agentic bid workflow?](https://www.ignisleadership.com/resources): a buyer guide comparing established proposal-response software with a governed workflow designed around complex bid work, including when the right answer is both.
 - [Why do unclear tenders produce incomparable bids?](https://www.ignisleadership.com/insights/why-do-unclear-tenders-produce-incomparable-bids): how unclear requirements, interfaces and evaluation methods cause suppliers to answer different versions of the tender.
 - [When do tender clarifications become a second specification?](https://www.ignisleadership.com/insights/when-do-tender-clarifications-become-a-second-specification): when clarification answers alter scope, risk or evidence, the log becomes part of the controlled commercial baseline.
 - [Is commercial work too judgement-heavy for AI agents?](https://www.ignisleadership.com/insights/is-commercial-work-too-judgement-heavy-for-ai-agents): why the work surrounding commercial decisions suits governed agents precisely because the decisions must remain human.
 
 ## Newsletter editions
 
-- [Your team uses AI. Does the business?](https://www.ignisleadership.com/insights/your-team-uses-ai-does-the-business): why informal LLM use and one failed chatbot experiment call for a governed commercial workflow, not a blanket AI ban.
-- [Why is your tender team still overloaded?](https://www.ignisleadership.com/insights/why-is-your-tender-team-still-overloaded): how to distinguish information-extraction pressure from coordination pressure before choosing the first workflow to redesign.
-- [Why do tenders inherit decisions without their history?](https://www.ignisleadership.com/insights/why-do-tenders-inherit-decisions-without-their-history): how commercial memory preserves evidence, assumptions and decision authority as an opportunity moves from origination through tender and close.
-- [Bids are lost before the writing starts](https://www.ignisleadership.com/insights/bids-are-lost-before-the-writing-starts): why the hardest bid decisions are made long before anyone drafts.
-- [Why does every bid feel like starting again?](https://www.ignisleadership.com/insights/why-does-every-bid-feel-like-starting-again): institutional memory, knowledge reuse and the capacity lost when neither exists.
-- [AI will expose your slowest bid decision.](https://www.ignisleadership.com/insights/ai-will-expose-your-slowest-bid-decision): faster production will make slow approvals and unclear ownership harder to hide.
-- [The proposal is becoming the easy part](https://www.ignisleadership.com/insights/the-proposal-is-becoming-the-easy-part): AI can produce more bid work, so the advantage moves to the decisions before and after it.
+- [First come, first served is over. What the new grid offers mean for developers](https://www.ignisleadership.com/insights/what-gate-2-is-really-about): for years, grid connections ran on first come, first served: apply early and you kept your place in the queue, ready or not.
+- [AO10: why proof, not price, decides France's round](https://www.ignisleadership.com/insights/ao10-france-has-put-a-price-on-proof): AO10 turns the credibility of a French offshore wind bid into points, and those points translate almost one for one into euros per MWh for developers.
 
 ## Key concepts used on this site
 

@@ -59,6 +59,7 @@ Contact properties, with these internal values:
 | Commercial system white paper | `email`, `resource` = `commercial-system-pipeline`, `content_source` = `whitepaper-commercial-system-pipeline`, `acquisition_source`. Form `5b3bb573-2ca5-47cc-8bc0-3e8b0f4023d5`. PDF `/assets/downloads/ignis-white-paper-commercial-system-pipeline.pdf` |
 | Route to market white paper | `email`, `resource` = `route-to-market`, `content_source` = `whitepaper-route-to-market`, `acquisition_source`. Form `92f54ac1-4205-4a4e-9e75-4303c2b5173b`, or `HUBSPOT_ROUTE_TO_MARKET_FORM_ID` when that variable is set. PDF `/assets/downloads/ignis-route-to-market.pdf` |
 | Procurement white paper | `email`, `resource` = `procurement`, `content_source` = `whitepaper-procurement`, `acquisition_source`. Form `eb4c59d4-1f1d-4104-8df3-6a249154867c`, or `HUBSPOT_PROCUREMENT_FORM_ID` when that variable is set. PDF `/assets/downloads/ignis-procurement.pdf` |
+| Agentic transformation guide | `email`, `resource` = `guide-agentic-transformation`, `content_source` = `guide-agentic-transformation`, `acquisition_source`. Form `2282b746-28f8-4e9f-a783-6d471c01fffd`, or `HUBSPOT_AGENTIC_GUIDE_FORM_ID` when that variable is set. The page does not include the PDF path |
 | Market Monitor download | `email`, `content_source` = `market-monitor-2026-10`, `resource` = `market-monitor-2026-10`, `acquisition_source`. Delivery consent uses subscription type `3918058120`. PDF `/assets/downloads/ignis-market-monitor-2026-10.pdf`. Form id is `HUBSPOT_MARKET_MONITOR_FORM_ID` |
 | Contact | Not submitted by the site. The page embeds HubSpot form `3c83d1fd-334f-4bf6-9068-47e7f2044ad8` |
 
@@ -96,6 +97,44 @@ Every signup and download form includes:
 
 Honeypot, time trap and that Gmail pattern return a quiet success and do not call HubSpot. The rate limit returns HTTP 429. A failed Turnstile check asks the visitor to complete the security check.
 
+## Gated and ungated papers
+
+Each entry in `papers()` in `api/whitepaper.js` has a `gated` boolean and a `presentation` of `popup` or `form`. `paperIsGated` is the only function that reads `gated`. To switch one paper, change that entry's `gated` line. `presentation` says how the page asks for the email.
+
+All four current papers are `gated: true`. Route to market, procurement and the October Market Monitor use `presentation: "popup"`. The agentic guide uses `presentation: "form"`. The older bids and commercial system entries stay `gated: true` and `presentation: "form"`.
+
+`HUBSPOT_UNGATED_RESOURCES` is optional. It is a comma-separated list of resource keys. A key in that list is ungated even when its `gated` flag is still `true`. Leave the variable unset and the flags above apply. The variable cannot force a paper back to gated.
+
+`GET /api/whitepaper?resource=<key>` returns `{gated, presentation}` and includes `pdf` only when the paper is ungated. A gated POST returns the PDF URL only after a valid submit. The submit accepts an email with no first name. `content_source` is the paper's own value. The Signal checkbox subscribes only when it is ticked.
+
+If a gated paper's resolved form id is empty and `HUBSPOT_RESOURCE_DOWNLOAD_FORM_ID` is unset, the POST returns 503, `{"ok":false,"error":"We could not send your paper just now. Please try again."}`, and does not include the PDF. Ungated papers can still download when no form id is set.
+
+Popup pages (route to market, procurement, Market Monitor) keep the article on the page. Near the top they say "Free resource. Read it below, or download the PDF." The words "download the PDF" are a button, and a second "Download the PDF" button sits in the download block. Both open the same dialog. The dialog asks for an email, runs Turnstile, and has an unticked Signal box. The page source does not include the PDF URL. On success the browser starts the download from the API URL, which ends with `?v=` and the first eight characters of the file's SHA-256.
+
+The pop-up is one script, `/assets/whitepaper.js`, plus the markup below. The only paper specific part is `data-paper`. Set it to the resource key in `papers()`. The script copies that key into the form before submit. The API chooses `content_source`, the form id and the PDF from that key. Do not put the PDF path in the page.
+
+```html
+<p class="wp-free-label">Free resource. Read it below, or <button type="button" class="wp-inline-download" data-download-open aria-haspopup="dialog" aria-controls="wp-download-dialog">download the PDF</button>.</p>
+<button type="button" class="wp-download-open" data-download-open aria-haspopup="dialog" aria-controls="wp-download-dialog">Download the PDF</button>
+<dialog class="wp-download-dialog" id="wp-download-dialog" data-paper="your-resource-key" aria-labelledby="wp-download-dialog-title">
+<form method="post" action="/api/whitepaper" data-whitepaper-form data-whitepaper-popup>
+<input type="hidden" name="resource" value="">
+<input type="hidden" name="form_started_at" value="">
+<!-- email field, honeypot, Turnstile slot, unticked signal_opt_in, status line, submit "Send me the PDF", and the success panel -->
+</form>
+</dialog>
+```
+
+Load `/assets/whitepaper.js` on the page. Add the same key to `papers()` with `gated: true`, `presentation: "popup"`, the PDF path and the HubSpot form id.
+
+The guide form stays on the page. It defaults to `2282b746-28f8-4e9f-a783-6d471c01fffd`. `HUBSPOT_AGENTIC_GUIDE_FORM_ID` overrides that default when it is set. Its HubSpot fields are `resource` = `guide-agentic-transformation` and `content_source` = `guide-agentic-transformation`. The guide page does not include the PDF path.
+
+Route to market uses form `92f54ac1-4205-4a4e-9e75-4303c2b5173b`, or `HUBSPOT_ROUTE_TO_MARKET_FORM_ID` when that variable is set. Procurement uses `eb4c59d4-1f1d-4104-8df3-6a249154867c`, or `HUBSPOT_PROCUREMENT_FORM_ID`. The Market Monitor uses `HUBSPOT_MARKET_MONITOR_FORM_ID`, then the shared download form if that is unset.
+
+These four PDFs send `X-Robots-Tag: noindex`. The bids and commercial system PDFs do not.
+
+Files under `/assets/downloads/*.pdf` send `Cache-Control: public, max-age=0, must-revalidate`. That rule comes after the one-year immutable rule for `/assets/*`, so it wins for those PDFs. Other assets keep the one-year rule. Links already sent in HubSpot emails use the path without `?v=`. A browser that stored that file under the old immutable rule can keep showing it until that copy expires. New visitors, and browsers that revalidate, get the current file.
+
 ## A later Market Monitor edition
 
-Copy the October report page and point the form at the new edition. Set `data-edition`, `data-pdf`, the hidden `resource` and `content_source`, and the body `data-whitepaper-pdf` and `data-whitepaper-key` to the new slug and PDF path. Add that slug to the `papers()` map in `api/whitepaper.js` with its PDF path and `HUBSPOT_` form id. Add the slug to the HubSpot `content_source` property before relying on it. The October PDF path and report copy stay as they are.
+Copy the October report page. On the dialog, change `data-paper` to the new slug and leave the rest of the pop-up markup as it is. Do not put the PDF path in the page. Add that slug to `papers()` with `gated: true`, `presentation: "popup"`, its PDF path and its form id. Add the slug to the HubSpot `content_source` property before relying on it. The October PDF path and report copy stay as they are.

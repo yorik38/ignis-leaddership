@@ -1,3 +1,6 @@
+const crypto = require("crypto");
+const fs = require("fs");
+const path = require("path");
 const {protectForm} = require("./_lib/protect");
 const {
   PAPER_SUBSCRIPTION_TYPE_ID,
@@ -20,15 +23,24 @@ function sharedDownloadFormId() {
   return String(process.env.HUBSPOT_RESOURCE_DOWNLOAD_FORM_ID || "").trim();
 }
 
+// Flip one paper by changing its `gated` line.
+// true: the PDF URL is returned only after a valid submit.
+// false: GET may return the PDF URL.
+// HUBSPOT_UNGATED_RESOURCES (comma-separated keys) forces those papers ungated.
+// presentation is "popup" or "form": how the page asks for the email.
 function papers() {
   return {
     "bids-won-on-evidence": {
+      gated: true,
+      presentation: "form",
       formId: "9b783156-b16d-443a-bc80-51bab3411670",
       pdf: "/assets/downloads/guide-01-bids-whitepaper.pdf",
       contentSource: "whitepaper-bids-won-on-evidence",
       pageName: "Ignis white paper: bids-won-on-evidence"
     },
     "commercial-system-pipeline": {
+      gated: true,
+      presentation: "form",
       formId: "5b3bb573-2ca5-47cc-8bc0-3e8b0f4023d5",
       pdf: "/assets/downloads/ignis-white-paper-commercial-system-pipeline.pdf",
       contentSource: "whitepaper-commercial-system-pipeline",
@@ -37,6 +49,8 @@ function papers() {
     // Each paper submits to its own HubSpot form. The form id below is the default
     // and can be overridden with the named environment variable.
     "route-to-market": {
+      gated: true,
+      presentation: "popup",
       formId: String(process.env.HUBSPOT_ROUTE_TO_MARKET_FORM_ID || "92f54ac1-4205-4a4e-9e75-4303c2b5173b").trim(),
       pdf: "/assets/downloads/ignis-route-to-market.pdf",
       contentSource: "whitepaper-route-to-market",
@@ -44,6 +58,8 @@ function papers() {
       formEnv: "HUBSPOT_ROUTE_TO_MARKET_FORM_ID"
     },
     "procurement": {
+      gated: true,
+      presentation: "popup",
       formId: String(process.env.HUBSPOT_PROCUREMENT_FORM_ID || "eb4c59d4-1f1d-4104-8df3-6a249154867c").trim(),
       pdf: "/assets/downloads/ignis-procurement.pdf",
       contentSource: "whitepaper-procurement",
@@ -51,6 +67,8 @@ function papers() {
       formEnv: "HUBSPOT_PROCUREMENT_FORM_ID"
     },
     "market-monitor-2026-10": {
+      gated: true,
+      presentation: "popup",
       formId: String(process.env.HUBSPOT_MARKET_MONITOR_FORM_ID || "").trim(),
       pdf: "/assets/downloads/ignis-market-monitor-2026-10.pdf",
       contentSource: "market-monitor-2026-10",
@@ -59,10 +77,14 @@ function papers() {
       deliverWithoutForm: true,
       separateSignalOptIn: true
     },
+    // Dedicated guide form. HUBSPOT_AGENTIC_GUIDE_FORM_ID overrides the default.
     "agentic-transformation-for-energy-developers": {
-      formId: String(process.env.HUBSPOT_AGENTIC_GUIDE_FORM_ID || "").trim(),
+      gated: true,
+      presentation: "form",
+      formId: String(process.env.HUBSPOT_AGENTIC_GUIDE_FORM_ID || "2282b746-28f8-4e9f-a783-6d471c01fffd").trim(),
       pdf: "/assets/downloads/ignis-guide-agentic-transformation-for-energy-developers.pdf",
       contentSource: "guide-agentic-transformation",
+      submissionResource: "guide-agentic-transformation",
       pageName: "Ignis guide: Agentic transformation for energy developers",
       formEnv: "HUBSPOT_AGENTIC_GUIDE_FORM_ID",
       deliverWithoutForm: true,
@@ -70,6 +92,52 @@ function papers() {
       kind: "guide"
     }
   };
+}
+
+function ungatedResourceKeys() {
+  return new Set(
+    String(process.env.HUBSPOT_UNGATED_RESOURCES || "")
+      .split(",")
+      .map((key) => key.trim())
+      .filter(Boolean)
+  );
+}
+
+// The only place that decides whether a paper is gated.
+function paperIsGated(resource, paper) {
+  if (ungatedResourceKeys().has(resource)) return false;
+  return !paper || paper.gated !== false;
+}
+
+function paperPresentation(paper) {
+  return paper && paper.presentation === "popup" ? "popup" : "form";
+}
+
+const pdfVersions = new Map();
+
+function pdfVersion(pdfPath) {
+  const cached = pdfVersions.get(pdfPath);
+  if (cached) return cached;
+  const filePath = path.join(__dirname, "..", String(pdfPath || "").replace(/^\//, ""));
+  const version = crypto.createHash("sha256").update(fs.readFileSync(filePath)).digest("hex").slice(0, 8);
+  pdfVersions.set(pdfPath, version);
+  return version;
+}
+
+function publicPdfUrl(pdfPath) {
+  return `${pdfPath}?v=${pdfVersion(pdfPath)}`;
+}
+
+function resourceFrom(request) {
+  const query = request && request.query;
+  if (query && query.resource != null) {
+    const value = Array.isArray(query.resource) ? query.resource[0] : query.resource;
+    return String(value || "").trim();
+  }
+  const raw = String((request && request.url) || "");
+  const q = raw.indexOf("?");
+  if (q === -1) return "";
+  return String(new URLSearchParams(raw.slice(q + 1)).get("resource") || "").trim();
 }
 
 function send(response, status, payload) {
@@ -105,9 +173,20 @@ function deliveryConsentText(resource, paper) {
   return "Email me the white paper I requested. This is only for this paper, not the Signal newsletter.";
 }
 
-module.exports = async function whitepaper(request, response) {
+async function whitepaper(request, response) {
+  if (request.method === "GET") {
+    const resource = resourceFrom(request);
+    const catalogue = papers();
+    const paper = Object.prototype.hasOwnProperty.call(catalogue, resource) ? catalogue[resource] : undefined;
+    if (!paper) return send(response, 404, {ok: false, error: "unknown_resource"});
+    const gated = paperIsGated(resource, paper);
+    const payload = {gated, presentation: paperPresentation(paper)};
+    if (!gated) payload.pdf = publicPdfUrl(paper.pdf);
+    return send(response, 200, payload);
+  }
+
   if (request.method !== "POST") {
-    response.setHeader("Allow", "POST");
+    response.setHeader("Allow", "GET, POST");
     return send(response, 405, {ok: false, error: "method_not_allowed"});
   }
 
@@ -145,7 +224,7 @@ module.exports = async function whitepaper(request, response) {
     paper.pageName,
     `https://www.ignisleadership.com/resources/${resource}`
   );
-  const fields = downloadFields(body, resource, paper.contentSource, context.pageUri);
+  const fields = downloadFields(body, paper.submissionResource || resource, paper.contentSource, context.pageUri);
 
   async function submitSignalOptIn(tagResource) {
     if (!signalOptIn) return true;
@@ -158,7 +237,7 @@ module.exports = async function whitepaper(request, response) {
     });
     // With no download form, this is the only record of the request, so name the resource.
     // submitWithFallback drops it only when HubSpot names that field as invalid.
-    if (tagResource) fields.push({name: "resource", value: resource});
+    if (tagResource) fields.push({name: "resource", value: paper.submissionResource || resource});
     const payload = {
       submittedAt: Date.now(),
       fields,
@@ -177,14 +256,19 @@ module.exports = async function whitepaper(request, response) {
   }
 
   if (!paper.formId) {
+    const missingForm = `${paper.formEnv || "The HubSpot download form ID"} is not set (nor HUBSPOT_RESOURCE_DOWNLOAD_FORM_ID)`;
+    if (paperIsGated(resource, paper)) {
+      console.warn(`${missingForm}; not delivering ${resource} without a HubSpot form submission.`);
+      return send(response, 503, {ok: false, error: "We could not send your paper just now. Please try again."});
+    }
     if (!paper.deliverWithoutForm) {
       return send(response, 422, {ok: false, error: "Enter your email and confirm that we may send the paper."});
     }
-    console.warn(`${paper.formEnv || "The HubSpot download form ID"} is not set (nor HUBSPOT_RESOURCE_DOWNLOAD_FORM_ID); delivering ${resource} without a HubSpot form submission.`);
+    console.warn(`${missingForm}; delivering ${resource} without a HubSpot form submission.`);
     const signalSaved = await submitSignalOptIn(true);
     return send(response, 200, {
       ok: true,
-      pdf: paper.pdf,
+      pdf: publicPdfUrl(paper.pdf),
       newsletterSubscribed: signalOptIn ? signalSaved : false,
       ...(signalOptIn && !signalSaved ? {warning: "newsletter_submission_failed"} : {})
     });
@@ -224,8 +308,11 @@ module.exports = async function whitepaper(request, response) {
   const signalSaved = await submitSignalOptIn();
   return send(response, 200, {
     ok: true,
-    pdf: paper.pdf,
+    pdf: publicPdfUrl(paper.pdf),
     newsletterSubscribed: signalOptIn ? signalSaved : false,
     ...(signalOptIn && !signalSaved ? {warning: "newsletter_submission_failed"} : {})
   });
-};
+}
+
+module.exports = whitepaper;
+module.exports.paperIsGated = paperIsGated;

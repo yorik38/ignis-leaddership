@@ -21,6 +21,11 @@ function response() {
   };
 }
 
+function assertVersionedPdf(actual, filePath) {
+  assert.equal(String(actual).split("?")[0], filePath);
+  assert.match(String(actual), /\?v=[0-9a-f]{8}$/);
+}
+
 function started(body = {}) {
   return {form_started_at: Date.now() - 10000, ...body};
 }
@@ -261,6 +266,7 @@ describe("form protection", {concurrency: 1}, () => {
   test("Market Monitor delivers the PDF with and without a HubSpot form id", async () => {
     resetProtectionForTests();
     const previous = process.env.HUBSPOT_MARKET_MONITOR_FORM_ID;
+    const previousShared = process.env.HUBSPOT_RESOURCE_DOWNLOAD_FORM_ID;
     const warnings = [];
     const originalWarn = console.warn;
     console.warn = (...args) => warnings.push(args.join(" "));
@@ -276,16 +282,17 @@ describe("form protection", {concurrency: 1}, () => {
     });
     try {
       delete process.env.HUBSPOT_MARKET_MONITOR_FORM_ID;
+      delete process.env.HUBSPOT_RESOURCE_DOWNLOAD_FORM_ID;
       const missing = await post(whitepaper, download, {headers: {"x-forwarded-for": "203.0.113.70"}});
-      assert.equal(missing.res.statusCode, 200);
-      assert.equal(missing.res.body.pdf, "/assets/downloads/ignis-market-monitor-2026-10.pdf");
+      assert.equal(missing.res.statusCode, 503);
+      assert.equal(missing.res.body.pdf, undefined);
       assert.equal(missing.calls.length, 0);
-      assert.match(warnings.join("\n"), /HUBSPOT_MARKET_MONITOR_FORM_ID is not set/);
+      assert.match(warnings.join("\n"), /not delivering market-monitor-2026-10/);
 
       process.env.HUBSPOT_MARKET_MONITOR_FORM_ID = "monitor-form-id";
       const saved = await post(whitepaper, {...download, email: "saved@example.com"}, {headers: {"x-forwarded-for": "203.0.113.71"}});
       assert.equal(saved.res.statusCode, 200);
-      assert.equal(saved.res.body.pdf, "/assets/downloads/ignis-market-monitor-2026-10.pdf");
+      assertVersionedPdf(saved.res.body.pdf, "/assets/downloads/ignis-market-monitor-2026-10.pdf");
       assert.equal(saved.calls.length, 1);
       assert.match(saved.calls[0].url, /monitor-form-id$/);
       const fields = Object.fromEntries(JSON.parse(saved.calls[0].body).fields.map((field) => [field.name, field.value]));
@@ -303,12 +310,15 @@ describe("form protection", {concurrency: 1}, () => {
       console.warn = originalWarn;
       if (previous === undefined) delete process.env.HUBSPOT_MARKET_MONITOR_FORM_ID;
       else process.env.HUBSPOT_MARKET_MONITOR_FORM_ID = previous;
+      if (previousShared === undefined) delete process.env.HUBSPOT_RESOURCE_DOWNLOAD_FORM_ID;
+      else process.env.HUBSPOT_RESOURCE_DOWNLOAD_FORM_ID = previousShared;
     }
   });
 
-  test("the agentic transformation guide delivers its PDF, with Signal only when ticked", async () => {
+  test("the agentic transformation guide uses its dedicated HubSpot form", async () => {
     resetProtectionForTests();
     const previous = process.env.HUBSPOT_AGENTIC_GUIDE_FORM_ID;
+    const previousShared = process.env.HUBSPOT_RESOURCE_DOWNLOAD_FORM_ID;
     const warnings = [];
     const originalWarn = console.warn;
     console.warn = (...args) => warnings.push(args.join(" "));
@@ -319,43 +329,52 @@ describe("form protection", {concurrency: 1}, () => {
       content_source: "guide-agentic-transformation",
       page_url: "https://www.ignisleadership.com/resources/agentic-transformation-for-energy-developers"
     });
+    const fieldsOf = (call) => Object.fromEntries(JSON.parse(call.body).fields.map((field) => [field.name, field.value]));
     try {
       delete process.env.HUBSPOT_AGENTIC_GUIDE_FORM_ID;
+      delete process.env.HUBSPOT_RESOURCE_DOWNLOAD_FORM_ID;
       const plain = await post(whitepaper, body, {headers: {"x-forwarded-for": "203.0.113.90"}});
       assert.equal(plain.res.statusCode, 200);
-      assert.equal(plain.res.body.pdf, pdf);
+      assertVersionedPdf(plain.res.body.pdf, pdf);
       assert.equal(plain.res.body.newsletterSubscribed, false);
-      assert.equal(plain.calls.length, 0, "an unticked Signal box sends nothing to Signal");
-      assert.match(warnings.join("\n"), /HUBSPOT_AGENTIC_GUIDE_FORM_ID is not set/);
+      assert.equal(plain.calls.length, 1, "an unticked Signal box sends nothing to Signal");
+      assert.match(plain.calls[0].url, /2282b746-28f8-4e9f-a783-6d471c01fffd$/);
+      const plainFields = fieldsOf(plain.calls[0]);
+      assert.equal(plainFields.resource, "guide-agentic-transformation");
+      assert.equal(plainFields.content_source, "guide-agentic-transformation");
+      assert.equal(plainFields.acquisition_source, "website");
+      assert.match(JSON.parse(plain.calls[0].body).legalConsentOptions.consent.text, /requested guide/);
+      assert.match(JSON.parse(plain.calls[0].body).legalConsentOptions.consent.communications[0].text, /only for this guide/);
 
-      const ticked = await post(whitepaper, {...body, email: "ticked@example.com", signal_opt_in: "true"}, {headers: {"x-forwarded-for": "203.0.113.91"}});
-      assert.equal(ticked.res.statusCode, 200);
-      assert.equal(ticked.res.body.pdf, pdf);
-      assert.equal(ticked.res.body.newsletterSubscribed, true);
-      assert.equal(ticked.calls.length, 1);
-      assert.match(ticked.calls[0].url, /9ee4b5ce-211f-4be1-a8d1-69809052e8b2$/);
-      const tickedFields = Object.fromEntries(JSON.parse(ticked.calls[0].body).fields.map((field) => [field.name, field.value]));
-      assert.equal(tickedFields.resource, "agentic-transformation-for-energy-developers", "Signal-only capture still names the resource");
-      assert.equal(tickedFields.content_source, "guide-agentic-transformation");
-      assert.equal(tickedFields.signal_source, "website");
-
-      process.env.HUBSPOT_AGENTIC_GUIDE_FORM_ID = "guide-form-id";
+      process.env.HUBSPOT_AGENTIC_GUIDE_FORM_ID = "  guide-form-id  ";
       const saved = await post(whitepaper, {...body, email: "saved@example.com"}, {headers: {"x-forwarded-for": "203.0.113.92"}});
       assert.equal(saved.res.statusCode, 200);
-      assert.equal(saved.res.body.pdf, pdf);
-      assert.equal(saved.calls.length, 1);
+      assertVersionedPdf(saved.res.body.pdf, pdf);
       assert.match(saved.calls[0].url, /guide-form-id$/);
-      const sent = JSON.parse(saved.calls[0].body);
-      const fields = Object.fromEntries(sent.fields.map((field) => [field.name, field.value]));
-      assert.equal(fields.resource, "agentic-transformation-for-energy-developers");
-      assert.equal(fields.content_source, "guide-agentic-transformation");
-      assert.equal(fields.acquisition_source, "website");
-      assert.match(sent.legalConsentOptions.consent.text, /requested guide/);
-      assert.match(sent.legalConsentOptions.consent.communications[0].text, /only for this guide/);
+      assert.equal(fieldsOf(saved.calls[0]).resource, "guide-agentic-transformation");
+      assert.equal(fieldsOf(saved.calls[0]).content_source, "guide-agentic-transformation");
+
+      const optedIn = await post(whitepaper, {...body, email: "ticked@example.com", signal_opt_in: "true"}, {headers: {"x-forwarded-for": "203.0.113.93"}});
+      assert.equal(optedIn.res.statusCode, 200);
+      assertVersionedPdf(optedIn.res.body.pdf, pdf);
+      assert.equal(optedIn.res.body.newsletterSubscribed, true);
+      assert.equal(optedIn.calls.length, 2);
+      assert.match(optedIn.calls[1].url, /9ee4b5ce-211f-4be1-a8d1-69809052e8b2$/);
+
+      process.env.HUBSPOT_AGENTIC_GUIDE_FORM_ID = "   ";
+      const blocked = await post(whitepaper, {...body, email: "blocked@example.com"}, {headers: {"x-forwarded-for": "203.0.113.94"}});
+      assert.equal(blocked.res.statusCode, 503);
+      assert.equal(blocked.res.body.ok, false);
+      assert.equal(blocked.res.body.error, "We could not send your paper just now. Please try again.");
+      assert.equal(blocked.res.body.pdf, undefined);
+      assert.equal(blocked.calls.length, 0);
+      assert.match(warnings.join("\n"), /not delivering agentic-transformation-for-energy-developers without a HubSpot form submission/);
     } finally {
       console.warn = originalWarn;
       if (previous === undefined) delete process.env.HUBSPOT_AGENTIC_GUIDE_FORM_ID;
       else process.env.HUBSPOT_AGENTIC_GUIDE_FORM_ID = previous;
+      if (previousShared === undefined) delete process.env.HUBSPOT_RESOURCE_DOWNLOAD_FORM_ID;
+      else process.env.HUBSPOT_RESOURCE_DOWNLOAD_FORM_ID = previousShared;
     }
   });
 
@@ -374,8 +393,13 @@ describe("form protection", {concurrency: 1}, () => {
       process.env.HUBSPOT_RESOURCE_DOWNLOAD_FORM_ID = "shared-download-form";
       process.env.HUBSPOT_EXTRA_CONTENT_SOURCES = "guide-agentic-transformation";
       let ip = 100;
+      const guide = await post(whitepaper, started({email: "guide@example.com", resource: "agentic-transformation-for-energy-developers"}), {headers: {"x-forwarded-for": `203.0.113.${ip++}`}});
+      assert.equal(guide.res.statusCode, 200);
+      assert.match(guide.calls[0].url, /2282b746-28f8-4e9f-a783-6d471c01fffd$/, "the guide keeps its own form when the env override is unset");
+      const guideFields = Object.fromEntries(JSON.parse(guide.calls[0].body).fields.map((field) => [field.name, field.value]));
+      assert.equal(guideFields.resource, "guide-agentic-transformation");
+      assert.equal(guideFields.content_source, "guide-agentic-transformation");
       for (const [resource, contentSource] of [
-        ["agentic-transformation-for-energy-developers", "guide-agentic-transformation"],
         ["market-monitor-2026-10", "market-monitor-2026-10"]
       ]) {
         const result = await post(whitepaper, started({email: `${resource}@example.com`, resource, content_source: contentSource}), {headers: {"x-forwarded-for": `203.0.113.${ip++}`}});
@@ -406,14 +430,18 @@ describe("form protection", {concurrency: 1}, () => {
 
   test("a Signal form that refuses the resource field still records the opt-in", async () => {
     resetProtectionForTests();
-    const previous = process.env.HUBSPOT_AGENTIC_GUIDE_FORM_ID;
+    const previous = process.env.HUBSPOT_MARKET_MONITOR_FORM_ID;
+    const previousShared = process.env.HUBSPOT_RESOURCE_DOWNLOAD_FORM_ID;
+    const previousUngated = process.env.HUBSPOT_UNGATED_RESOURCES;
     const originalWarn = console.warn;
     const originalError = console.error;
     console.warn = () => {};
     console.error = () => {};
     try {
-      delete process.env.HUBSPOT_AGENTIC_GUIDE_FORM_ID;
-      const result = await post(whitepaper, started({email: "strict@example.com", resource: "agentic-transformation-for-energy-developers", signal_opt_in: "true"}), {
+      delete process.env.HUBSPOT_MARKET_MONITOR_FORM_ID;
+      delete process.env.HUBSPOT_RESOURCE_DOWNLOAD_FORM_ID;
+      process.env.HUBSPOT_UNGATED_RESOURCES = "market-monitor-2026-10";
+      const result = await post(whitepaper, started({email: "strict@example.com", resource: "market-monitor-2026-10", signal_opt_in: "true"}), {
         headers: {"x-forwarded-for": "203.0.113.120"},
         fetchImpl: async (url, init) => {
           const names = JSON.parse(init.body).fields.map((field) => field.name);
@@ -441,19 +469,24 @@ describe("form protection", {concurrency: 1}, () => {
       const retriedFields = Object.fromEntries(JSON.parse(result.calls[1].body).fields.map((field) => [field.name, field.value]));
       assert.equal(retriedFields.resource, undefined);
       assert.equal(retriedFields.signal_source, "website");
-      assert.equal(retriedFields.content_source, "guide-agentic-transformation");
+      assert.equal(retriedFields.content_source, "market-monitor-2026-10");
       assert.ok(retriedFields.signal_subscribed_date);
     } finally {
       console.warn = originalWarn;
       console.error = originalError;
-      if (previous === undefined) delete process.env.HUBSPOT_AGENTIC_GUIDE_FORM_ID;
-      else process.env.HUBSPOT_AGENTIC_GUIDE_FORM_ID = previous;
+      if (previous === undefined) delete process.env.HUBSPOT_MARKET_MONITOR_FORM_ID;
+      else process.env.HUBSPOT_MARKET_MONITOR_FORM_ID = previous;
+      if (previousShared === undefined) delete process.env.HUBSPOT_RESOURCE_DOWNLOAD_FORM_ID;
+      else process.env.HUBSPOT_RESOURCE_DOWNLOAD_FORM_ID = previousShared;
+      if (previousUngated === undefined) delete process.env.HUBSPOT_UNGATED_RESOURCES;
+      else process.env.HUBSPOT_UNGATED_RESOURCES = previousUngated;
     }
   });
 
   test("Market Monitor Signal opt-in submits the Signal form, including when the report form id is unset", async () => {
     resetProtectionForTests();
     const previous = process.env.HUBSPOT_MARKET_MONITOR_FORM_ID;
+    const previousShared = process.env.HUBSPOT_RESOURCE_DOWNLOAD_FORM_ID;
     const originalWarn = console.warn;
     console.warn = () => {};
     const body = started({
@@ -470,7 +503,7 @@ describe("form protection", {concurrency: 1}, () => {
       process.env.HUBSPOT_MARKET_MONITOR_FORM_ID = "monitor-form-id";
       const both = await post(whitepaper, body, {headers: {"x-forwarded-for": "203.0.113.80"}});
       assert.equal(both.res.statusCode, 200);
-      assert.equal(both.res.body.pdf, "/assets/downloads/ignis-market-monitor-2026-10.pdf");
+      assertVersionedPdf(both.res.body.pdf, "/assets/downloads/ignis-market-monitor-2026-10.pdf");
       assert.equal(both.res.body.newsletterSubscribed, true);
       assert.equal(both.calls.length, 2);
       assert.match(both.calls[0].url, /monitor-form-id$/);
@@ -489,15 +522,17 @@ describe("form protection", {concurrency: 1}, () => {
       assert.ok(signalFields.signal_subscribed_date);
 
       delete process.env.HUBSPOT_MARKET_MONITOR_FORM_ID;
+      delete process.env.HUBSPOT_RESOURCE_DOWNLOAD_FORM_ID;
       const signalOnly = await post(whitepaper, {...body, email: "signal-only@example.com"}, {headers: {"x-forwarded-for": "203.0.113.81"}});
-      assert.equal(signalOnly.res.statusCode, 200);
-      assert.equal(signalOnly.res.body.pdf, "/assets/downloads/ignis-market-monitor-2026-10.pdf");
-      assert.equal(signalOnly.calls.length, 1);
-      assert.match(signalOnly.calls[0].url, /9ee4b5ce-211f-4be1-a8d1-69809052e8b2$/);
+      assert.equal(signalOnly.res.statusCode, 503);
+      assert.equal(signalOnly.res.body.pdf, undefined);
+      assert.equal(signalOnly.calls.length, 0);
     } finally {
       console.warn = originalWarn;
       if (previous === undefined) delete process.env.HUBSPOT_MARKET_MONITOR_FORM_ID;
       else process.env.HUBSPOT_MARKET_MONITOR_FORM_ID = previous;
+      if (previousShared === undefined) delete process.env.HUBSPOT_RESOURCE_DOWNLOAD_FORM_ID;
+      else process.env.HUBSPOT_RESOURCE_DOWNLOAD_FORM_ID = previousShared;
     }
   });
 
@@ -528,7 +563,7 @@ describe("form protection", {concurrency: 1}, () => {
         }
       });
       assert.equal(result.res.statusCode, 200);
-      assert.equal(result.res.body.pdf, "/assets/downloads/ignis-market-monitor-2026-10.pdf");
+      assertVersionedPdf(result.res.body.pdf, "/assets/downloads/ignis-market-monitor-2026-10.pdf");
       assert.equal(attempt, 2);
     } finally {
       if (previous === undefined) delete process.env.HUBSPOT_MARKET_MONITOR_FORM_ID;
@@ -585,7 +620,7 @@ describe("form protection", {concurrency: 1}, () => {
         signal_opt_in: "true",
         page_url: "https://www.ignisleadership.com/reports/market-monitor-2026-10"
       }), {headers: {cookie: "hubspotutk=monitor-cookie", "x-forwarded-for": "203.0.113.114"}});
-      assert.equal(monitor.res.body.pdf, "/assets/downloads/ignis-market-monitor-2026-10.pdf");
+      assertVersionedPdf(monitor.res.body.pdf, "/assets/downloads/ignis-market-monitor-2026-10.pdf");
       assert.equal(monitor.calls.length, 2);
       for (const call of monitor.calls) {
         const context = JSON.parse(call.body).context;
@@ -894,17 +929,18 @@ test("every signup and download form renders the shared protection fields", () =
     }
   }
   const monitor = readFileSync(join(root, "reports/market-monitor-2026-10.html"), "utf8");
-  const download = monitor.slice(monitor.indexOf('id="hubspot-whitepaper-form"'), monitor.indexOf('id="whitepaper-download"'));
-  assert.match(download, /data-edition="market-monitor-2026-10"/);
-  assert.match(download, /data-pdf="\/assets\/downloads\/ignis-market-monitor-2026-10\.pdf"/);
-  assert.match(download, /name="resource" value="market-monitor-2026-10"/);
-  assert.match(download, /name="content_source" value="market-monitor-2026-10"/);
-  assert.doesNotMatch(download, /name="signal_role"|name="enquiry_topic"|name="company"|name="firstname"|name="paper_email_consent"/);
-  assert.doesNotMatch(download, /name="topic"|bid_and_tender|gate2_grid/);
-  assert.match(download, /Also email me Signal, the weekly newsletter, and occasional marketing updates\. We won't fill your inbox\./);
-  assert.match(download, /name="signal_opt_in"/);
-  assert.doesNotMatch(download, /name="signal_opt_in"[^>]*checked/);
-  assert.doesNotMatch(download, /HubSpot form placeholder|portalId:\s*"TODO"/);
+  assert.match(monitor, /data-whitepaper-popup/);
+  assert.match(monitor, /action="\/api\/whitepaper"/);
+  assert.match(monitor, /Free resource\. Read it below, or /);
+  assert.match(monitor, /data-paper="market-monitor-2026-10"/);
+  assert.match(monitor, /download the PDF<\/button>/);
+  assert.doesNotMatch(monitor, /\/assets\/downloads\//);
+  assert.match(monitor, /<button type="submit">Send me the PDF<\/button>/);
+  assert.doesNotMatch(monitor, /name="firstname"/);
+  assert.doesNotMatch(monitor, /HubSpot form placeholder|portalId:\s*"TODO"/);
+  const signup = monitor.slice(monitor.indexOf('class="signal-signup-form"'), monitor.indexOf("signal-signup-success"));
+  assert.match(signup, /name="signal_consent"/);
+  assert.doesNotMatch(signup, /name="signal_role"|name="enquiry_topic"|name="company"|name="firstname"|name="paper_email_consent"/);
   assert.match(readFileSync(join(root, "FORMS_SETUP.md"), "utf8"), /HUBSPOT_MARKET_MONITOR_FORM_ID/);
   assert.match(readFileSync(join(root, "FORMS_SETUP.md"), "utf8"), /TURNSTILE_SITE_KEY/);
   assert.match(readFileSync(join(root, "FORMS_SETUP.md"), "utf8"), /UPSTASH_REDIS_REST_URL/);

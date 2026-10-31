@@ -19,6 +19,11 @@ function response() {
   };
 }
 
+function assertVersionedPdf(actual, filePath) {
+  assert.equal(String(actual).split("?")[0], filePath);
+  assert.match(String(actual), /\?v=[0-9a-f]{8}$/);
+}
+
 test("Signal signup needs affirmative consent and uses the Signal form", async () => {
   const originalFetch = global.fetch;
   const requests = [];
@@ -64,7 +69,7 @@ test("both paper gates route by resource and never infer Signal consent", async 
       const result = response();
       await whitepaper({method: "POST", body: {email: "test@example.com", resource, paper_email_consent: "true", form_started_at: Date.now() - 10000}, headers: {}}, result);
       assert.equal(result.statusCode, 200);
-      assert.equal(result.body.pdf, pdf);
+      assertVersionedPdf(result.body.pdf, pdf);
       assert.equal(result.body.newsletterSubscribed, false);
       const request = requests.at(-1);
       assert.match(request.url, new RegExp(formId + "$"));
@@ -78,7 +83,7 @@ test("both paper gates route by resource and never infer Signal consent", async 
     const optedIn = response();
     await whitepaper({method: "POST", body: {email: "test@example.com", resource: "bids-won-on-evidence", paper_email_consent: "true", signal_opt_in: "true", company: "North Sea Power", enquiry_topic: "ar8", page_url: "https://www.ignisleadership.com/resources/bids-won-on-evidence?utm_source=linkedin", form_started_at: Date.now() - 10000}, headers: {}}, optedIn);
     assert.equal(optedIn.statusCode, 200);
-    assert.equal(optedIn.body.pdf, "/assets/downloads/guide-01-bids-whitepaper.pdf");
+    assertVersionedPdf(optedIn.body.pdf, "/assets/downloads/guide-01-bids-whitepaper.pdf");
     assert.equal(optedIn.body.newsletterSubscribed, true);
     const paperCall = requests.at(-2);
     const signalCall = requests.at(-1);
@@ -131,7 +136,7 @@ test("route to market and procurement submit to their own HubSpot forms", async 
       const result = response();
       await whitepaper({method: "POST", body: {email: "test@example.com", resource, form_started_at: Date.now() - 10000}, headers: {"x-forwarded-for": `203.0.113.${ip++}`}}, result);
       assert.equal(result.statusCode, 200);
-      assert.equal(result.body.pdf, pdf);
+      assertVersionedPdf(result.body.pdf, pdf);
       assert.match(requests[0].url, new RegExp(`${formId}$`));
       const fields = fieldsOf(requests[0]);
       assert.equal(fields.resource, resource);
@@ -183,7 +188,9 @@ test("route to market and procurement send their own content_source without an e
     let ip = 60;
     for (const [resource, contentSource, formId, page] of papers) {
       const html = readFileSync(join(root, page), "utf8");
-      assert.match(html, new RegExp(`name="content_source" value="${contentSource}"`));
+      assert.match(html, /data-whitepaper-popup/);
+      assert.match(html, new RegExp(`data-paper="${resource}"`));
+      assert.doesNotMatch(html, /\/assets\/downloads\//);
       assert.doesNotMatch(html, /whitepaper-bids-won-on-evidence|whitepaper-commercial-system-pipeline/);
 
       requests.length = 0;
@@ -194,6 +201,7 @@ test("route to market and procurement send their own content_source without an e
       assert.match(requests[0].url, new RegExp(`${formId}$`));
       assert.equal(fieldsOf(requests[0]).resource, resource);
       assert.equal(fieldsOf(requests[0]).content_source, contentSource);
+      assert.equal(fieldsOf(requests[0]).firstname, undefined);
     }
   } finally {
     global.fetch = originalFetch;
@@ -211,7 +219,7 @@ test("paper forms and visible Signal signups are connected", () => {
   const pipeline = readFileSync(join(root, "resources/commercial-system-for-your-pipeline.html"), "utf8");
   const route = readFileSync(join(root, "resources/route-to-market.html"), "utf8");
   const procurement = readFileSync(join(root, "resources/procurement.html"), "utf8");
-  for (const html of [bids, pipeline, route, procurement]) {
+  for (const html of [bids, pipeline]) {
     const gate = html.slice(html.indexOf('id="hubspot-whitepaper-form"'), html.indexOf('id="whitepaper-download"'));
     assert.match(html, /data-whitepaper-form/);
     assert.doesNotMatch(gate, /name="paper_email_consent"/);
@@ -228,6 +236,18 @@ test("paper forms and visible Signal signups are connected", () => {
     const signup = html.match(/<label class="signal-signup-consent">[\s\S]*?<\/label>/)?.[0] ?? "";
     assert.match(signup, /Yes, I want to receive Signal, the weekly newsletter, the monthly report and occasional marketing updates\./);
     assert.doesNotMatch(html, /class="signal-signup-privacy"/);
+  }
+  for (const html of [route, procurement]) {
+    assert.match(html, /data-whitepaper-popup/);
+    assert.match(html, /Free resource\. Read it below, or /);
+    assert.match(html, /class="wp-inline-download"[^>]*data-download-open[^>]*>download the PDF</);
+    assert.doesNotMatch(html, /\/assets\/downloads\//);
+    assert.match(html, /name="signal_opt_in"/);
+    assert.doesNotMatch(html, /name="signal_opt_in"[^>]*checked/);
+    assert.doesNotMatch(html, /name="firstname"/);
+    assert.match(html, /class="signal-signup-form"[^>]*data-community-form/);
+    const signup = html.match(/<label class="signal-signup-consent">[\s\S]*?<\/label>/)?.[0] ?? "";
+    assert.match(signup, /Yes, I want to receive Signal, the weekly newsletter, the monthly report and occasional marketing updates\./);
   }
   const home = readFileSync(join(root, "index.html"), "utf8");
   assert.match(home, /class="signal-signup-form"[^>]*data-community-form/);

@@ -36,11 +36,14 @@ test('Insights and Reports are distinct collections', () => {
   assert.doesNotMatch(report, /<img[^>]+market-monitor-2026-10-card/);
   assert.match(report, /<h1>Market Monitor, October 2026<\/h1>/);
   assert.match(report, /What moved in power, offshore wind and onshore renewables this month, and what is due next\./);
-  assert.match(report, /data-whitepaper-form/);
+  assert.match(report, /data-whitepaper-popup/);
   assert.match(report, /action="\/api\/whitepaper"/);
-  assert.match(report, /data-edition="market-monitor-2026-10"/);
+  assert.match(report, /Free resource\. Read it below, or /);
+  assert.match(report, /data-paper="market-monitor-2026-10"/);
+  assert.doesNotMatch(report, /\/assets\/downloads\//);
+  assert.match(report, /<button type="button" class="wp-download-open"/);
   assert.doesNotMatch(report, /HubSpot form placeholder|YORIK — HUBSPOT FORM PLACEHOLDER/);
-  assert.match(report, /data-whitepaper-pdf="\/assets\/downloads\/ignis-market-monitor-2026-10\.pdf"/);
+  assert.match(report, /data-whitepaper-key="ignis-market-monitor-2026-10"/);
   assert.match(report, /whitepaper\.js/);
   assert.doesNotMatch(report, /FORGE/);
   assert.doesNotMatch(report, /\bNDA\b/);
@@ -149,7 +152,8 @@ test('the flagship guide page has a teaser, an email gate and an unticked Signal
   assert.ok(count >= 4 && count <= 5, `${count} bullets`);
   assert.match(page, /og:image" content="https:\/\/www\.ignisleadership\.com\/assets\/img\/og-agentic-transformation-guide\.png"/);
   assert.ok(existsSync(join(site, 'assets/img/og-agentic-transformation-guide.png')));
-  assert.match(page, /data-whitepaper-pdf="\/assets\/downloads\/ignis-guide-agentic-transformation-for-energy-developers\.pdf"/);
+  assert.doesNotMatch(page, /\/assets\/downloads\//);
+  assert.match(page, /data-whitepaper-key="ignis-guide-agentic-transformation"/);
   assert.ok(existsSync(join(site, 'assets/downloads/ignis-guide-agentic-transformation-for-energy-developers.pdf')));
   assert.match(page, /action="\/api\/whitepaper" data-whitepaper-form/);
   assert.match(page, /name="resource" value="agentic-transformation-for-energy-developers"/);
@@ -169,14 +173,29 @@ test('the flagship guide page has a teaser, an email gate and an unticked Signal
   assert.doesNotMatch(page, /[\u2013\u2014]|FORGE|Forge|Book a call|book a call|£|\$\d/);
 });
 
-test('every paper and report download is gated by email with an unticked Signal opt-in', () => {
+test('the guide stays on an email form and the three papers use a download pop-up', () => {
+  const guide = read('resources/agentic-transformation-for-energy-developers.html');
+  assert.doesNotMatch(guide, /\/assets\/downloads\//);
+  assert.match(guide, /name="resource" value="agentic-transformation-for-energy-developers"/);
+  assert.match(guide, /name="email"[^>]*required/);
+  assert.match(guide, /<input type="checkbox" name="signal_opt_in" value="true">/);
+  assert.doesNotMatch(guide, /name="signal_opt_in"[^>]*checked/);
+  for (const path of [
+    'resources/route-to-market.html',
+    'resources/procurement.html',
+    'reports/market-monitor-2026-10.html',
+  ]) {
+    const page = read(path);
+    assert.doesNotMatch(page, /\/assets\/downloads\//, path);
+    assert.match(page, /Free resource\. Read it below, or /, path);
+    assert.match(page, /class="wp-inline-download"/, path);
+    assert.match(page, /data-whitepaper-popup/, path);
+    assert.match(page, /<button type="submit">Send me the PDF<\/button>/, path);
+    assert.match(page, /class="signal-signup-form"/, path);
+  }
   for (const [path, resource] of [
-    ['resources/agentic-transformation-for-energy-developers.html', 'agentic-transformation-for-energy-developers'],
     ['resources/bids-won-on-evidence.html', 'bids-won-on-evidence'],
     ['resources/commercial-system-for-your-pipeline.html', 'commercial-system-pipeline'],
-    ['resources/route-to-market.html', 'route-to-market'],
-    ['resources/procurement.html', 'procurement'],
-    ['reports/market-monitor-2026-10.html', 'market-monitor-2026-10'],
   ]) {
     const page = read(path);
     const pdf = page.match(/data-whitepaper-pdf="([^"]+)"/)?.[1];
