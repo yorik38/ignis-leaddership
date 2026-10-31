@@ -34,17 +34,20 @@ function papers() {
       contentSource: "whitepaper-commercial-system-pipeline",
       pageName: "Ignis white paper: commercial-system-pipeline"
     },
-    // Replacements keep the existing HubSpot forms and content_source values.
+    // Replacements keep the existing HubSpot forms but carry their own content_source.
+    // Until the matching dropdown option exists in HubSpot (and is listed in
+    // HUBSPOT_EXTRA_CONTENT_SOURCES or CONTENT_SOURCES), downloadFields leaves content_source
+    // out, so the submission still goes through and the resource field names the paper.
     "route-to-market": {
       formId: "9b783156-b16d-443a-bc80-51bab3411670",
       pdf: "/assets/downloads/ignis-route-to-market.pdf",
-      contentSource: "whitepaper-bids-won-on-evidence",
+      contentSource: "whitepaper-route-to-market",
       pageName: "Ignis white paper: route-to-market"
     },
     "procurement": {
       formId: "5b3bb573-2ca5-47cc-8bc0-3e8b0f4023d5",
       pdf: "/assets/downloads/ignis-procurement.pdf",
-      contentSource: "whitepaper-commercial-system-pipeline",
+      contentSource: "whitepaper-procurement",
       pageName: "Ignis white paper: procurement"
     },
     "market-monitor-2026-10": {
