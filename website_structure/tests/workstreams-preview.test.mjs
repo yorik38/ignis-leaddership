@@ -31,7 +31,7 @@ test('working examples replace the stacked workstream panels', () => {
   const value = home.slice(home.indexOf('Every project starts by rebuilding the last one.'), home.indexOf('id="adoption-gap"'));
   assert.match(value, /Most developers still run bids, tenders and route-to-market decisions on spreadsheets, inboxes and memory/);
   assert.match(value, /class="time-goes"/);
-  assert.match(home, /time-goes\.css\?v=3/);
+  assert.match(home, /time-goes\.css\?v=4/);
   assert.match(timeGoes, /\.seg-decisions,\.seg-client\{background:#08756d/);
   assert.doesNotMatch(timeGoes, /#043f3b/);
   assert.match(value, /<strong class="teal">agentic workflows built into your team<\/strong>/);
@@ -40,8 +40,19 @@ test('working examples replace the stacked workstream panels', () => {
   assert.doesNotMatch(journey, /project-journey-rail::before|bottom:\.2rem/);
   assert.match(home, /project-journey\.css\?v=5/);
   assert.match(timeGoes, /@media\(max-width:600px\)\{[\s\S]*\.developer-audience \.brand-stamp\{display:none\}/);
-  assert.match(value, /Agents do it, people check/);
-  assert.match(value, /More time on judgement/);
+  assert.match(value, /Find and check inputs/);
+  assert.match(value, /Rebuild analysis/);
+  assert.match(value, /Prepare first drafts/);
+  assert.match(value, /Decide and approve/);
+  assert.match(value, /Agent groundwork, checked by people/);
+  assert.match(value, /Human judgement and accountability/);
+  assert.match(value, /What carries forward into the next project/);
+  assert.match(value, /role="group" aria-labelledby="time-goes-carry-title"/);
+  for (const item of ['Approved evidence', 'Decisions', 'Exceptions', 'Lessons', 'Next project']) {
+    assert.match(value, new RegExp(`>${item}<`));
+  }
+  assert.match(timeGoes, /\.time-goes-carry-items\{display:grid;grid-template-columns:repeat\(4,minmax\(0,1fr\)\)/);
+  assert.match(timeGoes, /max-width:700px\)\{[\s\S]*\.time-goes-carry-items\{grid-template-columns:1fr/);
   assert.doesNotMatch(value, /Illustrative, not measured/);
   assert.match(value, /Ignis helps you find the processes, workflows and use cases where agents add the most/);
   assert.match(value, /Agents take on the research, analysis and first drafts/);
