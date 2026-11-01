@@ -24,7 +24,7 @@ test('Insights and Reports are distinct collections', () => {
   const inboxAt = insights.indexOf('id="signal-inbox-title">Get Signal in your inbox.');
   const earlierAt = insights.indexOf('class="earlier-card" href="/insights/ao10-france-has-put-a-price-on-proof"');
   assert.ok(heroAt > -1 && inboxAt > heroAt && earlierAt > inboxAt, 'Issue 2 is listed above Issue 1, with signup between them');
-  assert.match(insights, /id="signal-inbox-title">Get Signal in your inbox\.<\/h2>\s*<p>Weekly intelligence for energy developers\.<\/p>/);
+  assert.match(insights, /id="signal-inbox-title">Get Signal in your inbox\.<\/h2>\s*<p>The weekly newsletter for energy developers\.<\/p>/);
   assert.doesNotMatch(insights.slice(inboxAt, earlierAt), /See what changed|One focused analysis each week/);
   assert.match(insights, /See what changed, which commercial decisions it affects, and where agents can help your team respond without losing human control\./);
   assert.match(insights, /Previous analysis on market shifts, project evidence and commercial decisions for energy developers\./);

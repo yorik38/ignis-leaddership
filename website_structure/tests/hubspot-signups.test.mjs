@@ -24,7 +24,7 @@ function assertVersionedPdf(actual, filePath) {
   assert.match(String(actual), /\?v=[0-9a-f]{8}$/);
 }
 
-test("Signal signup needs affirmative consent and uses the Signal form", async () => {
+test("Signal signup records the dedicated Sign up action as consent and uses the Signal form", async () => {
   const originalFetch = global.fetch;
   const requests = [];
   global.fetch = async (url, init) => {
@@ -32,12 +32,8 @@ test("Signal signup needs affirmative consent and uses the Signal form", async (
     return {ok: true};
   };
   try {
-    const rejected = response();
-    await subscribe({method: "POST", body: {email: "test@example.com", form_started_at: Date.now() - 10000}, headers: {}}, rejected);
-    assert.equal(rejected.statusCode, 422);
-    assert.equal(requests.length, 0);
     const accepted = response();
-    await subscribe({method: "POST", body: {email: "test@example.com", signal_consent: "true", form_started_at: Date.now() - 10000}, headers: {}}, accepted);
+    await subscribe({method: "POST", body: {email: "test@example.com", form_started_at: Date.now() - 10000}, headers: {}}, accepted);
     assert.equal(accepted.statusCode, 200);
     assert.match(requests[0].url, /9ee4b5ce-211f-4be1-a8d1-69809052e8b2$/);
     const fields = Object.fromEntries(requests[0].payload.fields.map((field) => [field.name, field.value]));
@@ -47,8 +43,8 @@ test("Signal signup needs affirmative consent and uses the Signal form", async (
     const today = new Date();
     assert.equal(Number(fields.signal_subscribed_date), Date.UTC(today.getUTCFullYear(), today.getUTCMonth(), today.getUTCDate()));
     assert.deepEqual(requests[0].payload.legalConsentOptions.consent.communications.map(item => item.subscriptionTypeId), [3918046194]);
-    assert.match(requests[0].payload.legalConsentOptions.consent.communications[0].text, /won't fill your inbox/);
-    assert.match(requests[0].payload.legalConsentOptions.consent.text, /occasional marketing updates/);
+    assert.equal(requests[0].payload.legalConsentOptions.consent.communications[0].text, "By signing up, you agree to receive Signal and occasional emails from Ignis Leadership. Unsubscribe at any time.");
+    assert.equal(requests[0].payload.legalConsentOptions.consent.text, "By signing up, you agree to receive Signal and occasional emails from Ignis Leadership. Unsubscribe at any time.");
   } finally {
     global.fetch = originalFetch;
   }
@@ -94,7 +90,7 @@ test("both paper gates route by resource and never infer Signal consent", async 
     assert.equal(paperFields.enquiry_topic, undefined);
     assert.match(signalCall.url, /9ee4b5ce-211f-4be1-a8d1-69809052e8b2$/);
     assert.deepEqual(signalCall.payload.legalConsentOptions.consent.communications.map(item => item.subscriptionTypeId), [3918046194]);
-    assert.match(signalCall.payload.legalConsentOptions.consent.communications[0].text, /won't fill your inbox/);
+    assert.equal(signalCall.payload.legalConsentOptions.consent.communications[0].text, "By signing up, you agree to receive Signal and occasional emails from Ignis Leadership. Unsubscribe at any time.");
     const signalFields = Object.fromEntries(signalCall.payload.fields.map((field) => [field.name, field.value]));
     assert.equal(signalFields.email, "test@example.com");
     assert.equal(signalFields.company, undefined);
@@ -233,8 +229,8 @@ test("paper forms and visible Signal signups are connected", () => {
     assert.doesNotMatch(consent, /checked/);
     assert.match(html, /The PDF is on its way\./);
     assert.match(html, /class="signal-signup-form"[^>]*data-community-form/);
-    const signup = html.match(/<label class="signal-signup-consent">[\s\S]*?<\/label>/)?.[0] ?? "";
-    assert.match(signup, /Yes, I want to receive Signal, the weekly newsletter, the monthly Market Monitor and occasional marketing updates\./);
+    const signup = html.match(/<p class="signal-signup-consent">[\s\S]*?<\/p>/)?.[0] ?? "";
+    assert.match(signup, /By signing up, you agree to receive Signal and occasional emails from Ignis Leadership\. Unsubscribe at any time\./);
     assert.doesNotMatch(html, /class="signal-signup-privacy"/);
   }
   for (const html of [route, procurement]) {
@@ -247,14 +243,13 @@ test("paper forms and visible Signal signups are connected", () => {
     assert.doesNotMatch(html, /name="signal_opt_in"[^>]*checked/);
     assert.doesNotMatch(html, /name="firstname"/);
     assert.match(html, /class="signal-signup-form"[^>]*data-community-form/);
-    const signup = html.match(/<label class="signal-signup-consent">[\s\S]*?<\/label>/)?.[0] ?? "";
-    assert.match(signup, /Yes, I want to receive Signal, the weekly newsletter, the monthly Market Monitor and occasional marketing updates\./);
+    const signup = html.match(/<p class="signal-signup-consent">[\s\S]*?<\/p>/)?.[0] ?? "";
+    assert.match(signup, /By signing up, you agree to receive Signal and occasional emails from Ignis Leadership\. Unsubscribe at any time\./);
   }
   const home = readFileSync(join(root, "index.html"), "utf8");
   assert.match(home, /class="signal-signup-form"[^>]*data-community-form/);
-  const homeConsent = home.match(/<label class="signal-signup-consent">[\s\S]*?<\/label>/)?.[0] ?? "";
-  assert.match(homeConsent, /Yes, I want to receive Signal, the weekly newsletter, the monthly Market Monitor and occasional marketing updates\./);
-  assert.doesNotMatch(homeConsent, /checked/);
+  const homeConsent = home.match(/<p class="signal-signup-consent">[\s\S]*?<\/p>/)?.[0] ?? "";
+  assert.match(homeConsent, /By signing up, you agree to receive Signal and occasional emails from Ignis Leadership\. Unsubscribe at any time\./);
   const pages = [];
   function walk(dir) {
     for (const entry of readdirSync(dir)) {
@@ -270,36 +265,35 @@ test("paper forms and visible Signal signups are connected", () => {
   for (const [path, html] of signups) {
     const form = html.slice(html.indexOf('class="signal-signup-form"'), html.indexOf("signal-signup-success"));
     assert.match(form, /placeholder="Work email"/, path);
-    assert.match(form, /name="signal_consent"/, path);
+    assert.doesNotMatch(form, /name="signal_consent"|type="checkbox"/, path);
+    assert.match(form, /By signing up, you agree to receive Signal and occasional emails from Ignis Leadership\. Unsubscribe at any time\./, path);
     assert.doesNotMatch(form, /name="company"(?!_)|name="enquiry_topic"|Company \(optional\)|Topic \(optional\)|signal-signup-optional/, path);
     assert.match(html, /class="signal-signup-success"[^>]*tabindex="-1"/, path);
-    assert.match(html, /Weekly intelligence for energy developers\./, path);
     if (path.endsWith("insights.html")) {
       assert.match(html, /id="signal-inbox-title">Get Signal in your inbox\.<\/h2>/, path);
-      assert.match(html, /<p>Weekly intelligence for energy developers\.<\/p>/, path);
+      assert.match(html, /<p>The weekly newsletter for energy developers\.<\/p>/, path);
       assert.doesNotMatch(html, /signal-inbox-title">[\s\S]*?See what changed,[\s\S]*?One focused analysis each week/, path);
     } else {
+      assert.match(html, /Signal, the weekly newsletter for energy developers\./, path);
       assert.match(html, /See what changed, which commercial decisions it affects, and where agents can help your team respond without losing human control\./, path);
-      assert.match(html, /One focused analysis each week, plus the monthly Market Monitor\./, path);
     }
-    assert.match(html, /capability\.css\?v=211/);
+    assert.match(html, /capability\.css\?v=212/);
     if (html.includes('class="signal-inbox')) {
       assert.match(form, /aria-label="Sign up">Sign up</, path);
       assert.doesNotMatch(form, /aria-label="Subscribe"|>Subscribe</, path);
-      if (!path.endsWith("insights.html")) assert.match(html, /id="signal-inbox-title">Weekly intelligence for energy developers.</, path);
+      if (!path.endsWith("insights.html")) assert.match(html, /id="signal-inbox-title">Signal, the weekly newsletter for energy developers.</, path);
       assert.equal(html.split('class="signal-signup-form"').length - 1, 1, path);
       assert.equal(html.split('id="wp-signup-title"').length - 1, 0, path);
     } else {
-      assert.match(form, /aria-label="Subscribe"/, path);
-      assert.doesNotMatch(form, />Subscribe</, path);
+      assert.match(form, /aria-label="Sign up">Sign up</, path);
     }
   }
-  const consentRule = /\.signal-signup-consent\{display:flex;align-items:flex-start;gap:\.4rem;min-height:24px;[^}]*color:rgba\(255,255,255,\.85\);font-size:13px;font-weight:400;line-height:1\.45/;
-  const checkboxRule = /\.signal-signup-consent input\{flex:none;width:17px;height:17px;/;
+  const consentRule = /\.signal-signup-consent\{display:block;margin:\.7rem 0 0;padding:0;color:rgba\(255,255,255,\.85\);font-size:13px;font-weight:400;line-height:1\.45/;
   for (const file of ["assets/capability.css", "assets/whitepaper.css"]) {
     const css = readFileSync(join(root, file), "utf8");
     assert.match(css, consentRule, file);
-    assert.match(css, checkboxRule, file);
+    assert.doesNotMatch(css, /\.signal-signup-consent input\{/, file);
+    assert.match(css, /\.signal-signup-fields button\{[^}]*min-width:6\.75rem;[^}]*height:2\.75rem;[^}]*background:#14919B;[^}]*color:#fff/, file);
     assert.match(css, /@media\(max-width:640px\)\{[\s\S]*\.signal-signup-consent\{font-size:12\.5px\}/, file);
     assert.match(css, /@media\(max-width:640px\)\{[\s\S]*\.wp-signup-media\{display:none\}/, file);
     assert.match(css, /@media\(max-width:640px\)\{[\s\S]*\.wp-signup-copy\{[^}]*align-items:flex-start;[^}]*min-height:0;[^}]*text-align:left;[^}]*background:#111719\}/, file);

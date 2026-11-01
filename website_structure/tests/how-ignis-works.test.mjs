@@ -15,7 +15,7 @@ const vercel = JSON.parse(readFileSync(new URL("vercel.json", root), "utf8"));
 test("the Services page states the two offers without inventing proof", () => {
   assert.match(page, /rel="canonical" href="https:\/\/www\.ignisleadership\.com\/services"/);
   assert.match(page, /<div class="page-hero-copy"><h1>Ignis moves offshore wind and onshore renewables projects to financial close<\/h1><p class="hero-support services-hero-support">Agents will do more of the work every month\. We help you build the system behind them: your process, decisions and know-how, held in one place you own\.<\/p>/);
-  assert.match(page, /capability\.css\?v=211/);
+  assert.match(page, /capability\.css\?v=212/);
   assert.match(page, /services\.css\?v=9/);
   assert.match(capability, /\.hero h1,\.services-hero h1\{[^}]*font-size:clamp\(3\.2rem,5\.15vw,5\.8rem\)/);
   assert.match(capability, /\.hero-support,\.services-hero \.hero-support\{[^}]*font-size:clamp\(1\.05rem,1\.6vw,1\.35rem\)/);
@@ -158,7 +158,7 @@ test("audience FAQs are answer-first and match their FAQPage data", () => {
   for (const path of htmlFiles(fileURLToPath(root))) {
     const html = readFileSync(path, "utf8");
     if (!html.includes('id="wp-signup-title"') && !html.includes('id="signal-inbox-title"')) continue;
-    assert.ok(html.includes("Yes, I want to receive Signal, the weekly newsletter, the monthly Market Monitor and occasional marketing updates."), path);
+    assert.ok(html.includes("By signing up, you agree to receive Signal and occasional emails from Ignis Leadership. Unsubscribe at any time."), path);
     assert.doesNotMatch(html, /Signal: practical notes on moving energy projects/);
     assert.doesNotMatch(html, /New white papers on taking energy projects/);
   }
@@ -166,8 +166,8 @@ test("audience FAQs are answer-first and match their FAQPage data", () => {
   assert.match(home, /Bring one urgent problem or constrained workflow\./);
   assert.match(home, /where agents could help without removing human control\./);
   assert.match(home, /class="button button-teal" href="\/contact">Get in touch<\/a>/);
-  assert.match(home, /id="wp-signup-title">Weekly intelligence for energy developers\.<\/h2>/);
+  assert.match(home, /id="wp-signup-title">Signal, the weekly newsletter for energy developers\.<\/h2>/);
   assert.match(home, /See what changed, which commercial decisions it affects, and where agents can help your team respond without losing human control\./);
-  assert.match(home, /One focused analysis each week, plus the monthly Market Monitor\./);
+  assert.doesNotMatch(home, /One focused analysis each week, plus the monthly Market Monitor\./);
   assert.doesNotMatch(home, /Turn AI ambition into|commercial advantage/);
 });

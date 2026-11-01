@@ -18,10 +18,6 @@ function send(response, status, payload) {
   response.end(JSON.stringify(payload));
 }
 
-function checked(value) {
-  return value === true || value === "true" || value === "on";
-}
-
 module.exports = async function subscribe(request, response) {
   if (request.method !== "POST") {
     response.setHeader("Allow", "POST");
@@ -43,12 +39,9 @@ module.exports = async function subscribe(request, response) {
   const firstname = parts.shift() || "";
   const lastname = parts.join(" ");
   const email = String(body.email || "").trim().toLowerCase();
-  const signalConsentGiven = checked(body.signal_consent);
-
   if (!EMAIL_PATTERN.test(email)) {
     return send(response, 422, {ok: false, error: "Enter a valid email address."});
   }
-  if (!signalConsentGiven) return send(response, 422, {ok: false, error: "Please confirm that you want to receive Signal."});
 
   const context = contextFor(request, body, "Signal newsletter signup", "https://www.ignisleadership.com/insights");
   const fields = buildSignalFields({

@@ -536,7 +536,7 @@ describe("form protection", {concurrency: 1}, () => {
       assert.equal(signalFields.firstname, undefined);
       assert.equal(signalFields.content_source, "market-monitor-2026-10");
       assert.equal(signalFields.company, undefined);
-      assert.match(JSON.parse(both.calls[1].body).legalConsentOptions.consent.communications[0].text, /won't fill your inbox/);
+      assert.equal(JSON.parse(both.calls[1].body).legalConsentOptions.consent.communications[0].text, "By signing up, you agree to receive Signal and occasional emails from Ignis Leadership. Unsubscribe at any time.");
       assert.ok(signalFields.signal_subscribed_date);
 
       delete process.env.HUBSPOT_MARKET_MONITOR_FORM_ID;
@@ -957,7 +957,8 @@ test("every signup and download form renders the shared protection fields", () =
   assert.doesNotMatch(monitor, /name="firstname"/);
   assert.doesNotMatch(monitor, /HubSpot form placeholder|portalId:\s*"TODO"/);
   const signup = monitor.slice(monitor.indexOf('class="signal-signup-form"'), monitor.indexOf("signal-signup-success"));
-  assert.match(signup, /name="signal_consent"/);
+  assert.doesNotMatch(signup, /name="signal_consent"/);
+  assert.match(signup, /By signing up, you agree to receive Signal and occasional emails from Ignis Leadership\. Unsubscribe at any time\./);
   assert.doesNotMatch(signup, /name="signal_role"|name="enquiry_topic"|name="company"|name="firstname"|name="paper_email_consent"/);
   assert.match(readFileSync(join(root, "FORMS_SETUP.md"), "utf8"), /HUBSPOT_MARKET_MONITOR_FORM_ID/);
   assert.match(readFileSync(join(root, "FORMS_SETUP.md"), "utf8"), /TURNSTILE_SITE_KEY/);
