@@ -44,3 +44,18 @@
   .method-steps>li:last-child{border-bottom:0}
   .method-number{margin-bottom:1rem}
 }
+
+/* Homepage founder and FAQ: deliberate mobile composition, not compressed desktop. */
+@media(max-width:700px){
+  .founder-authority-layout{grid-template-columns:1fr;gap:1.5rem;align-items:start}
+  .founder-authority-photo{width:128px}
+  .founder-authority-copy>p:not(.founder-overview-eyebrow){max-width:34rem;font-size:1rem}
+  .faq-heading h2{max-width:18ch}
+  .faq-heading h2 .serif-accent{display:block}
+}
+@media(max-width:520px){
+  .faq-heading h2{max-width:15ch}
+}
+@media(max-width:400px){
+  .founder-authority-photo{width:112px}
+}

@@ -66,7 +66,7 @@ test("every page ends with the homepage call, the shared signup, then the shared
       : 'id="close-call-title">Got a project heading for financial close?';
     const call = html.indexOf(callTitle);
     const bookLabel = isHome
-      ? 'class="button button-teal" href="/contact">Talk it through'
+      ? 'class="button button-teal" href="/contact">Get in touch'
       : file.endsWith("/contact.html")
       ? 'class="button button-teal" href="https://calendly.com/yorik-tisseau-tmff/commercial-decision-call" data-calendly-link>Get in touch'
       : 'class="button button-teal" href="/contact">Get in touch';

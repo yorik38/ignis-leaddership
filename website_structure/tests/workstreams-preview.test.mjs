@@ -86,7 +86,7 @@ test('working examples replace the stacked workstream panels', () => {
   }
   assert.match(home, /Your team decides awards, risk acceptance and final investment commitments/);
   assert.match(home, /Your team owns strategy, pricing and commercial commitments/);
-  assert.match(home, /homepage-method\.css\?v=1/);
+  assert.match(home, /homepage-method\.css\?v=2/);
   assert.match(home, /workstreams-preview\.css\?v=6/);
   assert.match(home, /project-journey\.css\?v=5/);
   assert.match(css, /\.wx-win\+\.wx-win\{width:auto;margin:14px 0 0 12%\}/);

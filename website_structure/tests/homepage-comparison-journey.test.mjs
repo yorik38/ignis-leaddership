@@ -47,7 +47,7 @@ test("the five-step method runs from diagnosis through governed improvement",()=
   assert.doesNotMatch(section,/Sprint|4 weeks/i);
   assert.match(section,/what agents can prepare and where people must retain authority/);
   assert.match(section,/Your technical team or selected delivery partners normally build and integrate production technology/);
-  assert.match(section,/href="\/contact">Talk it through/);
+  assert.match(section,/href="\/contact">Get in touch/);
   assert.match(methodCss,/\.method-steps\{display:grid;grid-template-columns:repeat\(5,minmax\(0,1fr\)\)/);
   assert.match(methodCss,/@media\(max-width:560px\)\{[\s\S]*\.method-steps\{grid-template-columns:1fr\}/);
 });
@@ -94,6 +94,8 @@ test("the homepage FAQ answers the five decisions that matter before starting",(
   assert.doesNotMatch(section,/Questions leaders ask/);
   assert.match(css,/\.faq-heading\{text-align:center;/);
   assert.match(css,/\.faq-grid\{[^}]*margin-inline:auto;/);
+  assert.match(methodCss,/@media\(max-width:700px\)\{[\s\S]*\.founder-authority-layout\{grid-template-columns:1fr/);
+  assert.match(methodCss,/\.faq-heading h2 \.serif-accent\{display:block\}/);
   assert.match(homepage,/<style>\.faq-item summary:focus-visible\{outline:3px solid var\(--teal\);outline-offset:4px\}@media\(max-width:400px\)\{\.founder-authority-layout\{grid-template-columns:1fr;gap:1\.25rem\}/);
   assert.deepEqual([...section.matchAll(/<summary>([^<]+)<\/summary>/g)].map(match=>match[1]),[
     "Where should we start?",

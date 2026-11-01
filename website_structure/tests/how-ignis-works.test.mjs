@@ -165,7 +165,7 @@ test("audience FAQs are answer-first and match their FAQPage data", () => {
   assert.match(home, /Where is the commercial pressure greatest\?/);
   assert.match(home, /Bring one urgent problem or constrained workflow\./);
   assert.match(home, /where agents could help without removing human control\./);
-  assert.match(home, /class="button button-teal" href="\/contact">Talk it through<\/a>/);
+  assert.match(home, /class="button button-teal" href="\/contact">Get in touch<\/a>/);
   assert.match(home, /id="wp-signup-title">Get Signal in your inbox\.<\/h2>/);
   assert.match(home, /Weekly analysis for energy developers on market shifts, commercial decisions and practical agentic transformation, plus the monthly Market Monitor\./);
   assert.doesNotMatch(home, /Turn AI ambition into|commercial advantage/);
