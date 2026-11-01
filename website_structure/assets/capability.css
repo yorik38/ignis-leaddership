@@ -1059,8 +1059,11 @@
 .wp-signup noscript p{margin:.75rem 0 0;color:#fff;font-size:.95rem}
 @media(max-width:640px){
   .wp-signup-card{min-height:0}
-  .wp-signup-copy{position:relative;inset:auto;min-height:22rem;padding:1.5rem 1rem}
-  .wp-signup-copy p{font-size:1rem}
+  .wp-signup-copy{position:relative;inset:auto;align-items:flex-start;justify-content:flex-start;min-height:0;padding:1.75rem 1.25rem;text-align:left}
+  .wp-signup-copy h2{max-width:13ch;font-size:clamp(1.75rem,8vw,2.15rem);line-height:1.08}
+  .wp-signup-copy p{margin-top:.65rem;font-size:.96rem;line-height:1.45}
+  .wp-signup-copy p+p{margin-top:.5rem;color:rgba(255,255,255,.82);font-size:.9rem;font-weight:600}
+  .hubspot-newsletter-form{margin-top:1rem}
   .signal-signup-fields{padding:4px}
   .signal-signup-fields input[type="email"]{min-height:2.75rem;height:2.75rem}
   .signal-signup-fields button{width:2.5rem;height:2.5rem}
