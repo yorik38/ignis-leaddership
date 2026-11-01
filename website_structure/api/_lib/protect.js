@@ -91,7 +91,8 @@ async function rateLimited(ip, endpoint) {
 }
 
 function turnstileEnabled() {
-  return Boolean(String(process.env.TURNSTILE_SITE_KEY || "").trim() && String(process.env.TURNSTILE_SECRET_KEY || "").trim());
+  const explicitlyEnabled = /^(1|true|yes|on)$/i.test(String(process.env.TURNSTILE_ENABLED || "").trim());
+  return Boolean(explicitlyEnabled && String(process.env.TURNSTILE_SITE_KEY || "").trim() && String(process.env.TURNSTILE_SECRET_KEY || "").trim());
 }
 
 async function turnstileOk(token, ip) {

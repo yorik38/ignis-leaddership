@@ -12,6 +12,7 @@ module.exports = async function formConfig(request, response) {
   }
   const siteKey = String(process.env.TURNSTILE_SITE_KEY || "").trim();
   const secret = String(process.env.TURNSTILE_SECRET_KEY || "").trim();
-  const enabled = Boolean(siteKey && secret);
+  const explicitlyEnabled = /^(1|true|yes|on)$/i.test(String(process.env.TURNSTILE_ENABLED || "").trim());
+  const enabled = Boolean(explicitlyEnabled && siteKey && secret);
   return send(response, 200, {ok: true, turnstileSiteKey: enabled ? siteKey : ""});
 };

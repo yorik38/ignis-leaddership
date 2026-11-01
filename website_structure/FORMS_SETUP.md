@@ -30,12 +30,13 @@ After CAPTCHA is off, a real work email with the Signal box ticked, and `form_st
 | `HUBSPOT_MARKET_MONITOR_FORM_ID` | **Yes, for capture and the delivery email.** No default | New HubSpot form “Market Monitor – download”. Without it the October PDF still downloads, but HubSpot does not store the download and the delivery email does not send |
 | `HUBSPOT_CONTACT_FORM_ID` | Remove it | Retired with `api/contact.js`. The contact page is the HubSpot embed |
 | `HUBSPOT_SIGNAL_SUBSCRIPTION_TYPE_ID` | No. Default: `3918046194` | Signal consent subscription type |
-| `TURNSTILE_SITE_KEY` | No. Set both Turnstile keys together, or neither | Public Cloudflare Turnstile site key. `/api/form-config` exposes it only when the secret is set as well |
-| `TURNSTILE_SECRET_KEY` | No. Pair with the site key | Server-side Turnstile verification. Never exposed to the page |
+| `TURNSTILE_ENABLED` | No. Leave unset until the live key pair has passed an end-to-end submission test | Explicit production kill switch. Set to `true` only after both keys are validated |
+| `TURNSTILE_SITE_KEY` | No. Pair with the secret and explicit enable flag | Public Cloudflare Turnstile site key. `/api/form-config` exposes it only when Turnstile is explicitly enabled and the secret is present |
+| `TURNSTILE_SECRET_KEY` | No. Pair with the site key and explicit enable flag | Server-side Turnstile verification. Never exposed to the page |
 | `UPSTASH_REDIS_REST_URL` | No. Set both Upstash values together, or neither | Shared rate-limit counter: 5 submissions per 10 minutes per IP per endpoint |
 | `UPSTASH_REDIS_REST_TOKEN` | No. Pair with the REST URL | Upstash bearer token |
 
-Set these in the Vercel project for Production and Preview. If Turnstile or Upstash is left unset, the forms still submit. Turnstile is skipped with no widget and no error. Rate limiting then uses a best-effort in-memory counter on each serverless instance.
+Set these in the Vercel project for Production and Preview. If Turnstile is not explicitly enabled, or either key is unset, the forms still submit. Turnstile is skipped with no widget and no error. Rate limiting then uses a best-effort in-memory counter on each serverless instance.
 
 Before 21 October, create the HubSpot form, attach the draft workflow “Market Monitor delivery – October 2026”, and set `HUBSPOT_MARKET_MONITOR_FORM_ID`. Confirm `HUBSPOT_PORTAL_ID` and `HUBSPOT_SIGNAL_FORM_ID`. Remove `HUBSPOT_CONTACT_FORM_ID`. Add Turnstile and Upstash when those accounts are ready; they are not required for the PDF to download.
 
@@ -92,7 +93,7 @@ Every signup and download form includes:
 - a hidden `company_website` honeypot
 - `form_started_at`, set when the page script runs; submissions under about 3 seconds, or with no timestamp, are ignored
 - a server-side limit of 5 submissions per 10 minutes per IP per endpoint
-- Cloudflare Turnstile when both keys are set
+- Cloudflare Turnstile when `TURNSTILE_ENABLED=true` and both keys are set
 - a loose rejection of Gmail addresses whose local part has four or more dots and mostly one- or two-character segments
 
 Honeypot, time trap and that Gmail pattern return a quiet success and do not call HubSpot. The rate limit returns HTTP 429. A failed Turnstile check asks the visitor to complete the security check.

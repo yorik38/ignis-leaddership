@@ -148,10 +148,12 @@ describe("form protection", {concurrency: 1}, () => {
     }
   });
 
-  test("Turnstile is skipped unless both keys are set, then the token is verified", async () => {
+  test("Turnstile is skipped unless explicitly enabled with both keys, then the token is verified", async () => {
     resetProtectionForTests();
+    const previousEnabled = process.env.TURNSTILE_ENABLED;
     const previousSite = process.env.TURNSTILE_SITE_KEY;
     const previousSecret = process.env.TURNSTILE_SECRET_KEY;
+    delete process.env.TURNSTILE_ENABLED;
     delete process.env.TURNSTILE_SITE_KEY;
     delete process.env.TURNSTILE_SECRET_KEY;
     const signup = (email) => started({email, signal_consent: "true"});
@@ -166,6 +168,11 @@ describe("form protection", {concurrency: 1}, () => {
       assert.equal(half.calls.some((call) => call.url.includes("siteverify")), false);
 
       process.env.TURNSTILE_SECRET_KEY = "secret";
+      const dormant = await post(subscribe, signup("dormant@example.com"), {headers: {"x-forwarded-for": "203.0.113.42"}});
+      assert.equal(dormant.res.statusCode, 200);
+      assert.equal(dormant.calls.some((call) => call.url.includes("siteverify")), false);
+
+      process.env.TURNSTILE_ENABLED = "true";
       const missing = await post(subscribe, signup("missing@example.com"), {headers: {"x-forwarded-for": "203.0.113.42"}});
       assert.equal(missing.res.statusCode, 422);
       assert.match(missing.res.body.error, /security check/);
@@ -194,6 +201,8 @@ describe("form protection", {concurrency: 1}, () => {
       assert.equal(passed.res.statusCode, 200);
       assert.equal(passed.calls.filter((call) => String(call.url).includes("hsforms")).length, 1);
     } finally {
+      if (previousEnabled === undefined) delete process.env.TURNSTILE_ENABLED;
+      else process.env.TURNSTILE_ENABLED = previousEnabled;
       if (previousSite === undefined) delete process.env.TURNSTILE_SITE_KEY;
       else process.env.TURNSTILE_SITE_KEY = previousSite;
       if (previousSecret === undefined) delete process.env.TURNSTILE_SECRET_KEY;
@@ -202,10 +211,12 @@ describe("form protection", {concurrency: 1}, () => {
   });
 
   test("form config exposes the site key only when both Turnstile keys are set", async () => {
+    const previousEnabled = process.env.TURNSTILE_ENABLED;
     const previousSite = process.env.TURNSTILE_SITE_KEY;
     const previousSecret = process.env.TURNSTILE_SECRET_KEY;
     const res = response();
     try {
+      delete process.env.TURNSTILE_ENABLED;
       delete process.env.TURNSTILE_SITE_KEY;
       delete process.env.TURNSTILE_SECRET_KEY;
       await formConfig({method: "GET"}, res);
@@ -213,11 +224,18 @@ describe("form protection", {concurrency: 1}, () => {
 
       process.env.TURNSTILE_SITE_KEY = "public-site-key";
       process.env.TURNSTILE_SECRET_KEY = "secret-key";
+      const dormant = response();
+      await formConfig({method: "GET"}, dormant);
+      assert.equal(dormant.body.turnstileSiteKey, "");
+
+      process.env.TURNSTILE_ENABLED = "true";
       const enabled = response();
       await formConfig({method: "GET"}, enabled);
       assert.equal(enabled.body.turnstileSiteKey, "public-site-key");
       assert.equal(JSON.stringify(enabled.body).includes("secret-key"), false);
     } finally {
+      if (previousEnabled === undefined) delete process.env.TURNSTILE_ENABLED;
+      else process.env.TURNSTILE_ENABLED = previousEnabled;
       if (previousSite === undefined) delete process.env.TURNSTILE_SITE_KEY;
       else process.env.TURNSTILE_SITE_KEY = previousSite;
       if (previousSecret === undefined) delete process.env.TURNSTILE_SECRET_KEY;
