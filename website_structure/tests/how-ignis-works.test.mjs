@@ -93,7 +93,8 @@ test("the homepage states one offer, the audiences, and a quiet demo slot", () =
   assert.match(home, /<h1><span class="hero-line">Win <span class="gradient-word">more<\/span>\.<\/span> <span class="hero-line">Move more projects to financial close\.<\/span><\/h1>/);
   assert.match(home, /<p class="hero-support">Ignis starts with the commercial pressure in front of you\. We advise your team on the live problem, then redesign the process and data behind it, introduce agents where they create value, and support your team through implementation\.<\/p>/);
   assert.match(home, /<h2 id="project-journey-title">Start where the commercial pressure is greatest\.<\/h2>/);
-  assert.match(home, /Each engagement begins with the commercial work\. It becomes transformation when the team fixes the process, data and operating model behind it\./);
+  assert.match(home, /Ignis works with your team on the immediate commercial challenge, then uses it to expose what must change in the process, data and human-agent workflow behind it\./);
+  assert.match(home, /That is where commercial support becomes transformation\. Together, we redesign the operating model so agents take on repeatable research, analysis and production, while people retain judgement, approval and accountability\./);
   assert.doesNotMatch(home, /move their pipeline from last-mile development to financial close/);
   assert.match(home, /For fund-backed renewable energy developers who need to move more projects to financial close, faster\./);
   assert.doesNotMatch(home, /Fund-backed developers carrying a live project from the next gate to financial close/);

@@ -21,8 +21,8 @@ test("the project journey keeps the rail first and explains the transformation b
   assert.ok(section);
   assert.ok(section.indexOf('class="project-journey-rail"')<section.indexOf('id="project-journey-title"'));
   assert.match(section,/Start where the commercial pressure is greatest\./);
-  assert.match(section,/redesigns the process, data and human-agent workflow behind it/);
-  assert.match(section,/where people must retain judgement and accountability/);
+  assert.match(section,/uses it to expose what must change in the process, data and human-agent workflow behind it/);
+  assert.match(section,/while people retain judgement, approval and accountability/);
   assert.match(section,/href="\/services">Explore our services/);
 });
 
