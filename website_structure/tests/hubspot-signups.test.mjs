@@ -274,13 +274,19 @@ test("paper forms and visible Signal signups are connected", () => {
     assert.doesNotMatch(form, /name="company"(?!_)|name="enquiry_topic"|Company \(optional\)|Topic \(optional\)|signal-signup-optional/, path);
     assert.match(html, /class="signal-signup-success"[^>]*tabindex="-1"/, path);
     assert.match(html, /Weekly intelligence for energy developers\./, path);
-    assert.match(html, /See what changed, which commercial decisions it affects, and where agents can help your team respond without losing human control\./, path);
-    assert.match(html, /One focused analysis each week, plus the monthly Market Monitor\./, path);
+    if (path.endsWith("insights.html")) {
+      assert.match(html, /id="signal-inbox-title">Get Signal in your inbox\.<\/h2>/, path);
+      assert.match(html, /<p>Weekly intelligence for energy developers\.<\/p>/, path);
+      assert.doesNotMatch(html, /signal-inbox-title">[\s\S]*?See what changed,[\s\S]*?One focused analysis each week/, path);
+    } else {
+      assert.match(html, /See what changed, which commercial decisions it affects, and where agents can help your team respond without losing human control\./, path);
+      assert.match(html, /One focused analysis each week, plus the monthly Market Monitor\./, path);
+    }
     assert.match(html, /capability\.css\?v=211/);
     if (html.includes('class="signal-inbox')) {
       assert.match(form, /aria-label="Sign up">Sign up</, path);
       assert.doesNotMatch(form, /aria-label="Subscribe"|>Subscribe</, path);
-      assert.match(html, /id="signal-inbox-title">Weekly intelligence for energy developers.</, path);
+      if (!path.endsWith("insights.html")) assert.match(html, /id="signal-inbox-title">Weekly intelligence for energy developers.</, path);
       assert.equal(html.split('class="signal-signup-form"').length - 1, 1, path);
       assert.equal(html.split('id="wp-signup-title"').length - 1, 0, path);
     } else {
