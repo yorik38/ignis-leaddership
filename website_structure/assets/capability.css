@@ -1061,7 +1061,7 @@
   .wp-signup-card{min-height:0}
   .wp-signup-media{display:none}
   .wp-signup-copy{position:relative;inset:auto;align-items:flex-start;justify-content:flex-start;min-height:0;padding:1.75rem 1.25rem;text-align:left;background:#111719}
-  .wp-signup-copy h2{max-width:13ch;font-size:clamp(1.75rem,8vw,2.15rem);line-height:1.08}
+  .wp-signup-copy h2{max-width:none;font-size:clamp(1.55rem,6.4vw,1.75rem);line-height:1.08}
   .wp-signup-copy p{margin-top:.65rem;font-size:.96rem;line-height:1.45}
   .wp-signup-copy p+p{display:none}
   .hubspot-newsletter-form{margin-top:1rem}
