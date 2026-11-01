@@ -50,7 +50,7 @@ test('working examples replace the stacked workstream panels', () => {
   assert.match(value, />Wind</);
   assert.doesNotMatch(value, /Each new site starts from scratch|FORGE|Forge/);
   assert.doesNotMatch(home, /wx-accordion|Option A · swipe the chips|Option B · accordion/);
-  assert.match(home, /href="\/services">See our services /);
+  assert.match(home, /href="\/services">Explore our services /);
   assert.match(css, /max-width:800px\)\{[\s\S]*\.wx-tabs\{[^}]*overflow-x:auto/);
   assert.match(home, /Win the right to develop\./);
   const grow = home.slice(home.indexOf('id="wx-panel-grow"'), home.indexOf('id="wx-panel-steer"'));

@@ -6,6 +6,26 @@ const root=new URL("../",import.meta.url);
 const homepage=readFileSync(new URL("index.html",root),"utf8");
 const css=readFileSync(new URL("assets/capability.css",root),"utf8");
 
+test("the approved hero leads with the commercial outcome and one contact action",()=>{
+  const section=homepage.match(/<section class="hero band-dark">[\s\S]*?<\/section>/)?.[0];
+  assert.ok(section);
+  assert.match(section,/Win <span class="gradient-word">more<\/span>\./);
+  assert.match(section,/Move more projects to financial close\./);
+  assert.match(section,/Ignis starts with the commercial pressure in front of you\./);
+  assert.match(section,/href="\/contact">Talk it through/);
+  assert.equal((section.match(/class="button /g)??[]).length,1);
+});
+
+test("the project journey keeps the rail first and explains the transformation beneath it",()=>{
+  const section=homepage.match(/<section class="project-journey"[\s\S]*?<\/section>/)?.[0];
+  assert.ok(section);
+  assert.ok(section.indexOf('class="project-journey-rail"')<section.indexOf('id="project-journey-title"'));
+  assert.match(section,/Start where the commercial pressure is greatest\./);
+  assert.match(section,/redesigns the process, data and human-agent workflow behind it/);
+  assert.match(section,/where people must retain judgement and accountability/);
+  assert.match(section,/href="\/services">Explore our services/);
+});
+
 test("the comparison follows the gates diagram and keeps each contrast aligned",()=>{
   const gates=homepage.indexOf('class="band band-paper commercial-gates"');
   const comparison=homepage.indexOf('class="band band-paper working-comparison"');

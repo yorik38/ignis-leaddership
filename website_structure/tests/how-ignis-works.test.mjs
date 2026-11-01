@@ -90,9 +90,10 @@ test("the homepage states one offer, the audiences, and a quiet demo slot", () =
   assert.match(home, /Testimonials: add a quote band here/);
   assert.doesNotMatch(home, /href="\/commercial-ai-adoption"|href="\/commercial-transformation"/);
   assert.doesNotMatch(home, /FORGE|Forge/);
-  assert.match(home, /<h1><span class="hero-line">Close <span class="gradient-word">more<\/span><\/span> <span class="hero-line"><span class="gradient-word">projects<\/span>, faster\.<\/span><\/h1>/);
-  assert.match(home, /<p class="hero-support">Ignis Leadership helps renewable energy developers win the right to develop and move projects through tenders and procurement to financial close, with fewer delays, fewer surprises and stronger terms\.<\/p>/);
-  assert.match(home, /<p class="project-journey-quiet value-proposition-path">Ignis helps renewable energy developers redesign their commercial function for agentic AI: clearer decisions, faster bids and tenders, and fewer surprises on the way to financial close\.<\/p><p class="project-journey-quiet value-proposition-path">AI agents can already do the research, analysis and production\. The real gain is freeing your team to move projects, and that needs a commercial system that holds your memory, context and IP\. That's what we help you build\.<\/p>/);
+  assert.match(home, /<h1><span class="hero-line">Win <span class="gradient-word">more<\/span>\.<\/span> <span class="hero-line">Move more projects to financial close\.<\/span><\/h1>/);
+  assert.match(home, /<p class="hero-support">Ignis starts with the commercial pressure in front of you\. We advise your team on the live problem, then redesign the process and data behind it, introduce agents where they create value, and support your team through implementation\.<\/p>/);
+  assert.match(home, /<h2 id="project-journey-title">Start where the commercial pressure is greatest\.<\/h2>/);
+  assert.match(home, /Each engagement begins with the commercial work\. It becomes transformation when the team fixes the process, data and operating model behind it\./);
   assert.doesNotMatch(home, /move their pipeline from last-mile development to financial close/);
   assert.match(home, /For fund-backed renewable energy developers who need to move more projects to financial close, faster\./);
   assert.doesNotMatch(home, /Fund-backed developers carrying a live project from the next gate to financial close/);
