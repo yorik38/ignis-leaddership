@@ -269,7 +269,12 @@ test("paper forms and visible Signal signups are connected", () => {
     assert.doesNotMatch(form, /name="signal_consent"|type="checkbox"/, path);
     assert.match(form, /By signing up, you agree to receive Signal and occasional emails from Ignis Leadership\. Unsubscribe at any time\./, path);
     assert.doesNotMatch(form, /name="company"(?!_)|name="enquiry_topic"|Company \(optional\)|Topic \(optional\)|signal-signup-optional/, path);
-    assert.match(html, /class="signal-signup-success"[^>]*tabindex="-1"/, path);
+    if (/[\\/]insights[\\/](?:ao10-france-has-put-a-price-on-proof|what-gate-2-is-really-about)\.html$/.test(path)) {
+      assert.doesNotMatch(html, /signal-signup-success|signal-signup-tick|You're in\./, path);
+      assert.match(html, /class="sr-only" data-form-status[^>]*tabindex="-1"[^>]*>Subscription confirmed\.<\/p>/, path);
+    } else {
+      assert.match(html, /class="signal-signup-success"[^>]*tabindex="-1"/, path);
+    }
     if (compactSignal) {
       assert.match(html, /id="signal-inbox-title">Get Signal in your inbox\.<\/h2>/, path);
       assert.match(html, /<p>The weekly newsletter for energy developers\.<\/p>/, path);
@@ -278,7 +283,7 @@ test("paper forms and visible Signal signups are connected", () => {
       assert.match(html, /class="signal-card-title"><span class="signal-title-line">Signal, the weekly newsletter<\/span><span class="signal-title-line">for energy developers\.<\/span><\/h2>/, path);
       assert.match(html, /See what changed, which commercial decisions it affects, and where agents can help your team respond without losing human control\./, path);
     }
-    assert.match(html, /capability\.css\?v=215/);
+    assert.match(html, /capability\.css\?v=216/);
     if (html.includes('class="signal-inbox')) {
       assert.match(form, /aria-label="Sign up"><svg[^>]*>[\s\S]*?<\/svg><\/button>/, path);
       assert.doesNotMatch(form, /aria-label="Subscribe"|>Subscribe</, path);

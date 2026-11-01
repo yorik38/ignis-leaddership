@@ -1083,14 +1083,14 @@
   .ao10-issue.issue-page .issue-body .issue-shell:not(:has(.issue-sidebar)){width:min(100% - 32px,720px)}
   .ao10-issue .issue-hero h1{text-wrap:balance}
 }
-.continue-reading{padding:clamp(1rem,2vw,1.5rem) 0 clamp(4rem,7vw,6rem);background:#fff}
+.continue-reading{padding:clamp(1.5rem,3vw,2.5rem) 0 clamp(5rem,8vw,7rem);background:#fff}
 .continue-reading h2{margin:0 0 clamp(1.25rem,2vw,1.75rem);font-family:var(--font-sans);font-size:clamp(1.75rem,2.4vw,2.25rem);font-weight:500;letter-spacing:-.03em}
 .continue-reading-grid{display:grid;grid-template-columns:repeat(3,minmax(0,420px));gap:clamp(1rem,2vw,1.75rem);justify-content:start}
 .continue-card{display:flex;width:100%;max-width:420px;flex-direction:column;color:inherit;text-decoration:none}
 .continue-card-media{display:block;overflow:hidden;height:auto;border-radius:6px;background:#f4f8f7;line-height:0}
 .continue-card-media picture{display:block}
 .continue-card-media img{display:block;width:100%;height:auto;object-fit:contain;object-position:center;background:#f4f8f7}
-.continue-card-copy{display:grid;gap:.4rem;padding:.95rem .05rem 0}
+.continue-card-copy{display:grid;gap:.4rem;padding:1.1rem .05rem .5rem}
 .continue-card-kicker{color:#08756d;font-size:.75rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase}
 .continue-card-copy strong{color:var(--ink);font-size:1.2rem;font-weight:600;letter-spacing:-.02em;line-height:1.25}
 .continue-card-text{color:var(--ink-muted);font-size:1rem;line-height:1.45}
@@ -1212,7 +1212,7 @@ h1 .signal-mark{color:#1cbdad}
   .signal-signup-optional{grid-template-columns:1fr}
 }
 .signal-inbox{background:#fff;color:#0f1419;font-family:Inter,"Inter Fallback",var(--font-sans)}
-.signal-inbox-end{padding:clamp(1.25rem,3vw,2.25rem) 0 clamp(.25rem,1.5vw,.75rem)}
+.signal-inbox-end{padding:clamp(1.25rem,3vw,2.25rem) 0 clamp(2.5rem,5vw,4rem)}
 .signal-index .signal-inbox{margin-top:clamp(1.35rem,2.5vw,2rem)}
 .signal-inbox-inner{max-width:40rem;padding:1.25rem 1.35rem 1.35rem;border:1px solid rgba(15,20,25,.12);border-radius:8px;background:#fff;-webkit-text-size-adjust:100%;text-size-adjust:100%}
 .signal-inbox h2{margin:0;color:#0f1419;font-family:Inter,"Inter Fallback",var(--font-sans);font-size:clamp(1.55rem,2.2vw,2rem);font-weight:500;letter-spacing:-.03em;line-height:1.15}
