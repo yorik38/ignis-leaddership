@@ -112,6 +112,37 @@ test("Signal Issue 2 publishes the approved Gate 2 article", () => {
   ]) assert.ok(existsSync(new URL(file, root)), file);
 });
 
+test("Signal Issue 3 publishes the approved data-centre article", () => {
+  const dataCentre = readFileSync(new URL("insights/who-powers-the-next-data-centre.html", root), "utf8");
+  assert.match(dataCentre, /<title>Who powers the next data centre\? \| Ignis<\/title>/);
+  assert.match(dataCentre, /<h1>Who powers the next data centre\?<\/h1>/);
+  assert.match(dataCentre, /Signal · Issue 3/);
+  assert.match(dataCentre, /Monday 2 November 2026 · 8 min read/);
+  assert.match(dataCentre, /Utilities sold the obvious sites first\. Smaller developers hold the next\./);
+  assert.match(dataCentre, /id="issue-summary-title">In this issue/);
+  assert.match(dataCentre, /signal-3-who-powers-data-centre\.(?:png|webp|avif)/);
+  assert.match(dataCentre, /signal-3-powerstation-sites-map-1600x900@2x\.png/);
+  assert.match(dataCentre, /signal-3-aigz-map-1600x900@2x\.png/);
+  assert.match(dataCentre, /id="issue-3-sources"/);
+  assert.equal((dataCentre.match(/<li id="source-\d+">/g) || []).length, 35);
+  assert.doesNotMatch(dataCentre, /Second helpings|second helpings/);
+  assert.match(dataCentre, /Commercial commentary, not legal, regulatory or investment advice/);
+  assert.match(dataCentre, /class="signal-signup-form"[^>]*data-community-form/);
+  assert.match(dataCentre, /id="signal-inbox-title">Weekly intelligence for energy developers\./);
+  assert.match(dataCentre, /See what changed, which commercial decisions it affects, and where agents can help your team respond without losing human control\./);
+  assert.match(dataCentre, /One focused analysis each week, plus the monthly Market Monitor\./);
+  assert.doesNotMatch(dataCentre, /Weekly UK and European energy market insight|monthly report and occasional marketing updates/);
+  for (const file of [
+    "assets/img/signal-3-who-powers-data-centre.avif",
+    "assets/img/signal-3-who-powers-data-centre.webp",
+    "assets/img/signal-3-who-powers-data-centre.png",
+    "assets/img/signal-3-powerstation-sites-map-1600x900.png",
+    "assets/img/signal-3-powerstation-sites-map-1600x900@2x.png",
+    "assets/img/signal-3-aigz-map-1600x900.png",
+    "assets/img/signal-3-aigz-map-1600x900@2x.png",
+  ]) assert.ok(existsSync(new URL(file, root)), file);
+});
+
 test("the white paper page uses the same continue-reading cards without linking to itself", () => {
   const block = paper.slice(paper.indexOf('class="continue-reading"'), paper.indexOf("</main>"));
   assert.equal((block.match(/class="continue-card"/g) || []).length, 3);
