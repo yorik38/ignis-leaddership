@@ -24,8 +24,8 @@ test("Signal Issue 1 ends with continue reading, the call, then the shared signu
   order(issue, [
     'id="ao10-sources"',
     '</article>',
-    'id="signal-inbox-title" class="signal-card-title"',
-    'See what changed, which commercial decisions it affects, and where agents can help your team respond without losing human control.',
+    'id="signal-inbox-title">Get Signal in your inbox.',
+    'The weekly newsletter for energy developers.',
     'action="/api/subscribe"',
     'id="continue-reading-title">Continue reading',
     'href="/resources/route-to-market"',
@@ -73,8 +73,8 @@ test("Signal Issue 2 publishes the approved Gate 2 article", () => {
   order(gate, [
     'id="gate2-sources"',
     '</article>',
-    'id="signal-inbox-title" class="signal-card-title"',
-    'See what changed, which commercial decisions it affects, and where agents can help your team respond without losing human control.',
+    'id="signal-inbox-title">Get Signal in your inbox.',
+    'The weekly newsletter for energy developers.',
     'action="/api/subscribe"',
     'id="continue-reading-title">Continue reading',
     'href="/insights/ao10-france-has-put-a-price-on-proof"',

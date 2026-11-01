@@ -263,13 +263,14 @@ test("paper forms and visible Signal signups are connected", () => {
   const signups = pages.map((path) => [path, readFileSync(path, "utf8")]).filter(([, html]) => html.includes("signal-signup-form"));
   assert.ok(signups.length >= 19);
   for (const [path, html] of signups) {
+    const compactSignal = path.endsWith("insights.html") || path.endsWith("newsletter.html") || /[\\/]insights[\\/]/.test(path);
     const form = html.slice(html.indexOf('class="signal-signup-form"'), html.indexOf("signal-signup-success"));
     assert.match(form, /placeholder="Work email"/, path);
     assert.doesNotMatch(form, /name="signal_consent"|type="checkbox"/, path);
     assert.match(form, /By signing up, you agree to receive Signal and occasional emails from Ignis Leadership\. Unsubscribe at any time\./, path);
     assert.doesNotMatch(form, /name="company"(?!_)|name="enquiry_topic"|Company \(optional\)|Topic \(optional\)|signal-signup-optional/, path);
     assert.match(html, /class="signal-signup-success"[^>]*tabindex="-1"/, path);
-    if (path.endsWith("insights.html")) {
+    if (compactSignal) {
       assert.match(html, /id="signal-inbox-title">Get Signal in your inbox\.<\/h2>/, path);
       assert.match(html, /<p>The weekly newsletter for energy developers\.<\/p>/, path);
       assert.doesNotMatch(html, /signal-inbox-title">[\s\S]*?See what changed,[\s\S]*?One focused analysis each week/, path);
@@ -277,11 +278,11 @@ test("paper forms and visible Signal signups are connected", () => {
       assert.match(html, /class="signal-card-title"><span class="signal-title-line">Signal, the weekly newsletter<\/span><span class="signal-title-line">for energy developers\.<\/span><\/h2>/, path);
       assert.match(html, /See what changed, which commercial decisions it affects, and where agents can help your team respond without losing human control\./, path);
     }
-    assert.match(html, /capability\.css\?v=214/);
+    assert.match(html, /capability\.css\?v=215/);
     if (html.includes('class="signal-inbox')) {
       assert.match(form, /aria-label="Sign up"><svg[^>]*>[\s\S]*?<\/svg><\/button>/, path);
       assert.doesNotMatch(form, /aria-label="Subscribe"|>Subscribe</, path);
-      if (!path.endsWith("insights.html")) assert.match(html, /id="signal-inbox-title" class="signal-card-title">/, path);
+      if (!compactSignal) assert.match(html, /id="signal-inbox-title" class="signal-card-title">/, path);
       assert.equal(html.split('class="signal-signup-form"').length - 1, 1, path);
       assert.equal(html.split('id="wp-signup-title"').length - 1, 0, path);
     } else {
@@ -305,4 +306,7 @@ test("paper forms and visible Signal signups are connected", () => {
     assert.doesNotMatch(css, /@media\(max-width:640px\)\{[\s\S]*?\.wp-signup-copy p\{/, file);
     assert.match(css, /\.wp-signup-copy \.signal-signup-consent a\{[^}]*text-decoration:underline/, file);
   }
+  const capability = readFileSync(join(root, "assets/capability.css"), "utf8");
+  assert.match(capability, /body\.newsletter-page \.signal-inbox-inner\{[^}]*background:#111719\}/);
+  assert.match(capability, /body\.newsletter-page \.signal-inbox h2\{[^}]*font-size:1\.25rem;line-height:1\.1\}/);
 });

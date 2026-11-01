@@ -84,7 +84,8 @@ test("every page ends with the homepage call, the shared signup, then the shared
     }
     assert.equal(html.split('class="signal-signup-form"').length - 1, 1, `Signup count: ${file}`);
     if (html.includes('class="signal-inbox')) {
-      const inbox = html.indexOf(file.endsWith("/insights.html")
+      const compactSignal = file.endsWith("/insights.html") || file.endsWith("/newsletter.html") || file.includes("/insights/");
+      const inbox = html.indexOf(compactSignal
         ? 'id="signal-inbox-title">Get Signal in your inbox.'
         : 'id="signal-inbox-title" class="signal-card-title"');
       assert.equal(html.split('id="signal-inbox-title"').length - 1, 1, `Inbox count: ${file}`);

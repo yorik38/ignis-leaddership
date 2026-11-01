@@ -1230,6 +1230,12 @@ h1 .signal-mark{color:#1cbdad}
   .signal-inbox .signal-card-title{font-size:1.25rem;line-height:1.1}
   .signal-inbox .signal-inbox-inner>p{margin-top:.55rem;font-size:.78rem;line-height:1.4}
   .signal-inbox .signal-signup-consent{font-size:11px;line-height:1.35}
+  body.newsletter-page .signal-inbox-inner{padding:1.75rem 1.25rem;border:0;background:#111719}
+  body.newsletter-page .signal-inbox h2{max-width:none;color:#fff;font-size:1.25rem;line-height:1.1}
+  body.newsletter-page .signal-inbox .signal-inbox-inner>p{color:rgba(255,255,255,.86)}
+  body.newsletter-page .signal-inbox .signal-signup-consent{color:rgba(255,255,255,.85)}
+  body.newsletter-page .signal-inbox .signal-signup-success{color:#fff;font-size:.86rem;line-height:1.4}
+  body.newsletter-page .signal-inbox .signal-signup-error{color:#ffb4aa}
   .signal-inbox .signal-signup-fields{flex-wrap:wrap}
   .signal-inbox .signal-signup-fields input[type="email"]{flex:1 1 12rem;min-height:2.75rem;height:2.75rem}
   .signal-inbox .signal-signup-fields button{width:2.75rem;height:2.75rem}
