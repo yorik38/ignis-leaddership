@@ -45,9 +45,9 @@ body.insights-page:not(.newsletter-page) .earlier-editions-intro{max-width:42rem
   body.insights-page:not(.newsletter-page) .signal-index-lead{gap:1.35rem}
   body.insights-page:not(.newsletter-page) .signal-inbox{margin-top:0}
   body.insights-page:not(.newsletter-page) .signal-inbox-inner{padding:1.75rem 1.25rem;border:0;background:#111719}
-  body.insights-page:not(.newsletter-page) .signal-inbox h2{max-width:none;color:#fff;font-size:clamp(1.55rem,6.4vw,1.75rem);line-height:1.08}
-  body.insights-page:not(.newsletter-page) .signal-inbox .signal-inbox-inner>p{margin-top:.65rem;color:rgba(255,255,255,.86);font-size:.96rem;line-height:1.45}
-  body.insights-page:not(.newsletter-page) .signal-inbox .signal-signup-consent{color:rgba(255,255,255,.85)}
+  body.insights-page:not(.newsletter-page) .signal-inbox h2{max-width:none;color:#fff;font-size:1.25rem;line-height:1.1}
+  body.insights-page:not(.newsletter-page) .signal-inbox .signal-inbox-inner>p{margin-top:.55rem;color:rgba(255,255,255,.86);font-size:.78rem;line-height:1.4}
+  body.insights-page:not(.newsletter-page) .signal-inbox .signal-signup-consent{color:rgba(255,255,255,.85);font-size:11px;line-height:1.35}
   body.insights-page:not(.newsletter-page) .signal-inbox .signal-signup-success{color:#fff}
   body.insights-page:not(.newsletter-page) .signal-inbox .signal-signup-error{color:#ffb4aa}
   body.insights-page .earlier-editions-grid{gap:1rem}

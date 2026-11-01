@@ -274,14 +274,14 @@ test("paper forms and visible Signal signups are connected", () => {
       assert.match(html, /<p>The weekly newsletter for energy developers\.<\/p>/, path);
       assert.doesNotMatch(html, /signal-inbox-title">[\s\S]*?See what changed,[\s\S]*?One focused analysis each week/, path);
     } else {
-      assert.match(html, /Signal, the weekly newsletter for energy developers\./, path);
+      assert.match(html, /class="signal-card-title"><span class="signal-title-line">Signal, the weekly newsletter<\/span><span class="signal-title-line">for energy developers\.<\/span><\/h2>/, path);
       assert.match(html, /See what changed, which commercial decisions it affects, and where agents can help your team respond without losing human control\./, path);
     }
-    assert.match(html, /capability\.css\?v=213/);
+    assert.match(html, /capability\.css\?v=214/);
     if (html.includes('class="signal-inbox')) {
       assert.match(form, /aria-label="Sign up"><svg[^>]*>[\s\S]*?<\/svg><\/button>/, path);
       assert.doesNotMatch(form, /aria-label="Subscribe"|>Subscribe</, path);
-      if (!path.endsWith("insights.html")) assert.match(html, /id="signal-inbox-title">Signal, the weekly newsletter for energy developers.</, path);
+      if (!path.endsWith("insights.html")) assert.match(html, /id="signal-inbox-title" class="signal-card-title">/, path);
       assert.equal(html.split('class="signal-signup-form"').length - 1, 1, path);
       assert.equal(html.split('id="wp-signup-title"').length - 1, 0, path);
     } else {
@@ -294,11 +294,15 @@ test("paper forms and visible Signal signups are connected", () => {
     assert.match(css, consentRule, file);
     assert.doesNotMatch(css, /\.signal-signup-consent input\{/, file);
     assert.match(css, /\.signal-signup-fields button\{[^}]*width:2\.75rem;[^}]*height:2\.75rem;[^}]*background:transparent;[^}]*color:#0f1419/, file);
-    assert.match(css, /@media\(max-width:640px\)\{[\s\S]*\.signal-signup-consent\{font-size:11\.5px;line-height:1\.4\}/, file);
+    assert.match(css, /@media\(max-width:640px\)\{[\s\S]*\.wp-signup-copy \.signal-signup-consent\{font-size:11px;line-height:1\.35\}/, file);
     assert.match(css, /@media\(max-width:640px\)\{[\s\S]*\.wp-signup-media\{display:none\}/, file);
     assert.match(css, /@media\(max-width:640px\)\{[\s\S]*\.wp-signup-copy\{[^}]*align-items:flex-start;[^}]*min-height:0;[^}]*text-align:left;[^}]*background:#111719\}/, file);
     assert.match(css, /@media\(max-width:640px\)\{[\s\S]*\.wp-signup-copy h2\{[^}]*max-width:none;[^}]*font-size:clamp\(1\.55rem,6\.4vw,1\.75rem\);[^}]*line-height:1\.08\}/, file);
-    assert.match(css, /@media\(max-width:640px\)\{[\s\S]*\.wp-signup-copy p\+p\{display:none\}/, file);
+    assert.match(css, /@media\(max-width:640px\)\{[\s\S]*\.wp-signup-copy>p\{[^}]*font-size:\.78rem;[^}]*line-height:1\.4\}/, file);
+    assert.match(css, /@media\(max-width:640px\)\{[\s\S]*\.wp-signup-copy>p\+p\{display:none\}/, file);
+    assert.match(css, /\.signal-card-title \.signal-title-line\{display:block;white-space:nowrap\}/, file);
+    assert.match(css, /\.wp-signup-copy \.signal-card-title\{font-size:1\.25rem;line-height:1\.1\}/, file);
+    assert.doesNotMatch(css, /@media\(max-width:640px\)\{[\s\S]*?\.wp-signup-copy p\{/, file);
     assert.match(css, /\.wp-signup-copy \.signal-signup-consent a\{[^}]*text-decoration:underline/, file);
   }
 });

@@ -147,7 +147,7 @@ test('Research hub loads shared chrome after the legacy page styles', () => {
   const legacy = hub.indexOf('/assets/capability.css');
   const shared = hub.indexOf('/assets/site-chrome.css');
   assert.ok(legacy !== -1 && shared > legacy, 'shared menu styles must win on Research');
-  assert.match(hub, /resource-cards\.css\?v=2/);
+  assert.match(hub, /resource-cards\.css\?v=5/);
 });
 
 test('the flagship guide page has a teaser, an email gate and an unticked Signal opt-in', () => {
@@ -176,7 +176,7 @@ test('the flagship guide page has a teaser, an email gate and an unticked Signal
   assert.match(page, /email\.focus\(\{ preventScroll: true \}\)/);
   assert.match(read('assets/resource-cards.css'), /body\.guide-page #download\{scroll-margin-top:calc\(76px \+ 1\.25rem\)\}/);
   assert.match(read('assets/resource-cards.css'), /@media\(max-width:850px\)\{body\.guide-page #download\{scroll-margin-top:calc\(70px \+ 1\.25rem\)\}/);
-  assert.match(page, /resource-cards\.css\?v=4/);
+  assert.match(page, /resource-cards\.css\?v=5/);
   assert.doesNotMatch(page, /id="signal-inbox-title"|class="signal-inbox"|Weekly intelligence for energy developers/);
   assert.match(page, /whitepaper\.js/);
   assert.match(page, />Talk it through</);
