@@ -276,7 +276,7 @@ test("paper forms and visible Signal signups are connected", () => {
     assert.match(html, /Weekly intelligence for energy developers\./, path);
     assert.match(html, /See what changed, which commercial decisions it affects, and where agents can help your team respond without losing human control\./, path);
     assert.match(html, /One focused analysis each week, plus the monthly Market Monitor\./, path);
-    assert.match(html, /capability\.css\?v=209/);
+    assert.match(html, /capability\.css\?v=210/);
     if (html.includes('class="signal-inbox')) {
       assert.match(form, /aria-label="Sign up">Sign up</, path);
       assert.doesNotMatch(form, /aria-label="Subscribe"|>Subscribe</, path);
@@ -295,8 +295,10 @@ test("paper forms and visible Signal signups are connected", () => {
     assert.match(css, consentRule, file);
     assert.match(css, checkboxRule, file);
     assert.match(css, /@media\(max-width:640px\)\{[\s\S]*\.signal-signup-consent\{font-size:12\.5px\}/, file);
-    assert.match(css, /@media\(max-width:640px\)\{[\s\S]*\.wp-signup-copy\{[^}]*align-items:flex-start;[^}]*min-height:0;[^}]*text-align:left\}/, file);
+    assert.match(css, /@media\(max-width:640px\)\{[\s\S]*\.wp-signup-media\{display:none\}/, file);
+    assert.match(css, /@media\(max-width:640px\)\{[\s\S]*\.wp-signup-copy\{[^}]*align-items:flex-start;[^}]*min-height:0;[^}]*text-align:left;[^}]*background:#111719\}/, file);
     assert.match(css, /@media\(max-width:640px\)\{[\s\S]*\.wp-signup-copy h2\{[^}]*max-width:13ch;[^}]*line-height:1\.08\}/, file);
+    assert.match(css, /@media\(max-width:640px\)\{[\s\S]*\.wp-signup-copy p\+p\{display:none\}/, file);
     assert.match(css, /\.wp-signup-copy \.signal-signup-consent a\{[^}]*text-decoration:underline/, file);
   }
 });
