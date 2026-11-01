@@ -13,6 +13,8 @@ test('Insights and Reports are distinct collections', () => {
   assert.doesNotMatch(insights, /class="signal-guides"|signal-index-header[\s\S]{0,800}href="\/resources"/);
   assert.match(insights, /class="site-footer"[\s\S]*href="\/resources">Research</);
   assert.match(insights, /class="signal-hero" href="\/insights\/what-gate-2-is-really-about"/);
+  assert.match(insights, /class="signal-index-lead"/);
+  assert.match(insights, /class="signal-latest-label">Latest issue</);
   assert.match(insights, /First come, first served is over\. What the new grid offers mean for developers/);
   assert.match(insights, /class="earlier-editions"/);
   assert.doesNotMatch(insights, /class="earlier-editions"[^>]*hidden/);
@@ -23,7 +25,12 @@ test('Insights and Reports are distinct collections', () => {
   const earlierAt = insights.indexOf('class="earlier-card" href="/insights/ao10-france-has-put-a-price-on-proof"');
   assert.ok(heroAt > -1 && inboxAt > heroAt && earlierAt > inboxAt, 'Issue 2 is listed above Issue 1, with signup between them');
   assert.match(insights, /See what changed, which commercial decisions it affects, and where agents can help your team respond without losing human control\./);
+  assert.match(insights, /Previous analysis on market shifts, project evidence and commercial decisions for energy developers\./);
+  assert.match(insights, /What is changing in your commercial workflow\?/);
+  assert.match(insights, /where agents could help and where people must retain control\./);
   assert.match(read('assets/capability.css'), /\.signal-index\{[^}]*background:#fff\}/);
+  assert.match(read('assets/resource-cards.css'), /grid-template-areas:"intro latest" "signup latest"/);
+  assert.match(read('assets/resource-cards.css'), /grid-template-areas:"intro" "latest" "signup"/);
   assert.doesNotMatch(read('assets/capability.css'), /#f3f6f5/);
   assert.equal((insights.match(/href="\/insights\/ao10-france-has-put-a-price-on-proof"/g) || []).length, 1);
   assert.equal((insights.match(/href="\/insights\/what-gate-2-is-really-about"/g) || []).length, 1);

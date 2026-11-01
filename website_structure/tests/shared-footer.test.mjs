@@ -63,6 +63,8 @@ test("every page ends with the homepage call, the shared signup, then the shared
     const isHome = file.endsWith("/index.html");
     const callTitle = isHome
       ? 'id="close-call-title">Where is the commercial pressure greatest?'
+      : file.endsWith("/insights.html")
+      ? 'id="close-call-title">What is changing in your commercial workflow?'
       : 'id="close-call-title">Got a project heading for financial close?';
     const call = html.indexOf(callTitle);
     const bookLabel = isHome

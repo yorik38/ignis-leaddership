@@ -5,6 +5,24 @@
 /* Signal sign-up: keep the success line hidden until the form succeeds (all widths). */
 .signal-inbox .signal-signup-success[hidden],.signal-inbox .signal-signup-error[hidden]{display:none}
 
+/* Signal index: one editorial lead, one current issue and one clear subscription route.
+   On mobile the reading order stays introduction, latest issue, signup, archive. */
+body.insights-page:not(.newsletter-page) .signal-index-lead{display:grid;grid-template-columns:minmax(0,.82fr) minmax(0,1.18fr);grid-template-areas:"intro latest" "signup latest";gap:clamp(1.25rem,3vw,2.5rem);align-items:start}
+body.insights-page:not(.newsletter-page) .signal-index-header{grid-area:intro;margin:0}
+body.insights-page:not(.newsletter-page) .signal-hero{grid-area:latest}
+body.insights-page:not(.newsletter-page) .signal-inbox{grid-area:signup;margin:0}
+body.insights-page:not(.newsletter-page) .signal-inbox-inner{max-width:none;padding:clamp(1.25rem,2.4vw,1.75rem);border-top:3px solid #14919B;background:#F3F5F6}
+body.insights-page:not(.newsletter-page) .signal-inbox h2{font-size:clamp(1.45rem,2vw,1.8rem)}
+body.insights-page:not(.newsletter-page) .signal-inbox .signal-inbox-inner>p{font-size:.98rem}
+body.insights-page:not(.newsletter-page) .signal-hero-copy{gap:.7rem}
+body.insights-page:not(.newsletter-page) .signal-hero h2{font-size:clamp(1.65rem,2.5vw,2.35rem)}
+body.insights-page:not(.newsletter-page) .signal-latest-label{justify-self:start;padding:.35rem .6rem;border-radius:4px;background:#E6F3F4;color:#08756d;font-size:.72rem;font-weight:700;letter-spacing:.08em;line-height:1;text-transform:uppercase}
+body.insights-page:not(.newsletter-page) .earlier-editions-intro{max-width:42rem;margin:-.55rem 0 1.4rem;color:#5a6472;font-size:1rem;line-height:1.5}
+
+@media(max-width:900px){
+  body.insights-page:not(.newsletter-page) .signal-index-lead{grid-template-columns:1fr;grid-template-areas:"intro" "latest" "signup";gap:1.5rem}
+}
+
 @media(max-width:800px){
   body.whitepapers-page .wp-index-list{gap:1.25rem;margin-top:2rem}
   body.whitepapers-page .wp-report,body.whitepapers-page .wp-report:nth-child(even){gap:0;overflow:hidden;border:1px solid #ACD8DC;border-top:3px solid #14919B;border-radius:12px;background:#fff;box-shadow:0 1px 2px rgba(15,20,25,.04),0 6px 18px rgba(15,20,25,.06)}
@@ -24,7 +42,10 @@
   body.insights-page .signal-hero-meta,body.insights-page .signal-hero time{font-size:.72rem}
   body.insights-page .signal-hero h2{font-size:1.45rem;letter-spacing:-.025em;line-height:1.18}
   body.insights-page .signal-hero p{font-size:.95rem}
-  body.insights-page .signal-inbox{margin-top:1.5rem}
+  body.insights-page:not(.newsletter-page) .signal-index-lead{gap:1.35rem}
+  body.insights-page:not(.newsletter-page) .signal-inbox{margin-top:0}
+  body.insights-page:not(.newsletter-page) .signal-inbox-inner{padding:1.1rem 1rem 1.15rem}
+  body.insights-page:not(.newsletter-page) .signal-inbox h2{font-size:1.4rem}
   body.insights-page .earlier-editions-grid{gap:1rem}
   body.insights-page .earlier-card span{padding:.9rem 1rem 1rem}
   body.insights-page .earlier-card em.signal-hero-meta{font-style:normal}
