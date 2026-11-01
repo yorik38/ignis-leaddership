@@ -82,7 +82,7 @@ test("every page ends with the homepage call, the shared signup, then the shared
     }
     assert.equal(html.split('class="signal-signup-form"').length - 1, 1, `Signup count: ${file}`);
     if (html.includes('class="signal-inbox')) {
-      const inbox = html.indexOf('id="signal-inbox-title">Get Signal in your inbox');
+      const inbox = html.indexOf('id="signal-inbox-title">Weekly intelligence for energy developers.');
       assert.equal(html.split('id="signal-inbox-title"').length - 1, 1, `Inbox count: ${file}`);
       assert.equal(html.split('id="wp-signup-title"').length - 1, 0, `Old signup remains: ${file}`);
       assert.ok(call !== -1 && call < footer, `Ending sequence: ${file}`);
@@ -99,8 +99,8 @@ test("every page ends with the homepage call, the shared signup, then the shared
       continue;
     }
     const signupTitle = isHome
-      ? 'id="wp-signup-title">Get Signal in your inbox.'
-      : 'id="wp-signup-title">Get the analysis';
+      ? 'id="wp-signup-title">Weekly intelligence for energy developers.'
+      : 'id="wp-signup-title">Weekly intelligence for energy developers.';
     const signup = html.indexOf(signupTitle);
     assert.ok(call !== -1 && call < book && book < signup && signup < footer, `Ending sequence: ${file}`);
     assert.equal(html.split('id="wp-signup-title"').length - 1, 1, `Signup count: ${file}`);

@@ -12,8 +12,8 @@ const insights = readFileSync(join(site, 'insights.html'), 'utf8');
 const vercel = JSON.parse(readFileSync(join(site, 'vercel.json'), 'utf8'));
 const { signupPlacement } = extractPlacement();
 
-const title = "Signal: What's moving in energy this week, and the commercial take.";
-const description = 'A weekly read on auctions, policy, deals and supply chains, seen through a commercial lens, for renewable energy developers and offshore wind teams.';
+const title = "Signal: weekly intelligence for energy developers";
+const description = 'Signal helps energy developers see what changed, which commercial decisions it affects and where agents can help without losing human control. Weekly analysis plus the monthly Market Monitor.';
 const url = 'https://www.ignisleadership.com/newsletter';
 const image = 'https://www.ignisleadership.com/assets/img/signal-share-card-1200x630.png';
 const alt = "Signal. Newsletter. What's moving in energy this week, and the commercial take.";

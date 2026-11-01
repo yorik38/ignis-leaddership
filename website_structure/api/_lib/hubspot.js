@@ -285,14 +285,14 @@ function contextFor(request, body, pageName, fallbackUrl) {
 function signalConsent(text) {
   const consent = {
     consentToProcess: true,
-    text: text || "Ignis Leadership may use your email address to send Signal, the weekly newsletter, and occasional marketing updates. We won't fill your inbox. You can unsubscribe at any time."
+    text: text || "Ignis Leadership may use your email address to send Signal, the weekly newsletter, the monthly Market Monitor and occasional marketing updates. We won't fill your inbox. You can unsubscribe at any time."
   };
   const subscriptionTypeId = Number(signalSubscriptionTypeId());
   if (Number.isFinite(subscriptionTypeId)) {
     consent.communications = [{
       value: true,
       subscriptionTypeId,
-      text: "Email me Signal, the weekly newsletter, and occasional marketing updates. We won't fill your inbox."
+      text: "Email me Signal, the weekly newsletter, the monthly Market Monitor and occasional marketing updates. We won't fill your inbox."
     }];
   }
   return consent;

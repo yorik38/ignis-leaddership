@@ -226,7 +226,7 @@ test("paper forms and visible Signal signups are connected", () => {
     assert.doesNotMatch(gate, /name="company"|name="enquiry_topic"|name="firstname"|name="signal_role"/);
     assert.match(gate, /name="signal_opt_in"/);
     assert.doesNotMatch(gate, /name="signal_opt_in"[^>]*checked/);
-    assert.match(gate, /Also email me Signal, the weekly newsletter, and occasional marketing updates\. We won't fill your inbox\. See our <a href="\/privacy">Privacy Policy<\/a>\./);
+    assert.match(gate, /Also email me Signal, the weekly newsletter, the monthly Market Monitor and occasional marketing updates\. We won't fill your inbox\. See our <a href="\/privacy">Privacy Policy<\/a>\./);
     assert.doesNotMatch(gate, /class="wp-paper-privacy"/);
     const consent = gate.match(/<label class="wp-paper-consent">[\s\S]*?<\/label>/)?.[0] ?? "";
     assert.match(consent, /href="\/privacy"/);
@@ -234,7 +234,7 @@ test("paper forms and visible Signal signups are connected", () => {
     assert.match(html, /The PDF is on its way\./);
     assert.match(html, /class="signal-signup-form"[^>]*data-community-form/);
     const signup = html.match(/<label class="signal-signup-consent">[\s\S]*?<\/label>/)?.[0] ?? "";
-    assert.match(signup, /Yes, I want to receive Signal, the weekly newsletter, the monthly report and occasional marketing updates\./);
+    assert.match(signup, /Yes, I want to receive Signal, the weekly newsletter, the monthly Market Monitor and occasional marketing updates\./);
     assert.doesNotMatch(html, /class="signal-signup-privacy"/);
   }
   for (const html of [route, procurement]) {
@@ -248,12 +248,12 @@ test("paper forms and visible Signal signups are connected", () => {
     assert.doesNotMatch(html, /name="firstname"/);
     assert.match(html, /class="signal-signup-form"[^>]*data-community-form/);
     const signup = html.match(/<label class="signal-signup-consent">[\s\S]*?<\/label>/)?.[0] ?? "";
-    assert.match(signup, /Yes, I want to receive Signal, the weekly newsletter, the monthly report and occasional marketing updates\./);
+    assert.match(signup, /Yes, I want to receive Signal, the weekly newsletter, the monthly Market Monitor and occasional marketing updates\./);
   }
   const home = readFileSync(join(root, "index.html"), "utf8");
   assert.match(home, /class="signal-signup-form"[^>]*data-community-form/);
   const homeConsent = home.match(/<label class="signal-signup-consent">[\s\S]*?<\/label>/)?.[0] ?? "";
-  assert.match(homeConsent, /Yes, I want to receive Signal, the weekly newsletter, the monthly report and occasional marketing updates\./);
+  assert.match(homeConsent, /Yes, I want to receive Signal, the weekly newsletter, the monthly Market Monitor and occasional marketing updates\./);
   assert.doesNotMatch(homeConsent, /checked/);
   const pages = [];
   function walk(dir) {
@@ -273,12 +273,14 @@ test("paper forms and visible Signal signups are connected", () => {
     assert.match(form, /name="signal_consent"/, path);
     assert.doesNotMatch(form, /name="company"(?!_)|name="enquiry_topic"|Company \(optional\)|Topic \(optional\)|signal-signup-optional/, path);
     assert.match(html, /class="signal-signup-success"[^>]*tabindex="-1"/, path);
+    assert.match(html, /Weekly intelligence for energy developers\./, path);
+    assert.match(html, /See what changed, which commercial decisions it affects, and where agents can help your team respond without losing human control\./, path);
+    assert.match(html, /One focused analysis each week, plus the monthly Market Monitor\./, path);
     assert.match(html, /capability\.css\?v=208/);
     if (html.includes('class="signal-inbox')) {
       assert.match(form, /aria-label="Sign up">Sign up</, path);
       assert.doesNotMatch(form, /aria-label="Subscribe"|>Subscribe</, path);
-      assert.match(html, /id="signal-inbox-title">Get Signal in your inbox</, path);
-      assert.match(html, /Weekly UK and European energy market insight\. If you like it, sign up and get it straight into your mailbox every week\./, path);
+      assert.match(html, /id="signal-inbox-title">Weekly intelligence for energy developers.</, path);
       assert.equal(html.split('class="signal-signup-form"').length - 1, 1, path);
       assert.equal(html.split('id="wp-signup-title"').length - 1, 0, path);
     } else {

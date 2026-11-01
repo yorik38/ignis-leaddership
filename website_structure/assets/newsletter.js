@@ -2,6 +2,6 @@
 window.IGNIS_NEWSLETTER = {
   name: "Signal",
   issueLabel: "Signal · Issue 1",
-  tagline: "What's moving in energy this week, and the commercial take.",
-  description: "A weekly read on what's moving in the energy industry: auctions, policy, deals and supply chains, each seen through a commercial lens. You get what it means for developers trying to win, contract and finance projects, in five minutes."
+  tagline: "Weekly intelligence for energy developers.",
+  description: "See what changed, which commercial decisions it affects, and where agents can help your team respond without losing human control. One focused analysis each week, plus the monthly Market Monitor."
 };

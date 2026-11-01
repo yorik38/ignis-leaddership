@@ -66,7 +66,7 @@ Contact properties, with these internal values:
 
 White-paper and Market Monitor gates collect a work email and one unticked checkbox. That checkbox is Signal only. The site does not send company, topic, role, or first name from those gates, even if a client posts them. Entering an email is enough to request the PDF: the paper form records subscription `3918058120` for that delivery, and there is no second “email me this PDF” checkbox. Signal subscription `3918046194` is recorded only when the box is ticked, and only by a second submit to the Signal form. That second submit sends the email, `content_source`, `signal_source` and `signal_subscribed_date`. It does not copy company or topic onto the Signal form, so a download does not also fire a second welcome from the paper form.
 
-The label the API stores for Signal, on both the footer signup and a ticked gate, is: “Email me Signal, the weekly newsletter, and occasional marketing updates. We won't fill your inbox.” That is still subscription `3918046194`. Do not add a separate marketing subscription type.
+The label the API stores for Signal, on both the footer signup and a ticked gate, is: “Email me Signal, the weekly newsletter, the monthly Market Monitor and occasional marketing updates. We won't fill your inbox.” That is still subscription `3918046194`. Do not add a separate marketing subscription type.
 
 The contact embed’s Signal checkbox is edited in HubSpot, not in the site HTML. Its current label is “Yes, send me Signal: practical notes on moving energy projects to financial close. I can unsubscribe at any time.” Change that label in form `3c83d1fd` so it also covers the weekly newsletter and occasional marketing, and keep it on `3918046194`.
 

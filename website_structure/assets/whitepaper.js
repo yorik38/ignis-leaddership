@@ -17,7 +17,7 @@
       signal.textContent = "";
       if (options && options.newsletterSubscribed) {
         signal.hidden = false;
-        signal.textContent = "You're on Signal too: the weekly newsletter and an occasional update. We won't fill your inbox.";
+        signal.textContent = "You're on Signal too: weekly intelligence plus the monthly Market Monitor. We won't fill your inbox.";
       } else if (options && options.warning === "newsletter_submission_failed") {
         signal.hidden = false;
         signal.textContent = "We could not add you to Signal just now. The PDF is still on its way.";

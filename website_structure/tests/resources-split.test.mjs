@@ -19,10 +19,10 @@ test('Insights and Reports are distinct collections', () => {
   assert.match(insights, />Earlier editions</);
   assert.match(insights, /class="earlier-card" href="\/insights\/ao10-france-has-put-a-price-on-proof"/);
   const heroAt = insights.indexOf('class="signal-hero" href="/insights/what-gate-2-is-really-about"');
-  const inboxAt = insights.indexOf('id="signal-inbox-title">Get Signal in your inbox');
+  const inboxAt = insights.indexOf('id="signal-inbox-title">Weekly intelligence for energy developers.');
   const earlierAt = insights.indexOf('class="earlier-card" href="/insights/ao10-france-has-put-a-price-on-proof"');
   assert.ok(heroAt > -1 && inboxAt > heroAt && earlierAt > inboxAt, 'Issue 2 is listed above Issue 1, with signup between them');
-  assert.match(insights, /Weekly UK and European energy market insight\. If you like it, sign up and get it straight into your mailbox every week\./);
+  assert.match(insights, /See what changed, which commercial decisions it affects, and where agents can help your team respond without losing human control\./);
   assert.match(read('assets/capability.css'), /\.signal-index\{[^}]*background:#fff\}/);
   assert.doesNotMatch(read('assets/capability.css'), /#f3f6f5/);
   assert.equal((insights.match(/href="\/insights\/ao10-france-has-put-a-price-on-proof"/g) || []).length, 1);
@@ -168,7 +168,7 @@ test('the flagship guide page has a teaser, an email gate and an unticked Signal
   assert.match(read('assets/resource-cards.css'), /body\.guide-page #download\{scroll-margin-top:calc\(76px \+ 1\.25rem\)\}/);
   assert.match(read('assets/resource-cards.css'), /@media\(max-width:850px\)\{body\.guide-page #download\{scroll-margin-top:calc\(70px \+ 1\.25rem\)\}/);
   assert.match(page, /resource-cards\.css\?v=3/);
-  assert.doesNotMatch(page, /id="signal-inbox-title"|class="signal-inbox"|Get Signal in your inbox/);
+  assert.doesNotMatch(page, /id="signal-inbox-title"|class="signal-inbox"|Weekly intelligence for energy developers/);
   assert.match(page, /whitepaper\.js/);
   assert.match(page, />Talk it through</);
   assert.doesNotMatch(page, /[\u2013\u2014]|FORGE|Forge|Book a call|book a call|£|\$\d/);

@@ -158,7 +158,7 @@ test("audience FAQs are answer-first and match their FAQPage data", () => {
   for (const path of htmlFiles(fileURLToPath(root))) {
     const html = readFileSync(path, "utf8");
     if (!html.includes('id="wp-signup-title"') && !html.includes('id="signal-inbox-title"')) continue;
-    assert.ok(html.includes("Yes, I want to receive Signal, the weekly newsletter, the monthly report and occasional marketing updates."), path);
+    assert.ok(html.includes("Yes, I want to receive Signal, the weekly newsletter, the monthly Market Monitor and occasional marketing updates."), path);
     assert.doesNotMatch(html, /Signal: practical notes on moving energy projects/);
     assert.doesNotMatch(html, /New white papers on taking energy projects/);
   }
@@ -166,7 +166,8 @@ test("audience FAQs are answer-first and match their FAQPage data", () => {
   assert.match(home, /Bring one urgent problem or constrained workflow\./);
   assert.match(home, /where agents could help without removing human control\./);
   assert.match(home, /class="button button-teal" href="\/contact">Get in touch<\/a>/);
-  assert.match(home, /id="wp-signup-title">Get Signal in your inbox\.<\/h2>/);
-  assert.match(home, /Weekly analysis for energy developers on market shifts, commercial decisions and practical agentic transformation, plus the monthly Market Monitor\./);
+  assert.match(home, /id="wp-signup-title">Weekly intelligence for energy developers\.<\/h2>/);
+  assert.match(home, /See what changed, which commercial decisions it affects, and where agents can help your team respond without losing human control\./);
+  assert.match(home, /One focused analysis each week, plus the monthly Market Monitor\./);
   assert.doesNotMatch(home, /Turn AI ambition into|commercial advantage/);
 });

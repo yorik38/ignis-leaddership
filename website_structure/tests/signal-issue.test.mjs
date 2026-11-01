@@ -24,8 +24,8 @@ test("Signal Issue 1 ends with continue reading, the call, then the shared signu
   order(issue, [
     'id="ao10-sources"',
     '</article>',
-    'id="signal-inbox-title">Get Signal in your inbox',
-    'Weekly UK and European energy market insight. If you like it, sign up and get it straight into your mailbox every week.',
+    'id="signal-inbox-title">Weekly intelligence for energy developers.',
+    'See what changed, which commercial decisions it affects, and where agents can help your team respond without losing human control.',
     'action="/api/subscribe"',
     'id="continue-reading-title">Continue reading',
     'href="/resources/route-to-market"',
@@ -73,8 +73,8 @@ test("Signal Issue 2 publishes the approved Gate 2 article", () => {
   order(gate, [
     'id="gate2-sources"',
     '</article>',
-    'id="signal-inbox-title">Get Signal in your inbox',
-    'Weekly UK and European energy market insight. If you like it, sign up and get it straight into your mailbox every week.',
+    'id="signal-inbox-title">Weekly intelligence for energy developers.',
+    'See what changed, which commercial decisions it affects, and where agents can help your team respond without losing human control.',
     'action="/api/subscribe"',
     'id="continue-reading-title">Continue reading',
     'href="/insights/ao10-france-has-put-a-price-on-proof"',
