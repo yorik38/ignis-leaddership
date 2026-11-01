@@ -38,7 +38,7 @@ test('Contact page embeds the published EU1 HubSpot enquiry form', () => {
   assert.match(contact, /id="contact-thanks" hidden tabindex="-1"/);
   const signal = contact.slice(contact.indexOf('class="signal-signup-form"'), contact.indexOf('signal-signup-success'));
   assert.match(signal, /placeholder="Work email"/);
-  assert.match(signal, /aria-label="Sign up">Sign up</);
+  assert.match(signal, /aria-label="Sign up"><svg[^>]*>[\s\S]*?<\/svg><\/button>/);
   assert.doesNotMatch(signal, /name="company"(?!_)|name="enquiry_topic"|Company \(optional\)|Topic \(optional\)/);
   assert.match(contact, /name="form_started_at"/);
   assert.match(contact, /name="company_website"/);

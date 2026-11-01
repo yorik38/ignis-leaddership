@@ -105,11 +105,11 @@
 .signal-signup-fields{display:flex;align-items:center;gap:0;padding:4px;border-radius:4px;background:#fff}
 .signal-signup-fields input[type="email"]{flex:1;min-width:0;height:2.75rem;margin:0;padding:0 .85rem;border:0;background:transparent;color:#0f1419;font-size:16px;font-weight:600}
 .signal-signup-fields input[type="email"]::placeholder{color:#1d3834;opacity:1}
-.signal-signup-fields button{display:inline-flex;align-items:center;justify-content:center;flex:none;width:auto;min-width:6.75rem;height:2.75rem;margin:0;padding:0 1.15rem;border:0;border-radius:4px;background:#14919B;color:#fff;font-family:Inter,"Inter Fallback",var(--font-sans);font-size:.95rem;font-weight:600;letter-spacing:-.01em;cursor:pointer}
+.signal-signup-fields button{display:grid;place-items:center;flex:none;width:2.75rem;height:2.75rem;margin:0;padding:0;border:0;border-radius:2px;background:transparent;color:#0f1419;cursor:pointer}
 .signal-signup-fields button svg{width:20px;height:20px}
-.signal-signup-fields button:hover{background:#107f88;color:#fff}
+.signal-signup-fields button:hover{background:transparent;color:#08756d}
 .signal-signup-form input:focus-visible,.signal-signup-form button:focus-visible{outline:2px solid #1cbdad;outline-offset:2px}
-.signal-signup-consent{display:block;margin:.7rem 0 0;padding:0;color:rgba(255,255,255,.85);font-size:13px;font-weight:400;line-height:1.45;text-align:left}
+.signal-signup-consent{display:block;margin:.6rem 0 0;padding:0;color:rgba(255,255,255,.76);font-size:12px;font-weight:400;line-height:1.4;text-align:left}
 .wp-signup-copy .signal-signup-consent a{display:inline;color:inherit;text-decoration:underline;text-underline-offset:2px}
 .wp-signup-copy .signal-signup-privacy{margin:.2rem 0 0;padding-left:calc(1.5rem + .75rem);color:rgba(255,255,255,.72);font-size:.75rem;font-weight:400;line-height:1.4;text-align:left}
 .signal-signup-privacy a{color:inherit;text-underline-offset:2px}
@@ -132,8 +132,8 @@
   .hubspot-newsletter-form{margin-top:1rem}
   .signal-signup-fields{padding:4px}
   .signal-signup-fields input[type="email"]{min-height:2.75rem;height:2.75rem}
-  .signal-signup-fields button{width:auto;min-width:6.75rem;height:2.75rem}
-  .signal-signup-consent{font-size:12.5px}
+  .signal-signup-fields button{width:2.75rem;height:2.75rem}
+  .signal-signup-consent{font-size:11.5px;line-height:1.4}
   .wp-signup-copy .signal-signup-privacy{font-size:.75rem}
 }
 .whitepaper .layer-rows{display:flex;flex-direction:column;gap:8px}
