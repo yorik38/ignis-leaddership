@@ -1,0 +1,11 @@
+<!doctype html>
+<html lang="en"><meta charset="utf-8"><title>Turnstile Preview check</title>
+<body><main><h1>Branch-only Turnstile server check</h1>
+<p>These forms use invalid dummy data and cannot create a HubSpot contact.</p>
+<form method="post" action="/api/subscribe">
+<input type="hidden" name="email" value="not-an-email"><input type="hidden" name="signal_consent" value="true"><input type="hidden" name="form_started_at" value="1">
+<button type="submit">Test missing token</button></form>
+<form method="post" action="/api/subscribe">
+<input type="hidden" name="email" value="not-an-email"><input type="hidden" name="signal_consent" value="true"><input type="hidden" name="form_started_at" value="1"><input type="hidden" name="cf-turnstile-response" value="XXXX.DUMMY.TOKEN.XXXX">
+<button type="submit">Test Cloudflare dummy token</button></form>
+</main></body></html>
