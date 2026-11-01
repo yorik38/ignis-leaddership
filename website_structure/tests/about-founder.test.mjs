@@ -43,10 +43,11 @@ test('Homepage holds only the concise founder overview, not the logos strip', ()
   assert.match(home, /class="band band-paper about-preview founder-overview"/);
   assert.match(home, /<p class="founder-overview-eyebrow">Founder<\/p>/);
   assert.match(home, /<h2 id="founder-overview-title">Meet Yorik\.<\/h2>/);
-  assert.match(home, /class="founder-overview-photo"><img class="founder-overview-portrait" src="\/assets\/img\/yorik-green-portrait\.jpg" alt="Portrait of Yorik Tisseau"/);
+  assert.match(home, /class="founder-overview-photo founder-authority-photo"><img class="founder-overview-portrait" src="\/assets\/img\/yorik-green-portrait\.jpg" alt="Portrait of Yorik Tisseau"/);
   assert.match(style, /\.founder-overview-photo\{[^}]*border-radius:50%/);
   assert.match(home, /Yorik spent 17 years leading bids, procurement and deals on complex energy and infrastructure projects, from project engineer to bid director\./);
-  assert.match(home, /He founded Ignis Leadership to help renewable energy developers build more projects, faster\./);
+  assert.match(home, /That experience gives Ignis a practical view of how consequential commercial work really moves: where evidence changes, where workflows break down, where agents can help and where decision authority must remain with people\./);
+  assert.doesNotMatch(home, /He founded Ignis Leadership to help renewable energy developers build more projects, faster\./);
   assert.match(home, /href="\/about">About Yorik/);
   assert.doesNotMatch(home, /class="trust-band/);
   assert.doesNotMatch(home, /logo-bp-monochrome|logo-bouygues-es/);

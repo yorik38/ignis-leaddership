@@ -146,12 +146,12 @@ function jsonFaq(html) {
 test("audience FAQs are answer-first and match their FAQPage data", () => {
   const homeFaq = visibleFaq(home);
   assert.equal(visibleFaq(page).length, 0);
-  assert.ok(homeFaq.length >= 6 && homeFaq.length <= 9);
+  assert.equal(homeFaq.length, 5);
   assert.deepEqual(jsonFaq(home), homeFaq);
   assert.equal(jsonFaq(page), null);
   for (const [question, answer] of homeFaq) {
     assert.doesNotMatch(answer, /FORGE|Forge/);
-    if (question !== "Do you build the system for us?") assert.match(answer, /Ignis/);
+    assert.match(answer, /Ignis/);
     const sentences = answer.split(/(?<=[.!?])\s+/).filter(Boolean);
     assert.ok(sentences.length >= 2 && sentences.length <= 4, answer);
   }
@@ -162,8 +162,11 @@ test("audience FAQs are answer-first and match their FAQPage data", () => {
     assert.doesNotMatch(html, /Signal: practical notes on moving energy projects/);
     assert.doesNotMatch(html, /New white papers on taking energy projects/);
   }
-  assert.match(home, /Got a project heading for financial close\?/);
-  assert.match(home, /Let’s map where your commercial flow slows down, and what Ignis would change\./);
-  assert.match(home, /class="button button-teal" href="\/contact">Get in touch<\/a>/);
+  assert.match(home, /Where is the commercial pressure greatest\?/);
+  assert.match(home, /Bring one urgent problem or constrained workflow\./);
+  assert.match(home, /where agents could help without removing human control\./);
+  assert.match(home, /class="button button-teal" href="\/contact">Talk it through<\/a>/);
+  assert.match(home, /id="wp-signup-title">Get Signal in your inbox\.<\/h2>/);
+  assert.match(home, /Weekly analysis for energy developers on market shifts, commercial decisions and practical agentic transformation, plus the monthly Market Monitor\./);
   assert.doesNotMatch(home, /Turn AI ambition into|commercial advantage/);
 });

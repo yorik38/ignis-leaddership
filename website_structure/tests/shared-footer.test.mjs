@@ -60,8 +60,14 @@ test("every page ends with the homepage call, the shared signup, then the shared
     const html = readFileSync(file, "utf8");
     if (!html.includes('<footer class="site-footer">')) continue;
     count++;
-    const call = html.indexOf('id="close-call-title">Got a project heading for financial close?');
-    const bookLabel = file.endsWith("/contact.html")
+    const isHome = file.endsWith("/index.html");
+    const callTitle = isHome
+      ? 'id="close-call-title">Where is the commercial pressure greatest?'
+      : 'id="close-call-title">Got a project heading for financial close?';
+    const call = html.indexOf(callTitle);
+    const bookLabel = isHome
+      ? 'class="button button-teal" href="/contact">Talk it through'
+      : file.endsWith("/contact.html")
       ? 'class="button button-teal" href="https://calendly.com/yorik-tisseau-tmff/commercial-decision-call" data-calendly-link>Get in touch'
       : 'class="button button-teal" href="/contact">Get in touch';
     const book = html.indexOf(bookLabel, call);
@@ -92,7 +98,10 @@ test("every page ends with the homepage call, the shared signup, then the shared
       }
       continue;
     }
-    const signup = html.indexOf('id="wp-signup-title">Get the analysis');
+    const signupTitle = isHome
+      ? 'id="wp-signup-title">Get Signal in your inbox.'
+      : 'id="wp-signup-title">Get the analysis';
+    const signup = html.indexOf(signupTitle);
     assert.ok(call !== -1 && call < book && book < signup && signup < footer, `Ending sequence: ${file}`);
     assert.equal(html.split('id="wp-signup-title"').length - 1, 1, `Signup count: ${file}`);
   }
