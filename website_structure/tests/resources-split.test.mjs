@@ -144,7 +144,7 @@ test('Research is one hub at /resources, with filters and cards in reading order
   assert.match(css, /\.res-card-media\{[^}]*aspect-ratio:210\/297/);
   assert.match(css, /body\.resources-page \.res-card-media\{height:auto;max-height:none;aspect-ratio:auto\}/);
   assert.match(css, /body\.resources-page \.res-card-media img\{width:100%;height:auto;aspect-ratio:auto;object-fit:contain\}/);
-  assert.match(css, /body\.resources-page \.res-card-panel\{position:relative/);
+  assert.match(css, /body\.resources-page \.res-card-panel\{position:relative;right:auto;bottom:auto;left:auto;display:block;box-sizing:border-box;width:100%/);
   assert.doesNotMatch(css, /body\.resources-page \.res-card\{/);
 });
 
@@ -219,7 +219,7 @@ test('Research hub loads shared chrome after the legacy page styles', () => {
   const legacy = hub.indexOf('/assets/capability.css');
   const shared = hub.indexOf('/assets/site-chrome.css');
   assert.ok(legacy !== -1 && shared > legacy, 'shared menu styles must win on Research');
-  assert.match(hub, /resource-cards\.css\?v=12/);
+  assert.match(hub, /resource-cards\.css\?v=13/);
 });
 
 test('the flagship guide page has a teaser, an email gate and an unticked Signal opt-in', () => {

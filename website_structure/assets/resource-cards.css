@@ -186,7 +186,7 @@ body.insights-page:not(.newsletter-page) .edition-feature:focus-visible{outline:
   body.resources-page .res-card-media{height:auto;max-height:none;aspect-ratio:auto}
   body.resources-page .res-card-media picture{height:auto}
   body.resources-page .res-card-media img{width:100%;height:auto;aspect-ratio:auto;object-fit:contain}
-  body.resources-page .res-card-panel{position:relative;right:auto;bottom:auto;left:auto;border-top:1px solid #d9e2e5;background:#fff;-webkit-backdrop-filter:none;backdrop-filter:none}
+  body.resources-page .res-card-panel{position:relative;right:auto;bottom:auto;left:auto;display:block;box-sizing:border-box;width:100%;border-top:1px solid #d9e2e5;background:#fff;-webkit-backdrop-filter:none;backdrop-filter:none}
 }
 
 /* Guide landing page: book beside the title, then what you'll learn. */
