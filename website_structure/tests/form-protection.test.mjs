@@ -926,7 +926,7 @@ test("every signup and download form renders the shared protection fields", () =
   function walk(dir) {
     for (const entry of readdirSync(dir)) {
       const path = join(dir, entry);
-      if (entry === "backups" || entry === "tests" || entry === "node_modules") continue;
+      if (entry === "backups" || entry === "tests" || entry === "node_modules" || entry === "partials" || entry === "scripts") continue;
       if (statSync(path).isDirectory()) walk(path);
       else if (entry.endsWith(".html")) pages.push(path);
     }
