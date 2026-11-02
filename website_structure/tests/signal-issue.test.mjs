@@ -167,7 +167,7 @@ test("Signal articles share a narrow reading column and a separated sources list
     "insights/why-do-unclear-tenders-produce-incomparable-bids.html",
   ]) {
     const html = readFileSync(new URL(file, root), "utf8");
-    assert.match(html, /signal-reading\.css\?v=3/, file);
+    assert.match(html, /signal-reading\.css\?v=4/, file);
     assert.doesNotMatch(html, /Illustrative CGI|\bCGI\b/, file);
   }
   const coverAlt = "Data centre buildings beside solar panels and battery units in open countryside.";
@@ -182,6 +182,7 @@ test("article pages share one Signal rail, the footnote and the proposed author 
   const bio = readFileSync(new URL("partials/article-author-bio.html", root), "utf8").trim();
   const css = readFileSync(new URL("assets/signal-reading.css", root), "utf8");
   assert.match(css, /@media\(min-width:1240px\)\{[\s\S]*position:sticky;[\s\S]*top:calc\(96px \+ 1\.25rem\)/);
+  assert.match(css, /--signal-rail:calc\(300px \+ 2rem\)/);
   assert.match(css, /background:#111719/);
   assert.match(css, /\.issue-disclaimer\{[^}]*font-size:\.78rem;[^}]*font-style:normal/);
   assert.match(rail, /action="\/api\/subscribe"/);

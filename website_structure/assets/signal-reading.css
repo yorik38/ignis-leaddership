@@ -381,7 +381,12 @@ body.insight-article-page .article-signal-rail .signal-signup-error{
 }
 
 body.insight-article-page .article-signal-rail .turnstile-slot{
+  max-width:100%;
   margin-top:.85rem;
+}
+
+body.insight-article-page .article-signal-rail .turnstile-slot iframe{
+  max-width:100%;
 }
 
 body.insight-article-page .article-signal-rail .turnstile-slot:empty{
@@ -412,6 +417,15 @@ body.insight-article-page .issue-disclaimer em{
 }
 
 @media(min-width:1240px){
+  /* Compact is requested and renders at 150x140, which fits a 280px rail.
+     The success bar seen on the live page is about 300px wide and overflowed
+     that cap. Size the rail for a 300px widget plus the 1rem side padding,
+     and widen the right inset only as far as that needs. */
+  body.insight-article-page{
+    --signal-rail:calc(300px + 2rem);
+    --signal-right-inset:max(1.5rem, calc((100% - 700px) / 2), calc(var(--signal-rail) + 2.5rem));
+  }
+
   body.insight-article-page .issue-body{
     display:block;
   }
