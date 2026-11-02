@@ -90,7 +90,8 @@ for (const name of files) {
   if ((html.match(/class="signal-signup-form"/g) || []).length !== 1) {
     throw new Error(`${name} does not have exactly one Signal form`);
   }
-  html = html.replaceAll("signal-reading.css?v=2", "signal-reading.css?v=3");
+  html = html.replaceAll("signal-reading.css?v=2", "signal-reading.css?v=4");
+  html = html.replaceAll("signal-reading.css?v=3", "signal-reading.css?v=4");
   html = html.replaceAll("capability.js?v=18", "capability.js?v=19");
   await writeFile(url, html);
   console.log(`updated ${join("insights", name)}`);
