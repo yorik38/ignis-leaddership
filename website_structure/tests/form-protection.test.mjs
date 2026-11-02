@@ -947,14 +947,14 @@ test("every signup and download form renders the shared protection fields", () =
     }
   }
   const monitor = readFileSync(join(root, "reports/market-monitor-2026-10.html"), "utf8");
-  assert.match(monitor, /data-whitepaper-popup/);
+  assert.match(monitor, /data-whitepaper-form data-whitepaper-email/);
   assert.match(monitor, /action="\/api\/whitepaper"/);
-  assert.match(monitor, /<p class="wp-free-label">Free resource\.<\/p>/);
-  assert.match(monitor, /data-paper="market-monitor-2026-10"/);
-  assert.match(monitor, /class="wp-get-pdf"[^>]*>Get the PDF</);
+  assert.match(monitor, /<p class="wp-free-label">Free to read online\.<\/p>/);
+  assert.match(monitor, /name="resource" value="market-monitor-2026-10"/);
+  assert.match(monitor, /class="wp-gate wp-pdf-offer"/);
   assert.doesNotMatch(monitor, /ignis-market-monitor-2026-10\.pdf/);
   assert.match(monitor, /<a href="\/assets\/downloads\/ignis-market-monitor-2026-10-sources">Full source register<\/a>/);
-  assert.match(monitor, /<button type="submit">Send me the PDF<\/button>/);
+  assert.match(monitor, /aria-label="Send me the PDF"/);
   assert.doesNotMatch(monitor, /name="firstname"/);
   assert.doesNotMatch(monitor, /HubSpot form placeholder|portalId:\s*"TODO"/);
   const signup = monitor.slice(monitor.indexOf('class="signal-signup-form"'), monitor.indexOf("signal-signup-success"));

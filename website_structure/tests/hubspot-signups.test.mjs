@@ -184,8 +184,8 @@ test("route to market and procurement send their own content_source without an e
     let ip = 60;
     for (const [resource, contentSource, formId, page] of papers) {
       const html = readFileSync(join(root, page), "utf8");
-      assert.match(html, /data-whitepaper-popup/);
-      assert.match(html, new RegExp(`data-paper="${resource}"`));
+      assert.match(html, /data-whitepaper-form data-whitepaper-email/);
+      assert.match(html, new RegExp(`name="resource" value="${resource}"`));
       assert.doesNotMatch(html, /\/assets\/downloads\//);
       assert.doesNotMatch(html, /whitepaper-bids-won-on-evidence|whitepaper-commercial-system-pipeline/);
 
@@ -235,10 +235,10 @@ test("paper forms and visible Signal signups are connected", () => {
     assert.doesNotMatch(html, /class="signal-signup-privacy"/);
   }
   for (const html of [route, procurement]) {
-    assert.match(html, /data-whitepaper-popup/);
-    assert.match(html, /<p class="wp-free-label">Free resource\.<\/p>/);
-    assert.match(html, /class="wp-get-pdf"[^>]*data-download-open[^>]*>Get the PDF</);
-    assert.doesNotMatch(html, /wp-inline-download|wp-download-open|wp-gate-card/);
+    assert.match(html, /data-whitepaper-form data-whitepaper-email/);
+    assert.match(html, /<p class="wp-free-label">Free to read online\.<\/p>/);
+    assert.match(html, /class="wp-gate wp-pdf-offer"/);
+    assert.doesNotMatch(html, /wp-inline-download|wp-download-open|wp-download-dialog|data-whitepaper-popup|wp-get-pdf-row/);
     assert.doesNotMatch(html, /\/assets\/downloads\//);
     assert.match(html, /name="signal_opt_in"/);
     assert.doesNotMatch(html, /name="signal_opt_in"[^>]*checked/);

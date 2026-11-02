@@ -277,4 +277,26 @@ body.guide-page .guide-hero-book{display:none}
 @media(max-width:760px){
   .whitepaper .wp-hero{min-height:100svh;background-position:center top;background-size:auto 185%}
   .whitepaper .wp-hero:after{background:linear-gradient(180deg,rgba(7,12,17,.8) 0%,rgba(7,12,17,.91) 100%)}
+  .whitepaper .wp-hero .wp-crumb,.whitepaper .wp-hero .pill.o{display:none}
+}
+
+/* A visible email-delivery choice replaces the buried PDF pop-up. */
+.whitepaper .wp-pdf-offer{max-width:none;margin:0;padding:clamp(2.75rem,5vw,4.5rem) max(var(--gutter),calc((100vw - var(--wrap))/2));border-bottom:1px solid var(--line);background:#f3f5f6}
+.whitepaper .wp-pdf-offer .wp-gate-card{width:100%;max-width:1180px;margin:0;padding:0;border:0;border-radius:0;background:transparent;grid-template-columns:minmax(0,.9fr) minmax(22rem,1.1fr);gap:clamp(2rem,5vw,5rem);align-items:center}
+.whitepaper .wp-pdf-offer .wp-gate-intro .sec-eb{margin:0 0 .65rem}
+.whitepaper .wp-pdf-offer .wp-gate-intro h2{margin:0 0 .75rem;font-size:clamp(2rem,3.2vw,3rem);line-height:1.08;letter-spacing:-.035em}
+.whitepaper .wp-pdf-offer .wp-gate-intro p:last-child{max-width:36rem;font-size:1.05rem;line-height:1.55}
+.whitepaper .wp-pdf-offer .hubspot-whitepaper-form{min-height:0;padding:0;border:0;background:transparent}
+.whitepaper .wp-pdf-offer .wp-paper-form{width:100%}
+.whitepaper .wp-pdf-offer .wp-paper-fields{width:100%;min-height:3.5rem;border-color:#b9c8ca;background:#fff}
+.whitepaper .wp-pdf-offer .wp-paper-fields input[type=email]{height:3rem}
+.whitepaper .wp-pdf-offer .wp-paper-fields button{width:3rem;height:3rem}
+.whitepaper .wp-pdf-offer .wp-paper-consent{max-width:42rem;color:#4d5964;font-size:.78rem}
+.whitepaper .wp-pdf-offer .wp-gate-ready{min-height:0;padding:0}
+.whitepaper .wp-pdf-offer .wp-gate-card.is-thanks{grid-template-columns:1fr}
+@media(max-width:760px){
+  .whitepaper .wp-pdf-offer{padding:2.5rem 18px}
+  .whitepaper .wp-pdf-offer .wp-gate-card{grid-template-columns:1fr;gap:1.5rem}
+  .whitepaper .wp-pdf-offer .wp-gate-intro h2{font-size:2rem}
+  .whitepaper .wp-pdf-offer .wp-gate-intro p:last-child{font-size:1rem}
 }

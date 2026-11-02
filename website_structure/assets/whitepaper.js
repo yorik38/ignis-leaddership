@@ -152,7 +152,8 @@
     ensureStarted(form);
     var resource = resourceOf(form);
     var popup = form.hasAttribute("data-whitepaper-popup");
-    if (resource && !popup) {
+    var emailGate = form.hasAttribute("data-whitepaper-email");
+    if (resource && !popup && !emailGate) {
       fetch("/api/whitepaper?resource=" + encodeURIComponent(resource), {
         headers: {Accept: "application/json"}
       }).then(function (response) {

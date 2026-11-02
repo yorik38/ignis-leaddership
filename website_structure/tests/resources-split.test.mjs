@@ -56,12 +56,12 @@ test('Insights and Reports are distinct collections', () => {
   assert.match(report, /What moved in power, offshore wind and onshore renewables this month, and what is due next\./);
   assert.doesNotMatch(report, /ignis-market-monitor-2026-10\.pdf/);
   assert.match(report, /<a href="\/assets\/downloads\/ignis-market-monitor-2026-10-sources">Full source register<\/a>/);
-  assert.match(report, /data-whitepaper-popup/);
+  assert.match(report, /data-whitepaper-form data-whitepaper-email/);
   assert.match(report, /action="\/api\/whitepaper"/);
-  assert.match(report, /<p class="wp-free-label">Free resource\.<\/p>/);
-  assert.match(report, /data-paper="market-monitor-2026-10"/);
-  assert.doesNotMatch(report, /wp-download-open|wp-gate-card|Download the white paper/);
-  assert.equal((report.match(/>Get the PDF</g) || []).length, 2);
+  assert.match(report, /<p class="wp-free-label">Free to read online\.<\/p>/);
+  assert.match(report, /name="resource" value="market-monitor-2026-10"/);
+  assert.match(report, /class="wp-gate wp-pdf-offer"/);
+  assert.doesNotMatch(report, /wp-download-open|wp-download-dialog|data-whitepaper-popup|wp-get-pdf-row/);
   assert.doesNotMatch(report, /HubSpot form placeholder|YORIK — HUBSPOT FORM PLACEHOLDER/);
   assert.match(report, /data-whitepaper-key="ignis-market-monitor-2026-10"/);
   assert.match(report, /whitepaper\.js/);
@@ -197,7 +197,7 @@ test('research paper and guide heroes use their publication covers with a readab
     'resources/procurement.html',
     'resources/agentic-transformation-for-energy-developers.html',
   ]) {
-    assert.match(read(path), /whitepaper\.css\?v=43/);
+    assert.match(read(path), /whitepaper\.css\?v=44/);
   }
 });
 
@@ -267,7 +267,9 @@ test('the flagship guide page has a teaser, an email gate and an unticked Signal
   assert.match(page, /<input type="checkbox" name="signal_opt_in" value="true">/);
   assert.doesNotMatch(page, /name="signal_opt_in"[^>]*checked/);
   assert.match(page, /name="content_source" value="guide-agentic-transformation"/);
-  assert.match(page, /<a href="#download">Get the guide \(PDF\)<\/a>/);
+  assert.match(page, /Get the full guide by email\./);
+  assert.match(page, /data-whitepaper-form data-whitepaper-email/);
+  assert.doesNotMatch(page, /wp-download-jump/);
   assert.match(page, /<a class="guide-hero-book" href="#download" aria-label="Get the guide \(PDF\)">/);
   assert.match(page, /scrollIntoView\(\{ behavior: reduce \? "auto" : "smooth", block: "start" \}\)/);
   assert.match(page, /email\.focus\(\{ preventScroll: true \}\)/);
@@ -280,7 +282,7 @@ test('the flagship guide page has a teaser, an email gate and an unticked Signal
   assert.doesNotMatch(page, /[\u2013\u2014]|FORGE|Forge|Book a call|book a call|£|\$\d/);
 });
 
-test('the guide stays on an email form and the three papers use a download pop-up', () => {
+test('the guide and three papers use visible email-delivery forms', () => {
   const guide = read('resources/agentic-transformation-for-energy-developers.html');
   assert.doesNotMatch(guide, /\/assets\/downloads\//);
   assert.match(guide, /name="resource" value="agentic-transformation-for-energy-developers"/);
@@ -299,11 +301,11 @@ test('the guide stays on an email form and the three papers use a download pop-u
     } else {
       assert.doesNotMatch(page, /\/assets\/downloads\//, path);
     }
-    assert.match(page, /<p class="wp-free-label">Free resource\.<\/p>/, path);
-    assert.doesNotMatch(page, /wp-inline-download|wp-download-open|wp-gate-card/, path);
-    assert.equal((page.match(/>Get the PDF</g) || []).length, 2, path);
-    assert.match(page, /data-whitepaper-popup/, path);
-    assert.match(page, /<button type="submit">Send me the PDF<\/button>/, path);
+    assert.match(page, /<p class="wp-free-label">Free to read online\.<\/p>/, path);
+    assert.match(page, /class="wp-gate wp-pdf-offer"/, path);
+    assert.match(page, /data-whitepaper-form data-whitepaper-email/, path);
+    assert.doesNotMatch(page, /wp-download-open|wp-download-dialog|data-whitepaper-popup|wp-get-pdf-row/, path);
+    assert.match(page, /aria-label="Send me the PDF"/, path);
     assert.match(page, /class="signal-signup-form"/, path);
   }
   for (const [path, resource] of [

@@ -224,7 +224,7 @@ test("a gated paper with no resolvable form id does not deliver the PDF", async 
   }
 });
 
-test("popup pages have no PDF URL and the guide keeps its on-page form", () => {
+test("publication pages offer explicit email delivery and the guide keeps its on-page form", () => {
   for (const [resource, , file] of FREE) {
     const html = readFileSync(join(root, file), "utf8");
     if (resource === "market-monitor-2026-10") {
@@ -234,19 +234,15 @@ test("popup pages have no PDF URL and the guide keeps its on-page form", () => {
     } else {
       assert.doesNotMatch(html, /\/assets\/downloads\//, file);
     }
-    assert.match(html, /<p class="wp-free-label">Free resource\.<\/p>/, file);
-    assert.doesNotMatch(html, /wp-inline-download|wp-download-open|wp-gate-card|Download the white paper|download the PDF/, file);
-    assert.equal((html.match(/class="wp-get-pdf"[^>]*>Get the PDF</g) || []).length, 2, file);
-    assert.equal((html.match(/data-download-open/g) || []).length, 2, file);
-    assert.doesNotMatch(html, /<button[^>]*data-download-open/, file);
-    assert.doesNotMatch(html, /wp-download-jump/, file);
-    assert.match(html, new RegExp(`data-paper="${resource}"`), file);
-    assert.match(html, /<dialog class="wp-download-dialog"/, file);
-    assert.match(html, /data-whitepaper-popup/, file);
-    assert.match(html, /Enter your email\. The PDF downloads now and a copy goes to your inbox\./, file);
-    assert.match(html, /<button type="submit">Send me the PDF<\/button>/, file);
-    assert.match(html, /Your download has started\./, file);
-    assert.match(html, /Download not started\? <a href="#" data-download-fallback>Use this link<\/a>/, file);
+    assert.match(html, /<p class="wp-free-label">Free to read online\.<\/p>/, file);
+    assert.match(html, /class="wp-gate wp-pdf-offer"/, file);
+    assert.match(html, /data-whitepaper-form data-whitepaper-email/, file);
+    assert.match(html, new RegExp(`name="resource" value="${resource}"`), file);
+    assert.match(html, /The full (?:report|paper) is free to read below\./, file);
+    assert.match(html, /Enter your work email and we’ll send the PDF to your inbox\./, file);
+    assert.doesNotMatch(html, /wp-download-dialog|data-download-open|data-whitepaper-popup|wp-get-pdf-row|wp-download-jump/, file);
+    assert.match(html, /The PDF is on its way\./, file);
+    assert.match(html, /Download the PDF/, file);
     assert.match(html, /name="email"[^>]*required/, file);
     assert.doesNotMatch(html, /name="firstname"|name="lastname"/, file);
     assert.match(html, /name="signal_opt_in" value="true">/, file);
@@ -257,12 +253,16 @@ test("popup pages have no PDF URL and the guide keeps its on-page form", () => {
   const guide = readFileSync(join(root, "resources/agentic-transformation-for-energy-developers.html"), "utf8");
   assert.doesNotMatch(guide, /\/assets\/downloads\//);
   assert.doesNotMatch(guide, /data-whitepaper-popup/);
-  assert.match(guide, /data-whitepaper-form/);
+  assert.match(guide, /class="wp-gate wp-pdf-offer"/);
+  assert.match(guide, /data-whitepaper-form data-whitepaper-email/);
+  assert.match(guide, /Get the full guide by email\./);
   assert.match(guide, /name="resource" value="agentic-transformation-for-energy-developers"/);
   assert.match(guide, /name="content_source" value="guide-agentic-transformation"/);
   assert.match(guide, /name="signal_opt_in"/);
   assert.doesNotMatch(guide, /name="signal_opt_in"[^>]*checked/);
   assert.doesNotMatch(guide, /Free resource\. Read it below/);
+  assert.doesNotMatch(guide, /wp-download-jump/);
+  assert.ok(guide.indexOf('class="wp-gate wp-pdf-offer"') < guide.indexOf('class="guide-teaser"'));
 });
 
 test("the client uses the API pdf, hides an ungated form, and drops the old bypasses", () => {
@@ -272,6 +272,8 @@ test("the client uses the API pdf, hides an ungated form, and drops the old bypa
   assert.doesNotMatch(script, /data-whitepaper-pdf/);
   assert.match(script, /\/api\/whitepaper\?resource=/);
   assert.match(script, /data\.gated === false && data\.pdf/);
+  assert.match(script, /var emailGate = form\.hasAttribute\("data-whitepaper-email"\)/);
+  assert.match(script, /resource && !popup && !emailGate/);
   assert.match(script, /revealWhitepaperDownload\(data\.pdf/);
   assert.match(script, /dialog\[data-paper\]/);
   assert.match(script, /data-whitepaper-popup/);
