@@ -1,8 +1,11 @@
-/* Signal articles: one centred reading column, left-aligned text.
-   700px sits in the 680–720px measure (about 65–75 characters). */
+/* Signal articles: a left-weighted column. The right edge stays where the
+   old centred 700px column ended. The left edge moves out so the column
+   is 880px on a 1280–1440px screen, with at least the logo gutter spare. */
 
 body.insight-article-page{
-  --signal-measure:min(700px,calc(100% - 48px));
+  --signal-right-inset:max(1.5rem,calc((100% - 700px) / 2));
+  --signal-left-min:clamp(1.25rem,4vw,3rem);
+  --signal-measure:min(880px,calc(100% - var(--signal-right-inset) - var(--signal-left-min)));
   --signal-teal:#14919B;
   --signal-teal-text:#08756d;
   --signal-ink:#14181F;
@@ -20,9 +23,9 @@ body.insight-article-page.data-centre-issue .issue-hero .issue-shell,
 body.insight-article-page.data-centre-issue .issue-body .issue-shell:not(:has(.issue-sidebar)){
   display:block;
   width:var(--signal-measure);
-  max-width:700px;
+  max-width:none;
   margin-left:auto;
-  margin-right:auto;
+  margin-right:var(--signal-right-inset);
 }
 
 body.insight-article-page .issue-hero,
@@ -56,8 +59,11 @@ body.insight-article-page .issue-byline{
 body.insight-article-page .issue-feature,
 body.insight-article-page .issue-feature.issue-feature-signal{
   width:var(--signal-measure);
-  max-width:700px;
-  margin:1.75rem auto 0.25rem;
+  max-width:none;
+  margin-top:1.75rem;
+  margin-bottom:0.25rem;
+  margin-left:auto;
+  margin-right:var(--signal-right-inset);
 }
 
 body.insight-article-page .issue-feature img,
@@ -243,7 +249,17 @@ body.insight-article-page .issue-sources a:focus-visible{
 
 @media(max-width:720px){
   body.insight-article-page{
-    --signal-measure:min(700px,calc(100% - 32px));
+    --signal-right-inset:16px;
+    --signal-left-min:16px;
+    --signal-measure:min(880px,calc(100% - 32px));
+  }
+  body.insight-article-page .issue-hero .issue-shell,
+  body.insight-article-page .issue-body .issue-shell,
+  body.insight-article-page .issue-body .issue-shell:not(:has(.issue-sidebar)),
+  body.insight-article-page .issue-feature,
+  body.insight-article-page .issue-feature.issue-feature-signal{
+    margin-left:auto;
+    margin-right:auto;
   }
   body.insight-article-page .issue-hero h1{
     font-size:clamp(1.85rem,8vw,2.25rem);

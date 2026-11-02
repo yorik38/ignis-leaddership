@@ -145,7 +145,8 @@ test("Signal Issue 3 publishes the approved data-centre article", () => {
 
 test("Signal articles share a narrow reading column and a separated sources list", () => {
   const css = readFileSync(new URL("assets/signal-reading.css", root), "utf8");
-  assert.match(css, /--signal-measure:min\(700px,calc\(100% - 48px\)\)/);
+  assert.match(css, /--signal-right-inset:max\(1\.5rem,calc\(\(100% - 700px\) \/ 2\)\)/);
+  assert.match(css, /--signal-measure:min\(880px,calc\(100% - var\(--signal-right-inset\) - var\(--signal-left-min\)\)\)/);
   assert.match(css, /\.issue-feature[\s\S]*width:var\(--signal-measure\)/);
   assert.match(css, /\.issue-article-content figure img[\s\S]*width:100%/);
   assert.match(css, /\.issue-sources\{[^}]*border-top:3px solid var\(--signal-teal\)/);
@@ -166,7 +167,7 @@ test("Signal articles share a narrow reading column and a separated sources list
     "insights/why-do-unclear-tenders-produce-incomparable-bids.html",
   ]) {
     const html = readFileSync(new URL(file, root), "utf8");
-    assert.match(html, /signal-reading\.css\?v=1/, file);
+    assert.match(html, /signal-reading\.css\?v=2/, file);
     assert.doesNotMatch(html, /Illustrative CGI|\bCGI\b/, file);
   }
   const coverAlt = "Data centre buildings beside solar panels and battery units in open countryside.";
