@@ -285,10 +285,10 @@ test("paper forms and visible Signal signups are connected", () => {
       assert.match(html, /<p>What's changing in renewables, the grid and data centre demand, and what it means for strategy, winning work, delivery and agentic AI\.<\/p>/, path);
       assert.doesNotMatch(html, /signal-inbox-title">[\s\S]*?See what changed,[\s\S]*?One focused analysis each week/, path);
     } else {
-      assert.match(html, /class="signal-card-title"><span class="signal-title-line">Signal, the weekly newsletter<\/span><span class="signal-title-line">for energy developers\.<\/span><\/h2>/, path);
-      assert.match(html, /Weekly for energy developers on strategy, winning work, delivery and agentic AI\./, path);
+      assert.match(html, /class="signal-card-title"><span class="signal-wordmark">Signal<span class="signal-mark">\.<\/span><\/span><span class="signal-card-follow">The weekly newsletter for energy developers<\/span><\/h2>/, path);
+      assert.match(html, /Strategy, business development and transformation with agentic AI, from first site to financial close\./, path);
     }
-    assert.match(html, /capability\.css\?v=216/);
+    assert.match(html, /capability\.css\?v=217/);
     if (html.includes('class="signal-inbox')) {
       assert.match(form, /aria-label="Get Signal"><svg[^>]*>[\s\S]*?<\/svg><\/button>/, path);
       assert.doesNotMatch(form, /aria-label="Subscribe"|>Subscribe</, path);

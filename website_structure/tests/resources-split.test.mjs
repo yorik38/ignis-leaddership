@@ -45,8 +45,9 @@ test('Insights and Reports are distinct collections', () => {
   assert.equal((insights.match(/href="\/insights\/what-gate-2-is-really-about"/g) || []).length, 1);
   assert.equal((insights.match(/href="\/insights\/who-powers-the-next-data-centre"/g) || []).length, 1);
   assert.doesNotMatch(insights, /class="insights-guides"/);
-  assert.doesNotMatch(read('reports/market-monitor-2026-10.html'), /signal-mark/);
-  assert.doesNotMatch(read('resources/bids-won-on-evidence.html'), /signal-mark/);
+  assert.doesNotMatch(read('reports/market-monitor-2026-10.html'), /id="signal-title"/);
+  assert.doesNotMatch(read('resources/bids-won-on-evidence.html'), /id="signal-title"/);
+  assert.match(read('reports/market-monitor-2026-10.html'), /class="signal-wordmark">Signal<span class="signal-mark">\.<\/span>/);
   const report = read('reports/market-monitor-2026-10.html');
   assert.match(report, /<meta name="description" content="Ignis Market Monitor: October 2026\. What moved in power, offshore wind and onshore renewables this month, and what is due next\.">/);
   assert.match(report, /og:image" content="https:\/\/www\.ignisleadership\.com\/assets\/img\/market-monitor-2026-10-og\.png\?v=4"/);

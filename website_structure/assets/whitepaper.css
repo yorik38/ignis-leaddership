@@ -94,6 +94,9 @@
 .wp-signup-copy{position:absolute;inset:0;z-index:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:2rem 1.25rem;text-align:center;color:#fff;background:rgba(0,0,0,.62);-webkit-text-size-adjust:100%;text-size-adjust:100%}
 .wp-signup-copy h2{max-width:40rem;margin:0;color:#fff;font-family:Inter,Arial,sans-serif;font-size:clamp(2rem,4vw,3rem);font-weight:500;letter-spacing:-.03em;line-height:1.2}
 .signal-card-title .signal-title-line{display:block;white-space:nowrap}
+.signal-card-title .signal-wordmark{display:block;font-weight:500;letter-spacing:-.05em;line-height:.95}
+.signal-card-title .signal-mark{color:#14919B}
+.signal-card-title .signal-card-follow{display:block;margin-top:.45rem;font-size:clamp(1rem,1.5vw,1.25rem);font-weight:500;letter-spacing:-.025em;line-height:1.3}
 .wp-signup-copy>p{max-width:46rem;margin:.75rem 0 0;color:#fff;font-size:1.05rem;font-weight:400;line-height:1.5}
 .hubspot-newsletter-form{width:min(100%,36rem);margin-top:1.35rem}
 .wp-signup-form,.hubspot-newsletter-form .hs-form{display:flex;align-items:center;gap:4px;width:100%;margin:0;padding:4px;border-radius:4px;background:#fff}
@@ -129,6 +132,7 @@
   .wp-signup-copy{position:relative;inset:auto;align-items:flex-start;justify-content:flex-start;min-height:0;padding:1.75rem 1.25rem;text-align:left;background:#111719}
   .wp-signup-copy h2{max-width:none;font-size:clamp(1.55rem,6.4vw,1.75rem);line-height:1.08}
   .wp-signup-copy .signal-card-title{font-size:1.25rem;line-height:1.1}
+  .wp-signup-copy .signal-card-title .signal-wordmark{font-size:2.15rem;line-height:.95}
   .wp-signup-copy>p{margin-top:.55rem;font-size:.78rem;line-height:1.4}
   .wp-signup-copy>p+p{display:none}
   .hubspot-newsletter-form{margin-top:1rem}
