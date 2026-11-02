@@ -40,8 +40,8 @@ test("Signal Issue 1 ends with continue reading, the call, then the shared signu
   const reading = issue.slice(issue.indexOf('continue-reading'), issue.indexOf('close-call'));
   assert.doesNotMatch(reading, /why-do-unclear-tenders|tender-clarifications/);
   assert.match(issue, /class="signal-signup-form"[^>]*data-community-form/);
-  assert.match(issue, /class="signal-signup-success"[^>]*tabindex="-1"[^>]*>[\s\S]*Thanks, you're subscribed\./);
-  assert.doesNotMatch(issue, /You're in\.|Subscription confirmed/);
+  assert.match(issue, /class="signal-signup-success"[^>]*tabindex="-1"[^>]*>[\s\S]*You're in\. Signal arrives weekly, plus the monthly Market Monitor\./);
+  assert.doesNotMatch(issue, /Thanks, you're subscribed\.|Subscription confirmed/);
   assert.match(reading, /<span class="continue-card-kicker">Signal · Issue 2<\/span>/);
   assert.doesNotMatch(issue, /Signal: practical notes on moving energy projects/);
   assert.doesNotMatch(issue, /class="home-newsletter"|class="issue-sidebar-form"|Coming soon/);
@@ -97,8 +97,8 @@ test("Signal Issue 2 publishes the approved Gate 2 article", () => {
   assert.doesNotMatch(reading, /bids-won-on-evidence|Bids are now won on evidence/);
   assert.equal((gate.match(/class="continue-card"/g) || []).length, 2);
   assert.match(gate, /class="signal-signup-form"[^>]*data-community-form/);
-  assert.match(gate, /class="signal-signup-success"[^>]*tabindex="-1"[^>]*>[\s\S]*Thanks, you're subscribed\./);
-  assert.doesNotMatch(gate, /You're in\.|Subscription confirmed/);
+  assert.match(gate, /class="signal-signup-success"[^>]*tabindex="-1"[^>]*>[\s\S]*You're in\. Signal arrives weekly, plus the monthly Market Monitor\./);
+  assert.doesNotMatch(gate, /Thanks, you're subscribed\.|Subscription confirmed/);
   for (const file of [
     "assets/img/signal-gate2-cover.avif",
     "assets/img/signal-gate2-cover.webp",
@@ -128,7 +128,7 @@ test("Signal Issue 3 publishes the approved data-centre article", () => {
   assert.match(dataCentre, /<p class="issue-disclaimer">Commercial commentary, not legal, regulatory or investment advice\. Project and connection terms vary\. Sources checked 30 October 2026\.<\/p>/);
   assert.match(dataCentre, /class="signal-signup-form"[^>]*data-community-form/);
   assert.match(dataCentre, /id="signal-inbox-title">Get Signal in your inbox\.<\/h2>/);
-  assert.match(dataCentre, /Thanks, you're subscribed\./);
+  assert.match(dataCentre, /You're in\. Signal arrives weekly, plus the monthly Market Monitor\./);
   assert.doesNotMatch(dataCentre, /<p>The weekly newsletter for energy developers\.<\/p>/);
   assert.match(dataCentre, /By signing up, you agree to receive Signal and occasional emails from Ignis Leadership\. Unsubscribe at any time\./);
   assert.doesNotMatch(dataCentre, /Weekly UK and European energy market insight|monthly report and occasional marketing updates/);
@@ -188,7 +188,7 @@ test("article pages share one Signal rail, the footnote and the proposed author 
   assert.match(rail, /action="\/api\/subscribe"/);
   assert.match(rail, /name="content_source" value="signal-signup"/);
   assert.match(rail, /data-turnstile data-turnstile-theme="dark" data-turnstile-size="compact"/);
-  assert.match(rail, /Thanks, you're subscribed\./);
+  assert.match(rail, /You're in\. Signal arrives weekly, plus the monthly Market Monitor\./);
   assert.match(bio, /He has spent 17 years closing commercial deals on energy infrastructure, including at bp, RWE and Bouygues\./);
   assert.match(bio, /Today he helps energy developers find where agentic AI can win them more projects, and builds it with their team so they own the system\./);
   const articles = [
