@@ -222,7 +222,8 @@ test("paper forms and visible Signal signups are connected", () => {
     assert.doesNotMatch(gate, /name="company"|name="enquiry_topic"|name="firstname"|name="signal_role"/);
     assert.match(gate, /name="signal_opt_in"/);
     assert.doesNotMatch(gate, /name="signal_opt_in"[^>]*checked/);
-    assert.match(gate, /Also email me Signal, the weekly newsletter, the monthly Market Monitor and occasional marketing updates\. We won't fill your inbox\. See our <a href="\/privacy">Privacy Policy<\/a>\./);
+    assert.match(gate, /Also email me Signal, the weekly newsletter for energy developers, plus the monthly Market Monitor and occasional updates\. See our <a href="\/privacy">Privacy Policy<\/a>\./);
+    assert.doesNotMatch(gate, /We won't fill your inbox/);
     assert.doesNotMatch(gate, /class="wp-paper-privacy"/);
     const consent = gate.match(/<label class="wp-paper-consent">[\s\S]*?<\/label>/)?.[0] ?? "";
     assert.match(consent, /href="\/privacy"/);
@@ -271,8 +272,8 @@ test("paper forms and visible Signal signups are connected", () => {
     assert.match(form, /By signing up, you agree to receive Signal and occasional emails from Ignis Leadership\. Unsubscribe at any time\./, path);
     assert.doesNotMatch(form, /name="company"(?!_)|name="enquiry_topic"|Company \(optional\)|Topic \(optional\)|signal-signup-optional/, path);
     if (articleSignal) {
-      assert.match(html, /class="signal-signup-success"[^>]*tabindex="-1"[^>]*>[\s\S]*Thanks, you're subscribed\./, path);
-      assert.doesNotMatch(html, /You're in\.|Subscription confirmed\./, path);
+      assert.match(html, /class="signal-signup-success"[^>]*tabindex="-1"[^>]*>[\s\S]*You're in\. Signal arrives weekly, plus the monthly Market Monitor\./, path);
+      assert.doesNotMatch(html, /Thanks, you're subscribed\.|Subscription confirmed\./, path);
     } else {
       assert.match(html, /class="signal-signup-success"[^>]*tabindex="-1"/, path);
     }
@@ -282,21 +283,21 @@ test("paper forms and visible Signal signups are connected", () => {
       assert.doesNotMatch(html, /signal-inbox-title">[\s\S]*?See what changed,[\s\S]*?One focused analysis each week/, path);
     } else if (compactSignal) {
       assert.match(html, /id="signal-inbox-title">Get Signal in your inbox\.<\/h2>/, path);
-      assert.match(html, /<p>The weekly newsletter for energy developers\.<\/p>/, path);
+      assert.match(html, /<p>What's changing in renewables, the grid and data centre demand, and what it means for strategy, winning work, delivery and agentic AI\.<\/p>/, path);
       assert.doesNotMatch(html, /signal-inbox-title">[\s\S]*?See what changed,[\s\S]*?One focused analysis each week/, path);
     } else {
-      assert.match(html, /class="signal-card-title"><span class="signal-title-line">Signal, the weekly newsletter<\/span><span class="signal-title-line">for energy developers\.<\/span><\/h2>/, path);
-      assert.match(html, /See what changed, which commercial decisions it affects, and where agents can help your team respond without losing human control\./, path);
+      assert.match(html, /class="signal-card-title"><span class="signal-wordmark">Signal<span class="signal-mark">\.<\/span><\/span><span class="signal-card-follow">The weekly newsletter for energy developers<\/span><\/h2>/, path);
+      assert.match(html, /Strategy, business development and transformation with agentic AI, from first site to financial close\./, path);
     }
-    assert.match(html, /capability\.css\?v=216/);
+    assert.match(html, /capability\.css\?v=218/);
     if (html.includes('class="signal-inbox')) {
-      assert.match(form, /aria-label="Sign up"><svg[^>]*>[\s\S]*?<\/svg><\/button>/, path);
+      assert.match(form, /aria-label="Get Signal"><svg[^>]*>[\s\S]*?<\/svg><\/button>/, path);
       assert.doesNotMatch(form, /aria-label="Subscribe"|>Subscribe</, path);
       if (!compactSignal) assert.match(html, /id="signal-inbox-title" class="signal-card-title">/, path);
       assert.equal(html.split('class="signal-signup-form"').length - 1, 1, path);
       assert.equal(html.split('id="wp-signup-title"').length - 1, 0, path);
     } else {
-      assert.match(form, /aria-label="Sign up"><svg[^>]*>[\s\S]*?<\/svg><\/button>/, path);
+      assert.match(form, /aria-label="Get Signal"><svg[^>]*>[\s\S]*?<\/svg><\/button>/, path);
     }
   }
   const consentRule = /\.signal-signup-consent\{display:block;margin:\.6rem 0 0;padding:0;color:rgba\(255,255,255,\.76\);font-size:12px;font-weight:400;line-height:1\.4/;

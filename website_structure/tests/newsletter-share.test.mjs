@@ -12,11 +12,12 @@ const insights = readFileSync(join(site, 'insights.html'), 'utf8');
 const vercel = JSON.parse(readFileSync(join(site, 'vercel.json'), 'utf8'));
 const { signupPlacement } = extractPlacement();
 
-const title = "Signal: weekly intelligence for energy developers";
-const description = 'Signal helps energy developers see what changed, which commercial decisions it affects and where agents can help without losing human control. Weekly analysis plus the monthly Market Monitor.';
+const title = "Signal: weekly commercial insight for energy developers";
+const metaDescription = "Weekly for energy developers: what's changing in renewables, the grid and data centre demand, and what it means for strategy, winning work, delivery and agentic AI.";
+const description = "Signal is a weekly newsletter for energy developers on what's changing in renewables, the grid and data centre demand, and what it means for strategy, winning work, delivery to financial close and agentic AI. One focused analysis each week, plus the monthly Market Monitor.";
 const url = 'https://www.ignisleadership.com/newsletter';
 const image = 'https://www.ignisleadership.com/assets/img/signal-share-card-1200x630.png';
-const alt = "Signal. Newsletter. What's moving in energy this week, and the commercial take.";
+const alt = "Signal. Newsletter. What's changing in energy, and what it means commercially.";
 
 function tag(html, attribute, key) {
   const escaped = key.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
@@ -40,7 +41,8 @@ test('the newsletter route is its own page, with no redirect onto Insights', () 
 test('newsletter share tags describe Signal and point at this URL', () => {
   const head = page.slice(0, page.indexOf('</head>'));
   assert.equal(head.match(/<title>([^<]+)<\/title>/)?.[1], title);
-  assert.equal(tag(head, 'name', 'description'), description);
+  assert.equal(metaDescription.length, 164);
+  assert.equal(tag(head, 'name', 'description'), metaDescription);
   assert.equal(head.match(/<link rel="canonical" href="([^"]+)"/)?.[1], url);
   assert.equal(tag(head, 'property', 'og:title'), title);
   assert.equal(tag(head, 'property', 'og:description'), description);

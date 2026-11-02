@@ -40,12 +40,18 @@ for (const file of pages(site)) {
     seenTitles.add(title);
     seenCanonical.add(canonical);
     assert.equal(tag(html, 'property', 'og:title'), title);
-    assert.equal(tag(html, 'property', 'og:description'), description);
+    const socialDescription = name === 'newsletter.html' || name === 'insights.html'
+      ? "Signal is a weekly newsletter for energy developers on what's changing in renewables, the grid and data centre demand, and what it means for strategy, winning work, delivery to financial close and agentic AI. One focused analysis each week, plus the monthly Market Monitor."
+      : description;
+    if (socialDescription !== description) {
+      assert.equal(description, "Weekly for energy developers: what's changing in renewables, the grid and data centre demand, and what it means for strategy, winning work, delivery and agentic AI.");
+    }
+    assert.equal(tag(html, 'property', 'og:description'), socialDescription);
     assert.equal(tag(html, 'property', 'og:url'), canonical);
     assert.equal(tag(html, 'property', 'og:locale'), 'en_GB');
     assert.equal(tag(html, 'name', 'twitter:card'), 'summary_large_image');
     assert.equal(tag(html, 'name', 'twitter:title'), title);
-    assert.equal(tag(html, 'name', 'twitter:description'), description);
+    assert.equal(tag(html, 'name', 'twitter:description'), socialDescription);
     assert.equal(tag(html, 'name', 'twitter:image'), image);
     assert.ok(tag(html, 'property', 'og:image:alt'));
     assert.ok(tag(html, 'name', 'twitter:image:alt'));

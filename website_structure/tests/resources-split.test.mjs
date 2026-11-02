@@ -30,9 +30,9 @@ test('Insights and Reports are distinct collections', () => {
   const issue2At = insights.indexOf('class="edition-feature" href="/insights/what-gate-2-is-really-about"');
   const issue1At = insights.indexOf('class="edition-feature" href="/insights/ao10-france-has-put-a-price-on-proof"');
   assert.ok(heroAt > -1 && inboxAt > heroAt && issue2At > inboxAt && issue1At > issue2At, 'Issue 3 is above signup, followed by Issues 2 and 1');
-  assert.match(insights, /id="signal-inbox-title">Get Signal in your inbox\.<\/h2>\s*<p>The weekly newsletter for energy developers\.<\/p>/);
+  assert.match(insights, /id="signal-inbox-title">Get Signal in your inbox\.<\/h2>\s*<p>What's changing in renewables, the grid and data centre demand, and what it means for strategy, winning work, delivery and agentic AI\.<\/p>/);
   assert.doesNotMatch(insights.slice(inboxAt, issue2At), /See what changed|One focused analysis each week/);
-  assert.match(insights, /See what changed, which commercial decisions it affects, and where agents can help your team respond without losing human control\./);
+  assert.match(insights, /Each week I cover renewables, the grid and data centre demand for energy developers in the UK and Europe\./);
   assert.match(insights, /Previous analysis on market shifts, project evidence and commercial decisions for energy developers\./);
   assert.match(insights, /What is changing in your commercial workflow\?/);
   assert.match(insights, /where agents could help and where people must retain control\./);
@@ -45,8 +45,9 @@ test('Insights and Reports are distinct collections', () => {
   assert.equal((insights.match(/href="\/insights\/what-gate-2-is-really-about"/g) || []).length, 1);
   assert.equal((insights.match(/href="\/insights\/who-powers-the-next-data-centre"/g) || []).length, 1);
   assert.doesNotMatch(insights, /class="insights-guides"/);
-  assert.doesNotMatch(read('reports/market-monitor-2026-10.html'), /signal-mark/);
-  assert.doesNotMatch(read('resources/bids-won-on-evidence.html'), /signal-mark/);
+  assert.doesNotMatch(read('reports/market-monitor-2026-10.html'), /id="signal-title"/);
+  assert.doesNotMatch(read('resources/bids-won-on-evidence.html'), /id="signal-title"/);
+  assert.match(read('reports/market-monitor-2026-10.html'), /class="signal-wordmark">Signal<span class="signal-mark">\.<\/span>/);
   const report = read('reports/market-monitor-2026-10.html');
   assert.match(report, /<meta name="description" content="Ignis Market Monitor: October 2026\. What moved in power, offshore wind and onshore renewables this month, and what is due next\.">/);
   assert.match(report, /og:image" content="https:\/\/www\.ignisleadership\.com\/assets\/img\/market-monitor-2026-10-og\.png\?v=4"/);
@@ -76,7 +77,7 @@ test('Insights and Reports are distinct collections', () => {
   assert.match(report, /commercial-decision-call">Get in touch</);
   assert.doesNotMatch(report, /Book a 30-minute call|Talk it through: 30 minutes/);
   assert.match(report, />contact page</);
-  assert.match(report, />Subscribe to Signal</);
+  assert.match(report, /<a href="https:\/\/www\.ignisleadership\.com\/insights">Get Signal<\/a>/);
   assert.match(report, />read it on ignisleadership.com</);
   assert.match(report, /first 90 days after award/);
   assert.match(report, /mailto:yorik@ignisleadership.com/);

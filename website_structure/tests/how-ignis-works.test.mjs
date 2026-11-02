@@ -15,7 +15,7 @@ const vercel = JSON.parse(readFileSync(new URL("vercel.json", root), "utf8"));
 test("the Services page states the two offers without inventing proof", () => {
   assert.match(page, /rel="canonical" href="https:\/\/www\.ignisleadership\.com\/services"/);
   assert.match(page, /<div class="page-hero-copy"><h1>Ignis moves offshore wind and onshore renewables projects to financial close<\/h1><p class="hero-support services-hero-support">Agents will do more of the work every month\. We help you build the system behind them: your process, decisions and know-how, held in one place you own\.<\/p>/);
-  assert.match(page, /capability\.css\?v=216/);
+  assert.match(page, /capability\.css\?v=218/);
   assert.match(page, /services\.css\?v=9/);
   assert.match(capability, /\.hero h1,\.services-hero h1\{[^}]*font-size:clamp\(3\.2rem,5\.15vw,5\.8rem\)/);
   assert.match(capability, /\.hero-support,\.services-hero \.hero-support\{[^}]*font-size:clamp\(1\.05rem,1\.6vw,1\.35rem\)/);
@@ -166,8 +166,8 @@ test("audience FAQs are answer-first and match their FAQPage data", () => {
   assert.match(home, /Bring one urgent problem or constrained workflow\./);
   assert.match(home, /where agents could help without removing human control\./);
   assert.match(home, /class="button button-teal" href="\/contact">Get in touch<\/a>/);
-  assert.match(home, /id="wp-signup-title" class="signal-card-title"><span class="signal-title-line">Signal, the weekly newsletter<\/span><span class="signal-title-line">for energy developers\.<\/span><\/h2>/);
-  assert.match(home, /See what changed, which commercial decisions it affects, and where agents can help your team respond without losing human control\./);
+  assert.match(home, /id="wp-signup-title" class="signal-card-title"><span class="signal-wordmark">Signal<span class="signal-mark">\.<\/span><\/span><span class="signal-card-follow">The weekly newsletter for energy developers<\/span><\/h2>/);
+  assert.match(home, /Strategy, business development and transformation with agentic AI, from first site to financial close\./);
   assert.doesNotMatch(home, /One focused analysis each week, plus the monthly Market Monitor\./);
   assert.doesNotMatch(home, /Turn AI ambition into|commercial advantage/);
 });
