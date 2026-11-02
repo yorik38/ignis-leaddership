@@ -123,7 +123,15 @@ test("Signal Issue 3 publishes the approved data-centre article", () => {
   assert.match(dataCentre, /signal-3-powerstation-sites-map-1600x900@2x\.png/);
   assert.match(dataCentre, /signal-3-aigz-map-1600x900@2x\.png/);
   assert.match(dataCentre, /id="issue-3-sources"/);
-  assert.equal((dataCentre.match(/<li id="source-\d+">/g) || []).length, 35);
+  assert.equal((dataCentre.match(/<li id="source-\d+">/g) || []).length, 37);
+  assert.match(dataCentre, /<h2>Further out: nuclear, fusion and who else wants the load<\/h2>[\s\S]*?<h2>The decision<\/h2>/);
+  assert.match(dataCentre, /gas on site\.<sup><a href="#source-27" aria-label="Source 27">27<\/a><\/sup>/);
+  assert.match(dataCentre, /advanced nuclear plans\.<sup><a href="#source-6" aria-label="Source 6">6<\/a><\/sup>/);
+  assert.match(dataCentre, /connect faster\.<sup><a href="#source-36" aria-label="Source 36">36<\/a><\/sup>/);
+  assert.match(dataCentre, /sensitive to latency\.<sup><a href="#source-37" aria-label="Source 37">37<\/a><\/sup>/);
+  assert.match(dataCentre, /id="source-36">Duke University, Nicholas Institute, Rethinking Load Growth, Feb 2025:/);
+  assert.match(dataCentre, /id="source-37">IEA, Powering Artificial Intelligence/);
+  assert.doesNotMatch(dataCentre, /Some data centres are already looking at gas turbines on site/);
   assert.doesNotMatch(dataCentre, /Second helpings|second helpings/);
   assert.match(dataCentre, /<p class="issue-disclaimer">Commercial commentary, not legal, regulatory or investment advice\. Project and connection terms vary\. Sources checked 30 October 2026\.<\/p>/);
   assert.match(dataCentre, /class="signal-signup-form"[^>]*data-community-form/);
@@ -170,7 +178,7 @@ test("Signal articles share a narrow reading column and a separated sources list
     assert.match(html, /signal-reading\.css\?v=4/, file);
     assert.doesNotMatch(html, /Illustrative CGI|\bCGI\b/, file);
   }
-  const coverAlt = "Data centre buildings beside solar panels and battery units in open countryside.";
+  const coverAlt = "Signal Issue 3 cover: Who powers the next data centre? UK map of former power station sites";
   const issue = readFileSync(new URL("insights/who-powers-the-next-data-centre.html", root), "utf8");
   assert.equal((issue.match(new RegExp(coverAlt.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"), "g")) || []).length, 3);
   const index = readFileSync(new URL("insights.html", root), "utf8");
