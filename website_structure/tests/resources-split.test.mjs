@@ -49,7 +49,7 @@ test('Insights and Reports are distinct collections', () => {
   assert.doesNotMatch(read('resources/bids-won-on-evidence.html'), /signal-mark/);
   const report = read('reports/market-monitor-2026-10.html');
   assert.match(report, /<meta name="description" content="Ignis Market Monitor: October 2026\. What moved in power, offshore wind and onshore renewables this month, and what is due next\.">/);
-  assert.match(report, /og:image" content="https:\/\/www\.ignisleadership\.com\/assets\/img\/market-monitor-2026-10-og\.png\?v=3"/);
+  assert.match(report, /og:image" content="https:\/\/www\.ignisleadership\.com\/assets\/img\/market-monitor-2026-10-og\.png\?v=4"/);
   assert.doesNotMatch(report, /<img[^>]+market-monitor-2026-10-card/);
   assert.match(report, /<h1>Ignis Market Monitor: October 2026<\/h1>/);
   assert.match(report, /What moved in power, offshore wind and onshore renewables this month, and what is due next\./);
@@ -169,7 +169,7 @@ test('the flagship guide page has a teaser, an email gate and an unticked Signal
   const points = page.slice(page.indexOf('class="guide-points"'), page.indexOf('</ul>'));
   const count = (points.match(/<li>/g) || []).length;
   assert.ok(count >= 4 && count <= 5, `${count} bullets`);
-  assert.match(page, /og:image" content="https:\/\/www\.ignisleadership\.com\/assets\/img\/og-agentic-transformation-guide\.png\?v=2"/);
+  assert.match(page, /og:image" content="https:\/\/www\.ignisleadership\.com\/assets\/img\/og-agentic-transformation-guide\.png\?v=3"/);
   assert.ok(existsSync(join(site, 'assets/img/og-agentic-transformation-guide.png')));
   assert.doesNotMatch(page, /\/assets\/downloads\//);
   assert.match(page, /data-whitepaper-key="ignis-guide-agentic-transformation"/);
