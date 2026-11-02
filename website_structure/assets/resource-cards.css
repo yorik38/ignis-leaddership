@@ -178,6 +178,17 @@ body.insights-page:not(.newsletter-page) .edition-feature:focus-visible{outline:
   .home-research-head{align-items:flex-start;flex-direction:column;gap:.75rem}
 }
 
+@media(max-width:640px){
+  /* On phones, show each complete portrait cover above its copy.
+     The shared homepage cards and wider layouts keep their compact overlay treatment. */
+  body.resources-page .res-row>.res-card,
+  body.resources-page .res-follow .res-card{max-height:none}
+  body.resources-page .res-card-media{height:auto;max-height:none;aspect-ratio:auto}
+  body.resources-page .res-card-media picture{height:auto}
+  body.resources-page .res-card-media img{width:100%;height:auto;aspect-ratio:auto;object-fit:contain}
+  body.resources-page .res-card-panel{position:relative;right:auto;bottom:auto;left:auto;border-top:1px solid #d9e2e5;background:#fff;-webkit-backdrop-filter:none;backdrop-filter:none}
+}
+
 /* Guide landing page: book beside the title, then what you'll learn. */
 body.guide-page .guide-hero .hero-in{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:clamp(1.5rem,4vw,3rem);align-items:center;max-width:1180px}
 body.guide-page .guide-name{margin:20px 0 0;color:#08756d;font-size:15px;font-weight:600;letter-spacing:.01em}
