@@ -119,7 +119,8 @@ test("Signal Issue 3 publishes the approved data-centre article", () => {
   assert.match(dataCentre, /Monday 2 November 2026 · 8 min read/);
   assert.match(dataCentre, /Utilities sold the obvious sites first\. Smaller developers hold the next\./);
   assert.match(dataCentre, /id="issue-summary-title">In this issue/);
-  assert.match(dataCentre, /signal-3-who-powers-data-centre\.(?:png|webp|avif)/);
+  assert.match(dataCentre, /signal-3-who-powers-data-centre-v2\.(?:png|webp|avif)/);
+  assert.doesNotMatch(dataCentre, /signal-3-who-powers-data-centre\.(?:png|webp|avif)/);
   assert.match(dataCentre, /signal-3-powerstation-sites-map-1600x900@2x\.png/);
   assert.match(dataCentre, /signal-3-aigz-map-1600x900@2x\.png/);
   assert.match(dataCentre, /id="issue-3-sources"/);
@@ -144,6 +145,9 @@ test("Signal Issue 3 publishes the approved data-centre article", () => {
     "assets/img/signal-3-who-powers-data-centre.avif",
     "assets/img/signal-3-who-powers-data-centre.webp",
     "assets/img/signal-3-who-powers-data-centre.png",
+    "assets/img/signal-3-who-powers-data-centre-v2.avif",
+    "assets/img/signal-3-who-powers-data-centre-v2.webp",
+    "assets/img/signal-3-who-powers-data-centre-v2.png",
     "assets/img/signal-3-powerstation-sites-map-1600x900.png",
     "assets/img/signal-3-powerstation-sites-map-1600x900@2x.png",
     "assets/img/signal-3-aigz-map-1600x900.png",
