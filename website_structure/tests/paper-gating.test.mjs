@@ -227,7 +227,13 @@ test("a gated paper with no resolvable form id does not deliver the PDF", async 
 test("popup pages have no PDF URL and the guide keeps its on-page form", () => {
   for (const [resource, , file] of FREE) {
     const html = readFileSync(join(root, file), "utf8");
-    assert.doesNotMatch(html, /\/assets\/downloads\//, file);
+    if (resource === "market-monitor-2026-10") {
+      assert.doesNotMatch(html, /ignis-market-monitor-2026-10\.pdf/, file);
+      assert.match(html, /<a href="\/assets\/downloads\/ignis-market-monitor-2026-10-sources">Full source register<\/a>/, file);
+      assert.match(html, /ignis-market-monitor-2026-10-sources\.pdf\?v=/, file);
+    } else {
+      assert.doesNotMatch(html, /\/assets\/downloads\//, file);
+    }
     assert.match(html, /<p class="wp-free-label">Free resource\.<\/p>/, file);
     assert.doesNotMatch(html, /wp-inline-download|wp-download-open|wp-gate-card|Download the white paper|download the PDF/, file);
     assert.equal((html.match(/class="wp-get-pdf"[^>]*>Get the PDF</g) || []).length, 2, file);
@@ -301,7 +307,8 @@ test("download PDFs revalidate, and only the guide PDF is noindex", () => {
     "/assets/downloads/ignis-route-to-market.pdf",
     "/assets/downloads/ignis-procurement.pdf",
     "/assets/downloads/ignis-market-monitor-2026-10.pdf",
-    "/assets/downloads/ignis-guide-agentic-transformation-for-energy-developers.pdf"
+    "/assets/downloads/ignis-guide-agentic-transformation-for-energy-developers.pdf",
+    "/assets/downloads/ignis-market-monitor-2026-10-sources(.*)"
   ]);
   assert.equal(robots.length, noindex.size);
   for (const rule of robots) {

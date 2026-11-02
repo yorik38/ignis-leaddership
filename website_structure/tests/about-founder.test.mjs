@@ -66,7 +66,7 @@ test('white paper cards on the Research hub show a type tag, a cover and one cal
   assert.equal((list.match(/class="res-card-read"/g) || []).length, 3);
   assert.match(list, /Read the paper/);
   assert.doesNotMatch(list, /is-soon|Coming soon/);
-  assert.match(css, /\.res-card-media\{[^}]*aspect-ratio:4\/3/);
+  assert.match(css, /\.res-card-media\{[^}]*aspect-ratio:210\/297/);
   assert.match(css, /\.res-grid\{display:grid;grid-template-columns:repeat\(3,minmax\(0,1fr\)\)/);
   assert.match(css, /@media\(max-width:800px\)\{[\s\S]*?\.res-grid\{grid-template-columns:1fr/);
   assert.match(article, /<time datetime="2026-10">October 2026<\/time>/);

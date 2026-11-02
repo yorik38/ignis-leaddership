@@ -48,16 +48,17 @@ test('Insights and Reports are distinct collections', () => {
   assert.doesNotMatch(read('reports/market-monitor-2026-10.html'), /signal-mark/);
   assert.doesNotMatch(read('resources/bids-won-on-evidence.html'), /signal-mark/);
   const report = read('reports/market-monitor-2026-10.html');
-  assert.match(report, /<meta name="description" content="Market Monitor, October 2026\. What moved in power, offshore wind and onshore renewables this month, and what is due next\.">/);
-  assert.match(report, /og:image" content="https:\/\/www\.ignisleadership\.com\/assets\/img\/market-monitor-2026-10-og\.png\?v=2"/);
+  assert.match(report, /<meta name="description" content="Ignis Market Monitor: October 2026\. What moved in power, offshore wind and onshore renewables this month, and what is due next\.">/);
+  assert.match(report, /og:image" content="https:\/\/www\.ignisleadership\.com\/assets\/img\/market-monitor-2026-10-og\.png\?v=3"/);
   assert.doesNotMatch(report, /<img[^>]+market-monitor-2026-10-card/);
-  assert.match(report, /<h1>Market Monitor, October 2026<\/h1>/);
+  assert.match(report, /<h1>Ignis Market Monitor: October 2026<\/h1>/);
   assert.match(report, /What moved in power, offshore wind and onshore renewables this month, and what is due next\./);
+  assert.doesNotMatch(report, /ignis-market-monitor-2026-10\.pdf/);
+  assert.match(report, /<a href="\/assets\/downloads\/ignis-market-monitor-2026-10-sources">Full source register<\/a>/);
   assert.match(report, /data-whitepaper-popup/);
   assert.match(report, /action="\/api\/whitepaper"/);
   assert.match(report, /<p class="wp-free-label">Free resource\.<\/p>/);
   assert.match(report, /data-paper="market-monitor-2026-10"/);
-  assert.doesNotMatch(report, /\/assets\/downloads\//);
   assert.doesNotMatch(report, /wp-download-open|wp-gate-card|Download the white paper/);
   assert.equal((report.match(/>Get the PDF</g) || []).length, 2);
   assert.doesNotMatch(report, /HubSpot form placeholder|YORIK — HUBSPOT FORM PLACEHOLDER/);
@@ -96,9 +97,9 @@ test('Research is one hub at /resources, with a type tag on every card', () => {
   const grid = hub.slice(hub.indexOf('class="res-grid"'), hub.indexOf('class="signal-inbox'));
   const cards = [...grid.matchAll(/<a class="res-card" href="([^"]+)">[\s\S]*?<span class="res-type">([^<]+)<\/span>\s*<h3>([^<]+)<\/h3>\s*<p>([^<]+)<\/p>\s*<span class="res-card-read">/g)];
   assert.deepEqual(cards.map((card) => [card[1], card[2], card[3]]), [
-    ['/reports/market-monitor-2026-10', 'Report', 'Market Monitor, October 2026'],
-    ['/resources/procurement', 'White paper', 'Procurement without the pauses'],
-    ['/resources/route-to-market', 'White paper', 'Choose your route to market, then win it'],
+    ['/reports/market-monitor-2026-10', 'Report', 'Ignis Market Monitor: October 2026'],
+    ['/resources/procurement', 'White paper', 'Procurement for Energy Developers'],
+    ['/resources/route-to-market', 'White paper', 'Route to Market for Energy Developers'],
   ]);
   for (const card of cards) assert.ok(card[4].length <= 120, `one line promise: ${card[4]}`);
   assert.equal((hub.match(/class="res-card-media"/g) || []).length, 3);
@@ -155,20 +156,20 @@ test('Research hub loads shared chrome after the legacy page styles', () => {
   const legacy = hub.indexOf('/assets/capability.css');
   const shared = hub.indexOf('/assets/site-chrome.css');
   assert.ok(legacy !== -1 && shared > legacy, 'shared menu styles must win on Research');
-  assert.match(hub, /resource-cards\.css\?v=5/);
+  assert.match(hub, /resource-cards\.css\?v=7/);
 });
 
 test('the flagship guide page has a teaser, an email gate and an unticked Signal opt-in', () => {
   const page = read('resources/agentic-transformation-for-energy-developers.html');
-  assert.match(page, /<title>Agentic transformation for energy developers \| Ignis<\/title>/);
-  assert.match(page, /<h1>A practical guide to introducing agents<\/h1>/);
-  assert.match(page, /<p class="sub">From early stage development to financial close<\/p>/);
+  assert.match(page, /<title>Agentic Transformation for Energy Developers \| Ignis<\/title>/);
+  assert.match(page, /<h1>Agentic Transformation for Energy Developers<\/h1>/);
+  assert.match(page, /<p class="sub">From early stage development to financial close: process first, data second, agents third\.<\/p>/);
   assert.match(page, /<span class="pill o">Onshore and offshore<\/span><span class="pill o">UK and Europe<\/span>/);
   assert.match(page, /<p class="wp-crumb"><a href="\/resources">Research<\/a><\/p>/);
   const points = page.slice(page.indexOf('class="guide-points"'), page.indexOf('</ul>'));
   const count = (points.match(/<li>/g) || []).length;
   assert.ok(count >= 4 && count <= 5, `${count} bullets`);
-  assert.match(page, /og:image" content="https:\/\/www\.ignisleadership\.com\/assets\/img\/og-agentic-transformation-guide\.png"/);
+  assert.match(page, /og:image" content="https:\/\/www\.ignisleadership\.com\/assets\/img\/og-agentic-transformation-guide\.png\?v=2"/);
   assert.ok(existsSync(join(site, 'assets/img/og-agentic-transformation-guide.png')));
   assert.doesNotMatch(page, /\/assets\/downloads\//);
   assert.match(page, /data-whitepaper-key="ignis-guide-agentic-transformation"/);
@@ -184,7 +185,7 @@ test('the flagship guide page has a teaser, an email gate and an unticked Signal
   assert.match(page, /email\.focus\(\{ preventScroll: true \}\)/);
   assert.match(read('assets/resource-cards.css'), /body\.guide-page #download\{scroll-margin-top:calc\(76px \+ 1\.25rem\)\}/);
   assert.match(read('assets/resource-cards.css'), /@media\(max-width:850px\)\{body\.guide-page #download\{scroll-margin-top:calc\(70px \+ 1\.25rem\)\}/);
-  assert.match(page, /resource-cards\.css\?v=5/);
+  assert.match(page, /resource-cards\.css\?v=7/);
   assert.doesNotMatch(page, /id="signal-inbox-title"|class="signal-inbox"|Weekly intelligence for energy developers/);
   assert.match(page, /whitepaper\.js/);
   assert.match(page, />Talk it through</);
@@ -204,7 +205,12 @@ test('the guide stays on an email form and the three papers use a download pop-u
     'reports/market-monitor-2026-10.html',
   ]) {
     const page = read(path);
-    assert.doesNotMatch(page, /\/assets\/downloads\//, path);
+    if (path.endsWith('market-monitor-2026-10.html')) {
+      assert.doesNotMatch(page, /ignis-market-monitor-2026-10\.pdf/, path);
+      assert.match(page, /Full source register/, path);
+    } else {
+      assert.doesNotMatch(page, /\/assets\/downloads\//, path);
+    }
     assert.match(page, /<p class="wp-free-label">Free resource\.<\/p>/, path);
     assert.doesNotMatch(page, /wp-inline-download|wp-download-open|wp-gate-card/, path);
     assert.equal((page.match(/>Get the PDF</g) || []).length, 2, path);

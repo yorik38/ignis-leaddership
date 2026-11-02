@@ -71,6 +71,8 @@ test("Reject and Accept share the same fill, and every page can reopen the banne
   const pages = htmlFiles(root);
   assert.ok(pages.length >= 19);
   for (const file of pages) {
+    // The Market Monitor source register is a standalone appendix. It does not load site scripts or analytics.
+    if (file.includes("/assets/downloads/")) continue;
     const html = readFileSync(file, "utf8");
     assert.match(html, /cookie-consent\.js/, file);
     assert.match(html, /\/assets\/(?:capability|script)\.js/, file);
