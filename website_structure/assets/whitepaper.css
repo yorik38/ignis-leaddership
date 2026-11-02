@@ -255,3 +255,7 @@
   .wp-download-dialog button[type=submit]{width:100%}
   .wp-download-dialog h2{font-size:1.3rem}
 }
+
+/* Research and guide heroes use a restrained neutral surface. */
+.whitepaper .wp-hero{background:#f3f5f6;border-bottom-color:var(--line)}
+.whitepaper .wp-hero:after{display:none}

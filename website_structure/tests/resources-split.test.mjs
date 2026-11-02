@@ -176,6 +176,20 @@ test('the homepage repeats the same four research cards before the close', () =>
   assert.match(home, /research-cards\.js\?v=2/);
 });
 
+test('research paper and guide heroes use a neutral surface without the teal wash', () => {
+  const css = read('assets/whitepaper.css');
+  assert.match(css, /\.whitepaper \.wp-hero\{background:#f3f5f6;border-bottom-color:var\(--line\)\}/);
+  assert.match(css, /\.whitepaper \.wp-hero:after\{display:none\}/);
+  for (const path of [
+    'reports/market-monitor-2026-10.html',
+    'resources/route-to-market.html',
+    'resources/procurement.html',
+    'resources/agentic-transformation-for-energy-developers.html',
+  ]) {
+    assert.match(read(path), /whitepaper\.css\?v=41/);
+  }
+});
+
 test('Resources navigation and canonical routes point to the Research hub', () => {
   const header = read('partials/site-header.html');
   const footer = read('partials/site-footer.html');
