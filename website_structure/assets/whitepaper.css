@@ -209,7 +209,6 @@
 .whitepaper .wp-get-pdf-row{margin:0 0 28px}
 .whitepaper .wp-get-pdf-row.wp-get-pdf-end{margin:36px 0 8px}
 .whitepaper a.wp-get-pdf{color:#14919B;font-family:Inter,Arial,sans-serif;font-size:15px;font-weight:600;text-decoration:underline;text-underline-offset:3px}
-.whitepaper a.wp-get-pdf::after{content:" \2192";text-decoration:none}
 .whitepaper a.wp-get-pdf:hover{color:#08756d}
 .whitepaper a.wp-get-pdf:focus-visible{outline:2px solid #14919B;outline-offset:2px}
 .wp-download-dialog button[type=submit]{display:inline-flex;align-items:center;justify-content:center;width:fit-content;min-height:2.75rem;padding:.75rem 1.15rem;border:0;border-radius:4px;background:#14919B;color:#fff;font-family:Inter,Arial,sans-serif;font-size:.95rem;font-weight:600;letter-spacing:.01em;cursor:pointer}
@@ -229,6 +228,23 @@
 .wp-popup-status{margin:0;color:#b42318;font-size:.85rem;line-height:1.4}
 .wp-popup-status:empty{display:none}
 .wp-download-dialog [data-download-fallback]{color:#14919B;font-weight:600}
+@media (max-width:600px){
+  .whitepaper .tw{overflow-x:auto}
+  .whitepaper .tw table{width:100%;table-layout:fixed;font-size:12px;line-height:1.35}
+  .whitepaper .tw th,.whitepaper .tw td{padding:6px 5px;overflow-wrap:break-word;hyphens:auto}
+  .whitepaper .tw th{font-size:10px;letter-spacing:0;hyphens:manual}
+  .whitepaper .tw table:has(th:nth-child(5)){font-size:11px}
+  .whitepaper .tw table:has(th:nth-child(5)) th{font-size:9px;padding:5px 2px}
+  .whitepaper .tw table:has(th:nth-child(5)) td{padding:5px 3px}
+  .whitepaper .tw table:has(th:nth-child(5)) th:nth-child(1){width:24%}
+  .whitepaper .tw table:has(th:nth-child(5)) th:nth-child(2),
+  .whitepaper .tw table:has(th:nth-child(5)) th:nth-child(3),
+  .whitepaper .tw table:has(th:nth-child(5)) th:nth-child(4){width:17%}
+  .whitepaper .tw table:has(th:nth-child(5)) th:nth-child(5){width:25%}
+}
+@media (pointer: coarse){
+  .whitepaper .cite{display:inline-flex;align-items:center;justify-content:center;box-sizing:border-box;min-width:24px;min-height:24px;padding:0 4px;line-height:1;text-align:center}
+}
 @media (max-width:480px){
   .wp-download-dialog{width:calc(100vw - 1.5rem);max-height:calc(100dvh - 1.5rem)}
   .wp-download-dialog [data-whitepaper-form], .wp-download-dialog [data-download-success]{padding:22px 16px 16px}

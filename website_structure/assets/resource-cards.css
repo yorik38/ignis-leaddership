@@ -110,48 +110,69 @@ body.insights-page:not(.newsletter-page) .edition-feature:focus-visible{outline:
   body.insights-page .earlier-card strong{font-size:.98rem;line-height:1.3}
 }
 
-/* Research hub (/resources): one featured guide, then a quiet grid.
-   Each card: cover, type tag, title, one line on what it is about, one call to action. */
-body.resources-page .res-hub{padding:calc(96px + clamp(2.5rem,6vw,4.5rem)) 0 clamp(3.5rem,7vw,5.5rem);background:#fff;color:#0f1419;font-family:Inter,"Inter Fallback",var(--font-sans)}
-body.resources-page .res-hub h1{margin:0;font-family:Inter,var(--font-sans);font-size:clamp(3rem,6vw,4.5rem);font-weight:500;letter-spacing:-.05em;line-height:.95}
-body.resources-page .res-intro{max-width:36rem;margin:1rem 0 0;color:#5a6472;font-size:1.15rem;line-height:1.5}
-body.resources-page .res-featured,body.resources-page .res-card{color:inherit;text-decoration:none;background:#fff;border:1px solid #e3e6ea;border-radius:12px;overflow:hidden;transition:border-color .2s ease}
-body.resources-page .res-featured{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);align-items:center;margin-top:clamp(2.5rem,5vw,3.5rem)}
-body.resources-page .res-featured-media,body.resources-page .res-card-media{display:block;aspect-ratio:210/297;background:#F3F5F6;line-height:0}
-body.resources-page .res-featured-media picture,body.resources-page .res-card-media picture{display:block;height:100%}
-body.resources-page .res-featured-media img,body.resources-page .res-card-media img{display:block;width:100%;height:100%;object-fit:contain}
-body.resources-page .res-featured-copy{display:flex;flex-direction:column;align-items:flex-start;padding:clamp(1.75rem,4vw,3.5rem)}
-body.resources-page .res-type{display:inline-block;margin:0 0 .85rem;padding:.32rem .6rem;border-radius:4px;background:#E6F3F4;color:#08756d;font-size:.72rem;font-weight:700;letter-spacing:.08em;line-height:1;text-transform:uppercase}
-body.resources-page .res-featured h2{margin:0;font-size:clamp(1.9rem,3vw,2.5rem);font-weight:500;letter-spacing:-.035em;line-height:1.1}
-body.resources-page .res-featured p{margin:.9rem 0 0;max-width:28rem;color:#5a6472;font-size:1.1rem;line-height:1.5}
-body.resources-page .res-card-read{display:inline-flex;align-items:center;gap:.4rem;margin-top:1.5rem;color:#08756d;font-size:.98rem;font-weight:600}
-body.resources-page .res-card-read span{display:inline-block;transition:transform .2s ease}
-body.resources-page .res-grid-title{margin:clamp(3.5rem,7vw,5rem) 0 1.5rem;font-size:clamp(1.4rem,2vw,1.7rem);font-weight:500;letter-spacing:-.025em}
-body.resources-page .res-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(1.25rem,2.5vw,2rem)}
-body.resources-page .res-card{display:flex;flex-direction:column}
-body.resources-page .res-card-copy{display:flex;flex:1;flex-direction:column;align-items:flex-start;padding:1.35rem 1.4rem 1.5rem}
-body.resources-page .res-card h3{margin:0;color:#0f1419;font-size:1.25rem;font-weight:600;letter-spacing:-.02em;line-height:1.25}
-body.resources-page .res-card p{margin:.55rem 0 1.25rem;color:#5a6472;font-size:.98rem;line-height:1.5}
-body.resources-page .res-card .res-card-read{margin-top:auto}
-body.resources-page a.res-featured:hover,body.resources-page a.res-card:hover{border-color:#66B7BE}
-body.resources-page a.res-featured:hover .res-card-read span,body.resources-page a.res-card:hover .res-card-read span{transform:translateX(3px)}
-body.resources-page a.res-featured:focus-visible,body.resources-page a.res-card:focus-visible{outline:3px solid #08756d;outline-offset:4px}
-@media(prefers-reduced-motion:reduce){body.resources-page .res-featured,body.resources-page .res-card-read span{transition:none}}
-@media(max-width:1060px){body.resources-page .res-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+/* Research cards, shared by /resources and the homepage.
+   Portrait cover, type tag over the image, frosted title panel.
+   The first three sit in one row: three across when wide, a scroll-snap carousel when narrow. */
+.res-hub,.home-research{--res-gap:clamp(1rem,2vw,1.5rem);background:#fff;color:#0f1419;font-family:Inter,"Inter Fallback",var(--font-sans)}
+.res-hub{padding:calc(96px + clamp(2.5rem,6vw,4.5rem)) 0 clamp(3.5rem,7vw,5.5rem)}
+.res-hub h1{margin:0;font-family:Inter,var(--font-sans);font-size:clamp(3rem,6vw,4.5rem);font-weight:500;letter-spacing:-.05em;line-height:.95}
+.res-intro{max-width:36rem;margin:1rem 0 0;color:#5a6472;font-size:1.15rem;line-height:1.5}
+.res-filters{display:flex;flex-wrap:wrap;gap:.6rem;margin:clamp(1.5rem,3vw,2.25rem) 0 0}
+.res-filters button{min-height:44px;padding:.45rem 1rem;border:1px solid #ACD8DC;border-radius:999px;background:#fff;color:#0F1419;font-family:Inter,var(--font-sans);font-size:.92rem;font-weight:600;letter-spacing:-.01em;cursor:pointer}
+.res-filters button[aria-pressed="true"]{border-color:#14919B;background:#14919B;color:#fff}
+.res-filters button:hover{border-color:#66B7BE}
+.res-filters button[aria-pressed="true"]:hover{border-color:#14919B;background:#14919B}
+.res-filters button:focus-visible{outline:3px solid #14919B;outline-offset:3px}
+.res-filter-status{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0,0,0,0);clip-path:inset(50%);white-space:nowrap;border:0}
+.res-row{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--res-gap);margin-top:clamp(1.35rem,2.5vw,1.85rem)}
+.res-follow{margin-top:var(--res-gap)}
+.res-card{position:relative;display:block;overflow:hidden;border-radius:12px;background:#e7f2f3;color:inherit;text-decoration:none;font-family:Inter,"Inter Fallback",var(--font-sans)}
+.res-card[hidden],.res-row[hidden],.res-follow[hidden],.res-dots[hidden]{display:none}
+.res-card-media{display:block;aspect-ratio:210/297;background:#e7f2f3;line-height:0}
+.res-card-media picture{display:block;height:100%}
+.res-card-media img{display:block;width:100%;height:100%;object-fit:contain;background:#e7f2f3}
+.res-type{position:absolute;z-index:3;top:.9rem;left:.9rem;display:inline-block;margin:0;padding:.32rem .6rem;border-radius:4px;background:#E6F3F4;color:#08756d;font-family:Inter,var(--font-sans);font-size:.72rem;font-weight:700;letter-spacing:.08em;line-height:1;text-transform:uppercase}
+.res-card-panel{position:absolute;z-index:2;right:0;bottom:0;left:0;padding:1rem 1rem .95rem;border-top:1px solid rgba(255,255,255,.72);background:linear-gradient(to top,rgba(255,255,255,.94) 62%,rgba(255,255,255,.78));color:#0F1419;-webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px)}
+.res-card-kicker{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:.35rem .75rem;margin:0 0 .4rem;color:#08756d;font-size:.68rem;font-weight:700;letter-spacing:.08em;line-height:1.3;text-transform:uppercase}
+.res-card-kicker time{color:#5a6472;font-weight:600}
+.res-card-title{margin:0;color:#0F1419;font-family:Inter,var(--font-sans);font-size:clamp(1.05rem,1.15vw,1.28rem);font-weight:600;letter-spacing:-.02em;line-height:1.25}
+.res-card-read{display:block;margin-top:.55rem;color:#08756d;font-size:.88rem;font-weight:600;line-height:1.35}
+.res-card-extra{display:grid;grid-template-rows:1fr}
+.res-card-extra-in{overflow:hidden;min-height:0}
+.res-card-summary{margin:.7rem 0 0;color:#3a3f45;font-size:.92rem;line-height:1.45}
+.res-card-learn{display:inline-block;margin-top:.7rem;color:#0F1419;font-size:.92rem;font-weight:700;line-height:1.3;text-decoration:underline;text-underline-offset:.18em}
+.res-card:focus-visible{outline:3px solid #14919B;outline-offset:-3px}
+.res-dots{display:none;justify-content:center;gap:.15rem;margin:.75rem 0 0;padding:0}
+.res-dots button{position:relative;width:24px;height:24px;padding:0;border:0;border-radius:50%;background:transparent;cursor:pointer}
+.res-dots button::before{content:"";position:absolute;top:50%;left:50%;width:7px;height:7px;border-radius:50%;background:#ACD8DC;transform:translate(-50%,-50%)}
+.res-dots button[aria-current="true"]::before{background:#14919B;box-shadow:0 0 0 2px #fff,0 0 0 3.5px #14919B}
+.res-dots button:focus-visible{outline:3px solid #14919B;outline-offset:2px}
+@media (min-width:801px){
+  .res-follow .res-card{width:calc((100% - 2 * var(--res-gap)) / 3)}
+  .res-dots{display:none}
+}
+@media (hover: hover){
+  .res-card-extra{grid-template-rows:0fr;transition:grid-template-rows .28s ease}
+  .res-card:hover .res-card-extra,.res-card:focus-visible .res-card-extra{grid-template-rows:1fr}
+}
+@media (prefers-reduced-motion: reduce){
+  .res-card-extra{transition:none}
+}
+.home-research{padding:clamp(2.75rem,5vw,4.25rem) 0}
+.home-research-head{display:flex;align-items:baseline;justify-content:space-between;gap:1rem 1.5rem;margin:0 0 clamp(1.15rem,2vw,1.5rem)}
+.home-research h2{margin:0;font-family:Inter,var(--font-sans);font-size:clamp(2rem,3vw,2.75rem);font-weight:500;letter-spacing:-.04em;line-height:1}
+.home-research .signal-mark{color:#1cbdad}
+.home-research .text-link{flex:none;margin-top:0}
 @media(max-width:800px){
-  body.resources-page .res-hub{padding-top:calc(78px + 2.25rem)}
-  body.resources-page .res-intro{font-size:1.02rem}
-  body.resources-page .res-featured{grid-template-columns:1fr;margin-top:2rem;border-color:#ACD8DC}
-  body.resources-page .res-card{border-color:#ACD8DC}
-  body.resources-page .res-featured-copy{padding:1.15rem 1.15rem 1.3rem}
-  body.resources-page .res-featured h2{font-size:1.5rem;letter-spacing:-.025em;line-height:1.18}
-  body.resources-page .res-featured p{font-size:1rem}
-  body.resources-page .res-card-read{margin-top:1.1rem}
-  body.resources-page .res-grid-title{margin:2.75rem 0 1rem;font-size:1.3rem}
-  body.resources-page .res-grid{grid-template-columns:1fr;gap:1.5rem}
-  body.resources-page .res-card-copy{padding:1.1rem 1.15rem 1.25rem}
-  body.resources-page .res-card h3{font-size:1.2rem}
-  body.resources-page .res-card p{font-size:.95rem;margin-bottom:1rem}
+  .res-hub{padding-top:calc(78px + 2.25rem)}
+  .res-intro{font-size:1.02rem}
+  .res-row{display:flex;gap:.75rem;overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding-inline:0;overscroll-behavior-x:contain;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+  .res-row::-webkit-scrollbar{display:none}
+  .res-row>.res-card{flex:0 0 84%;max-height:100svh;scroll-snap-align:start;scroll-snap-stop:always}
+  .res-row[data-count="1"]>.res-card:not([hidden]),.res-follow .res-card{flex-basis:100%;width:100%;max-height:100svh}
+  .res-card-media{max-height:calc(100svh - 6.5rem)}
+  .res-dots:not([hidden]){display:flex}
+  .home-research-head{align-items:flex-start;flex-direction:column;gap:.75rem}
 }
 
 /* Guide landing page: book beside the title, then what you'll learn. */

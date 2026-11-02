@@ -83,34 +83,93 @@ test('Insights and Reports are distinct collections', () => {
   assert.doesNotMatch(report, /fig3-gb-wholesale/);
 });
 
-test('Research is one hub at /resources, with a type tag on every card', () => {
+test('Research is one hub at /resources, with filters and cards in reading order', () => {
   const hub = read('resources.html');
   assert.equal(existsSync(join(site, 'reports.html')), false);
   assert.equal(existsSync(join(site, 'white-papers.html')), false);
   assert.match(hub, /<h1 id="research-title">Research<span class="signal-mark">\.<\/span><\/h1>/);
   assert.match(hub, /class="issue-page resources-page"/);
   assert.match(hub, /rel="canonical" href="https:\/\/www\.ignisleadership\.com\/resources"/);
-  const featured = hub.slice(hub.indexOf('class="res-featured"'), hub.indexOf('class="res-grid-title"'));
-  assert.match(featured, /href="\/resources\/agentic-transformation-for-energy-developers"/);
-  assert.match(featured, /<span class="res-type">Guide<\/span>/);
-  assert.match(featured, /resource-book-agentic-transformation/);
-  const grid = hub.slice(hub.indexOf('class="res-grid"'), hub.indexOf('class="signal-inbox'));
-  const cards = [...grid.matchAll(/<a class="res-card" href="([^"]+)">[\s\S]*?<span class="res-type">([^<]+)<\/span>\s*<h3>([^<]+)<\/h3>\s*<p>([^<]+)<\/p>\s*<span class="res-card-read">/g)];
-  assert.deepEqual(cards.map((card) => [card[1], card[2], card[3]]), [
-    ['/reports/market-monitor-2026-10', 'Report', 'Ignis Market Monitor: October 2026'],
-    ['/resources/procurement', 'White paper', 'Procurement for Energy Developers'],
-    ['/resources/route-to-market', 'White paper', 'Route to Market for Energy Developers'],
+  assert.match(hub, /Guides, white papers and reports for energy developers, from early stage development to financial close\./);
+  const filters = hub.slice(hub.indexOf('class="res-filters"'), hub.indexOf('data-res-row'));
+  assert.match(filters, /role="group" aria-label="Filter research"/);
+  assert.match(filters, /<button type="button" aria-pressed="true" data-filter="all">All<\/button>/);
+  assert.match(filters, /<button type="button" aria-pressed="false" data-filter="guide">Guide<\/button>/);
+  assert.match(filters, /<button type="button" aria-pressed="false" data-filter="white-paper">White papers<\/button>/);
+  assert.match(filters, /<button type="button" aria-pressed="false" data-filter="report">Reports<\/button>/);
+  const row = hub.slice(hub.indexOf('data-res-row'), hub.indexOf('data-res-follow'));
+  const rowCards = [...row.matchAll(/<a class="res-card" href="([^"]+)" data-res-type="([^"]+)">[\s\S]*?<span class="res-type">([^<]+)<\/span>[\s\S]*?<h2 class="res-card-title">([^<]+)<\/h2>[\s\S]*?<p class="res-card-summary">([^<]+)<\/p>/g)];
+  assert.deepEqual(rowCards.map((card) => [card[1], card[2], card[3], card[4]]), [
+    ['/reports/market-monitor-2026-10', 'report', 'Report', 'Ignis Market Monitor: October 2026'],
+    ['/resources/route-to-market', 'white-paper', 'White paper', 'Route to Market for Energy Developers'],
+    ['/resources/procurement', 'white-paper', 'White paper', 'Procurement for Energy Developers'],
   ]);
-  for (const card of cards) assert.ok(card[4].length <= 120, `one line promise: ${card[4]}`);
-  assert.equal((hub.match(/class="res-card-media"/g) || []).length, 3);
+  for (const card of rowCards) assert.ok(card[5].length <= 120, `one line promise: ${card[5]}`);
+  assert.match(row, /<time datetime="2026-10-21">21 October 2026<\/time>/);
+  assert.equal((row.match(/<time datetime="2026-11">November 2026<\/time>/g) || []).length, 2);
+  assert.equal((row.match(/<span class="res-card-read">Free resource<\/span>/g) || []).length, 3);
+  const follow = hub.slice(hub.indexOf('data-res-follow'), hub.indexOf('class="signal-inbox'));
+  assert.match(follow, /href="\/resources\/agentic-transformation-for-energy-developers" data-res-type="guide"/);
+  assert.match(follow, /<span class="res-type">Guide<\/span>/);
+  assert.match(follow, /<h2 class="res-card-title">Agentic Transformation for Energy Developers<\/h2>/);
+  assert.match(follow, /<span class="res-card-read">Free guide, sent by email<\/span>/);
+  assert.match(follow, /How to introduce agents across your projects, from early stage development to financial close\./);
+  assert.doesNotMatch(follow, /<time/);
+  assert.equal((hub.match(/class="res-card-learn">Learn more</g) || []).length, 4);
+  assert.equal((hub.match(/class="res-card-media"/g) || []).length, 4);
+  assert.doesNotMatch(hub, /class="res-featured"|res-card-read">[^<]*<span|Get the guide|Read the paper|Read the report|More research/);
   assert.doesNotMatch(hub, /[\u2013\u2014]|FORGE|Book a call|£/);
   assert.match(hub, />Talk it through</);
-  const order = ['class="res-featured"', 'class="res-grid"', 'class="signal-inbox', 'id="close-call-title"', 'class="site-footer"'].map((marker) => hub.indexOf(marker));
+  const order = ['data-res-filters', 'data-res-row', 'data-res-dots', 'data-res-follow', 'class="signal-inbox', 'id="close-call-title"', 'class="site-footer"'].map((marker) => hub.indexOf(marker));
   assert.deepEqual([...order].sort((x, y) => x - y), order);
   const ld = [...hub.matchAll(/<script type="application\/ld\+json">([^<]+)<\/script>/g)].map((m) => JSON.parse(m[1]));
   const collection = ld.find((item) => item['@type'] === 'CollectionPage');
-  assert.equal(collection.hasPart.length, 4);
+  assert.deepEqual(collection.hasPart.map((part) => part['@id']), [
+    'https://www.ignisleadership.com/reports/market-monitor-2026-10#article',
+    'https://www.ignisleadership.com/resources/route-to-market#article',
+    'https://www.ignisleadership.com/resources/procurement#article',
+    'https://www.ignisleadership.com/resources/agentic-transformation-for-energy-developers#article',
+  ]);
+  assert.deepEqual(collection.mainEntity.itemListElement.map((item) => [item.position, item.url, item.name]), [
+    [1, 'https://www.ignisleadership.com/reports/market-monitor-2026-10', 'Ignis Market Monitor: October 2026'],
+    [2, 'https://www.ignisleadership.com/resources/route-to-market', 'Route to Market for Energy Developers'],
+    [3, 'https://www.ignisleadership.com/resources/procurement', 'Procurement for Energy Developers'],
+    [4, 'https://www.ignisleadership.com/resources/agentic-transformation-for-energy-developers', 'Agentic Transformation for Energy Developers'],
+  ]);
   assert.ok(ld.some((item) => item['@type'] === 'BreadcrumbList'));
+  const css = read('assets/resource-cards.css');
+  assert.match(css, /@media \(hover: hover\)/);
+  assert.match(css, /scroll-snap-type:x mandatory/);
+  assert.match(css, /\.res-card-media\{[^}]*aspect-ratio:210\/297/);
+  assert.doesNotMatch(css, /body\.resources-page \.res-card\{/);
+});
+
+test('the homepage repeats the same four research cards before the close', () => {
+  const home = read('index.html');
+  const founder = home.indexOf('founder-overview');
+  const section = home.indexOf('class="home-research"');
+  const close = home.indexOf('class="band band-dark close-call"');
+  assert.ok(founder !== -1 && section > founder && close > section);
+  const block = home.slice(section, close);
+  assert.match(block, /<h2 id="home-research-title">Research<span class="signal-mark">\.<\/span><\/h2>/);
+  assert.match(block, /href="\/resources">See all research</);
+  assert.doesNotMatch(block, /data-res-filters|aria-pressed/);
+  const hrefs = [...block.matchAll(/<a class="res-card" href="([^"]+)" data-res-type="([^"]+)">/g)].map((card) => [card[1], card[2]]);
+  assert.deepEqual(hrefs, [
+    ['/reports/market-monitor-2026-10', 'report'],
+    ['/resources/route-to-market', 'white-paper'],
+    ['/resources/procurement', 'white-paper'],
+    ['/resources/agentic-transformation-for-energy-developers', 'guide'],
+  ]);
+  assert.equal((block.match(/>Free resource</g) || []).length, 3);
+  assert.match(block, />Free guide, sent by email</);
+  assert.equal((block.match(/class="res-card-learn">Learn more</g) || []).length, 4);
+  assert.match(block, /<time datetime="2026-10-21">21 October 2026<\/time>/);
+  assert.equal((block.match(/<time datetime="2026-11">November 2026<\/time>/g) || []).length, 2);
+  assert.doesNotMatch(block.slice(block.indexOf('data-res-follow')), /<time/);
+  assert.doesNotMatch(home.slice(section, home.indexOf('data-res-follow', section)), /agentic-transformation/);
+  assert.match(home, /resource-cards\.css\?v=9/);
+  assert.match(home, /research-cards\.js\?v=2/);
 });
 
 test('Resources navigation and canonical routes point to the Research hub', () => {
@@ -156,7 +215,7 @@ test('Research hub loads shared chrome after the legacy page styles', () => {
   const legacy = hub.indexOf('/assets/capability.css');
   const shared = hub.indexOf('/assets/site-chrome.css');
   assert.ok(legacy !== -1 && shared > legacy, 'shared menu styles must win on Research');
-  assert.match(hub, /resource-cards\.css\?v=7/);
+  assert.match(hub, /resource-cards\.css\?v=9/);
 });
 
 test('the flagship guide page has a teaser, an email gate and an unticked Signal opt-in', () => {
@@ -185,7 +244,7 @@ test('the flagship guide page has a teaser, an email gate and an unticked Signal
   assert.match(page, /email\.focus\(\{ preventScroll: true \}\)/);
   assert.match(read('assets/resource-cards.css'), /body\.guide-page #download\{scroll-margin-top:calc\(76px \+ 1\.25rem\)\}/);
   assert.match(read('assets/resource-cards.css'), /@media\(max-width:850px\)\{body\.guide-page #download\{scroll-margin-top:calc\(70px \+ 1\.25rem\)\}/);
-  assert.match(page, /resource-cards\.css\?v=7/);
+  assert.match(page, /resource-cards\.css\?v=9/);
   assert.doesNotMatch(page, /id="signal-inbox-title"|class="signal-inbox"|Weekly intelligence for energy developers/);
   assert.match(page, /whitepaper\.js/);
   assert.match(page, />Talk it through</);

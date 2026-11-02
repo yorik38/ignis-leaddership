@@ -68,7 +68,7 @@ White-paper and Market Monitor gates collect a work email and one unticked check
 
 The label the API stores for Signal, on both the footer signup and a ticked gate, is: “Email me Signal, the weekly newsletter, the monthly Market Monitor and occasional marketing updates. We won't fill your inbox.” That is still subscription `3918046194`. Do not add a separate marketing subscription type.
 
-The contact embed’s Signal checkbox is edited in HubSpot, not in the site HTML. Its current label is “Yes, send me Signal: practical notes on moving energy projects to financial close. I can unsubscribe at any time.” Change that label in form `3c83d1fd` so it also covers the weekly newsletter and occasional marketing, and keep it on `3918046194`.
+The contact embed’s Signal checkbox is edited in HubSpot, not in the site HTML. Its current label is “Yes, send me Signal. I can unsubscribe at any time.” Keep that label on form `3c83d1fd` and on subscription `3918046194`.
 
 `signal_source` is taken from `utm_source` on the page URL: `forward`, `forward_referral` or `forward-referral` becomes `forward_referral`; `linkedin` stays `linkedin`; anything else is `website`. `acquisition_source` on a download is the raw `utm_source`, or `website` when there is none.
 
