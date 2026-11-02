@@ -1217,7 +1217,9 @@ h1 .signal-mark{color:#1cbdad}
 .signal-inbox h2{margin:0;color:#0f1419;font-family:Inter,"Inter Fallback",var(--font-sans);font-size:clamp(1.55rem,2.2vw,2rem);font-weight:500;letter-spacing:-.03em;line-height:1.15}
 .signal-inbox .signal-inbox-inner>p{max-width:46ch;margin:.6rem 0 0;color:#5a6472;font-size:1.05rem;font-weight:400;line-height:1.5;text-wrap:balance}
 .signal-inbox .hubspot-newsletter-form{width:min(100%,36rem);margin-top:1.05rem;text-align:left}
-.signal-inbox .signal-signup-fields{gap:0;padding:4px;background:#fff}
+.signal-inbox .signal-signup-fields{gap:0;padding:4px;border:1px solid rgba(15,20,25,.22);background:#fff;transition:border-color .2s ease,box-shadow .2s ease}
+.signal-inbox .signal-signup-fields:focus-within{border-color:#08756d;box-shadow:0 0 0 2px rgba(8,117,109,.18)}
+.signal-inbox .signal-signup-fields input[type="email"]:focus-visible{outline:0}
 .signal-inbox .signal-signup-fields input[type="email"]{height:2.75rem;padding:0 .9rem;border:0;border-radius:0;background:transparent;color:#0f1419;font-family:Inter,"Inter Fallback",var(--font-sans);font-weight:500}
 .signal-inbox .signal-signup-fields button{display:grid;place-items:center;width:2.75rem;height:2.75rem;padding:0;border:0;border-radius:2px;background:transparent;color:#0f1419;cursor:pointer}
 .signal-inbox .signal-signup-fields button:hover{background:transparent;color:#08756d}

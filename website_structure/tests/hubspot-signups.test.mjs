@@ -331,7 +331,7 @@ test("paper forms and visible Signal signups are connected", () => {
       assert.match(html, /class="signal-card-title"><span class="signal-wordmark">Signal<span class="signal-mark">\.<\/span><\/span><span class="signal-card-follow">The weekly newsletter for energy developers<\/span><\/h2>/, path);
       assert.match(html, /Strategy, business development and transformation with agentic AI, from first site to financial close\./, path);
     }
-    assert.match(html, /capability\.css\?v=218/);
+    assert.match(html, /capability\.css\?v=219/);
     if (html.includes('class="signal-inbox')) {
       assert.match(form, /aria-label="Get Signal"><svg[^>]*>[\s\S]*?<\/svg><\/button>/, path);
       assert.doesNotMatch(form, /aria-label="Subscribe"|>Subscribe</, path);
@@ -362,6 +362,8 @@ test("paper forms and visible Signal signups are connected", () => {
   const capability = readFileSync(join(root, "assets/capability.css"), "utf8");
   assert.match(capability, /body\.newsletter-page \.signal-inbox-inner\{[^}]*background:#111719\}/);
   assert.match(capability, /body\.newsletter-page \.signal-inbox h2\{[^}]*font-size:1\.25rem;line-height:1\.1\}/);
+  assert.match(capability, /\.signal-inbox \.signal-signup-fields\{[^}]*border:1px solid rgba\(15,20,25,\.22\)/);
+  assert.match(capability, /\.signal-inbox \.signal-signup-fields:focus-within\{[^}]*border-color:#08756d;[^}]*box-shadow:0 0 0 2px rgba\(8,117,109,\.18\)/);
   const capabilityJs = readFileSync(join(root, "assets/capability.js"), "utf8");
   assert.match(capabilityJs, /Personal email addresses such as Gmail, Outlook or Yahoo are not accepted\./);
   assert.match(capabilityJs, /action==="\/api\/subscribe"\|\|action==="\/api\/whitepaper"/);
