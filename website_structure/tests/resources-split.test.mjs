@@ -21,12 +21,14 @@ test('Insights and Reports are distinct collections', () => {
   assert.match(insights, /class="earlier-editions"/);
   assert.doesNotMatch(insights, /class="earlier-editions"[^>]*hidden/);
   assert.match(insights, />Earlier editions</);
-  assert.match(insights, /class="earlier-card" href="\/insights\/what-gate-2-is-really-about"/);
-  assert.match(insights, /class="earlier-card" href="\/insights\/ao10-france-has-put-a-price-on-proof"/);
+  assert.match(insights, /class="edition-feature" href="\/insights\/what-gate-2-is-really-about"/);
+  assert.match(insights, /class="edition-feature" href="\/insights\/ao10-france-has-put-a-price-on-proof"/);
+  assert.match(insights, /class="older-editions-title"/);
+  assert.doesNotMatch(insights, /class="earlier-card"/);
   const heroAt = insights.indexOf('class="signal-hero" href="/insights/who-powers-the-next-data-centre"');
   const inboxAt = insights.indexOf('id="signal-inbox-title">Get Signal in your inbox.');
-  const issue2At = insights.indexOf('class="earlier-card" href="/insights/what-gate-2-is-really-about"');
-  const issue1At = insights.indexOf('class="earlier-card" href="/insights/ao10-france-has-put-a-price-on-proof"');
+  const issue2At = insights.indexOf('class="edition-feature" href="/insights/what-gate-2-is-really-about"');
+  const issue1At = insights.indexOf('class="edition-feature" href="/insights/ao10-france-has-put-a-price-on-proof"');
   assert.ok(heroAt > -1 && inboxAt > heroAt && issue2At > inboxAt && issue1At > issue2At, 'Issue 3 is above signup, followed by Issues 2 and 1');
   assert.match(insights, /id="signal-inbox-title">Get Signal in your inbox\.<\/h2>\s*<p>The weekly newsletter for energy developers\.<\/p>/);
   assert.doesNotMatch(insights.slice(inboxAt, issue2At), /See what changed|One focused analysis each week/);

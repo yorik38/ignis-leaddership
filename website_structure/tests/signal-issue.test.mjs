@@ -143,6 +143,39 @@ test("Signal Issue 3 publishes the approved data-centre article", () => {
   ]) assert.ok(existsSync(new URL(file, root)), file);
 });
 
+test("Signal articles share a narrow reading column and a separated sources list", () => {
+  const css = readFileSync(new URL("assets/signal-reading.css", root), "utf8");
+  assert.match(css, /--signal-measure:min\(700px,calc\(100% - 48px\)\)/);
+  assert.match(css, /\.issue-feature[\s\S]*width:var\(--signal-measure\)/);
+  assert.match(css, /\.issue-article-content figure img[\s\S]*width:100%/);
+  assert.match(css, /\.issue-sources\{[^}]*border-top:3px solid var\(--signal-teal\)/);
+  assert.match(css, /\.issue-sources ol li::before\{[^}]*counter\(signal-source\)/);
+  assert.match(css, /\.issue-sources a\{[^}]*overflow-wrap:anywhere/);
+  const indexCss = readFileSync(new URL("assets/resource-cards.css", root), "utf8");
+  assert.match(indexCss, /grid-template-areas:"intro latest" "signup latest"/);
+  assert.match(indexCss, /\.signal-inbox\{[^}]*align-self:end/);
+  assert.match(indexCss, /\.edition-feature:nth-of-type\(even\) \.edition-feature-media\{order:-1\}/);
+  assert.match(indexCss, /\.edition-features:has\(\.edition-feature:nth-of-type\(7\)\) \.older-editions-title/);
+  assert.match(indexCss, /@media\(max-width:800px\)/);
+  for (const file of [
+    "insights/who-powers-the-next-data-centre.html",
+    "insights/what-gate-2-is-really-about.html",
+    "insights/ao10-france-has-put-a-price-on-proof.html",
+    "insights/is-commercial-work-too-judgement-heavy-for-ai-agents.html",
+    "insights/when-do-tender-clarifications-become-a-second-specification.html",
+    "insights/why-do-unclear-tenders-produce-incomparable-bids.html",
+  ]) {
+    const html = readFileSync(new URL(file, root), "utf8");
+    assert.match(html, /signal-reading\.css\?v=1/, file);
+    assert.doesNotMatch(html, /Illustrative CGI|\bCGI\b/, file);
+  }
+  const coverAlt = "Data centre buildings beside solar panels and battery units in open countryside.";
+  const issue = readFileSync(new URL("insights/who-powers-the-next-data-centre.html", root), "utf8");
+  assert.equal((issue.match(new RegExp(coverAlt.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"), "g")) || []).length, 3);
+  const index = readFileSync(new URL("insights.html", root), "utf8");
+  assert.equal((index.match(new RegExp(coverAlt.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"), "g")) || []).length, 3);
+});
+
 test("the white paper page uses the same continue-reading cards without linking to itself", () => {
   const block = paper.slice(paper.indexOf('class="continue-reading"'), paper.indexOf("</main>"));
   assert.equal((block.match(/class="continue-card"/g) || []).length, 3);

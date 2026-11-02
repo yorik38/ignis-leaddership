@@ -1,0 +1,271 @@
+/* Signal articles: one centred reading column, left-aligned text.
+   700px sits in the 680–720px measure (about 65–75 characters). */
+
+body.insight-article-page{
+  --signal-measure:min(700px,calc(100% - 48px));
+  --signal-teal:#14919B;
+  --signal-teal-text:#08756d;
+  --signal-ink:#14181F;
+  --signal-muted:#3d4754;
+  --signal-bar:#F3F5F6;
+  --signal-line:#e3e6ea;
+}
+
+body.insight-article-page .issue-hero .issue-shell,
+body.insight-article-page .issue-body .issue-shell,
+body.insight-article-page .issue-body .issue-shell:not(:has(.issue-sidebar)),
+body.insight-article-page.ao10-issue .issue-hero .issue-shell,
+body.insight-article-page.ao10-issue .issue-body .issue-shell:not(:has(.issue-sidebar)),
+body.insight-article-page.data-centre-issue .issue-hero .issue-shell,
+body.insight-article-page.data-centre-issue .issue-body .issue-shell:not(:has(.issue-sidebar)){
+  display:block;
+  width:var(--signal-measure);
+  max-width:700px;
+  margin-left:auto;
+  margin-right:auto;
+}
+
+body.insight-article-page .issue-hero,
+body.insight-article-page .issue-body,
+body.insight-article-page .issue-article-content{
+  text-align:left;
+}
+
+body.insight-article-page .issue-hero h1,
+body.insight-article-page .issue-standfirst{
+  max-width:none;
+}
+
+body.insight-article-page .issue-hero h1{
+  font-size:clamp(2.15rem,4vw,2.75rem);
+  line-height:1.12;
+  letter-spacing:-.035em;
+  margin:1rem 0 1rem;
+}
+
+body.insight-article-page .issue-standfirst{
+  font-size:1.125rem;
+  line-height:1.55;
+}
+
+body.insight-article-page .issue-byline{
+  flex-wrap:wrap;
+  gap:1rem 1.25rem;
+}
+
+body.insight-article-page .issue-feature,
+body.insight-article-page .issue-feature.issue-feature-signal{
+  width:var(--signal-measure);
+  max-width:700px;
+  margin:1.75rem auto 0.25rem;
+}
+
+body.insight-article-page .issue-feature img,
+body.insight-article-page .issue-feature.issue-feature-signal img{
+  display:block;
+  width:100%;
+  max-width:100%;
+  height:auto;
+  aspect-ratio:auto;
+  object-fit:contain;
+  background:#fff;
+}
+
+body.insight-article-page.ao10-issue .issue-article-content,
+body.insight-article-page.data-centre-issue .issue-article-content{
+  width:auto;
+  max-width:none;
+  margin-right:0;
+}
+
+body.insight-article-page .issue-article-content>p,
+body.insight-article-page .issue-article-content>.issue-pullquote,
+body.insight-article-page .issue-article-content>.issue-closing,
+body.insight-article-page .issue-article-content>.issue-author-note,
+body.insight-article-page .issue-article-content>.issue-author-bio,
+body.insight-article-page .issue-article-content>.issue-sources,
+body.insight-article-page .issue-article-content>h2,
+body.insight-article-page .issue-article-content>ul,
+body.insight-article-page .issue-article-content>ol,
+body.insight-article-page .issue-article-content>figure,
+body.insight-article-page .issue-article-content>.issue-article-figure{
+  max-width:none;
+}
+
+body.insight-article-page .issue-article-content>p{
+  font-size:1.0625rem;
+  line-height:1.75;
+  margin:0 0 1.25em;
+  text-wrap:pretty;
+}
+
+body.insight-article-page .issue-article-content>h2{
+  margin:2.75rem 0 0.8rem;
+  font-size:1.65rem;
+  line-height:1.2;
+  letter-spacing:-.03em;
+}
+
+body.insight-article-page .issue-article-content>h2+p{
+  margin-top:0;
+}
+
+body.insight-article-page .issue-article-content>ul,
+body.insight-article-page .issue-article-content>ol{
+  margin:0 0 1.35em;
+  padding-left:1.25rem;
+  font-size:1.0625rem;
+  line-height:1.7;
+}
+
+body.insight-article-page .issue-article-content>ul li+li,
+body.insight-article-page .issue-article-content>ol li+li{
+  margin-top:0.45em;
+}
+
+body.insight-article-page .issue-article-content figure,
+body.insight-article-page .issue-article-content .issue-article-figure{
+  width:100%;
+  max-width:100%;
+  margin:1.85rem 0 2.1rem;
+}
+
+body.insight-article-page .issue-article-content figure img,
+body.insight-article-page .issue-article-figure img{
+  display:block;
+  width:100%;
+  max-width:100%;
+  height:auto;
+  aspect-ratio:auto;
+  object-fit:contain;
+  background:#fff;
+}
+
+body.insight-article-page .issue-article-figure figcaption{
+  margin:0.75rem 0 0;
+  color:#586170;
+  font-family:Inter,"Inter Fallback",Arial,sans-serif;
+  font-size:0.875rem;
+  line-height:1.55;
+}
+
+body.insight-article-page .issue-article-figure figcaption strong{
+  color:var(--signal-ink);
+  font-weight:600;
+}
+
+body.insight-article-page .issue-summary{
+  max-width:none;
+  margin:0 0 2.25rem;
+}
+
+/* Sources: one separated block, the same on every issue. */
+body.insight-article-page .issue-sources{
+  max-width:none;
+  margin:3.25rem 0 0;
+  padding:1.2rem 1.2rem 0.35rem;
+  border:0;
+  border-top:3px solid var(--signal-teal);
+  background:var(--signal-bar);
+}
+
+body.insight-article-page .issue-article-content>.issue-sources h2,
+body.insight-article-page .issue-sources h2{
+  margin:0 0 0.85rem;
+  padding:0;
+  border:0;
+  color:var(--signal-ink);
+  font-size:0.78rem;
+  font-weight:700;
+  letter-spacing:0.08em;
+  line-height:1.3;
+  text-transform:uppercase;
+}
+
+body.insight-article-page .issue-sources ol,
+body.insight-article-page .issue-sources ul{
+  margin:0;
+  padding:0 0 0.35rem;
+  list-style:none;
+  counter-reset:signal-source;
+}
+
+body.insight-article-page .issue-sources li{
+  position:relative;
+  margin:0;
+  padding:0.8rem 0 0.8rem 1.9rem;
+  border-top:1px solid var(--signal-line);
+  color:var(--signal-muted);
+  font-family:Inter,"Inter Fallback",Arial,sans-serif;
+  font-size:0.84rem;
+  font-weight:400;
+  line-height:1.55;
+}
+
+body.insight-article-page .issue-sources ol li{
+  counter-increment:signal-source;
+}
+
+body.insight-article-page .issue-sources ol li::before{
+  content:counter(signal-source);
+  position:absolute;
+  left:0;
+  top:0.82rem;
+  color:var(--signal-teal);
+  font-weight:700;
+  font-variant-numeric:tabular-nums;
+}
+
+body.insight-article-page .issue-sources ul li::before{
+  content:"";
+  position:absolute;
+  left:0.2rem;
+  top:1.15rem;
+  width:0.45rem;
+  height:0.45rem;
+  border-radius:50%;
+  background:#66B7BE;
+}
+
+body.insight-article-page .issue-sources a{
+  color:var(--signal-teal-text);
+  font-weight:600;
+  overflow-wrap:anywhere;
+  text-decoration:underline;
+  text-decoration-thickness:1px;
+  text-underline-offset:0.16em;
+}
+
+body.insight-article-page .issue-sources a:hover,
+body.insight-article-page .issue-sources a:focus-visible{
+  color:var(--signal-teal);
+}
+
+@media(max-width:720px){
+  body.insight-article-page{
+    --signal-measure:min(700px,calc(100% - 32px));
+  }
+  body.insight-article-page .issue-hero h1{
+    font-size:clamp(1.85rem,8vw,2.25rem);
+    line-height:1.14;
+  }
+  body.insight-article-page .issue-article-content>p{
+    font-size:1.0625rem;
+    line-height:1.7;
+  }
+  body.insight-article-page .issue-article-content>h2{
+    margin:2.15rem 0 0.7rem;
+    font-size:1.4rem;
+  }
+  body.insight-article-page .issue-feature,
+  body.insight-article-page .issue-feature.issue-feature-signal{
+    margin-top:1.25rem;
+  }
+  body.insight-article-page .issue-sources{
+    padding:1rem 0.9rem 0.25rem;
+  }
+  body.insight-article-page .issue-sources li{
+    padding-left:1.65rem;
+    font-size:0.82rem;
+  }
+}
