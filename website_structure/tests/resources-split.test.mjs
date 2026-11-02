@@ -197,7 +197,7 @@ test('research paper and guide heroes use their publication covers with a readab
     'resources/procurement.html',
     'resources/agentic-transformation-for-energy-developers.html',
   ]) {
-    assert.match(read(path), /whitepaper\.css\?v=44/);
+    assert.match(read(path), /whitepaper\.css\?v=46/);
   }
 });
 
@@ -271,8 +271,10 @@ test('the flagship guide page has a teaser, an email gate and an unticked Signal
   assert.match(page, /data-whitepaper-form data-whitepaper-email/);
   assert.doesNotMatch(page, /wp-download-jump/);
   assert.match(page, /<a class="guide-hero-book" href="#download" aria-label="Get the guide \(PDF\)">/);
-  assert.match(page, /scrollIntoView\(\{ behavior: reduce \? "auto" : "smooth", block: "start" \}\)/);
-  assert.match(page, /email\.focus\(\{ preventScroll: true \}\)/);
+  const whitepaperScript = read('assets/whitepaper.js');
+  assert.match(whitepaperScript, /root\.style\.scrollBehavior = "auto"/);
+  assert.match(whitepaperScript, /gate\.scrollIntoView\(\{block: "start"\}\)/);
+  assert.match(whitepaperScript, /email\.focus\(\{preventScroll: true\}\)/);
   assert.match(read('assets/resource-cards.css'), /body\.guide-page #download\{scroll-margin-top:calc\(76px \+ 1\.25rem\)\}/);
   assert.match(read('assets/resource-cards.css'), /@media\(max-width:850px\)\{body\.guide-page #download\{scroll-margin-top:calc\(70px \+ 1\.25rem\)\}/);
   assert.match(page, /resource-cards\.css\?v=11/);

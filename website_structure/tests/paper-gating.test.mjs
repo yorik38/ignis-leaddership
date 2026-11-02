@@ -243,6 +243,9 @@ test("publication pages offer explicit email delivery and the guide keeps its on
     assert.doesNotMatch(html, /wp-download-dialog|data-download-open|data-whitepaper-popup|wp-get-pdf-row|wp-download-jump/, file);
     assert.match(html, /The PDF is on its way\./, file);
     assert.match(html, /Download the PDF/, file);
+    assert.match(html, /class="wp-pdf-reminder"/, file);
+    assert.match(html, /class="wp-pdf-reminder-link" href="#download"/, file);
+    assert.ok(html.indexOf('class="wp-pdf-reminder"') < html.indexOf('class="continue-reading"'), file);
     assert.match(html, /name="email"[^>]*required/, file);
     assert.doesNotMatch(html, /name="firstname"|name="lastname"/, file);
     assert.match(html, /name="signal_opt_in" value="true">/, file);
@@ -263,6 +266,9 @@ test("publication pages offer explicit email delivery and the guide keeps its on
   assert.doesNotMatch(guide, /Free resource\. Read it below/);
   assert.doesNotMatch(guide, /wp-download-jump/);
   assert.ok(guide.indexOf('class="wp-gate wp-pdf-offer"') < guide.indexOf('class="guide-teaser"'));
+  assert.match(guide, /Want the full guide in your inbox\?/);
+  assert.match(guide, /Get the guide by email/);
+  assert.ok(guide.indexOf('class="wp-pdf-reminder"') < guide.indexOf('class="continue-reading"'));
 });
 
 test("the client uses the API pdf, hides an ungated form, and drops the old bypasses", () => {
@@ -274,6 +280,8 @@ test("the client uses the API pdf, hides an ungated form, and drops the old bypa
   assert.match(script, /data\.gated === false && data\.pdf/);
   assert.match(script, /var emailGate = form\.hasAttribute\("data-whitepaper-email"\)/);
   assert.match(script, /resource && !popup && !emailGate/);
+  assert.match(script, /querySelectorAll\("\.wp-pdf-reminder-link"\)/);
+  assert.match(script, /email\.focus\(\{preventScroll: true\}\)/);
   assert.match(script, /revealWhitepaperDownload\(data\.pdf/);
   assert.match(script, /dialog\[data-paper\]/);
   assert.match(script, /data-whitepaper-popup/);

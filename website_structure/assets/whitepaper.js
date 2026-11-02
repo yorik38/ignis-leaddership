@@ -148,6 +148,22 @@
     });
   });
 
+  document.querySelectorAll(".wp-pdf-reminder-link").forEach(function (link) {
+    link.addEventListener("click", function (event) {
+      var gate = document.getElementById("download");
+      if (!gate) return;
+      event.preventDefault();
+      var root = document.documentElement;
+      var previousScrollBehavior = root.style.scrollBehavior;
+      root.style.scrollBehavior = "auto";
+      gate.scrollIntoView({block: "start"});
+      root.style.scrollBehavior = previousScrollBehavior;
+      if (location.hash !== "#download") history.pushState(null, "", "#download");
+      var email = gate.querySelector('input[type="email"]');
+      if (email) window.setTimeout(function () { email.focus({preventScroll: true}); }, 0);
+    });
+  });
+
   document.querySelectorAll("[data-whitepaper-form]").forEach(function (form) {
     ensureStarted(form);
     var resource = resourceOf(form);

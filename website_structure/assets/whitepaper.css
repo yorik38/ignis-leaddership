@@ -300,3 +300,17 @@ body.guide-page .guide-hero-book{display:none}
   .whitepaper .wp-pdf-offer .wp-gate-intro h2{font-size:2rem}
   .whitepaper .wp-pdf-offer .wp-gate-intro p:last-child{font-size:1rem}
 }
+
+/* A compact closing reminder returns readers to the single email-delivery form. */
+.whitepaper .wp-pdf-reminder{padding:clamp(2.5rem,5vw,4.5rem) max(var(--gutter),calc((100vw - var(--wrap))/2));background:#fff}
+.whitepaper .wp-pdf-reminder-inner{display:flex;align-items:center;justify-content:space-between;gap:2rem;width:100%;max-width:1180px;padding:clamp(1.5rem,3vw,2.25rem);border-radius:16px;background:#0f1719;color:#fff}
+.whitepaper .wp-pdf-reminder h2{max-width:42rem;margin:0;color:#fff;font-size:clamp(1.6rem,2.6vw,2.35rem);line-height:1.12;letter-spacing:-.03em}
+.whitepaper .wp-pdf-reminder-link{display:inline-flex;align-items:center;gap:.65rem;flex:none;min-height:44px;color:#fff;font-size:.95rem;font-weight:700;text-decoration:none}
+.whitepaper .wp-pdf-reminder-link span{color:#1cbdad;font-size:1.2rem;line-height:1}
+.whitepaper .wp-pdf-reminder-link:hover{text-decoration:underline;text-underline-offset:4px}
+.whitepaper .wp-pdf-reminder-link:focus-visible{outline:2px solid #1cbdad;outline-offset:5px}
+@media(max-width:760px){
+  .whitepaper .wp-pdf-reminder{padding:2.5rem 18px}
+  .whitepaper .wp-pdf-reminder-inner{align-items:flex-start;flex-direction:column;gap:1.25rem;padding:1.5rem}
+  .whitepaper .wp-pdf-reminder h2{font-size:1.65rem}
+}
