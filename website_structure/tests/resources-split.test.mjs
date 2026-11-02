@@ -187,6 +187,9 @@ test('research paper and guide heroes use their publication covers with a readab
     assert.match(css, new RegExp(asset.replaceAll('.', '\\.')));
   }
   assert.match(css, /\.whitepaper \.wp-hero:after\{display:block;[^}]+background:linear-gradient/);
+  assert.match(css, /\.whitepaper \.wp-hero\{[^}]+min-height:min\(900px,100svh\)[^}]+background-position:center top/);
+  assert.match(css, /\.whitepaper \.wp-hero \.hero-in\{[^}]+max-width:none[^}]+padding-inline:max\(var\(--gutter\),calc\(\(100vw - var\(--wrap\)\)\/2\)\)/);
+  assert.match(css, /@media\(max-width:760px\)\{\s*\.whitepaper \.wp-hero\{[^}]+background-size:auto 185%/);
   assert.match(css, /body\.guide-page \.guide-hero-book\{display:none\}/);
   for (const path of [
     'reports/market-monitor-2026-10.html',
@@ -194,7 +197,7 @@ test('research paper and guide heroes use their publication covers with a readab
     'resources/procurement.html',
     'resources/agentic-transformation-for-energy-developers.html',
   ]) {
-    assert.match(read(path), /whitepaper\.css\?v=42/);
+    assert.match(read(path), /whitepaper\.css\?v=43/);
   }
 });
 
