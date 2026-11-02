@@ -32,7 +32,7 @@ test("the second white paper is published without a coming-soon state", () => {
   assert.match(paper, /name="email"/);
   assert.match(paper, /name="resource" value="commercial-system-pipeline"/);
   const signal = paper.slice(paper.indexOf('class="signal-signup-form"'), paper.indexOf('signal-signup-success'));
-  assert.match(signal, /placeholder="Work email"/);
+  assert.match(signal, /placeholder="Work email only"/);
   assert.doesNotMatch(signal, /name="company"(?!_)|name="enquiry_topic"|Company \(optional\)|Topic \(optional\)/);
   assert.match(paper, /name="content_source" value="whitepaper-commercial-system-pipeline"/);
   assert.doesNotMatch(paper, /name, work email, company/);

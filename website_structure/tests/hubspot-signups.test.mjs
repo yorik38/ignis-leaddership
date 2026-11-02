@@ -9,6 +9,7 @@ const require = createRequire(import.meta.url);
 const root = fileURLToPath(new URL("../", import.meta.url));
 const subscribe = require("../api/subscribe.js");
 const whitepaper = require("../api/whitepaper.js");
+const {WORK_EMAIL_ERROR, emailDomain, isPersonalEmail} = require("../api/_lib/work-email.js");
 
 function response() {
   return {
@@ -23,6 +24,46 @@ function assertVersionedPdf(actual, filePath) {
   assert.equal(String(actual).split("?")[0], filePath);
   assert.match(String(actual), /\?v=[0-9a-f]{8}$/);
 }
+
+test("work-email policy blocks common personal providers and preserves company domains", () => {
+  for (const email of [
+    "person@gmail.com",
+    "person@outlook.com",
+    "person@yahoo.co.uk",
+    "person@icloud.com",
+    "person@proton.me",
+    "person@btinternet.com"
+  ]) assert.equal(isPersonalEmail(email), true, email);
+  for (const email of [
+    "person@energy-developer.com",
+    "person@contractor.co.uk",
+    "person@company.onmicrosoft.com"
+  ]) assert.equal(isPersonalEmail(email), false, email);
+  assert.equal(emailDomain("  PERSON@ENERGY-DEVELOPER.COM. "), "energy-developer.com");
+});
+
+test("Signal and publication endpoints reject personal email domains before HubSpot", async () => {
+  const originalFetch = global.fetch;
+  const requests = [];
+  global.fetch = async (url, init) => {
+    requests.push({url, init});
+    return {ok: true};
+  };
+  try {
+    const signal = response();
+    await subscribe({method: "POST", body: {email: "reader@gmail.com", form_started_at: Date.now() - 10000}, headers: {"x-forwarded-for": "203.0.113.210"}}, signal);
+    assert.equal(signal.statusCode, 422);
+    assert.equal(signal.body.error, WORK_EMAIL_ERROR);
+
+    const paper = response();
+    await whitepaper({method: "POST", body: {email: "reader@outlook.com", resource: "route-to-market", form_started_at: Date.now() - 10000}, headers: {"x-forwarded-for": "203.0.113.211"}}, paper);
+    assert.equal(paper.statusCode, 422);
+    assert.equal(paper.body.error, WORK_EMAIL_ERROR);
+    assert.equal(requests.length, 0);
+  } finally {
+    global.fetch = originalFetch;
+  }
+});
 
 test("Signal signup records the dedicated Sign up action as consent and uses the Signal form", async () => {
   const originalFetch = global.fetch;
@@ -267,7 +308,8 @@ test("paper forms and visible Signal signups are connected", () => {
     const articleSignal = /[\\/]insights[\\/]/.test(path);
     const compactSignal = path.endsWith("insights.html") || path.endsWith("newsletter.html") || articleSignal;
     const form = html.slice(html.indexOf('class="signal-signup-form"'), html.indexOf("signal-signup-success"));
-    assert.match(form, /placeholder="Work email"/, path);
+    assert.match(form, /placeholder="Work email only"/, path);
+    assert.match(form, /aria-label="Work email only\. Personal email addresses are not accepted\."/, path);
     assert.doesNotMatch(form, /name="signal_consent"|type="checkbox"/, path);
     assert.match(form, /By signing up, you agree to receive Signal and occasional emails from Ignis Leadership\. Unsubscribe at any time\./, path);
     assert.doesNotMatch(form, /name="company"(?!_)|name="enquiry_topic"|Company \(optional\)|Topic \(optional\)|signal-signup-optional/, path);
@@ -320,4 +362,8 @@ test("paper forms and visible Signal signups are connected", () => {
   const capability = readFileSync(join(root, "assets/capability.css"), "utf8");
   assert.match(capability, /body\.newsletter-page \.signal-inbox-inner\{[^}]*background:#111719\}/);
   assert.match(capability, /body\.newsletter-page \.signal-inbox h2\{[^}]*font-size:1\.25rem;line-height:1\.1\}/);
+  const capabilityJs = readFileSync(join(root, "assets/capability.js"), "utf8");
+  assert.match(capabilityJs, /Personal email addresses such as Gmail, Outlook or Yahoo are not accepted\./);
+  assert.match(capabilityJs, /action==="\/api\/subscribe"\|\|action==="\/api\/whitepaper"/);
+  assert.match(capabilityJs, /event\.stopImmediatePropagation\(\)/);
 });

@@ -1,4 +1,5 @@
 const {protectForm} = require("./_lib/protect");
+const {WORK_EMAIL_ERROR, isPersonalEmail} = require("./_lib/work-email");
 const {
   clip,
   submitWithFallback,
@@ -41,6 +42,9 @@ module.exports = async function subscribe(request, response) {
   const email = String(body.email || "").trim().toLowerCase();
   if (!EMAIL_PATTERN.test(email)) {
     return send(response, 422, {ok: false, error: "Enter a valid email address."});
+  }
+  if (isPersonalEmail(email)) {
+    return send(response, 422, {ok: false, error: WORK_EMAIL_ERROR});
   }
 
   const context = contextFor(request, body, "Signal newsletter signup", "https://www.ignisleadership.com/insights");

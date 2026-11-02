@@ -75,7 +75,7 @@ describe("form protection", {concurrency: 1}, () => {
     assert.equal(bot.res.statusCode, 200);
     assert.equal(bot.calls.length, 0);
 
-    const genuine = await post(subscribe, started({email: "j.smith@gmail.com", signal_consent: "true"}));
+    const genuine = await post(subscribe, started({email: "j.smith@northseapower.co.uk", signal_consent: "true"}));
     assert.equal(genuine.res.statusCode, 200);
     assert.equal(genuine.calls.length, 1);
     assert.match(genuine.calls[0].url, /api\.hsforms\.com/);

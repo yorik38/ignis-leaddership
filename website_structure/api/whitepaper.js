@@ -2,6 +2,7 @@ const crypto = require("crypto");
 const fs = require("fs");
 const path = require("path");
 const {protectForm} = require("./_lib/protect");
+const {WORK_EMAIL_ERROR, isPersonalEmail} = require("./_lib/work-email");
 const {
   PAPER_SUBSCRIPTION_TYPE_ID,
   submitWithFallback,
@@ -222,6 +223,9 @@ async function whitepaper(request, response) {
     : listed;
   if (!EMAIL_PATTERN.test(email) || !paper) {
     return send(response, 422, {ok: false, error: "Enter a valid work email."});
+  }
+  if (isPersonalEmail(email)) {
+    return send(response, 422, {ok: false, error: WORK_EMAIL_ERROR});
   }
 
   const signalOptIn = checked(body.signal_opt_in);
