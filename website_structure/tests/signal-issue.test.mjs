@@ -22,11 +22,11 @@ test("Signal Issue 1 ends with continue reading, the call, then the shared signu
   assert.match(issue, /<h1>AO10 bids submitted: why proof, not price, will decide France's offshore wind round<\/h1>/);
   assert.match(issue, /signal-ao10-cover\.png(?:\?v=\d+)?" alt="Signal Issue 1 cover: AO10 bids submitted: why proof, not price, will decide France's offshore wind round, with the Channel, Brittany, South Atlantic and Mediterranean awards mapped on France\." width="1920" height="1080"/);
   order(issue, [
-    'id="ao10-sources"',
-    '</article>',
     'id="signal-inbox-title">Get Signal in your inbox.',
-    'The weekly newsletter for energy developers.',
     'action="/api/subscribe"',
+    'id="ao10-sources"',
+    'class="issue-disclaimer"',
+    '</article>',
     'id="continue-reading-title">Continue reading',
     'href="/insights/what-gate-2-is-really-about"',
     'href="/resources/route-to-market"',
@@ -40,8 +40,8 @@ test("Signal Issue 1 ends with continue reading, the call, then the shared signu
   const reading = issue.slice(issue.indexOf('continue-reading'), issue.indexOf('close-call'));
   assert.doesNotMatch(reading, /why-do-unclear-tenders|tender-clarifications/);
   assert.match(issue, /class="signal-signup-form"[^>]*data-community-form/);
-  assert.doesNotMatch(issue, /signal-signup-success|signal-signup-tick|You're in\./);
-  assert.match(issue, /class="sr-only" data-form-status[^>]*>Subscription confirmed\.<\/p>/);
+  assert.match(issue, /class="signal-signup-success"[^>]*tabindex="-1"[^>]*>[\s\S]*Thanks, you're subscribed\./);
+  assert.doesNotMatch(issue, /You're in\.|Subscription confirmed/);
   assert.match(reading, /<span class="continue-card-kicker">Signal · Issue 2<\/span>/);
   assert.doesNotMatch(issue, /Signal: practical notes on moving energy projects/);
   assert.doesNotMatch(issue, /class="home-newsletter"|class="issue-sidebar-form"|Coming soon/);
@@ -67,18 +67,17 @@ test("Signal Issue 2 publishes the approved Gate 2 article", () => {
   assert.match(gate, /<figcaption><strong>Figure 3\.<\/strong> <em>Gate 2 milestones M1 to M8 in plain words\. M1 to M3 carry termination risk\.<\/em><\/figcaption>/);
   assert.match(gate, /signal-2-gate2-milestones-article-1600x900@2x\.png/);
   assert.match(gate, /Send me a message on LinkedIn\./);
-  assert.match(gate, /<em>Commercial commentary, not legal, regulatory or investment advice\. Terms differ by project and network, so always read your own offer\. "By my arithmetic" marks my own calculation\. Sources checked 21 October 2026\.<\/em>/);
+  assert.match(gate, /<p class="issue-disclaimer">Commercial commentary, not legal, regulatory or investment advice\. Terms differ by project and network, so always read your own offer\. "By my arithmetic" marks my own calculation\. Sources checked 21 October 2026\.<\/p>/);
   assert.doesNotMatch(gate, /v3 for review|Notes for Yorik|not for publication|Reply in the comments/);
   const visible = gate.replace(/<[^>]+>/g, " ");
   assert.doesNotMatch(visible, /signal-2-gate2-status-article|fig-monitor-tec-queue-gate|signal-2-gate2-milestones-article/);
   assert.doesNotMatch(gate, /<p>\s*(?:---|___|\*\*\*)\s*<\/p>/);
-  assert.match(gate, /<p><em>Yorik<\/em><\/p>\s*<section class="issue-sources"/);
+  assert.match(gate, /<p><em>Yorik<\/em><\/p>[\s\S]*<section class="issue-sources"/);
   order(gate, [
+    'id="signal-inbox-title">Get Signal in your inbox.',
+    'action="/api/subscribe"',
     'id="gate2-sources"',
     '</article>',
-    'id="signal-inbox-title">Get Signal in your inbox.',
-    'The weekly newsletter for energy developers.',
-    'action="/api/subscribe"',
     'id="continue-reading-title">Continue reading',
     'href="/insights/ao10-france-has-put-a-price-on-proof"',
     'href="/reports/market-monitor-2026-10"',
@@ -98,8 +97,8 @@ test("Signal Issue 2 publishes the approved Gate 2 article", () => {
   assert.doesNotMatch(reading, /bids-won-on-evidence|Bids are now won on evidence/);
   assert.equal((gate.match(/class="continue-card"/g) || []).length, 2);
   assert.match(gate, /class="signal-signup-form"[^>]*data-community-form/);
-  assert.doesNotMatch(gate, /signal-signup-success|signal-signup-tick|You're in\./);
-  assert.match(gate, /class="sr-only" data-form-status[^>]*>Subscription confirmed\.<\/p>/);
+  assert.match(gate, /class="signal-signup-success"[^>]*tabindex="-1"[^>]*>[\s\S]*Thanks, you're subscribed\./);
+  assert.doesNotMatch(gate, /You're in\.|Subscription confirmed/);
   for (const file of [
     "assets/img/signal-gate2-cover.avif",
     "assets/img/signal-gate2-cover.webp",
@@ -126,10 +125,11 @@ test("Signal Issue 3 publishes the approved data-centre article", () => {
   assert.match(dataCentre, /id="issue-3-sources"/);
   assert.equal((dataCentre.match(/<li id="source-\d+">/g) || []).length, 35);
   assert.doesNotMatch(dataCentre, /Second helpings|second helpings/);
-  assert.match(dataCentre, /Commercial commentary, not legal, regulatory or investment advice/);
+  assert.match(dataCentre, /<p class="issue-disclaimer">Commercial commentary, not legal, regulatory or investment advice\. Project and connection terms vary\. Sources checked 30 October 2026\.<\/p>/);
   assert.match(dataCentre, /class="signal-signup-form"[^>]*data-community-form/);
   assert.match(dataCentre, /id="signal-inbox-title">Get Signal in your inbox\.<\/h2>/);
-  assert.match(dataCentre, /<p>The weekly newsletter for energy developers\.<\/p>/);
+  assert.match(dataCentre, /Thanks, you're subscribed\./);
+  assert.doesNotMatch(dataCentre, /<p>The weekly newsletter for energy developers\.<\/p>/);
   assert.match(dataCentre, /By signing up, you agree to receive Signal and occasional emails from Ignis Leadership\. Unsubscribe at any time\./);
   assert.doesNotMatch(dataCentre, /Weekly UK and European energy market insight|monthly report and occasional marketing updates/);
   for (const file of [
@@ -167,7 +167,7 @@ test("Signal articles share a narrow reading column and a separated sources list
     "insights/why-do-unclear-tenders-produce-incomparable-bids.html",
   ]) {
     const html = readFileSync(new URL(file, root), "utf8");
-    assert.match(html, /signal-reading\.css\?v=2/, file);
+    assert.match(html, /signal-reading\.css\?v=3/, file);
     assert.doesNotMatch(html, /Illustrative CGI|\bCGI\b/, file);
   }
   const coverAlt = "Data centre buildings beside solar panels and battery units in open countryside.";
@@ -175,6 +175,41 @@ test("Signal articles share a narrow reading column and a separated sources list
   assert.equal((issue.match(new RegExp(coverAlt.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"), "g")) || []).length, 3);
   const index = readFileSync(new URL("insights.html", root), "utf8");
   assert.equal((index.match(new RegExp(coverAlt.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"), "g")) || []).length, 3);
+});
+
+test("article pages share one Signal rail, the footnote and the proposed author bio", () => {
+  const rail = readFileSync(new URL("partials/article-signal-rail.html", root), "utf8").trim();
+  const bio = readFileSync(new URL("partials/article-author-bio.html", root), "utf8").trim();
+  const css = readFileSync(new URL("assets/signal-reading.css", root), "utf8");
+  assert.match(css, /@media\(min-width:1240px\)\{[\s\S]*position:sticky;[\s\S]*top:calc\(96px \+ 1\.25rem\)/);
+  assert.match(css, /background:#111719/);
+  assert.match(css, /\.issue-disclaimer\{[^}]*font-size:\.78rem;[^}]*font-style:normal/);
+  assert.match(rail, /action="\/api\/subscribe"/);
+  assert.match(rail, /name="content_source" value="signal-signup"/);
+  assert.match(rail, /data-turnstile data-turnstile-theme="dark" data-turnstile-size="compact"/);
+  assert.match(rail, /Thanks, you're subscribed\./);
+  assert.match(bio, /He has spent 17 years closing commercial deals on energy infrastructure, including at bp, RWE and Bouygues\./);
+  assert.match(bio, /Today he helps energy developers find where agentic AI can win them more projects, and builds it with their team so they own the system\./);
+  const articles = [
+    "insights/who-powers-the-next-data-centre.html",
+    "insights/what-gate-2-is-really-about.html",
+    "insights/ao10-france-has-put-a-price-on-proof.html",
+    "insights/is-commercial-work-too-judgement-heavy-for-ai-agents.html",
+    "insights/when-do-tender-clarifications-become-a-second-specification.html",
+    "insights/why-do-unclear-tenders-produce-incomparable-bids.html",
+  ];
+  for (const file of articles) {
+    const html = readFileSync(new URL(file, root), "utf8");
+    assert.ok(html.includes(rail), file);
+    assert.ok(html.includes(bio), file);
+    assert.equal((html.match(/class="signal-signup-form"/g) || []).length, 1, file);
+    assert.equal((html.match(/<div class="turnstile-slot"/g) || []).length, 1, file);
+    const formAt = html.indexOf('class="signal-signup-form"');
+    const sourcesAt = html.indexOf('<section class="issue-sources"');
+    const bioAt = html.indexOf('class="issue-author-bio"');
+    const endAt = html.indexOf("</article>");
+    assert.ok(formAt > 0 && formAt < sourcesAt && sourcesAt < bioAt && bioAt < endAt, file);
+  }
 });
 
 test("the white paper page uses the same continue-reading cards without linking to itself", () => {

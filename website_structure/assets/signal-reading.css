@@ -285,3 +285,180 @@ body.insight-article-page .issue-sources a:focus-visible{
     font-size:0.82rem;
   }
 }
+
+/* Article template: black Signal rail, footnote disclaimer, author block.
+   The rail reuses the mobile Signal card (#111719, white type, white field).
+   Desktop keeps it in the existing right inset so the reading column stays put.
+   Below 1240px the gutter is too narrow, so the same card sits in the column. */
+
+body.insight-article-page{
+  --signal-rail:min(17.5rem,calc(var(--signal-right-inset) - 2.75rem));
+}
+
+body.insight-article-page .issue-body{
+  display:flex;
+  flex-direction:column;
+}
+
+body.insight-article-page .issue-read-stage{
+  display:contents;
+}
+
+body.insight-article-page .issue-read-stage>.issue-shell{
+  order:1;
+}
+
+body.insight-article-page .issue-endmatter{
+  order:2;
+}
+
+body.insight-article-page .article-signal-rail{
+  order:3;
+  width:var(--signal-measure);
+  margin:2.5rem var(--signal-right-inset) 0 auto;
+  background:transparent;
+  color:#fff;
+  font-family:Inter,"Inter Fallback",var(--font-sans);
+}
+
+body.insight-article-page .article-signal-rail p{
+  font-family:Inter,"Inter Fallback",var(--font-sans);
+}
+
+body.insight-article-page .article-signal-sticky.signal-inbox-inner{
+  width:100%;
+  max-width:40rem;
+  padding:1.75rem 1.25rem;
+  border:0;
+  border-radius:8px;
+  background:#111719;
+  color:#fff;
+}
+
+body.insight-article-page .article-signal-rail h2{
+  max-width:none;
+  color:#fff;
+  font-family:Inter,"Inter Fallback",var(--font-sans);
+  font-size:1.25rem;
+  font-weight:500;
+  letter-spacing:-.03em;
+  line-height:1.1;
+}
+
+body.insight-article-page .article-signal-rail .hubspot-newsletter-form{
+  width:100%;
+  max-width:none;
+  margin-top:1rem;
+}
+
+body.insight-article-page .article-signal-rail .signal-signup-fields{
+  background:#fff;
+}
+
+body.insight-article-page .article-signal-rail .signal-signup-consent{
+  margin:.7rem 0 0;
+  color:rgba(255,255,255,.85);
+  font-size:11px;
+  font-weight:400;
+  line-height:1.35;
+}
+
+body.insight-article-page .article-signal-rail .signal-signup-success{
+  color:#fff;
+  font-size:.9rem;
+  font-weight:600;
+  line-height:1.4;
+}
+
+body.insight-article-page .article-signal-rail .signal-signup-success[hidden],
+body.insight-article-page .article-signal-rail .signal-signup-error[hidden]{
+  display:none;
+}
+
+body.insight-article-page .article-signal-rail .signal-signup-error{
+  color:#ffb4aa;
+  font-weight:500;
+}
+
+body.insight-article-page .article-signal-rail .turnstile-slot{
+  margin-top:.85rem;
+}
+
+body.insight-article-page .article-signal-rail .turnstile-slot:empty{
+  display:none;
+  margin:0;
+}
+
+body.insight-article-page .issue-disclaimer{
+  margin:.85rem 0 .35rem;
+  color:#6d7684;
+  font-family:Inter,"Inter Fallback",Arial,sans-serif;
+  font-size:.78rem;
+  font-style:normal;
+  font-weight:400;
+  line-height:1.45;
+}
+
+body.insight-article-page .issue-disclaimer em{
+  font-style:normal;
+}
+
+@media(max-width:720px){
+  body.insight-article-page .article-signal-rail{
+    width:var(--signal-measure);
+    margin-right:auto;
+    margin-left:auto;
+  }
+}
+
+@media(min-width:1240px){
+  body.insight-article-page .issue-body{
+    display:block;
+  }
+
+  body.insight-article-page .issue-read-stage{
+    display:block;
+    position:relative;
+    min-height:28rem;
+  }
+
+  body.insight-article-page .issue-read-stage>.issue-shell{
+    order:0;
+  }
+
+  body.insight-article-page .article-signal-rail{
+    position:absolute;
+    top:0;
+    bottom:0;
+    left:auto;
+    z-index:2;
+    order:0;
+    width:var(--signal-rail);
+    height:auto;
+    margin:0;
+    margin-right:0;
+    right:max(1rem,calc((var(--signal-right-inset) - var(--signal-rail)) / 2));
+    pointer-events:none;
+  }
+
+  body.insight-article-page .article-signal-sticky{
+    position:sticky;
+    top:calc(96px + 1.25rem);
+    pointer-events:auto;
+  }
+
+  body.insight-article-page .article-signal-sticky.signal-inbox-inner{
+    max-width:none;
+    padding:1.15rem 1rem 1.05rem;
+  }
+
+  body.insight-article-page .article-signal-rail .signal-signup-fields{
+    flex-wrap:nowrap;
+  }
+
+  body.insight-article-page .issue-endmatter{
+    position:relative;
+    z-index:3;
+    background:#fff;
+  }
+}

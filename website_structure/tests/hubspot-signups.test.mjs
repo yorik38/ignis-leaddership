@@ -254,7 +254,7 @@ test("paper forms and visible Signal signups are connected", () => {
   function walk(dir) {
     for (const entry of readdirSync(dir)) {
       const path = join(dir, entry);
-      if (entry === "backups" || entry === "tests" || entry === "node_modules") continue;
+      if (entry === "backups" || entry === "tests" || entry === "node_modules" || entry === "partials" || entry === "scripts") continue;
       if (statSync(path).isDirectory()) walk(path);
       else if (entry.endsWith(".html")) pages.push(path);
     }
@@ -263,19 +263,24 @@ test("paper forms and visible Signal signups are connected", () => {
   const signups = pages.map((path) => [path, readFileSync(path, "utf8")]).filter(([, html]) => html.includes("signal-signup-form"));
   assert.ok(signups.length >= 19);
   for (const [path, html] of signups) {
-    const compactSignal = path.endsWith("insights.html") || path.endsWith("newsletter.html") || /[\\/]insights[\\/]/.test(path);
+    const articleSignal = /[\\/]insights[\\/]/.test(path);
+    const compactSignal = path.endsWith("insights.html") || path.endsWith("newsletter.html") || articleSignal;
     const form = html.slice(html.indexOf('class="signal-signup-form"'), html.indexOf("signal-signup-success"));
     assert.match(form, /placeholder="Work email"/, path);
     assert.doesNotMatch(form, /name="signal_consent"|type="checkbox"/, path);
     assert.match(form, /By signing up, you agree to receive Signal and occasional emails from Ignis Leadership\. Unsubscribe at any time\./, path);
     assert.doesNotMatch(form, /name="company"(?!_)|name="enquiry_topic"|Company \(optional\)|Topic \(optional\)|signal-signup-optional/, path);
-    if (/[\\/]insights[\\/](?:ao10-france-has-put-a-price-on-proof|what-gate-2-is-really-about)\.html$/.test(path)) {
-      assert.doesNotMatch(html, /signal-signup-success|signal-signup-tick|You're in\./, path);
-      assert.match(html, /class="sr-only" data-form-status[^>]*tabindex="-1"[^>]*>Subscription confirmed\.<\/p>/, path);
+    if (articleSignal) {
+      assert.match(html, /class="signal-signup-success"[^>]*tabindex="-1"[^>]*>[\s\S]*Thanks, you're subscribed\./, path);
+      assert.doesNotMatch(html, /You're in\.|Subscription confirmed\./, path);
     } else {
       assert.match(html, /class="signal-signup-success"[^>]*tabindex="-1"/, path);
     }
-    if (compactSignal) {
+    if (articleSignal) {
+      assert.match(html, /id="signal-inbox-title">Get Signal in your inbox\.<\/h2>/, path);
+      assert.doesNotMatch(html, /<p>The weekly newsletter for energy developers\.<\/p>/, path);
+      assert.doesNotMatch(html, /signal-inbox-title">[\s\S]*?See what changed,[\s\S]*?One focused analysis each week/, path);
+    } else if (compactSignal) {
       assert.match(html, /id="signal-inbox-title">Get Signal in your inbox\.<\/h2>/, path);
       assert.match(html, /<p>The weekly newsletter for energy developers\.<\/p>/, path);
       assert.doesNotMatch(html, /signal-inbox-title">[\s\S]*?See what changed,[\s\S]*?One focused analysis each week/, path);
