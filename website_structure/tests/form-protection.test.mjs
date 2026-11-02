@@ -952,7 +952,8 @@ test("every signup and download form renders the shared protection fields", () =
   assert.match(monitor, /<p class="wp-free-label">Free resource\.<\/p>/);
   assert.match(monitor, /data-paper="market-monitor-2026-10"/);
   assert.match(monitor, /class="wp-get-pdf"[^>]*>Get the PDF</);
-  assert.doesNotMatch(monitor, /\/assets\/downloads\//);
+  assert.doesNotMatch(monitor, /ignis-market-monitor-2026-10\.pdf/);
+  assert.match(monitor, /<a href="\/assets\/downloads\/ignis-market-monitor-2026-10-sources">Full source register<\/a>/);
   assert.match(monitor, /<button type="submit">Send me the PDF<\/button>/);
   assert.doesNotMatch(monitor, /name="firstname"/);
   assert.doesNotMatch(monitor, /HubSpot form placeholder|portalId:\s*"TODO"/);
