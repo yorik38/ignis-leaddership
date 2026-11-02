@@ -176,17 +176,25 @@ test('the homepage repeats the same four research cards before the close', () =>
   assert.match(home, /research-cards\.js\?v=2/);
 });
 
-test('research paper and guide heroes use a neutral surface without the teal wash', () => {
+test('research paper and guide heroes use their publication covers with a readable overlay', () => {
   const css = read('assets/whitepaper.css');
-  assert.match(css, /\.whitepaper \.wp-hero\{background:#f3f5f6;border-bottom-color:var\(--line\)\}/);
-  assert.match(css, /\.whitepaper \.wp-hero:after\{display:none\}/);
+  for (const asset of [
+    'resource-book-market-monitor-2026-10.webp',
+    'resource-book-route-to-market.webp',
+    'resource-book-procurement.webp',
+    'resource-book-agentic-transformation.webp',
+  ]) {
+    assert.match(css, new RegExp(asset.replaceAll('.', '\\.')));
+  }
+  assert.match(css, /\.whitepaper \.wp-hero:after\{display:block;[^}]+background:linear-gradient/);
+  assert.match(css, /body\.guide-page \.guide-hero-book\{display:none\}/);
   for (const path of [
     'reports/market-monitor-2026-10.html',
     'resources/route-to-market.html',
     'resources/procurement.html',
     'resources/agentic-transformation-for-energy-developers.html',
   ]) {
-    assert.match(read(path), /whitepaper\.css\?v=41/);
+    assert.match(read(path), /whitepaper\.css\?v=42/);
   }
 });
 

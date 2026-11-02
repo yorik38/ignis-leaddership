@@ -256,6 +256,25 @@
   .wp-download-dialog h2{font-size:1.3rem}
 }
 
-/* Research and guide heroes use a restrained neutral surface. */
-.whitepaper .wp-hero{background:#f3f5f6;border-bottom-color:var(--line)}
-.whitepaper .wp-hero:after{display:none}
+/* Publication covers become the hero image. A controlled veil keeps the page title readable. */
+body[data-whitepaper-key="ignis-market-monitor-2026-10"] .wp-hero{background-image:url("/assets/img/resource-book-market-monitor-2026-10.webp?v=3")}
+body[data-whitepaper-key="ignis-whitepaper-route-to-market"] .wp-hero{background-image:url("/assets/img/resource-book-route-to-market.webp?v=3")}
+body[data-whitepaper-key="ignis-whitepaper-procurement"] .wp-hero{background-image:url("/assets/img/resource-book-procurement.webp?v=3")}
+body[data-whitepaper-key="ignis-guide-agentic-transformation"] .wp-hero{background-image:url("/assets/img/resource-book-agentic-transformation.webp?v=3")}
+.whitepaper .wp-hero{display:flex;align-items:center;min-height:clamp(34rem,55vw,44rem);background-color:#0f1419;background-repeat:no-repeat;background-position:center 42%;background-size:cover;border-bottom-color:rgba(255,255,255,.18)}
+.whitepaper .wp-hero:after{display:block;inset:0;z-index:0;width:auto;height:auto;border-radius:0;background:linear-gradient(90deg,rgba(7,12,17,.91) 0%,rgba(7,12,17,.84) 50%,rgba(7,12,17,.7) 100%);pointer-events:none}
+.whitepaper .wp-hero .hero-in{width:100%}
+.whitepaper .wp-hero h1{max-width:900px;color:#fff}
+.whitepaper .wp-hero .sub{color:#e2e7eb}
+.whitepaper .wp-hero .by{color:#c9d0d6}
+.whitepaper .wp-hero .by b{color:#fff}
+.whitepaper .wp-hero .wp-crumb a,.whitepaper .wp-hero .wp-free-label{color:#fff}
+.whitepaper .wp-hero .pill.o{border-color:rgba(255,255,255,.5);background:rgba(15,20,25,.55);color:#fff}
+.whitepaper .wp-hero .wp-download-jump a{color:#fff;text-decoration:underline;text-decoration-color:#1cbdad;text-underline-offset:4px}
+body.guide-page .guide-hero .hero-in{display:block;max-width:1080px}
+body.guide-page .guide-hero-copy{max-width:900px}
+body.guide-page .guide-hero-book{display:none}
+@media(max-width:760px){
+  .whitepaper .wp-hero{min-height:calc(100svh - 78px);background-position:center top}
+  .whitepaper .wp-hero:after{background:linear-gradient(180deg,rgba(7,12,17,.8) 0%,rgba(7,12,17,.91) 100%)}
+}
