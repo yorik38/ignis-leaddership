@@ -71,13 +71,13 @@ test('the share card is 1200 by 630 and the supplied master is kept beside it', 
 });
 
 test('Insights and issue covers keep their own share images', () => {
-  assert.equal(tag(insights, 'property', 'og:image'), 'https://www.ignisleadership.com/assets/img/signal-3-who-powers-data-centre.png');
+  assert.equal(tag(insights, 'property', 'og:image'), 'https://www.ignisleadership.com/assets/img/signal-3-who-powers-data-centre-v2.png');
   assert.equal(tag(insights, 'property', 'og:url'), 'https://www.ignisleadership.com/insights');
   const issue = readFileSync(join(site, 'insights/who-powers-the-next-data-centre.html'), 'utf8');
-  assert.match(tag(issue, 'property', 'og:image'), /signal-3-who-powers-data-centre/);
+  assert.match(tag(issue, 'property', 'og:image'), /signal-3-who-powers-data-centre-v2\.png/);
   assert.doesNotMatch(issue, /signal-share-card/);
   const body = page.slice(page.indexOf('</head>'));
-  assert.match(body, /signal-3-who-powers-data-centre\.png/);
+  assert.match(body, /signal-3-who-powers-data-centre-v2\.png/);
   assert.doesNotMatch(body, /signal-share-card/);
 });
 
