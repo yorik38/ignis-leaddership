@@ -222,7 +222,8 @@ test("paper forms and visible Signal signups are connected", () => {
     assert.doesNotMatch(gate, /name="company"|name="enquiry_topic"|name="firstname"|name="signal_role"/);
     assert.match(gate, /name="signal_opt_in"/);
     assert.doesNotMatch(gate, /name="signal_opt_in"[^>]*checked/);
-    assert.match(gate, /Also email me Signal, the weekly newsletter for energy developers, plus the monthly Market Monitor and occasional updates\. We won't fill your inbox\. See our <a href="\/privacy">Privacy Policy<\/a>\./);
+    assert.match(gate, /Also email me Signal, the weekly newsletter for energy developers, plus the monthly Market Monitor and occasional updates\. See our <a href="\/privacy">Privacy Policy<\/a>\./);
+    assert.doesNotMatch(gate, /We won't fill your inbox/);
     assert.doesNotMatch(gate, /class="wp-paper-privacy"/);
     const consent = gate.match(/<label class="wp-paper-consent">[\s\S]*?<\/label>/)?.[0] ?? "";
     assert.match(consent, /href="\/privacy"/);
@@ -288,7 +289,7 @@ test("paper forms and visible Signal signups are connected", () => {
       assert.match(html, /class="signal-card-title"><span class="signal-wordmark">Signal<span class="signal-mark">\.<\/span><\/span><span class="signal-card-follow">The weekly newsletter for energy developers<\/span><\/h2>/, path);
       assert.match(html, /Strategy, business development and transformation with agentic AI, from first site to financial close\./, path);
     }
-    assert.match(html, /capability\.css\?v=217/);
+    assert.match(html, /capability\.css\?v=218/);
     if (html.includes('class="signal-inbox')) {
       assert.match(form, /aria-label="Get Signal"><svg[^>]*>[\s\S]*?<\/svg><\/button>/, path);
       assert.doesNotMatch(form, /aria-label="Subscribe"|>Subscribe</, path);
