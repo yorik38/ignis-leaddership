@@ -70,15 +70,34 @@ test('the share card is 1200 by 630 and the supplied master is kept beside it', 
   assert.equal(master.readUInt32BE(20), 1080);
 });
 
-test('Insights and issue covers keep their own share images', () => {
-  assert.equal(tag(insights, 'property', 'og:image'), 'https://www.ignisleadership.com/assets/img/signal-3-who-powers-data-centre-v2.png');
+test('Insights landing uses the standing Signal share card, and issue covers stay on their own images', () => {
+  const insightsImage = 'https://www.ignisleadership.com/assets/img/signal-share-card-1200x630-v2.png';
+  const insightsAlt = "Signal newsletter. What's moving in energy this week, and the commercial take.";
+  assert.equal(tag(insights, 'property', 'og:image'), insightsImage);
+  assert.equal(tag(insights, 'property', 'og:image:width'), '1200');
+  assert.equal(tag(insights, 'property', 'og:image:height'), '630');
+  assert.equal(tag(insights, 'property', 'og:image:alt'), insightsAlt);
+  assert.equal(tag(insights, 'name', 'twitter:image'), insightsImage);
+  assert.equal(tag(insights, 'name', 'twitter:image:alt'), insightsAlt);
+  assert.equal(tag(insights, 'property', 'og:title'), 'Signal: weekly commercial insight for energy developers | Ignis Leadership');
+  assert.equal(tag(insights, 'property', 'og:description'), description);
   assert.equal(tag(insights, 'property', 'og:url'), 'https://www.ignisleadership.com/insights');
+  const card = require('node:fs').readFileSync(join(site, 'assets/img/signal-share-card-1200x630-v2.png'));
+  const newsletterCard = require('node:fs').readFileSync(join(site, 'assets/img/signal-share-card-1200x630.png'));
+  assert.equal(card.readUInt32BE(16), 1200);
+  assert.equal(card.readUInt32BE(20), 630);
+  assert.equal(Buffer.compare(card, newsletterCard) === 0, false);
   const issue = readFileSync(join(site, 'insights/who-powers-the-next-data-centre.html'), 'utf8');
   assert.match(tag(issue, 'property', 'og:image'), /signal-3-who-powers-data-centre-v2\.png/);
+  assert.equal(tag(issue, 'property', 'og:image:width'), '1920');
+  assert.equal(tag(issue, 'property', 'og:image:height'), '1080');
   assert.doesNotMatch(issue, /signal-share-card/);
   const body = page.slice(page.indexOf('</head>'));
   assert.match(body, /signal-3-who-powers-data-centre-v2\.png/);
   assert.doesNotMatch(body, /signal-share-card/);
+  const insightsBody = insights.slice(insights.indexOf('</head>'));
+  assert.match(insightsBody, /signal-3-who-powers-data-centre-v2\.png/);
+  assert.doesNotMatch(insightsBody, /signal-share-card/);
 });
 
 test('a signup on /newsletter is recorded as the newsletter page', () => {
