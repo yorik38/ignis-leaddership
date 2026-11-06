@@ -186,7 +186,9 @@ test("Signal articles share a narrow reading column and a separated sources list
   const issue = readFileSync(new URL("insights/who-powers-the-next-data-centre.html", root), "utf8");
   assert.equal((issue.match(new RegExp(coverAlt.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"), "g")) || []).length, 3);
   const index = readFileSync(new URL("insights.html", root), "utf8");
-  assert.equal((index.match(new RegExp(coverAlt.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"), "g")) || []).length, 3);
+  assert.equal((index.match(new RegExp(coverAlt.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"), "g")) || []).length, 1);
+  const shareAlt = "Signal newsletter. What's moving in energy this week, and the commercial take.";
+  assert.equal((index.match(new RegExp(shareAlt.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"), "g")) || []).length, 2);
 });
 
 test("article pages share one Signal rail, the footnote and the proposed author bio", () => {
