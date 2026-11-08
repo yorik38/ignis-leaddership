@@ -155,6 +155,55 @@ test("Signal Issue 3 publishes the approved data-centre article", () => {
   ]) assert.ok(existsSync(new URL(file, root)), file);
 });
 
+test("Signal Issue 4 publishes the approved AR9 article", () => {
+  const issue = readFileSync(new URL("insights/pause-before-ar9.html", root), "utf8");
+  assert.match(issue, /<title>A pause, not a stop: what has to change before AR9 \| Ignis<\/title>/);
+  assert.match(issue, /<h1>A pause, not a stop: what has to change before AR9<\/h1>/);
+  assert.match(issue, /Signal · Issue 4/);
+  assert.match(issue, /Monday 9 November 2026/);
+  assert.match(issue, /<p class="issue-standfirst">What sits behind the pause, and what a redesigned round would ask of energy developers\.<\/p>/);
+  assert.match(issue, /<p>The government has not halted renewable subsidies\. AR8 is still running\. What it has paused is the design of the next round, and the reasons tell energy developers what AR9 is likely to ask of them\.<\/p>/);
+  assert.match(issue, /signal-4-pause-before-ar9\.png/);
+  assert.doesNotMatch(issue, /visual-b-ar9-DRAFT|signal-4-pause-before-ar9-v/);
+  const alt = "Signal newsletter, Issue 4, 9 November 2026: The pause before AR9. What sits behind the pause, and what a redesigned round would ask of energy developers. Pencil drawing of wind turbines, solar panels and a pylon crossed by a teal signal line.";
+  assert.equal((issue.match(new RegExp(alt.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"), "g")) || []).length, 3);
+  assert.match(issue, /id="issue-4-sources"/);
+  assert.equal((issue.match(/<li id="source-\d+">/g) || []).length, 22);
+  assert.match(issue, /id="source-1">House of Lords Environment and Climate Change Committee, uncorrected oral evidence/);
+  assert.match(issue, /https:\/\/committees\.parliament\.uk\/oralevidence\/18243\/html\//);
+  assert.match(issue, /<p class="issue-disclaimer">Commercial commentary, not legal, regulatory or investment advice\. Always read the primary notices and your own contracts\. Sources rechecked 8 November 2026: the House of Lords transcript at <a href="https:\/\/committees\.parliament\.uk\/oralevidence\/18243\/html\/" rel="noopener">https:\/\/committees\.parliament\.uk\/oralevidence\/18243\/html\/<\/a> is still marked uncorrected; no AR9 consultation, timetable or design has been published; NESO's Notice of Auction is not out and is still due on 19 November 2026\.<\/p>/);
+  assert.doesNotMatch(issue, /PROPOSED|Not published|Sources checked 6 November 2026/);
+  assert.match(issue, /We now want to pause before AR9 and look at whether we need some more significant changes/);
+  assert.match(issue, /There's no sense building power that can't connect and then paying to switch it off\./);
+  assert.match(issue, /If AR9 had to tell you where to build, would your pipeline survive the map\?/);
+  assert.match(issue, /<p><em>Yorik<\/em><\/p>[\s\S]*<section class="issue-sources"/);
+  assert.doesNotMatch(issue, /[\u2013\u2014]|FORGE|Forge|\bIPP\b|Carlos|Dajin|book a call/i);
+  assert.match(issue, /class="signal-signup-form"[^>]*data-community-form/);
+  assert.match(issue, /You're in\. Signal arrives weekly, plus the monthly Market Monitor\./);
+  order(issue, [
+    'id="signal-inbox-title">Get Signal in your inbox.',
+    'action="/api/subscribe"',
+    'id="issue-4-sources"',
+    "</article>",
+    'id="continue-reading-title">Continue reading',
+    'href="/insights/who-powers-the-next-data-centre"',
+    'href="/reports/market-monitor-2026-10"',
+    'id="close-call-title">Got a project heading for financial close?',
+    'class="button button-teal" href="/contact">Get in touch',
+    '<footer class="site-footer">'
+  ]);
+  assert.equal((issue.match(/class="continue-card"/g) || []).length, 2);
+  const cover = readFileSync(new URL("assets/img/signal-4-pause-before-ar9.png", root));
+  assert.equal(cover.readUInt32BE(16), 1920);
+  assert.equal(cover.readUInt32BE(20), 1080);
+  const index = readFileSync(new URL("insights.html", root), "utf8");
+  const head = index.slice(0, index.indexOf("</head>"));
+  assert.equal((head.match(/signal-share-card-1200x630-v2\.png/g) || []).length, 2);
+  assert.doesNotMatch(head, /signal-4-pause-before-ar9/);
+  assert.match(index, /class="signal-hero" href="\/insights\/pause-before-ar9"/);
+  assert.match(index, /class="edition-feature" href="\/insights\/who-powers-the-next-data-centre"/);
+});
+
 test("Signal articles share a narrow reading column and a separated sources list", () => {
   const css = readFileSync(new URL("assets/signal-reading.css", root), "utf8");
   assert.match(css, /--signal-right-inset:max\(1\.5rem,calc\(\(100% - 700px\) \/ 2\)\)/);
@@ -171,6 +220,7 @@ test("Signal articles share a narrow reading column and a separated sources list
   assert.match(indexCss, /\.edition-features:has\(\.edition-feature:nth-of-type\(7\)\) \.older-editions-title/);
   assert.match(indexCss, /@media\(max-width:800px\)/);
   for (const file of [
+    "insights/pause-before-ar9.html",
     "insights/who-powers-the-next-data-centre.html",
     "insights/what-gate-2-is-really-about.html",
     "insights/ao10-france-has-put-a-price-on-proof.html",
@@ -206,6 +256,7 @@ test("article pages share one Signal rail, the footnote and the proposed author 
   assert.match(bio, /He has spent 17 years closing commercial deals on energy infrastructure, including at bp, RWE and Bouygues\./);
   assert.match(bio, /Today he helps energy developers find where agentic AI can win them more projects, and builds it with their team so they own the system\./);
   const articles = [
+    "insights/pause-before-ar9.html",
     "insights/who-powers-the-next-data-centre.html",
     "insights/what-gate-2-is-really-about.html",
     "insights/ao10-france-has-put-a-price-on-proof.html",

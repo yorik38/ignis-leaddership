@@ -95,9 +95,13 @@ test('Insights landing uses the standing Signal share card, and issue covers sta
   const body = page.slice(page.indexOf('</head>'));
   assert.match(body, /signal-3-who-powers-data-centre-v2\.png/);
   assert.doesNotMatch(body, /signal-share-card/);
+  const insightsHead = insights.slice(0, insights.indexOf('</head>'));
   const insightsBody = insights.slice(insights.indexOf('</head>'));
   assert.match(insightsBody, /signal-3-who-powers-data-centre-v2\.png/);
+  assert.match(insightsBody, /signal-4-pause-before-ar9\.png/);
+  assert.doesNotMatch(insightsHead, /signal-4-pause-before-ar9/);
   assert.doesNotMatch(insightsBody, /signal-share-card/);
+  assert.match(body, /signal-4-pause-before-ar9\.png/);
 });
 
 test('a signup on /newsletter is recorded as the newsletter page', () => {
