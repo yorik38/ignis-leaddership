@@ -43,6 +43,7 @@ Commercial and transformation leaders who want to redesign existing work or deve
 
 ## Newsletter editions
 
+- [A pause, not a stop: what has to change before AR9](https://www.ignisleadership.com/insights/pause-before-ar9): Signal Issue 4. What sits behind the pause, and what a redesigned round would ask of energy developers.
 - [Who powers the next data centre?](https://www.ignisleadership.com/insights/who-powers-the-next-data-centre): Signal Issue 3 on data centres, grid capacity and the commercial openings for energy developers.
 - [First come, first served is over. What the new grid offers mean for developers](https://www.ignisleadership.com/insights/what-gate-2-is-really-about): for years, grid connections ran on first come, first served: apply early and you kept your place in the queue, ready or not.
 - [AO10: why proof, not price, decides France's round](https://www.ignisleadership.com/insights/ao10-france-has-put-a-price-on-proof): AO10 turns the credibility of a French offshore wind bid into points, and those points translate almost one for one into euros per MWh for developers.

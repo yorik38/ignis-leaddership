@@ -63,6 +63,7 @@ test("internal working files are excluded from the Vercel deployment and public 
   assert.ok(publicFiles.includes("index.html"));
   assert.ok(publicFiles.includes("insights/what-gate-2-is-really-about.html"));
   assert.ok(publicFiles.includes("insights/who-powers-the-next-data-centre.html"));
+  assert.ok(publicFiles.includes("insights/pause-before-ar9.html"));
   assert.ok(publicFiles.includes("reports/market-monitor-2026-10.html"));
   assert.ok(publicFiles.includes("assets/downloads/ignis-market-monitor-2026-10.pdf"));
   assert.ok(publicFiles.includes("api/subscribe.js"));
