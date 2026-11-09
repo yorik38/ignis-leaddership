@@ -123,7 +123,7 @@
     },
     {
       "source": "/forge",
-      "destination": "/#services",
+      "destination": "/services",
       "permanent": true
     },
     {
@@ -133,7 +133,7 @@
     },
     {
       "source": "/how-it-works",
-      "destination": "/#services",
+      "destination": "/services",
       "permanent": true
     },
     {
@@ -253,22 +253,22 @@
     },
     {
       "source": "/consulting-excellence",
-      "destination": "/#services",
+      "destination": "/services",
       "permanent": true
     },
     {
       "source": "/executive-coaching-mid-senior-leaders",
-      "destination": "/#services",
+      "destination": "/services",
       "permanent": true
     },
     {
       "source": "/high-performance-team-coaching",
-      "destination": "/#services",
+      "destination": "/services",
       "permanent": true
     },
     {
       "source": "/leadership-accelerator",
-      "destination": "/#services",
+      "destination": "/services",
       "permanent": true
     },
     {
@@ -283,7 +283,7 @@
     },
     {
       "source": "/coaching/1-1-transformation",
-      "destination": "/#services",
+      "destination": "/services",
       "permanent": true
     },
     {
