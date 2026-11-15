@@ -61,17 +61,13 @@ test("every page ends with the homepage call, the shared signup, then the shared
     if (!html.includes('<footer class="site-footer">')) continue;
     count++;
     const isHome = file.endsWith("/index.html");
-    const callTitle = isHome
-      ? 'id="close-call-title">Where is the commercial pressure greatest?'
-      : file.endsWith("/insights.html")
-      ? 'id="close-call-title">What is changing in your commercial workflow?'
-      : 'id="close-call-title">Got a project heading for financial close?';
+    const callTitle = 'id="close-call-title">Need a trusted adviser on your next big move?';
     const call = html.indexOf(callTitle);
     const bookLabel = isHome
-      ? 'class="button button-teal" href="/contact">Get in touch'
+      ? 'class="button button-teal" href="/contact">Talk it through'
       : file.endsWith("/contact.html")
-      ? 'class="button button-teal" href="https://calendly.com/yorik-tisseau-tmff/commercial-decision-call" data-calendly-link>Get in touch'
-      : 'class="button button-teal" href="/contact">Get in touch';
+      ? 'class="button button-teal" href="https://calendly.com/yorik-tisseau-tmff/commercial-decision-call" data-calendly-link>Talk it through'
+      : 'class="button button-teal" href="/contact">Talk it through';
     const book = html.indexOf(bookLabel, call);
     const footer = html.indexOf('<footer class="site-footer">');
     assert.equal(html.split('id="close-call-title"').length - 1, 1, `CTA count: ${file}`);

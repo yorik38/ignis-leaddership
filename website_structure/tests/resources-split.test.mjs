@@ -44,7 +44,7 @@ test('Insights and Reports are distinct collections', () => {
   assert.doesNotMatch(insights.slice(inboxAt, issue2At), /See what changed|One focused analysis each week/);
   assert.match(insights, /Each week I cover renewables, the grid and data centre demand for energy developers in the UK and Europe\./);
   assert.match(insights, /Previous analysis on market shifts, project evidence and commercial decisions for energy developers\./);
-  assert.match(insights, /What is changing in your commercial workflow\?/);
+  assert.match(insights, /Need a trusted adviser on your next big move\?/);
   assert.match(insights, /where agents could help and where people must retain control\./);
   assert.doesNotMatch(insights, /Weekly UK and European energy market insight\. If you like it, sign up and get it straight into your mailbox every week\./);
   assert.match(read('assets/capability.css'), /\.signal-index\{[^}]*background:#fff\}/);

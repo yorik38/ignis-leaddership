@@ -31,8 +31,8 @@ test("Signal Issue 1 ends with continue reading, the call, then the shared signu
     'href="/insights/fastest-megawatt-already-wired"',
     'href="/insights/pause-before-ar9"',
     'href="/insights/who-powers-the-next-data-centre"',
-    'id="close-call-title">Got a project heading for financial close?',
-    'class="button button-teal" href="/contact">Get in touch',
+    'id="close-call-title">Need a trusted adviser on your next big move?',
+    'class="button button-teal" href="/contact">Talk it through',
     '<footer class="site-footer">'
   ]);
   assert.equal((issue.match(/class="continue-card"/g) || []).length, 3);
@@ -85,8 +85,8 @@ test("Signal Issue 2 publishes the approved Gate 2 article", () => {
     'href="/insights/fastest-megawatt-already-wired"',
     'href="/insights/pause-before-ar9"',
     'href="/insights/who-powers-the-next-data-centre"',
-    'id="close-call-title">Got a project heading for financial close?',
-    'class="button button-teal" href="/contact">Get in touch',
+    'id="close-call-title">Need a trusted adviser on your next big move?',
+    'class="button button-teal" href="/contact">Talk it through',
     '<footer class="site-footer">'
   ]);
   const reading = gate.slice(gate.indexOf('class="continue-reading"'), gate.indexOf('class="band band-dark close-call"'));
@@ -193,8 +193,8 @@ test("Signal Issue 4 publishes the approved AR9 article", () => {
     'href="/insights/fastest-megawatt-already-wired"',
     'href="/insights/who-powers-the-next-data-centre"',
     'href="/insights/what-gate-2-is-really-about"',
-    'id="close-call-title">Got a project heading for financial close?',
-    'class="button button-teal" href="/contact">Get in touch',
+    'id="close-call-title">Need a trusted adviser on your next big move?',
+    'class="button button-teal" href="/contact">Talk it through',
     '<footer class="site-footer">'
   ]);
   assert.equal((issue.match(/class="continue-card"/g) || []).length, 3);
@@ -239,8 +239,8 @@ test("Signal Issue 5 publishes the approved grid article", () => {
     'href="/insights/pause-before-ar9"',
     'href="/insights/who-powers-the-next-data-centre"',
     'href="/insights/what-gate-2-is-really-about"',
-    'id="close-call-title">Got a project heading for financial close?',
-    'class="button button-teal" href="/contact">Get in touch',
+    'id="close-call-title">Need a trusted adviser on your next big move?',
+    'class="button button-teal" href="/contact">Talk it through',
     '<footer class="site-footer">'
   ]);
   assert.equal((issue.match(/class="continue-card"/g) || []).length, 3);
