@@ -29,12 +29,13 @@ test("Signal Issue 1 ends with continue reading, the call, then the shared signu
     '</article>',
     'id="continue-reading-title">Continue reading',
     'href="/insights/fastest-megawatt-already-wired"',
-    'href="/insights/what-gate-2-is-really-about"',
+    'href="/insights/pause-before-ar9"',
+    'href="/insights/who-powers-the-next-data-centre"',
     'id="close-call-title">Got a project heading for financial close?',
     'class="button button-teal" href="/contact">Get in touch',
     '<footer class="site-footer">'
   ]);
-  assert.equal((issue.match(/class="continue-card"/g) || []).length, 2);
+  assert.equal((issue.match(/class="continue-card"/g) || []).length, 3);
   assert.match(issue, /I'm especially glad to start Signal with AO10\./);
   assert.doesNotMatch(issue, /issue-signal-tagline|issue-signal-description/);
   const reading = issue.slice(issue.indexOf('continue-reading'), issue.indexOf('close-call'));
@@ -43,7 +44,8 @@ test("Signal Issue 1 ends with continue reading, the call, then the shared signu
   assert.match(issue, /class="signal-signup-success"[^>]*tabindex="-1"[^>]*>[\s\S]*You're in\. Signal arrives weekly, plus the monthly Market Monitor\./);
   assert.doesNotMatch(issue, /Thanks, you're subscribed\.|Subscription confirmed/);
   assert.match(reading, /<span class="continue-card-kicker">Signal · Issue 5<\/span>/);
-  assert.match(reading, /<span class="continue-card-kicker">Signal · Issue 2<\/span>/);
+  assert.match(reading, /<span class="continue-card-kicker">Signal · Issue 4<\/span>/);
+  assert.match(reading, /<span class="continue-card-kicker">Signal · Issue 3<\/span>/);
   assert.doesNotMatch(issue, /Signal: practical notes on moving energy projects/);
   assert.doesNotMatch(issue, /class="home-newsletter"|class="issue-sidebar-form"|Coming soon/);
   assert.match(issue, /aspect-ratio|continue-card/);
@@ -81,22 +83,23 @@ test("Signal Issue 2 publishes the approved Gate 2 article", () => {
     '</article>',
     'id="continue-reading-title">Continue reading',
     'href="/insights/fastest-megawatt-already-wired"',
-    'href="/insights/ao10-france-has-put-a-price-on-proof"',
+    'href="/insights/pause-before-ar9"',
+    'href="/insights/who-powers-the-next-data-centre"',
     'id="close-call-title">Got a project heading for financial close?',
     'class="button button-teal" href="/contact">Get in touch',
     '<footer class="site-footer">'
   ]);
   const reading = gate.slice(gate.indexOf('class="continue-reading"'), gate.indexOf('class="band band-dark close-call"'));
-  assert.equal((reading.match(/class="continue-card"/g) || []).length, 2);
-  assert.match(reading, /href="\/insights\/ao10-france-has-put-a-price-on-proof"/);
-  assert.match(reading, /signal-ao10-cover\.avif\?v=2/);
-  assert.match(reading, /signal-ao10-cover\.webp\?v=2/);
-  assert.match(reading, /signal-ao10-cover\.png\?v=2" alt="Signal Issue 1 cover: AO10 bids submitted: why proof, not price, will decide France's offshore wind round, with the Channel, Brittany, South Atlantic and Mediterranean awards mapped on France\."/);
-  assert.match(reading, /<span class="continue-card-kicker">Signal · Issue 1<\/span><strong>AO10 bids submitted: why proof, not price, will decide France's offshore wind round<\/strong>/);
-  assert.match(reading, /AO10 turns the credibility of a French offshore wind bid into points, and those points translate almost one for one into euros per MWh for developers\./);
+  assert.equal((reading.match(/class="continue-card"/g) || []).length, 3);
+  assert.match(reading, /href="\/insights\/fastest-megawatt-already-wired"/);
+  assert.match(reading, /href="\/insights\/pause-before-ar9"/);
+  assert.match(reading, /href="\/insights\/who-powers-the-next-data-centre"/);
   assert.match(reading, /<span class="continue-card-kicker">Signal · Issue 5<\/span>/);
+  assert.match(reading, /<span class="continue-card-kicker">Signal · Issue 4<\/span>/);
+  assert.match(reading, /<span class="continue-card-kicker">Signal · Issue 3<\/span>/);
+  assert.doesNotMatch(reading, /href="\/insights\/what-gate-2-is-really-about"/);
   assert.doesNotMatch(reading, /bids-won-on-evidence|Bids are now won on evidence/);
-  assert.equal((gate.match(/class="continue-card"/g) || []).length, 2);
+  assert.equal((gate.match(/class="continue-card"/g) || []).length, 3);
   assert.match(gate, /class="signal-signup-form"[^>]*data-community-form/);
   assert.match(gate, /class="signal-signup-success"[^>]*tabindex="-1"[^>]*>[\s\S]*You're in\. Signal arrives weekly, plus the monthly Market Monitor\./);
   assert.doesNotMatch(gate, /Thanks, you're subscribed\.|Subscription confirmed/);
@@ -189,11 +192,12 @@ test("Signal Issue 4 publishes the approved AR9 article", () => {
     'id="continue-reading-title">Continue reading',
     'href="/insights/fastest-megawatt-already-wired"',
     'href="/insights/who-powers-the-next-data-centre"',
+    'href="/insights/what-gate-2-is-really-about"',
     'id="close-call-title">Got a project heading for financial close?',
     'class="button button-teal" href="/contact">Get in touch',
     '<footer class="site-footer">'
   ]);
-  assert.equal((issue.match(/class="continue-card"/g) || []).length, 2);
+  assert.equal((issue.match(/class="continue-card"/g) || []).length, 3);
   const cover = readFileSync(new URL("assets/img/signal-4-pause-before-ar9.png", root));
   assert.equal(cover.readUInt32BE(16), 1920);
   assert.equal(cover.readUInt32BE(20), 1080);
@@ -233,12 +237,13 @@ test("Signal Issue 5 publishes the approved grid article", () => {
     "</article>",
     'id="continue-reading-title">Continue reading',
     'href="/insights/pause-before-ar9"',
-    'href="/reports/market-monitor-2026-10"',
+    'href="/insights/who-powers-the-next-data-centre"',
+    'href="/insights/what-gate-2-is-really-about"',
     'id="close-call-title">Got a project heading for financial close?',
     'class="button button-teal" href="/contact">Get in touch',
     '<footer class="site-footer">'
   ]);
-  assert.equal((issue.match(/class="continue-card"/g) || []).length, 2);
+  assert.equal((issue.match(/class="continue-card"/g) || []).length, 3);
   const cover = readFileSync(new URL("assets/img/signal-5-cover.png", root));
   assert.equal(cover.readUInt32BE(16), 1920);
   assert.equal(cover.readUInt32BE(20), 1080);
