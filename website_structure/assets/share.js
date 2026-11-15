@@ -34,8 +34,8 @@
       var type = button.getAttribute("data-share");
       if (type === "linkedin") {
         var url = "https://www.linkedin.com/sharing/share-offsite/?url=" + encodeURIComponent(shareUrl);
-        var win = window.open(url, "_blank", "noopener,noreferrer");
-        if (!win) window.location.href = url;
+        var win = window.open(url, "_blank");
+        if (win) { try { win.opener = null; } catch (e) {} } else { window.location.href = url; }
         track("linkedin");
       } else if (type === "email") {
         window.location.href = "mailto:?subject=" + encodeURIComponent(shareTitle) + "&body=" + encodeURIComponent(shareTitle + "\n\n" + shareUrl);
