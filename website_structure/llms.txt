@@ -43,6 +43,7 @@ Commercial and transformation leaders who want to redesign existing work or deve
 
 ## Newsletter editions
 
+- [Generation, grid, demand: the fastest megawatt is the one already wired](https://www.ignisleadership.com/insights/fastest-megawatt-already-wired): Signal Issue 5. Britain has backed a rise in electricity to 35% of final energy use by 2035. The quickest way to get there is to use the wires we already have, better.
 - [A pause, not a stop: what has to change before AR9](https://www.ignisleadership.com/insights/pause-before-ar9): Signal Issue 4. What sits behind the pause, and what a redesigned round would ask of energy developers.
 - [Who powers the next data centre?](https://www.ignisleadership.com/insights/who-powers-the-next-data-centre): Signal Issue 3 on data centres, grid capacity and the commercial openings for energy developers.
 - [First come, first served is over. What the new grid offers mean for developers](https://www.ignisleadership.com/insights/what-gate-2-is-really-about): for years, grid connections ran on first come, first served: apply early and you kept your place in the queue, ready or not.

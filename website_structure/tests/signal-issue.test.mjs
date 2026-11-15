@@ -28,8 +28,8 @@ test("Signal Issue 1 ends with continue reading, the call, then the shared signu
     'class="issue-disclaimer"',
     '</article>',
     'id="continue-reading-title">Continue reading',
+    'href="/insights/fastest-megawatt-already-wired"',
     'href="/insights/what-gate-2-is-really-about"',
-    'href="/resources/route-to-market"',
     'id="close-call-title">Got a project heading for financial close?',
     'class="button button-teal" href="/contact">Get in touch',
     '<footer class="site-footer">'
@@ -42,6 +42,7 @@ test("Signal Issue 1 ends with continue reading, the call, then the shared signu
   assert.match(issue, /class="signal-signup-form"[^>]*data-community-form/);
   assert.match(issue, /class="signal-signup-success"[^>]*tabindex="-1"[^>]*>[\s\S]*You're in\. Signal arrives weekly, plus the monthly Market Monitor\./);
   assert.doesNotMatch(issue, /Thanks, you're subscribed\.|Subscription confirmed/);
+  assert.match(reading, /<span class="continue-card-kicker">Signal · Issue 5<\/span>/);
   assert.match(reading, /<span class="continue-card-kicker">Signal · Issue 2<\/span>/);
   assert.doesNotMatch(issue, /Signal: practical notes on moving energy projects/);
   assert.doesNotMatch(issue, /class="home-newsletter"|class="issue-sidebar-form"|Coming soon/);
@@ -79,8 +80,8 @@ test("Signal Issue 2 publishes the approved Gate 2 article", () => {
     'id="gate2-sources"',
     '</article>',
     'id="continue-reading-title">Continue reading',
+    'href="/insights/fastest-megawatt-already-wired"',
     'href="/insights/ao10-france-has-put-a-price-on-proof"',
-    'href="/reports/market-monitor-2026-10"',
     'id="close-call-title">Got a project heading for financial close?',
     'class="button button-teal" href="/contact">Get in touch',
     '<footer class="site-footer">'
@@ -93,7 +94,7 @@ test("Signal Issue 2 publishes the approved Gate 2 article", () => {
   assert.match(reading, /signal-ao10-cover\.png\?v=2" alt="Signal Issue 1 cover: AO10 bids submitted: why proof, not price, will decide France's offshore wind round, with the Channel, Brittany, South Atlantic and Mediterranean awards mapped on France\."/);
   assert.match(reading, /<span class="continue-card-kicker">Signal · Issue 1<\/span><strong>AO10 bids submitted: why proof, not price, will decide France's offshore wind round<\/strong>/);
   assert.match(reading, /AO10 turns the credibility of a French offshore wind bid into points, and those points translate almost one for one into euros per MWh for developers\./);
-  assert.match(reading, /<span class="continue-card-kicker">Report<\/span><strong>Ignis Market Monitor: October 2026<\/strong>/);
+  assert.match(reading, /<span class="continue-card-kicker">Signal · Issue 5<\/span>/);
   assert.doesNotMatch(reading, /bids-won-on-evidence|Bids are now won on evidence/);
   assert.equal((gate.match(/class="continue-card"/g) || []).length, 2);
   assert.match(gate, /class="signal-signup-form"[^>]*data-community-form/);
@@ -186,8 +187,8 @@ test("Signal Issue 4 publishes the approved AR9 article", () => {
     'id="issue-4-sources"',
     "</article>",
     'id="continue-reading-title">Continue reading',
+    'href="/insights/fastest-megawatt-already-wired"',
     'href="/insights/who-powers-the-next-data-centre"',
-    'href="/reports/market-monitor-2026-10"',
     'id="close-call-title">Got a project heading for financial close?',
     'class="button button-teal" href="/contact">Get in touch',
     '<footer class="site-footer">'
@@ -200,9 +201,54 @@ test("Signal Issue 4 publishes the approved AR9 article", () => {
   const head = index.slice(0, index.indexOf("</head>"));
   assert.equal((head.match(/signal-share-card-1200x630-v2\.png/g) || []).length, 2);
   assert.doesNotMatch(head, /signal-4-pause-before-ar9/);
-  assert.match(index, /class="signal-hero" href="\/insights\/pause-before-ar9"/);
+  assert.match(index, /class="signal-hero" href="\/insights\/fastest-megawatt-already-wired"/);
+  assert.match(index, /class="edition-feature" href="\/insights\/pause-before-ar9"/);
   assert.match(index, /class="edition-feature" href="\/insights\/who-powers-the-next-data-centre"/);
 });
+
+test("Signal Issue 5 publishes the approved grid article", () => {
+  const issue = readFileSync(new URL("insights/fastest-megawatt-already-wired.html", root), "utf8");
+  assert.match(issue, /<title>Generation, grid, demand: the fastest megawatt is the one already wired \| Ignis<\/title>/);
+  assert.match(issue, /<h1>Generation, grid, demand: the fastest megawatt is the one already wired<\/h1>/);
+  assert.match(issue, /Signal · Issue 5/);
+  assert.match(issue, /Monday 16 November 2026 · 6 min read/);
+  assert.match(issue, /<p class="issue-standfirst">Britain has backed a rise in electricity to 35% of final energy use by 2035\. The quickest way to get there is to use the wires we already have, better\.<\/p>/);
+  assert.match(issue, /signal-5-cover\.png/);
+  assert.match(issue, /signal-5-inline-1\.png/);
+  assert.match(issue, /signal-5-inline-2\.png/);
+  const alt = "Signal newsletter, Issue 5, 16 November 2026: The fastest megawatt is the one already wired. A pylon at night and a glowing line.";
+  assert.equal((issue.match(new RegExp(alt.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"), "g")) || []).length, 3);
+  assert.match(issue, /id="issue-5-sources"/);
+  assert.equal((issue.match(/<li id="source-\d+">/g) || []).length, 26);
+  assert.match(issue, /id="source-1">DESNZ, "Global clean electricity to cut bills and boost energy security"/);
+  assert.match(issue, /If you are working through the same question, I am happy to talk it through\./);
+  assert.match(issue, /<p><em>Yorik<\/em><\/p>[\s\S]*<section class="issue-sources"/);
+  assert.doesNotMatch(issue, /[\u2013\u2014]|FORGE|Forge|\bIPP\b|Carlos|Dajin|book a call/i);
+  assert.match(issue, /class="signal-signup-form"[^>]*data-community-form/);
+  assert.match(issue, /You're in\. Signal arrives weekly, plus the monthly Market Monitor\./);
+  order(issue, [
+    'id="signal-inbox-title">Get Signal in your inbox.',
+    'action="/api/subscribe"',
+    'id="issue-5-sources"',
+    "</article>",
+    'id="continue-reading-title">Continue reading',
+    'href="/insights/pause-before-ar9"',
+    'href="/reports/market-monitor-2026-10"',
+    'id="close-call-title">Got a project heading for financial close?',
+    'class="button button-teal" href="/contact">Get in touch',
+    '<footer class="site-footer">'
+  ]);
+  assert.equal((issue.match(/class="continue-card"/g) || []).length, 2);
+  const cover = readFileSync(new URL("assets/img/signal-5-cover.png", root));
+  assert.equal(cover.readUInt32BE(16), 1920);
+  assert.equal(cover.readUInt32BE(20), 1080);
+  const index = readFileSync(new URL("insights.html", root), "utf8");
+  const head = index.slice(0, index.indexOf("</head>"));
+  assert.doesNotMatch(head, /signal-5-cover/);
+  assert.match(index, /class="signal-hero" href="\/insights\/fastest-megawatt-already-wired"/);
+  assert.match(index, /class="edition-feature" href="\/insights\/pause-before-ar9"/);
+});
+
 
 test("Signal articles share a narrow reading column and a separated sources list", () => {
   const css = readFileSync(new URL("assets/signal-reading.css", root), "utf8");
@@ -220,6 +266,7 @@ test("Signal articles share a narrow reading column and a separated sources list
   assert.match(indexCss, /\.edition-features:has\(\.edition-feature:nth-of-type\(7\)\) \.older-editions-title/);
   assert.match(indexCss, /@media\(max-width:800px\)/);
   for (const file of [
+    "insights/fastest-megawatt-already-wired.html",
     "insights/pause-before-ar9.html",
     "insights/who-powers-the-next-data-centre.html",
     "insights/what-gate-2-is-really-about.html",
@@ -256,6 +303,7 @@ test("article pages share one Signal rail, the footnote and the proposed author 
   assert.match(bio, /He has spent 17 years closing commercial deals on energy infrastructure, including at bp, RWE and Bouygues\./);
   assert.match(bio, /Today he helps energy developers find where agentic AI can win them more projects, and builds it with their team so they own the system\./);
   const articles = [
+    "insights/fastest-megawatt-already-wired.html",
     "insights/pause-before-ar9.html",
     "insights/who-powers-the-next-data-centre.html",
     "insights/what-gate-2-is-really-about.html",
