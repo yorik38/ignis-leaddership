@@ -215,12 +215,12 @@ test("Signal Issue 5 publishes the approved grid article", () => {
   assert.match(issue, /<title>Generation, grid, demand: the fastest megawatt is the one already wired \| Ignis<\/title>/);
   assert.match(issue, /<h1>Generation, grid, demand: the fastest megawatt is the one already wired<\/h1>/);
   assert.match(issue, /Signal · Issue 5/);
-  assert.match(issue, /Monday 16 November 2026 · 6 min read/);
+  assert.match(issue, /Sunday 15 November 2026 · 6 min read/);
   assert.match(issue, /<p class="issue-standfirst">Britain has backed a rise in electricity to 35% of final energy use by 2035\. The quickest way to get there is to use the wires we already have, better\.<\/p>/);
   assert.match(issue, /signal-5-cover\.png/);
   assert.match(issue, /signal-5-inline-1\.png/);
   assert.match(issue, /signal-5-inline-2\.png/);
-  const alt = "Signal newsletter, Issue 5, 16 November 2026: The fastest megawatt is the one already wired. A pylon at night and a glowing line.";
+  const alt = "Signal newsletter, Issue 5, 15 November 2026: The fastest megawatt is the one already wired. A pylon at night and a glowing line.";
   assert.equal((issue.match(new RegExp(alt.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"), "g")) || []).length, 3);
   assert.match(issue, /id="issue-5-sources"/);
   assert.equal((issue.match(/<li id="source-\d+">/g) || []).length, 26);
