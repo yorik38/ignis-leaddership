@@ -48,7 +48,7 @@ test("the Services page states the two offers without inventing proof", () => {
   assert.match(page, /Drafting, comparing and tracking across the last mile: grid offer and consents, route to market \(CfD\/PPA\), and EPC and supply tenders\./);
   assert.match(page, /<p class="service-method-label">How<\/p>/);
   assert.match(page, /Public queues and CfD results first\. Then a 2 to 3 week sprint on one project's data room, shared securely/);
-  assert.match(page, /id="close-call-title">Got a project heading for financial close\?/);
+  assert.match(page, /Need a trusted adviser on your next big move\?/);
   assert.doesNotMatch(page, /Five steps, starting on live work|commercial-gates-comparison|class="faq-section"/);
   assert.doesNotMatch(page, /FORGE|Forge/);
   const layers = [
@@ -162,7 +162,7 @@ test("audience FAQs are answer-first and match their FAQPage data", () => {
     assert.doesNotMatch(html, /Signal: practical notes on moving energy projects/);
     assert.doesNotMatch(html, /New white papers on taking energy projects/);
   }
-  assert.match(home, /Where is the commercial pressure greatest\?/);
+  assert.match(home, /Need a trusted adviser on your next big move\?/);
   assert.match(home, /Bring one urgent problem or constrained workflow\./);
   assert.match(home, /where agents could help without removing human control\./);
   assert.match(home, /class="button button-teal" href="\/contact">Get in touch<\/a>/);
