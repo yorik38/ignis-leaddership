@@ -84,8 +84,8 @@ test("Signal signup records the dedicated Sign up action as consent and uses the
     const today = new Date();
     assert.equal(Number(fields.signal_subscribed_date), Date.UTC(today.getUTCFullYear(), today.getUTCMonth(), today.getUTCDate()));
     assert.deepEqual(requests[0].payload.legalConsentOptions.consent.communications.map(item => item.subscriptionTypeId), [3918046194]);
-    assert.equal(requests[0].payload.legalConsentOptions.consent.communications[0].text, "By signing up, you agree to receive Signal and occasional emails from Ignis Leadership. Unsubscribe at any time.");
-    assert.equal(requests[0].payload.legalConsentOptions.consent.text, "By signing up, you agree to receive Signal and occasional emails from Ignis Leadership. Unsubscribe at any time.");
+    assert.equal(requests[0].payload.legalConsentOptions.consent.communications[0].text, "By signing up, you agree to receive Signal via Substack and occasional emails from Ignis Leadership. Unsubscribe at any time.");
+    assert.equal(requests[0].payload.legalConsentOptions.consent.text, "By signing up, you agree to receive Signal via Substack and occasional emails from Ignis Leadership. Unsubscribe at any time.");
   } finally {
     global.fetch = originalFetch;
   }
@@ -131,7 +131,7 @@ test("both paper gates route by resource and never infer Signal consent", async 
     assert.equal(paperFields.enquiry_topic, undefined);
     assert.match(signalCall.url, /9ee4b5ce-211f-4be1-a8d1-69809052e8b2$/);
     assert.deepEqual(signalCall.payload.legalConsentOptions.consent.communications.map(item => item.subscriptionTypeId), [3918046194]);
-    assert.equal(signalCall.payload.legalConsentOptions.consent.communications[0].text, "By signing up, you agree to receive Signal and occasional emails from Ignis Leadership. Unsubscribe at any time.");
+    assert.equal(signalCall.payload.legalConsentOptions.consent.communications[0].text, "By signing up, you agree to receive Signal via Substack and occasional emails from Ignis Leadership. Unsubscribe at any time.");
     const signalFields = Object.fromEntries(signalCall.payload.fields.map((field) => [field.name, field.value]));
     assert.equal(signalFields.email, "test@example.com");
     assert.equal(signalFields.company, undefined);
@@ -272,7 +272,7 @@ test("paper forms and visible Signal signups are connected", () => {
     assert.match(html, /The PDF is on its way\./);
     assert.match(html, /class="signal-signup-form"[^>]*data-community-form/);
     const signup = html.match(/<p class="signal-signup-consent">[\s\S]*?<\/p>/)?.[0] ?? "";
-    assert.match(signup, /By signing up, you agree to receive Signal and occasional emails from Ignis Leadership\. Unsubscribe at any time\./);
+    assert.match(signup, /By signing up, you agree to receive Signal via Substack and occasional emails from Ignis Leadership\. Unsubscribe at any time\./);
     assert.doesNotMatch(html, /class="signal-signup-privacy"/);
   }
   for (const html of [route, procurement]) {
@@ -286,12 +286,12 @@ test("paper forms and visible Signal signups are connected", () => {
     assert.doesNotMatch(html, /name="firstname"/);
     assert.match(html, /class="signal-signup-form"[^>]*data-community-form/);
     const signup = html.match(/<p class="signal-signup-consent">[\s\S]*?<\/p>/)?.[0] ?? "";
-    assert.match(signup, /By signing up, you agree to receive Signal and occasional emails from Ignis Leadership\. Unsubscribe at any time\./);
+    assert.match(signup, /By signing up, you agree to receive Signal via Substack and occasional emails from Ignis Leadership\. Unsubscribe at any time\./);
   }
   const home = readFileSync(join(root, "index.html"), "utf8");
   assert.match(home, /class="signal-signup-form"[^>]*data-community-form/);
   const homeConsent = home.match(/<p class="signal-signup-consent">[\s\S]*?<\/p>/)?.[0] ?? "";
-  assert.match(homeConsent, /By signing up, you agree to receive Signal and occasional emails from Ignis Leadership\. Unsubscribe at any time\./);
+  assert.match(homeConsent, /By signing up, you agree to receive Signal via Substack and occasional emails from Ignis Leadership\. Unsubscribe at any time\./);
   const pages = [];
   function walk(dir) {
     for (const entry of readdirSync(dir)) {
@@ -311,7 +311,7 @@ test("paper forms and visible Signal signups are connected", () => {
     assert.match(form, /placeholder="Work email only"/, path);
     assert.match(form, /aria-label="Work email only\. Personal email addresses are not accepted\."/, path);
     assert.doesNotMatch(form, /name="signal_consent"|type="checkbox"/, path);
-    assert.match(form, /By signing up, you agree to receive Signal and occasional emails from Ignis Leadership\. Unsubscribe at any time\./, path);
+    assert.match(form, /By signing up, you agree to receive Signal via Substack and occasional emails from Ignis Leadership\. Unsubscribe at any time\./, path);
     assert.doesNotMatch(form, /name="company"(?!_)|name="enquiry_topic"|Company \(optional\)|Topic \(optional\)|signal-signup-optional/, path);
     if (articleSignal) {
       assert.match(html, /class="signal-signup-success"[^>]*tabindex="-1"[^>]*>[\s\S]*Taking you to Substack to confirm your subscription\./, path);

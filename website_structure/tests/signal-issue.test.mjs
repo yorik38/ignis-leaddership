@@ -143,7 +143,7 @@ test("Signal Issue 3 publishes the approved data-centre article", () => {
   assert.match(dataCentre, /id="signal-inbox-title">Get Signal in your inbox\.<\/h2>/);
   assert.match(dataCentre, /Taking you to Substack to confirm your subscription\./);
   assert.doesNotMatch(dataCentre, /<p>The weekly newsletter for energy developers\.<\/p>/);
-  assert.match(dataCentre, /By signing up, you agree to receive Signal and occasional emails from Ignis Leadership\. Unsubscribe at any time\./);
+  assert.match(dataCentre, /By signing up, you agree to receive Signal via Substack and occasional emails from Ignis Leadership\. Unsubscribe at any time\./);
   assert.doesNotMatch(dataCentre, /Weekly UK and European energy market insight|monthly report and occasional marketing updates/);
   for (const file of [
     "assets/img/signal-3-who-powers-data-centre.avif",
