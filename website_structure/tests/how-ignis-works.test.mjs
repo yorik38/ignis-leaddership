@@ -158,7 +158,7 @@ test("audience FAQs are answer-first and match their FAQPage data", () => {
   for (const path of htmlFiles(fileURLToPath(root))) {
     const html = readFileSync(path, "utf8");
     if (!html.includes('id="wp-signup-title"') && !html.includes('id="signal-inbox-title"')) continue;
-    assert.ok(html.includes("By signing up, you agree to receive Signal and occasional emails from Ignis Leadership. Unsubscribe at any time."), path);
+    assert.ok(html.includes("By signing up, you agree to receive Signal via Substack and occasional emails from Ignis Leadership. Unsubscribe at any time."), path);
     assert.doesNotMatch(html, /Signal: practical notes on moving energy projects/);
     assert.doesNotMatch(html, /New white papers on taking energy projects/);
   }
