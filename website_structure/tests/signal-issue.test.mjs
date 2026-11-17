@@ -41,7 +41,7 @@ test("Signal Issue 1 ends with continue reading, the call, then the shared signu
   const reading = issue.slice(issue.indexOf('continue-reading'), issue.indexOf('close-call'));
   assert.doesNotMatch(reading, /why-do-unclear-tenders|tender-clarifications/);
   assert.match(issue, /class="signal-signup-form"[^>]*data-community-form/);
-  assert.match(issue, /class="signal-signup-success"[^>]*tabindex="-1"[^>]*>[\s\S]*You're in\. Signal arrives weekly, plus the monthly Market Monitor\./);
+  assert.match(issue, /class="signal-signup-success"[^>]*tabindex="-1"[^>]*>[\s\S]*Taking you to Substack to confirm your subscription\./);
   assert.doesNotMatch(issue, /Thanks, you're subscribed\.|Subscription confirmed/);
   assert.match(reading, /<span class="continue-card-kicker">Signal · Issue 5<\/span>/);
   assert.match(reading, /<span class="continue-card-kicker">Signal · Issue 4<\/span>/);
@@ -101,7 +101,7 @@ test("Signal Issue 2 publishes the approved Gate 2 article", () => {
   assert.doesNotMatch(reading, /bids-won-on-evidence|Bids are now won on evidence/);
   assert.equal((gate.match(/class="continue-card"/g) || []).length, 3);
   assert.match(gate, /class="signal-signup-form"[^>]*data-community-form/);
-  assert.match(gate, /class="signal-signup-success"[^>]*tabindex="-1"[^>]*>[\s\S]*You're in\. Signal arrives weekly, plus the monthly Market Monitor\./);
+  assert.match(gate, /class="signal-signup-success"[^>]*tabindex="-1"[^>]*>[\s\S]*Taking you to Substack to confirm your subscription\./);
   assert.doesNotMatch(gate, /Thanks, you're subscribed\.|Subscription confirmed/);
   for (const file of [
     "assets/img/signal-gate2-cover.avif",
@@ -141,7 +141,7 @@ test("Signal Issue 3 publishes the approved data-centre article", () => {
   assert.match(dataCentre, /<p class="issue-disclaimer">Commercial commentary, not legal, regulatory or investment advice\. Project and connection terms vary\. Sources checked 30 October 2026\.<\/p>/);
   assert.match(dataCentre, /class="signal-signup-form"[^>]*data-community-form/);
   assert.match(dataCentre, /id="signal-inbox-title">Get Signal in your inbox\.<\/h2>/);
-  assert.match(dataCentre, /You're in\. Signal arrives weekly, plus the monthly Market Monitor\./);
+  assert.match(dataCentre, /Taking you to Substack to confirm your subscription\./);
   assert.doesNotMatch(dataCentre, /<p>The weekly newsletter for energy developers\.<\/p>/);
   assert.match(dataCentre, /By signing up, you agree to receive Signal and occasional emails from Ignis Leadership\. Unsubscribe at any time\./);
   assert.doesNotMatch(dataCentre, /Weekly UK and European energy market insight|monthly report and occasional marketing updates/);
@@ -183,7 +183,7 @@ test("Signal Issue 4 publishes the approved AR9 article", () => {
   assert.match(issue, /<p><em>Yorik<\/em><\/p>[\s\S]*<section class="issue-sources"/);
   assert.doesNotMatch(issue, /[\u2013\u2014]|FORGE|Forge|\bIPP\b|Carlos|Dajin|book a call/i);
   assert.match(issue, /class="signal-signup-form"[^>]*data-community-form/);
-  assert.match(issue, /You're in\. Signal arrives weekly, plus the monthly Market Monitor\./);
+  assert.match(issue, /Taking you to Substack to confirm your subscription\./);
   order(issue, [
     'id="signal-inbox-title">Get Signal in your inbox.',
     'action="/api/subscribe"',
@@ -229,7 +229,7 @@ test("Signal Issue 5 publishes the approved grid article", () => {
   assert.match(issue, /<p><em>Yorik<\/em><\/p>[\s\S]*<section class="issue-sources"/);
   assert.doesNotMatch(issue, /[\u2013\u2014]|FORGE|Forge|\bIPP\b|Carlos|Dajin|book a call/i);
   assert.match(issue, /class="signal-signup-form"[^>]*data-community-form/);
-  assert.match(issue, /You're in\. Signal arrives weekly, plus the monthly Market Monitor\./);
+  assert.match(issue, /Taking you to Substack to confirm your subscription\./);
   order(issue, [
     'id="signal-inbox-title">Get Signal in your inbox.',
     'action="/api/subscribe"',
@@ -304,7 +304,7 @@ test("article pages share one Signal rail, the footnote and the proposed author 
   assert.match(rail, /action="\/api\/subscribe"/);
   assert.match(rail, /name="content_source" value="signal-signup"/);
   assert.match(rail, /data-turnstile data-turnstile-theme="dark" data-turnstile-size="compact"/);
-  assert.match(rail, /You're in\. Signal arrives weekly, plus the monthly Market Monitor\./);
+  assert.match(rail, /Taking you to Substack to confirm your subscription\./);
   assert.match(bio, /He has spent 17 years closing commercial deals on energy infrastructure, including at bp, RWE and Bouygues\./);
   assert.match(bio, /Today he helps energy developers find where agentic AI can win them more projects, and builds it with their team so they own the system\./);
   const articles = [

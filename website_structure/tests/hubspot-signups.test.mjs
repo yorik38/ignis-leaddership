@@ -314,7 +314,7 @@ test("paper forms and visible Signal signups are connected", () => {
     assert.match(form, /By signing up, you agree to receive Signal and occasional emails from Ignis Leadership\. Unsubscribe at any time\./, path);
     assert.doesNotMatch(form, /name="company"(?!_)|name="enquiry_topic"|Company \(optional\)|Topic \(optional\)|signal-signup-optional/, path);
     if (articleSignal) {
-      assert.match(html, /class="signal-signup-success"[^>]*tabindex="-1"[^>]*>[\s\S]*You're in\. Signal arrives weekly, plus the monthly Market Monitor\./, path);
+      assert.match(html, /class="signal-signup-success"[^>]*tabindex="-1"[^>]*>[\s\S]*Taking you to Substack to confirm your subscription\./, path);
       assert.doesNotMatch(html, /Thanks, you're subscribed\.|Subscription confirmed\./, path);
     } else {
       assert.match(html, /class="signal-signup-success"[^>]*tabindex="-1"/, path);
