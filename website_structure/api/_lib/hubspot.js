@@ -285,14 +285,14 @@ function contextFor(request, body, pageName, fallbackUrl) {
 function signalConsent(text) {
   const consent = {
     consentToProcess: true,
-    text: text || "By signing up, you agree to receive Signal and occasional emails from Ignis Leadership. Unsubscribe at any time."
+    text: text || "By signing up, you agree to receive Signal via Substack and occasional emails from Ignis Leadership. Unsubscribe at any time."
   };
   const subscriptionTypeId = Number(signalSubscriptionTypeId());
   if (Number.isFinite(subscriptionTypeId)) {
     consent.communications = [{
       value: true,
       subscriptionTypeId,
-      text: "By signing up, you agree to receive Signal and occasional emails from Ignis Leadership. Unsubscribe at any time."
+      text: "By signing up, you agree to receive Signal via Substack and occasional emails from Ignis Leadership. Unsubscribe at any time."
     }];
   }
   return consent;
