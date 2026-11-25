@@ -11,7 +11,7 @@ test('Insights and Reports are distinct collections', () => {
   const insights = read('insights.html');
   assert.match(insights, /id="newsletter-editions"/);
   assert.doesNotMatch(insights, /class="signal-guides"|signal-index-header[\s\S]{0,800}href="\/resources"/);
-  assert.match(insights, /class="site-footer"[\s\S]*href="\/resources">Research</);
+  assert.match(insights, /class="site-footer"[\s\S]*href="\/insights">Insights</);
   assert.doesNotMatch(insights, /class="signal-hero" href="\/insights\/what-gate-2-is-really-about"/);
   assert.doesNotMatch(insights, /class="signal-hero" href="\/insights\/who-powers-the-next-data-centre"/);
   assert.doesNotMatch(insights, /class="signal-hero" href="\/insights\/pause-before-ar9"/);
@@ -160,32 +160,9 @@ test('Research is one hub at /resources, with filters and cards in reading order
   assert.doesNotMatch(css, /body\.resources-page \.res-card\{/);
 });
 
-test('the homepage repeats the same four research cards before the close', () => {
+test('the homepage no longer repeats the research cards', () => {
   const home = read('index.html');
-  const founder = home.indexOf('founder-overview');
-  const section = home.indexOf('class="home-research"');
-  const close = home.indexOf('class="band band-dark close-call"');
-  assert.ok(founder !== -1 && section > founder && close > section);
-  const block = home.slice(section, close);
-  assert.match(block, /<h2 id="home-research-title">Research<span class="signal-mark">\.<\/span><\/h2>/);
-  assert.match(block, /href="\/resources">See all research</);
-  assert.doesNotMatch(block, /data-res-filters|aria-pressed/);
-  const hrefs = [...block.matchAll(/<a class="res-card" href="([^"]+)" data-res-type="([^"]+)">/g)].map((card) => [card[1], card[2]]);
-  assert.deepEqual(hrefs, [
-    ['/reports/market-monitor-2026-10', 'report'],
-    ['/resources/route-to-market', 'white-paper'],
-    ['/resources/procurement', 'white-paper'],
-    ['/resources/agentic-transformation-for-energy-developers', 'guide'],
-  ]);
-  assert.equal((block.match(/>Free resource</g) || []).length, 3);
-  assert.match(block, />Free guide, sent by email</);
-  assert.equal((block.match(/class="res-card-learn">Learn more</g) || []).length, 4);
-  assert.match(block, /<time datetime="2026-10-21">21 October 2026<\/time>/);
-  assert.equal((block.match(/<time datetime="2026-11">November 2026<\/time>/g) || []).length, 2);
-  assert.doesNotMatch(block.slice(block.indexOf('data-res-follow')), /<time/);
-  assert.doesNotMatch(home.slice(section, home.indexOf('data-res-follow', section)), /agentic-transformation/);
-  assert.match(home, /resource-cards\.css\?v=11/);
-  assert.match(home, /research-cards\.js\?v=2/);
+  assert.doesNotMatch(home, /class="home-research"|research-cards\.js|resource-cards\.css/);
 });
 
 test('research paper and guide heroes use their publication covers with a readable overlay', () => {
@@ -213,23 +190,19 @@ test('research paper and guide heroes use their publication covers with a readab
   }
 });
 
-test('Resources navigation and canonical routes point to the Research hub', () => {
+test('Research stays live at /resources but leaves the navigation, and reports redirect', () => {
   const header = read('partials/site-header.html');
   const footer = read('partials/site-footer.html');
-  assert.match(header, /<a href="\/services">Solutions<\/a>/);
-  assert.doesNotMatch(header, /overlay-resource-toggle">Solutions/);
-  assert.doesNotMatch(header, /services#onshore|services#offshore|Onshore developers|Offshore wind developers/);
-  assert.match(header, /<details class="overlay-resource-group"><summary class="overlay-resource-toggle">Resources/);
-  assert.doesNotMatch(header, /overlay-nav-mark/);
-  assert.match(header, /class="overlay-resource-chevron" aria-hidden="true"/);
+  assert.doesNotMatch(header, /href="\/services"|overlay-resource-group|overlay-nav-mark/);
   for (const part of [header, footer]) {
-    assert.ok(part.includes('<a href="/insights">Insights</a><a href="/resources">Research</a>'));
-    assert.doesNotMatch(part, /href="\/(reports|white-papers|guides)"/);
+    assert.ok(part.includes('<a href="/insights">Insights</a>'));
+    assert.doesNotMatch(part, /href="\/resources"|>Research</);
+    assert.doesNotMatch(part, /href="\/(reports|white-papers|guides)|market-monitor/);
   }
   const sitemap = read('sitemap.xml');
   assert.match(sitemap, /<loc>https:\/\/www\.ignisleadership\.com\/resources<\/loc>/);
   assert.match(sitemap, /<loc>https:\/\/www\.ignisleadership\.com\/resources\/agentic-transformation-for-energy-developers<\/loc>/);
-  assert.match(sitemap, /<loc>https:\/\/www\.ignisleadership\.com\/reports\/market-monitor-2026-10<\/loc>/);
+  assert.doesNotMatch(sitemap, /market-monitor-2026-10/);
   assert.doesNotMatch(sitemap, /<loc>https:\/\/www\.ignisleadership\.com\/(reports|white-papers)<\/loc>/);
   const llms = read('llms.txt');
   assert.match(llms, /\[Research\]\(https:\/\/www\.ignisleadership\.com\/resources\)/);
@@ -248,7 +221,9 @@ test('Resources navigation and canonical routes point to the Research hub', () =
   for (const source of ['/reports.html', '/white-papers.html']) {
     assert.ok(redirects.findIndex((rule) => rule.source === source) < catchAll, `${source} must win over the .html catch-all`);
   }
-  assert.ok(!redirects.some((rule) => /^\/reports\/|^\/resources\/agentic/.test(rule.source)), 'live item URLs keep working');
+  assert.ok(!redirects.some((rule) => /^\/resources\/agentic/.test(rule.source)), 'live guide URL keeps working');
+  assert.equal(to('/reports/market-monitor-2026-10'), '/#latest');
+  assert.equal(to('/reports/market-monitor-2026-10.html'), '/#latest');
 });
 
 test('Research hub loads shared chrome after the legacy page styles', () => {

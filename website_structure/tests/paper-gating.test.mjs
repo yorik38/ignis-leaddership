@@ -327,7 +327,7 @@ test("download PDFs revalidate, and only the guide PDF is noindex", () => {
   }
   assert.equal(headers.some((rule) => rule.source === "/assets/downloads/guide-01-bids-whitepaper.pdf"), false);
   assert.equal(headers.some((rule) => rule.source === "/assets/downloads/ignis-white-paper-commercial-system-pipeline.pdf"), false);
-  assert.ok(vercel.redirects.some((rule) => rule.source === "/how-ignis-works" && rule.destination === "/services"));
+  assert.ok(vercel.redirects.some((rule) => rule.source === "/how-ignis-works" && rule.destination === "/work-with-me"));
 });
 
 test("llms.txt points at the paper pages and not their PDFs", () => {
@@ -346,7 +346,7 @@ test("llms.txt points at the paper pages and not their PDFs", () => {
   }
   assert.match(llms, /\/resources\/route-to-market\)/);
   assert.match(llms, /\/resources\/procurement\)/);
-  assert.match(llms, /\/reports\/market-monitor-2026-10\)/);
+  assert.doesNotMatch(llms, /\/reports\/market-monitor-2026-10\)/, "the Market Monitor now redirects");
   assert.match(llms, /\/resources\/agentic-transformation-for-energy-developers\)/);
   const vercel = JSON.parse(readFileSync(join(root, "vercel.json"), "utf8"));
   const redirectSources = new Set(vercel.redirects.map((rule) => rule.source));
