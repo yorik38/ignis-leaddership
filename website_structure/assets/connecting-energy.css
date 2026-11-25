@@ -1,0 +1,103 @@
+/* Connecting Energy homepage and Work with me. White pages, teal #14919B, Inter. */
+:root{--ce-teal:#14919B;--ce-teal-ink:#0B5F66;--ce-tint:#66B7BE;--ce-tint-soft:#ACD8DC;--ce-wash:#F2F9FA;--ce-ink:#0f1419;--ce-muted:#4d5866;--ce-line:rgba(15,20,25,.12)}
+.ce-page main{color:var(--ce-ink);background:#fff}
+.ce-wrap{width:min(100%,calc(1180px + var(--gutter)*2));margin:0 auto;padding-inline:var(--gutter)}
+.ce-section{padding:clamp(3.5rem,8vw,6.5rem) 0;border-top:1px solid var(--ce-line)}
+.ce-section:first-child{border-top:0}
+.ce-label{margin:0 0 .9rem;color:var(--ce-teal-ink);font-size:.8rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase}
+.ce-page .ce-wrap h1,.ce-page .ce-wrap h2,.ce-page .ce-wrap h3{font-family:var(--font-sans);color:var(--ce-ink)}
+.ce-page .ce-wrap h2{max-width:22em;margin:0;font-size:clamp(1.9rem,3.2vw,2.9rem);font-weight:600;letter-spacing:-.03em;line-height:1.1;text-wrap:balance}
+.ce-page .ce-wrap h3{margin:0 0 .5rem;font-size:1.15rem;font-weight:600;letter-spacing:-.01em}
+.ce-lead{max-width:40rem;margin:1.25rem 0 0;color:var(--ce-muted);font-size:clamp(1.05rem,1.4vw,1.22rem);line-height:1.6}
+.ce-prose p{max-width:42rem;margin:1rem 0 0;font-size:1.0625rem;line-height:1.7}
+.ce-actions{display:flex;flex-wrap:wrap;gap:.75rem;margin-top:2rem}
+.ce-button{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:.8rem 1.3rem;border:2px solid var(--ce-teal-ink);border-radius:6px;color:#fff;background:var(--ce-teal-ink);font:600 1rem/1.2 var(--font-sans);text-decoration:none;cursor:pointer}
+.ce-button:hover{background:#084a50;border-color:#084a50}
+.ce-button-ghost{color:var(--ce-teal-ink);background:#fff}
+.ce-button-ghost:hover{color:#fff}
+.ce-button:focus-visible,.ce-post-link:focus-visible,.ce-guest-form :focus-visible{outline:3px solid var(--ce-teal);outline-offset:3px}
+.ce-page .close-call .button+.button{margin-left:.75rem}
+.ce-text-link{color:var(--ce-teal-ink);font-weight:600;text-underline-offset:3px}
+
+/* Hero */
+.ce-hero{padding:calc(96px + clamp(2.5rem,6vw,5rem)) 0 clamp(3rem,7vw,5.5rem);background:#fff}
+.ce-hero-grid{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,.75fr);gap:clamp(2rem,6vw,5rem);align-items:center}
+.ce-hero-logo{width:min(100%,300px);height:auto;margin:0 0 2rem}
+.ce-hero h1{max-width:14em;margin:0;font-size:clamp(2.5rem,5vw,4.4rem);font-weight:600;letter-spacing:-.04em;line-height:1.03;text-wrap:balance}
+.ce-hero h1 span{color:var(--ce-teal)}
+.ce-hero-cover{width:100%;max-width:420px;height:auto;justify-self:end;border-radius:10px;box-shadow:0 20px 50px rgba(15,20,25,.12)}
+.ce-strip{display:flex;flex-wrap:wrap;gap:.5rem 1.5rem;margin:2rem 0 0;padding:0;list-style:none;color:var(--ce-muted);font-size:.95rem}
+.ce-strip li::before{content:"";display:inline-block;width:.5rem;height:.5rem;margin-right:.5rem;border-radius:50%;background:var(--ce-teal);vertical-align:.1em}
+
+/* Podcast */
+.ce-split{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(2rem,6vw,5rem);align-items:start}
+.ce-covers{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem;margin:0;padding:0;list-style:none}
+.ce-covers li{padding:1.25rem;border:1px solid var(--ce-line);border-top:4px solid var(--ce-teal);border-radius:8px;background:#fff}
+.ce-covers p{margin:0;color:var(--ce-muted);font-size:.98rem;line-height:1.55}
+.ce-format{margin-top:1.5rem;padding:1rem 1.25rem;border-radius:8px;background:var(--ce-wash);color:var(--ce-ink);font-size:.98rem}
+
+/* Episodes */
+.ce-episodes{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1rem;margin:2rem 0 0;padding:0;list-style:none}
+.ce-episode-slot{display:grid;align-content:center;min-height:150px;padding:1.25rem;border:2px dashed var(--ce-tint-soft);border-radius:8px;color:var(--ce-muted);background:#fff}
+.ce-episode-slot strong{display:block;color:var(--ce-teal-ink);font-size:.8rem;letter-spacing:.12em;text-transform:uppercase}
+.ce-listen{display:flex;flex-wrap:wrap;gap:.6rem;margin:2rem 0 0;padding:0;list-style:none}
+.ce-listen li{display:inline-flex;align-items:center;gap:.5rem;padding:.6rem .95rem;border:1px solid var(--ce-line);border-radius:999px;color:var(--ce-muted);font-size:.95rem}
+.ce-listen li span{color:var(--ce-teal-ink);font-size:.75rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase}
+
+/* Guest form */
+.ce-guest{background:var(--ce-wash)}
+.ce-guest-list{margin:1.25rem 0 0;padding-left:1.1rem;color:var(--ce-muted)}
+.ce-guest-list li{margin:.35rem 0}
+.ce-guest-form{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem 1.1rem;padding:clamp(1.25rem,3vw,2rem);border:1px solid var(--ce-line);border-radius:10px;background:#fff}
+.ce-field{display:grid;gap:.4rem}
+.ce-field-wide{grid-column:1/-1}
+.ce-field label{font-size:.92rem;font-weight:600}
+.ce-field label small{color:var(--ce-muted);font-weight:400}
+.ce-field input,.ce-field textarea{width:100%;min-height:46px;padding:.7rem .8rem;border:1px solid #b8c1cc;border-radius:6px;color:var(--ce-ink);background:#fff;font:400 1rem/1.4 var(--font-sans)}
+.ce-field textarea{min-height:130px;resize:vertical}
+.ce-field input:focus,.ce-field textarea:focus{border-color:var(--ce-teal);outline:2px solid var(--ce-tint-soft)}
+.ce-form-foot{grid-column:1/-1;display:grid;gap:.75rem}
+.ce-form-foot .ce-button{justify-self:start}
+.ce-consent{margin:0;color:var(--ce-muted);font-size:.88rem}
+.ce-form-status{margin:0;padding:.85rem 1rem;border-radius:6px;background:var(--ce-wash);color:var(--ce-teal-ink);font-weight:600}
+.ce-form-error{margin:0;color:#a32020;font-size:.95rem}
+.ce-form-error a{color:inherit;font-weight:600}
+.ce-guest-form .form-honeypot{position:absolute;left:-10000px;width:1px;height:1px;overflow:hidden}
+
+/* Latest posts */
+.ce-head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:end;gap:1rem}
+.ce-posts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1.25rem;margin:2rem 0 0;padding:0;list-style:none}
+.ce-post-link{display:flex;flex-direction:column;height:100%;overflow:hidden;border:1px solid var(--ce-line);border-radius:10px;color:inherit;background:#fff;text-decoration:none;transition:border-color .2s,box-shadow .2s}
+.ce-post-link:hover{border-color:var(--ce-tint);box-shadow:0 12px 30px rgba(15,20,25,.08)}
+.ce-post-image{width:100%;height:auto;aspect-ratio:16/9;object-fit:cover;background:var(--ce-wash)}
+.ce-post-body{display:flex;flex-direction:column;gap:.5rem;padding:1.15rem 1.2rem 1.3rem;flex:1}
+.ce-post-date{color:var(--ce-muted);font-size:.85rem}
+.ce-post-title{font-size:1.12rem;font-weight:600;line-height:1.3;letter-spacing:-.01em}
+.ce-post-summary{color:var(--ce-muted);font-size:.95rem;line-height:1.5}
+.ce-post-more{margin-top:auto;padding-top:.5rem;color:var(--ce-teal-ink);font-size:.92rem;font-weight:600}
+
+/* About */
+.ce-about{display:grid;grid-template-columns:minmax(0,240px) minmax(0,1fr);gap:clamp(1.5rem,5vw,4rem);align-items:start}
+.ce-about img{width:100%;max-width:240px;height:auto;border-radius:10px}
+
+/* Work with me */
+.ce-wwm-hero{padding:calc(96px + clamp(2.5rem,6vw,5rem)) 0 clamp(2.5rem,6vw,4.5rem)}
+.ce-wwm-hero h1{max-width:16em;margin:0;font-size:clamp(2.4rem,4.6vw,4rem);font-weight:600;letter-spacing:-.04em;line-height:1.05}
+.ce-areas{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem;margin:2rem 0 0;padding:0;list-style:none}
+.ce-areas li{padding:1.4rem;border:1px solid var(--ce-line);border-left:4px solid var(--ce-teal);border-radius:8px}
+.ce-areas li:last-child{grid-column:1/-1;background:var(--ce-wash)}
+.ce-areas p{margin:0;color:var(--ce-muted);line-height:1.6}
+.ce-cta{padding:clamp(2rem,5vw,3rem);border-radius:12px;background:var(--ce-wash);text-align:left}
+
+@media (max-width:900px){
+  .ce-hero-grid,.ce-split,.ce-about{grid-template-columns:1fr}
+  .ce-hero-cover{justify-self:start;max-width:320px}
+  .ce-posts,.ce-episodes{grid-template-columns:1fr}
+  .ce-about img{max-width:180px}
+}
+@media (max-width:640px){
+  .ce-covers,.ce-areas,.ce-guest-form{grid-template-columns:1fr}
+  .ce-areas li:last-child{grid-column:auto}
+  .ce-actions .ce-button{width:100%}
+}
+@media (prefers-reduced-motion:reduce){.ce-post-link{transition:none}}
