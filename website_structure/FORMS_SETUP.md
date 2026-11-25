@@ -139,3 +139,25 @@ Files under `/assets/downloads/*.pdf` send `Cache-Control: public, max-age=0, mu
 ## A later Market Monitor edition
 
 Copy the October report page, including both "Get the PDF" links. On the dialog, change `data-paper` to the new slug and leave the rest of the pop-up markup as it is. Do not put the PDF path in the page. Add that slug to `papers()` with `gated: true`, `presentation: "popup"`, its PDF path and its form id. Add the slug to the HubSpot `content_source` property before relying on it. The October PDF path and report copy stay as they are.
+
+## Connecting Energy podcast: Be a guest (`/api/guest`)
+
+The homepage form (`#guest`) posts name, email, organisation, role, topic idea and an optional LinkedIn URL to `/api/guest`. The handler runs the same bot checks as the other forms (honeypot, three-second fill time, rate limit, optional Turnstile), adds the `hubspotutk` cookie to the context, and submits to the HubSpot Forms API v3.
+
+It needs its own HubSpot form, because the contact embed `3c83d1fd-334f-4bf6-9068-47e7f2044ad8` has CAPTCHA on and the public Forms API cannot post to it.
+
+Set up in HubSpot (portal `149324702`):
+
+1. Create a form named "Connecting Energy podcast: be a guest", region eu1. CAPTCHA off.
+2. Add these existing contact properties: `email`, `firstname`, `lastname`, `company`, `jobtitle`, `hs_linkedin_url`, `message`. Optionally add `content_source`.
+3. Optional: add the option `podcast-guest` (label "Podcast guest application") to the `content_source` property, then set `HUBSPOT_EXTRA_CONTENT_SOURCES=podcast-guest` in Vercel. Until then the site does not send `content_source` for guests.
+4. Turn on a notification email to Yorik for each submission, and keep GDPR "consent to process" on. The site sends the consent text: "I agree to Ignis Leadership storing these details so Yorik can reply about the Connecting Energy podcast."
+5. Set `HUBSPOT_PODCAST_GUEST_FORM_ID` to the new form GUID in Vercel, for Preview and Production.
+
+Until `HUBSPOT_PODCAST_GUEST_FORM_ID` is set, `/api/guest` returns 503 `not_configured` and stores nothing. The page then offers a pre-filled email to yorik@ignisleadership.com with the visitor's answers, so no application is lost.
+
+Every answer is also written into `message` ("Connecting Energy podcast: guest application", organisation, role, LinkedIn, topic), so nothing is lost if HubSpot strips a field the form does not have.
+
+## Connecting Energy articles (`/api/substack-feed`)
+
+The homepage shows the three latest long reads from `https://connectingenergy.substack.com/feed`. The endpoint keeps posts of 1,000 words or more, drops LinkedIn cross-posts (`/p/urnliactivity…`), and returns title, date, summary, link and a resized Substack image. It is cached at the edge for an hour (`s-maxage=3600`, `stale-while-revalidate=86400`). If the feed fails, the cards baked into the page at build time stay in place. No environment variable is needed.

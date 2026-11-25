@@ -1,28 +1,21 @@
-# Ignis Leadership
+# Connecting Energy, by Yorik Tisseau
 
-> Ignis Leadership helps commercial leaders adopt governed AI and develop the services, offers and delivery models it makes viable.
+> Connecting Energy is a free podcast and Substack by Yorik Tisseau about how the energy system fits together: generation, grid, demand and the people who build it. Yorik also advises energy developers on their commercial function through Ignis Leadership.
 
-Ignis Leadership is the practice of Yorik Tisseau. He brings 17 years of experience across procurement, bid management and commercial leadership in energy, infrastructure and industrial markets, including senior roles at Bouygues, bp and RWE.
+Yorik Tisseau has worked in renewables since 2013, at bp, RWE and Bouygues, on projects from early-stage development to financial close. He started as a plumber and boiler engineer and went on to lead offshore wind bids. Connecting Energy is his independent view of the energy transition across generation, grid and demand.
 
-The central argument of the practice: AI should strengthen commercial judgement, not replace it. Ignis combines the organisation's process, evidence and capability with agents that prepare and coordinate work, while named people retain authority to direct, challenge, decide and approve.
+## Connecting Energy
 
-## Who it is for
+- [Home](https://www.ignisleadership.com/): what the Connecting Energy podcast is, the first episodes (coming soon), how to be a guest, and the latest long reads from the Substack.
+- [Be a guest](https://www.ignisleadership.com/#guest): put yourself or a topic forward for the podcast.
+- [Connecting Energy on Substack](https://connectingenergy.substack.com): the long-form articles. The site links to them and does not copy them.
 
-Commercial and transformation leaders who want to redesign existing work or develop new customer value through governed human-agent systems.
+## Advisory
 
-## Services
-
-- How Ignis works: a governed, client-owned system that improves commercial flow from last-mile development to financial close for onshore developers and offshore wind.
-- Engagement approach: map the operating reality, define the strategy and roadmap, then design or support the build of the first governed system.
-
-## Core pages
-
-- [Home](https://www.ignisleadership.com/): Ignis positioning, approach, experience, services, illustrative outcomes and engagement model.
-- [About Yorik](https://www.ignisleadership.com/about): Yorik Tisseau's experience and approach to commercial leadership, executive coaching and adoption.
-- [How Ignis works](https://www.ignisleadership.com/services): how Ignis improves commercial flow from last-mile development to financial close for onshore developers and offshore wind.
-- [Insights](https://www.ignisleadership.com/insights): Signal: weekly intelligence on the commercial decisions that get energy projects built.
-- [Archive](https://www.ignisleadership.com/insights): index of past newsletter editions.
-- [Contact](https://www.ignisleadership.com/contact): start a conversation with Ignis Leadership.
+- [Work with me](https://www.ignisleadership.com/work-with-me): how Yorik helps energy developers with market intelligence, early-stage development and bids, route to market and procurement, and how agentic AI changes the commercial workflow.
+- [About Yorik](https://www.ignisleadership.com/about): background and experience.
+- [Contact](https://www.ignisleadership.com/contact): get in touch.
+- [Insights](https://www.ignisleadership.com/insights): earlier Signal editions and articles.
 - [Governed agentic system brochure](https://www.ignisleadership.com/assets/downloads/ignis-governed-agentic-system-brochure.pdf): a free, ungated overview of how people, agents, knowledge and controls work together across bids and tenders.
 
 
@@ -32,7 +25,6 @@ Commercial and transformation leaders who want to redesign existing work or deve
 - [Agentic Transformation for Energy Developers](https://www.ignisleadership.com/resources/agentic-transformation-for-energy-developers): a practical guide to introducing agents at onshore and offshore developers in the UK and Europe, from early stage development to financial close. Free PDF with an email.
 - [Route to Market for Energy Developers](https://www.ignisleadership.com/resources/route-to-market): CfD rounds, merchant, corporate PPAs and private wire, for onshore and offshore projects in the UK and Europe. Rounds are crowded. Winners pick their route early and arrive with the case built.
 - [Procurement for Energy Developers](https://www.ignisleadership.com/resources/procurement): How developers fast-track supplier choice, contracts and the lender pack, onshore and offshore, with the team they have.
-- [Ignis Market Monitor: October 2026](https://www.ignisleadership.com/reports/market-monitor-2026-10): What moved in power, offshore wind and onshore renewables this month, and what is due next.
 
 ## Practical insights
 
