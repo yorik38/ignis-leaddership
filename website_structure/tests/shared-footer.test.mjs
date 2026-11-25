@@ -16,23 +16,20 @@ function htmlFiles(dir) {
   });
 }
 
-test("the shared footer is a concise, expandable sitemap with only available resources", () => {
+test("the shared footer is a concise sitemap led by Connecting Energy", () => {
   assert.match(footer, /class="footer-brand"[^>]*><img src="\/assets\/img\/favicon-dark-128\.png"/);
-  assert.match(footer, /Commercial AI for energy projects, from last-mile development to financial close\./);
-  assert.deepEqual([...footer.matchAll(/<h2>(?:<a [^>]*>)?([^<]+)/g)].map(match => match[1]), ["About", "Solutions", "Resources", "Get in touch"]);
-  for (const path of ["/about", "/services#onshore", "/services#offshore", "/insights", "/resources", "/contact", "/privacy", "/terms"]) {
+  assert.match(footer, /Connecting Energy is a podcast and Substack by Yorik Tisseau\. Advisory work runs through Ignis Leadership\./);
+  assert.deepEqual([...footer.matchAll(/<h2>(?:<a [^>]*>)?([^<]+)/g)].map(match => match[1]), ["Connecting Energy", "Work with me", "About", "Get in touch"]);
+  for (const path of ["/#podcast", "/#guest", "/#latest", "/insights", "/work-with-me", "/about", "/contact", "/privacy", "/terms"]) {
     assert.ok(footer.includes(`href="${path}"`), `Missing footer route: ${path}`);
   }
   const sitemap = footer.match(/<nav class="footer-sitemap"[\s\S]*?<\/nav>/)?.[0] ?? "";
-  assert.match(sitemap, /<h2>Solutions<\/h2><a href="\/services#offshore">Offshore wind<\/a><a href="\/services#onshore">Onshore renewables<\/a>/);
-  assert.doesNotMatch(sitemap, /Onshore developers|Offshore wind developers|>Services</);
-  assert.doesNotMatch(sitemap, /commercial-ai-adoption|commercial-transformation|\/privacy|\/terms|\/insights\//);
+  assert.doesNotMatch(sitemap, /\/services|>Solutions<|>Research<|\/resources|\/privacy|\/terms|\/insights\//);
   const bottom = footer.match(/<div class="wrap footer-bottom">[\s\S]*$/)?.[0] ?? "";
   assert.match(bottom, /href="\/privacy"/);
   assert.match(bottom, /href="\/terms"/);
   assert.doesNotMatch(footer, /href="\/blog"/);
-  assert.match(footer, /href="\/resources">Research</);
-  assert.doesNotMatch(footer, /href="\/(reports|white-papers)"/);
+  assert.doesNotMatch(footer, /href="\/(reports|white-papers)|market-monitor/);
   assert.match(chrome, /\.brand-accent \{ color: var\(--chrome-teal\); \}/);
   assert.match(chrome, /\.footer-brand \.brand-accent \{ color: var\(--chrome-teal\); \}/);
 });
@@ -65,6 +62,8 @@ test("every page ends with the homepage call, the shared signup, then the shared
     const call = html.indexOf(callTitle);
     const bookLabel = isHome
       ? 'class="button button-teal" href="/contact">Talk it through'
+      : file.endsWith("/work-with-me.html")
+      ? 'class="button button-teal" href="/contact">Get in touch'
       : file.endsWith("/contact.html")
       ? 'class="button button-teal" href="https://calendly.com/yorik-tisseau-tmff/commercial-decision-call" data-calendly-link>Talk it through'
       : 'class="button button-teal" href="/contact">Talk it through';

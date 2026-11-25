@@ -18,31 +18,109 @@
     "api/form-config.js": {
       "memory": 128,
       "maxDuration": 10
+    },
+    "api/guest.js": {
+      "memory": 128,
+      "maxDuration": 10
+    },
+    "api/substack-feed.js": {
+      "memory": 128,
+      "maxDuration": 10
     }
   },
   "redirects": [
     {
       "source": "/ai-score",
-      "destination": "/services",
+      "destination": "/work-with-me",
       "permanent": true
     },
     {
       "source": "/ai-score.html",
-      "destination": "/services",
+      "destination": "/work-with-me",
       "permanent": true
     },
     {
       "source": "/ai-roulette",
-      "destination": "/services",
+      "destination": "/work-with-me",
       "permanent": true
     },
     {
       "source": "/ai-roulette.html",
-      "destination": "/services",
+      "destination": "/work-with-me",
       "permanent": true
     },
     {
       "source": "/index.html",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/services",
+      "destination": "/work-with-me",
+      "permanent": true
+    },
+    {
+      "source": "/services.html",
+      "destination": "/work-with-me",
+      "permanent": true
+    },
+    {
+      "source": "/bid",
+      "destination": "/work-with-me",
+      "permanent": true
+    },
+    {
+      "source": "/bid.html",
+      "destination": "/work-with-me",
+      "permanent": true
+    },
+    {
+      "source": "/tender",
+      "destination": "/work-with-me",
+      "permanent": true
+    },
+    {
+      "source": "/tender.html",
+      "destination": "/work-with-me",
+      "permanent": true
+    },
+    {
+      "source": "/case-study",
+      "destination": "/work-with-me",
+      "permanent": true
+    },
+    {
+      "source": "/case-study.html",
+      "destination": "/work-with-me",
+      "permanent": true
+    },
+    {
+      "source": "/reports/market-monitor-2026-10",
+      "destination": "/#latest",
+      "permanent": true
+    },
+    {
+      "source": "/reports/market-monitor-2026-10.html",
+      "destination": "/#latest",
+      "permanent": true
+    },
+    {
+      "source": "/courses",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/courses/:path*",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/outcomes",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/outcomes/:path*",
       "destination": "/",
       "permanent": true
     },
@@ -118,27 +196,27 @@
     },
     {
       "source": "/win-or-buy",
-      "destination": "/#capabilities",
+      "destination": "/work-with-me",
       "permanent": true
     },
     {
       "source": "/forge",
-      "destination": "/services",
+      "destination": "/work-with-me",
       "permanent": true
     },
     {
       "source": "/forge-pilot-example",
-      "destination": "/case-study",
+      "destination": "/work-with-me",
       "permanent": true
     },
     {
       "source": "/how-it-works",
-      "destination": "/services",
+      "destination": "/work-with-me",
       "permanent": true
     },
     {
       "source": "/brochure",
-      "destination": "/#brochure",
+      "destination": "/work-with-me",
       "permanent": true
     },
     {
@@ -153,12 +231,12 @@
     },
     {
       "source": "/discovery",
-      "destination": "/services",
+      "destination": "/work-with-me",
       "permanent": true
     },
     {
       "source": "/commercial-ai-readiness",
-      "destination": "/services",
+      "destination": "/work-with-me",
       "permanent": true
     },
     {
@@ -168,22 +246,22 @@
     },
     {
       "source": "/commercial-ai-adoption",
-      "destination": "/services",
+      "destination": "/work-with-me",
       "permanent": true
     },
     {
       "source": "/commercial-ai-adoption/:path*",
-      "destination": "/services",
+      "destination": "/work-with-me",
       "permanent": true
     },
     {
       "source": "/commercial-transformation",
-      "destination": "/services",
+      "destination": "/work-with-me",
       "permanent": true
     },
     {
       "source": "/commercial-transformation/:path*",
-      "destination": "/services",
+      "destination": "/work-with-me",
       "permanent": true
     },
     {
@@ -248,27 +326,27 @@
     },
     {
       "source": "/how-ignis-works",
-      "destination": "/services",
+      "destination": "/work-with-me",
       "permanent": true
     },
     {
       "source": "/consulting-excellence",
-      "destination": "/services",
+      "destination": "/work-with-me",
       "permanent": true
     },
     {
       "source": "/executive-coaching-mid-senior-leaders",
-      "destination": "/services",
+      "destination": "/work-with-me",
       "permanent": true
     },
     {
       "source": "/high-performance-team-coaching",
-      "destination": "/services",
+      "destination": "/work-with-me",
       "permanent": true
     },
     {
       "source": "/leadership-accelerator",
-      "destination": "/services",
+      "destination": "/work-with-me",
       "permanent": true
     },
     {
@@ -283,7 +361,7 @@
     },
     {
       "source": "/coaching/1-1-transformation",
-      "destination": "/services",
+      "destination": "/work-with-me",
       "permanent": true
     },
     {
