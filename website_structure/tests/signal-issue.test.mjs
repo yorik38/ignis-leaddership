@@ -205,9 +205,9 @@ test("Signal Issue 4 publishes the approved AR9 article", () => {
   const head = index.slice(0, index.indexOf("</head>"));
   assert.equal((head.match(/signal-share-card-1200x630-v2\.png/g) || []).length, 2);
   assert.doesNotMatch(head, /signal-4-pause-before-ar9/);
-  assert.match(index, /class="signal-hero" href="\/insights\/fastest-megawatt-already-wired"/);
-  assert.match(index, /class="edition-feature" href="\/insights\/pause-before-ar9"/);
-  assert.match(index, /class="edition-feature" href="\/insights\/who-powers-the-next-data-centre"/);
+  assert.match(index, /href="\/insights\/fastest-megawatt-already-wired"/);
+  assert.match(index, /href="\/insights\/pause-before-ar9"/);
+  assert.match(index, /href="\/insights\/who-powers-the-next-data-centre"/);
 });
 
 test("Signal Issue 5 publishes the approved grid article", () => {
@@ -250,8 +250,8 @@ test("Signal Issue 5 publishes the approved grid article", () => {
   const index = readFileSync(new URL("insights.html", root), "utf8");
   const head = index.slice(0, index.indexOf("</head>"));
   assert.doesNotMatch(head, /signal-5-cover/);
-  assert.match(index, /class="signal-hero" href="\/insights\/fastest-megawatt-already-wired"/);
-  assert.match(index, /class="edition-feature" href="\/insights\/pause-before-ar9"/);
+  assert.match(index, /href="\/insights\/fastest-megawatt-already-wired"/);
+  assert.match(index, /href="\/insights\/pause-before-ar9"/);
 });
 
 
@@ -288,8 +288,8 @@ test("Signal articles share a narrow reading column and a separated sources list
   const issue = readFileSync(new URL("insights/who-powers-the-next-data-centre.html", root), "utf8");
   assert.equal((issue.match(new RegExp(coverAlt.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"), "g")) || []).length, 3);
   const index = readFileSync(new URL("insights.html", root), "utf8");
-  assert.equal((index.match(new RegExp(coverAlt.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"), "g")) || []).length, 1);
-  const shareAlt = "Signal newsletter. What's moving in energy this week, and the commercial take.";
+  assert.match(index, /signal-3-who-powers-data-centre-v2\.webp/);
+  const shareAlt = "Signal from Connecting Energy";
   assert.equal((index.match(new RegExp(shareAlt.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"), "g")) || []).length, 2);
 });
 

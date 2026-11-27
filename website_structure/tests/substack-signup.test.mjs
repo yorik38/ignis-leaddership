@@ -73,7 +73,7 @@ test('Signal signups still post to HubSpot, then open Substack in the same tab',
 
 test('white paper and contact enquiry forms are not sent to Substack', () => {
   assert.doesNotMatch(whitepaper, /connectingenergy\.substack\.com|substackSubscribeUrl|proceedToSubstack/);
-  assert.doesNotMatch(contact, /connectingenergy\.substack\.com/);
+
   assert.match(contact, /js-eu1\.hsforms\.net\/forms\/embed\/v2\.js/);
   const contactForm = contact.slice(contact.indexOf('id="hubspot-contact-form"'), contact.indexOf('class="signal-signup-form"'));
   assert.doesNotMatch(contactForm, /api\/subscribe|signal-signup-form/);

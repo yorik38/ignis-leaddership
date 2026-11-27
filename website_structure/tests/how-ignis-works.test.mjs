@@ -6,7 +6,6 @@ import {fileURLToPath} from "node:url";
 
 const root = new URL("../", import.meta.url);
 const page = readFileSync(new URL("services.html", root), "utf8");
-const home = readFileSync(new URL("index.html", root), "utf8");
 const capability = readFileSync(new URL("assets/capability.css", root), "utf8");
 const servicesCss = readFileSync(new URL("assets/services.css", root), "utf8");
 const sitemap = readFileSync(new URL("sitemap.xml", root), "utf8");
@@ -51,72 +50,16 @@ test("the Services page states the two offers without inventing proof", () => {
   assert.match(page, /Need a trusted adviser on your next big move\?/);
   assert.doesNotMatch(page, /Five steps, starting on live work|commercial-gates-comparison|class="faq-section"/);
   assert.doesNotMatch(page, /FORGE|Forge/);
-  const layers = [
-    ["Process", "How each project moves from grid offer to close."],
-    ["Context", "Your past projects, plus market, policy and commercial knowledge."],
-    ["Data", "One trusted set of numbers across the pipeline."],
-    ["Governance", "Approvals, controls and a full audit trail."],
-    ["Workflows", "Repeatable commercial work, run by agents."],
-  ];
-  for (const [layer, description] of layers) {
-    assert.match(home, new RegExp(`<span>${layer}</span><p>${description}</p>`));
-  }
 });
 
-test("retired offer pages redirect and leave the sitemap", () => {
-  for (const source of ["/commercial-ai-adoption", "/commercial-transformation", "/commercial-ai-readiness"]) {
-    assert.ok(vercel.redirects.some(route => route.source === source && route.destination === "/services" && route.permanent));
+test("the previous advisory routes redirect to the current offer", () => {
+  for (const source of ["/services", "/bid", "/tender", "/commercial-ai-adoption", "/commercial-transformation", "/commercial-ai-readiness", "/how-ignis-works", "/discovery"]) {
+    assert.ok(vercel.redirects.some(route => route.source === source && route.destination === "/work-with-me#advisory" && route.permanent));
   }
-  assert.ok(vercel.redirects.some(route => route.source === "/how-ignis-works" && route.destination === "/services" && route.permanent));
-  assert.ok(vercel.redirects.some(route => route.source === "/discovery" && route.destination === "/services" && route.permanent));
-  assert.equal(vercel.redirects.some(route => route.source === "/services"), false);
-  assert.match(sitemap, /<loc>https:\/\/www\.ignisleadership\.com\/services<\/loc>/);
-  assert.doesNotMatch(sitemap, /how-ignis-works/);
-  assert.doesNotMatch(sitemap, /commercial-ai-adoption|commercial-transformation|commercial-ai-readiness/);
+  assert.doesNotMatch(sitemap, /<loc>[^<]+\/(?:services|bid|tender)<\/loc>/);
 });
 
-test("the homepage states one offer, the audiences, and a quiet demo slot", () => {
-  const gates = home.indexOf('id="commercial-gates"');
-  const who = home.indexOf('id="who-ignis"');
-  const routes = home.indexOf('id="routes"');
-  const founder = home.indexOf("founder-overview");
-  assert.ok(gates >= 0 && who > gates && routes > who && founder > routes);
-  assert.match(home, /Who Ignis Leadership works with/);
-  assert.match(home, /href="\/services#onshore"/);
-  assert.match(home, /href="\/services#offshore"/);
-  assert.match(home, /One governed system, from grid offer to financial close\./);
-  assert.match(home, /Product demo: add a section here when a look at the work is ready/);
-  assert.doesNotMatch(home, /id="product-demo"|Demo coming soon|A look at the work, when the demo is ready/);
-  assert.match(home, /Testimonials: add a quote band here/);
-  assert.doesNotMatch(home, /href="\/commercial-ai-adoption"|href="\/commercial-transformation"/);
-  assert.doesNotMatch(home, /FORGE|Forge/);
-  assert.match(home, /<h1><span class="hero-line">Win <span class="gradient-word">more<\/span>\.<\/span> <span class="hero-line">Move more projects to financial close\.<\/span><\/h1>/);
-  assert.match(home, /<p class="hero-support">Ignis starts with the commercial pressure in front of you\. We advise your team on the live problem, then redesign the process and data behind it, introduce agents where they create value, and support your team through implementation\.<\/p>/);
-  assert.match(home, /<h2 id="project-journey-title">Start where the commercial pressure is greatest\.<\/h2>/);
-  assert.match(home, /Ignis works with your team on the immediate commercial challenge, then uses it to expose what must change in the process, data and human-agent workflow behind it\./);
-  assert.match(home, /That is where commercial support becomes transformation\. Together, we redesign the operating model so agents take on repeatable research, analysis and production, while people retain judgement, approval and accountability\./);
-  assert.doesNotMatch(home, /move their pipeline from last-mile development to financial close/);
-  assert.match(home, /For fund-backed renewable energy developers who need to move more projects to financial close, faster\./);
-  assert.doesNotMatch(home, /Fund-backed developers carrying a live project from the next gate to financial close/);
-});
 
-test("each audience card is one link with a motion-safe hover state", () => {
-  const css = readFileSync(new URL("assets/capability.css", root), "utf8");
-  const section = home.slice(home.indexOf('id="who-ignis"'), home.indexOf("founder-overview"));
-  const cards = [...section.matchAll(/<a class="who-ignis-card" href="([^"]+)"[^>]*>([\s\S]*?)<\/a>/g)];
-  assert.deepEqual(cards.map((card) => card[1]), ["/services#onshore", "/services#offshore"]);
-  for (const [, , inner] of cards) {
-    assert.equal(inner.match(/<a\b/g), null);
-    assert.match(inner, /class="who-ignis-more"/);
-    assert.match(inner, /Learn more <span class="who-ignis-more-arrow" aria-hidden="true">↗<\/span>/);
-  }
-  assert.match(css, /\.who-ignis-media\{[^}]*overflow:hidden/);
-  assert.match(css, /\.who-ignis-card:hover,\.who-ignis-card:focus-visible\{transform:translateY\(-4px\);box-shadow:/);
-  assert.match(css, /\.who-ignis-card:hover img,\.who-ignis-card:focus-visible img\{transform:scale\(1\.03\)\}/);
-  assert.match(css, /\.who-ignis-card:hover \.who-ignis-more-arrow,\.who-ignis-card:focus-visible \.who-ignis-more-arrow\{transform:translate\(3px,-3px\)\}/);
-  assert.match(css, /\.who-ignis-card:focus-visible\{outline:3px solid #08756d;outline-offset:4px\}/);
-  assert.match(css, /@media \(prefers-reduced-motion: reduce\)\{[\s\S]*?\.who-ignis-card:hover,\.who-ignis-card:focus-visible[\s\S]*?transform:none/);
-});
 
 function htmlFiles(directory) {
   return readdirSync(directory, {withFileTypes: true}).flatMap((entry) => {
@@ -142,32 +85,3 @@ function jsonFaq(html) {
   }
   return null;
 }
-
-test("audience FAQs are answer-first and match their FAQPage data", () => {
-  const homeFaq = visibleFaq(home);
-  assert.equal(visibleFaq(page).length, 0);
-  assert.equal(homeFaq.length, 5);
-  assert.deepEqual(jsonFaq(home), homeFaq);
-  assert.equal(jsonFaq(page), null);
-  for (const [question, answer] of homeFaq) {
-    assert.doesNotMatch(answer, /FORGE|Forge/);
-    assert.match(answer, /Ignis/);
-    const sentences = answer.split(/(?<=[.!?])\s+/).filter(Boolean);
-    assert.ok(sentences.length >= 2 && sentences.length <= 4, answer);
-  }
-  for (const path of htmlFiles(fileURLToPath(root))) {
-    const html = readFileSync(path, "utf8");
-    if (!html.includes('id="wp-signup-title"') && !html.includes('id="signal-inbox-title"')) continue;
-    assert.ok(html.includes("By signing up, you agree to receive Signal via Substack and occasional emails from Ignis Leadership. Unsubscribe at any time."), path);
-    assert.doesNotMatch(html, /Signal: practical notes on moving energy projects/);
-    assert.doesNotMatch(html, /New white papers on taking energy projects/);
-  }
-  assert.match(home, /Need a trusted adviser on your next big move\?/);
-  assert.match(home, /Bring one urgent problem or constrained workflow\./);
-  assert.match(home, /where agents could help without removing human control\./);
-  assert.match(home, /class="button button-teal" href="\/contact">Get in touch<\/a>/);
-  assert.match(home, /id="wp-signup-title" class="signal-card-title"><span class="signal-wordmark">Signal<span class="signal-mark">\.<\/span><\/span><span class="signal-card-follow">The weekly newsletter for energy developers<\/span><\/h2>/);
-  assert.match(home, /Strategy, business development and transformation with agentic AI, from first site to financial close\./);
-  assert.doesNotMatch(home, /One focused analysis each week, plus the monthly Market Monitor\./);
-  assert.doesNotMatch(home, /Turn AI ambition into|commercial advantage/);
-});

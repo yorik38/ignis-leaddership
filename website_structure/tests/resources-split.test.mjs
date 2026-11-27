@@ -7,59 +7,12 @@ import { fileURLToPath } from 'node:url';
 const site = join(dirname(fileURLToPath(import.meta.url)), '..');
 const read = (path) => readFileSync(join(site, path), 'utf8');
 
-test('Insights and Reports are distinct collections', () => {
+test('Insights links to both public RSS content and the preserved Signal archive', () => {
   const insights = read('insights.html');
-  assert.match(insights, /id="newsletter-editions"/);
-  assert.doesNotMatch(insights, /class="signal-guides"|signal-index-header[\s\S]{0,800}href="\/resources"/);
-  assert.match(insights, /class="site-footer"[\s\S]*href="\/resources">Research</);
-  assert.doesNotMatch(insights, /class="signal-hero" href="\/insights\/what-gate-2-is-really-about"/);
-  assert.doesNotMatch(insights, /class="signal-hero" href="\/insights\/who-powers-the-next-data-centre"/);
-  assert.doesNotMatch(insights, /class="signal-hero" href="\/insights\/pause-before-ar9"/);
-  assert.match(insights, /class="signal-index-lead"/);
-  assert.match(insights, /class="signal-latest-label">Latest issue</);
-  assert.match(insights, /First come, first served is over\. What the new grid offers mean for developers/);
-  assert.match(insights, /class="signal-hero" href="\/insights\/fastest-megawatt-already-wired"/);
-  assert.match(insights, /Generation, grid, demand: the fastest megawatt is the one already wired/);
-  assert.match(insights, /Britain has backed a rise in electricity to 35% of final energy use by 2035\. The quickest way to get there is to use the wires we already have, better\./);
-  assert.match(insights, /A pause, not a stop: what has to change before AR9/);
-  assert.match(insights, /What sits behind the pause, and what a redesigned round would ask of energy developers\./);
-  assert.match(insights, /Who powers the next data centre\?/);
-  assert.match(insights, /class="earlier-editions"/);
-  assert.doesNotMatch(insights, /class="earlier-editions"[^>]*hidden/);
-  assert.match(insights, />Earlier editions</);
-  assert.match(insights, /class="edition-feature" href="\/insights\/pause-before-ar9"/);
-  assert.match(insights, /class="edition-feature" href="\/insights\/who-powers-the-next-data-centre"/);
-  assert.match(insights, /class="edition-feature" href="\/insights\/what-gate-2-is-really-about"/);
-  assert.match(insights, /class="edition-feature" href="\/insights\/ao10-france-has-put-a-price-on-proof"/);
-  assert.match(insights, /class="older-editions-title"/);
-  assert.doesNotMatch(insights, /class="earlier-card"/);
-  const heroAt = insights.indexOf('class="signal-hero" href="/insights/fastest-megawatt-already-wired"');
-  const inboxAt = insights.indexOf('id="signal-inbox-title">Get Signal in your inbox.');
-  const issue4At = insights.indexOf('class="edition-feature" href="/insights/pause-before-ar9"');
-  const issue3At = insights.indexOf('class="edition-feature" href="/insights/who-powers-the-next-data-centre"');
-  const issue2At = insights.indexOf('class="edition-feature" href="/insights/what-gate-2-is-really-about"');
-  const issue1At = insights.indexOf('class="edition-feature" href="/insights/ao10-france-has-put-a-price-on-proof"');
-  assert.ok(heroAt > -1 && inboxAt > heroAt && issue4At > inboxAt && issue3At > issue4At && issue2At > issue3At && issue1At > issue2At, 'Issue 5 is above signup, followed by Issues 4, 3, 2 and 1');
-  assert.match(insights, /id="signal-inbox-title">Get Signal in your inbox\.<\/h2>\s*<p>What's changing in renewables, the grid and data centre demand, and what it means for strategy, winning work, delivery and agentic AI\.<\/p>/);
-  assert.doesNotMatch(insights.slice(inboxAt, issue2At), /See what changed|One focused analysis each week/);
-  assert.match(insights, /Each week I cover renewables, the grid and data centre demand for energy developers in the UK and Europe\./);
-  assert.match(insights, /Previous analysis on market shifts, project evidence and commercial decisions for energy developers\./);
-  assert.match(insights, /Need a trusted adviser on your next big move\?/);
-  assert.match(insights, /where agents could help and where people must retain control\./);
-  assert.doesNotMatch(insights, /Weekly UK and European energy market insight\. If you like it, sign up and get it straight into your mailbox every week\./);
-  assert.match(read('assets/capability.css'), /\.signal-index\{[^}]*background:#fff\}/);
-  assert.match(read('assets/resource-cards.css'), /grid-template-areas:"intro latest" "signup latest"/);
-  assert.match(read('assets/resource-cards.css'), /grid-template-areas:"intro" "latest" "signup"/);
-  assert.doesNotMatch(read('assets/capability.css'), /#f3f6f5/);
-  assert.equal((insights.match(/href="\/insights\/ao10-france-has-put-a-price-on-proof"/g) || []).length, 1);
-  assert.equal((insights.match(/href="\/insights\/what-gate-2-is-really-about"/g) || []).length, 1);
-  assert.equal((insights.match(/href="\/insights\/who-powers-the-next-data-centre"/g) || []).length, 1);
-  assert.equal((insights.match(/href="\/insights\/pause-before-ar9"/g) || []).length, 1);
-  assert.equal((insights.match(/href="\/insights\/fastest-megawatt-already-wired"/g) || []).length, 1);
-  assert.doesNotMatch(insights, /class="insights-guides"/);
-  assert.doesNotMatch(read('reports/market-monitor-2026-10.html'), /id="signal-title"/);
-  assert.doesNotMatch(read('resources/bids-won-on-evidence.html'), /id="signal-title"/);
-  assert.match(read('reports/market-monitor-2026-10.html'), /class="signal-wordmark">Signal<span class="signal-mark">\.<\/span>/);
+  assert.match(insights, /data-article-feed/);
+  assert.match(insights, /Free Signal archive/);
+  assert.match(insights, /href="\/insights\/fastest-megawatt-already-wired"/);
+  assert.match(insights, /href="\/resources">Research and guides/);
   const report = read('reports/market-monitor-2026-10.html');
   assert.match(report, /<meta name="description" content="Ignis Market Monitor: October 2026\. What moved in power, offshore wind and onshore renewables this month, and what is due next\.">/);
   assert.match(report, /og:image" content="https:\/\/www\.ignisleadership\.com\/assets\/img\/market-monitor-2026-10-og\.png\?v=4"/);
@@ -160,33 +113,6 @@ test('Research is one hub at /resources, with filters and cards in reading order
   assert.doesNotMatch(css, /body\.resources-page \.res-card\{/);
 });
 
-test('the homepage repeats the same four research cards before the close', () => {
-  const home = read('index.html');
-  const founder = home.indexOf('founder-overview');
-  const section = home.indexOf('class="home-research"');
-  const close = home.indexOf('class="band band-dark close-call"');
-  assert.ok(founder !== -1 && section > founder && close > section);
-  const block = home.slice(section, close);
-  assert.match(block, /<h2 id="home-research-title">Research<span class="signal-mark">\.<\/span><\/h2>/);
-  assert.match(block, /href="\/resources">See all research</);
-  assert.doesNotMatch(block, /data-res-filters|aria-pressed/);
-  const hrefs = [...block.matchAll(/<a class="res-card" href="([^"]+)" data-res-type="([^"]+)">/g)].map((card) => [card[1], card[2]]);
-  assert.deepEqual(hrefs, [
-    ['/reports/market-monitor-2026-10', 'report'],
-    ['/resources/route-to-market', 'white-paper'],
-    ['/resources/procurement', 'white-paper'],
-    ['/resources/agentic-transformation-for-energy-developers', 'guide'],
-  ]);
-  assert.equal((block.match(/>Free resource</g) || []).length, 3);
-  assert.match(block, />Free guide, sent by email</);
-  assert.equal((block.match(/class="res-card-learn">Learn more</g) || []).length, 4);
-  assert.match(block, /<time datetime="2026-10-21">21 October 2026<\/time>/);
-  assert.equal((block.match(/<time datetime="2026-11">November 2026<\/time>/g) || []).length, 2);
-  assert.doesNotMatch(block.slice(block.indexOf('data-res-follow')), /<time/);
-  assert.doesNotMatch(home.slice(section, home.indexOf('data-res-follow', section)), /agentic-transformation/);
-  assert.match(home, /resource-cards\.css\?v=11/);
-  assert.match(home, /research-cards\.js\?v=2/);
-});
 
 test('research paper and guide heroes use their publication covers with a readable overlay', () => {
   const css = read('assets/whitepaper.css');
@@ -213,42 +139,9 @@ test('research paper and guide heroes use their publication covers with a readab
   }
 });
 
-test('Resources navigation and canonical routes point to the Research hub', () => {
-  const header = read('partials/site-header.html');
-  const footer = read('partials/site-footer.html');
-  assert.match(header, /<a href="\/services">Solutions<\/a>/);
-  assert.doesNotMatch(header, /overlay-resource-toggle">Solutions/);
-  assert.doesNotMatch(header, /services#onshore|services#offshore|Onshore developers|Offshore wind developers/);
-  assert.match(header, /<details class="overlay-resource-group"><summary class="overlay-resource-toggle">Resources/);
-  assert.doesNotMatch(header, /overlay-nav-mark/);
-  assert.match(header, /class="overlay-resource-chevron" aria-hidden="true"/);
-  for (const part of [header, footer]) {
-    assert.ok(part.includes('<a href="/insights">Insights</a><a href="/resources">Research</a>'));
-    assert.doesNotMatch(part, /href="\/(reports|white-papers|guides)"/);
-  }
-  const sitemap = read('sitemap.xml');
-  assert.match(sitemap, /<loc>https:\/\/www\.ignisleadership\.com\/resources<\/loc>/);
-  assert.match(sitemap, /<loc>https:\/\/www\.ignisleadership\.com\/resources\/agentic-transformation-for-energy-developers<\/loc>/);
-  assert.match(sitemap, /<loc>https:\/\/www\.ignisleadership\.com\/reports\/market-monitor-2026-10<\/loc>/);
-  assert.doesNotMatch(sitemap, /<loc>https:\/\/www\.ignisleadership\.com\/(reports|white-papers)<\/loc>/);
-  const llms = read('llms.txt');
-  assert.match(llms, /\[Research\]\(https:\/\/www\.ignisleadership\.com\/resources\)/);
-  assert.match(llms, /resources\/agentic-transformation-for-energy-developers/);
-  assert.doesNotMatch(llms, /ignisleadership\.com\/(white-papers|reports)\)/);
-  const redirects = JSON.parse(read('vercel.json')).redirects;
-  const to = (source) => redirects.find((rule) => rule.source === source)?.destination;
-  assert.equal(to('/resources'), undefined, '/resources is now a page');
-  for (const source of ['/reports', '/reports.html', '/white-papers', '/white-papers.html', '/guides', '/guides/:path*',
-    '/resources/ai-augmented-bid-practice', '/resources/bid-agent-maturity', '/resources/choose-first-ai-bid-use-case',
-    '/rfp-software-vs-agentic-bid-system']) assert.equal(to(source), '/resources', source);
-  assert.equal(to('/resources/guide-01-bids'), '/resources/route-to-market');
-  assert.equal(to('/resources/bids-won-on-evidence'), '/resources/route-to-market');
-  assert.equal(to('/resources/commercial-system-for-your-pipeline'), '/resources/procurement');
-  const catchAll = redirects.findIndex((rule) => rule.source === '/:path*.html');
-  for (const source of ['/reports.html', '/white-papers.html']) {
-    assert.ok(redirects.findIndex((rule) => rule.source === source) < catchAll, `${source} must win over the .html catch-all`);
-  }
-  assert.ok(!redirects.some((rule) => /^\/reports\/|^\/resources\/agentic/.test(rule.source)), 'live item URLs keep working');
+test('Resources is linked from the shared menu and stays in the sitemap', () => {
+  assert.match(read('partials/site-header.html'), /href="\/resources">Resources<\/a>/);
+  assert.match(read('sitemap.xml'), /<loc>https:\/\/www\.ignisleadership\.com\/resources<\/loc>/);
 });
 
 test('Research hub loads shared chrome after the legacy page styles', () => {

@@ -6,12 +6,14 @@ import { fileURLToPath } from 'node:url';
 
 const site = join(dirname(fileURLToPath(import.meta.url)), '..');
 const origin = 'https://www.ignisleadership.com';
+const redirects = JSON.parse(readFileSync(join(site, 'vercel.json'), 'utf8')).redirects;
+const retired = new Set(redirects.map((route) => route.source));
 const sitemap = readFileSync(join(site, 'sitemap.xml'), 'utf8');
 
 function pages(directory) {
   return readdirSync(directory, { withFileTypes: true }).flatMap((entry) => {
     const filename = join(directory, entry.name);
-    if (entry.isDirectory()) return entry.name === 'partials' ? [] : pages(filename);
+    if (entry.isDirectory()) return ['partials', 'node_modules'].includes(entry.name) ? [] : pages(filename);
     return entry.name.endsWith('.html') ? [filename] : [];
   });
 }
@@ -26,6 +28,7 @@ const seenTitles = new Set();
 
 for (const file of pages(site)) {
   const name = relative(site, file);
+  if (retired.has('/' + name.replace(/\.html$/, ''))) continue;
   test(`${name} has consistent metadata`, () => {
     const html = readFileSync(file, 'utf8');
     const title = html.match(/<title>([^<]+)<\/title>/i)?.[1];
@@ -40,12 +43,7 @@ for (const file of pages(site)) {
     seenTitles.add(title);
     seenCanonical.add(canonical);
     assert.equal(tag(html, 'property', 'og:title'), title);
-    const socialDescription = name === 'newsletter.html' || name === 'insights.html'
-      ? "Signal is a weekly newsletter for energy developers on what's changing in renewables, the grid and data centre demand, and what it means for strategy, winning work, delivery to financial close and agentic AI. One focused analysis each week, plus the monthly Market Monitor."
-      : description;
-    if (socialDescription !== description) {
-      assert.equal(description, "Weekly for energy developers: what's changing in renewables, the grid and data centre demand, and what it means for strategy, winning work, delivery and agentic AI.");
-    }
+    const socialDescription = description;
     assert.equal(tag(html, 'property', 'og:description'), socialDescription);
     assert.equal(tag(html, 'property', 'og:url'), canonical);
     assert.equal(tag(html, 'property', 'og:locale'), 'en_GB');

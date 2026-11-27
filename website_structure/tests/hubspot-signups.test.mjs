@@ -289,9 +289,7 @@ test("paper forms and visible Signal signups are connected", () => {
     assert.match(signup, /By signing up, you agree to receive Signal via Substack and occasional emails from Ignis Leadership\. Unsubscribe at any time\./);
   }
   const home = readFileSync(join(root, "index.html"), "utf8");
-  assert.match(home, /class="signal-signup-form"[^>]*data-community-form/);
-  const homeConsent = home.match(/<p class="signal-signup-consent">[\s\S]*?<\/p>/)?.[0] ?? "";
-  assert.match(homeConsent, /By signing up, you agree to receive Signal via Substack and occasional emails from Ignis Leadership\. Unsubscribe at any time\./);
+  assert.match(home, /href="https:\/\/connectingenergy\.substack\.com\/subscribe"/);
   const pages = [];
   function walk(dir) {
     for (const entry of readdirSync(dir)) {
@@ -303,10 +301,10 @@ test("paper forms and visible Signal signups are connected", () => {
   }
   walk(root);
   const signups = pages.map((path) => [path, readFileSync(path, "utf8")]).filter(([, html]) => html.includes("signal-signup-form"));
-  assert.ok(signups.length >= 19);
+  assert.ok(signups.length >= 16);
   for (const [path, html] of signups) {
     const articleSignal = /[\\/]insights[\\/]/.test(path);
-    const compactSignal = path.endsWith("insights.html") || path.endsWith("newsletter.html") || articleSignal;
+    const compactSignal = path.endsWith("newsletter.html") || articleSignal;
     const form = html.slice(html.indexOf('class="signal-signup-form"'), html.indexOf("signal-signup-success"));
     assert.match(form, /placeholder="Work email only"/, path);
     assert.match(form, /aria-label="Work email only\. Personal email addresses are not accepted\."/, path);
@@ -325,11 +323,11 @@ test("paper forms and visible Signal signups are connected", () => {
       assert.doesNotMatch(html, /signal-inbox-title">[\s\S]*?See what changed,[\s\S]*?One focused analysis each week/, path);
     } else if (compactSignal) {
       assert.match(html, /id="signal-inbox-title">Get Signal in your inbox\.<\/h2>/, path);
-      assert.match(html, /<p>What's changing in renewables, the grid and data centre demand, and what it means for strategy, winning work, delivery and agentic AI\.<\/p>/, path);
+      assert.match(html, /<p>Weekly intelligence on the commercial decisions that get energy projects built\.<\/p>/, path);
       assert.doesNotMatch(html, /signal-inbox-title">[\s\S]*?See what changed,[\s\S]*?One focused analysis each week/, path);
     } else {
       assert.match(html, /class="signal-card-title"><span class="signal-wordmark">Signal<span class="signal-mark">\.<\/span><\/span><span class="signal-card-follow">The weekly newsletter for energy developers<\/span><\/h2>/, path);
-      assert.match(html, /Strategy, business development and transformation with agentic AI, from first site to financial close\./, path);
+      assert.match(html, /Published by Ignis Leadership\./, path);
     }
     assert.match(html, /capability\.css\?v=219/);
     if (html.includes('class="signal-inbox')) {

@@ -31,35 +31,11 @@ function extractPlacement() {
   return new Function(`${source.slice(start, end)} return {signupPlacement};`)();
 }
 
-test('the newsletter route is its own page, with no redirect onto Insights', () => {
-  assert.equal(vercel.redirects.some((route) => route.source === '/newsletter'), false);
+test('the former newsletter route leads to the Insights archive', () => {
+  assert.equal(vercel.redirects.find((route) => route.source === '/newsletter')?.destination, '/insights');
   assert.equal(vercel.redirects.find((route) => route.source === '/newsletter/:slug')?.destination, '/insights/:slug');
-  assert.match(page, /<body class="insights-page newsletter-page"/);
-  assert.doesNotMatch(page, /http-equiv="refresh"|Bid more\. Win more|Bid Management Insights/);
 });
 
-test('newsletter share tags describe Signal and point at this URL', () => {
-  const head = page.slice(0, page.indexOf('</head>'));
-  assert.equal(head.match(/<title>([^<]+)<\/title>/)?.[1], title);
-  assert.equal(metaDescription.length, 164);
-  assert.equal(tag(head, 'name', 'description'), metaDescription);
-  assert.equal(head.match(/<link rel="canonical" href="([^"]+)"/)?.[1], url);
-  assert.equal(tag(head, 'property', 'og:title'), title);
-  assert.equal(tag(head, 'property', 'og:description'), description);
-  assert.equal(tag(head, 'property', 'og:url'), url);
-  assert.equal(tag(head, 'property', 'og:image'), image);
-  assert.equal(tag(head, 'property', 'og:image:width'), '1200');
-  assert.equal(tag(head, 'property', 'og:image:height'), '630');
-  assert.equal(tag(head, 'property', 'og:image:alt'), alt);
-  assert.equal(tag(head, 'name', 'twitter:title'), title);
-  assert.equal(tag(head, 'name', 'twitter:description'), description);
-  assert.equal(tag(head, 'name', 'twitter:image'), image);
-  assert.equal(tag(head, 'name', 'twitter:image:alt'), alt);
-  assert.equal(tag(head, 'name', 'author'), 'Yorik Tisseau');
-  assert.equal(tag(head, 'property', 'article:author'), 'https://www.linkedin.com/in/yorik-tisseau/');
-  assert.equal(head.split(url).length - 1 >= 3, true);
-  assert.doesNotMatch(head, /signal-gate2-cover|\/insights"|og-social-card/);
-});
 
 test('the share card is 1200 by 630 and the supplied master is kept beside it', () => {
   const png = require('node:fs').readFileSync(join(site, 'assets/img/signal-share-card-1200x630.png'));
@@ -72,15 +48,15 @@ test('the share card is 1200 by 630 and the supplied master is kept beside it', 
 
 test('Insights landing uses the standing Signal share card, and issue covers stay on their own images', () => {
   const insightsImage = 'https://www.ignisleadership.com/assets/img/signal-share-card-1200x630-v2.png';
-  const insightsAlt = "Signal newsletter. What's moving in energy this week, and the commercial take.";
+  const insightsAlt = "Signal from Connecting Energy";
   assert.equal(tag(insights, 'property', 'og:image'), insightsImage);
   assert.equal(tag(insights, 'property', 'og:image:width'), '1200');
   assert.equal(tag(insights, 'property', 'og:image:height'), '630');
   assert.equal(tag(insights, 'property', 'og:image:alt'), insightsAlt);
   assert.equal(tag(insights, 'name', 'twitter:image'), insightsImage);
   assert.equal(tag(insights, 'name', 'twitter:image:alt'), insightsAlt);
-  assert.equal(tag(insights, 'property', 'og:title'), 'Signal: weekly commercial insight for energy developers | Ignis Leadership');
-  assert.equal(tag(insights, 'property', 'og:description'), description);
+  assert.equal(tag(insights, 'property', 'og:title'), 'Insights | Connecting Energy and Ignis Leadership');
+  assert.equal(tag(insights, 'property', 'og:description'), tag(insights, 'name', 'description'));
   assert.equal(tag(insights, 'property', 'og:url'), 'https://www.ignisleadership.com/insights');
   const card = require('node:fs').readFileSync(join(site, 'assets/img/signal-share-card-1200x630-v2.png'));
   const newsletterCard = require('node:fs').readFileSync(join(site, 'assets/img/signal-share-card-1200x630.png'));
@@ -97,7 +73,7 @@ test('Insights landing uses the standing Signal share card, and issue covers sta
   assert.doesNotMatch(body, /signal-share-card/);
   const insightsHead = insights.slice(0, insights.indexOf('</head>'));
   const insightsBody = insights.slice(insights.indexOf('</head>'));
-  assert.match(insightsBody, /signal-3-who-powers-data-centre-v2\.png/);
+  assert.match(insightsBody, /signal-3-who-powers-data-centre-v2\.webp/);
   assert.match(insightsBody, /signal-4-pause-before-ar9\.png/);
   assert.match(insightsBody, /signal-5-cover\.png/);
   assert.doesNotMatch(insightsHead, /signal-4-pause-before-ar9/);

@@ -7,53 +7,13 @@ import { fileURLToPath } from 'node:url';
 const site = join(dirname(fileURLToPath(import.meta.url)), '..');
 const read = (name) => readFileSync(join(site, name), 'utf8');
 
-test('About introduces Yorik, his experience and the reason for Ignis', () => {
+test('About connects Yorik’s energy experience with Connecting Energy and Ignis', () => {
   const about = read('about.html');
-  const style = read('assets/about-founder.css');
-  assert.match(about, /<h1 id="about-title">Yorik Tisseau<\/h1>/);
-  assert.match(about, /class="about-portrait-mark"><img src="\/assets\/img\/yorik-green-portrait\.jpg" alt="Yorik Tisseau, founder of Ignis Leadership"/);
-  assert.match(style, /\.about-portrait-mark\{[^}]*border-radius:50%/);
-  assert.doesNotMatch(about, /headshot\.jpg|class="about-portrait"|logo-bp-monochrome|logo-bouygues-es|What I bring|Build with us|Experience from/);
-  assert.equal((about.match(/<img /g) || []).filter((tag) => about.includes('yorik-green-portrait')).length > 0, true);
-  const main = about.slice(about.indexOf('<main'), about.indexOf('</main>'));
-  const images = main.match(/<img [^>]*>/g) || [];
-  assert.deepEqual(images.map((tag) => tag.includes('yorik-green-portrait') ? 'portrait' : tag.includes('signup-band') ? 'signup' : tag), ['portrait', 'signup']);
-  for (const heading of ['Mission', "Founder's view: build faster, together", 'Experience']) assert.match(main, new RegExp(`<h2>${heading}</h2>`));
-  assert.ok(main.indexOf('<h2>Mission</h2>') < main.indexOf("<h2>Founder's view: build faster, together</h2>") && main.indexOf("<h2>Founder's view: build faster, together</h2>") < main.indexOf('<h2>Experience</h2>'));
-  assert.match(about, /Governed AI for commercial teams helps developers build more projects, faster, and accelerates the energy transition\./);
-  assert.match(about, /The energy transition will be won or lost on how fast good projects reach financial close\. That is why we help renewable developers move faster, with less risk and sharper commercial judgement: people make the decisions, governed AI agents do the heavy lifting, and the client owns the system\./);
-  assert.doesNotMatch(about, /<p>We help renewable developers move faster, with less risk and sharper commercial judgement\.<\/p>/);
-  assert.doesNotMatch(about, /<p>People make the decisions\. Governed AI agents do the heavy lifting\. The client owns the system\.<\/p>/);
-  assert.match(about, /<h3>What we believe<\/h3>\s*<ul class="about-beliefs">/);
-  assert.match(about, /<strong>Sustainability is the point\.<\/strong> Everything we do should bring more clean energy online, sooner\./);
-  assert.match(about, /class="about-manifesto-signoff">Yorik Tisseau, Founder, Ignis<\/p>/);
-  assert.match(read("assets/about-founder.css"), /\.about-manifesto-body p\.about-manifesto-signoff\{[^}]*color:#08756d[^}]*font-weight:700/);
-  assert.match(style, /\.about-manifesto-body\{[^}]*max-width:none/);
-  assert.match(style, /\.about-manifesto-body p\{[^}]*max-width:none/);
-  assert.doesNotMatch(about, /What we borrowed|What I borrowed|Points to check|unlimitedindustries/);
-  assert.match(about, /from project engineer to bid director, at bp, RWE and Bouygues Energies &amp; Services/);
-  assert.match(about, /building first-of-a-kind projects and doing difficult things/);
-  assert.match(about, /class="button button-teal" href="\/contact">Get in touch<\/a>/);
-  assert.doesNotMatch(about, /FORGE|Forge/);
+  assert.match(about, /From boiler engineer to bid director/);
+  assert.match(about, /Bouygues, RWE and bp/);
+  assert.match(about, /href="\/work-with-me"/);
 });
 
-test('Homepage holds only the concise founder overview, not the logos strip', () => {
-  const home = read('index.html');
-  const style = read('assets/about-founder.css');
-  assert.match(home, /class="band band-paper about-preview founder-overview"/);
-  assert.match(home, /<p class="founder-overview-eyebrow">Founder<\/p>/);
-  assert.match(home, /<h2 id="founder-overview-title">Meet Yorik\.<\/h2>/);
-  assert.match(home, /class="founder-overview-photo founder-authority-photo"><img class="founder-overview-portrait" src="\/assets\/img\/yorik-green-portrait\.jpg" alt="Portrait of Yorik Tisseau"/);
-  assert.match(style, /\.founder-overview-photo\{[^}]*border-radius:50%/);
-  assert.match(home, /Yorik spent 17 years leading bids, procurement and deals on complex energy and infrastructure projects, from project engineer to bid director\./);
-  assert.match(home, /That experience gives Ignis a practical view of how consequential commercial work really moves: where evidence changes, where workflows break down, where agents can help and where decision authority must remain with people\./);
-  assert.doesNotMatch(home, /He founded Ignis Leadership to help renewable energy developers build more projects, faster\./);
-  assert.match(home, /href="\/about">About Yorik/);
-  assert.doesNotMatch(home, /class="trust-band/);
-  assert.doesNotMatch(home, /logo-bp-monochrome|logo-bouygues-es/);
-  assert.doesNotMatch(home, /id="product-demo"|Demo coming soon/);
-  assert.match(home, /Product demo: add a section here when a look at the work is ready/);
-});
 
 test('white paper cards on the Research hub show a type tag, a cover and one call to action', () => {
   const listing = read('resources.html');

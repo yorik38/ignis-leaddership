@@ -1,85 +1,17 @@
 # Ignis Leadership
 
-> Ignis Leadership helps commercial leaders adopt governed AI and develop the services, offers and delivery models it makes viable.
+> Connecting Energy is an Ignis Leadership publication by Yorik Tisseau about the commercial decisions shaping Britain’s and Europe’s energy system.
 
-Ignis Leadership is the practice of Yorik Tisseau. He brings 17 years of experience across procurement, bid management and commercial leadership in energy, infrastructure and industrial markets, including senior roles at Bouygues, bp and RWE.
+- [Insights](https://www.ignisleadership.com/insights) – latest Substack previews and free Signal archive
+- [Connecting Energy Podcast](https://www.ignisleadership.com/podcast) – episodes and guest enquiries
+- [Live events](https://www.ignisleadership.com/events) – audience debates on energy
+- [Energy map](https://www.ignisleadership.com/map) – forthcoming free map of Britain’s energy system
+- [Research and guides](https://www.ignisleadership.com/resources) – free energy research
+- [Work with Yorik Tisseau](https://www.ignisleadership.com/work-with-me) – speaking and advisory
 
-The central argument of the practice: AI should strengthen commercial judgement, not replace it. Ignis combines the organisation's process, evidence and capability with agents that prepare and coordinate work, while named people retain authority to direct, challenge, decide and approve.
+## Selected research
 
-## Who it is for
-
-Commercial and transformation leaders who want to redesign existing work or develop new customer value through governed human-agent systems.
-
-## Services
-
-- How Ignis works: a governed, client-owned system that improves commercial flow from last-mile development to financial close for onshore developers and offshore wind.
-- Engagement approach: map the operating reality, define the strategy and roadmap, then design or support the build of the first governed system.
-
-## Core pages
-
-- [Home](https://www.ignisleadership.com/): Ignis positioning, approach, experience, services, illustrative outcomes and engagement model.
-- [About Yorik](https://www.ignisleadership.com/about): Yorik Tisseau's experience and approach to commercial leadership, executive coaching and adoption.
-- [How Ignis works](https://www.ignisleadership.com/services): how Ignis improves commercial flow from last-mile development to financial close for onshore developers and offshore wind.
-- [Insights](https://www.ignisleadership.com/insights): Signal: weekly intelligence on the commercial decisions that get energy projects built.
-- [Archive](https://www.ignisleadership.com/insights): index of past newsletter editions.
-- [Contact](https://www.ignisleadership.com/contact): start a conversation with Ignis Leadership.
-- [Governed agentic system brochure](https://www.ignisleadership.com/assets/downloads/ignis-governed-agentic-system-brochure.pdf): a free, ungated overview of how people, agents, knowledge and controls work together across bids and tenders.
-
-
-## Research
-
-- [Research](https://www.ignisleadership.com/resources): guides, white papers and monthly reports on taking energy projects from early stage development to financial close.
-- [Agentic Transformation for Energy Developers](https://www.ignisleadership.com/resources/agentic-transformation-for-energy-developers): a practical guide to introducing agents at onshore and offshore developers in the UK and Europe, from early stage development to financial close. Free PDF with an email.
-- [Route to Market for Energy Developers](https://www.ignisleadership.com/resources/route-to-market): CfD rounds, merchant, corporate PPAs and private wire, for onshore and offshore projects in the UK and Europe. Rounds are crowded. Winners pick their route early and arrive with the case built.
-- [Procurement for Energy Developers](https://www.ignisleadership.com/resources/procurement): How developers fast-track supplier choice, contracts and the lender pack, onshore and offshore, with the team they have.
-- [Ignis Market Monitor: October 2026](https://www.ignisleadership.com/reports/market-monitor-2026-10): What moved in power, offshore wind and onshore renewables this month, and what is due next.
-
-## Practical insights
-
-- [RFP software or a bespoke agentic bid workflow?](https://www.ignisleadership.com/resources): a buyer guide comparing established proposal-response software with a governed workflow designed around complex bid work, including when the right answer is both.
-- [Why do unclear tenders produce incomparable bids?](https://www.ignisleadership.com/insights/why-do-unclear-tenders-produce-incomparable-bids): how unclear requirements, interfaces and evaluation methods cause suppliers to answer different versions of the tender.
-- [When do tender clarifications become a second specification?](https://www.ignisleadership.com/insights/when-do-tender-clarifications-become-a-second-specification): when clarification answers alter scope, risk or evidence, the log becomes part of the controlled commercial baseline.
-- [Is commercial work too judgement-heavy for AI agents?](https://www.ignisleadership.com/insights/is-commercial-work-too-judgement-heavy-for-ai-agents): why the work surrounding commercial decisions suits governed agents precisely because the decisions must remain human.
-
-## Newsletter editions
-
-- [Generation, grid, demand: the fastest megawatt is the one already wired](https://www.ignisleadership.com/insights/fastest-megawatt-already-wired): Signal Issue 5. Britain has backed a rise in electricity to 35% of final energy use by 2035. The quickest way to get there is to use the wires we already have, better.
-- [A pause, not a stop: what has to change before AR9](https://www.ignisleadership.com/insights/pause-before-ar9): Signal Issue 4. What sits behind the pause, and what a redesigned round would ask of energy developers.
-- [Who powers the next data centre?](https://www.ignisleadership.com/insights/who-powers-the-next-data-centre): Signal Issue 3 on data centres, grid capacity and the commercial openings for energy developers.
-- [First come, first served is over. What the new grid offers mean for developers](https://www.ignisleadership.com/insights/what-gate-2-is-really-about): for years, grid connections ran on first come, first served: apply early and you kept your place in the queue, ready or not.
-- [AO10: why proof, not price, decides France's round](https://www.ignisleadership.com/insights/ao10-france-has-put-a-price-on-proof): AO10 turns the credibility of a French offshore wind bid into points, and those points translate almost one for one into euros per MWh for developers.
-
-## Key concepts used on this site
-
-- Governed human-AI system: a commercial operating model that combines the team's process, evidence and judgement with bounded agent tasks, named decision rights and human approval.
-- Commercial memory: the usable record of what an organisation believed, why it believed it, what changed and who has authority to make the next commitment.
-- Human accountability: agents prepare and coordinate while named people retain authority to direct, challenge, decide and approve.
-- Modular adoption: start with one useful pilot, prove it under real conditions, then extend the system one capability at a time.
-
-## Contact
-
-- Enquiries: https://www.ignisleadership.com/contact
-- LinkedIn: https://www.linkedin.com/in/yorik-tisseau/
-
-## Optional
-
-- [Privacy policy](https://www.ignisleadership.com/privacy)
-- [Terms](https://www.ignisleadership.com/terms)
-
-## Questions this site answers
-
-### What can AI agents safely do in bids and tenders?
-
-Agents can extract, reconcile, draft, check and coordinate bounded work using approved evidence and controls. People retain authority for strategy, relationships, price, risk, evaluation and every material commitment.
-
-### How do you govern AI in bids and tenders?
-
-Give agents approved evidence, bounded tasks and explicit controls. Keep named people responsible for strategy, evaluation, price, risk and final approval. Preserve the evidence and decision trail so outputs can be challenged and verified.
-
-### Where should a bid or tender team start with agentic AI?
-
-Start with one pressure point in live work. Audit the process, evidence, decisions and controls; prove one bounded capability; measure what changes; then scale only what the evidence supports.
-
-## Usage
-
-Content on this site may be quoted or summarised with attribution to Ignis Leadership and a link to the source page.
+- [Route to market for energy developers](https://www.ignisleadership.com/resources/route-to-market)
+- [Procurement for energy developers](https://www.ignisleadership.com/resources/procurement)
+- [Ignis Market Monitor](https://www.ignisleadership.com/reports/market-monitor-2026-10)
+- [Guide to agentic transformation for energy developers](https://www.ignisleadership.com/resources/agentic-transformation-for-energy-developers)

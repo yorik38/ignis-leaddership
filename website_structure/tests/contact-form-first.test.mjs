@@ -11,8 +11,8 @@ test('Contact page embeds the published EU1 HubSpot enquiry form', () => {
   const contact = read('contact.html');
   assert.match(contact, /<body class="contact-page" data-header="light">/);
   assert.match(contact, /<main id="main">\s*<section class="band band-paper contact-section">/);
-  assert.match(contact, /<h1>Start the conversation\.<\/h1>/);
-  assert.match(contact, /the next gate you need to reach/);
+  assert.match(contact, /<h1>Get in touch\.<\/h1>/);
+  assert.match(contact, /Tell me what you have in mind for Connecting Energy or Ignis Leadership/);
   assert.doesNotMatch(contact, /Where does it hurt|class="page-hero|class="band band-dark home-community"/);
   assert.equal((contact.match(/<h1\b/g) || []).length, 1);
   assert.match(contact, /id="hubspot-contact-form" class="hubspot-contact-form"/);

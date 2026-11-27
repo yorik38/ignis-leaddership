@@ -1,2 +1,3 @@
 # Local render and QA artefacts
 tmp/
+node_modules/

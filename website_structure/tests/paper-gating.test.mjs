@@ -327,13 +327,11 @@ test("download PDFs revalidate, and only the guide PDF is noindex", () => {
   }
   assert.equal(headers.some((rule) => rule.source === "/assets/downloads/guide-01-bids-whitepaper.pdf"), false);
   assert.equal(headers.some((rule) => rule.source === "/assets/downloads/ignis-white-paper-commercial-system-pipeline.pdf"), false);
-  assert.ok(vercel.redirects.some((rule) => rule.source === "/how-ignis-works" && rule.destination === "/services"));
+  assert.ok(vercel.redirects.some((rule) => rule.source === "/how-ignis-works" && rule.destination === "/work-with-me#advisory"));
 });
 
 test("llms.txt points at the paper pages and not their PDFs", () => {
   const llms = readFileSync(join(root, "llms.txt"), "utf8");
-  const brochure = "- [Governed agentic system brochure](https://www.ignisleadership.com/assets/downloads/ignis-governed-agentic-system-brochure.pdf): a free, ungated overview of how people, agents, knowledge and controls work together across bids and tenders.";
-  assert.ok(llms.includes(brochure));
   for (const name of [
     "ignis-guide-agentic-transformation-for-energy-developers.pdf",
     "guide-01-bids-whitepaper.pdf",
