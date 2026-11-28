@@ -49,11 +49,14 @@ test('Insights links to both public RSS content and the preserved Signal archive
   assert.doesNotMatch(report, /fig3-gb-wholesale/);
 });
 
-test('Research is one hub at /resources, with filters and cards in reading order', () => {
+test('Resources leads with learning guides and retains research filters and cards', () => {
   const hub = read('resources.html');
   assert.equal(existsSync(join(site, 'reports.html')), false);
   assert.equal(existsSync(join(site, 'white-papers.html')), false);
-  assert.match(hub, /<h1 id="research-title">Research<span class="signal-mark">\.<\/span><\/h1>/);
+  assert.match(hub, /<h1 id="resources-title">Resources<span class="signal-mark">\.<\/span><\/h1>/);
+  assert.match(hub, /href="\/technologies"[\s\S]*href="\/resources\/global-energy-markets"[\s\S]*<h2 id="research-title">Research for energy developers<\/h2>/);
+  const primer = read('resources/global-energy-markets.html');
+  assert.match(primer, /Gas and LNG link regions[\s\S]*When gas sets the power price[\s\S]*Interconnectors share power[\s\S]*Long-term contracts shape investment[\s\S]*<h2>Sources<\/h2>/);
   assert.match(hub, /class="issue-page resources-page"/);
   assert.match(hub, /rel="canonical" href="https:\/\/www\.ignisleadership\.com\/resources"/);
   assert.match(hub, /Guides, white papers and reports for energy developers, from early stage development to financial close\./);
@@ -149,7 +152,7 @@ test('Research hub loads shared chrome after the legacy page styles', () => {
   const legacy = hub.indexOf('/assets/capability.css');
   const shared = hub.indexOf('/assets/site-chrome.css');
   assert.ok(legacy !== -1 && shared > legacy, 'shared menu styles must win on Research');
-  assert.match(hub, /resource-cards\.css\?v=13/);
+  assert.match(hub, /resource-cards\.css\?v=14/);
 });
 
 test('the flagship guide page has a teaser, an email gate and an unticked Signal opt-in', () => {

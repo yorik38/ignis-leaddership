@@ -17,7 +17,7 @@ function htmlFiles(dir) {
 
 test("the footer links to Connecting Energy, Ignis and the legal pages", () => {
   assert.match(footer, /Published by Ignis Leadership/);
-  for (const route of ["/podcast", "/insights", "/events", "/map", "/technologies", "/community", "/about", "/privacy", "/terms"]) {
+  for (const route of ["/podcast", "/insights", "/events", "/map", "/resources", "/technologies", "/community", "/about", "/privacy", "/terms"]) {
     assert.ok(footer.includes('href="' + route + '"'), route);
   }
   assert.match(footer, /data-cookie-settings/);
@@ -32,7 +32,7 @@ test("all rendered pages use the same footer and updated shared stylesheet", () 
     if (!rendered) continue;
     count++;
     assert.equal(rendered, footer, `Footer mismatch: ${file}`);
-    assert.match(html, /\/assets\/site-chrome\.css\?v=54/, `Old shared CSS key: ${file}`);
+    assert.match(html, /\/assets\/site-chrome\.css\?v=55/, `Old shared CSS key: ${file}`);
   }
   assert.ok(count >= 19, `Expected shared footer across rendered pages; found ${count}`);
 });

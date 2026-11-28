@@ -15,18 +15,34 @@ test("the homepage presents Connecting Energy through its own masthead and curat
   assert.match(home, /href="https:\/\/www\.linkedin\.com\/in\/yorik-tisseau\/"/);
   assert.match(home, /data-article-feed data-limit="3" data-exclude-slugs=/);
 
-  const header = read("partials/site-header.html");
-  for (const route of ["podcast", "insights", "map", "community"]) {
-    assert.ok(header.includes('href="/' + route + '"'), route);
-    assert.match(read(route + ".html"), /<h1\b/);
-  }
-  assert.doesNotMatch(header, /href="\/(?:resources|work-with-me|events)"/);
 });
 
-test("podcast and the map are prominent, with technology guides and community actions below", () => {
+test("the shared header puts all publication routes before Subscribe", () => {
+  const header = read("partials/site-header.html");
+  const expectedRoutes = ["/", "/podcast", "/insights", "/map", "/community", "/resources"];
+  for (const label of ["Main navigation", "Mobile navigation"]) {
+    const nav = header.match(new RegExp('<nav[^>]+aria-label="' + label + '">([\\s\\S]*?)</nav>'))?.[1] ?? "";
+    assert.deepEqual([...nav.matchAll(/href="([^"]+)"/g)].map((match) => match[1]), expectedRoutes);
+  }
+  assert.match(header, /<header[^>]*>[\s\S]*edition-brand[\s\S]*class="media-primary"[\s\S]*href="\/#subscribe">Subscribe<\/a>/);
+  for (const route of expectedRoutes.slice(1)) assert.match(read(route.slice(1) + ".html"), /<h1\b/);
+});
+
+test("the homepage previews every section next to a dedicated signup and links rail", () => {
   const home = read("index.html");
-  const order = ["edition-featured", 'id="launch-title"', 'id="energy-map-title"', 'id="technology-title"', 'id="event-title"'];
-  assert.deepEqual(order.map((part) => home.indexOf(part)).every((pos, i, indices) => pos !== -1 && (i === 0 || pos > indices[i - 1])), true);
+  const css = read("assets/editorial.css");
+  assert.match(css, /\.edition-layout\s*\{ grid-template-columns: minmax\(0, 2fr\) minmax\(0, 1fr\)/);
+  const column = home.slice(home.indexOf('class="edition-column"'), home.indexOf('class="edition-sidebar"'));
+  assert.deepEqual([...column.matchAll(/<section [^>]*aria-labelledby="([^"]+)"/g)].map((match) => match[1]), [
+    "home-title", "launch-title", "insights-title", "energy-map-title", "community-title", "resources-title",
+  ]);
+  const sidebar = home.match(/<aside class="edition-sidebar"[\s\S]*?<\/aside>/)?.[0] ?? "";
+  for (const route of ["/podcast#guest", "/map", "/events", "/community#photos"]) assert.ok(sidebar.includes('href="' + route + '"'), route);
+  assert.match(sidebar, /id="subscribe"[\s\S]*connectingenergy\.substack\.com\/embed/);
+  assert.match(column, /href="\/resources\/global-energy-markets"/);
+});
+
+test("the podcast, community and technology guides retain their launch and participation routes", () => {
   const podcast = read("podcast.html");
   assert.match(podcast, /<time datetime="2026-12">December 2026<\/time>/);
   assert.match(podcast, /\/contact\?enquiry=podcast#contact-layout/);

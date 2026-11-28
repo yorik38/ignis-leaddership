@@ -224,3 +224,31 @@ body.guide-page .continue-card-media img{aspect-ratio:210/297;object-fit:contain
   body.guide-page .guide-points li{padding:12px 14px 12px 52px;font-size:15px}
   body.guide-page .guide-points li:before{left:13px;top:12px}
 }
+
+.res-learning-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--res-gap);
+  margin: 1.65rem 0 3.25rem;
+}
+
+.res-learning-grid a {
+  display: block;
+  min-width: 0;
+  padding: 1.4rem;
+  border: 1px solid #dbe0df;
+  border-top: 3px solid #00b690;
+  border-radius: 3px;
+  color: #002252;
+  background: #f4f7f6;
+  text-decoration: none;
+}
+
+.res-learning-grid h2, .res-hub #research-title { margin: 0; color: #002252; font-size: clamp(1.35rem, 2.8vw, 2.2rem); font-weight: 630; line-height: 1.15; letter-spacing: -.035em; }
+.res-learning-grid p { margin: .55rem 0 .75rem; color: #50565a; }
+.res-learning-grid a > span { color: #006b55; font-weight: 650; text-underline-offset: .2em; }
+.res-learning-grid a:hover > span, .res-learning-grid a:focus-visible > span { text-decoration: underline; }
+
+@media (max-width: 600px) {
+  .res-learning-grid { grid-template-columns: 1fr; }
+}
