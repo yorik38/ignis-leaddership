@@ -1,4 +1,5 @@
 const { ARTICLE_FEED, fetchFeed, httpsUrl, sortUnique } = require("./_lib/media-feed");
+const articleOrder = require("./_lib/selected-articles.json");
 
 module.exports = async function handler(req, res) {
   if (req.method !== "GET" && req.method !== "HEAD") {
@@ -15,6 +16,7 @@ module.exports = async function handler(req, res) {
   ]);
 
   const articles = publication.value?.articles;
+  const bySlug = new Map(articles?.map((article) => [new URL(article.url).pathname.split("/").filter(Boolean).at(-1), article]));
   const episodes = podcastFeed && podcastFeed !== ARTICLE_FEED
     ? podcast.value?.episodes
     : publication.value?.episodes;
@@ -29,7 +31,8 @@ module.exports = async function handler(req, res) {
   res.setHeader("Vercel-CDN-Cache-Control", degraded ? "public, s-maxage=60" : "public, s-maxage=600, stale-while-revalidate=1800");
   if (req.method === "HEAD") return res.status(200).end();
   return res.status(200).json({
-    articles: articles?.slice(0, 30) ?? null,
+    articles: articles ? articleOrder.map((slug) => bySlug.get(slug)).filter(Boolean) : null,
+    articleOrder,
     episodes: episodes ? sortUnique(episodes, "id") : null,
     platforms,
   });

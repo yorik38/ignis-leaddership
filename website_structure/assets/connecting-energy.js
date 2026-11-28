@@ -2,7 +2,7 @@
   const editionLists = [...document.querySelectorAll("[data-article-feed]")];
   const episodeList = document.querySelector("[data-episode-feed]");
   const episodeDetail = document.querySelector("[data-episode-detail]");
-  const platforms = document.querySelector("[data-podcast-platforms]");
+  const platforms = [...document.querySelectorAll("[data-podcast-platforms] a[data-platform]")];
   const format = new Intl.DateTimeFormat("en-GB", { day: "numeric", month: "long", year: "numeric", timeZone: "Europe/London" });
 
   function element(tag, className, content) {
@@ -97,16 +97,31 @@
     if (intro) intro.hidden = true;
   }
 
+  function articleSlug(url) {
+    return new URL(url).pathname.split("/").filter(Boolean).at(-1);
+  }
+
+  function refreshArticles(list, articles, articleOrder) {
+    const excluded = new Set((list.dataset.excludeSlugs || "").split(/\s+/));
+    const cards = new Map([...list.children].map((entry) => [articleSlug(entry.querySelector("a").href), entry]));
+    for (const article of articles) cards.set(articleSlug(article.url), card(article, false));
+    const visible = articleOrder
+      .filter((slug) => !excluded.has(slug) && cards.has(slug))
+      .slice(0, Number(list.dataset.limit))
+      .map((slug) => cards.get(slug));
+    list.replaceChildren(...visible);
+  }
+
   if (!editionLists.length && !episodeList) return;
   fetch("/api/media", { headers: { Accept: "application/json" } })
     .then((response) => {
       if (!response.ok) throw new Error("Feed unavailable");
       return response.json();
     })
-    .then(({ articles, episodes, platforms: destinations }) => {
-      if (articles?.length) {
+    .then(({ articles, articleOrder, episodes, platforms: destinations }) => {
+      if (articles?.length && articleOrder?.length) {
         for (const list of editionLists) {
-          list.replaceChildren(...articles.slice(0, Number(list.dataset.limit)).map((item) => card(item, false)));
+          refreshArticles(list, articles, articleOrder);
         }
       }
       if (episodeList && Array.isArray(episodes)) {
@@ -114,19 +129,28 @@
           const visibleEpisodes = episodeList.dataset.limit ? episodes.slice(0, Number(episodeList.dataset.limit)) : episodes;
           episodeList.replaceChildren(...visibleEpisodes.map((item) => card(item, true)));
           episodeList.hidden = false;
-          document.querySelector("[data-podcast-status]").hidden = true;
           const latestHeading = document.querySelector("[data-latest-episode-heading]");
-          if (latestHeading) latestHeading.hidden = false;
+          if (latestHeading) {
+            latestHeading.hidden = false;
+            document.querySelector("[data-podcast-status]").hidden = true;
+          }
+          const archive = document.querySelector("[data-episode-archive]");
+          if (archive) {
+            archive.hidden = false;
+            document.querySelector("[data-podcast-status] .media-eyebrow").textContent = "Connecting Energy";
+            document.querySelector("[data-podcast-status] .edition-launch-copy p:not(.media-eyebrow)").textContent =
+              "Conversations with the people working across generation, grid and demand.";
+          }
         }
         renderEpisode(episodes);
       }
-      if (platforms && destinations?.length) {
-        for (const { label, url } of destinations) {
-          const link = element("a", "media-link", label);
-          link.href = url;
-          platforms.append(link);
+      if (destinations?.length) {
+        for (const tag of platforms) {
+          const destination = destinations.find(({ label }) => label === tag.dataset.platform);
+          if (!destination) continue;
+          tag.href = destination.url;
+          tag.setAttribute("aria-label", "Connecting Energy on " + destination.label);
         }
-        platforms.hidden = false;
       }
     })
     .catch(() => {

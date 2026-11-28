@@ -1,10 +1,13 @@
 body.connecting-energy {
-  --media-ink: #101817;
-  --media-muted: #505d5a;
-  --media-line: #d7e1dd;
-  --media-tint: #edf4f1;
-  --media-teal: #327970;
-  --media-mint: #80c8bb;
+  --media-navy: #002252;
+  --media-green: #00b690;
+  --media-green-ink: #006b55;
+  --media-ink: #202327;
+  --media-muted: #50565a;
+  --media-line: #dbe0df;
+  --media-tint: #f4f7f6;
+  --media-teal: var(--media-navy);
+  --media-mint: var(--media-green);
   color: var(--media-ink);
 }
 
@@ -70,7 +73,7 @@ body.connecting-energy {
 .media-link {
   display: inline-block;
   width: fit-content;
-  color: #2c6a62;
+  color: var(--media-green-ink);
   font-size: 1rem;
   font-weight: 650;
   text-decoration: underline;
@@ -92,7 +95,7 @@ body.connecting-energy {
   font-weight: 650;
   text-decoration: none;
 }
-.media-actions .media-button:hover { background: #255f58; }
+.media-actions .media-button:hover { background: #001638; }
 .media-hero .media-button, .media-dark .media-button { background: var(--media-mint); border-color: var(--media-mint); color: #10201d; }
 .media-hero .media-button:hover, .media-dark .media-button:hover { background: #a2d8cf; }
 .media-block { padding-block: clamp(3.5rem, 7vw, 7rem); }

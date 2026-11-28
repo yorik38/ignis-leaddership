@@ -139,8 +139,8 @@ test('research paper and guide heroes use their publication covers with a readab
   }
 });
 
-test('Resources is linked from the shared menu and stays in the sitemap', () => {
-  assert.match(read('partials/site-header.html'), /href="\/resources">Resources<\/a>/);
+test('Resources remains accessible from the article archive and the sitemap', () => {
+  assert.match(read('insights.html'), /href="\/resources">Research and guides<\/a>/);
   assert.match(read('sitemap.xml'), /<loc>https:\/\/www\.ignisleadership\.com\/resources<\/loc>/);
 });
 

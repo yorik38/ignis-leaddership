@@ -5,7 +5,7 @@ const require = createRequire(import.meta.url);
 const { ARTICLE_FEED, parseFeed } = require("../api/_lib/media-feed");
 const handler = require("../api/media");
 
-const article = '<item><title>Power &amp; demand</title><link>https://connectingenergy.substack.com/p/power</link><description><![CDATA[<p>Costs &#163;5 per unit.</p>]]></description><content:encoded><![CDATA[Paid body excluded]]></content:encoded><pubDate>Wed, 25 Nov 2026 10:00:00 GMT</pubDate><enclosure url="https://example.com/cover.jpg" type="image/jpeg" /></item>';
+const article = '<item><title>Power &amp; demand</title><link>https://connectingenergy.substack.com/p/the-cfd-built-britains-offshore-wind</link><description><![CDATA[<p>Costs &#163;5 per unit.</p>]]></description><content:encoded><![CDATA[Paid body excluded]]></content:encoded><pubDate>Wed, 25 Nov 2026 10:00:00 GMT</pubDate><enclosure url="https://example.com/cover.jpg" type="image/jpeg" /></item>';
 const episode = '<item><title>First public episode</title><link>https://connectingenergy.substack.com/p/podcast-one</link><guid isPermaLink="false">episode-one</guid><enclosure url="https://example.com/audio.mp3" type="audio/mpeg" /></item>';
 const rss = (entries) => '<rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel>' + entries + '</channel></rss>';
 
@@ -37,7 +37,7 @@ test("RSS exposes plain public teasers and stable episodes while omitting the ar
 test("the public article feed is available while the show is in pre-launch", async (t) => {
   t.mock.method(globalThis, "fetch", async (url) => {
     assert.equal(url, ARTICLE_FEED);
-    return new Response(rss(article));
+    return new Response(rss(article + article.replace("the-cfd-built-britains-offshore-wind", "unselected-story")));
   });
   const res = response();
   const result = await handler({ method: "GET" }, res);

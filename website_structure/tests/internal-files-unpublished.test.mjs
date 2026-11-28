@@ -17,7 +17,7 @@ const unusedAssetMasters = new Set([
 ]);
 
 function isPublicSiteFile(rel) {
-  if (["vercel.json", ".vercelignore", "robots.txt", "sitemap.xml", "llms.txt", "favicon.ico"].includes(rel)) return true;
+  if (["vercel.json", "package.json", "package-lock.json", ".vercelignore", "robots.txt", "sitemap.xml", "llms.txt", "favicon.ico"].includes(rel)) return true;
   if (rel.startsWith("api/")) return true;
   if (rel.startsWith("partials/")) return false;
   if (rel.endsWith(".html")) return true;

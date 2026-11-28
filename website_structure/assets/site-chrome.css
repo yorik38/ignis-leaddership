@@ -1203,3 +1203,30 @@ body[data-header] .close-call h2 {
     font-size: .73rem;
   }
 }
+
+.site-header .media-primary { display: none; }
+
+@media (min-width: 800px) {
+  .site-header .media-primary {
+    display: flex;
+    align-items: center;
+    gap: clamp(1.1rem, 2.5vw, 2.5rem);
+  }
+  .media-primary a {
+    padding: .35rem 0;
+    color: inherit;
+    font-size: .98rem;
+    font-weight: 610;
+    text-decoration: none;
+  }
+  .media-primary a:hover, .media-primary a:focus-visible {
+    text-decoration: underline;
+    text-underline-offset: .28em;
+  }
+  .site-header .menu-button { display: none; }
+}
+
+@media (max-width: 360px) {
+  .site-header .brand-name { display: none; }
+  .site-header .menu-button { padding-inline: .6rem; }
+}

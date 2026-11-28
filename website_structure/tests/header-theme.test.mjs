@@ -6,7 +6,6 @@ import {fileURLToPath} from "node:url";
 
 const root = fileURLToPath(new URL("../", import.meta.url));
 const dark = new Set([
-  "index.html",
   "services.html",
   "bid.html",
   "tender.html",
@@ -32,7 +31,7 @@ test("every page declares a header theme that matches its hero", () => {
     assert.equal((html.match(/<body\b[^>]*\sdata-header="/g) || []).length, 1, `One header theme: ${name}`);
   }
   assert.match(readFileSync(join(root, "about.html"), "utf8"), /data-header="light"/);
-  assert.match(readFileSync(join(root, "index.html"), "utf8"), /data-header="dark"/);
+  assert.match(readFileSync(join(root, "index.html"), "utf8"), /data-header="light"/);
 });
 
 test("the shared header theme replaces the old per-page colour overrides", () => {
